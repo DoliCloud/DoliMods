@@ -16,7 +16,7 @@
 */
 
 /**
- *       \file       htdocs/sellyoursaas/dolicloud/dolicloud_card.php
+ *       \file       htdocs/sellyoursaas/backoffice/dolicloud_card.php
  *       \ingroup    societe
  *       \brief      Card of a contact
  */
@@ -158,7 +158,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	dol_htmloutput_errors($error,$errors);
 
-
+	print '<div class="fichecenter">';
 	print '<table class="border" width="100%">';
 
 	// Instance / Organization
@@ -222,7 +222,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 
 	print "</table>";
-	//print '<br>';
+	print '</div>';
 
 	/*
 	// Last refresh
@@ -253,7 +253,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	$server=$object->instance.'.on.dolicloud.com';
 
 	// ----- Backup instance -----
-	print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.'</strong><br>';
+	print '<strong>INSTANCE SERVEUR '.$conf->global->SELLYOURSAAS_NAME.'</strong><br>';
 	print '<table class="border" width="100%">';
 
 	// Nb of users

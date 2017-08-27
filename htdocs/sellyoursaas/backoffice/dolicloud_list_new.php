@@ -16,7 +16,7 @@
  */
 
 /**
- *   	\file       htdocs/sellyoursaas/dolicloud/dolicloud_list.php
+ *   	\file       htdocs/sellyoursaas/backoffice/dolicloud_list.php
  *		\ingroup    sellyoursaas
  *		\brief      This file is an example of a php page
  */
@@ -100,6 +100,7 @@ if ($db2->error)
     dol_print_error($db2,"host=".$conf->global->DOLICLOUD_DATABASE_HOST.", port=".$conf->global->DOLICLOUD_DATABASE_PORT.", user=".$conf->global->DOLICLOUD_DATABASE_USER.", databasename=".$conf->global->DOLICLOUD_DATABASE_NAME.", ".$db2->error);
     exit;
 }
+
 
 
 /*******************************************************************
@@ -251,17 +252,17 @@ if ($search_email) $sql.= natural_search("per.username", $search_email);
 if ($search_lastlogin) $sql.= natural_search("i.last_login", $search_lastlogin);
 if (! empty($search_status) && ! is_numeric($search_status))
 {
-	//if ($search_status == 'UNDEPLOYED') $sql.=" AND i.status LIKE '%".$db->escape($search_status)."%'";
-	//else $sql.=" AND c.status LIKE '%".$db->escape($search_status)."%'";
+	if ($search_status == 'ACTIVE') $sql.=" AND i.status = 'DEPLOYED' AND s.payment_status = 'PAID'";
 
-	if ($search_status == 'TRIALING') $sql.=" AND s.payment_status = 'TRIAL'";
-	if ($search_status == 'TRIAL_EXPIRED') $sql.=" AND s.payment_status = 'TRIAL_EXPIRED'";
+	if ($search_status == 'TRIALING') $sql.=" AND s.payment_status = 'TRIAL' AND c.status LIKE '%ACTIVE%' AND s.status = 'ACTIVE'";
+	elseif ($search_status == 'TRIAL_EXPIRED') $sql.=" AND s.payment_status = 'TRIAL' AND c.status LIKE '%ACTIVE%' AND s.status = 'EXPIRED'";
+	elseif ($search_status == 'ACTIVE_PAY_ERR') $sql.=" AND i.status = 'DEPLOYED' AND s.payment_status = 'PAST_DUE' AND c.status LIKE '%ACTIVE%'";
 	else
 	{
 		$sql.=" AND c.status LIKE '%".$db->escape($search_status)."%'";
 	}
 }
-//print $sql;
+
 $sql.= $db2->order($sortfield,$sortorder);
 
 // Count total nb of records

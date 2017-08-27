@@ -54,7 +54,7 @@ if (! $res) die("Include of master fails");
 // After this $db, $mysoc, $langs and $conf->entity are defined. Opened handler to database will be closed at end of file.
 
 dol_include_once('/sellyoursaas/class/dolicloudcustomernew.class.php');
-include_once dol_buildpath("/sellyoursaas/dolicloud/lib/refresh.lib.php");		// do not use dol_buildpth to keep global declaration working
+include_once dol_buildpath("/sellyoursaas/backoffice/lib/refresh.lib.php");		// do not use dol_buildpth to keep global declaration working
 
 
 $db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);

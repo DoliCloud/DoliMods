@@ -16,7 +16,7 @@
 */
 
 /**
- *       \file       htdocs/sellyoursaas/dolicloud/dolicloud_card.php
+ *       \file       htdocs/sellyoursaas/backoffice/dolicloud_card_backup_new.php
  *       \ingroup    societe
  *       \brief      Card of a contact
  */
@@ -157,7 +157,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	dol_htmloutput_errors($error,$errors);
 
-
+	print '<div class="fichecenter">';
 	print '<table class="border" width="100%">';
 
 	// Instance / Organization
@@ -246,7 +246,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// Dates
 	print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td>'.dol_print_date($object->date_registration,'dayhour');
-	//print ' (<a href="'.dol_buildpath('/sellyoursaas/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
+	//print ' (<a href="'.dol_buildpath('/sellyoursaas/backoffice/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
 	print '</td>';
 	print '</tr>';
 
@@ -331,13 +331,19 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 		print "</div><br>";
 	}
 */
-
-	// Upgrade link
-	$backupstringtoshow=$backupstring.' testrsync|testdatabase';
-	print 'Backup command line string<br>';
-	print '<input type="text" name="backupstring" value="'.$backupstringtoshow.'" size="160"><br>';
-
 }
+
+if ($id > 0 || $instance)
+{
+	dol_fiche_end();
+}
+
+
+// Upgrade link
+$backupstringtoshow=$backupstring.' testrsync|testdatabase';
+print 'Backup command line string<br>';
+print '<input type="text" name="backupstring" value="'.$backupstringtoshow.'" size="160"><br>';
+
 
 
 llxFooter();

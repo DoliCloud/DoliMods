@@ -16,7 +16,7 @@
 */
 
 /**
- *       \file       htdocs/sellyoursaas/dolicloud/dolicloud_card.php
+ *       \file       htdocs/sellyoursaas/backoffice/dolicloud_card.php
  *       \ingroup    societe
  *       \brief      Card of a contact
  */
@@ -115,7 +115,7 @@ if (empty($reshook))
 	    {
 	        // Get user/pass of last admin user
 	        $password_crypted = dol_hash($password);
-	        $sql="INSERT INTO llx_user(login, admin, pass, pass_crypted, note) VALUES('supportdolicloud', 1, 'supportdolicloud', '".$newdb->escape($password_crypted)."', 'This user is created by the support team to assist you. He is excluded for calculation of activated user used for the billing of the service.')";
+	        $sql="INSERT INTO llx_user(login, admin, pass, pass_crypted) VALUES('supportdolicloud', 1, 'supportdolicloud', '".$newdb->escape($password_crypted)."')";
 	        $resql=$newdb->query($sql);
 	        if (! $resql) dol_print_error($newdb);
 	    }
@@ -182,7 +182,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	dol_htmloutput_errors($error,$errors);
 
-
+	print '<div class="fichecenter">';
 	print '<table class="border" width="100%">';
 
 	// Instance / Organization
@@ -216,6 +216,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	print "</table>";
 
+
 	print '<br>';
 
 	print '<table class="border" width="100%">';
@@ -246,7 +247,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 
 	print "</table>";
-	//print '<br>';
+	print '</div>';
 
 	/*
 	// Last refresh
@@ -301,7 +302,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 		$lastpassadmin=$object->lastpass_admin;
 	}
 
-	print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.' ('.$newdb2->database_host.')</strong><br>';
+	print '<strong>INSTANCE SERVEUR '.$conf->global->SELLYOURSAAS_NAME.' ('.$newdb2->database_host.')</strong><br>';
 	print '<table class="border" width="100%">';
 
 	print_user_table($newdb2);

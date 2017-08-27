@@ -16,7 +16,7 @@
 */
 
 /**
- *       \file       htdocs/sellyoursaas/dolicloud/dolicloud_card_new.php
+ *       \file       htdocs/sellyoursaas/backoffice/dolicloud_card_new.php
  *       \ingroup    societe
  *       \brief      Card of a contact
  */
@@ -42,7 +42,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
 dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
-dol_include_once("/sellyoursaas/core/dolicloud/lib/refresh.lib.php");
+dol_include_once("/sellyoursaas/core/backoffice/lib/refresh.lib.php");
 dol_include_once('/sellyoursaas/class/dolicloudcustomernew.class.php');
 dol_include_once('/sellyoursaas/class/cdolicloudplans.class.php');
 
@@ -181,7 +181,7 @@ if (empty($reshook))
 		$result = $object->delete();
 		if ($result > 0)
 		{
-			Header("Location: ".dol_buildpath('/sellyoursaas/dolicloud/dolicloud_list.php',1));
+			Header("Location: ".dol_buildpath('/sellyoursaas/backoffice/dolicloud_list.php',1));
 			exit;
 		}
 		else
@@ -265,7 +265,7 @@ if (empty($reshook))
  */
 
 $help_url='';
-llxHeader('',$langs->trans("DoliCloudInstances"),$help_url);
+llxHeader('',$langs->trans("SellYourSaasInstance"),$help_url);
 
 $form = new Form($db);
 $form2 = new Form($db2);
@@ -293,8 +293,8 @@ if ($id > 0 || $instance || $action == 'create')
 	// Show tabs
 	$head = dolicloud_prepare_head($object,'_new');
 
-	$title = $langs->trans("DoliCloudInstances");
-	dol_fiche_head($head, 'card', $title, 0, 'contact');
+	$title = $langs->trans("SellYourSaasInstance");
+	dol_fiche_head($head, 'card', $title, -1, 'contact');
 }
 
 if ($user->rights->sellyoursaas->dolicloud->write)
@@ -357,7 +357,7 @@ if ($user->rights->sellyoursaas->dolicloud->write)
 		print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
 
 
-		print "Si l'organisation est connue, essayer avec https://apollon.nltechno.com/dolibarr/custom/sellyoursaas/dolicloud/dolicloud_card.php?action=create&organization=NOM+ORGANISATION<br>";
+		print "Si l'organisation est connue, essayer avec https://apollon1.nltechno.com/dolibarr/custom/sellyoursaas/backoffice/dolicloud_card.php?action=create&organization=NOM+ORGANISATION<br>";
 		print "Sinon, saisir manuellement tous les champs par recopie du dashboard DoliCloud.<br>\n";
 
 
@@ -567,6 +567,8 @@ if ($user->rights->sellyoursaas->dolicloud->write)
 		print '<input type="hidden" name="contactid" value="'.$object->id.'">';
 		print '<input type="hidden" name="old_name" value="'.$object->name.'">';
 		print '<input type="hidden" name="old_firstname" value="'.$object->firstname.'">';
+
+		print '<div class="fichecenter">';
 		print '<table class="border" width="100%">';
 
 		// Instance
@@ -669,6 +671,7 @@ if ($user->rights->sellyoursaas->dolicloud->write)
 		print '</tr>';
 
 		print "</table>";
+		print '</div>';
 
 		print '<br>';
 
@@ -704,9 +707,130 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	dol_htmloutput_errors($error,$errors);
 
+
+	$savdb=$object->db;
+	$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
+	dol_banner_tab($object,'instance','',1,'name','instance','','',1);
+	$object->db=$savdb;
+
+
+	print '<div class="fichecenter">';
+
+
+
+	// ----- SellYourSaas instance -----
+	$DNS_ROOT=(empty($conf->global->NLTECHNO_DNS_ROOT)?'/etc/bind':$conf->global->NLTECHNO_DNS_ROOT);
+	$APACHE_ROOT=(empty($conf->global->NLTECHNO_APACHE_ROOT)?'/etc/apache2':$conf->global->NLTECHNO_APACHE_ROOT);
+
+	print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.'</strong>';
+	/*
+	 print ' - '.$langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
+
+	 if (! $object->user_id && $user->rights->sellyoursaas->dolicloud->write)
+	 {
+	 print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
+	 }
+	 */
+	print '<br>';
+
+	print '<div class="underbanner clearboth"></div>';
+	print '<table class="border" width="100%">';
+
+	/*
+	 // Nb of users
+	 print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td colspan="3"><font size="+2">'.$object->nbofusers.'</font></td>';
+	 print '</tr>';
+
+	 // Dates
+	 print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td colspan="3">'.dol_print_date($object->date_registration,'dayhour');
+	 //print ' (<a href="'.dol_buildpath('/sellyoursaas/backoffice/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
+	 print '</td>';
+	 print '</tr>';
+
+	 // Lastlogin
+	 print '<tr>';
+	 print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
+	 print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.($object->date_lastlogin?dol_print_date($object->date_lastlogin,'dayhour','tzuser'):'').'</td>';
+	 print '</tr>';
+
+	 // Version
+	 print '<tr>';
+	 print '<td>'.$langs->trans("Version").'</td><td colspan="3">'.$object->version.'</td>';
+	 print '</tr>';
+
+	 // Modules
+	 print '<tr>';
+	 print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.join(', ',explode(',',$object->modulesenabled)).'</td>';
+	 print '</tr>';
+	 */
+
+	/*
+	 $TTL 3d
+	 $ORIGIN on.dolicloud.com.
+	 @               IN     SOA   ns1.on.dolicloud.com. root.on.dolicloud.com. (
+	 130412009         ; serial number
+	 600              ; refresh =  2 hours
+	 300              ; update retry = 15 minutes
+	 604800           ; expiry = 3 weeks + 12 hours
+	 600              ; minimum = 2 hours + 20 minutes
+	 )
+	 NS              ns1.on.dolicloud.com.
+	 NS              ns1.eazybusiness.com.
+	 IN      TXT     "v=spf1 mx ~all".
+
+	 @               IN      A       176.34.178.16
+	 ns1             IN      A       176.34.178.16
+
+	 www             IN      CNAME   @
+	 rm              IN      CNAME   @
+
+	 $ORIGIN staging.on.dolicloud.com.
+
+	 @               IN      NS      ns1.staging.on.dolicloud.com.
+	 ns1   5         IN      A       85.25.151.49 ;'glue' record
+
+	 $ORIGIN on.dolicloud.com.
+
+	 ; other sub-domain records
+
+	 mahema   A   176.34.178.16
+	 testldr9   A   176.34.178.16
+	 testldr1   A   176.34.178.16
+	 testldr2   A   176.34.178.16
+	 */
+	// DNS Entry
+	if (! file_exists($DNS_ROOT.'/mysimplerp.com/mysimpleerp.com.hosts')) print 'Error link to sites-available not found<br>';
+	else $dnsfileavailable=stat($DNS_ROOT.'/mysimplerp.com/mysimpleerp.com.hosts');
+
+	print '<tr>';
+	print '<td width="20%">'.$langs->trans("DNSFileFile").' ('.$DNS_ROOT.')</td><td colspan="3">'.($dnsfileavailable['size']?$langs->trans("Yes").' - '.dol_print_date($dnsfileavailable['mtime'],'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=adddnsfile">'.$langs->trans("Create").'</a>)';
+	print '</td>';
+	print '</tr>';
+
+	// Instance Apache (fichier vhost)
+	if (! file_exists($APACHE_ROOT.'/sites-available')) print 'Error link to sites-available not found<br>';
+	else $vhostfileavailable=stat($APACHE_ROOT.'/sites-available/vhost_instance');
+	if (! file_exists($APACHE_ROOT.'/sites-enabled')) print 'Error link to sites-enabled not found<br>';
+	else $vhostfileenabled=stat($APACHE_ROOT.'/sites-enabled/vhost_instance');
+
+	print '<tr>';
+	print '<td width="20%">'.$langs->trans("VHostFile").' ('.$APACHE_ROOT.')</td><td colspan="3">'.($vhostfileavailable['size']?$langs->trans("Yes").' - '.dol_print_date($vhostfileavailable['mtime'],'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addvhostfile">'.$langs->trans("Create").'</a>)';
+	if ($object->status == 'ACTIVE' && ! $vhostfileenabled['ctime']) print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=enablevhostfile">'.$langs->trans("Enable").'</a>)';
+	print '</td>';
+	print '</tr>';
+
+	print "</table>";
+
+	print '<br>';
+
+
+	print '<div class="underbanner clearboth"></div>';
 	print '<table class="border" width="100%">';
 
 	// Instance / Organization
+	/*
 	print '<tr><td width="20%">'.$langs->trans("Instance").'</td><td colspan="3">';
 	$savdb=$object->db;
 	$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
@@ -716,6 +840,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<tr><td>'.$langs->trans("Organization").'</td><td colspan="3">';
 	print $object->organization;
 	print '</td></tr>';
+	*/
 
 	// Email
 	print '<tr><td>'.$langs->trans("EMail").'</td><td colspan="3">'.dol_print_email($object->email,$object->id,0,'AC_EMAIL').'</td>';
@@ -778,8 +903,21 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	print "</table>";
 
+
 	print '<br>';
 
+	// ----- DoliCloud instance -----
+	print '<strong>INSTANCE SERVEUR DOLICLOUD v1</strong>';
+	// Last refresh
+	print ' - '.$langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
+
+	if (! $object->user_id && $user->rights->sellyoursaas->dolicloud->write)
+	{
+		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
+	}
+	print '<br>';
+
+	print '<div class="underbanner clearboth"></div>';
 	print '<table class="border" width="100%">';
 
 	// SFTP
@@ -808,149 +946,25 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</td>';
 	print '</tr>';
 
-	print "</table>";
-	print '<br>';
-
-
-	// ----- SellYourSaas instance -----
-	$DNS_ROOT=(empty($conf->global->NLTECHNO_DNS_ROOT)?'/etc/bind':$conf->global->NLTECHNO_DNS_ROOT);
-	$APACHE_ROOT=(empty($conf->global->NLTECHNO_APACHE_ROOT)?'/etc/apache2':$conf->global->NLTECHNO_APACHE_ROOT);
-
-	print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.'</strong>';
-	/*
-	print ' - '.$langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
-
-	if (! $object->user_id && $user->rights->sellyoursaas->dolicloud->write)
-	{
-		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
-	}
-	*/
-	print '<br>';
-
-	print '<table class="border" width="100%">';
-
-	/*
-	// Nb of users
-	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td colspan="3"><font size="+2">'.$object->nbofusers.'</font></td>';
-	print '</tr>';
-
-	// Dates
-	print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td colspan="3">'.dol_print_date($object->date_registration,'dayhour');
-	//print ' (<a href="'.dol_buildpath('/sellyoursaas/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
-	print '</td>';
-	print '</tr>';
-
-	// Lastlogin
-	print '<tr>';
-	print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
-	print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.($object->date_lastlogin?dol_print_date($object->date_lastlogin,'dayhour','tzuser'):'').'</td>';
-	print '</tr>';
-
-	// Version
-	print '<tr>';
-	print '<td>'.$langs->trans("Version").'</td><td colspan="3">'.$object->version.'</td>';
-	print '</tr>';
-
-	// Modules
-	print '<tr>';
-	print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.join(', ',explode(',',$object->modulesenabled)).'</td>';
-	print '</tr>';
-	*/
-
-	/*
-	$TTL 3d
-	$ORIGIN on.dolicloud.com.
-	@               IN     SOA   ns1.on.dolicloud.com. root.on.dolicloud.com. (
-		130412009         ; serial number
-		600              ; refresh =  2 hours
-		300              ; update retry = 15 minutes
-		604800           ; expiry = 3 weeks + 12 hours
-		600              ; minimum = 2 hours + 20 minutes
-		)
-		NS              ns1.on.dolicloud.com.
-		NS              ns1.eazybusiness.com.
-		IN      TXT     "v=spf1 mx ~all".
-
-		@               IN      A       176.34.178.16
-		ns1             IN      A       176.34.178.16
-
-		www             IN      CNAME   @
-		rm              IN      CNAME   @
-
-		$ORIGIN staging.on.dolicloud.com.
-
-		@               IN      NS      ns1.staging.on.dolicloud.com.
-		ns1   5         IN      A       85.25.151.49 ;'glue' record
-
-		$ORIGIN on.dolicloud.com.
-
-		; other sub-domain records
-
-		mahema   A   176.34.178.16
-		testldr9   A   176.34.178.16
-		testldr1   A   176.34.178.16
-		testldr2   A   176.34.178.16
-	*/
-	// DNS Entry
-	if (! file_exists($DNS_ROOT.'/mysimplerp.com/mysimpleerp.com.hosts')) print 'Error link to sites-available not found<br>';
-	else $dnsfileavailable=stat($DNS_ROOT.'/mysimplerp.com/mysimpleerp.com.hosts');
-
-	print '<tr>';
-	print '<td width="20%">'.$langs->trans("DNSFileFile").' ('.$DNS_ROOT.')</td><td colspan="3">'.($dnsfileavailable['size']?$langs->trans("Yes").' - '.dol_print_date($dnsfileavailable['mtime'],'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
-	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=adddnsfile">'.$langs->trans("Create").'</a>)';
-	print '</td>';
-	print '</tr>';
-
-	// Instance Apache (fichier vhost)
-	if (! file_exists($APACHE_ROOT.'/sites-available')) print 'Error link to sites-available not found<br>';
-	else $vhostfileavailable=stat($APACHE_ROOT.'/sites-available/vhost_instance');
-	if (! file_exists($APACHE_ROOT.'/sites-enabled')) print 'Error link to sites-enabled not found<br>';
-	else $vhostfileenabled=stat($APACHE_ROOT.'/sites-enabled/vhost_instance');
-
-	print '<tr>';
-	print '<td width="20%">'.$langs->trans("VHostFile").' ('.$APACHE_ROOT.')</td><td colspan="3">'.($vhostfileavailable['size']?$langs->trans("Yes").' - '.dol_print_date($vhostfileavailable['mtime'],'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
-	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addvhostfile">'.$langs->trans("Create").'</a>)';
-	if ($object->status == 'ACTIVE' && ! $vhostfileenabled['ctime']) print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=enablevhostfile">'.$langs->trans("Enable").'</a>)';
-	print '</td>';
-	print '</tr>';
-
-	print "</table>";
-	print '<br>';
-
-
-
-	// ----- DoliCloud instance -----
-	print '<strong>INSTANCE DOLICLOUD v1</strong>';
-	// Last refresh
-	print ' - '.$langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
-
-	if (! $object->user_id && $user->rights->sellyoursaas->dolicloud->write)
-	{
-		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
-	}
-	print '<br>';
-
-	print '<table class="border" width="100%">';
-
 	// Nb of users
 	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td><font size="+2">'.round($object->nbofusers).'</font></td>';
-	print '<td rowspan="6" valign="middle" width="50%">';
+	print '<td rowspan="6" class="valignmiddle aaa" width="50%" colspan="2" style="border-top: 2px solid #888 !important; border: 1px solid #888;">';
 	print getListOfLinks($object, $lastloginadmin, $lastpassadmin);
 	print '</td>';
 	print '</tr>';
 
 	// Dates
 	print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td width="30%">'.dol_print_date($object->date_registration,'dayhour');
-	//print ' (<a href="'.dol_buildpath('/sellyoursaas/dolicloud/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
+	//print ' (<a href="'.dol_buildpath('/sellyoursaas/backoffice/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
 	print '</td></tr>';
 
 	/*
-	 // Lastlogin
-	 print '<tr>';
-	 print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
-	 print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.($object->date_lastlogin?dol_print_date($object->date_lastlogin,'dayhour','tzuser'):'').'</td>';
-	 print '</tr>';
-	 */
+	// Lastlogin
+	print '<tr>';
+	print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
+	print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.($object->date_lastlogin?dol_print_date($object->date_lastlogin,'dayhour','tzuser'):'').'</td>';
+	print '</tr>';
+	*/
 	// Version
 	print '<tr>';
 	print '<td>'.$langs->trans("Version").'</td><td>'.$object->version.'</td>';
@@ -989,6 +1003,8 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// ----- Backup instance -----
 	print '<strong>INSTANCE BACKUP</strong><br>';
+
+	print '<div class="underbanner clearboth"></div>';
 	print '<table class="border" width="100%">';
 
 	// Last backup date
@@ -1008,8 +1024,6 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '</tr>';
 
 	print "</table><br>";
-
-
 
 	print "</div>";
 

@@ -16,7 +16,7 @@
  */
 
 /**
- *	    \file       htdocs/sellyoursaas/dolicloud/dolicloud_import_payments.php
+ *	    \file       htdocs/sellyoursaas/backoffice/dolicloud_import_payments.php
  *      \ingroup    sellyoursaas
  *      \brief      Page list payment
  */

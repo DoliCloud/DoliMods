@@ -16,7 +16,7 @@
  */
 
 /**
- *	    \file       htdocs/sellyoursaas/dolicloud/dolicloud_import_customers.php
+ *	    \file       htdocs/sellyoursaas/backoffice/dolicloud_import_customers.php
  *      \ingroup    sellyoursaas
  *      \brief      Page list payment
  */
@@ -198,7 +198,7 @@ if ($action == 'import' || $action == 'create')
 				$importresult.='</span>';
 				$importresult.='We need to set it to status '.$status.'. ';
 				//$importresult.='<a href="'.$_SERVER["PHP_SELF"].'?action=create&line='.$i.'&file='.urlencode($file).'">Click to create</a>.<br>';
-				$importresult.='<a target="_blank" href="'.dol_buildpath('/sellyoursaas/dolicloud/dolicloud_card.php',1).'?';
+				$importresult.='<a target="_blank" href="'.dol_buildpath('/sellyoursaas/backoffice/dolicloud_card.php',1).'?';
 				$importresult.='action=create&plan='.urlencode($plan).'&organization='.urlencode($organization).'&email='.urlencode($email);
 				$importresult.='&date_registrationmonth='.dol_print_date($date_acquired,'%m');
 				$importresult.='&date_registrationday='.dol_print_date($date_acquired,'%d');

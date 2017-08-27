@@ -42,7 +42,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 
 	// Dolibarr instance login
 	$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
-	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+	$link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
 	$links.='Dolibarr link: ';
 	//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
 	$links.=$link.'<br>';
@@ -51,22 +51,25 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 
 	// Dashboard
 	$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email.'&amp;password='.$object->password_web;	// Note that password may have change and not being the one of dolibarr admin user
-	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+	$link='<a href="'.$url.'" target="_blank" id="dashboardlink">'.$url.'</a>';
 	$links.='Dashboard: ';
 	$links.=$link.'<br>';
+
 	$links.='<br>';
 
 	// SFTP
 	//$sftpconnectstring=$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
     $sftpconnectstring='sftp://'.$object->username_web.'@'.$object->hostname_web.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
     $links.='SFTP connect string: ';
-	$links.='<input type="text" name="sftpconnectstring" value="'.$sftpconnectstring.'" size="110"><br>';
+	$links.='<input type="text" name="sftpconnectstring" id="sftpconnectstring" value="'.$sftpconnectstring.'" size="110"><br>';
+	$links.=ajax_autoselect('sftpconnectstring');
 	//$links.='<br>';
 
 	// MySQL
 	$mysqlconnectstring='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db;
 	$links.='Mysql connect string: ';
-	$links.='<input type="text" name="mysqlconnectstring" value="'.$mysqlconnectstring.'" size="110"><br>';
+	$links.='<input type="text" name="mysqlconnectstring" id="mysqlconnectstring" value="'.$mysqlconnectstring.'" size="110"><br>';
+	$links.=ajax_autoselect('mysqlconnectstring');
 
 	// MySQL backup
 	/*$mysqlconnectstring='mysqldump -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db;
@@ -77,7 +80,8 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	$jdbcconnectstring='jdbc:mysql://'.$object->hostname_db.'/';
 	//$jdbcconnectstring.=$object->database_db;
 	$links.='JDBC connect string: ';
-	$links.='<input type="text" name="jdbcconnectstring" value="'.$jdbcconnectstring.'" size="110"><br>';
+	$links.='<input type="text" name="jdbcconnectstring" id="jdbcconnectstring" value="'.$jdbcconnectstring.'" size="110"><br>';
+	$links.=ajax_autoselect('jdbcconnectstring');
 
 	return $links;
 }
@@ -125,29 +129,29 @@ function dolicloud_prepare_head($object,$prefix='')
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = ($object->id?dol_buildpath('/sellyoursaas/dolicloud/dolicloud_card'.$prefix.'.php',1).'?id='.$object->id:'');
+	$head[$h][0] = ($object->id?dol_buildpath('/sellyoursaas/backoffice/dolicloud_card'.$prefix.'.php',1).'?id='.$object->id:'');
 	$head[$h][1] = $langs->trans("Card");
 	$head[$h][2] = 'card';
 	$h++;
 
 	if ($object->id > 0)
 	{
-		$head[$h][0] = dol_buildpath('/sellyoursaas/dolicloud/dolicloud_card_backup'.$prefix.'.php',1).'?id='.$object->id;
+		$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_backup'.$prefix.'.php',1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans("Backup");
 		$head[$h][2] = 'backup';
 		$h++;
 
-		$head[$h][0] = dol_buildpath('/sellyoursaas/dolicloud/dolicloud_card_upgrade'.$prefix.'.php',1).'?id='.$object->id;
+		$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_upgrade'.$prefix.'.php',1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans("Restore/Upgrade");
 		$head[$h][2] = 'upgrade';
 		$h++;
 
-		$head[$h][0] = dol_buildpath('/sellyoursaas/dolicloud/dolicloud_card_users'.$prefix.'.php',1).'?id='.$object->id;
+		$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_users'.$prefix.'.php',1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans("Users");
 		$head[$h][2] = 'users';
 		$h++;
 
-		$head[$h][0] = dol_buildpath('/sellyoursaas/dolicloud/dolicloud_card_payments'.$prefix.'.php',1).'?id='.$object->id;
+		$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_payments'.$prefix.'.php',1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans("Payments");
 		$head[$h][2] = 'payments';
 		$h++;
@@ -159,7 +163,7 @@ function dolicloud_prepare_head($object,$prefix='')
 	    complete_head_from_modules($conf,$langs,$object,$head,$h,'contact');
 
 	    /*
-	    $head[$h][0] = dol_buildpath('/sellyoursaas/dolicloud/dolicloud_info.php',1).'?id='.$object->id;
+	    $head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_info.php',1).'?id='.$object->id;
 		$head[$h][1] = $langs->trans("Info");
 		$head[$h][2] = 'info';
 		$h++;

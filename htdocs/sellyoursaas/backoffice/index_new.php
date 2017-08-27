@@ -16,7 +16,7 @@
  */
 
 /**
- *   	\file       htdocs/sellyoursaas/dolicloud/index_new.php
+ *   	\file       htdocs/sellyoursaas/backoffice/index_new.php
  *		\ingroup    sellyoursaas
  *		\brief      Home page of DoliCloud service
  */
@@ -38,7 +38,7 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
 dol_include_once('/sellyoursaas/class/dolicloudcustomernew.class.php');
-include_once dol_buildpath("/sellyoursaas/dolicloud/lib/refresh.lib.php");		// do not use dol_buildpath to keep global declaration working
+include_once dol_buildpath("/sellyoursaas/backoffice/lib/refresh.lib.php");		// do not use dol_buildpath to keep global declaration working
 
 
 
@@ -117,7 +117,7 @@ print '<div class="fichecenter"><div class="fichethirdleft">';
  * Search area
  */
 $rowspan=2;
-print '<form method="post" action="'.dol_buildpath('/sellyoursaas/dolicloud/dolicloud_list_new.php',1).'">';
+print '<form method="post" action="'.dol_buildpath('/sellyoursaas/backoffice/dolicloud_list_new.php',1).'">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<table class="noborder nohover" width="100%">';
 print '<tr class="liste_titre">';

@@ -353,7 +353,7 @@ class modSellYourSaas extends DolibarrModules
 								'titre'=>'EMailsTemplates',
 								'mainmenu'=>'sellyoursaas',
 								'leftmenu'=>'dolicloud_emailstemplates',
-								'url'=>'/sellyoursaas/dolicloud/dolicloudemailstemplates_page_new.php?action=list',
+								'url'=>'/sellyoursaas/backoffice/dolicloudemailstemplates_page_new.php?action=list',
 								'langs'=>'sellyoursaas@sellyoursaas',
 								'position'=>220,
                 				'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -400,7 +400,7 @@ class modSellYourSaas extends DolibarrModules
 		    'titre'=>'DoliCloud (old)',
 		    'mainmenu'=>'sellyoursaas',
 		    'leftmenu'=>'dolicloud',
-		    'url'=>'/sellyoursaas/dolicloud/index_new.php',
+		    'url'=>'/sellyoursaas/backoffice/index_new.php',
 		    'langs'=>'sellyoursaas@sellyoursaas',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 		    'position'=>300,
 		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -415,7 +415,7 @@ class modSellYourSaas extends DolibarrModules
 		    'titre'=>'ListOfInstances',
 		    'mainmenu'=>'sellyoursaas',
 		    'leftmenu'=>'dolicloud_list',
-		    'url'=>'/sellyoursaas/dolicloud/dolicloud_list_new.php',
+		    'url'=>'/sellyoursaas/backoffice/dolicloud_list_new.php',
 		    'langs'=>'',
 		    'position'=>310,
 		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.

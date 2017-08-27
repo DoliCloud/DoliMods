@@ -141,7 +141,6 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 			if (! $error)
 			{
 				$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
-				dol_syslog('sql='.$sql);
 				$resql=$newdb->query($sql);
 				if ($resql)
 				{
@@ -159,7 +158,6 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 			{
 				$modulesenabled=array(); $lastinstall=''; $lastupgrade='';
 				$sql="SELECT name, value FROM llx_const WHERE name LIKE 'MAIN_MODULE_%' or name = 'MAIN_VERSION_LAST_UPGRADE' or name = 'MAIN_VERSION_LAST_INSTALL'";
-				dol_syslog('sql='.$sql);
 				$resql=$newdb->query($sql);
 				if ($resql)
 				{
@@ -193,7 +191,6 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 			if (! $error)
 			{
 				$sql="SELECT COUNT(login) as nbofusers FROM llx_user WHERE statut <> 0";
-				dol_syslog('sql='.$sql);
 				$resql=$newdb->query($sql);
 				if ($resql)
 				{
@@ -209,7 +206,6 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 			if (! $error)
 			{
 				$sql="SELECT login, pass, datelastlogin FROM llx_user WHERE statut <> 0 ORDER BY datelastlogin DESC LIMIT 1";
-				dol_syslog('sql='.$sql);
 				$resql=$newdb->query($sql);
 				if ($resql)
 				{
@@ -329,7 +325,7 @@ function dolicloud_calculate_stats($db, $datelim)
 	$sql.= " pl.meter_id as plan_meter_id,";
 	$sql.= " pl.name as plan,";
 	$sql.= " pl.interval_unit as interval_unit,";
-	
+
 	$sql.= " c.org_name as organization,";
 	$sql.= " c.status as status,";
 	$sql.= " c.past_due_start,";
@@ -374,7 +370,7 @@ function dolicloud_calculate_stats($db, $datelim)
                     // Voir aussi dolicloud_list_new.php
                     $price=($obj->price_instance * ($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)) + (max(0,($obj->nbofusers - ($obj->min_threshold ? $obj->min_threshold : 0))) * $obj->price_user);
                     if ($obj->interval_unit == 'Year') $price = $price / 12;
-					
+
 					$totalinstances++;
 					$totalusers+=$obj->nbofusers;
 
