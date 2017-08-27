@@ -75,7 +75,7 @@ if ($db2->error)
 $object = new DoliCloudCustomerNew($db,$db2);
 
 // Security check
-$result = restrictedArea($user, 'sellyoursaas', 0, '','dolicloud');
+$result = restrictedArea($user, 'sellyoursaas', 0, '','sellyoursaas');
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
@@ -178,164 +178,101 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 		$lastloginadmin=$object->lastlogin_admin;
 		$lastpassadmin=$object->lastpass_admin;
 	}
-//	else print 'Error, failed to connect';
+	//	else print 'Error, failed to connect';
 
 	dol_htmloutput_errors($error,$errors);
 
-	print '<div class="fichecenter">';
-	print '<table class="border" width="100%">';
 
-	// Instance / Organization
-	print '<tr><td width="20%">'.$langs->trans("Instance").'</td><td colspan="3">';
 	$savdb=$object->db;
 	$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
-	print $form2->showrefnav($object,'instance','',1,'name','instance','','',1);
+	dol_banner_tab($object,'instance','',1,'name','instance','','',1);
 	$object->db=$savdb;
-	print '</td></tr>';
-	print '<tr><td>'.$langs->trans("Organization").'</td><td colspan="3">';
-	print $object->organization;
-	print '</td></tr>';
-
-	// Email
-	print '<tr><td>'.$langs->trans("EMail").'</td><td colspan="3">'.dol_print_email($object->email,$object->id,0,'AC_EMAIL').'</td>';
-	print '</tr>';
-
-	// Plan
-	print '<tr><td width="20%">'.$langs->trans("Plan").'</td><td colspan="3">'.$object->plan.' - ';
-	$plan=new Cdolicloudplans($db);
-	$result=$plan->fetch('',$object->plan);
-	if ($plan->price_instance) print ' '.$plan->price_instance.' '.currency_name('EUR').'/instance';
-	if ($plan->price_user) print ' '.$plan->price_user.' '.currency_name('EUR').'/user';
-	if ($plan->price_gb) print ' '.$plan->price_gb.' '.currency_name('EUR').'/GB';
-	print ' <a href="https://www.dolicloud.com/fr/component/content/article/134-pricing" target="_blank">('.$langs->trans("Prices").')';
-	print '</td>';
-	print '</tr>';
-
-	// Partner
-	print '<tr><td width="20%">'.$langs->trans("Partner").'</td><td width="30%">'.$object->partner.'</td><td width="20%">'.$langs->trans("Source").'</td><td>'.($object->source?$object->source:$langs->trans("Unknown")).'</td></tr>';
-
-	print "</table>";
 
 
-	print '<br>';
-
-	print '<table class="border" width="100%">';
-
-	// SFTP
-	print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td colspan="3">'.$object->hostname_web.'</td>';
-	print '</tr>';
-	// Login/Pass
-	print '<tr>';
-	print '<td width="20%">'.$langs->trans("SFTPLogin").'</td><td width="30%">'.$object->username_web.'</td>';
-	print '<td width="20%">'.$langs->trans("Password").'</td><td width="30%">'.$object->password_web.'</td>';
-	print '</tr>';
-
-	// Database
-	print '<tr><td>'.$langs->trans("DatabaseServer").'</td><td>'.$object->hostname_db.'</td>';
-	print '<td>'.$langs->trans("DatabaseName").'</td><td>'.$object->database_db.'</td>';
-	print '</tr>';
-	// Login/Pass
-	print '<tr>';
-	print '<td>'.$langs->trans("DatabaseLogin").'</td><td>'.$object->username_db.'</td>';
-	print '<td>'.$langs->trans("Password").'</td><td>'.$object->password_db.'</td>';
-	print '</tr>';
-
-	// Status
-	print '<tr><td>'.$langs->trans("Status").'</td><td colspan="3">';
-	print $object->getLibStatut(4,$form);
-	print '</td>';
-	print '</tr>';
-
-	print "</table>";
+	print '<div class="fichecenter">';
 	print '</div>';
-
-	/*
-	// Last refresh
-	print $langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
-
-	if (! $object->user_id && $user->rights->sellyoursaas->dolicloud->write)
-	{
-		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
-	}*/
-	print '<br><br>';
-
-
-	// ----- DoliCloud instance -----
-	print '<strong>INSTANCE SERVEUR STRATUS5 ('.$newdb->database_host.')</strong><br>';
-
-	print_user_table($newdb);
-
-	// Barre d'actions
-	if (! $user->societe_id)
-	{
-	    print '<div class="tabsAction">';
-
-	    if ($user->rights->sellyoursaas->dolicloud->write)
-	    {
-	        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=createsupportdolicloud">'.$langs->trans('CreateSupportUser').'</a>';
-	        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=deletesupportdolicloud">'.$langs->trans('DeleteSupportUser').'</a>';
-	    }
-
-	    print "</div><br>";
-	}
-
-	print '<br>';
-
-	// ----- Backup instance -----
-	$backupdir=$conf->global->DOLICLOUD_BACKUP_PATH;
-
-	$dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
-	$login=$object->username_web;
-	$password=$object->password_web;
-	$server=$object->instance.'.on.dolicloud.com';
-
-	$newdb2=getDoliDBInstance($db2->type, $conf->global->DOLICLOUD_DATABASE_HOST, $object->username_db, $object->password_db, $object->database_db, 3306);
-	if (is_object($newdb2) && $newdb2->connected)
-	{
-        // Get user/pass of last admin user
-		$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
-		$resql=$newdb2->query($sql);
-        $obj = $newdb2->fetch_object($resql);
-		$object->lastlogin_admin=$obj->login;
-		$object->lastpass_admin=$obj->pass;
-		$lastloginadmin=$object->lastlogin_admin;
-		$lastpassadmin=$object->lastpass_admin;
-	}
-
-	print '<strong>INSTANCE SERVEUR '.$conf->global->SELLYOURSAAS_NAME.' ('.$newdb2->database_host.')</strong><br>';
-	print '<table class="border" width="100%">';
-
-	print_user_table($newdb2);
-
-	print "</table><br>";
-
-
-	print "</div>";
-
-	// Barre d'actions
-	/*
-	if (! $user->societe_id)
-	{
-		print '<div class="tabsAction">';
-
-		if ($user->rights->sellyoursaas->dolicloud->write)
-		{
-			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=createadmin">'.$langs->trans('CreateAdmin').'</a>';
-		}
-
-		print "</div><br>";
-	}*/
-
-
-	// Dolibarr instance login
-	$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
-	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-	print 'Dolibarr link<br>';
-	//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
-	print $link.'<br>';
-	print '<br>';
-
 }
+
+if ($id > 0 || $instance)
+{
+	dol_fiche_end();
+}
+
+print '<br>';
+
+
+// ----- Instance SellYourSaas -----
+$backupdir=$conf->global->DOLICLOUD_BACKUP_PATH;
+
+$dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
+$login=$object->username_web;
+$password=$object->password_web;
+$server=$object->instance.'.on.dolicloud.com';
+
+$newdb2=getDoliDBInstance($db2->type, $conf->global->DOLICLOUD_DATABASE_HOST, $object->username_db, $object->password_db, $object->database_db, 3306);
+if (is_object($newdb2) && $newdb2->connected)
+{
+	// Get user/pass of last admin user
+	$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
+	$resql=$newdb2->query($sql);
+	$obj = $newdb2->fetch_object($resql);
+	$object->lastlogin_admin=$obj->login;
+	$object->lastpass_admin=$obj->pass;
+	$lastloginadmin=$object->lastlogin_admin;
+	$lastpassadmin=$object->lastpass_admin;
+}
+
+print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.' ('.$newdb2->database_host.')</strong><br>';
+print '<table class="border" width="100%">';
+
+print_user_table($newdb2);
+
+print "</table><br>";
+
+
+
+// ----- Instance DoliCloud v1 -----
+print '<strong>INSTANCE DOLICLOUD v1 ('.$newdb->database_host.')</strong><br>';
+
+print_user_table($newdb);
+
+// Barre d'actions
+if (! $user->societe_id)
+{
+    print '<div class="tabsAction">';
+
+    if ($user->rights->sellyoursaas->sellyoursaas->write)
+    {
+        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=createsupportdolicloud">'.$langs->trans('CreateSupportUser').'</a>';
+        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=deletesupportdolicloud">'.$langs->trans('DeleteSupportUser').'</a>';
+    }
+
+    print "</div><br>";
+}
+
+
+// Barre d'actions
+/*
+if (! $user->societe_id)
+{
+	print '<div class="tabsAction">';
+
+	if ($user->rights->sellyoursaas->sellyoursaas->write)
+	{
+		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=createadmin">'.$langs->trans('CreateAdmin').'</a>';
+	}
+
+	print "</div><br>";
+}*/
+
+
+// Dolibarr instance login
+$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+print 'Dolibarr link<br>';
+//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
+print $link.'<br>';
+print '<br>';
 
 
 llxFooter();
@@ -353,7 +290,7 @@ function print_user_table($newdb)
 {
 	global $langs;
 
-	print '<table class="border" width="100%">';
+	print '<table class="noborder" width="100%">';
 
 	// Nb of users
 	print '<tr class="liste_titre">';
@@ -371,7 +308,7 @@ function print_user_table($newdb)
 	print '<td>'.$langs->trans("Status").'</td>';
 	print '</tr>';
 
-	if (is_object($newdb))
+	if (is_object($newdb) && $newdb->connected)
 	{
 		// Get user/pass of last admin user
 		$sql ="SELECT login, lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_soc, fk_socpeople, fk_member, entity, statut";
@@ -419,6 +356,10 @@ function print_user_table($newdb)
 		{
 			dol_print_error($newdb);
 		}
+	}
+	else
+	{
+		print '<tr><td class="opacitymedium">'.$langs->trans("FailedToConnectMayBeOldInstance").'</td></tr>';
 	}
 
 	print "</table>";

@@ -79,8 +79,8 @@ if ($db2->error)
 $object = new DoliCloudCustomerNew($db,$db2);
 
 // Security check
-$user->rights->sellyoursaas->dolicloud->delete = $user->rights->sellyoursaas->dolicloud->write;
-$result = restrictedArea($user, 'sellyoursaas', 0, '','dolicloud');
+$user->rights->sellyoursaas->sellyoursaas->delete = $user->rights->sellyoursaas->sellyoursaas->write;
+$result = restrictedArea($user, 'sellyoursaas', 0, '','sellyoursaas');
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
@@ -110,7 +110,7 @@ if (empty($reshook))
 	}
 
 	// Add customer
-	if ($action == 'add' && $user->rights->sellyoursaas->dolicloud->write)
+	if ($action == 'add' && $user->rights->sellyoursaas->sellyoursaas->write)
 	{
 		$db->begin();
 
@@ -174,7 +174,7 @@ if (empty($reshook))
 		}
 	}
 
-	if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->sellyoursaas->dolicloud->write)
+	if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->sellyoursaas->sellyoursaas->write)
 	{
 		$result=$object->fetch($id);
 
@@ -190,7 +190,7 @@ if (empty($reshook))
 		}
 	}
 
-	if ($action == 'update' && ! $_POST["cancel"] && $user->rights->sellyoursaas->dolicloud->write)
+	if ($action == 'update' && ! $_POST["cancel"] && $user->rights->sellyoursaas->sellyoursaas->write)
 	{
 		if (empty($_POST["organization"]) || empty($_POST["plan"]) || empty($_POST["email"]))
 		{
@@ -277,7 +277,7 @@ $arraystatus=Dolicloudcustomernew::$listOfStatus;
 
 
 // Confirm deleting object
-if ($user->rights->sellyoursaas->dolicloud->write)
+if ($user->rights->sellyoursaas->sellyoursaas->write)
 {
 	if ($action == 'delete')
 	{
@@ -294,10 +294,10 @@ if ($id > 0 || $instance || $action == 'create')
 	$head = dolicloud_prepare_head($object,'_new');
 
 	$title = $langs->trans("SellYourSaasInstance");
-	dol_fiche_head($head, 'card', $title, -1, 'contact');
+	dol_fiche_head($head, 'infoinstance', $title, -1, 'contact');
 }
 
-if ($user->rights->sellyoursaas->dolicloud->write)
+if ($user->rights->sellyoursaas->sellyoursaas->write)
 {
 	if ($action == 'create')
 	{
@@ -726,7 +726,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	/*
 	 print ' - '.$langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
-	 if (! $object->user_id && $user->rights->sellyoursaas->dolicloud->write)
+	 if (! $object->user_id && $user->rights->sellyoursaas->sellyoursaas->write)
 	 {
 	 print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 	 }
@@ -826,6 +826,18 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<br>';
 
 
+
+	// ----- DoliCloud instance -----
+	print '<strong>INSTANCE DOLICLOUD v1</strong>';
+	// Last refresh
+	print ' - '.$langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
+
+	if (! $object->user_id && $user->rights->sellyoursaas->sellyoursaas->write)
+	{
+		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
+	}
+	print '<br>';
+
 	print '<div class="underbanner clearboth"></div>';
 	print '<table class="border" width="100%">';
 
@@ -906,16 +918,6 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	print '<br>';
 
-	// ----- DoliCloud instance -----
-	print '<strong>INSTANCE SERVEUR DOLICLOUD v1</strong>';
-	// Last refresh
-	print ' - '.$langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
-
-	if (! $object->user_id && $user->rights->sellyoursaas->dolicloud->write)
-	{
-		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
-	}
-	print '<br>';
 
 	print '<div class="underbanner clearboth"></div>';
 	print '<table class="border" width="100%">';
@@ -1033,12 +1035,12 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	{
 		print '<div class="tabsAction">';
 
-		if ($user->rights->sellyoursaas->dolicloud->write)
+		if ($user->rights->sellyoursaas->sellyoursaas->write)
 		{
 			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=edit">'.$langs->trans('Modify').'</a>';
 		}
 
-		if ($user->rights->sellyoursaas->dolicloud->write)
+		if ($user->rights->sellyoursaas->sellyoursaas->write)
 		{
 			print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=delete">'.$langs->trans('Delete').'</a>';
 		}

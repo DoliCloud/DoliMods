@@ -75,7 +75,7 @@ if ($db2->error)
 $object = new DoliCloudCustomerNew($db,$db2);
 
 // Security check
-$result = restrictedArea($user, 'sellyoursaas', 0, '','dolicloud');
+$result = restrictedArea($user, 'sellyoursaas', 0, '','sellyoursaas');
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
@@ -134,7 +134,7 @@ if ($id > 0 || $instance)
 	$head = dolicloud_prepare_head($object,'_new');
 
 	$title = $langs->trans("DoliCloudInstances");
-	dol_fiche_head($head, 'backup', $title, 0, 'contact');
+	dol_fiche_head($head, 'backup', $title, -1, 'contact');
 }
 
 if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
@@ -157,134 +157,14 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	dol_htmloutput_errors($error,$errors);
 
-	print '<div class="fichecenter">';
-	print '<table class="border" width="100%">';
 
-	// Instance / Organization
-	print '<tr><td width="20%">'.$langs->trans("Instance").'</td><td colspan="3">';
 	$savdb=$object->db;
 	$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
-	print $form2->showrefnav($object,'instance','',1,'name','instance','','',1);
+	dol_banner_tab($object,'instance','',1,'name','instance','','',1);
 	$object->db=$savdb;
-	print '</td></tr>';
-	print '<tr><td>'.$langs->trans("Organization").'</td><td colspan="3">';
-	print $object->organization;
-	print '</td></tr>';
-
-	// Email
-	print '<tr><td>'.$langs->trans("EMail").'</td><td colspan="3">'.dol_print_email($object->email,$object->id,0,'AC_EMAIL').'</td>';
-	print '</tr>';
-
-	// Plan
-	print '<tr><td width="20%">'.$langs->trans("Plan").'</td><td colspan="3">'.$object->plan.' - ';
-	$plan=new Cdolicloudplans($db);
-	$result=$plan->fetch('',$object->plan);
-	if ($plan->price_instance) print ' '.$plan->price_instance.' '.currency_name('EUR').'/instance';
-	if ($plan->price_user) print ' '.$plan->price_user.' '.currency_name('EUR').'/user';
-	if ($plan->price_gb) print ' '.$plan->price_gb.' '.currency_name('EUR').'/GB';
-	print ' <a href="https://www.dolicloud.com/fr/component/content/article/134-pricing" target="_blank">('.$langs->trans("Prices").')';
-	print '</td>';
-	print '</tr>';
-
-	// Partner
-	print '<tr><td width="20%">'.$langs->trans("Partner").'</td><td width="30%">'.$object->partner.'</td><td width="20%">'.$langs->trans("Source").'</td><td>'.($object->source?$object->source:$langs->trans("Unknown")).'</td></tr>';
-
-	print "</table>";
-
-	print '<br>';
-
-	print '<table class="border" width="100%">';
-
-	// SFTP
-	print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td colspan="3">'.$object->hostname_web.'</td>';
-	print '</tr>';
-	// Login/Pass
-	print '<tr>';
-	print '<td width="20%">'.$langs->trans("SFTPLogin").'</td><td width="30%">'.$object->username_web.'</td>';
-	print '<td width="20%">'.$langs->trans("Password").'</td><td width="30%">'.$object->password_web.'</td>';
-	print '</tr>';
-
-	// Database
-	print '<tr><td>'.$langs->trans("DatabaseServer").'</td><td>'.$object->hostname_db.'</td>';
-	print '<td>'.$langs->trans("DatabaseName").'</td><td>'.$object->database_db.'</td>';
-	print '</tr>';
-	// Login/Pass
-	print '<tr>';
-	print '<td>'.$langs->trans("DatabaseLogin").'</td><td>'.$object->username_db.'</td>';
-	print '<td>'.$langs->trans("Password").'</td><td>'.$object->password_db.'</td>';
-	print '</tr>';
-
-	// Status
-	print '<tr><td>'.$langs->trans("Status").'</td><td colspan="3">';
-	print $object->getLibStatut(4,$form);
-	print '</td>';
-	print '</tr>';
-
-	print "</table>";
-	print '<br>';
 
 
-	// ----- DoliCloud instance -----
-	print '<strong>INSTANCE SERVEUR STRATUS5</strong>';
-	// Last refresh
-	print ' - '.$langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
-
-	if (! $object->user_id && $user->rights->sellyoursaas->dolicloud->write)
-	{
-		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
-	}
-	print '<br>';
-
-	print '<table class="border" width="100%">';
-
-	// Nb of users
-	print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td><font size="+2">'.round($object->nbofusers).'</font></td>';
-	print '<td rowspan="6" valign="middle" width="50%">';
-	print getListOfLinks($object, $lastloginadmin, $lastpassadmin);
-	print '</td>';
-	print '</tr>';
-
-	// Dates
-	print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td>'.dol_print_date($object->date_registration,'dayhour');
-	//print ' (<a href="'.dol_buildpath('/sellyoursaas/backoffice/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
-	print '</td>';
-	print '</tr>';
-
-	/*
-	// Lastlogin
-	print '<tr>';
-	print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
-	print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.($object->date_lastlogin?dol_print_date($object->date_lastlogin,'dayhour','tzuser'):'').'</td>';
-	print '</tr>';
-	*/
-	// Version
-	print '<tr>';
-	print '<td>'.$langs->trans("Version").'</td><td>'.$object->version.'</td>';
-	print '</tr>';
-
-	// Modules
-	print '<tr>';
-	print '<td>'.$langs->trans("Modules").'</td><td>'.join(', ',explode(',',$object->modulesenabled)).'</td>';
-	print '</tr>';
-
-	// Authorized key file
-	print '<tr>';
-	print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td>'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
-	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
-	print '</td>';
-	print '</tr>';
-
-	// Install.lock file
-	print '<tr>';
-	print '<td>'.$langs->trans("LockfileInstalled").'</td><td>'.($object->filelock?$langs->trans("Yes").' - '.dol_print_date($object->filelock,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
-	print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addinstalllock">'.$langs->trans("Create").'</a>)';
-	print ($object->filelock?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delinstalllock">'.$langs->trans("Delete").'</a>)':'');
-	print '</td>';
-	print '</tr>';
-
-	print "</table>";
-	print '<br>';
-
+	print '<div class="fichecenter">';
 
 	$backupdir=$conf->global->DOLICLOUD_BACKUP_PATH;
 
@@ -295,6 +175,8 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// ----- Backup instance -----
 	print '<strong>INSTANCE BACKUP</strong><br>';
+
+	print '<div class="underbanner clearboth"></div>';
 	print '<table class="border" width="100%">';
 
 	// Last backup date
@@ -323,7 +205,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	{
 		print '<div class="tabsAction">';
 
-		if ($user->rights->sellyoursaas->dolicloud->write)
+		if ($user->rights->sellyoursaas->sellyoursaas->write)
 		{
 			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=upgrade">'.$langs->trans('Upgrade').'</a>';
 		}
@@ -342,8 +224,8 @@ if ($id > 0 || $instance)
 // Upgrade link
 $backupstringtoshow=$backupstring.' testrsync|testdatabase';
 print 'Backup command line string<br>';
-print '<input type="text" name="backupstring" value="'.$backupstringtoshow.'" size="160"><br>';
-
+print '<input type="text" name="backupstring" id="backupstring" value="'.$backupstringtoshow.'" size="160"><br>';
+print ajax_autoselect('backupstring');
 
 
 llxFooter();

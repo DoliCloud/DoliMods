@@ -75,7 +75,7 @@ if ($db2->error)
 $object = new DoliCloudCustomerNew($db,$db2);
 
 // Security check
-$result = restrictedArea($user, 'sellyoursaas', 0, '','dolicloud');
+$result = restrictedArea($user, 'sellyoursaas', 0, '','sellyoursaas');
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
@@ -158,90 +158,53 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	dol_htmloutput_errors($error,$errors);
 
-	print '<div class="fichecenter">';
-	print '<table class="border" width="100%">';
-
-	// Instance / Organization
-	print '<tr><td width="20%">'.$langs->trans("Instance").'</td><td colspan="3">';
 	$savdb=$object->db;
 	$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
-	print $form2->showrefnav($object,'instance','',1,'name','instance','','',1);
+	dol_banner_tab($object,'instance','',1,'name','instance','','',1);
 	$object->db=$savdb;
-	print '</td></tr>';
-	print '<tr><td>'.$langs->trans("Organization").'</td><td colspan="3">';
-	print $object->organization;
-	print '</td></tr>';
 
-	// Email
-	print '<tr><td>'.$langs->trans("EMail").'</td><td colspan="3">'.dol_print_email($object->email,$object->id,0,'AC_EMAIL').'</td>';
-	print '</tr>';
 
-	// Plan
-	print '<tr><td width="20%">'.$langs->trans("Plan").'</td><td colspan="3">'.$object->plan.' - ';
-	$plan=new Cdolicloudplans($db);
-	$result=$plan->fetch('',$object->plan);
-	if ($plan->price_instance) print ' '.$plan->price_instance.' '.currency_name('EUR').'/instance';
-	if ($plan->price_user) print ' '.$plan->price_user.' '.currency_name('EUR').'/user';
-	if ($plan->price_gb) print ' '.$plan->price_gb.' '.currency_name('EUR').'/GB';
-	print ' <a href="https://www.dolicloud.com/fr/component/content/article/134-pricing" target="_blank">('.$langs->trans("Prices").')';
-	print '</td>';
-	print '</tr>';
-
-	// Partner
-	print '<tr><td width="20%">'.$langs->trans("Partner").'</td><td width="30%">'.$object->partner.'</td><td width="20%">'.$langs->trans("Source").'</td><td>'.($object->source?$object->source:$langs->trans("Unknown")).'</td></tr>';
-
-	print "</table>";
-
-	print '<br>';
-
-	print '<table class="border" width="100%">';
-
-	// SFTP
-	print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td colspan="3">'.$object->hostname_web.'</td>';
-	print '</tr>';
-	// Login/Pass
-	print '<tr>';
-	print '<td width="20%">'.$langs->trans("SFTPLogin").'</td><td width="30%">'.$object->username_web.'</td>';
-	print '<td width="20%">'.$langs->trans("Password").'</td><td width="30%">'.$object->password_web.'</td>';
-	print '</tr>';
-
-	// Database
-	print '<tr><td>'.$langs->trans("DatabaseServer").'</td><td>'.$object->hostname_db.'</td>';
-	print '<td>'.$langs->trans("DatabaseName").'</td><td>'.$object->database_db.'</td>';
-	print '</tr>';
-	// Login/Pass
-	print '<tr>';
-	print '<td>'.$langs->trans("DatabaseLogin").'</td><td>'.$object->username_db.'</td>';
-	print '<td>'.$langs->trans("Password").'</td><td>'.$object->password_db.'</td>';
-	print '</tr>';
-
-	// Status
-	print '<tr><td>'.$langs->trans("Status").'</td><td colspan="3">';
-	print $object->getLibStatut(4,$form);
-	print '</td>';
-	print '</tr>';
-
-	print "</table>";
+	print '<div class="fichecenter">';
 	print '</div>';
+
+}
+
+if ($id > 0 || $instance)
+{
+	dol_fiche_end();
+}
+
+
+if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
+{
 
 	/*
 	// Last refresh
 	print $langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
-	if (! $object->user_id && $user->rights->sellyoursaas->dolicloud->write)
+	if (! $object->user_id && $user->rights->sellyoursaas->sellyoursaas->write)
 	{
 		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 	}*/
-	print '<br><br>';
+	print '<br>';
 
 
 	// ----- DoliCloud instance -----
-	print '<strong>INSTANCE SERVEUR STRATUS5</strong><br>';
+	print '<strong>INSTANCE DOLICLOUD v1</strong><br>';
 
+	print '<div class="underbanner clearboth"></div>';
 	print '<table class="border" width="100%">';
 
+	// Nb of users
+	print '<tr class="liste_titre">';
+	print '<td>'.$langs->trans("Date").'</td>';
+	print '<td>'.$langs->trans("Amount").'</td>';
+	print '<td>'.$langs->trans("Status").'</td>';
+	print '</tr>';
 
 	print "</table>";
+
+	print '<br>';
 	print '<br>';
 
 
@@ -254,6 +217,8 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 
 	// ----- Backup instance -----
 	print '<strong>INSTANCE SERVEUR '.$conf->global->SELLYOURSAAS_NAME.'</strong><br>';
+
+	print '<div class="underbanner clearboth"></div>';
 	print '<table class="border" width="100%">';
 
 	// Nb of users
@@ -263,44 +228,17 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<td>'.$langs->trans("Status").'</td>';
 	print '</tr>';
 
-	if (is_object($newdb))
-	{
-		// Get user/pass of last admin user
-		$sql="SELECT xxx FROM llx_user ORDER BY statut DESC";
-		$resql=$newdb->query($sql);
-		if ($resql)
-		{
-			$var=false;
-			$num=$newdb->num_rows($resql);
-			while ($i < $num)
-			{
-				$var=!$var;
-				$obj = $newdb->fetch_object($resql);
-				print '<tr '.$bc[$var].'>';
-				print '<td>'.dol_print_date($newdb->jdate($obj->date),'dayhour').'</td>';
-				print '<td>'.$obj->amount.'</td>';
-				print '<td>'.$obj->status.'</td>';
-				print '</tr>';
-				$i++;
-			}
-		}
-		else
-		{
-			dol_print_error($newdb);
-		}
-	}
+	print '<tr><td class="opacitymedium">'.$langs->trans("SeeOldBackoffice").'</td></tr>';
 
 	print "</table><br>";
 
-
-	print "</div>";
 
 	// Barre d'actions
 /*	if (! $user->societe_id)
 	{
 		print '<div class="tabsAction">';
 
-		if ($user->rights->sellyoursaas->dolicloud->write)
+		if ($user->rights->sellyoursaas->sellyoursaas->write)
 		{
 			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=upgrade">'.$langs->trans('Upgrade').'</a>';
 		}
