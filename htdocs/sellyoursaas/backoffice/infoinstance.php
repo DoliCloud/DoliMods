@@ -16,7 +16,7 @@
 */
 
 /**
- *       \file       htdocs/sellyoursaas/backoffice/dolicloud_card_new.php
+ *       \file       htdocs/sellyoursaas/backoffice/infoinstance.php
  *       \ingroup    societe
  *       \brief      Card of a contact
  */
@@ -913,15 +913,6 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print nl2br($object->note);
 	print '</td></tr>';
 
-	print "</table>";
-
-
-	print '<br>';
-
-
-	print '<div class="underbanner clearboth"></div>';
-	print '<table class="border" width="100%">';
-
 	// SFTP
 	print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td>'.$object->hostname_web.'</td>';
 	print '<td>'.$langs->trans("FsPath").'</td><td>'.$object->fs_path.'</td>';
@@ -1030,26 +1021,8 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print "</div>";
 
 
-	// Barre d'actions
-	if (! $user->societe_id)
-	{
-		print '<div class="tabsAction">';
 
-		if ($user->rights->sellyoursaas->sellyoursaas->write)
-		{
-			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=edit">'.$langs->trans('Modify').'</a>';
-		}
-
-		if ($user->rights->sellyoursaas->sellyoursaas->write)
-		{
-			print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=delete">'.$langs->trans('Delete').'</a>';
-		}
-
-		print "</div><br>";
-	}
-
-
-    print '<table width="100%"><tr><td width="50%" valign="top">';
+	print '<table width="100%"><tr><td width="50%" valign="top">';
 
 
     print '</td><td valign="top" width="50%">';

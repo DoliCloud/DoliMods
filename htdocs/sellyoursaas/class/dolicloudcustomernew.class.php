@@ -915,7 +915,7 @@ class Dolicloudcustomernew extends CommonObject
 
 	    $result='';
 
-	    $lien = '<a href="'.dol_buildpath('/sellyoursaas/backoffice/dolicloud_card'.$prefixurl.'.php',1).'?id='.$this->id.'">';
+	    $lien = '<a href="'.dol_buildpath('/sellyoursaas/backoffice/infoinstance.php',1).'?id='.$this->id.'">';
 	    $lienfin='</a>';
 
 	    if ($withpicto) $result.=($lien.img_object($langs->trans("ShowCustomer").': '.$this->ref,'generic').$lienfin.' ');

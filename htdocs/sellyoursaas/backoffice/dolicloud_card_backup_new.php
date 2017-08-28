@@ -183,7 +183,7 @@ if (($id > 0 || $instance) && $action != 'edit' && $action != 'create')
 	print '<tr>';
 	print '<td width="20%">'.$langs->trans("DateLastBackup").'</td>';
 	print '<td width="30%">'.($object->date_lastrsync?dol_print_date($object->date_lastrsync,'dayhour','tzuser'):'').'</td>';
-	print '<td>'.$langs->trans("BackupDir").'</td>';
+	print '<td width="20%">'.$langs->trans("BackupDir").'</td>';
 	print '<td>'.$backupdir.'/'.$login.'/'.$dirdb.'</td>';
 	print '</tr>';
 
