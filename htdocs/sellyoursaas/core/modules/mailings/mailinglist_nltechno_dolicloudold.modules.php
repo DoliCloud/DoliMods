@@ -78,6 +78,14 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
         $formother=new FormAdmin($db);
         $s.=$formother->select_language('', 'lang_idv1', 0, 'null', 1);
 
+        $s.=$langs->trans("NotLanguage").': ';
+        $formother=new FormAdmin($db);
+        $s.=$formother->select_language('', 'not_lang_idv1', 0, 'null', 1);
+
+        $s.=$langs->trans("Country").': ';
+        $formother=new FormAdmin($db);
+        $s.=$form->select_country('', 'country_codev1','',0,'minwidth300',1,'code3');
+
         return $s;
     }
 
@@ -119,6 +127,7 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 
 		$sql = "SELECT i.id, i.name as instance, i.status as instance_status,";
 		$sql.= " c.status as status,";
+		$sql.= " cou.code as country_code,";
 		$sql.= " s.payment_status,";
 		$sql.= " s.status as subscription_status,";
 		$sql.= " per.username as email,";
@@ -126,6 +135,8 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 		$sql.= " per.last_name as lastname,";
 		$sql.= " per.locale";
 		$sql.= " FROM app_instance as i, subscription as s, customer as c";
+		$sql.= " LEFT JOIN address as addr ON c.address_id = addr.id";
+		$sql.= " LEFT JOIN country_region as cou ON addr.country_id = cou.id";
 		$sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id";
 		$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id";
 		$sql.= " AND per.username IS NOT NULL AND per.username != ''";
@@ -141,9 +152,18 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 				$sql.=" AND c.status LIKE '%".$db2->escape($_POST['filter'])."%'";
 			}
 		}
-		$shortlocale = preg_replace('/_.*/','',$_POST['lang_idv1']);
+		$tmp=preg_split('/_/',$_POST['lang_idv1']);
+		$nottmp=preg_split('/_/',$_POST['not_lang_idv1']);
+		$shortlocale = $_POST['lang_idv1'];
+		$notshortlocale = $_POST['not_lang_idv1'];
+		if ($tmp[0] == $tmp[1]) $shortlocale = $tmp[0];
+		if ($nottmp[0] == $nottmp[1]) $notshortlocale = $nottmp[0];
 		if (! empty($_POST['lang_idv1']) && $_POST['lang_idv1'] != 'none') $sql.= " AND (locale = '".$this->db->escape($_POST['lang_idv1'])."' OR locale = '".$this->db->escape($shortlocale)."')";
+		if (! empty($_POST['not_lang_idv1']) && $_POST['not_lang_idv1'] != 'none') $sql.= " AND (locale <> '".$this->db->escape($_POST['not_lang_idv1'])."' AND locale <> '".$this->db->escape($notshortlocale)."')";
+		if (! empty($_POST['country_codev1']) && $_POST['country_codev1'] != 'none') $sql.= " AND cou.code = '".$this->db->escape($_POST['country_codev1'])."'";
+
 		$sql.= " ORDER BY per.username";
+		//print $sql;exit;
 
 		// Stocke destinataires dans cibles
 		//$result=$this->db->query($sql);
@@ -166,7 +186,7 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 						'lastname' => $obj->lastname,
 						'id' => $obj->id,
 						'firstname' => $obj->firstname,
-						'other' => $obj->instance.';'.$obj->locale,
+						'other' => 'instance='.$obj->instance.';lang='.$obj->locale.';country_code='.$obj->country_code,
 						'source_url' => $this->url($obj->id),
 						'source_id' => $obj->id,
 						'source_type' => 'dolicloud'

@@ -90,6 +90,14 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
         $formother=new FormAdmin($db);
         $s.=$formother->select_language('', 'lang_id', 0, 'null', 1);
 
+        $s.=$langs->trans("NotLanguage").': ';
+        $formother=new FormAdmin($db);
+        $s.=$formother->select_language('', 'not_lang_id', 0, 'null', 1);
+
+        $s.=$langs->trans("Country").': ';
+        $formother=new FormAdmin($db);
+        $s.=$form->select_country('', 'country_id');
+
         return $s;
     }
 
@@ -122,11 +130,15 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 		$j = 0;
 
 
-		$sql = " select s.rowid as id, email, nom as lastname, '' as firstname";
-		$sql.= " from ".MAIN_DB_PREFIX."societe as s LEFT JOIN ".MAIN_DB_PREFIX."societe_extrafields as se on se.fk_object = s.rowid";
+		$sql = " select s.rowid as id, email, nom as lastname, '' as firstname, s.default_lang, c.code as country_code, c.label as country_label";
+		$sql.= " from ".MAIN_DB_PREFIX."societe as s";
+		$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."societe_extrafields as se on se.fk_object = s.rowid";
+		$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c on s.fk_pays = c.rowid";
 		$sql.= " where email IS NOT NULL AND email != ''";
 		if (! empty($_POST['filter']) && $_POST['filter'] != 'none') $sql.= " AND status = '".$this->db->escape($_POST['filter'])."'";
 		if (! empty($_POST['lang_id']) && $_POST['lang_id'] != 'none') $sql.= " AND default_lang = '".$this->db->escape($_POST['lang_id'])."'";
+		if (! empty($_POST['not_lang_id']) && $_POST['not_lang_id'] != 'none') $sql.= " AND default_lang <> '".$this->db->escape($_POST['lang_id'])."'";
+		if (! empty($_POST['country_id']) && $_POST['country_id'] != 'none') $sql.= " AND fk_pays = '".$this->db->escape($_POST['country_id'])."'";
 		$sql.= " ORDER BY email";
 
 		// Stocke destinataires dans cibles
@@ -149,7 +161,7 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 						'lastname' => $obj->lastname,
 						'id' => $obj->id,
 						'firstname' => $obj->firstname,
-						'other' => '',
+						'other' => 'lang='.$obj->default_lang.';country_code='.$obj->country_code,
 						'source_url' => $this->url($obj->id),
 						'source_id' => $obj->id,
 						'source_type' => 'thirdparty'
@@ -211,7 +223,7 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 	 */
 	function getNbOfRecipients($filter=1,$option='')
 	{
-		$a=parent::getNbOfRecipients("select count(distinct(email)) as nb from ".MAIN_DB_PREFIX."societe as s LEFT JOIN ".MAIN_DB_PREFIX."societe_extrafields as se on se.fk_object = s.rowid where email IS NOT NULL AND email != ''");
+		$a=parent::getNbOfRecipients("select count(distinct(email)) as nb from ".MAIN_DB_PREFIX."societe as s where email IS NOT NULL AND email != ''");
 		if ($a < 0) return -1;
 		return $a;
 	}
