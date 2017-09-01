@@ -4,6 +4,7 @@
 
 Add view of cloud servers with ability to make snapshots.
 Add cron jobs to make snapshots frequently.
+Support option NOSTOP on SMS.
 
 ## 3.8.2
 
