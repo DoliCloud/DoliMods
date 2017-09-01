@@ -113,15 +113,18 @@ if ($action == 'send' && ! $_POST['cancel'])
         require_once(DOL_DOCUMENT_ROOT."/core/class/CSMSFile.class.php");
 
         $smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
+
+        $smsfile->nostop=GETPOST('disablestop');
+
         $result=$smsfile->sendfile(); // This send SMS
 
         if ($result > 0)
         {
-            $mesg='<div class="ok">'.$langs->trans("SmsSuccessfulySent",$smsfrom,$sendto).'</div>';
+            setEventMessages($langs->trans("SmsSuccessfulySent",$smsfrom,$sendto), null);
         }
         else
         {
-            $mesg='<div class="error">'.$langs->trans("ResultKo").' (sms from'.$smsfrom.' to '.$sendto.')<br>'.$smsfile->error.'</div>';
+            setEventMessages($langs->trans("ResultKo").' (sms from'.$smsfrom.' to '.$sendto.')<br>'.$smsfile->error, null, 'errors');
         }
 
         $action='';

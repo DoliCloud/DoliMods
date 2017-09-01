@@ -207,8 +207,8 @@ class OvhSms  extends CommonObject
 		            "charset"=> "UTF-8",
 		            "class"=> $smsclass,           // "phoneDisplay",
 		            "coding"=> "7bit",
-		            "message"=> $this->message,
-		            "noStopClause"=> false,
+		            "message"=> $this->message.($this->nostop?'':"\n"),
+		            "noStopClause"=> $this->nostop?true:false,
 		            "priority"=> $priority,
 		            "receivers"=> [ $this->dest ],   // [ "+3360000000" ]
 		            "sender"=> $this->expe,
