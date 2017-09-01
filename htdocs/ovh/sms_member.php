@@ -144,11 +144,24 @@ $form=new Form($db);
 
 if ($id)
 {
-    if (empty($conf->global->OVHSMS_SOAPURL))
-    {
-        $langs->load("errors");
-        $mesg='<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
-    }
+	if (! empty($conf->global->OVH_OLDAPI))
+	{
+		if (empty($conf->global->OVHSMS_SOAPURL))
+		{
+			$error++;
+			$langs->load("errors");
+			$mesg='<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
+		}
+	}
+	else
+	{
+		if (empty($conf->global->OVHSMS_ACCOUNT))
+		{
+			$error++;
+			$langs->load("errors");
+			$mesg='<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
+		}
+	}
 
 	$sms = new OvhSms($db);
 
