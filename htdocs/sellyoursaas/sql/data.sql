@@ -1,11 +1,11 @@
 
 -- Insert package/products
 --DELETE FROM llx_product where rowid >= 100;
-INSERT INTO llx_product (rowid,fk_product_type,ref,label,price,tosell,tobuy, duration) VALUES (100, 0, 'DOLICLOUD-PACK-DOL',     'Instance Dolibarr ERP & CRM',   0, 1, 1, '1m');
-INSERT INTO llx_product (rowid,fk_product_type,ref,label,price,tosell,tobuy, duration) VALUES (101, 0, 'DOLICLOUD-PACK-MED',     'Instance DoliMed',              0, 1, 1, '1m');
-INSERT INTO llx_product (rowid,fk_product_type,ref,label,price,tosell,tobuy, duration) VALUES (130, 0, 'DOLICLOUD-OPT-Go',       'Option Gb over 5Gb',            1, 1, 1, '1m');
-INSERT INTO llx_product (rowid,fk_product_type,ref,label,price,tosell,tobuy, duration) VALUES (151, 0, 'DOLICLOUD-MOD-DoliMed',  'Module DoliMed',                0, 1, 1, '1m');
-INSERT INTO llx_product (rowid,fk_product_type,ref,label,price,tosell,tobuy, duration) VALUES (152, 0, 'DOLICLOUD-MOD-Google',   'Module Google',                 8, 1, 1, '1m');
+INSERT INTO llx_product (rowid,fk_product_type,ref,label,price,tosell,tobuy, duration) VALUES (100, 1, 'DOLICLOUD-PACK-DOL',     'Instance Dolibarr ERP & CRM',   0, 1, 1, '1m');
+INSERT INTO llx_product (rowid,fk_product_type,ref,label,price,tosell,tobuy, duration) VALUES (101, 1, 'DOLICLOUD-PACK-MED',     'Instance DoliMed',              0, 1, 1, '1m');
+INSERT INTO llx_product (rowid,fk_product_type,ref,label,price,tosell,tobuy, duration) VALUES (130, 1, 'DOLICLOUD-OPT-Go',       'Option Gb over 5Gb',            1, 1, 1, '1m');
+INSERT INTO llx_product (rowid,fk_product_type,ref,label,price,tosell,tobuy, duration) VALUES (151, 1, 'DOLICLOUD-MOD-DoliMed',  'Module DoliMed',                0, 1, 1, '1m');
+INSERT INTO llx_product (rowid,fk_product_type,ref,label,price,tosell,tobuy, duration) VALUES (152, 1, 'DOLICLOUD-MOD-Google',   'Module Google',                 8, 1, 1, '1m');
 -- ...
 
 
