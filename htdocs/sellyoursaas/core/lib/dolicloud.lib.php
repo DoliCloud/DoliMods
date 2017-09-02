@@ -88,12 +88,11 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 
 	$upgradestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/rsync_instance.php '.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.' '.$object->instance;
 
-	// Upgrade link
-	$upgradestringtoshow=$upgradestring.' test';
-	$links.='Upgrade version line string (remplacer "test" par "confirmunlock" pour exécuter réellement)<br>';
-	$links.='<input type="text" id="upgradestring" name="upgradestring" value="'.$upgradestringtoshow.'" class="quatrevingtpercent"><br>';
-	$links.=ajax_autoselect("upgradestring", 0);
-	$links.='<br>';
+	// Mysql Restore
+	$mysqlresotrecommand='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db.' < filetorestore';
+	$links.='Mysql overwrite database:<br>';
+	$links.='<input type="text" id="mysqlrestorecommand" name="mysqlrestorecommand" value="'.$mysqlresotrecommand.'" class="quatrevingtpercent"><br>';
+	$links.=ajax_autoselect("mysqlrestorecommand", 0);
 
 	// Document restore
 	$sftprestorestring='rsync -n -v -a dolibarr_documents/* '.$object->username_web.'@'.$object->hostname_web.':'.$object->fs_path.'/documents';
@@ -109,11 +108,12 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	$links.=ajax_autoselect("sftpdeploystring", 0);
 	$links.='<br>';
 
-	// Mysql Restore
-	$mysqlresotrecommand='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db.' < filetorestore';
-	$links.='Mysql overwrite database:<br>';
-	$links.='<input type="text" id="mysqlrestorecommand" name="mysqlrestorecommand" value="'.$mysqlresotrecommand.'" class="quatrevingtpercent"><br>';
-	$links.=ajax_autoselect("mysqlrestorecommand", 0);
+	// Upgrade link
+	$upgradestringtoshow=$upgradestring.' test';
+	$links.='Upgrade version line string (remplacer "test" par "confirmunlock" pour exécuter réellement)<br>';
+	$links.='<input type="text" id="upgradestring" name="upgradestring" value="'.$upgradestringtoshow.'" class="quatrevingtpercent"><br>';
+	$links.=ajax_autoselect("upgradestring", 0);
+	$links.='<br>';
 
 	return $links;
 }

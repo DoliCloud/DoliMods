@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2004-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2004-2017 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
 dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
-dol_include_once("/sellyoursaas/core/backoffice/lib/refresh.lib.php");
+dol_include_once("/sellyoursaas/backoffice/lib/refresh.lib.php");
 dol_include_once('/sellyoursaas/class/dolicloudcustomernew.class.php');
 dol_include_once('/sellyoursaas/class/cdolicloudplans.class.php');
 
@@ -59,8 +59,9 @@ $action		= (GETPOST('action','alpha') ? GETPOST('action','alpha') : 'view');
 $confirm	= GETPOST('confirm','alpha');
 $backtopage = GETPOST('backtopage','alpha');
 $id			= GETPOST('id','int');
-$instanceold  = GETPOST('instanceold','alpha');
 $instanceoldid= GETPOST('instanceoldid','alpha');
+$ref        = GETPOST('ref','alpha');
+$refold     = GETPOST('refold','alpha');
 $date_registration  = dol_mktime(0, 0, 0, GETPOST("date_registrationmonth",'int'), GETPOST("date_registrationday",'int'), GETPOST("date_registrationyear",'int'), 1);
 $date_endfreeperiod = dol_mktime(0, 0, 0, GETPOST("endfreeperiodmonth",'int'), GETPOST("endfreeperiodday",'int'), GETPOST("endfreeperiodyear",'int'), 1);
 if (empty($date_endfreeperiod) && ! empty($date_registration)) $date_endfreeperiod=$date_registration+15*24*3600;
@@ -69,7 +70,7 @@ $error = 0; $errors = array();
 
 
 
-if (empty($instanceoldid) && $action != 'create')
+if (empty($instanceoldid) && empty($refold) && $action != 'create')
 {
 	$object = new Contract($db);
 }
@@ -93,10 +94,11 @@ $result = restrictedArea($user, 'sellyoursaas', 0, '','sellyoursaas');
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
 $hookmanager=new HookManager($db);
 
-if ($id > 0 || $instanceoldid > 0)
+if ($id > 0 || $instanceoldid > 0 || $ref || $refold)
 {
-	$result=$object->fetch($id?$id:$instanceoldid);
+	$result=$object->fetch($id?$id:$instanceoldid, $ref?$ref:$refold);
 	if ($result < 0) dol_print_error($db,$object->error);
+	$instanceoldid=$object->id;
 }
 
 
@@ -738,7 +740,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		}
 		else
 		{
-			print 'Failed to read customer instance content.';
+			setEventMessages('Failed to read remote customer instance.','','warnings');
 		}
 	}
 
@@ -863,7 +865,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 		$savdb=$object->db;
 		$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
-		dol_banner_tab($object,'instance','',1,'name','instance','','',1);
+		dol_banner_tab($object,($instanceoldid?'refold':'ref'),'',1,($instanceoldid?'name':'ref'),'ref','','',1);
 		$object->db=$savdb;
 
 		// ----- DoliCloud instance -----

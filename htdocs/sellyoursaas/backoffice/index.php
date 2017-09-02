@@ -38,7 +38,7 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
 dol_include_once('/sellyoursaas/class/dolicloudcustomernew.class.php');
-include_once dol_buildpath("/sellyoursaas/backoffice/lib/refresh.lib.php");		// do not use dol_buildpath to keep global declaration working
+dol_include_once("/sellyoursaas/backoffice/lib/refresh.lib.php");
 
 
 

@@ -55,13 +55,14 @@ $action		= (GETPOST('action','alpha') ? GETPOST('action','alpha') : 'view');
 $confirm	= GETPOST('confirm','alpha');
 $backtopage = GETPOST('backtopage','alpha');
 $id			= GETPOST('id','int');
-$instanceold   = GETPOST('instanceold','alpha');
 $instanceoldid = GETPOST('instanceoldid','int');
+$ref        = GETPOST('ref','alpha');
+$refold     = GETPOST('refold','alpha');
 
 $error=0; $errors=array();
 
 
-if (empty($instanceoldid) && $action != 'create')
+if (empty($instanceoldid) && empty($refold) && $action != 'create')
 {
 	$object = new Contract($db);
 }
@@ -86,10 +87,11 @@ include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
 $hookmanager=new HookManager($db);
 
 
-if ($id > 0 || $instanceoldid > 0)
+if ($id > 0 || $instanceoldid > 0 || $ref || $refold)
 {
-	$result=$object->fetch($id?$id:$instanceoldid);
+	$result=$object->fetch($id?$id:$instanceoldid, $ref?$ref:$refold);
 	if ($result < 0) dol_print_error($db,$object->error);
+	$instanceoldid=$object->id;
 }
 
 $backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/backup_instance.php '.$object->instance.' '.$conf->global->DOLICLOUD_INSTANCES_PATH;
@@ -137,7 +139,7 @@ if ($id > 0 || $instanceoldid > 0)
 	// Show tabs
 	$head = dolicloud_prepare_head($object);
 
-	$title = $langs->trans("DoliCloudInstances");
+	$title = $langs->trans("SellYourSaasInstance");
 	dol_fiche_head($head, 'payments', $title, 0, 'contract');
 }
 
@@ -164,7 +166,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 	$savdb=$object->db;
 	$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
-	dol_banner_tab($object,'instance','',1,'name','instance','','',1);
+	dol_banner_tab($object,($instanceoldid?'refold':'ref'),'',1,($instanceoldid?'name':'ref'),'ref','','',1);
 	$object->db=$savdb;
 
 
