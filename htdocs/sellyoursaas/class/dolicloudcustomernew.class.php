@@ -45,6 +45,7 @@ class Dolicloudcustomernew extends CommonObject
 	var $instance;
 	var $organization;
 	var $email;
+	var $locale;
 	var $plan;
 	var $date_registration='';
 	var $date_endfreeperiod='';
@@ -451,6 +452,7 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " per.username as email,";
 		$sql.= " per.first_name as firstname,";
 		$sql.= " per.last_name as lastname,";
+		$sql.= " per.locale as locale,";
 
 		$sql.= " cp.org_name as partner";
 
@@ -487,6 +489,7 @@ class Dolicloudcustomernew extends CommonObject
 				$this->ref = $obj->instance;
 				$this->organization = $obj->organization;
 				$this->email = $obj->email;
+				$this->locale = $obj->locale;
 				$this->plan = $obj->plan;
 				$this->date_registration = $this->db2->jdate($obj->deployed_date);
 				$this->date_endfreeperiod = $this->db2->jdate($obj->date_endfreeperiod);

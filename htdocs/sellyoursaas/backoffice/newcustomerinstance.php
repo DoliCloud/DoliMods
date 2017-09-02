@@ -67,7 +67,7 @@ $date_endfreeperiod = dol_mktime(0, 0, 0, GETPOST("endfreeperiodmonth",'int'), G
 if (empty($date_endfreeperiod) && ! empty($date_registration)) $date_endfreeperiod=$date_registration+15*24*3600;
 
 $emailtocreate=GETPOST('emailtocreate')?GETPOST('emailtocreate'):GETPOST('email');
-$instancetocreate=GETPOST('instancetocreate')?GETPOST('instancetocreate'):'xxx.yyy.'.$conf->global->SELLYOURSAAS->MAIN_DOMAIN_NAME;
+$instancetocreate=GETPOST('instancetocreate')?GETPOST('instancetocreate'):'xxx.yyy.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME;
 
 $error = 0; $errors = array();
 
@@ -216,6 +216,12 @@ if (empty($reshook))
 				//$object->country_id = $dolicloudcustomer->address;
 				$object->phone = $dolicloudcustomer->phone;
 				$object->tva_intra=$dolicloudcustomer->vat_number;
+				$locale=$dolicloudcustomer->locale;
+				if ($locale)
+				{
+					$localearray=explode('_',$locale);
+					$object->default_lang=$localearray[0].'_'.strtoupper($localearray[1]?$localearray[1]:$localearray[0]);
+				}
 				$object->array_options['options_date_registration']=$dolicloudcustomer->date_registration;
 				$object->array_options['options_partner']=$dolicloudcustomer->partner;
 				if ($dolicloudcustomer->status == 'ACTIVE') $object->status = 1;
