@@ -327,7 +327,7 @@ class modSellYourSaas extends DolibarrModules
 			'titre'=>'NewCustomer',
 			'mainmenu'=>'sellyoursaas',
 			'leftmenu'=>'mysaas_createcustomer',
-			'url'=>'/societe/card.php?action=create',
+			'url'=>'/societe/card.php?action=create&type=c',
 			'langs'=>'sellyoursaas@sellyoursaas',
 			'position'=>221,
 			'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -357,7 +357,7 @@ class modSellYourSaas extends DolibarrModules
 			'titre'=>'NewInstance',
 			'mainmenu'=>'sellyoursaas',
 			'leftmenu'=>'mysaas_createinstance',
-			'url'=>'/contrat/card.php?action=create',
+			'url'=>'/sellyoursaas/backoffice/newcustomerinstance.php?action=create',
 			'langs'=>'sellyoursaas@sellyoursaas',
 			'position'=>241,
 			'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -568,7 +568,11 @@ class modSellYourSaas extends DolibarrModules
 		$extrafields = new ExtraFields($this->db);
 
 		$param=array('options'=>array('no'=>'No','yesv1'=>'V1','yesv2'=>'V2'));
-		$result1=$extrafields->addExtraField('dolicloud', "DoliCloudCustomer", 'select', 1, 3, 'thirdparty', 0, 1, '', $param, 1);
+		$result1=$extrafields->addExtraField('dolicloud',         "DoliCloudCustomer", 'select',   1,  '3', 'thirdparty', 0, 1, '', $param, 1);
+
+		$result2=$extrafields->addExtraField('partner',           "Reseller",          'varchar',  2, '32', 'thirdparty', 0, 0, '', '', 1);
+
+		$result3=$extrafields->addExtraField('date_registration', "RegistrationDate",  'datetime', 3,   '', 'thirdparty', 0, 0, '', $param, 1);
 
 		$sql = array();
 

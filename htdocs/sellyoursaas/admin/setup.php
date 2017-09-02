@@ -37,6 +37,8 @@ if (! $res) die("Include of main fails");
 
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
+require_once(DOL_DOCUMENT_ROOT."/categories/class/categorie.class.php");
 
 // Security check
 if (!$user->admin)
@@ -64,6 +66,8 @@ if ($action == 'set')
 	{
 		dolibarr_set_const($db,"SELLYOURSAAS_NAME",GETPOST("SELLYOURSAAS_NAME"),'chaine',0,'',$conf->entity);
 
+		dolibarr_set_const($db,"SELLYOURSAAS_MAIN_DOMAIN_NAME",GETPOST("SELLYOURSAAS_MAIN_DOMAIN_NAME"),'chaine',0,'',$conf->entity);
+
 		$dir=GETPOST("DOLICLOUD_SCRIPTS_PATH");
 		if (! dol_is_dir($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
 		dolibarr_set_const($db,"DOLICLOUD_SCRIPTS_PATH",GETPOST("DOLICLOUD_SCRIPTS_PATH"),'chaine',0,'',$conf->entity);
@@ -79,6 +83,11 @@ if ($action == 'set')
 		$dir=GETPOST("DOLICLOUD_BACKUP_PATH");
 		if (! dol_is_dir($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
 		dolibarr_set_const($db,"DOLICLOUD_BACKUP_PATH",GETPOST("DOLICLOUD_BACKUP_PATH"),'chaine',0,'',$conf->entity);
+
+		$dir=GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT");
+		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_PRODUCT",GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT"),'chaine',0,'',$conf->entity);
+
+		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG",GETPOST("SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG"),'chaine',0,'',$conf->entity);
 	}
 }
 
@@ -107,7 +116,8 @@ if ($action == 'setstratus5')
  * View
  */
 
-$html=new Form($db);
+$formother=new FormOther($db);
+$form=new Form($db);
 
 $help_url="";
 llxHeader("",$langs->trans("SellYouSaasSetup"),$help_url);
@@ -115,8 +125,8 @@ llxHeader("",$langs->trans("SellYouSaasSetup"),$help_url);
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans('SellYouSaasSetup'),$linkback,'setup');
 
-$head=array();
-dol_fiche_head($head, 'serversetup', $langs->trans("SellYourSaas"), -1);
+//$head=array();
+//dol_fiche_head($head, 'serversetup', $langs->trans("SellYourSaas"), -1);
 
 print $langs->trans("SellYouSaasDesc")."<br>\n";
 print "<br>\n";
@@ -135,8 +145,7 @@ print '<td>'.$langs->trans("Examples").'</td>';
 print '<td align="right"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td>';
 print "</tr>\n";
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("SellYourSaasName").'</td>';
+print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasName").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="SELLYOURSAAS_NAME" value="'.$conf->global->SELLYOURSAAS_NAME.'">';
 print '</td>';
@@ -144,8 +153,15 @@ print '<td>My SaaS service</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForScriptPath").'</td>';
+print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasMainDomain").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="SELLYOURSAAS_MAIN_DOMAIN_NAME" value="'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'">';
+print '</td>';
+print '<td>mysaas.com</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("DirForScriptPath").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_SCRIPTS_PATH" value="'.$conf->global->DOLICLOUD_SCRIPTS_PATH.'">';
 print '</td>';
@@ -153,8 +169,7 @@ print '<td>/home/admin/wwwroot/dolibarr_nltechno/scripts</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForLastStableVersionOfDolibarr").'</td>';
+print '<tr class="oddeven"><td>'.$langs->trans("DirForLastStableVersionOfDolibarr").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_LASTSTABLEVERSION_DIR" value="'.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.'">';
 print '</td>';
@@ -162,8 +177,7 @@ print '<td>/home/admin/wwwroot/dolibarr_documents/sellyoursaas/git/dolibarr_x.y<
 print '<td>&nbsp;</td>';
 print '</tr>';
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForDoliCloudInstances").'</td>';
+print '<tr class="oddeven"><td>'.$langs->trans("DirForDoliCloudInstances").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_INSTANCES_PATH" value="'.$conf->global->DOLICLOUD_INSTANCES_PATH.'">';
 print '</td>';
@@ -171,12 +185,29 @@ print '<td>/home/dolicloud/home</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForDoliCloudBackupInstances").'</td>';
+print '<tr class="oddeven"><td>'.$langs->trans("DirForDoliCloudBackupInstances").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_BACKUP_PATH" value="'.$conf->global->DOLICLOUD_BACKUP_PATH.'">';
 print '</td>';
 print '<td>/home/dolicloud/backup</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("DefaultProductForInstances").'</td>';
+print '<td>';
+$defaultproductid=$conf->global->SELLYOURSAAS_DEFAULT_PRODUCT;
+print $form->select_produits($defaultproductid, 'SELLYOURSAAS_DEFAULT_PRODUCT');
+print '</td>';
+print '<td>My Software Package</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("DefaultCategoryForSaaSCustomers").'</td>';
+print '<td>';
+$defaultcustomercategid=$conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG;
+print $formother->select_categories(Categorie::TYPE_CUSTOMER, $defaultcustomercategid, 'SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG', 0, 1, 'miwidth300');
+print '</td>';
+print '<td>SaaS Customers</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 
@@ -202,8 +233,7 @@ print '<td>'.$langs->trans("Examples").'</td>';
 print '<td align="right"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td>';
 print "</tr>\n";
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("DirForDoliCloudInstances").'</td>';
+print '<tr class="oddeven"><td>'.$langs->trans("DirForDoliCloudInstances").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_EXT_HOME" value="'.$conf->global->DOLICLOUD_EXT_HOME.'">';
 print '</td>';
@@ -211,40 +241,39 @@ print '<td>/home/jail/home</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("DatabaseServer").'</td>';
+print '<tr class="oddeven"><td>'.$langs->trans("DatabaseServer").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_DATABASE_HOST" value="'.$conf->global->DOLICLOUD_DATABASE_HOST.'">';
 print '</td>';
 print '<td>localhost</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("DatabasePort").'</td>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("DatabasePort").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_DATABASE_PORT" value="'.$conf->global->DOLICLOUD_DATABASE_PORT.'">';
 print '</td>';
 print '<td>3306</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("DatabaseName").'</td>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("DatabaseName").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_DATABASE_NAME" value="'.$conf->global->DOLICLOUD_DATABASE_NAME.'">';
 print '</td>';
 print '<td>dolicloud_saasplex</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("DatabaseUser").'</td>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("DatabaseUser").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_DATABASE_USER" value="'.$conf->global->DOLICLOUD_DATABASE_USER.'">';
 print '</td>';
 print '<td>dolicloud</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("DatabasePassword").'</td>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("DatabasePassword").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_DATABASE_PASS" value="'.$conf->global->DOLICLOUD_DATABASE_PASS.'">';
 print '</td>';
@@ -259,7 +288,7 @@ print '</form>';
 print '<br>';
 
 
-dol_fiche_end();
+//dol_fiche_end();
 
 
 llxfooter();
