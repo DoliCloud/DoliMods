@@ -171,7 +171,26 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	/*
 	 * Fiche en mode visualisation
 	 */
-	$newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
+
+	$prefix = 'with';
+	$instance = 'xxxx';
+
+	if ($instanceoldid)
+	{
+		$prefix='on';
+		$instance = $object->instance;
+		$hostname_db = $object->hostname_db;
+		$username_db = $object->username_db;
+		$password_db = $object->password_db;
+		$database_db = $object->database_db;
+		$type_db = $conf->db->type;
+
+		$username_web = $object->username_web;
+		$password_web = $object->password_web;
+	}
+
+	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);
+
 	if (is_object($newdb) && $newdb->connected)
 	{
 		// Get user/pass of last admin user

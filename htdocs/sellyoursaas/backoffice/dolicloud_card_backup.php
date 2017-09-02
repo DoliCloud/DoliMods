@@ -150,21 +150,25 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	/*
 	 * Fiche en mode visualisation
 	*/
-	$newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
-	if (is_object($newdb))
+
+	$prefix = 'with';
+	$instance = 'xxxx';
+
+	if ($instanceoldid)
 	{
-		// Get user/pass of last admin user
-		$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
-		$resql=$newdb->query($sql);
-		$obj = $newdb->fetch_object($resql);
-		$object->lastlogin_admin=$obj->login;
-		$object->lastpass_admin=$obj->pass;
-		$lastloginadmin=$object->lastlogin_admin;
-		$lastpassadmin=$object->lastpass_admin;
+		$prefix='on';
+		$instance = $object->instance;
+		$hostname_db = $object->hostname_db;
+		$username_db = $object->username_db;
+		$password_db = $object->password_db;
+		$database_db = $object->database_db;
+		$type_db = $conf->db->type;
+
+		$username_web = $object->username_web;
+		$password_web = $object->password_web;
 	}
 
-	dol_htmloutput_errors($error,$errors);
-
+	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);
 
 	$savdb=$object->db;
 	$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
