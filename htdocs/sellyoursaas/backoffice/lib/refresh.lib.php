@@ -367,7 +367,7 @@ function dolicloud_calculate_stats($db, $datelim)
 	            if ($obj)
 	            {
     				//print "($obj->price_instance * ($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)) + (max(0,($obj->nbofusers - ($obj->min_threshold ? $obj->min_threshold : 0))) * $obj->price_user)";
-                    // Voir aussi dolicloud_list_new.php
+                    // Voir aussi dolicloud_list.php
                     $price=($obj->price_instance * ($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)) + (max(0,($obj->nbofusers - ($obj->min_threshold ? $obj->min_threshold : 0))) * $obj->price_user);
                     if ($obj->interval_unit == 'Year') $price = $price / 12;
 

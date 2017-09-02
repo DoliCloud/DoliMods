@@ -316,7 +316,7 @@ if ($resql)
     print '<tr class="liste_titre">';
     print_liste_field_titre($langs->trans('Instance'),$_SERVER['PHP_SELF'],'i.name','',$param,'align="left"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Organization'),$_SERVER['PHP_SELF'],'c.organization','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('EMail'),$_SERVER['PHP_SELF'],'per.email','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('EMail'),$_SERVER['PHP_SELF'],'per.username','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Plan'),$_SERVER['PHP_SELF'],'pl.plan','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Partner'),$_SERVER['PHP_SELF'],'cc.partner','',$param,'',$sortfield,$sortorder);
     //print_liste_field_titre($langs->trans('Source'),$_SERVER['PHP_SELF'],'t.source','',$param,'',$sortfield,$sortorder);
@@ -379,9 +379,8 @@ if ($resql)
                 $dolicloudcustomerstaticnew->subscription_status = $obj->subscription_status;	// This is not used (info only)
                 $status=$dolicloudcustomerstaticnew->getLibStatut(1,$form);
 
-                $var=!$var;
                 // You can use here results
-                print '<tr '.$bc[$var].'><td align="left" nowrap="nowrap">';
+                print '<tr class="oddeven"><td align="left" nowrap="nowrap">';
                 //print $dolicloudcustomerstaticnew->status.'/'.$dolicloudcustomerstaticnew->instance_status.'/'.$dolicloudcustomerstaticnew->payment_status.'=>'.$status.'<br>';
                 $dolicloudcustomerstaticnew->id=$obj->id;
                 $dolicloudcustomerstaticnew->ref=$instance;

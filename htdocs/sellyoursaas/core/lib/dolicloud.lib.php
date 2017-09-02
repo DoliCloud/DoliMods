@@ -83,6 +83,38 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	$links.='<input type="text" name="jdbcconnectstring" id="jdbcconnectstring" value="'.$jdbcconnectstring.'" size="110"><br>';
 	$links.=ajax_autoselect('jdbcconnectstring');
 
+	$links.='<br>';
+	$links.='<br>';
+
+	$upgradestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/rsync_instance.php '.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.' '.$object->instance;
+
+	// Upgrade link
+	$upgradestringtoshow=$upgradestring.' test';
+	$links.='Upgrade version line string (remplacer "test" par "confirmunlock" pour exécuter réellement)<br>';
+	$links.='<input type="text" id="upgradestring" name="upgradestring" value="'.$upgradestringtoshow.'" class="quatrevingtpercent"><br>';
+	$links.=ajax_autoselect("upgradestring", 0);
+	$links.='<br>';
+
+	// Document restore
+	$sftprestorestring='rsync -n -v -a dolibarr_documents/* '.$object->username_web.'@'.$object->hostname_web.':'.$object->fs_path.'/documents';
+	$links.='Rsync to copy/overwrite document dir (remove -n to execute really):<br>';
+	$links.='<input type="text" id="sftprestorestring" name="sftprestorestring" value="'.$sftprestorestring.'" class="quatrevingtpercent"><br>';
+	$links.=ajax_autoselect("sftprestorestring", 0);
+	$links.='<br>';
+
+	// Deploy module
+	$sftpdeploystring='rsync -n -v -a pathtohtdocsmodule/* '.$object->username_web.'@'.$object->hostname_web.':'.$object->fs_path.'/htdocs/namemodule';
+	$links.='Rsync to install or overwrite module (remove -n to execute really):<br>';
+	$links.='<input type="text" id="sftpdeploystring" name="sftpdeploystring" value="'.$sftpdeploystring.'" class="quatrevingtpercent"><br>';
+	$links.=ajax_autoselect("sftpdeploystring", 0);
+	$links.='<br>';
+
+	// Mysql Restore
+	$mysqlresotrecommand='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db.' < filetorestore';
+	$links.='Mysql overwrite database:<br>';
+	$links.='<input type="text" id="mysqlrestorecommand" name="mysqlrestorecommand" value="'.$mysqlresotrecommand.'" class="quatrevingtpercent"><br>';
+	$links.=ajax_autoselect("mysqlrestorecommand", 0);
+
 	return $links;
 }
 
@@ -129,27 +161,27 @@ function dolicloud_prepare_head($object,$prefix='')
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = ($object->id?dol_buildpath('/sellyoursaas/backoffice/dolicloud_card'.$prefix.'.php',1).'?id='.$object->id:'');
+	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/infoinstance'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloudcustomernew'?'instanceoldid='.$object->id:'id='.$object->id);
 	$head[$h][1] = $langs->trans("InfoInstance");
 	$head[$h][2] = 'infoinstance';
 	$h++;
 
-	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_backup'.$prefix.'.php',1).'?id='.$object->id;
+	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_backup'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloudcustomernew'?'instanceoldid='.$object->id:'id='.$object->id);
 	$head[$h][1] = $langs->trans("Backup");
 	$head[$h][2] = 'backup';
 	$h++;
 
-	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_upgrade'.$prefix.'.php',1).'?id='.$object->id;
-	$head[$h][1] = $langs->trans("Restore/Upgrade");
+	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_upgrade'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloudcustomernew'?'instanceoldid='.$object->id:'id='.$object->id);
+	$head[$h][1] = $langs->trans("UsefulLinks");
 	$head[$h][2] = 'upgrade';
 	$h++;
 
-	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_users'.$prefix.'.php',1).'?id='.$object->id;
+	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_users'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloudcustomernew'?'instanceoldid='.$object->id:'id='.$object->id);
 	$head[$h][1] = $langs->trans("Users");
 	$head[$h][2] = 'users';
 	$h++;
 
-	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_payments'.$prefix.'.php',1).'?id='.$object->id;
+	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_payments'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloudcustomernew'?'instanceoldid='.$object->id:'id='.$object->id);
 	$head[$h][1] = $langs->trans("Payments");
 	$head[$h][2] = 'payments';
 	$h++;

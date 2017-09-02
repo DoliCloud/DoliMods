@@ -266,7 +266,7 @@ class modSellYourSaas extends DolibarrModules
 			'titre'=>'Summary',
 			'mainmenu'=>'sellyoursaas',
 			'leftmenu'=>'mysaas_summary',
-			'url'=>'/sellyoursaas/backoffice/index_new.php',
+			'url'=>'/sellyoursaas/backoffice/index.php',
 			'langs'=>'sellyoursaas@sellyoursaas',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>200,
 			'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -446,7 +446,7 @@ class modSellYourSaas extends DolibarrModules
 								'titre'=>'EMailsTemplates',
 								'mainmenu'=>'sellyoursaas',
 								'leftmenu'=>'dolicloud_emailstemplates',
-								'url'=>'/sellyoursaas/backoffice/dolicloudemailstemplates_page_new.php?action=list',
+								'url'=>'/sellyoursaas/backoffice/dolicloudemailstemplates_page.php?action=list',
 								'langs'=>'sellyoursaas@sellyoursaas',
 								'position'=>220,
                 				'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -490,10 +490,10 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		    'fk_menu'=>'fk_mainmenu=sellyoursaas',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 		    'type'=>'left',         // This is a Left menu entry
-		    'titre'=>'DoliCloud (old)',
+		    'titre'=>'Summary (dolicloud old)',
 		    'mainmenu'=>'sellyoursaas',
 		    'leftmenu'=>'dolicloud',
-		    'url'=>'/sellyoursaas/backoffice/index_new.php',
+		    'url'=>'/sellyoursaas/backoffice/index.php',
 		    'langs'=>'sellyoursaas@sellyoursaas',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 		    'position'=>300,
 		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -505,10 +505,10 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		    'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=dolicloud',
 		    'type'=>'left',
-		    'titre'=>'ListOfInstances',
+		    'titre'=>'Instances (dolicloud old)',
 		    'mainmenu'=>'sellyoursaas',
 		    'leftmenu'=>'dolicloud_list',
-		    'url'=>'/sellyoursaas/backoffice/dolicloud_list_new.php',
+		    'url'=>'/sellyoursaas/backoffice/dolicloud_list.php',
 		    'langs'=>'',
 		    'position'=>310,
 		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
