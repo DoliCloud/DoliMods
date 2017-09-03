@@ -167,15 +167,24 @@ class modSellYourSaas extends DolibarrModules
 		// unit_frequency must be 60 for minute, 3600 for hour, 86400 for day, 604800 for week
 		$statusatinstall=0;
 		$this->cronjobs = array(
-			0=>array('label'=>'SellYourSaasSendWelcomeMessage',                'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doSendWelcomeMessage',                'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
-			1=>array('label'=>'SellYourSaasAlertSoftEndTrial',                 'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doAlertSoftEndTrial',                 'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
-			2=>array('label'=>'SellYourSaasSuspendNotPaidTestInstances',       'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doSuspendNotPaidTestInstances',       'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
-			3=>array('label'=>'SellYourSaasUndeployOldSuspendedTestInstances', 'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doUndeployOldSuspendedTestInstances', 'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
-			4=>array('label'=>'SellYourSaasTakePaymentPaypal',                 'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doTakePaymentPaypal',                 'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
-			5=>array('label'=>'SellYourSaasTakePaymentStripe',                 'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doTakePaymentStripe',                 'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
-			6=>array('label'=>'SellYourSaasSuspendNotPaidRealInstances',       'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doSuspendNotPaidRealInstances',       'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
-			7=>array('label'=>'SellYourSaasAlertCreditCardExpiration',         'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doAlertCreditCardExpiration',         'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
-			8=>array('label'=>'SellYourSaasAlertPaypalExpiration',             'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'AdolertPaypalExpiration',             'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
+			0=>array('priority'=>21, 'label'=>'SellYourSaasAlertSoftEndTrial',                 'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doAlertSoftEndTrial',                 'parameters'=>'', 'comment'=>'Send warning before trial expire', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
+
+			1=>array('priority'=>25, 'label'=>'SellYourSaasAlertCreditCardExpiration',         'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doAlertCreditCardExpiration',         'parameters'=>'', 'comment'=>'Send warning credit card will expire', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
+			2=>array('priority'=>26, 'label'=>'SellYourSaasAlertPaypalExpiration',             'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'AdolertPaypalExpiration',             'parameters'=>'', 'comment'=>'Send warning paypal will expire', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
+
+			3=>array('priority'=>31, 'label'=>'SellYourSaasRenewalContracts',                  'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doRenewalContracts',                  'parameters'=>'', 'comment'=>'Update contract and templates (nb of users and amount) with due date = tomorrow', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
+
+		    // Generation of draft invoices is done with priority 50
+
+		    4=>array('priority'=>61, 'label'=>'SellYourSaasValidateDraftInvoices',             'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doValidateDraftInvoices',             'parameters'=>'', 'comment'=>'Check account is not closed. Validate drat invoice if not, delete if closed', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
+
+			6=>array('priority'=>75, 'label'=>'SellYourSaasTakePaymentPaypal',                 'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doTakePaymentPaypal',                 'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
+			7=>array('priority'=>76, 'label'=>'SellYourSaasTakePaymentStripe',                 'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doTakePaymentStripe',                 'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
+
+			8=>array('priority'=>81, 'label'=>'SellYourSaasSuspendNotPaidTestInstances',       'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doSuspendNotPaidTestInstances',       'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
+			9=>array('priority'=>82, 'label'=>'SellYourSaasUndeployOldSuspendedTestInstances', 'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doUndeployOldSuspendedTestInstances', 'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
+		   10=>array('priority'=>83, 'label'=>'SellYourSaasSuspendNotPaidRealInstances',       'jobtype'=>'method', 'class'=>'/sellyoursaas/class/sellyoursaasutils.class.php', 'objectname'=>'SellYourSaas', 'method'=>'doSuspendNotPaidRealInstances',       'parameters'=>'', 'comment'=>'Suspend expired services', 'frequency'=>1, 'unitfrequency'=>86400, 'status'=>$statusatinstall, 'test'=>'$conf->sellyoursaas->enabled'),
+
 		);
 		// Example: $this->cronjobs=array(0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>true),
 		//                                1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>true)
@@ -567,12 +576,51 @@ class modSellYourSaas extends DolibarrModules
 		include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		$extrafields = new ExtraFields($this->db);
 
+		// Thirdparty
 		$param=array('options'=>array('no'=>'No','yesv1'=>'V1','yesv2'=>'V2'));
-		$result1=$extrafields->addExtraField('dolicloud',         "DoliCloudCustomer", 'select',   1,  '3', 'thirdparty', 0, 1, '', $param, 1);
+		$resultx=$extrafields->addExtraField('dolicloud',         "DoliCloudCustomer", 'select',   1,    '3', 'thirdparty', 0, 1, '', $param, 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('partner',           "Reseller",          'varchar',  2,   '32', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('date_registration', "RegistrationDate",  'datetime', 3,     '', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('cb_info',           "Credit Card info",  'varchar',  100,   '', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('paypal_info',       "Paypal info",       'datetime', 101,   '', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 
-		$result2=$extrafields->addExtraField('partner',           "Reseller",          'varchar',  2, '32', 'thirdparty', 0, 0, '', '', 1);
+		// Invoice
+		$resultx=$extrafields->addExtraField('manual_collect', 	  "Manual collection", 'checkbox',   1,  '2',    'facture', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 
-		$result3=$extrafields->addExtraField('date_registration', "RegistrationDate",  'datetime', 3,   '', 'thirdparty', 0, 0, '', $param, 1);
+		// Contract
+		$resultx=$extrafields->addExtraField('plan',                              "Plan", 'varchar',   1,  '32',   'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('date_registration',    "Date registration", 'datetime',  2,    '',   'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('date_endfreeperiod',      "Date end trial", 'datetime',  3,    '',   'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('hostname_os',                "Hostname OS", 'varchar',   4,  '32',   'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('username_os',                "Username OS", 'varchar',   5,  '32',   'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('password_os',                "Password OS", 'varchar',   6,  '32',   'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('hostname_db',                "Hostname DB", 'varchar',   7,  '32',   'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('database_db',                "Database DB", 'varchar',   8,  '32',   'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('port_db',                        "Port DB", 'varchar',   9,  '32',   'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('username_db',                "Username DB", 'varchar',  10,  '32',   'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('password_db',                "Password DB", 'varchar',  11,  '64',   'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('fileauthorizekey', "Date fileauthorizekey", 'datetime', 12,    '',   'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('filelock',                 "Date filelock", 'datetime', 13,    '',   'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+
+		$resultx=$extrafields->addExtraField('nb_users',     "Last nb of enabled users",       'int',  20,  '8',   'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('nb_gb',                   "Last nb of Gb",       'int',  21,  '8',   'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+
+
+
+		$object->array_options['options_plan']=$dolicloudcustomer->plan;
+		$object->array_options['options_date_registration']=$dolicloudcustomer->date_registration;
+		$object->array_options['options_date_endfreeperiod']=$dolicloudcustomer->date_endfreeperiod;
+		$object->array_options['options_hostname_os']=$dolicloudcustomer->hostname_web;
+		$object->array_options['options_username_os']=$dolicloudcustomer->username_web;
+		$object->array_options['options_password_os']=$dolicloudcustomer->password_web;
+		$object->array_options['options_hostname_db']=$dolicloudcustomer->hostname_db;
+		$object->array_options['options_database_db']=$dolicloudcustomer->database_db;
+		$object->array_options['options_port_db']    =$dolicloudcustomer->port_db;
+		$object->array_options['options_username_db']=$dolicloudcustomer->username_db;
+		$object->array_options['options_password_db']=$dolicloudcustomer->password_db;
+		$object->array_options['fileauthorizekey']=$dolicloudcustomer->fileauthorizekey;
+		$object->array_options['filelock']=$dolicloudcustomer->filelock;
+
 
 		$sql = array();
 

@@ -37,6 +37,7 @@ if (! $res) die("Include of main fails");
 
 require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
+require_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
@@ -51,6 +52,7 @@ $langs->load("companies");
 $langs->load("users");
 $langs->load("other");
 $langs->load("commercial");
+$langs->load("bills");
 $langs->load("sellyoursaas@sellyoursaas");
 
 $mesg=''; $error=0; $errors=array();
@@ -153,8 +155,13 @@ if (empty($reshook))
 
 		$instancetocreate = GETPOST('instancetocreate','alpha');
 		$productidtocreate = GETPOST('producttocreate','alpha');
-
 		$thirdpartyidselected = GETPOST('thirdpartyidselected','int');
+
+
+		// Search info old v1 database to find more information
+		$result = $dolicloudcustomer->fetch(0, $instancetocreate);
+
+
 		if ($thirdpartyidselected > 0)
 		{
 			$object->fetch($thirdpartyidselected);
@@ -174,7 +181,7 @@ if (empty($reshook))
 			}
 			else
 			{
-				$object->update($user);
+				$object->update($object->id, $user);
 
 				if (! $error && ($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG > 0))
 				{
@@ -189,6 +196,7 @@ if (empty($reshook))
 
 			$object->name	= GETPOST('nametocreate');
 			$object->email	= GETPOST('emailtocreate');
+			$object->mode_reglement_id = GETPOST('mode_reglement_id','int');
 
 			$checkinstance=0;
 			if (preg_match('/\.on\./', $instancetocreate))   { $checkinstance=1; $object->array_options['options_dolicloud']='yesv1'; }
@@ -200,9 +208,6 @@ if (empty($reshook))
 				setEventMEssages($langs->trans("ErrorBadValueForInstance"), null, 'errors');
 				$action = 'create2';
 			}
-
-			// Search info old v1 database to find more information
-			$result = $dolicloudcustomer->fetch(0, $instancetocreate);
 
 			if ($dolicloudcustomer->id > 0)
 			{
@@ -246,7 +251,7 @@ if (empty($reshook))
 				{
 					$error++;
 					setEventMessages('', array_merge($errors,($object->error?array($object->error):$object->errors)), 'errors');
-					$action = 'create';
+					$action = 'create2';
 				}
 
 				if (! $error && ($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG > 0))
@@ -259,18 +264,83 @@ if (empty($reshook))
 			}
 		}
 
-		// Now we create contract/instance
+		// Now we create new contract/instance
+		if (! $error && $thirdpartyidselected > 0)
+		{
+			$contract = new Contrat($db);
+
+			$contract->date_contrat = dol_now();
+			$contract->array_options['options_instance']=$instancetocreate;
+			$contract->socid=$thirdpartyidselected;
+			$contract->commercial_suivi_id = $user->id;
+			$contract->commercial_signature_id = $user->id;
+			/*$sql = "SELECT rowid, statut, ref, fk_soc, mise_en_service as datemise,";
+			$sql.= " ref_supplier, ref_customer,";
+			$sql.= " ref_ext,";
+			$sql.= " fk_user_mise_en_service, date_contrat as datecontrat,";
+			$sql.= " fk_user_author, fin_validite, date_cloture,";
+			$sql.= " fk_projet,";
+			$sql.= " fk_commercial_signature, fk_commercial_suivi,";
+			$sql.= " note_private, note_public, model_pdf, extraparams";
+			$sql.= " FROM ".MAIN_DB_PREFIX."contrat";
+			$sql.= " WHERE ref_ext='".$db->escape($ref)."'";
+			$sql.= " AND entity IN (".getEntity('contract', 0).")";
+			$sql.= " AND statut = 1";*/
+
+			if ($dolicloudcustomer->id > 0)
+			{
+				$contract->array_options['options_nb_user']=$dolicloudcustomer->nbofusers;
+				//$contract->array_options['options_nb_gb']=0;
+				$contract->array_options['options_plan']=$dolicloudcustomer->plan;
+				$contract->array_options['options_date_registration']=$dolicloudcustomer->date_registration;
+				$contract->array_options['options_date_endfreeperiod']=$dolicloudcustomer->date_endfreeperiod;
+				$contract->array_options['options_hostname_os']=$dolicloudcustomer->hostname_web;
+				$contract->array_options['options_username_os']=$dolicloudcustomer->username_web;
+				$contract->array_options['options_password_os']=$dolicloudcustomer->password_web;
+				$contract->array_options['options_hostname_db']=$dolicloudcustomer->hostname_db;
+				$contract->array_options['options_database_db']=$dolicloudcustomer->database_db;
+				$contract->array_options['options_port_db']    =$dolicloudcustomer->port_db;
+				$contract->array_options['options_username_db']=$dolicloudcustomer->username_db;
+				$contract->array_options['options_password_db']=$dolicloudcustomer->password_db;
+				$contract->array_options['fileauthorizekey']=$dolicloudcustomer->fileauthorizekey;
+				$contract->array_options['filelock']=$dolicloudcustomer->filelock;
+			}
+
+			/*var_dump($contract->array_options);
+			var_dump($instancetocreate);
+			var_dump($productidtocreate);
+			var_dump($thirdpartyidselected);
+			exit;*/
+			$idcontract = $contract->create($user);
+			if ($idcontract <= 0)
+			{
+				$error++;
+				setEventMessages('', array_merge($errors,($contract->error?array($contract->error):$contract->errors)), 'errors');
+				$action = 'create2';
+			}
+
+			if (! $error)
+			{
+				// TODO Insert product line
+
+
+
+			}
+		}
+
 		if (! $error && $thirdpartyidselected > 0)
 		{
 			$db->commit();
 			if (! empty($backtopage)) $url=$backtopage;
-			else $url=DOL_URL_ROOT.'/societe/card.php?socid='.$thirdpartyidselected;
+			else $url=DOL_URL_ROOT.'/comm/card.php?socid='.$thirdpartyidselected;
 			Header("Location: ".$url);
 			exit;
 		}
 		else
 		{
 			$db->rollback();
+			unset($object);
+			$object=new Societe($db);
 			$action='create2';
 		}
 	}
@@ -320,6 +390,7 @@ print '<tr><td></td><td>';
 print '<input type="submit" name="loadthirdparty" class="button" value="'.$langs->trans("Search").'">';
 print '</td></tr>';
 
+// If thirdparty found
 if ($object->id > 0)
 {
 	print '<tr><td colspan="2"><hr>';
@@ -327,7 +398,11 @@ if ($object->id > 0)
 	print '<input type="hidden" name="thirdpartyidselected" value="'.$object->id.'">';
 	print '</td></tr>';
 
-	$object = $object;
+	print '<tr><td class="titlefield tdtop">';
+	print $langs->trans('Name').'</td><td>';
+	print $object->getNomUrl(1, 'customer');
+	print '</td>';
+	print '</tr>';
 
 	print '<tr><td class="titlefield tdtop">';
 	print $langs->trans('Address').'</td><td>';
@@ -384,8 +459,16 @@ if ($object->id > 0)
             $i++;
         }
 
-        print '<tr><td colspan="2"><hr>';
-        print '</td></tr>';
+    // Mode de reglement par defaut
+    print '<tr><td class="nowrap">';
+        print $langs->trans('PaymentMode');
+        print '</td><td>';
+       	$form->form_modes_reglement($_SERVER['PHP_SELF'].'?socid='.$object->id,$object->mode_reglement_id,'none');
+        print "</td>";
+    print '</tr>';
+
+    print '<tr><td colspan="2"><hr>';
+    print '</td></tr>';
 }
 
 // If criteria to search were provided
@@ -408,6 +491,14 @@ if (GETPOST('email') || GETPOST('thirdparty_id') > 0 || $action == 'create2')
 		print $langs->trans('Email').'</td><td>';
 		print '<input type="text" name="emailtocreate" class="minwidth300" value="'.$emailtocreate.'">';
 		print '</td>';
+		print '</tr>';
+
+		// Mode de reglement par defaut
+		print '<tr><td class="nowrap">';
+		print $langs->trans('PaymentMode');
+		print '</td><td>';
+		print $form->select_types_paiements($object->mode_reglement_id,'mode_reglement_id',$filtertype,0,0,0,0,1);
+		print "</td>";
 		print '</tr>';
 
 		print '<tr><td colspan="2"><hr>';
