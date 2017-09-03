@@ -161,7 +161,6 @@ if (empty($reshook))
 		// Search info old v1 database to find more information
 		$result = $dolicloudcustomer->fetch(0, $instancetocreate);
 
-
 		if ($thirdpartyidselected > 0)
 		{
 			$object->fetch($thirdpartyidselected);
@@ -269,8 +268,8 @@ if (empty($reshook))
 		{
 			$contract = new Contrat($db);
 
+			$contract->ref_customer = $instancetocreate;
 			$contract->date_contrat = dol_now();
-			$contract->array_options['options_instance']=$instancetocreate;
 			$contract->socid=$thirdpartyidselected;
 			$contract->commercial_suivi_id = $user->id;
 			$contract->commercial_signature_id = $user->id;
@@ -289,21 +288,37 @@ if (empty($reshook))
 
 			if ($dolicloudcustomer->id > 0)
 			{
-				$contract->array_options['options_nb_user']=$dolicloudcustomer->nbofusers;
-				//$contract->array_options['options_nb_gb']=0;
-				$contract->array_options['options_plan']=$dolicloudcustomer->plan;
 				$contract->array_options['options_date_registration']=$dolicloudcustomer->date_registration;
 				$contract->array_options['options_date_endfreeperiod']=$dolicloudcustomer->date_endfreeperiod;
+
+				$contract->array_options['options_plan']       =$dolicloudcustomer->plan;
 				$contract->array_options['options_hostname_os']=$dolicloudcustomer->hostname_web;
 				$contract->array_options['options_username_os']=$dolicloudcustomer->username_web;
 				$contract->array_options['options_password_os']=$dolicloudcustomer->password_web;
 				$contract->array_options['options_hostname_db']=$dolicloudcustomer->hostname_db;
 				$contract->array_options['options_database_db']=$dolicloudcustomer->database_db;
-				$contract->array_options['options_port_db']    =$dolicloudcustomer->port_db;
+				$contract->array_options['options_port_db']    =$dolicloudcustomer->port_db?$dolicloudcustomer->port_db:3306;
 				$contract->array_options['options_username_db']=$dolicloudcustomer->username_db;
 				$contract->array_options['options_password_db']=$dolicloudcustomer->password_db;
-				$contract->array_options['fileauthorizekey']=$dolicloudcustomer->fileauthorizekey;
-				$contract->array_options['filelock']=$dolicloudcustomer->filelock;
+				$contract->array_options['fileauthorizekey']   =$dolicloudcustomer->fileauthorizekey;
+				$contract->array_options['filelock']           =$dolicloudcustomer->filelock;
+			}
+
+			if (! empty($contract->array_options['options_hostname_db']) && ! empty($contract->array_options['options_database_db']))
+			{
+				// Scan remote instance to get fresh data
+				$result = refreshContract($contract);
+
+				if ($result['error'])
+				{
+					$error++;
+					setEventMessages($result['error'], null, 'errors');
+				}
+				else
+				{
+					$contract->array_options['options_nb_user'] = $result['nb_users'];
+					$contract->array_options['options_nb_gb'] = $result['nb_gb'];
+				}
 			}
 
 			/*var_dump($contract->array_options);
@@ -312,6 +327,7 @@ if (empty($reshook))
 			var_dump($thirdpartyidselected);
 			exit;*/
 			$idcontract = $contract->create($user);
+
 			if ($idcontract <= 0)
 			{
 				$error++;
@@ -321,18 +337,53 @@ if (empty($reshook))
 
 			if (! $error)
 			{
-				// TODO Insert product line
+				$nb_user = 1;
 
+				// Create line
+				$product=new Product($db);
+				$product->fetch($productidtocreate);
+				if (empty($product->id))
+				{
+					$error++;
+					setEventMessages($product->error, $product->errors, 'errors');
+				}
+				else
+				{
 
+					// Get data for contract line
+					$date_start=dol_now();
+					if ($contract->array_options['options_date_endfreeperiod']) $date_start=$contract->array_options['options_date_endfreeperiod'];
 
+					if (empty($product->duration_value) || empty($product->duration_unit))
+					{
+						$error++;
+						setEventMessages('The product '.$product->ref.' has now default duration');
+					}
+					else
+					{
+						$i = 1;
+						$now = dol_now();
+						while (dol_time_plus_duree($date_start, $product->duration_value * $i, $product->duration_unit) < $now)
+						{
+							$i++;
+						}
+						$date_end=dol_time_plus_duree($date_start, $product->duration_value * $i, $product->duration_unit);
+					}
+				}
+				//var_dump("$nb_user, $product->tva_tx, $product->localtax1_tx, $product->localtax2_tx, $productidtocreate, 0, ".dol_print_date($date_start, 'dayhourlog')." - ".dol_print_date($date_end, 'dayhourlog'));exit;
+
+				if (! $error)
+				{
+					$contactlineid = $contract->addline('', 0, $nb_user, $product->tva_tx, $product->localtax1_tx, $product->localtax2_tx, $productidtocreate, 0, $date_start, $date_end, 'HT', 0);
+				}
 			}
 		}
 
-		if (! $error && $thirdpartyidselected > 0)
+		if (! $error && $thirdpartyidselected > 0 && $idcontract > 0)
 		{
 			$db->commit();
 			if (! empty($backtopage)) $url=$backtopage;
-			else $url=DOL_URL_ROOT.'/comm/card.php?socid='.$thirdpartyidselected;
+			else $url=DOL_URL_ROOT.'/contrat/card.php?id='.$idcontract;
 			Header("Location: ".$url);
 			exit;
 		}

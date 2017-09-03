@@ -37,6 +37,8 @@ if (! $res) die("Include of main fails");
 
 require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
+require_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/contract.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
@@ -49,6 +51,7 @@ dol_include_once('/sellyoursaas/class/cdolicloudplans.class.php');
 $langs->load("admin");
 $langs->load("companies");
 $langs->load("users");
+$langs->load("contracts");
 $langs->load("other");
 $langs->load("commercial");
 $langs->load("sellyoursaas@sellyoursaas");
@@ -72,7 +75,7 @@ $error = 0; $errors = array();
 
 if (empty($instanceoldid) && empty($refold) && $action != 'create')
 {
-	$object = new Contract($db);
+	$object = new Contrat($db);
 }
 else
 {
@@ -98,7 +101,7 @@ if ($id > 0 || $instanceoldid > 0 || $ref || $refold)
 {
 	$result=$object->fetch($id?$id:$instanceoldid, $ref?$ref:$refold);
 	if ($result < 0) dol_print_error($db,$object->error);
-	$instanceoldid=$object->id;
+	if ($object->element != 'contrat') $instanceoldid=$object->id;
 }
 
 
@@ -291,7 +294,7 @@ if (empty($instanceoldid) && $action != 'create')
 	// Show tabs
 	$head = contract_prepare_head($object);
 
-	$title = $langs->trans("SellYourSaasInstance");
+	$title = $langs->trans("Contract");
 	dol_fiche_head($head, 'infoinstance', $title, -1, 'contract');
 }
 else
@@ -299,7 +302,7 @@ else
 	// Show tabs
 	$head = dolicloud_prepare_head($object);
 
-	$title = $langs->trans("SellYourSaasInstance");
+	$title = $langs->trans("Contract");
 	dol_fiche_head($head, 'infoinstance', $title, -1, 'contract');
 }
 
@@ -466,7 +469,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		print '<div class="fichecenter">';
 
 		$savdb=$object->db;
-		$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
+		if (is_object($object->db2)) $object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
 		dol_banner_tab($object,($instanceoldid?'refold':'ref'),'',1,($instanceoldid?'name':'ref'),'ref','','',1);
 		$object->db=$savdb;
 

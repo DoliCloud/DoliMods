@@ -37,6 +37,8 @@ if (! $res) die("Include of main fails");
 
 require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
+require_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/contract.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
@@ -47,6 +49,7 @@ dol_include_once('/sellyoursaas/class/cdolicloudplans.class.php');
 $langs->load("admin");
 $langs->load("companies");
 $langs->load("users");
+$langs->load("contracts");
 $langs->load("other");
 $langs->load("commercial");
 $langs->load("sellyoursaas@sellyoursaas");
@@ -64,11 +67,12 @@ $error = 0; $errors = array();
 
 if (empty($instanceoldid) && empty($refold) && $action != 'create')
 {
-	$object = new Contract($db);
+	$object = new Contrat($db);
 }
 else
 {
 	$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
+
 	if ($db2->error)
 	{
 		dol_print_error($db2,"host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db2->error);
@@ -90,7 +94,7 @@ if ($id > 0 || $instanceoldid > 0 || $ref || $refold)
 {
 	$result=$object->fetch($id?$id:$instanceoldid, $ref?$ref:$refold);
 	if ($result < 0) dol_print_error($db,$object->error);
-	$instanceoldid=$object->id;
+	if ($object->element != 'contrat') $instanceoldid=$object->id;
 }
 
 $backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/backup_instance.php '.$object->instance.' '.$conf->global->DOLICLOUD_INSTANCES_PATH;
@@ -157,12 +161,20 @@ $formcompany = new FormCompany($db);
 $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
 $arraystatus=Dolicloudcustomernew::$listOfStatus;
 
-if ($id > 0 || $instanceoldid > 0)
+if (empty($instanceoldid) && $action != 'create')
+{
+	// Show tabs
+	$head = contract_prepare_head($object);
+
+	$title = $langs->trans("Contract");
+	dol_fiche_head($head, 'users', $title, 0, 'contract');
+}
+else
 {
 	// Show tabs
 	$head = dolicloud_prepare_head($object);
 
-	$title = $langs->trans("SellYourSaasInstance");
+	$title = $langs->trans("Contract");
 	dol_fiche_head($head, 'users', $title, 0, 'contract');
 }
 
@@ -235,23 +247,23 @@ if (empty($instanceoldid))
 	$password=$object->password_web;
 	$server=$object->instance.'.on.dolicloud.com';
 
-	$newdb2=getDoliDBInstance($db2->type, $conf->global->DOLICLOUD_DATABASE_HOST, $object->username_db, $object->password_db, $object->database_db, 3306);
-	if (is_object($newdb2) && $newdb2->connected)
+	$dbcustomerinstance=getDoliDBInstance('mysqli', $object->hostname_db, $object->username_db, $object->password_db, $object->database_db, 3306);
+	if (is_object($dbcustomerinstance) && $dbcustomerinstance->connected)
 	{
 		// Get user/pass of last admin user
 		$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
-		$resql=$newdb2->query($sql);
-		$obj = $newdb2->fetch_object($resql);
+		$resql=$dbcustomerinstance->query($sql);
+		$obj = $dbcustomerinstance->fetch_object($resql);
 		$object->lastlogin_admin=$obj->login;
 		$object->lastpass_admin=$obj->pass;
 		$lastloginadmin=$object->lastlogin_admin;
 		$lastpassadmin=$object->lastpass_admin;
 	}
 
-	print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.' ('.$newdb2->database_host.')</strong><br>';
+	print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.' (Customer instance '.$dbcustomerinstance->database_host.')</strong><br>';
 	print '<table class="border" width="100%">';
 
-	print_user_table($newdb2);
+	print_user_table($dbcustomerinstance);
 
 	print "</table><br>";
 }

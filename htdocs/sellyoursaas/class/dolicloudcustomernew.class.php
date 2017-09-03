@@ -443,6 +443,7 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " c.tax_identification_number as vat_number,";
 
 		$sql.= " s.payment_status,";
+		$sql.= " s.trial_end,";
 
 		$sql.= " CONCAT(a.address_line1,'\n',a.address_line2) as address,";
 		$sql.= " a.city as town,";
@@ -492,7 +493,7 @@ class Dolicloudcustomernew extends CommonObject
 				$this->locale = $obj->locale;
 				$this->plan = $obj->plan;
 				$this->date_registration = $this->db2->jdate($obj->deployed_date);
-				$this->date_endfreeperiod = $this->db2->jdate($obj->date_endfreeperiod);
+				$this->date_endfreeperiod = $this->db2->jdate($obj->trial_end);
 				$this->status = $obj->status;
 				$this->partner = $obj->partner;
 				$this->source = $obj->source;

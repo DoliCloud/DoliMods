@@ -37,6 +37,8 @@ if (! $res) die("Include of main fails");
 
 require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
+require_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/contract.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
@@ -47,6 +49,7 @@ dol_include_once('/sellyoursaas/class/cdolicloudplans.class.php');
 $langs->load("admin");
 $langs->load("companies");
 $langs->load("users");
+$langs->load("contracts");
 $langs->load("other");
 $langs->load("commercial");
 $langs->load("sellyoursaas@sellyoursaas");
@@ -67,7 +70,7 @@ $error=0; $errors=array();
 
 if (empty($instanceoldid) && empty($refold) && $action != 'create')
 {
-	$object = new Contract($db);
+	$object = new Contrat($db);
 }
 else
 {
@@ -94,7 +97,7 @@ if ($id > 0 || $instanceoldid > 0 || $ref || $refold)
 {
 	$result=$object->fetch($id?$id:$instanceoldid, $ref?$ref:$refold);
 	if ($result < 0) dol_print_error($db,$object->error);
-	$instanceoldid=$object->id;
+	if ($object->element != 'contrat') $instanceoldid=$object->id;
 }
 
 $upgradestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/rsync_instance.php '.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.' '.$object->instance;
@@ -137,12 +140,20 @@ $formcompany = new FormCompany($db);
 $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
 $arraystatus=Dolicloudcustomernew::$listOfStatus;
 
-if ($id > 0 || $instanceoldid > 0)
+if (empty($instanceoldid) && $action != 'create')
+{
+	// Show tabs
+	$head = contract_prepare_head($object);
+
+	$title = $langs->trans("Contract");
+	dol_fiche_head($head, 'upgrade', $title, 0, 'contract');
+}
+else
 {
 	// Show tabs
 	$head = dolicloud_prepare_head($object);
 
-	$title = $langs->trans("SellYourSaasInstance");
+	$title = $langs->trans("Contract");
 	dol_fiche_head($head, 'upgrade', $title, 0, 'contract');
 }
 
