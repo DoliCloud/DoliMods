@@ -339,7 +339,7 @@ if (empty($reshook))
 			{
 				$nb_user = 1;
 
-				// Create line
+				// Create contract line
 				$product=new Product($db);
 				$product->fetch($productidtocreate);
 				if (empty($product->id))
@@ -375,8 +375,27 @@ if (empty($reshook))
 				if (! $error)
 				{
 					$contactlineid = $contract->addline('', 0, $nb_user, $product->tva_tx, $product->localtax1_tx, $product->localtax2_tx, $productidtocreate, 0, $date_start, $date_end, 'HT', 0);
+					if ($contactlineid < 0)
+					{
+						$error++;
+						setEventMessages($contract->error, $contract->errors, 'errors');
+					}
+				}
+
+				if (! $error)
+				{
+					$result = $contract->activateAll($user);
+					if ($result <= 0)
+					{
+						$error++;
+						setEventMessages($contract->error, $contract->errors, 'errors');
+					}
 				}
 			}
+
+			// Now create invoice template
+			//$idcontract
+
 		}
 
 		if (! $error && $thirdpartyidselected > 0 && $idcontract > 0)

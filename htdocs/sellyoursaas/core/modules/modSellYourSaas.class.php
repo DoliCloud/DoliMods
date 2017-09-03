@@ -576,16 +576,19 @@ class modSellYourSaas extends DolibarrModules
 		include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		$extrafields = new ExtraFields($this->db);
 
+		// Product
+		$resultx=$extrafields->addExtraField('price_per_user', 	       "Price per user",     'price',  1, '24,8',  'product', 0, 0, '0',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+
 		// Thirdparty
 		$param=array('options'=>array('no'=>'No','yesv1'=>'V1','yesv2'=>'V2'));
-		$resultx=$extrafields->addExtraField('dolicloud',         "DoliCloudCustomer", 'select',   1,    '3', 'thirdparty', 0, 1, '', $param, 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('partner',           "Reseller",          'varchar',  2,   '32', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('date_registration', "RegistrationDate",  'datetime', 3,     '', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('cb_info',           "Credit Card info",  'varchar',  100,   '', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('paypal_info',       "Paypal info",       'datetime', 101,   '', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('dolicloud',            "DoliCloudCustomer",   'select',  1,  '3', 'thirdparty', 0, 1, '', $param, 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('partner',              "Reseller",          'varchar',   2, '32', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('date_registration',    "RegistrationDate",  'datetime',  3,   '', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('cb_info',              "Credit Card info",  'varchar',  90,   '', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('paypal_info',               "Paypal info",  'datetime', 91,   '', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 
 		// Invoice
-		$resultx=$extrafields->addExtraField('manual_collect', 	  "Manual collection", 'checkbox',   1,  '2',    'facture', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('manual_collect', 	     "Manual collection", 'checkbox',  1,  '2',    'facture', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 
 		// Contract
 		$resultx=$extrafields->addExtraField('plan',                              "Plan", 'varchar',   2,  '32',   'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
