@@ -203,7 +203,7 @@ $sql.= " i.access_enabled,";
 $sql.= " i.default_username,";
 $sql.= " i.ssh_port,";
 
-$sql.= " p.id as planid,";
+$sql.= " p.id as packageid,";
 $sql.= " p.name as package,";
 
 $sql.= " im.value as nbofusers,";
@@ -212,6 +212,7 @@ $sql.= " im.last_updated as lastcheck,";
 $sql.= " pao.amount as price_user,";
 $sql.= " pao.min_threshold as min_threshold,";
 
+$sql.= " pl.id as planid,";
 $sql.= " pl.amount as price_instance,";
 $sql.= " pl.meter_id as plan_meter_id,";
 $sql.= " pl.name as plan,";
@@ -221,6 +222,7 @@ $sql.= " c.org_name as organization,";
 $sql.= " c.status as status,";
 $sql.= " c.past_due_start,";
 $sql.= " c.suspension_date,";
+$sql.= " c.tax_identification_number as tax_identification_number,";
 
 $sql.= " s.payment_status,";
 $sql.= " s.status as subscription_status,";
@@ -245,6 +247,7 @@ if ($search_dolicloud) $sql.='';
 if ($search_multi) $sql.= natural_search(array_keys($fieldstosearchall), $search_multi);
 if ($search_instance) $sql.= natural_search("i.name", $search_instance);
 if ($search_organization) $sql.= natural_search("c.org_name", $search_organization);
+if ($search_vat) $sql.= natural_search("c.tax_identification_number", $search_vat);
 if ($search_plan) $sql.= natural_search("p.name", $search_plan);
 if ($search_partner) $sql.= natural_search("cp.org_name", $search_partner);
 if ($search_source) $sql.= natural_search("t.source", $search_source);
@@ -280,6 +283,7 @@ if ($month)              	$param.='&month='.urlencode($month);
 if ($year)               	$param.='&year=' .urlencode($year);
 if ($search_instance)    	$param.='&search_instance='.urlencode($search_instance);
 if ($search_organization) 	$param.='&search_organization='.urlencode($search_organization);
+if ($search_vat)		 	$param.='&search_vat='.urlencode($search_vat);
 if ($search_plan) 			$param.='&search_plan='.urlencode($search_plan);
 if ($search_partner) 		$param.='&search_partner='.urlencode($search_partner);
 if ($search_source) 		$param.='&search_source='.urlencode($search_source);
@@ -317,6 +321,7 @@ if ($resql)
     print_liste_field_titre($langs->trans('Instance'),$_SERVER['PHP_SELF'],'i.name','',$param,'align="left"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Organization'),$_SERVER['PHP_SELF'],'c.organization','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('EMail'),$_SERVER['PHP_SELF'],'per.username','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('VATIntra'),$_SERVER['PHP_SELF'],'c.tax_identification_number','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Plan'),$_SERVER['PHP_SELF'],'pl.plan','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Partner'),$_SERVER['PHP_SELF'],'cc.partner','',$param,'',$sortfield,$sortorder);
     //print_liste_field_titre($langs->trans('Source'),$_SERVER['PHP_SELF'],'t.source','',$param,'',$sortfield,$sortorder);
@@ -335,6 +340,7 @@ if ($resql)
     print '<td class="liste_titre"><input type="text" name="search_instance" size="4" value="'.$search_instance.'"></td>';
     print '<td class="liste_titre"><input type="text" name="search_organization" size="4" value="'.$search_organization.'"></td>';
     print '<td class="liste_titre"><input type="text" name="search_email" size="4" value="'.$search_email.'"></td>';
+    print '<td class="liste_titre"><input type="text" name="search_vat" size="4" value="'.$search_vat.'"></td>';
     print '<td class="liste_titre"><input type="text" name="search_plan" size="4" value="'.$search_plan.'"></td>';
     print '<td class="liste_titre"><input type="text" name="search_partner" size="4" value="'.$search_partner.'"></td>';
     //print '<td class="liste_titre"><input type="text" name="search_source" size="4" value="'.$search_source.'"></td>';
@@ -390,6 +396,8 @@ if ($resql)
                 print $obj->organization;
                 print '</td><td>';
                 print $obj->email;
+                print '</td><td>';
+                print $obj->tax_identification_number;
                 print '</td><td>';
                 if (empty($obj->planid)) print 'ERROR Bad value for Plan';
               	else print $obj->plan;

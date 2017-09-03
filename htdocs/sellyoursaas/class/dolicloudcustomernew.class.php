@@ -423,8 +423,8 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " i.default_username,";
 		$sql.= " i.ssh_port,";
 
-		$sql.= " p.id as planid,";
-		$sql.= " p.name as plan,";
+		$sql.= " p.id as packageid,";
+		$sql.= " p.name as package,";
 
 		$sql.= " im.value as nbofusers,";
 		$sql.= " im.last_updated as date_lastcheck,";
@@ -434,6 +434,8 @@ class Dolicloudcustomernew extends CommonObject
 
 		$sql.= " pl.amount as price_instance,";
 		$sql.= " pl.meter_id as plan_meter_id,";
+		$sql.= " pl.name as plan,";
+		$sql.= " pl.interval_unit as interval_unit,";
 
 		$sql.= " c.id as customer_id,";
 		$sql.= " c.org_name as organization,";
@@ -445,11 +447,13 @@ class Dolicloudcustomernew extends CommonObject
 
 		$sql.= " s.payment_status,";
 		$sql.= " s.trial_end,";
+		$sql.= " s.current_period_start,";
+		$sql.= " s.current_period_end,";
 
 		$sql.= " CONCAT(a.address_line1,'\n',a.address_line2) as address,";
 		$sql.= " a.city as town,";
 		$sql.= " a.zip as zip,";
-		$sql.= " co.alpha2 as country_id,";
+		$sql.= " a.country as country_code,";
 
 		$sql.= " per.username as email,";
 		$sql.= " per.first_name as firstname,";
@@ -461,7 +465,7 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " FROM app_instance as i";
 		$sql.= " LEFT JOIN app_instance_meter as im ON i.id = im.app_instance_id AND im.meter_id = 1,";	// meter_id = 1 = users
 		$sql.= " customer as c";
-		$sql.= " LEFT JOIN address as a ON c.address_id = a.id LEFT JOIN country_region as co ON a.country_id = co.id";
+		$sql.= " LEFT JOIN address as a ON c.address_id = a.id";
 		$sql.= " LEFT JOIN channel_partner_customer as cc ON cc.customer_id = c.id";
 		$sql.= " LEFT JOIN channel_partner as cp ON cc.channel_partner_id = cp.id";
 		$sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id,";
@@ -493,9 +497,18 @@ class Dolicloudcustomernew extends CommonObject
 				$this->organization = $obj->organization;
 				$this->email = $obj->email;
 				$this->locale = $obj->locale;
+
+				$this->package_id = $obj->package_id;
+				$this->package = $obj->package;
 				$this->plan = $obj->plan;
+
+				$this->price_user = $obj->price_user;
+				$this->price_instance = $obj->price_instance;
+
 				$this->date_registration = $this->db2->jdate($obj->deployed_date);
 				$this->date_endfreeperiod = $this->db2->jdate($obj->trial_end);
+				$this->date_current_period_start = $this->db2->jdate($obj->current_period_start);
+				$this->date_current_period_end = $this->db2->jdate($obj->current_period_end);
 				$this->status = $obj->status;
 				$this->partner = $obj->partner;
 				$this->source = $obj->source;
@@ -524,6 +537,7 @@ class Dolicloudcustomernew extends CommonObject
                 $this->zip = $obj->zip;
                 $this->town = $obj->town;
                 $this->country_id = $obj->country_id;
+                $this->country_code = $obj->country_code;
                 $this->state_id = $obj->state_id;
                 $this->vat_number = $obj->vat_number;
                 $this->phone = $obj->phone;

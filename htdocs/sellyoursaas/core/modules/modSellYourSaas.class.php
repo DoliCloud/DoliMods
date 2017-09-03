@@ -440,7 +440,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_list',
 		'type'=>'left',
-		'titre'=>'ListOfInstanceV1',
+		'titre'=>'List of Instance V1',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_list_v1',
 		'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=dolicloudinstances&search_product_category=6',
@@ -455,7 +455,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_list',
 		'type'=>'left',
-		'titre'=>'ListOfInstanceV2',
+		'titre'=>'List of Instance V2',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_list_v2',
 		'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=dolicloudinstances&search_product_category=7',
@@ -604,7 +604,7 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('dolicloud',            "DoliCloudCustomer",   'select',  1,   '3', 'thirdparty', 0, 1, '', $param, 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('partner',              "Reseller",          'varchar',   2,  '32', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('date_registration',    "RegistrationDate",  'datetime',  3,    '', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('password',  "Customer dashboard password",  'password', 90, '128', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('password',            "DashboardPassword",  'password', 90, '128', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('cb_info',              "Credit Card info",   'varchar', 91, '255', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('paypal_info',               "Paypal info",   'varchar', 92, '255', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 

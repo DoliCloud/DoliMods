@@ -63,11 +63,16 @@ NewInstance=New instance
 NewCustomerInstance=New customer or instance
 UsefulLinks=Useful links
 NoThirdPartyFoundForThisEmail=No thirdparty found for this email, will be created...
-DefaultProductForInstances=Default product/service to include into a new contract/instance
+DefaultProductForInstances=Default product/service for instance (suggested for new contract/instance)
 DefaultCategoryForSaaSCustomers=Default customer category/tag for your SaaS customers
 ProductsToIncludeInContract=Product/service to include into new contract/instance
 ThirdPartyFound=Third party found
 AddContractInstance=Add contract/instance
 ErrorBadValueForInstance=Bad value for instance name
 SellYourSaasMainDomain=Main domain name
+DashboardPassword=Dashboard password
+NewProduct=New product
+ProductForInstance=Product for instance
+ProductForUsers=Product for users
+
 

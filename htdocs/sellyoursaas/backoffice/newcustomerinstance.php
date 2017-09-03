@@ -39,6 +39,7 @@ require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 require_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
 require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture.class.php");
+require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture-rec.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
@@ -218,7 +219,19 @@ if (empty($reshook))
 				$object->address = $dolicloudcustomer->address;
 				$object->zip = $dolicloudcustomer->zip;
 				$object->town = $dolicloudcustomer->town;
-				//$object->country_id = $dolicloudcustomer->address;
+
+				$country_id = dol_getIdFromCode($db, $dolicloudcustomer->country_code, 'c_country', 'code', 'rowid');
+				if ($country_id > 0)
+				{
+					$object->country_id = $country_id;
+					$object->country_code = $dolicloudcustomer->country_code;
+				}
+				else
+				{
+					$object->country_id = 11;		// USA
+					$object->country_code = 'US';
+				}
+
 				$object->phone = $dolicloudcustomer->phone;
 				$object->tva_intra=$dolicloudcustomer->vat_number;
 				$locale=$dolicloudcustomer->locale;
@@ -302,6 +315,7 @@ if (empty($reshook))
 				$contract->array_options['options_port_db']    =$dolicloudcustomer->port_db?$dolicloudcustomer->port_db:3306;
 				$contract->array_options['options_username_db']=$dolicloudcustomer->username_db;
 				$contract->array_options['options_password_db']=$dolicloudcustomer->password_db;
+
 				$contract->array_options['fileauthorizekey']   =$dolicloudcustomer->fileauthorizekey;
 				$contract->array_options['filelock']           =$dolicloudcustomer->filelock;
 
@@ -321,7 +335,7 @@ if (empty($reshook))
 				}
 				else
 				{
-					$contract->array_options['options_nb_user'] = $result['nb_users'];
+					$contract->array_options['options_nb_users'] = $result['nb_users'];
 					$contract->array_options['options_nb_gb'] = $result['nb_gb'];
 				}
 			}
@@ -342,9 +356,25 @@ if (empty($reshook))
 
 			if (! $error)
 			{
-				$nb_user = 1;
+				// Contract for instance
 
-				// Create contract line
+				$date_start=dol_now();
+				$date_end=null;
+				if ($contract->array_options['options_date_endfreeperiod'] && $contract->array_options['options_date_endfreeperiod'] > $date_start)
+				{
+					$date_start = dol_time_plus_duree($contract->array_options['options_date_endfreeperiod'], 1, 'd');
+				}
+				// If we have an ending period, we use it for start of next invoice
+				if ($dolicloudcustomer->id > 0 && $dolicloudcustomer->date_current_period_end)
+				{
+					$date_start = dol_time_plus_duree($dolicloudcustomer->date_current_period_end, 1, 'd');
+				}
+				/*
+				var_dump(dol_print_date($dolicloudcustomer->date_current_period_end,'dayhour'));
+				var_dump(dol_print_date($dolicloudcustomer->date_endfreeperiod,'dayhour'));
+				var_dump($date_start);exit;
+				*/
+
 				$product=new Product($db);
 				$product->fetch($productidtocreate);
 				if (empty($product->id))
@@ -354,15 +384,10 @@ if (empty($reshook))
 				}
 				else
 				{
-
-					// Get data for contract line
-					$date_start=dol_now();
-					if ($contract->array_options['options_date_endfreeperiod']) $date_start=$contract->array_options['options_date_endfreeperiod'];
-
 					if (empty($product->duration_value) || empty($product->duration_unit))
 					{
 						$error++;
-						setEventMessages('The product '.$product->ref.' has now default duration');
+						setEventMessages('The product '.$product->ref.' has no default duration');
 					}
 					else
 					{
@@ -375,11 +400,30 @@ if (empty($reshook))
 						$date_end=dol_time_plus_duree($date_start, $product->duration_value * $i, $product->duration_unit);
 					}
 				}
+				$save_date_end = $date_end;
 				//var_dump("$nb_user, $product->tva_tx, $product->localtax1_tx, $product->localtax2_tx, $productidtocreate, 0, ".dol_print_date($date_start, 'dayhourlog')." - ".dol_print_date($date_end, 'dayhourlog'));exit;
 
+				// Create contract line for INSTANCE
 				if (! $error)
 				{
-					$contactlineid = $contract->addline('', 0, $nb_user, $product->tva_tx, $product->localtax1_tx, $product->localtax2_tx, $productidtocreate, 0, $date_start, $date_end, 'HT', 0);
+					if (empty($object->country_code))
+					{
+						$object->country_code = dol_getIdFromCode($db, $object->country_id, 'c_country', 'rowid', 'code');
+					}
+					$qty = 1;
+					$vat = get_default_tva($mysoc, $object, $product->id);
+					//var_dump($mysoc->country_code);
+					//var_dump($object->country_code);
+					//var_dump($product->tva_tx);
+					//var_dump($vat);exit;
+
+					$price = $product->price;
+					if ($dolicloudcustomer->id > 0)
+					{
+						$price = $dolicloudcustomer->price_instance;
+					}
+
+					$contactlineid = $contract->addline('', $price, $qty, $vat, $product->localtax1_tx, $product->localtax2_tx, $productidtocreate, 0, $date_start, $date_end, 'HT', 0);
 					if ($contactlineid < 0)
 					{
 						$error++;
@@ -387,6 +431,35 @@ if (empty($reshook))
 					}
 				}
 
+				//var_dump('user:'.$dolicloudcustomer->price_user);
+				//var_dump('instance:'.$dolicloudcustomer->price_instance);
+				//exit;
+
+				// Create contract line for USERS
+				if (! $error)
+				{
+					$qty = 0;
+					if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+					$vat = get_default_tva($mysoc, $object, $product->id);
+
+					$price = $product->array_options['options_price_per_user'];
+					if ($dolicloudcustomer->id > 0)
+					{
+						$price = $dolicloudcustomer->price_user;
+					}
+
+					if ($price > 0 && $qty > 0)
+					{
+						$contactlineid = $contract->addline('Additional users', $price, $qty, $product->tva_tx, $product->localtax1_tx, $product->localtax2_tx, 0, 0, $date_start, $date_end, 'HT', 0);
+						if ($contactlineid < 0)
+						{
+							$error++;
+							setEventMessages($contract->error, $contract->errors, 'errors');
+						}
+					}
+				}
+
+				// Activate all lines
 				if (! $error)
 				{
 					$result = $contract->activateAll($user);
@@ -397,6 +470,9 @@ if (empty($reshook))
 					}
 				}
 			}
+			/*var_dump($dolicloudcustomer->price_instance);
+			var_dump($dolicloudcustomer->price_user);
+			exit;*/
 
 			// Now create invoice draft
 			if (! $error)
@@ -413,14 +489,14 @@ if (empty($reshook))
 
 				$invoice_draft->note_private		= 'Created by the new instance page';
 
-				$invoice_draft->mode_reglement_id	= $thirdparty->mode_reglement_id;
+				$invoice_draft->mode_reglement_id	= (GETPOST('mode_reglement_id','int') > 0 ? GETPOST('mode_reglement_id','int') : $thirdparty->mode_reglement_id);
 				$invoice_draft->cond_reglement_id	= dol_getIdFromCode($db, 'RECEP', 'c_payment_term');
 
 	            $invoice_draft->fk_account          = 0;
 
 				$invoice_draft->fetch_thirdparty();
 
-				$origin='contract';
+				$origin='contrat';
 				$originid=$idcontract;
 
 				$invoice_draft->origin = $origin;
@@ -431,8 +507,174 @@ if (empty($reshook))
 
 				$idinvoice = $invoice_draft->create($user);      // This include class to add_object_linked() and add add_contact()
 
-				//var_dump($idinvoice);
+
+				// Add lines
+				$srcobject = $contract;
+
+				$lines = $srcobject->lines;
+				if (empty($lines) && method_exists($srcobject, 'fetch_lines'))
+				{
+					$srcobject->fetch_lines();
+					$lines = $srcobject->lines;
+				}
+
+				$fk_parent_line=0;
+				$num=count($lines);
+				for ($i=0;$i<$num;$i++)
+				{
+					$label=(! empty($lines[$i]->label)?$lines[$i]->label:'');
+					$desc=(! empty($lines[$i]->desc)?$lines[$i]->desc:$lines[$i]->libelle);
+					if ($invoice_draft->situation_counter == 1) $lines[$i]->situation_percent =  0;
+
+					if ($lines[$i]->subprice < 0)
+					{
+						// Negative line, we create a discount line
+						$discount = new DiscountAbsolute($db);
+						$discount->fk_soc = $invoice_draft->socid;
+						$discount->amount_ht = abs($lines[$i]->total_ht);
+						$discount->amount_tva = abs($lines[$i]->total_tva);
+						$discount->amount_ttc = abs($lines[$i]->total_ttc);
+						$discount->tva_tx = $lines[$i]->tva_tx;
+						$discount->fk_user = $user->id;
+						$discount->description = $desc;
+						$discountid = $discount->create($user);
+						if ($discountid > 0) {
+							$result = $invoice_draft->insert_discount($discountid); // This include link_to_invoice
+						} else {
+							setEventMessages($discount->error, $discount->errors, 'errors');
+							$error ++;
+							break;
+						}
+					} else {
+						// Positive line
+						$product_type = ($lines[$i]->product_type ? $lines[$i]->product_type : 0);
+
+						// Date start
+						$date_start = false;
+						if ($lines[$i]->date_debut_prevue)
+							$date_start = $lines[$i]->date_debut_prevue;
+							if ($lines[$i]->date_debut_reel)
+								$date_start = $lines[$i]->date_debut_reel;
+								if ($lines[$i]->date_start)
+									$date_start = $lines[$i]->date_start;
+
+									// Date end
+									$date_end = false;
+									if ($lines[$i]->date_fin_prevue)
+										$date_end = $lines[$i]->date_fin_prevue;
+										if ($lines[$i]->date_fin_reel)
+											$date_end = $lines[$i]->date_fin_reel;
+											if ($lines[$i]->date_end)
+												$date_end = $lines[$i]->date_end;
+
+												// Reset fk_parent_line for no child products and special product
+												if (($lines[$i]->product_type != 9 && empty($lines[$i]->fk_parent_line)) || $lines[$i]->product_type == 9) {
+													$fk_parent_line = 0;
+												}
+
+												// Extrafields
+												if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED) && method_exists($lines[$i], 'fetch_optionals')) {
+													$lines[$i]->fetch_optionals($lines[$i]->rowid);
+													$array_options = $lines[$i]->array_options;
+												}
+
+												$tva_tx = $lines[$i]->tva_tx;
+												if (! empty($lines[$i]->vat_src_code) && ! preg_match('/\(/', $tva_tx)) $tva_tx .= ' ('.$lines[$i]->vat_src_code.')';
+
+												// View third's localtaxes for NOW and do not use value from origin.
+												// TODO Is this really what we want ? Yes if source if template invoice but what if proposal or order ?
+												$localtax1_tx = get_localtax($tva_tx, 1, $invoice_draft->thirdparty);
+												$localtax2_tx = get_localtax($tva_tx, 2, $invoice_draft->thirdparty);
+
+												$result = $invoice_draft->addline($desc, $lines[$i]->subprice, $lines[$i]->qty, $tva_tx, $localtax1_tx, $localtax2_tx, $lines[$i]->fk_product, $lines[$i]->remise_percent, $date_start, $date_end, 0, $lines[$i]->info_bits, $lines[$i]->fk_remise_except, 'HT', 0, $product_type, $lines[$i]->rang, $lines[$i]->special_code, $invoice_draft->origin, $lines[$i]->rowid, $fk_parent_line, $lines[$i]->fk_fournprice, $lines[$i]->pa_ht, $label, $array_options, $lines[$i]->situation_percent, $lines[$i]->fk_prev_id, $lines[$i]->fk_unit);
+
+												if ($result > 0) {
+													$lineid = $result;
+												} else {
+													$lineid = 0;
+													$error ++;
+													break;
+												}
+
+												// Defined the new fk_parent_line
+												if ($result > 0 && $lines[$i]->product_type == 9) {
+													$fk_parent_line = $result;
+												}
+					}
+				}
+
+				//var_dump($invoice_draft->lines);
+				//var_dump(dol_print_date($date_start,'dayhour'));
 				//exit;
+
+				// Now we convert invoice into a template
+				$frequency=1;
+				$tmp=dol_getdate($date_start);
+				$reyear=$tmp['year'];
+				$remonth=$tmp['mon'];
+				$reday=$tmp['mday'];
+				$rehour=$tmp['hours'];
+				$remin=$tmp['minutes'];
+				$nb_gen_max=0;
+				//print dol_print_date($date_start,'dayhour');
+				//var_dump($remonth);
+
+				$invoice_rec = new FactureRec($db);
+
+				$invoice_rec->titre = 'Subscription '.$contract->ref.' '.$contract->ref_customer;
+				$invoice_rec->note_private = $contract->note_private;
+				$invoice_rec->note_public  = $contract->note_public;
+				$invoice_rec->mode_reglement_id = $invoice_draft->mode_reglement_id;
+
+				$invoice_rec->usenewprice = 0;
+
+				$invoice_rec->frequency = 1;
+				$invoice_rec->unit_frequency = 'm';
+				$invoice_rec->nb_gen_max = $nb_gen_max;
+				$invoice_rec->auto_validate = 0;
+
+				$invoice_rec->fk_project = 0;
+
+				$date_next_execution = dol_mktime($rehour, $remin, 0, $remonth, $reday, $reyear);
+				$invoice_rec->date_when = $date_next_execution;
+
+				// Get first contract linked to invoice used to generate template
+				if ($invoice_draft->id > 0)
+				{
+					$srcObject = $invoice_draft;
+
+					$srcObject->fetchObjectLinked();
+
+					if (! empty($srcObject->linkedObjectsIds['contrat']))
+					{
+						$contractidid = reset($srcObject->linkedObjectsIds['contrat']);
+
+						$invoice_rec->origin = 'contrat';
+						$invoice_rec->origin_id = $contractidid;
+						$invoice_rec->linked_objects[$invoice_draft->origin] = $invoice_draft->origin_id;
+					}
+				}
+
+				$oldinvoice = new Facture($db);
+				$oldinvoice->fetch($invoice_draft->id);
+
+				$result = $invoice_rec->create($user, $oldinvoice->id);
+				if ($result > 0)
+				{
+					$result=$oldinvoice->delete($user, 1);
+					if ($result < 0)
+					{
+						$error++;
+						setEventMessages($oldinvoice->error, $oldinvoice->errors, 'errors');
+					}
+				}
+				else
+				{
+					$error++;
+					setEventMessages($invoice_rec->error, $invoice_rec->errors, 'errors');
+				}
+//var_dump($error);
+//				exit;
 			}
 		}
 
@@ -647,11 +889,19 @@ if (GETPOST('email') || GETPOST('thirdparty_id') > 0 || $action == 'create2')
 			print '</tr>';
 
 			print '<tr><td class="fieldrequired">';
-			print $langs->trans('Product').'</td><td>';
+			print $langs->trans('ProductForInstance').'</td><td>';
 			$defaultproductid=$conf->global->SELLYOURSAAS_DEFAULT_PRODUCT;
 			print $form->select_produits($defaultproductid, 'producttocreate');
 			print '</td>';
 			print '</tr>';
+			/*
+			print '<tr><td class="fieldrequired">';
+			print $langs->trans('ProductForUsers').'</td><td>';
+			$defaultproductid=$conf->global->SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS;
+			print $form->select_produits($defaultproductid, 'productforuserstocreate');
+			print '</td>';
+			print '</tr>';
+			*/
 		}
 		else
 		{
