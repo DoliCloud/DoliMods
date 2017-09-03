@@ -38,6 +38,7 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php");
 require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 require_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
+require_once(DOL_DOCUMENT_ROOT."/compta/facture/class/facture.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
@@ -231,7 +232,8 @@ if (empty($reshook))
 				if ($dolicloudcustomer->status == 'ACTIVE') $object->status = 1;
 				else $object->status = 0;
 
-				$object->ref_ext = '';
+				$object->ref_ext = $dolicloudcustomer->customer_id;
+				$object->import_id = 'doliv1_'.$dolicloudcustomer->customer_id;
 			}
 
 			if (empty($object->name)) $object->name = $object->email;
@@ -302,6 +304,9 @@ if (empty($reshook))
 				$contract->array_options['options_password_db']=$dolicloudcustomer->password_db;
 				$contract->array_options['fileauthorizekey']   =$dolicloudcustomer->fileauthorizekey;
 				$contract->array_options['filelock']           =$dolicloudcustomer->filelock;
+
+				$contract->ref_ext = $dolicloudcustomer->id;
+				$contract->import_id = 'doliv1_'.$dolicloudcustomer->id;
 			}
 
 			if (! empty($contract->array_options['options_hostname_db']) && ! empty($contract->array_options['options_database_db']))
@@ -393,9 +398,42 @@ if (empty($reshook))
 				}
 			}
 
-			// Now create invoice template
-			//$idcontract
+			// Now create invoice draft
+			if (! $error)
+			{
+				//$invoice_template=new FactureRec($db);
+				//$invoice_template->fk_soc = $thirdpartyidselected;
 
+				$invoice_draft = new Facture($db);
+
+				$invoice_draft->socid				= $thirdpartyidselected;
+				$invoice_draft->type				= Facture::TYPE_STANDARD;
+				$invoice_draft->number				= '';
+				$invoice_draft->date				= $contract->array_options['options_date_endfreeperiod'];
+
+				$invoice_draft->note_private		= 'Created by the new instance page';
+
+				$invoice_draft->mode_reglement_id	= $thirdparty->mode_reglement_id;
+				$invoice_draft->cond_reglement_id	= dol_getIdFromCode($db, 'RECEP', 'c_payment_term');
+
+	            $invoice_draft->fk_account          = 0;
+
+				$invoice_draft->fetch_thirdparty();
+
+				$origin='contract';
+				$originid=$idcontract;
+
+				$invoice_draft->origin = $origin;
+				$invoice_draft->origin_id = $originid;
+
+				// Possibility to add external linked objects with hooks
+				$invoice_draft->linked_objects[$invoice_draft->origin] = $invoice_draft->origin_id;
+
+				$idinvoice = $invoice_draft->create($user);      // This include class to add_object_linked() and add add_contact()
+
+				//var_dump($idinvoice);
+				//exit;
+			}
 		}
 
 		if (! $error && $thirdpartyidselected > 0 && $idcontract > 0)

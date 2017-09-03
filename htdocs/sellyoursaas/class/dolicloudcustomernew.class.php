@@ -435,6 +435,7 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " pl.amount as price_instance,";
 		$sql.= " pl.meter_id as plan_meter_id,";
 
+		$sql.= " c.id as customer_id,";
 		$sql.= " c.org_name as organization,";
 		$sql.= " c.status as status,";
 		$sql.= " c.past_due_start,";
@@ -488,6 +489,7 @@ class Dolicloudcustomernew extends CommonObject
 
 				$this->instance = preg_replace('/\.on\.dolicloud\.com$/','',$obj->instance);
 				$this->ref = $obj->instance;
+				$this->customer_id = $obj->customer_id;
 				$this->organization = $obj->organization;
 				$this->email = $obj->email;
 				$this->locale = $obj->locale;
