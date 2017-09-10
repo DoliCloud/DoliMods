@@ -621,7 +621,7 @@ if (empty($reshook))
 
 				$invoice_rec = new FactureRec($db);
 
-				$invoice_rec->titre = 'Subscription '.$contract->ref.' '.$contract->ref_customer;
+				$invoice_rec->titre = 'Template invoice for '.$contract->ref.' '.$contract->ref_customer;
 				$invoice_rec->note_private = $contract->note_private;
 				$invoice_rec->note_public  = $contract->note_public;
 				$invoice_rec->mode_reglement_id = $invoice_draft->mode_reglement_id;
