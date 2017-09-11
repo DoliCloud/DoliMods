@@ -68,11 +68,12 @@ DefaultCategoryForSaaSCustomers=Default customer category/tag for your SaaS cust
 ProductsToIncludeInContract=Product/service to include into new contract/instance
 ThirdPartyFound=Third party found
 AddContractInstance=Add contract/instance
-ErrorBadValueForInstance=Bad value for instance name
+ErrorBadValueForInstance=Bad value for instance name <b>%s</b>
 SellYourSaasMainDomain=Main domain name
 DashboardPassword=Dashboard password
 NewProduct=New product
 ProductForInstance=Product for instance
 ProductForUsers=Product for users
-
+FrequencyMultiple=Nbr of standard periods in same invoice
+DiscountOnInvoice=Discount (on invoice only)
 
