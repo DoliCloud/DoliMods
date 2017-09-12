@@ -70,8 +70,8 @@ $date_registration  = dol_mktime(0, 0, 0, GETPOST("date_registrationmonth",'int'
 $date_endfreeperiod = dol_mktime(0, 0, 0, GETPOST("endfreeperiodmonth",'int'), GETPOST("endfreeperiodday",'int'), GETPOST("endfreeperiodyear",'int'), 1);
 if (empty($date_endfreeperiod) && ! empty($date_registration)) $date_endfreeperiod=$date_registration+15*24*3600;
 
-$emailtocreate=GETPOST('emailtocreate')?GETPOST('emailtocreate'):GETPOST('email');
-$instancetocreate=GETPOST('instancetocreate')?GETPOST('instancetocreate'):'xxx.yyy.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME;
+$emailtocreate=GETPOST('emailtocreate')?GETPOST('emailtocreate'):'';
+$instancetocreate=GETPOST('instancetocreate','alpha');
 
 $error = 0; $errors = array();
 
@@ -666,31 +666,30 @@ if (empty($reshook))
 	}
 
 
-	if (GETPOST('loadthirdparty'))
+	if (GETPOST('loadthirdparty') && (GETPOST('thirdparty_id') > 0 || GETPOST('email')))
 	{
+		$emailtocreate = '';
+		$instancetocreate = '';
+		$nametocreate = '';
+		$_POST['nametocreate'] = '';
+		$_POST['emailtocreate'] = '';
+
 		$result = $object->fetch((GETPOST('thirdparty_id') > 0 ? GETPOST('thirdparty_id') : 0), '', '', '','','','','','', '', GETPOST('email'));
 
-		// If not found, we fill the record with data from old v1 mirror table
-		if (empty($object->id))
-		{
-			$sql='SELECT rowid FROM '.MAIN_DB_PREFIX."dolicloud_customers WHERE email = '".$db->escape(GETPOST('email'))."'";
-			$resql=$db->query($sql);
-			if ($resql)
-			{
-				if ($obj = $db->fetch_object($resql))
-				{
-					$dolicloudcustomer->fetch($obj->rowid);
+		$emailtosearchinold = GETPOST('email');
+		if (empty($emailtosearchinold)) $emailtosearchinold = $object->email;
 
-					if (! empty($dolicloudcustomer->id))
-					{
-						$object->name = $dolicloudcustomer->getFullName($langs);
-						$object->email = $dolicloudcustomer->email;
-					}
-				}
-			}
-			else
+		// Search also on data from old v1 mirror table
+		if ($emailtosearchinold)
+		{
+			$result = $dolicloudcustomer->fetch(0, '', '', $emailtosearchinold);
+			if ($result > 0)
 			{
-				dol_print_error($db);
+				if (empty($object->id))
+				{
+					$object->name = $dolicloudcustomer->getFullName($langs);
+					$object->email = $dolicloudcustomer->email;
+				}
 			}
 		}
 	}
@@ -728,7 +727,7 @@ print '<table class="border" width="100%">';
 
 print '<tr>';
 print '<td class="titlefield">'.$langs->trans("Email").'</td><td>';
-print '<input type="text" name="email" value="" class="minwidth300">';
+print '<input type="text" name="email" value="'.GETPOST('email','alpha').'" class="minwidth300">';
 print '</td>';
 print '</tr>';
 
@@ -741,6 +740,47 @@ print '</tr>';
 print '<tr><td></td><td>';
 print '<input type="submit" name="loadthirdparty" class="button" value="'.$langs->trans("Search").'">';
 print '</td></tr>';
+
+
+if ($dolicloudcustomer->id > 0)
+{
+	$nametocreate = $dolicloudcustomer->organization;
+	$instancetocreate = $dolicloudcustomer->instance.'.on.dolicloud.com';
+	$emailtocreate = $dolicloudcustomer->email;
+
+	print '<tr><td colspan="2"><hr>';
+	print '</td></tr>';
+
+	print '<tr><td colspan="2">';
+	print '<div class="titre">'.$langs->trans("Third party found in V1").'</div>';
+	print '</td></tr>';
+
+	print '<tr><td class="fieldrequired">';
+	print $langs->trans('Instance').'</td><td>';
+	print $instancetocreate;
+	print '</td>';
+
+	print '<tr><td class="fieldrequired">';
+	print $langs->trans('Status').'</td><td>';
+	print $dolicloudcustomer->instance_status.' - '.$dolicloudcustomer->status;
+	print '</td>';
+
+	print '<tr><td class="fieldrequired">';
+	print $langs->trans('Country').'</td><td>';
+	print $dolicloudcustomer->country_code;
+	print '</td>';
+
+	print '<tr><td class="fieldrequired">';
+	print $langs->trans('IntraVat').'</td><td>';
+	print $dolicloudcustomer->vat_number;
+	print '</td>';
+
+	print '</tr>';
+}
+else
+{
+	$emailtocreate = GETPOST('email');
+}
 
 // If thirdparty found
 if ($object->id > 0)
@@ -841,7 +881,7 @@ if (GETPOST('email') || GETPOST('thirdparty_id') > 0 || $action == 'create2')
 
 		print '<tr><td class="titlefield">';
 		print $langs->trans('Name').'</td><td>';
-		print '<input type="text" name="nametocreate" class="minwidth300" value="">';
+		print '<input type="text" name="nametocreate" class="minwidth300" value="'.$nametocreate.'">';
 		print '</td>';
 		print '</tr>';
 
@@ -890,6 +930,8 @@ if (GETPOST('email') || GETPOST('thirdparty_id') > 0 || $action == 'create2')
 
 		if (empty($contractfound))
 		{
+			if (empty($instancetocreate)) $instancetocreate = 'xxx.yyy.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME;
+
 			print '<tr><td class="fieldrequired">';
 			print $langs->trans('Instance').' (ex: myinstance.on.dolicloud.com)</td><td>';
 			print '<input type="text" name="instancetocreate" value="'.$instancetocreate.'" class="minwidth300">';
@@ -909,7 +951,7 @@ if (GETPOST('email') || GETPOST('thirdparty_id') > 0 || $action == 'create2')
 			print '</td>';
 			print '</tr>';
 
-			print '<tr><td class="fieldrequired">';
+			print '<tr><td>';
 			print $langs->trans('DiscountOnInvoice').'</td><td>';
 			print '<input type="text" size="2" name="discount" value="'.GETPOST('discount','int').'">';
 			print '</td>';
