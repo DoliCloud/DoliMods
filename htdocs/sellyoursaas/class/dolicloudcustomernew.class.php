@@ -381,13 +381,14 @@ class Dolicloudcustomernew extends CommonObject
      *  @param	int		$id    			Id
      *  @param	string	$ref   			Ref of instance (get last recent one when search is done on ref)
      *  @param	string	$organization 	Organization (get last recent one when search is done on ref)
+     *  @param	string	$email			Email
      *  @return int         			<0 if KO, 0=Not found, Number of line found if OK
      */
-    function fetch($id,$ref='',$organization='')
+    function fetch($id, $ref='', $organization='', $email='')
     {
     	global $langs;
 
-    	if (empty($id) && empty($ref) && empty($organization)) dol_print_error('','Bad parameters for fetch');
+    	if (empty($id) && empty($ref) && empty($organization) && empty($email)) dol_print_error('','Bad parameters for fetch');
 
     	// Add on.dolicloud.com to have a complete instance id
     	if (! empty($ref) && ! preg_match('/\.on\.dolicloud\.com$/',$ref)) $ref=$ref.'.on.dolicloud.com';
@@ -476,8 +477,9 @@ class Dolicloudcustomernew extends CommonObject
 
         if ($ref) $sql.= " AND i.name = '".$this->db2->escape($ref)."'";
         elseif ($organization) $sql.= " AND c.organization = '".$this->db2->escape($organization)."'";
+        elseif ($email) $sql.= " AND per.username = '".$this->db2->escape($email)."'";
         else $sql.= " AND i.id = ".$id;
-    	if ($ref || $organization) $sql.= " ORDER BY i.deployed_date DESC";
+    	if ($ref || $organization || $email) $sql.= " ORDER BY i.deployed_date DESC";
 
     	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
         $resql=$this->db2->query($sql);

@@ -70,8 +70,8 @@ $date_registration  = dol_mktime(0, 0, 0, GETPOST("date_registrationmonth",'int'
 $date_endfreeperiod = dol_mktime(0, 0, 0, GETPOST("endfreeperiodmonth",'int'), GETPOST("endfreeperiodday",'int'), GETPOST("endfreeperiodyear",'int'), 1);
 if (empty($date_endfreeperiod) && ! empty($date_registration)) $date_endfreeperiod=$date_registration+15*24*3600;
 
-$emailtocreate=GETPOST('emailtocreate')?GETPOST('emailtocreate'):GETPOST('email');
-$instancetocreate=GETPOST('instancetocreate')?GETPOST('instancetocreate'):'xxx.yyy.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME;
+$emailtocreate=GETPOST('emailtocreate')?GETPOST('emailtocreate'):'';
+$instancetocreate=GETPOST('instancetocreate','alpha');
 
 $error = 0; $errors = array();
 
@@ -117,35 +117,6 @@ if (empty($reshook))
 		exit;
 	}
 
-	if (GETPOST('loadthirdparty'))
-	{
-		$result = $object->fetch(GETPOST('thirdparty_id'), '', '', '','','','','','', GETPOST('email'));
-
-		// If not found, we fill the record with data from old v1 mirror table
-		if (empty($object->id))
-		{
-			$sql='SELECT rowid FROM '.MAIN_DB_PREFIX."dolicloud_customers WHERE email = '".$db->escape(GETPOST('email'))."'";
-			$resql=$db->query($sql);
-			if ($resql)
-			{
-				if ($obj = $db->fetch_object($resql))
-				{
-					$dolicloudcustomer->fetch($obj->rowid);
-
-					if (! empty($dolicloudcustomer->id))
-					{
-						$object->name = $dolicloudcustomer->getFullName($langs);
-						$object->email = $dolicloudcustomer->email;
-					}
-				}
-			}
-			else
-			{
-				dol_print_error($db);
-			}
-		}
-	}
-
 	// Add customer
 	if ($action == 'add' && $user->rights->sellyoursaas->sellyoursaas->write)
 	{
@@ -177,8 +148,9 @@ if (empty($reshook))
 			if (! $checkinstance)
 			{
 				$error++;
-				setEventMEssages($langs->trans("ErrorBadValueForInstance"), null, 'errors');
+				setEventMEssages($langs->trans("ErrorBadValueForInstance", $instancetocreate), null, 'errors');
 				$action = 'create2';
+				$_POST['loadthirdparty']='load';
 			}
 			else
 			{
@@ -206,8 +178,9 @@ if (empty($reshook))
 			if (! $checkinstance)
 			{
 				$error++;
-				setEventMEssages($langs->trans("ErrorBadValueForInstance"), null, 'errors');
+				setEventMEssages($langs->trans("ErrorBadValueForInstance", $instancetocreate), null, 'errors');
 				$action = 'create2';
+				$_POST['loadthirdparty']='load';
 			}
 
 			if ($dolicloudcustomer->id > 0)
@@ -266,6 +239,7 @@ if (empty($reshook))
 					$error++;
 					setEventMessages('', array_merge($errors,($object->error?array($object->error):$object->errors)), 'errors');
 					$action = 'create2';
+					$_POST['loadthirdparty']='load';
 				}
 
 				if (! $error && ($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG > 0))
@@ -352,6 +326,7 @@ if (empty($reshook))
 				$error++;
 				setEventMessages('', array_merge($errors,($contract->error?array($contract->error):$contract->errors)), 'errors');
 				$action = 'create2';
+				$_POST['loadthirdparty']='load';
 			}
 
 			if (! $error)
@@ -473,6 +448,9 @@ if (empty($reshook))
 			/*var_dump($dolicloudcustomer->price_instance);
 			var_dump($dolicloudcustomer->price_user);
 			exit;*/
+			$dateinvoice = $contract->array_options['options_date_endfreeperiod'];
+
+			$invoice_draft = new Facture($db);
 
 			// Now create invoice draft
 			if (! $error)
@@ -480,17 +458,15 @@ if (empty($reshook))
 				//$invoice_template=new FactureRec($db);
 				//$invoice_template->fk_soc = $thirdpartyidselected;
 
-				$invoice_draft = new Facture($db);
-
 				$invoice_draft->socid				= $thirdpartyidselected;
 				$invoice_draft->type				= Facture::TYPE_STANDARD;
 				$invoice_draft->number				= '';
-				$invoice_draft->date				= $contract->array_options['options_date_endfreeperiod'];
+				$invoice_draft->date				= $dateinvoice;
 
 				$invoice_draft->note_private		= 'Created by the new instance page';
 
 				$invoice_draft->mode_reglement_id	= (GETPOST('mode_reglement_id','int') > 0 ? GETPOST('mode_reglement_id','int') : $thirdparty->mode_reglement_id);
-				$invoice_draft->cond_reglement_id	= dol_getIdFromCode($db, 'RECEP', 'c_payment_term');
+				$invoice_draft->cond_reglement_id	= dol_getIdFromCode($db, 'RECEP', 'c_payment_term', 'code', 'rowid');
 
 	            $invoice_draft->fk_account          = 0;
 
@@ -506,8 +482,15 @@ if (empty($reshook))
 				$invoice_draft->linked_objects[$invoice_draft->origin] = $invoice_draft->origin_id;
 
 				$idinvoice = $invoice_draft->create($user);      // This include class to add_object_linked() and add add_contact()
+				if (! ($idinvoice > 0))
+				{
+					setEventMessages($invoice_draft->error, $invoice_draft->errors, 'errors');
+					$error++;
+				}
+			}
 
-
+			if (! $error)
+			{
 				// Add lines
 				$srcobject = $contract;
 
@@ -526,26 +509,6 @@ if (empty($reshook))
 					$desc=(! empty($lines[$i]->desc)?$lines[$i]->desc:$lines[$i]->libelle);
 					if ($invoice_draft->situation_counter == 1) $lines[$i]->situation_percent =  0;
 
-					if ($lines[$i]->subprice < 0)
-					{
-						// Negative line, we create a discount line
-						$discount = new DiscountAbsolute($db);
-						$discount->fk_soc = $invoice_draft->socid;
-						$discount->amount_ht = abs($lines[$i]->total_ht);
-						$discount->amount_tva = abs($lines[$i]->total_tva);
-						$discount->amount_ttc = abs($lines[$i]->total_ttc);
-						$discount->tva_tx = $lines[$i]->tva_tx;
-						$discount->fk_user = $user->id;
-						$discount->description = $desc;
-						$discountid = $discount->create($user);
-						if ($discountid > 0) {
-							$result = $invoice_draft->insert_discount($discountid); // This include link_to_invoice
-						} else {
-							setEventMessages($discount->error, $discount->errors, 'errors');
-							$error ++;
-							break;
-						}
-					} else {
 						// Positive line
 						$product_type = ($lines[$i]->product_type ? $lines[$i]->product_type : 0);
 
@@ -553,54 +516,60 @@ if (empty($reshook))
 						$date_start = false;
 						if ($lines[$i]->date_debut_prevue)
 							$date_start = $lines[$i]->date_debut_prevue;
-							if ($lines[$i]->date_debut_reel)
-								$date_start = $lines[$i]->date_debut_reel;
-								if ($lines[$i]->date_start)
-									$date_start = $lines[$i]->date_start;
+						if ($lines[$i]->date_debut_reel)
+							$date_start = $lines[$i]->date_debut_reel;
+						if ($lines[$i]->date_start)
+							$date_start = $lines[$i]->date_start;
 
-									// Date end
-									$date_end = false;
-									if ($lines[$i]->date_fin_prevue)
-										$date_end = $lines[$i]->date_fin_prevue;
-										if ($lines[$i]->date_fin_reel)
-											$date_end = $lines[$i]->date_fin_reel;
-											if ($lines[$i]->date_end)
-												$date_end = $lines[$i]->date_end;
+						// Date end
+						$date_end = false;
+						if ($lines[$i]->date_fin_prevue)
+							$date_end = $lines[$i]->date_fin_prevue;
+						if ($lines[$i]->date_fin_reel)
+							$date_end = $lines[$i]->date_fin_reel;
+						if ($lines[$i]->date_end)
+							$date_end = $lines[$i]->date_end;
 
-												// Reset fk_parent_line for no child products and special product
-												if (($lines[$i]->product_type != 9 && empty($lines[$i]->fk_parent_line)) || $lines[$i]->product_type == 9) {
-													$fk_parent_line = 0;
-												}
+						// Reset fk_parent_line for no child products and special product
+						if (($lines[$i]->product_type != 9 && empty($lines[$i]->fk_parent_line)) || $lines[$i]->product_type == 9) {
+							$fk_parent_line = 0;
+						}
 
-												// Extrafields
-												if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED) && method_exists($lines[$i], 'fetch_optionals')) {
-													$lines[$i]->fetch_optionals($lines[$i]->rowid);
-													$array_options = $lines[$i]->array_options;
-												}
+						// Discount
+						$discount = $lines[$i]->remise_percent;
+						if (empty($discount) && GETPOST('discount'))
+						{
+							$discount = GETPOST('discount');
+						}
 
-												$tva_tx = $lines[$i]->tva_tx;
-												if (! empty($lines[$i]->vat_src_code) && ! preg_match('/\(/', $tva_tx)) $tva_tx .= ' ('.$lines[$i]->vat_src_code.')';
+						// Extrafields
+						if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED) && method_exists($lines[$i], 'fetch_optionals')) {
+							$lines[$i]->fetch_optionals($lines[$i]->rowid);
+							$array_options = $lines[$i]->array_options;
+						}
 
-												// View third's localtaxes for NOW and do not use value from origin.
-												// TODO Is this really what we want ? Yes if source if template invoice but what if proposal or order ?
-												$localtax1_tx = get_localtax($tva_tx, 1, $invoice_draft->thirdparty);
-												$localtax2_tx = get_localtax($tva_tx, 2, $invoice_draft->thirdparty);
+						$tva_tx = $lines[$i]->tva_tx;
+						if (! empty($lines[$i]->vat_src_code) && ! preg_match('/\(/', $tva_tx)) $tva_tx .= ' ('.$lines[$i]->vat_src_code.')';
 
-												$result = $invoice_draft->addline($desc, $lines[$i]->subprice, $lines[$i]->qty, $tva_tx, $localtax1_tx, $localtax2_tx, $lines[$i]->fk_product, $lines[$i]->remise_percent, $date_start, $date_end, 0, $lines[$i]->info_bits, $lines[$i]->fk_remise_except, 'HT', 0, $product_type, $lines[$i]->rang, $lines[$i]->special_code, $invoice_draft->origin, $lines[$i]->rowid, $fk_parent_line, $lines[$i]->fk_fournprice, $lines[$i]->pa_ht, $label, $array_options, $lines[$i]->situation_percent, $lines[$i]->fk_prev_id, $lines[$i]->fk_unit);
+						// View third's localtaxes for NOW and do not use value from origin.
+						// TODO Is this really what we want ? Yes if source if template invoice but what if proposal or order ?
+						$localtax1_tx = get_localtax($tva_tx, 1, $invoice_draft->thirdparty);
+						$localtax2_tx = get_localtax($tva_tx, 2, $invoice_draft->thirdparty);
 
-												if ($result > 0) {
-													$lineid = $result;
-												} else {
-													$lineid = 0;
-													$error ++;
-													break;
-												}
+						$result = $invoice_draft->addline($desc, $lines[$i]->subprice * GETPOST('frequency_multiple','int'), $lines[$i]->qty, $tva_tx, $localtax1_tx, $localtax2_tx, $lines[$i]->fk_product, $discount, $date_start, $date_end, 0, $lines[$i]->info_bits, $lines[$i]->fk_remise_except, 'HT', 0, $product_type, $lines[$i]->rang, $lines[$i]->special_code, $invoice_draft->origin, $lines[$i]->rowid, $fk_parent_line, $lines[$i]->fk_fournprice, $lines[$i]->pa_ht, $label, $array_options, $lines[$i]->situation_percent, $lines[$i]->fk_prev_id, $lines[$i]->fk_unit);
 
-												// Defined the new fk_parent_line
-												if ($result > 0 && $lines[$i]->product_type == 9) {
-													$fk_parent_line = $result;
-												}
-					}
+						if ($result > 0) {
+							$lineid = $result;
+						} else {
+							$lineid = 0;
+							$error ++;
+							break;
+						}
+
+						// Defined the new fk_parent_line
+						if ($result > 0 && $lines[$i]->product_type == 9) {
+							$fk_parent_line = $result;
+						}
 				}
 
 				//var_dump($invoice_draft->lines);
@@ -621,14 +590,14 @@ if (empty($reshook))
 
 				$invoice_rec = new FactureRec($db);
 
-				$invoice_rec->titre = 'Subscription '.$contract->ref.' '.$contract->ref_customer;
+				$invoice_rec->titre = 'Template invoice for '.$contract->ref.' '.$contract->ref_customer;
 				$invoice_rec->note_private = $contract->note_private;
-				$invoice_rec->note_public  = $contract->note_public;
+				$invoice_rec->note_public  = dol_concatdesc($contract->note_public, '__(Period)__ : __INVOICE_DATE_NEXT_INVOICE_BEFORE_GEN__ - __INVOICE_DATE_NEXT_INVOICE_AFTER_GEN__');
 				$invoice_rec->mode_reglement_id = $invoice_draft->mode_reglement_id;
 
 				$invoice_rec->usenewprice = 0;
 
-				$invoice_rec->frequency = 1;
+				$invoice_rec->frequency = GETPOST('frequency_multiple','int');
 				$invoice_rec->unit_frequency = 'm';
 				$invoice_rec->nb_gen_max = $nb_gen_max;
 				$invoice_rec->auto_validate = 0;
@@ -692,8 +661,40 @@ if (empty($reshook))
 			unset($object);
 			$object=new Societe($db);
 			$action='create2';
+			$_POST['loadthirdparty']='load';
 		}
 	}
+
+
+	if (GETPOST('loadthirdparty') && (GETPOST('thirdparty_id') > 0 || GETPOST('email')))
+	{
+		$emailtocreate = '';
+		$instancetocreate = '';
+		$nametocreate = '';
+		$_POST['nametocreate'] = '';
+		$_POST['emailtocreate'] = '';
+
+		$result = $object->fetch((GETPOST('thirdparty_id') > 0 ? GETPOST('thirdparty_id') : 0), '', '', '','','','','','', '', GETPOST('email'));
+
+		$emailtosearchinold = GETPOST('email');
+		if (empty($emailtosearchinold)) $emailtosearchinold = $object->email;
+
+		// Search also on data from old v1 mirror table
+		if ($emailtosearchinold)
+		{
+			$result = $dolicloudcustomer->fetch(0, '', '', $emailtosearchinold);
+			if ($result > 0)
+			{
+				if (empty($object->id))
+				{
+					$object->name = $dolicloudcustomer->getFullName($langs);
+					$object->email = $dolicloudcustomer->email;
+				}
+			}
+		}
+	}
+
+
 
 	// Add action to create file, etc...
 	include 'refresh_action.inc.php';
@@ -726,7 +727,7 @@ print '<table class="border" width="100%">';
 
 print '<tr>';
 print '<td class="titlefield">'.$langs->trans("Email").'</td><td>';
-print '<input type="text" name="email" value="" class="minwidth300">';
+print '<input type="text" name="email" value="'.GETPOST('email','alpha').'" class="minwidth300">';
 print '</td>';
 print '</tr>';
 
@@ -740,6 +741,47 @@ print '<tr><td></td><td>';
 print '<input type="submit" name="loadthirdparty" class="button" value="'.$langs->trans("Search").'">';
 print '</td></tr>';
 
+
+if ($dolicloudcustomer->id > 0)
+{
+	$nametocreate = $dolicloudcustomer->organization;
+	$instancetocreate = $dolicloudcustomer->instance.'.on.dolicloud.com';
+	$emailtocreate = $dolicloudcustomer->email;
+
+	print '<tr><td colspan="2"><hr>';
+	print '</td></tr>';
+
+	print '<tr><td colspan="2">';
+	print '<div class="titre">'.$langs->trans("Third party found in V1").'</div>';
+	print '</td></tr>';
+
+	print '<tr><td class="fieldrequired">';
+	print $langs->trans('Instance').'</td><td>';
+	print $instancetocreate;
+	print '</td>';
+
+	print '<tr><td class="fieldrequired">';
+	print $langs->trans('Status').'</td><td>';
+	print $dolicloudcustomer->instance_status.' - '.$dolicloudcustomer->status;
+	print '</td>';
+
+	print '<tr><td class="fieldrequired">';
+	print $langs->trans('Country').'</td><td>';
+	print $dolicloudcustomer->country_code;
+	print '</td>';
+
+	print '<tr><td class="fieldrequired">';
+	print $langs->trans('IntraVat').'</td><td>';
+	print $dolicloudcustomer->vat_number;
+	print '</td>';
+
+	print '</tr>';
+}
+else
+{
+	$emailtocreate = GETPOST('email');
+}
+
 // If thirdparty found
 if ($object->id > 0)
 {
@@ -751,6 +793,12 @@ if ($object->id > 0)
 	print '<tr><td class="titlefield tdtop">';
 	print $langs->trans('Name').'</td><td>';
 	print $object->getNomUrl(1, 'customer');
+	print '</td>';
+	print '</tr>';
+
+	print '<tr><td class="titlefield tdtop">';
+	print $langs->trans('Email').'</td><td>';
+	print $object->email;
 	print '</td>';
 	print '</tr>';
 
@@ -833,7 +881,7 @@ if (GETPOST('email') || GETPOST('thirdparty_id') > 0 || $action == 'create2')
 
 		print '<tr><td class="titlefield">';
 		print $langs->trans('Name').'</td><td>';
-		print '<input type="text" name="nametocreate" class="minwidth300" value="">';
+		print '<input type="text" name="nametocreate" class="minwidth300" value="'.$nametocreate.'">';
 		print '</td>';
 		print '</tr>';
 
@@ -882,6 +930,8 @@ if (GETPOST('email') || GETPOST('thirdparty_id') > 0 || $action == 'create2')
 
 		if (empty($contractfound))
 		{
+			if (empty($instancetocreate)) $instancetocreate = 'xxx.yyy.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME;
+
 			print '<tr><td class="fieldrequired">';
 			print $langs->trans('Instance').' (ex: myinstance.on.dolicloud.com)</td><td>';
 			print '<input type="text" name="instancetocreate" value="'.$instancetocreate.'" class="minwidth300">';
@@ -894,6 +944,19 @@ if (GETPOST('email') || GETPOST('thirdparty_id') > 0 || $action == 'create2')
 			print $form->select_produits($defaultproductid, 'producttocreate');
 			print '</td>';
 			print '</tr>';
+
+			print '<tr><td class="fieldrequired">';
+			print $langs->trans('FrequencyMultiple').'</td><td>';
+			print '<input type="text" size="2" name="frequency_multiple" value="'.(GETPOST('frequency_multiple','int')!=''?GETPOST('frequency_multiple','int'):'1').'">';
+			print '</td>';
+			print '</tr>';
+
+			print '<tr><td>';
+			print $langs->trans('DiscountOnInvoice').'</td><td>';
+			print '<input type="text" size="2" name="discount" value="'.GETPOST('discount','int').'">';
+			print '</td>';
+			print '</tr>';
+
 			/*
 			print '<tr><td class="fieldrequired">';
 			print $langs->trans('ProductForUsers').'</td><td>';
