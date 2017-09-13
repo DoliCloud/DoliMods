@@ -650,14 +650,14 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
     	// List of actions on element
     	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formactions.class.php';
     	$formactions=new FormActions($db);
-    	$somethingshown=$formactions->showactions($object,'contract',0,1);
+    	$somethingshown = $formactions->showactions($object,'contract',0,1);
     }
     else
     {
 		// List of actions on element
 		include_once DOL_DOCUMENT_ROOT.'/core/class/html.formactions.class.php';
 		$formactions=new FormActions($db);
-		$somethingshown=$formactions->showactions($object,'dolicloudcustomers',0,1);
+		$somethingshown = $formactions->showactions($object,'dolicloudcustomers',0,1);
     }
 
 	print '</td></tr></table>';

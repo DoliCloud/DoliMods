@@ -74,6 +74,6 @@ DashboardPassword=Dashboard password
 NewProduct=New product
 ProductForInstance=Product for instance
 ProductForUsers=Product for users
-FrequencyMultiple=Nbr of standard periods in same invoice
+FrequencyMultiple=Nbr of standard periods in invoice
 DiscountOnInvoice=Discount (on invoice only)
 
