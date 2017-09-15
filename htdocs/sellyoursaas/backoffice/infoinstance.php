@@ -116,7 +116,7 @@ $reshook=$hookmanager->executeHooks('doActions',$parameters,$object,$action);   
 if (empty($reshook))
 {
 	// Cancel
-	if (GETPOST("cancel") && ! empty($backtopage))
+	if (GETPOST('cancel','alpha') && ! empty($backtopage))
 	{
 		header("Location: ".$backtopage);
 		exit;

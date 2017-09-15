@@ -106,7 +106,7 @@ $formadmin=new FormAdmin($db);
 
 if ($action == 'save' && ($caneditfield  || $user->admin))
 {
-    if (! GETPOST("cancel"))
+    if (! GETPOST('cancel','alpha'))
     {
         $tabparam=array();
 
