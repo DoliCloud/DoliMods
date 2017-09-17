@@ -1,6 +1,9 @@
 #!/bin/bash
 #---------------------------------------------------------
 # Script to update sources found into document dir
+#
+# To include into cron
+# /pathto/git_update_sources.sh documentdir/sellyoursaas/git > /pathto/git_update_sources.log 2>&
 #---------------------------------------------------------
 
 if [ "x$1" == "x" ]; then
@@ -15,7 +18,7 @@ for dir in `ls -d $1/*`
 do
 	echo -- Process dir $dir
 	cd $dir
-	git pull --ff-only
+	git pull --ff-only --depth=10
 	echo Result of git pull -ff-only = $?
 	cd -
 done
