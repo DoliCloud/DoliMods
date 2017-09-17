@@ -1,4 +1,9 @@
 
+-- Insert payment modes
+INSERT INTO llx_c_paiement (id,code,libelle,type,active,accountancy_code,module) VALUES (100,'PAYPAL','Paypal',2,1,null,null);
+INSERT INTO llx_c_paiement (id,code,libelle,type,active,accountancy_code,module) VALUES (101,'STRIPE','Stripe',2,1,null,null);
+
+
 -- Insert package/products
 --DELETE FROM llx_product where rowid >= 100;
 INSERT INTO llx_product (rowid,fk_product_type,ref,label,price,tosell,tobuy, duration) VALUES (100, 1, 'DOLICLOUD-PACK-DOL',     'Instance Dolibarr ERP & CRM',   0, 1, 1, '1m');
@@ -10,7 +15,7 @@ INSERT INTO llx_product (rowid,fk_product_type,ref,label,price,tosell,tobuy, dur
 
 
 
--- Plans will be Variant of package/products
+-- Plans may be Variant of package/products
 
 
 

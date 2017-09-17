@@ -630,22 +630,6 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('nb_gb',                   "Last nb of Gb",       'int', 21,   '8',    'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 
 
-
-		$object->array_options['options_plan']=$dolicloudcustomer->plan;
-		$object->array_options['options_date_registration']=$dolicloudcustomer->date_registration;
-		$object->array_options['options_date_endfreeperiod']=$dolicloudcustomer->date_endfreeperiod;
-		$object->array_options['options_hostname_os']=$dolicloudcustomer->hostname_web;
-		$object->array_options['options_username_os']=$dolicloudcustomer->username_web;
-		$object->array_options['options_password_os']=$dolicloudcustomer->password_web;
-		$object->array_options['options_hostname_db']=$dolicloudcustomer->hostname_db;
-		$object->array_options['options_database_db']=$dolicloudcustomer->database_db;
-		$object->array_options['options_port_db']    =$dolicloudcustomer->port_db;
-		$object->array_options['options_username_db']=$dolicloudcustomer->username_db;
-		$object->array_options['options_password_db']=$dolicloudcustomer->password_db;
-		$object->array_options['fileauthorizekey']=$dolicloudcustomer->fileauthorizekey;
-		$object->array_options['filelock']=$dolicloudcustomer->filelock;
-
-
 		$sql = array();
 
 		return $this->_init($sql,$options);
