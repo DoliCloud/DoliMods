@@ -433,7 +433,7 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " pao.amount as price_user,";
 		$sql.= " pao.min_threshold as min_threshold,";
 
-		$sql.= " pl.amount as price_instance,";
+		$sql.= " pl.amount as price_instance_plan,";
 		$sql.= " pl.meter_id as plan_meter_id,";
 		$sql.= " pl.name as plan,";
 		$sql.= " pl.interval_unit as interval_unit,";
@@ -445,7 +445,9 @@ class Dolicloudcustomernew extends CommonObject
 		$sql.= " c.suspension_date,";
 		$sql.= " c.tel as phone,";
 		$sql.= " c.tax_identification_number as vat_number,";
+		$sql.= " c.manual_collection,";
 
+		$sql.= " s.amount as price_instance,";	// Real active amount per instance
 		$sql.= " s.payment_status,";
 		$sql.= " s.trial_end,";
 		$sql.= " s.current_period_start,";
@@ -504,8 +506,16 @@ class Dolicloudcustomernew extends CommonObject
 				$this->package = $obj->package;
 				$this->plan = $obj->plan;
 
-				$this->price_user = $obj->price_user;
-				$this->price_instance = $obj->price_instance;
+				if (empty($this->price_user))
+				{
+					$this->price_instance = 0;
+					$this->price_user = $obj->price_instance;
+				}
+				else
+				{
+					$this->price_user = $obj->price_user;
+					$this->price_instance = $obj->price_instance;
+				}
 
 				$this->date_registration = $this->db2->jdate($obj->deployed_date);
 				$this->date_endfreeperiod = $this->db2->jdate($obj->trial_end);
@@ -544,6 +554,8 @@ class Dolicloudcustomernew extends CommonObject
                 $this->vat_number = $obj->vat_number;
                 $this->phone = $obj->phone;
 
+                $this->manual_collection = $obj->manual_collection;
+
                 $this->instance_status = $obj->instance_status;
                 $this->payment_status = $obj->payment_status;
 
@@ -574,6 +586,21 @@ class Dolicloudcustomernew extends CommonObject
 
                 // Set path
                 $this->fs_path = '/home/jail/home/'.$this->username_web.'/'.(preg_replace('/_([a-zA-Z0-9]+)$/','',$this->database_db));
+
+                $sqlpayment = 'SELECT type FROM payment_method WHERE customer_id = '.$this->customer_id.' ORDER BY last_updated DESC';
+
+                $resqlpayment=$this->db2->query($sqlpayment);
+                if ($resql)
+                {
+					$numfoundpayment=$this->db2->num_rows($resqlpayment);
+
+					if ($numfoundpayment)
+                	{
+                		$objpayment = $this->db2->fetch_object($resqlpayment);	// Take first one
+                		$this->payment_type = $objpayment->type;				// 'card' or 'paypal'
+                	}
+                }
+                else dol_print_error($this->db2);
 
                 // Load other info from old table
                 $result=$this->fetch_old('',$this->instance);
@@ -1050,7 +1077,7 @@ class Dolicloudcustomernew extends CommonObject
 
 		$error=0;
 
-		$object=new Dolicloudcustomers($this->db);
+		$object=new Dolicloudcustomernew($this->db);
 
 		$this->db->begin();
 

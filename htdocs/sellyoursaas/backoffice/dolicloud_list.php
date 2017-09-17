@@ -122,23 +122,6 @@ if (GETPOST("button_removefilter_x") || GETPOST("button_removefilter.x") ||GETPO
 	$search_status = '';
 }
 
-if ($action == 'add')
-{
-	$myobject=new Dolicloudcustomer($db);
-	$myobject->prop1=$_POST["field1"];
-	$myobject->prop2=$_POST["field2"];
-	$result=$myobject->create($user);
-	if ($result > 0)
-	{
-		// Creation OK
-	}
-	{
-		// Creation KO
-		$mesg=$myobject->error;
-	}
-}
-
-
 
 
 

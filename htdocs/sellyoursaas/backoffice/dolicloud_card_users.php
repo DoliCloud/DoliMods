@@ -79,7 +79,7 @@ else
 		exit;
 	}
 
-	$object = new DoliCloudCustomerNew($db,$db2);
+	$object = new Dolicloudcustomernew($db,$db2);
 }
 
 // Security check
@@ -186,6 +186,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 	$prefix = 'with';
 	$instance = 'xxxx';
+	$type_db = $conf->db->type;
 
 	if ($instanceoldid)
 	{
@@ -195,10 +196,21 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$username_db = $object->username_db;
 		$password_db = $object->password_db;
 		$database_db = $object->database_db;
-		$type_db = $conf->db->type;
 
 		$username_web = $object->username_web;
 		$password_web = $object->password_web;
+	}
+	else	// $object is a contract (on old or new instance)
+	{
+		if (preg_match('/\.on\./', $object->ref_customer)) $prefix='on';
+		else $prefix='with';
+
+		$hostname_db = $object->array_options['options_hostname_db'];
+		$username_db = $object->array_options['options_username_db'];
+		$password_db = $object->array_options['options_password_db'];
+		$database_db = $object->array_options['options_database_db'];
+		$username_web = $object->array_options['options_username_os'];
+		$password_web = $object->array_options['options_username_os'];
 	}
 
 	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);

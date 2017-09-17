@@ -609,10 +609,10 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('paypal_info',               "Paypal info",   'varchar', 92, '255', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 
 		// Invoice
-		$resultx=$extrafields->addExtraField('manual_collect', 	     "Manual collection",  'boolean',  1,   '2',    'facture', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		//$resultx=$extrafields->addExtraField('manual_collect', 	     "Manual collection",  'boolean',  1,   '2',    'facture', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 
 		// Contract
-		$resultx=$extrafields->addExtraField('plan',                              "Plan", 'varchar',   2,  '32',    'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('plan',                              "Plan", 'varchar',   2,  '64',    'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('date_registration',    "Date registration", 'datetime',  3,    '',    'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('date_endfreeperiod',      "Date end trial", 'datetime',  4,    '',    'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('hostname_os',                "Hostname OS", 'varchar',   5,  '32',    'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');

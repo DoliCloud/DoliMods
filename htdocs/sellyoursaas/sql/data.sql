@@ -1,7 +1,7 @@
 
 -- Insert payment modes
-INSERT INTO llx_c_paiement (id,code,libelle,type,active,accountancy_code,module) VALUES (100,'PAYPAL','Paypal',2,1,null,null);
-INSERT INTO llx_c_paiement (id,code,libelle,type,active,accountancy_code,module) VALUES (101,'STRIPE','Stripe',2,1,null,null);
+INSERT INTO llx_c_paiement (id,code,libelle,type,active,accountancy_code,module) VALUES (100,'STRIPE','Stripe',2,1,null,null);
+INSERT INTO llx_c_paiement (id,code,libelle,type,active,accountancy_code,module) VALUES (101,'PAYPAL','Paypal',2,1,null,null);
 
 
 -- Insert package/products
