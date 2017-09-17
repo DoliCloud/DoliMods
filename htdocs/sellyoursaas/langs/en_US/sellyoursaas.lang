@@ -76,4 +76,4 @@ ProductForInstance=Product for instance
 ProductForUsers=Product for users
 FrequencyMultiple=Nb of standard periods in invoice (/ period of product)
 DiscountOnInvoice=Discount (on invoice only)
-
+BackupInstance=Backup
