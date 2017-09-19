@@ -362,11 +362,10 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		}
 	}
 
-	if (empty($instanceoldid))
+	if (preg_match('/\.with\./', $object->ref_customer))
 	{
 
 		print '<div class="fichecenter">';
-
 
 		// ----- SellYourSaas instance -----
 		$DNS_ROOT=(empty($conf->global->NLTECHNO_DNS_ROOT)?'/etc/bind':$conf->global->NLTECHNO_DNS_ROOT);
@@ -474,15 +473,47 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		print "</table>";
 
 		print '<br>';
+
+		print '</div>';
 	}
-	else
+
+	if (preg_match('/\.on\./', $object->ref_customer) || get_class($object) == 'Dolicloudcustomernew')
 	{
+		if (get_class($object) != 'Dolicloudcustomernew')
+		{
+			$ref_instance = $object->ref_customer;
+
+			if (! is_object($db2))
+			{
+				$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
+				if ($db2->error)
+				{
+					dol_print_error($db2,"host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db2->error);
+					exit;
+				}
+			}
+
+			$object = new Dolicloudcustomernew($db, $db2);
+			$object->fetch(0, $ref_instance);
+		}
+		/*var_dump($dolicloudcustomer); */
+		//var_dump($object);
+
 		print '<div class="fichecenter">';
 
-		$savdb=$object->db;
-		if (is_object($object->db2)) $object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
+		if (is_object($object->db2))
+		{
+			$savdb=$object->db;
+			$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function.  $db = stratus5 database
+		}
+
 		dol_banner_tab($object,($instanceoldid?'refold':'ref'),'',1,($instanceoldid?'name':'ref'),'ref','','',1);
-		$object->db=$savdb;
+
+		if (is_object($object->db2))
+		{
+			$savdb=$object->db;
+			$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function.  $db = stratus5 database
+		}
 
 		// ----- DoliCloud instance -----
 		print '<strong>INSTANCE DOLICLOUD v1</strong>';
@@ -645,10 +676,10 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		print '</tr>';
 
 		print "</table><br>";
+
+		print "</div>";	//  End fiche=center
 	}
 
-
-	print "</div>";	//  End fiche=center
 
 
 

@@ -194,10 +194,18 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);
 
-	$savdb=$object->db;
-	$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
+	if (is_object($object->db2))
+	{
+		$savdb=$object->db;
+		$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function.  $db = stratus5 database
+	}
+
 	dol_banner_tab($object,($instanceoldid?'refold':'ref'),'',1,($instanceoldid?'name':'ref'),'ref','','',1);
-	$object->db=$savdb;
+
+	if (is_object($object->db2))
+	{
+		$object->db=$savdb;
+	}
 
 
 	print '<div class="fichecenter">';
