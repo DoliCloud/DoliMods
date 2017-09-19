@@ -837,8 +837,18 @@ if ($dolicloudcustomer->id > 0)
 	print '</td>';
 
 	print '<tr><td class="fieldrequired">';
+	print $langs->trans('Contact').'</td><td>';
+	print $dolicloudcustomer->getFullName($langs);
+	print '</td>';
+
+	print '<tr><td class="fieldrequired">';
 	print $langs->trans('Status').'</td><td>';
 	print $dolicloudcustomer->instance_status.' - '.$dolicloudcustomer->status;
+	print '</td>';
+
+	print '<tr><td class="fieldrequired">';
+	print $langs->trans('Address').'</td><td>';
+	print $dolicloudcustomer->getFullAddress(0);
 	print '</td>';
 
 	print '<tr><td class="fieldrequired">';
