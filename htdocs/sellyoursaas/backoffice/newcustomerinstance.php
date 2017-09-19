@@ -460,7 +460,8 @@ if (empty($reshook))
 				$save_date_end = $date_end;
 				//var_dump("$nb_user, $product->tva_tx, $product->localtax1_tx, $product->localtax2_tx, $productidtocreate, 0, ".dol_print_date($date_start, 'dayhourlog')." - ".dol_print_date($date_end, 'dayhourlog'));exit;
 
-				$discount = (int) GETPOST('discount');
+				//$discount = GETPOST('discount');
+				$discount = 0;	// Discount for contracts is zero.
 
 				// Create contract line for INSTANCE
 				if (! $error)
