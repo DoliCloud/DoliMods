@@ -394,7 +394,20 @@ if ($ovhthirdparty->id <= 0)
 print_fiche_titre($langs->trans("OvhInvoiceImportShort"));
 
 print $langs->trans("OvhInvoiceImportDesc").'<br><br>';
-print $langs->trans("OvhSmsNick").': <strong>'.$conf->global->OVHSMS_NICK.'</strong><br>';
+
+print $langs->trans("ProductGenericToUseForImport").'</td><td>';
+if ($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID > 0)
+{
+	$producttmp=new Product($db);
+	$product->fetch($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID);
+	print $product->getNomUrl(1);
+}
+else
+{
+	print $langs->trans("NoneLabelOnOvhLineWillBeUsed");
+}
+//print $form->select_produits($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID, 'OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID');
+//print $langs->trans("OvhSmsNick").': <strong>'.$conf->global->OVHSMS_NICK.'</strong><br>';
 
 // Thirdparty to import on
 print $langs->trans("SupplierToUseForImport").': ';
