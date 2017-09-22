@@ -44,7 +44,7 @@ $langs->load("sellyoursaas@sellyoursaas");
 
 if ($action == 'update')
 {
-	dolibarr_set_const($db,"NLTECHNO_NOTE",GETPOST("NLTECHNO_NOTE"),'chaine',0,'',$conf->entity);
+	dolibarr_set_const($db,"NLTECHNO_NOTE",GETPOST("NLTECHNO_NOTE", 'none'),'chaine',0,'',$conf->entity);
 }
 
 
