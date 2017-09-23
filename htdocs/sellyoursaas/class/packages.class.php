@@ -21,7 +21,7 @@
 
 /**
  * \file        class/packages.class.php
- * \ingroup     monmodule
+ * \ingroup     sellyoursaas
  * \brief       This file is a CRUD class file for Packages (Create/Read/Update/Delete)
  */
 
@@ -55,7 +55,7 @@ class Packages extends CommonObject
 	/**
 	 * @var string String with name of icon for packages
 	 */
-	public $picto = 'packages@monmodule';
+	public $picto = 'packages@sellyoursaas';
 
 
 	/**
@@ -299,7 +299,7 @@ class Packages extends CommonObject
         $url='';
         if ($option != 'nolink')
         {
-        	$url = dol_buildpath('/monmodule/packages_card.php',1).'?id='.$this->id;
+        	$url = dol_buildpath('/sellyoursaas/packages_card.php',1).'?id='.$this->id;
 
 	        // Add param to save lastsearch_values or not
 	        $add_save_lastsearch_values=($save_lastsearch_value == 1 ? 1 : 0);

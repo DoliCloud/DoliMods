@@ -89,7 +89,7 @@ $dolicloudcustomer = new Dolicloud_customers($db,$db2);
 
 
 // Security check
-$user->rights->sellyoursaas->sellyoursaas->delete = $user->rights->sellyoursaas->sellyoursaas->write;
+$user->rights->sellyoursaas->sellyoursaas->delete = $user->rights->sellyoursaas->write;
 $result = restrictedArea($user, 'sellyoursaas', 0, '','sellyoursaas');
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
@@ -192,7 +192,7 @@ if (empty($reshook))
 
 
 	// Add customer
-	if ($action == 'add' && $user->rights->sellyoursaas->sellyoursaas->write)
+	if ($action == 'add' && $user->rights->sellyoursaas->write)
 	{
 		$db->begin();
 

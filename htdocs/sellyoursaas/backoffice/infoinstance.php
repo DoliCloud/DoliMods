@@ -90,7 +90,7 @@ else
 }
 
 // Security check
-$user->rights->sellyoursaas->sellyoursaas->delete = $user->rights->sellyoursaas->sellyoursaas->write;
+$user->rights->sellyoursaas->sellyoursaas->delete = $user->rights->sellyoursaas->create;
 $result = restrictedArea($user, 'sellyoursaas', 0, '','sellyoursaas');
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
@@ -123,7 +123,7 @@ if (empty($reshook))
 	}
 
 	// Add customer
-	if ($action == 'add' && $user->rights->sellyoursaas->sellyoursaas->write)
+	if ($action == 'add' && $user->rights->sellyoursaas->create)
 	{
 		$db->begin();
 
@@ -187,7 +187,7 @@ if (empty($reshook))
 		}
 	}
 
-	if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->sellyoursaas->sellyoursaas->write)
+	if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->sellyoursaas->create)
 	{
 		$result=$object->fetch($id);
 
@@ -203,7 +203,7 @@ if (empty($reshook))
 		}
 	}
 
-	if ($action == 'update' && ! $_POST["cancel"] && $user->rights->sellyoursaas->sellyoursaas->write)
+	if ($action == 'update' && ! $_POST["cancel"] && $user->rights->sellyoursaas->write)
 	{
 		if (empty($_POST["organization"]) || empty($_POST["plan"]) || empty($_POST["email"]))
 		{
@@ -375,7 +375,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		/*
 		 print ' - '.$langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
-		 if (! $object->user_id && $user->rights->sellyoursaas->sellyoursaas->write)
+		 if (! $object->user_id && $user->rights->sellyoursaas->write)
 		 {
 		 print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 		 }
@@ -520,7 +520,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		// Last refresh
 		print ' - '.$langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
-		if (! $object->user_id && $user->rights->sellyoursaas->sellyoursaas->write)
+		if (! $object->user_id && $user->rights->sellyoursaas->write)
 		{
 			print ' <a href="'.$_SERVER["PHP_SELF"].'?instanceoldid='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 		}

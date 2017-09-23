@@ -18,7 +18,7 @@
 
 /**
  *  \file       packages_agenda.php
- *  \ingroup    monmodule
+ *  \ingroup    sellyoursaas
  *  \brief      Page of Packages events
  */
 
@@ -40,12 +40,12 @@ if (! $res) die("Include of main fails");
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
-dol_include_once('/monmodule/class/packages.class.php');
-dol_include_once('/monmodule/lib/packages.lib.php');
+dol_include_once('/sellyoursaas/class/packages.class.php');
+dol_include_once('/sellyoursaas/lib/packages.lib.php');
 
 
 // Load traductions files requiredby by page
-$langs->loadLangs(array("monmodule@monmodule","other"));
+$langs->loadLangs(array("sellyoursaas@sellyoursaas","other"));
 
 // Get parameters
 $id			= GETPOST('id', 'int');
@@ -68,7 +68,7 @@ $search_agenda_label=GETPOST('search_agenda_label');
 // Security check - Protection if external user
 //if ($user->societe_id > 0) access_forbidden();
 //if ($user->societe_id > 0) $socid = $user->societe_id;
-//$result = restrictedArea($user, 'monmodule', $id);
+//$result = restrictedArea($user, 'sellyoursaas', $id);
 
 $limit = GETPOST('limit','int')?GETPOST('limit','int'):$conf->liste_limit;
 $sortfield = GETPOST("sortfield",'alpha');
@@ -84,14 +84,14 @@ if (! $sortorder) $sortorder='DESC';
 // Initialize technical objects
 $object=new Packages($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction=$conf->monmodule->dir_output . '/temp/massgeneration/'.$user->id;
+$diroutputmassaction=$conf->sellyoursaas->dir_output . '/temp/massgeneration/'.$user->id;
 $hookmanager->initHooks(array('packagesagenda'));     // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extralabels = $extrafields->fetch_name_optionals_label('packages');
 
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php';  // Must be include, not include_once  // Must be include, not include_once. Include fetch and fetch_thirdparty but not fetch_optionals
-if ($id > 0 || ! empty($ref)) $upload_dir = $conf->monmodule->multidir_output[$object->entity] . "/" . $object->id;
+if ($id > 0 || ! empty($ref)) $upload_dir = $conf->sellyoursaas->multidir_output[$object->entity] . "/" . $object->id;
 
 
 
@@ -141,11 +141,11 @@ if ($object->id > 0)
 	$head = packagesPrepareHead($object);
 
 
-	dol_fiche_head($head, 'agenda', $langs->trans("Packages"), -1, 'packages@monmodule');
+	dol_fiche_head($head, 'agenda', $langs->trans("Packages"), -1, 'packages@sellyoursaas');
 
 	// Object card
 	// ------------------------------------------------------------
-	$linkback = '<a href="' .dol_buildpath('/monmodule/packages_list.php',1) . '?restore_lastsearch_values=1' . (! empty($socid) ? '&socid=' . $socid : '') . '">' . $langs->trans("BackToList") . '</a>';
+	$linkback = '<a href="' .dol_buildpath('/sellyoursaas/packages_list.php',1) . '?restore_lastsearch_values=1' . (! empty($socid) ? '&socid=' . $socid : '') . '">' . $langs->trans("BackToList") . '</a>';
 
 	$morehtmlref='<div class="refidno">';
 	/*
@@ -159,7 +159,7 @@ if ($object->id > 0)
 	 {
 	 $langs->load("projects");
 	 $morehtmlref.='<br>'.$langs->trans('Project') . ' ';
-	 if ($user->rights->monmodule->creer)
+	 if ($user->rights->sellyoursaas->creer)
 	 {
 	 if ($action != 'classify')
 	 	//$morehtmlref.='<a href="' . $_SERVER['PHP_SELF'] . '?action=classify&amp;id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
