@@ -45,7 +45,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
 dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
 dol_include_once("/sellyoursaas/backoffice/lib/refresh.lib.php");
-dol_include_once('/sellyoursaas/class/dolicloud_customer.class.php');
+dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 dol_include_once('/sellyoursaas/class/cdolicloudplans.class.php');
 
 $langs->load("admin");
@@ -86,7 +86,7 @@ else
 		exit;
 	}
 
-	$object = new Dolicloud_customer($db,$db2);
+	$object = new Dolicloud_customers($db,$db2);
 }
 
 // Security check
@@ -317,7 +317,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	$instance = 'xxxx';
 	$type_db = $conf->db->type;
 
-	if ($instanceoldid)	// $object is old dolicloud_customer
+	if ($instanceoldid)	// $object is old dolicloud_customers
 	{
 		$prefix='on';
 		$instance = $object->instance;
@@ -477,9 +477,9 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		print '</div>';
 	}
 
-	if (preg_match('/\.on\./', $object->ref_customer) || get_class($object) == 'Dolicloud_customer')
+	if (preg_match('/\.on\./', $object->ref_customer) || get_class($object) == 'Dolicloud_customers')
 	{
-		if (get_class($object) != 'Dolicloud_customer')
+		if (get_class($object) != 'Dolicloud_customers')
 		{
 			$ref_instance = $object->ref_customer;
 
@@ -493,7 +493,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 				}
 			}
 
-			$object = new Dolicloud_customer($db, $db2);
+			$object = new Dolicloud_customers($db, $db2);
 			$object->fetch(0, $ref_instance);
 		}
 		/*var_dump($dolicloudcustomer); */

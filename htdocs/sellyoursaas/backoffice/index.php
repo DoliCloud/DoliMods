@@ -37,7 +37,7 @@ if (! $res) die("Include of main fails");
 
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
-dol_include_once('/sellyoursaas/class/dolicloud_customer.class.php');
+dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 include_once dol_buildpath("/sellyoursaas/backoffice/lib/refresh.lib.php");		// do not use dol_buildpath to keep global of var into refresh.lib.php working
 
 
@@ -97,7 +97,7 @@ if ($db2->error)
 ****************************************************/
 
 $form=new Form($db);
-$dolicloudcustomerstatic = new Dolicloud_customer($db,$db2);
+$dolicloudcustomerstatic = new Dolicloud_customers($db,$db2);
 
 llxHeader('',$langs->transnoentitiesnoconv('DoliCloudCustomers'),'');
 

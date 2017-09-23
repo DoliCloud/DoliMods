@@ -16,7 +16,7 @@
  */
 
 /**
- *  \file       sellyoursaas/class/dolicloud_customer.class.php
+ *  \file       sellyoursaas/class/dolicloud_customers.class.php
  *  \ingroup    sellyoursaas
  *  \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
  *				Initialy built by build_class_from_table on 2012-06-26 21:03
@@ -29,7 +29,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 /**
  *	Class of DoliCloud customers
  */
-class Dolicloud_customer extends CommonObject
+class Dolicloud_customers extends CommonObject
 {
 	var $db;							//!< To store db handler
 	var $db2;
@@ -1077,7 +1077,7 @@ class Dolicloud_customer extends CommonObject
 
 		$error=0;
 
-		$object=new Dolicloud_customer($this->db);
+		$object=new Dolicloud_customers($this->db);
 
 		$this->db->begin();
 

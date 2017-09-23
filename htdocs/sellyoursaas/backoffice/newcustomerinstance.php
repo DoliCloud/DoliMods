@@ -46,7 +46,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
 dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
 dol_include_once("/sellyoursaas/backoffice/lib/refresh.lib.php");
-dol_include_once('/sellyoursaas/class/dolicloud_customer.class.php');
+dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 dol_include_once('/sellyoursaas/class/cdolicloudplans.class.php');
 
 $langs->load("admin");
@@ -84,7 +84,7 @@ if ($db2->error)
 	dol_print_error($db2,"host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db2->error);
 	exit;
 }
-$dolicloudcustomer = new Dolicloud_customer($db,$db2);
+$dolicloudcustomer = new Dolicloud_customers($db,$db2);
 
 
 

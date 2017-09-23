@@ -43,7 +43,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
-dol_include_once('/sellyoursaas/class/dolicloud_customer.class.php');
+dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 dol_include_once('/sellyoursaas/class/cdolicloudplans.class.php');
 
 $langs->load("admin");
@@ -81,7 +81,7 @@ else
 		exit;
 	}
 
-	$object = new Dolicloud_customer($db,$db2);
+	$object = new Dolicloud_customers($db,$db2);
 }
 
 
@@ -138,7 +138,7 @@ $form2 = new Form($db2);
 $formcompany = new FormCompany($db);
 
 $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
-$arraystatus=Dolicloud_customer::$listOfStatus;
+$arraystatus=Dolicloud_customers::$listOfStatus;
 
 if (empty($instanceoldid) && $action != 'create')
 {
