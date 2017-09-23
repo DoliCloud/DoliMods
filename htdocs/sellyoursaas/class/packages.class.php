@@ -80,33 +80,39 @@ class Packages extends CommonObject
 	public $fields=array(
 		'rowid' => array('type'=>'integer', 'label'=>'TechnicalID', 'visible'=>-1, 'enabled'=>1, 'position'=>1, 'notnull'=>1, 'index'=>1, 'comment'=>'Id',),
 		'ref' => array('type'=>'varchar(64)', 'label'=>'Ref', 'visible'=>1, 'enabled'=>1, 'position'=>10, 'notnull'=>1, 'index'=>1, 'searchall'=>1, 'comment'=>'Reference of object',),
-		'entity' => array('type'=>'integer', 'label'=>'Entity', 'visible'=>0, 'enabled'=>1, 'position'=>20, 'notnull'=>1, 'index'=>1,),
+		'entity' => array('type'=>'integer', 'label'=>'Entity', 'visible'=>-1, 'enabled'=>1, 'position'=>20, 'notnull'=>1, 'index'=>1,),
 		'label' => array('type'=>'varchar(255)', 'label'=>'Label', 'visible'=>1, 'enabled'=>1, 'position'=>30, 'notnull'=>-1, 'searchall'=>1,),
-		'status' => array('type'=>'integer', 'label'=>'Status', 'visible'=>1, 'enabled'=>1, 'position'=>1000, 'notnull'=>-1, 'index'=>1,),
 		'date_creation' => array('type'=>'datetime', 'label'=>'DateCreation', 'visible'=>-1, 'enabled'=>1, 'position'=>500, 'notnull'=>1,),
 		'tms' => array('type'=>'timestamp', 'label'=>'DateModification', 'visible'=>-1, 'enabled'=>1, 'position'=>500, 'notnull'=>1,),
 		'fk_user_creat' => array('type'=>'integer', 'label'=>'UserAuthor', 'visible'=>-1, 'enabled'=>1, 'position'=>500, 'notnull'=>1,),
 		'fk_user_modif' => array('type'=>'integer', 'label'=>'UserModif', 'visible'=>-1, 'enabled'=>1, 'position'=>500, 'notnull'=>-1,),
-		'import_key' => array('type'=>'varchar(14)', 'label'=>'ImportId', 'visible'=>0, 'enabled'=>1, 'position'=>1000, 'notnull'=>-1, 'index'=>1,),
-		'gitdir' => array('type'=>'varchar(255)', 'label'=>'Git directory', 'visible'=>-1, 'enabled'=>1, 'position'=>50, 'notnull'=>-1,),
-		'sqldump' => array('type'=>'varchar(255)', 'label'=>'Sql with dump', 'visible'=>0, 'enabled'=>1, 'position'=>50, 'notnull'=>-1,),
-		'sqlafter' => array('type'=>'text', 'label'=>'Sql after', 'visible'=>0, 'enabled'=>1, 'position'=>50, 'notnull'=>-1,),
-		'crontoadd' => array('type'=>'text', 'label'=>'Cron strings to add', 'visible'=>0, 'enabled'=>1, 'position'=>50, 'notnull'=>-1,),
+		'import_key' => array('type'=>'varchar(14)', 'label'=>'ImportId', 'visible'=>-1, 'enabled'=>1, 'position'=>1000, 'notnull'=>-1, 'index'=>1,),
+		'sqldump' => array('type'=>'varchar(255)', 'label'=>'Sql with dump', 'visible'=>-1, 'enabled'=>1, 'position'=>50, 'notnull'=>-1,),
+		'srcfile1' => array('type'=>'varchar(255)', 'label'=>'Dir with sources 1', 'visible'=>-1, 'enabled'=>1, 'position'=>51, 'notnull'=>-1,),
+		'srcfile2' => array('type'=>'varchar(255)', 'label'=>'Dir with sources 2', 'visible'=>-1, 'enabled'=>1, 'position'=>52, 'notnull'=>-1,),
+		'srcfile3' => array('type'=>'varchar(255)', 'label'=>'Dir with sources 3', 'visible'=>-1, 'enabled'=>1, 'position'=>53, 'notnull'=>-1,),
+		'conffile' => array('type'=>'text', 'label'=>'Template of config file', 'visible'=>-1, 'enabled'=>1, 'position'=>54, 'notnull'=>-1,),
+		'sqlafter' => array('type'=>'text', 'label'=>'Sql after', 'visible'=>-1, 'enabled'=>1, 'position'=>55, 'notnull'=>-1,),
+		'crontoadd' => array('type'=>'text', 'label'=>'Cron strings to add', 'visible'=>-1, 'enabled'=>1, 'position'=>56, 'notnull'=>-1,),
+		'status' => array('type'=>'integer', 'label'=>'Status', 'visible'=>1, 'enabled'=>1, 'position'=>1000, 'notnull'=>-1, 'index'=>1, 'arrayofkeyval'=>array('0'=>'Draft', '1'=>'Active', '-1'=>'Cancel')),
 	);
 	public $rowid;
 	public $ref;
 	public $entity;
 	public $label;
-	public $status;
 	public $date_creation;
 	public $tms;
 	public $fk_user_creat;
 	public $fk_user_modif;
 	public $import_key;
-	public $gitdir;
 	public $sqldump;
+	public $srcfile1;
+	public $srcfile2;
+	public $srcfile3;
+	public $conffile;
 	public $sqlafter;
 	public $crontoadd;
+	public $status;
 	// END MODULEBUILDER PROPERTIES
 
 

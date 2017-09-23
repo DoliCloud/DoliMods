@@ -18,8 +18,8 @@
 ALTER TABLE llx_packages ADD INDEX idx_packages_rowid (rowid);
 ALTER TABLE llx_packages ADD INDEX idx_packages_ref (ref);
 ALTER TABLE llx_packages ADD INDEX idx_packages_entity (entity);
-ALTER TABLE llx_packages ADD INDEX idx_packages_status (status);
 ALTER TABLE llx_packages ADD INDEX idx_packages_import_key (import_key);
+ALTER TABLE llx_packages ADD INDEX idx_packages_status (status);
 -- END MODULEBUILDER INDEXES
 
 --ALTER TABLE llx_packages ADD CONSTRAINT llx_packages_field_id FOREIGN KEY (fk_field) REFERENCES llx_myotherobject(rowid);

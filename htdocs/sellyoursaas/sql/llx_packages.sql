@@ -20,15 +20,18 @@ CREATE TABLE llx_packages(
 	ref varchar(64) NOT NULL, 
 	entity integer DEFAULT 1 NOT NULL, 
 	label varchar(255), 
-	status integer, 
 	date_creation datetime NOT NULL, 
 	tms timestamp NOT NULL, 
 	fk_user_creat integer NOT NULL, 
 	fk_user_modif integer, 
 	import_key varchar(14), 
-	gitdir varchar(255),
-    sqldump varchar(255),
-	sqlafter text,
-	crontoadd text
+	sqldump varchar(255), 
+	srcfile1 varchar(255), 
+	srcfile2 varchar(255), 
+	srcfile3 varchar(255), 
+	conffile text, 
+	sqlafter text, 
+	crontoadd text, 
+	status integer
 	-- END MODULEBUILDER FIELDS
 ) ENGINE=innodb;
