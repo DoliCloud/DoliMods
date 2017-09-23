@@ -9,7 +9,7 @@
  */
 
 include_once DOL_DOCUMENT_ROOT.'/core/modules/mailings/modules_mailings.php';
-dol_include_once("/sellyoursaas/class/dolicloudcustomernew.class.php");
+dol_include_once("/sellyoursaas/class/dolicloud_customer.class.php");
 include_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
 
 
@@ -60,7 +60,7 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 
         $form=new Form($this->db);
 
-        $arraystatus=Dolicloudcustomernew::$listOfStatusNewShort;
+        $arraystatus=Dolicloud_customer::$listOfStatusNewShort;
 
         $s='';
         $s.=$langs->trans("Status").': ';

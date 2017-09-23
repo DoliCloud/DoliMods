@@ -52,7 +52,7 @@ if (! $res && file_exists($path."../../../master.inc.php")) $res=@include($path.
 if (! $res) die("Include of master fails");
 
 dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
-dol_include_once('/sellyoursaas/class/dolicloudcustomernew.class.php');
+dol_include_once('/sellyoursaas/class/dolicloud_customer.class.php');
 
 
 $db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
@@ -63,7 +63,7 @@ if ($db2->error)
 }
 
 
-$object = new Dolicloudcustomernew($db, $db2);
+$object = new Dolicloud_customer($db, $db2);
 
 
 

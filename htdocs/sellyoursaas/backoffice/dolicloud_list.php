@@ -37,7 +37,7 @@ if (! $res) die("Include of main fails");
 
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 dol_include_once("/sellyoursaas/class/dolicloudcustomer.class.php");
-dol_include_once("/sellyoursaas/class/dolicloudcustomernew.class.php");
+dol_include_once("/sellyoursaas/class/dolicloud_customer.class.php");
 
 // Load traductions files requiredby by page
 $langs->load("companies");
@@ -131,12 +131,12 @@ if (GETPOST("button_removefilter_x") || GETPOST("button_removefilter.x") ||GETPO
 * Put here all code to build page
 ****************************************************/
 
-$arraystatus=Dolicloudcustomernew::$listOfStatusNewShort;
+$arraystatus=Dolicloud_customer::$listOfStatusNewShort;
 
 llxHeader('',$langs->transnoentitiesnoconv('DoliCloudInstances'),'');
 
 $form=new Form($db);
-$dolicloudcustomerstaticnew = new Dolicloudcustomernew($db,$db2);
+$dolicloudcustomerstaticnew = new Dolicloud_customer($db,$db2);
 
 $now=dol_now();
 
