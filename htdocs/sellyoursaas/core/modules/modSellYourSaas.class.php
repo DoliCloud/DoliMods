@@ -69,7 +69,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,1);						// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(7,0,-4);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(7,0,-5);	// Minimum version of Dolibarr required by module
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		$this->module_parts = array('triggers' => 0,
@@ -314,6 +314,22 @@ class modSellYourSaas extends DolibarrModules
 			'target'=>'',
 			'user'=>0);
 		$r++;
+
+		$this->menu[$r]=array(
+		'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_packages',
+		'type'=>'left',
+		'titre'=>'LiveRefsInstances',
+		'mainmenu'=>'sellyoursaas',
+		'leftmenu'=>'mysaas_live',
+		'url'=>'$conf->global->SELLYOURSAAS_REFS_URL',
+		'langs'=>'sellyoursaas@sellyoursaas',
+		'position'=>212,
+		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		'perms'=>'$user->rights->sellyoursaas->sellyoursaas->read',
+		'target'=>'_refs',
+		'user'=>0);
+		$r++;
+
 
 		// Products
 		$this->menu[$r]=array(
