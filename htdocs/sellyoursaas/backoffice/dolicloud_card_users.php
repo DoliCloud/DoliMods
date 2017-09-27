@@ -137,6 +137,8 @@ if (empty($reshook))
 	    if (is_object($newdb))
 	    {
 	        $sql="DELETE FROM llx_user_rights where fk_user IN (SELECT rowid FROM llx_user WHERE login = 'supportdolicloud')";
+	        $resql=$newdb->query($sql);
+	        if (! $resql) dol_print_error($newdb);
 
 	    	// Get user/pass of last admin user
 	        $sql="DELETE FROM llx_user WHERE login = 'supportdolicloud'";
