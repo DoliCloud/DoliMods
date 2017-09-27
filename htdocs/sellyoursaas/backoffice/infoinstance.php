@@ -90,8 +90,8 @@ else
 }
 
 // Security check
-$user->rights->sellyoursaas->sellyoursaas->delete = $user->rights->sellyoursaas->create;
-$result = restrictedArea($user, 'sellyoursaas', 0, '','sellyoursaas');
+$user->rights->sellyoursaas->delete = $user->rights->sellyoursaas->create;
+$result = restrictedArea($user, 'sellyoursaas', 0, '','');
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');

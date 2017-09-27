@@ -83,7 +83,7 @@ else
 
 
 // Security check
-$result = restrictedArea($user, 'sellyoursaas', 0, '','sellyoursaas');
+$result = restrictedArea($user, 'sellyoursaas', 0, '','');
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
