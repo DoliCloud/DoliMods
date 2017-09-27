@@ -127,6 +127,8 @@ if (empty($reshook))
 	        $sql="INSERT INTO llx_user(login, admin, pass, pass_crypted) VALUES('supportdolicloud', 1, 'supportdolicloud', '".$newdb->escape($password_crypted)."')";
 	        $resql=$newdb->query($sql);
 	        if (! $resql) dol_print_error($newdb);
+
+	        // TODO Add permissions admin
 	    }
 	}
 	if ($action == "deletesupportdolicloud")
@@ -134,7 +136,9 @@ if (empty($reshook))
 	    $newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
 	    if (is_object($newdb))
 	    {
-	        // Get user/pass of last admin user
+	        $sql="DELETE FROM llx_user_rights where fk_user IN (SELECT rowid FROM llx_user WHERE login = 'supportdolicloud')";
+
+	    	// Get user/pass of last admin user
 	        $sql="DELETE FROM llx_user WHERE login = 'supportdolicloud'";
 	        $resql=$newdb->query($sql);
 	        if (! $resql) dol_print_error($newdb);
