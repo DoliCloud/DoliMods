@@ -61,7 +61,7 @@ if ($db2->error)
 }
 
 
-$object = new DoliCloudCustomernew($db,$db2);
+$object = new Dolicloud_customers($db,$db2);
 
 
 
