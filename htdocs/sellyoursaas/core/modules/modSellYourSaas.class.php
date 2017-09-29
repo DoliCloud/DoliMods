@@ -307,7 +307,7 @@ class modSellYourSaas extends DolibarrModules
 			'mainmenu'=>'sellyoursaas',
 			'leftmenu'=>'mysaas_createpackage',
 			'url'=>'/sellyoursaas/packages_card.php?action=create',
-			'langs'=>'',
+			'langs'=>'sellyoursaas@sellyoursaas',
 			'position'=>211,
 			'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 			'perms'=>'$user->rights->sellyoursaas->create',
