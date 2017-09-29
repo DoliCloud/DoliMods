@@ -79,7 +79,9 @@ $extralabels = $extrafields->fetch_name_optionals_label('packages');
 
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php';  // Must be include, not include_once  // Must be include, not include_once. Include fetch and fetch_thirdparty but not fetch_optionals
-if ($id > 0 || ! empty($ref)) $upload_dir = $conf->sellyoursaas->multidir_output[$object->entity] . "/" . $object->id;
+
+//if ($id > 0 || ! empty($ref)) $upload_dir = $conf->sellyoursaas->multidir_output[$object->entity] . "/packages/" . dol_sanitizeFileName($object->id);
+if ($id > 0 || ! empty($ref)) $upload_dir = $conf->sellyoursaas->multidir_output[$object->entity] . "/packages/" . dol_sanitizeFileName($object->ref);
 
 
 
@@ -167,10 +169,16 @@ if ($object->id)
 
 	dol_fiche_end();
 
-	$modulepart = 'societe';
-	$permission = $user->rights->societe->creer;
-	$permtoedit = $user->rights->societe->creer;
+	$modulepart = 'sellyoursaas';
+	//$permission = $user->rights->sellyoursaas->create;
+	$permission = 1;
+	//$permtoedit = $user->rights->sellyoursaas->create;
+	$permtoedit = 1;
 	$param = '&id=' . $object->id;
+
+	//$relativepathwithnofile='packages/' . dol_sanitizeFileName($object->id).'/';
+	$relativepathwithnofile='packages/' . dol_sanitizeFileName($object->ref).'/';
+
 	include_once DOL_DOCUMENT_ROOT . '/core/tpl/document_actions_post_headers.tpl.php';
 }
 else

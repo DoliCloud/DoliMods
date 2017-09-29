@@ -27,6 +27,7 @@ CREATE TABLE llx_packages(
 	import_key varchar(14), 
 	sqldump varchar(255), 
 	srcfile1 varchar(255), 
+	targetsrcfile1 varchar(255), 
 	srcfile2 varchar(255), 
 	srcfile3 varchar(255), 
 	conffile text, 
