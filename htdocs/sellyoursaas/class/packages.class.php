@@ -99,7 +99,7 @@ class Packages extends CommonObject
 		'datafile1' => array('type'=>'varchar(255)', 'label'=>'Dir with data 1', 'visible'=>-1, 'enabled'=>1, 'position'=>55, 'notnull'=>-1, 'css'=>'minwidth500'),
 		'targetdatafile1' => array('type'=>'varchar(255)', 'label'=>'Target dir for data 1', 'visible'=>-1, 'enabled'=>1, 'position'=>55, 'notnull'=>-1,),
 		'sqlafter' => array('type'=>'text', 'label'=>'Sql after', 'visible'=>-1, 'enabled'=>1, 'position'=>60, 'notnull'=>-1,),
-		'crontoadd' => array('type'=>'text', 'label'=>'Cron strings to add', 'visible'=>-1, 'enabled'=>1, 'position'=>70, 'notnull'=>-1,),
+		'crontoadd' => array('type'=>'text', 'label'=>'Template of cron file', 'visible'=>-1, 'enabled'=>1, 'position'=>70, 'notnull'=>-1, 'help'=>'Content will be used to add a file into /etc/cron.d'),
 		'status' => array('type'=>'integer', 'label'=>'Status', 'visible'=>1, 'enabled'=>1, 'position'=>1000, 'notnull'=>-1, 'index'=>1, 'arrayofkeyval'=>array('0'=>'Draft', '1'=>'Active', '-1'=>'Cancel')),
 		'note_public'   =>array('type'=>'text',			'label'=>'NotePublic',		 'enabled'=>1, 'visible'=>0,  'position'=>45),
 		'note_private'  =>array('type'=>'text',			'label'=>'NotePrivate',		 'enabled'=>1, 'visible'=>0,  'position'=>46),
