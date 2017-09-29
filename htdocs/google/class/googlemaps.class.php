@@ -170,7 +170,7 @@ class Googlemaps // extends CommonObject
 		$sql.= " t.result_label";
 
         $sql.= " FROM ".MAIN_DB_PREFIX."google_maps as t";
-        $sql.= " WHERE t.fk_object = ".$id;
+        $sql.= " WHERE t.rowid = ".$id;
 
     	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
         $resql=$this->db->query($sql);
