@@ -125,10 +125,10 @@ class modSellYourSaas extends DolibarrModules
 		// 'thirdparty'       to add a tab in third party view
 		// 'user'             to add a tab in user view
 		$this->tabs = array();
-		$this->tabs[] = array('data'=>'contract:+infoinstance:InfoInstance:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->sellyoursaas->read:/sellyoursaas/backoffice/infoinstance.php?id=__ID__');
-		$this->tabs[] = array('data'=>'contract:+backup:BackupInstance:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->sellyoursaas->read:/sellyoursaas/backoffice/dolicloud_card_backup.php?id=__ID__');
-		$this->tabs[] = array('data'=>'contract:+upgrade:Restore/Upgrade:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->sellyoursaas->read:/sellyoursaas/backoffice/dolicloud_card_upgrade.php?id=__ID__');
-		$this->tabs[] = array('data'=>'contract:+users:Users:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->sellyoursaas->read:/sellyoursaas/backoffice/dolicloud_card_users.php?id=__ID__');
+		$this->tabs[] = array('data'=>'contract:+infoinstance:InfoInstance:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->read:/sellyoursaas/backoffice/infoinstance.php?id=__ID__');
+		$this->tabs[] = array('data'=>'contract:+backup:BackupInstance:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->read:/sellyoursaas/backoffice/dolicloud_card_backup.php?id=__ID__');
+		$this->tabs[] = array('data'=>'contract:+upgrade:Restore/Upgrade:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->read:/sellyoursaas/backoffice/dolicloud_card_upgrade.php?id=__ID__');
+		$this->tabs[] = array('data'=>'contract:+users:Users:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->read:/sellyoursaas/backoffice/dolicloud_card_users.php?id=__ID__');
 		//$this->tabs[] = array('data'=>'contract:+payments:Payments:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->sellyoursaas->read:/sellyoursaas/backoffice/dolicloud_card_payments.php?id=__ID__');
 
 
