@@ -133,7 +133,7 @@ $param[]="--exclude htdocs/agefodd/";
 $param[]="--exclude htdocs/memcached/";
 $param[]="--exclude htdocs/cabinetmed/";
 if (! in_array($mode,array('diff','diffadd','diffchange'))) $param[]="--stats";
-if (! in_array($mode,array('clean','confirmclean'))) $param[]="--delete";
+if (in_array($mode,array('clean','confirmclean'))) $param[]="--delete";
 $param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'";
 
 $param[]=$dirroot.'/';
