@@ -136,6 +136,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	$links.='Mysql overwrite database:<br>';
 	$links.='<input type="text" id="mysqlrestorecommand" name="mysqlrestorecommand" value="'.$mysqlresotrecommand.'" class="quatrevingtpercent"><br>';
 	$links.=ajax_autoselect("mysqlrestorecommand", 0);
+	$links.='<br>';
 
 	// Document restore
 	$sftprestorestring='rsync -n -v -a dolibarr_documents/* '.$object->username_web.'@'.$object->hostname_web.':'.$object->fs_path.'/documents';
