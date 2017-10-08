@@ -325,6 +325,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$username_db = $object->username_db;
 		$password_db = $object->password_db;
 		$database_db = $object->database_db;
+
 		$username_web = $object->username_web;
 		$password_web = $object->password_web;
 	}
@@ -341,16 +342,16 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$password_web = $object->array_options['options_username_os'];
 	}
 
-	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);
+	$dbcustomerinstance=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);
 
-	if (is_object($newdb) && $newdb->connected)
+	if (is_object($dbcustomerinstance) && $dbcustomerinstance->connected)
 	{
 		// Get user/pass of last admin user
 		$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
-		$resql=$newdb->query($sql);
+		$resql=$dbcustomerinstance->query($sql);
 		if ($resql)
 		{
-			$obj = $newdb->fetch_object($resql);
+			$obj = $dbcustomerinstance->fetch_object($resql);
 			$object->lastlogin_admin=$obj->login;
 			$object->lastpass_admin=$obj->pass;
 			$lastloginadmin=$object->lastlogin_admin;
@@ -358,7 +359,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		}
 		else
 		{
-			setEventMessages('Failed to read remote customer instance: '.$newdb->lasterror(),'','warnings');
+			setEventMessages('Failed to read remote customer instance: '.$dbcustomerinstance->lasterror(),'','warnings');
 		}
 	}
 

@@ -1426,7 +1426,7 @@ function top_menu($head, $title='', $target='', $disablejs=0, $disablehead=0, $a
 	        //$text.= img_picto(":".$langs->trans("ModuleBuilder"), 'printer_top.png', 'class="printer"');
 	        $text.='<span class="fa fa-bug atoplogin"></span>';
 	        $text.='</a>';
-	        $toprightmenu.=@Form::textwithtooltip('',$langs->trans("ModuleBuilder"),2,1,$text,'login_block_elem',2);
+	        $toprightmenu.=@Form::textwithtooltip('',$langs->trans("ModuleBuilder").' ('.$langs->trans("ToolkitForDevelopers").')',2,1,$text,'login_block_elem',2);
 	    }
 
 		// Link to print main content area

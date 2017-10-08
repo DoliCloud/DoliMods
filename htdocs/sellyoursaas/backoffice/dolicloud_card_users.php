@@ -72,7 +72,6 @@ if (empty($instanceoldid) && empty($refold) && $action != 'create')
 else
 {
 	$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
-
 	if ($db2->error)
 	{
 		dol_print_error($db2,"host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db2->error);
@@ -103,7 +102,7 @@ $backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/backup_instance.php '.$obj
 
 /*
  *	Actions
-*/
+ */
 
 $parameters=array('id'=>$id, 'objcanvas'=>$objcanvas);
 $reshook=$hookmanager->executeHooks('doActions',$parameters,$object,$action);    // Note that $action and $object may have been modified by some hooks
@@ -226,15 +225,21 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		// Get user/pass of last admin user
 		$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
 		$resql=$newdb->query($sql);
-		$obj = $newdb->fetch_object($resql);
-		$object->lastlogin_admin=$obj->login;
-		$object->lastpass_admin=$obj->pass;
-		$lastloginadmin=$object->lastlogin_admin;
-		$lastpassadmin=$object->lastpass_admin;
+		if ($resql)
+		{
+			$obj = $newdb->fetch_object($resql);
+			$object->lastlogin_admin=$obj->login;
+			$object->lastpass_admin=$obj->pass;
+			$lastloginadmin=$object->lastlogin_admin;
+			$lastpassadmin=$object->lastpass_admin;
+		}
+		else
+		{
+			setEventMessages('Failed to read remote customer instance: '.$newdb->lasterror(),'','warnings');
+		}
 	}
 	//	else print 'Error, failed to connect';
 
-	dol_htmloutput_errors($error,$errors);
 
 
 	if (is_object($object->db2))
@@ -243,7 +248,64 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function.  $db = stratus5 database
 	}
 
-	dol_banner_tab($object,($instanceoldid?'refold':'ref'),'',1,($instanceoldid?'name':'ref'),'ref','','',1);
+	$object->fetch_thirdparty();
+
+	// Contract card
+
+	$linkback = '<a href="'.DOL_URL_ROOT.'/contrat/list.php?restore_lastsearch_values=1'.(! empty($socid)?'&socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
+
+	$morehtmlref='';
+
+	if (empty($instanceoldid))
+	{
+		$morehtmlref.='<div class="refidno">';
+		// Ref customer
+		$morehtmlref.=$form->editfieldkey("RefCustomer", 'ref_customer', $object->ref_customer, $object, 0, 'string', '', 0, 1);
+		$morehtmlref.=$form->editfieldval("RefCustomer", 'ref_customer', $object->ref_customer, $object, 0, 'string', '', null, null, '', 1);
+		// Ref supplier
+		$morehtmlref.='<br>';
+		$morehtmlref.=$form->editfieldkey("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, 0, 'string', '', 0, 1);
+		$morehtmlref.=$form->editfieldval("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, 0, 'string', '', null, null, '', 1);
+		// Thirdparty
+		$morehtmlref.='<br>'.$langs->trans('ThirdParty') . ' : ' . $object->thirdparty->getNomUrl(1);
+		// Project
+		if (! empty($conf->projet->enabled))
+		{
+			$langs->load("projects");
+			$morehtmlref.='<br>'.$langs->trans('Project') . ' ';
+			if (0)
+			{
+				if ($action != 'classify')
+					$morehtmlref.='<a href="' . $_SERVER['PHP_SELF'] . '?action=classify&amp;id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
+					if ($action == 'classify') {
+						//$morehtmlref.=$form->form_project($_SERVER['PHP_SELF'] . '?id=' . $object->id, $object->socid, $object->fk_project, 'projectid', 0, 0, 1, 1);
+						$morehtmlref.='<form method="post" action="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'">';
+						$morehtmlref.='<input type="hidden" name="action" value="classin">';
+						$morehtmlref.='<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+						$morehtmlref.=$formproject->select_projects($object->thirdparty->id, $object->fk_project, 'projectid', $maxlength, 0, 1, 0, 1, 0, 0, '', 1);
+						$morehtmlref.='<input type="submit" class="button valignmiddle" value="'.$langs->trans("Modify").'">';
+						$morehtmlref.='</form>';
+					} else {
+						$morehtmlref.=$form->form_project($_SERVER['PHP_SELF'] . '?id=' . $object->id, $object->thirdparty->id, $object->fk_project, 'none', 0, 0, 0, 1);
+					}
+			} else {
+				if (! empty($object->fk_project)) {
+					$proj = new Project($db);
+					$proj->fetch($object->fk_project);
+					$morehtmlref.='<a href="'.DOL_URL_ROOT.'/projet/card.php?id=' . $object->fk_project . '" title="' . $langs->trans('ShowProject') . '">';
+					$morehtmlref.=$proj->ref;
+					$morehtmlref.='</a>';
+				} else {
+					$morehtmlref.='';
+				}
+			}
+		}
+		$morehtmlref.='</div>';
+	}
+
+	//dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'none', $morehtmlref);
+
+	dol_banner_tab($object, ($instanceoldid?'refold':'ref'), $linkback, 1, ($instanceoldid?'name':'ref'), 'ref', $morehtmlref, '', 1, '', '', 1);
 
 	if (is_object($object->db2))
 	{
@@ -264,25 +326,54 @@ print '<br>';
 
 if (empty($instanceoldid))
 {
-	// ----- Instance SellYourSaas -----
-	$backupdir=$conf->global->DOLICLOUD_BACKUP_PATH;
+	$prefix = 'with';
+	$instance = 'xxxx';
+	$type_db = $conf->db->type;
 
-	$dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
-	$login=$object->username_web;
-	$password=$object->password_web;
-	$server=$object->instance.'.on.dolicloud.com';
+	if ($instanceoldid)	// $object is old dolicloud_customers
+	{
+		$prefix='on';
+		$instance = $object->instance;
+		$hostname_db = $object->hostname_db;
+		$username_db = $object->username_db;
+		$password_db = $object->password_db;
+		$database_db = $object->database_db;
 
-	$dbcustomerinstance=getDoliDBInstance('mysqli', $object->hostname_db, $object->username_db, $object->password_db, $object->database_db, 3306);
+		$username_web = $object->username_web;
+		$password_web = $object->password_web;
+	}
+	else	// $object is a contract (on old or new instance)
+	{
+		if (preg_match('/\.on\./', $object->ref_customer)) $prefix='on';
+		else $prefix='with';
+
+		$hostname_db = $object->array_options['options_hostname_db'];
+		$username_db = $object->array_options['options_username_db'];
+		$password_db = $object->array_options['options_password_db'];
+		$database_db = $object->array_options['options_database_db'];
+		$username_web = $object->array_options['options_username_os'];
+		$password_web = $object->array_options['options_username_os'];
+	}
+
+	$dbcustomerinstance=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);
+
 	if (is_object($dbcustomerinstance) && $dbcustomerinstance->connected)
 	{
 		// Get user/pass of last admin user
 		$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
 		$resql=$dbcustomerinstance->query($sql);
-		$obj = $dbcustomerinstance->fetch_object($resql);
-		$object->lastlogin_admin=$obj->login;
-		$object->lastpass_admin=$obj->pass;
-		$lastloginadmin=$object->lastlogin_admin;
-		$lastpassadmin=$object->lastpass_admin;
+		if ($resql)
+		{
+			$obj = $dbcustomerinstance->fetch_object($resql);
+			$object->lastlogin_admin=$obj->login;
+			$object->lastpass_admin=$obj->pass;
+			$lastloginadmin=$object->lastlogin_admin;
+			$lastpassadmin=$object->lastpass_admin;
+		}
+		else
+		{
+			dol_print_error($dbcustomerinstance);
+		}
 	}
 
 	print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.' (Customer instance '.$dbcustomerinstance->database_host.')</strong><br>';
@@ -358,6 +449,7 @@ function print_user_table($newdb)
 	print '<td>'.$langs->trans("Entity").'</td>';
 	print '<td>'.$langs->trans("ParentsId").'</td>';
 	print '<td>'.$langs->trans("Status").'</td>';
+	print '<td></td>';
 	print '</tr>';
 
 	if (is_object($newdb) && $newdb->connected)
@@ -385,9 +477,8 @@ function print_user_table($newdb)
 			$i=0;
 			while ($i < $num)
 			{
-				$var=!$var;
 				$obj = $newdb->fetch_object($resql);
-				print '<tr '.$bc[$var].'>';
+				print '<tr class="oddeven">';
 				print '<td>'.$obj->login.'</td>';
 				print '<td>'.$obj->lastname.'</td>';
 				print '<td>'.$obj->firstname.'</td>';
@@ -398,8 +489,16 @@ function print_user_table($newdb)
 				print '<td>'.dol_print_date($newdb->jdate($obj->datem),'dayhour').'</td>';
 				print '<td>'.dol_print_date($newdb->jdate($obj->datelastlogin),'dayhour').'</td>';
 				print '<td>'.$obj->entity.'</td>';
-				print '<td>'.$obj->fk_soc.'/'.$obj->fk_socpeople.'/'.$obj->fk_member.'</td>';
+				print '<td>';
+				if ($obj->fk_user > 0) print 'Parent user: '.$obj->fk_user;
+				if ($obj->fk_soc > 0) print 'Parent thirdparty: '.$obj->fk_soc;
+				if ($obj->fk_socpeople > 0) print 'Parent contact: '.$obj->fk_socpeople;
+				if ($obj->fk_member > 0) print 'Parent member: '.$obj->fk_member;
+				print '</td>';
 				print '<td align="right">'.$obj->statut.'</td>';
+				print '<td align="right">';
+				print '<a href="'.$_SERVER["PHP_SELF"].'">'.img_picto('', 'generic').'</a>';
+				print '</td>';
 				print '</tr>';
 				$i++;
 			}

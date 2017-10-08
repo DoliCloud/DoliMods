@@ -210,7 +210,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function.  $db = stratus5 database
 	}
 
-	dol_banner_tab($object,($instanceoldid?'refold':'ref'),'',1,($instanceoldid?'name':'ref'),'ref','','',1);
+	dol_banner_tab($object, ($instanceoldid?'refold':'ref'), '', 1, ($instanceoldid?'name':'ref'), 'ref', '', '', 1, '', '', 1);
 
 	if (is_object($object->db2))
 	{
