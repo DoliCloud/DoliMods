@@ -98,7 +98,7 @@ class mailing_mailinglist_nltechno_dolicloudold extends MailingTargets
 	 */
 	function url($id)
 	{
-		return '<a href="'.dol_buildpath('/sellyoursaas/backoffice/infoinstance.php',1).'?id='.$id.'">'.img_object('',"user").'</a>';
+		return '<a href="'.dol_buildpath('/sellyoursaas/backoffice/instance_info.php',1).'?id='.$id.'">'.img_object('',"user").'</a>';
 	}
 
 

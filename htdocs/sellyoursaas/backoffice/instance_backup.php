@@ -16,7 +16,7 @@
 */
 
 /**
- *       \file       htdocs/sellyoursaas/backoffice/dolicloud_card_backup.php
+ *       \file       htdocs/sellyoursaas/backoffice/instance_backup.php
  *       \ingroup    societe
  *       \brief      Card of a contact
  */

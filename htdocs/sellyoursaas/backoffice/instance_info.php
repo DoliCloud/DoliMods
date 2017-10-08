@@ -16,7 +16,7 @@
 */
 
 /**
- *       \file       htdocs/sellyoursaas/backoffice/infoinstance.php
+ *       \file       htdocs/sellyoursaas/backoffice/instance_info.php
  *       \ingroup    societe
  *       \brief      Card of a contact
  */

@@ -84,3 +84,5 @@ ActionsOnPackages=Actions on packages
 PageForLib=File for PHP library
 PageForPicto=File for picto
 ParentsId=Id of parent
+ResetPassword=Reset password of user of instance
+ConfirmResetPassword=Are you sure you want to reset password for this user ?

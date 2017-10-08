@@ -16,7 +16,7 @@
 */
 
 /**
- *       \file       htdocs/sellyoursaas/backoffice/dolicloud_card.php
+ *       \file       htdocs/sellyoursaas/backoffice/instance_users.php
  *       \ingroup    societe
  *       \brief      Card of a contact
  */
@@ -146,9 +146,12 @@ if (empty($reshook))
 	    }
 	}
 
-	include 'refresh_action.inc.php';
+	if (! in_array($action, array('resetpassword', 'confirm_resetpassword', 'createsupportdolicloud', 'deletesupportdolicloud')))
+	{
+		include 'refresh_action.inc.php';
 
-	$action = 'view';
+		$action = 'view';
+	}
 }
 
 
@@ -376,6 +379,14 @@ if (empty($instanceoldid))
 		}
 	}
 
+
+	if ($action == 'resetpassword') {
+		include_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
+		$formquestion[] = array('type' => 'text','name' => 'newpassword','label' => $langs->trans("NewPassword"),'value' => getRandomPassword(false));
+
+		print $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id . '&remoteid=' . GETPOST('remoteid','int'), $langs->trans('ResetPassword'), $langs->trans('ConfirmResetPassword'), 'confirm_resetpassword', $formquestion, 0, 1);
+	}
+
 	print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.' (Customer instance '.$dbcustomerinstance->database_host.')</strong><br>';
 	print '<table class="border" width="100%">';
 
@@ -432,6 +443,8 @@ $db->close();
 function print_user_table($newdb)
 {
 	global $langs;
+	global $instanceoldid;
+	global $id;
 
 	print '<table class="noborder" width="100%">';
 
@@ -444,7 +457,7 @@ function print_user_table($newdb)
 	print '<td>'.$langs->trans("Email").'</td>';
 	print '<td>'.$langs->trans("Pass").'</td>';
 	print '<td>'.$langs->trans("DateCreation").'</td>';
-	print '<td>'.$langs->trans("DateChange").'</td>';
+	print '<td>'.$langs->trans("DateModification").'</td>';
 	print '<td>'.$langs->trans("DateLastLogin").'</td>';
 	print '<td>'.$langs->trans("Entity").'</td>';
 	print '<td>'.$langs->trans("ParentsId").'</td>';
@@ -455,17 +468,17 @@ function print_user_table($newdb)
 	if (is_object($newdb) && $newdb->connected)
 	{
 		// Get user/pass of last admin user
-		$sql ="SELECT login, lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_soc, fk_socpeople, fk_member, entity, statut";
+		$sql ="SELECT rowid, login, lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_soc, fk_socpeople, fk_member, entity, statut";
 		$sql.=" FROM llx_user ORDER BY statut DESC";
 		$resql=$newdb->query($sql);
 		if (empty($resql))	// Alternative for 3.7-
 		{
-			$sql ="SELECT login, lastname as lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_societe, fk_socpeople, fk_member, entity, statut";
+			$sql ="SELECT rowid, login, lastname as lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_societe, fk_socpeople, fk_member, entity, statut";
 			$sql.=" FROM llx_user ORDER BY statut DESC";
 			$resql=$newdb->query($sql);
 			if (empty($resql))	// Alternative for 3.3-
     		{
-    			$sql ="SELECT login, nom as lastname, prenom as firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_societe, fk_socpeople, fk_member, entity, statut";
+    			$sql ="SELECT rowid, login, nom as lastname, prenom as firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_societe, fk_socpeople, fk_member, entity, statut";
     			$sql.=" FROM llx_user ORDER BY statut DESC";
     			$resql=$newdb->query($sql);
     		}
@@ -497,7 +510,9 @@ function print_user_table($newdb)
 				print '</td>';
 				print '<td align="right">'.$obj->statut.'</td>';
 				print '<td align="right">';
-				print '<a href="'.$_SERVER["PHP_SELF"].'">'.img_picto('', 'generic').'</a>';
+
+				print '<a href="'.$_SERVER["PHP_SELF"].'?action=resetpassword&remoteid='.$obj->rowid.($instanceoldid?'&instanceoldid='.$instanceoldid:('&id='.$id)).'">'.img_picto('ResetPassword', 'object_technic').'</a>';
+
 				print '</td>';
 				print '</tr>';
 				$i++;
