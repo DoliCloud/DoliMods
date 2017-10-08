@@ -205,22 +205,22 @@ function dolicloud_prepare_head($object,$prefix='')
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/infoinstance'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloud_customers'?'instanceoldid='.$object->id:'id='.$object->id);
+	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/instance_info'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloud_customers'?'instanceoldid='.$object->id:'id='.$object->id);
 	$head[$h][1] = $langs->trans("InfoInstance");
 	$head[$h][2] = 'infoinstance';
 	$h++;
 
-	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_backup'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloud_customers'?'instanceoldid='.$object->id:'id='.$object->id);
+	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/instance_backup'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloud_customers'?'instanceoldid='.$object->id:'id='.$object->id);
 	$head[$h][1] = $langs->trans("Backup");
 	$head[$h][2] = 'backup';
 	$h++;
 
-	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_upgrade'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloud_customers'?'instanceoldid='.$object->id:'id='.$object->id);
+	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/instance_links'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloud_customers'?'instanceoldid='.$object->id:'id='.$object->id);
 	$head[$h][1] = $langs->trans("UsefulLinks");
 	$head[$h][2] = 'upgrade';
 	$h++;
 
-	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_users'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloud_customers'?'instanceoldid='.$object->id:'id='.$object->id);
+	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/instance_users'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloud_customers'?'instanceoldid='.$object->id:'id='.$object->id);
 	$head[$h][1] = $langs->trans("Users");
 	$head[$h][2] = 'users';
 	$h++;
