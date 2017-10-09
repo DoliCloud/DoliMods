@@ -61,6 +61,13 @@ class ActionsSellyoursaas
         dol_syslog(get_class($this).'::executeHooks action='.$action);
         $langs->load("sellyoursaas@sellyoursaas");
 
+        if (in_array($parameters['currentcontext'], array('contractlist')))
+        {
+        	global $fieldstosearchall;
+
+        	$fieldstosearchall['s.email']="ThirdPartyEmail";
+        }
+
         return 0;
     }
 
@@ -68,7 +75,7 @@ class ActionsSellyoursaas
      * Complete search forms
      *
      * @param	array	$parameters		Array of parameters
-     * @return	string					HTML content to add by hook
+     * @return	int						1=Replace standard code, 0=Continue standard code
      */
     function addSearchEntry($parameters)
     {
@@ -77,7 +84,10 @@ class ActionsSellyoursaas
         $langs->load("sellyoursaas@sellyoursaas");
         $search_boxvalue = $parameters['search_boxvalue'];
 
-        $this->results['searchintodolicloud']=array('img'=>'object_generic', 'label'=>$langs->trans("SearchIntoDoliCloud", $search_boxvalue), 'text'=>img_picto('','object_generic').' '.$langs->trans("InstanceDolicloud", $search_boxvalue), 'url'=>dol_buildpath('/sellyoursaas/backoffice/dolicloud_list.php',1).'?search_multi='.urlencode($search_boxvalue));
+        $this->results['searchintocontract']=$parameters['arrayresult']['searchintocontract'];
+        $this->results['searchintocontract']['position']=22;
+
+        $this->results['searchintodolicloud']=array('position'=>23, 'img'=>'object_generic', 'label'=>$langs->trans("SearchIntoOldDoliCloudInstances", $search_boxvalue), 'text'=>img_picto('','object_generic').' '.$langs->trans("OldDoliCloudInstances", $search_boxvalue), 'url'=>dol_buildpath('/sellyoursaas/backoffice/dolicloud_list.php',1).'?search_multi='.urlencode($search_boxvalue));
 
         return 0;
     }
