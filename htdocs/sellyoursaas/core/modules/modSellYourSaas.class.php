@@ -44,13 +44,13 @@ class modSellYourSaas extends DolibarrModules
 		$this->family = "other";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
-		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
+		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value SellYourSaas)
 		$this->description = "Module to sell SaaS application";
         $this->editor_name = 'NLTechno';
         $this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '1.0';
-		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
+		// Key used in llx_const table to save module status enabled/disabled (where SELLYOURSAAS is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
 		$this->special = 2;
@@ -80,8 +80,8 @@ class modSellYourSaas extends DolibarrModules
 
 		// Constants
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
-		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',1),
-		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0, 'current', 1)
+		// Example: $this->const=array(0=>array('SELLYOURSAAS_MYNEWCONST1','chaine','myvalue','This is a constant to add',1),
+		//                             1=>array('SELLYOURSAAS_MYNEWCONST2','chaine','myvalue','This is another constant to add',0, 'current', 1)
 		// );
 		$this->const = array(
 		    0=>array('NLTECHNO_NOTE', 'chaine',
@@ -91,16 +91,16 @@ class modSellYourSaas extends DolibarrModules
 		);
 
 
-		if (! isset($conf->mymodule) || ! isset($conf->mymodule->enabled))
+		if (! isset($conf->sellyoursaas) || ! isset($conf->sellyoursaas->enabled))
 		{
-			$conf->mymodule=new stdClass();
-			$conf->mymodule->enabled=0;
+			$conf->sellyoursaas=new stdClass();
+			$conf->sellyoursaas->enabled=0;
 		}
 
 
 		// Array to add new pages in new tabs
-		// Example: $this->tabs = array('objecttype:+tabname1:Title1:mylangfile@mymodule:$user->rights->mymodule->read:/mymodule/mynewtab1.php?id=__ID__',  					// To add a new tab identified by code tabname1
-		//                              'objecttype:+tabname2:SUBSTITUTION_Title2:mylangfile@mymodule:$user->rights->othermodule->read:/mymodule/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2. Label will be result of calling all substitution functions on 'Title2' key.
+		// Example: $this->tabs = array('objecttype:+tabname1:Title1:mylangfile@sellyoursaas:$user->rights->sellyoursaas->read:/sellyoursaas/mynewtab1.php?id=__ID__',  					// To add a new tab identified by code tabname1
+		//                              'objecttype:+tabname2:SUBSTITUTION_Title2:mylangfile@sellyoursaas:$user->rights->othermodule->read:/sellyoursaas/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2. Label will be result of calling all substitution functions on 'Title2' key.
 		//                              'objecttype:-tabname:NU:conditiontoremove');                                                     										// To remove an existing tab identified by code tabname
 		// Can also be:	$this->tabs = array('data'=>'...', 'entity'=>0);
 		//
