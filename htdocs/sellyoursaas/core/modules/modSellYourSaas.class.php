@@ -60,7 +60,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->picto='generic';
 
 		// Data directories to create when module is enabled
-		$this->dirs = array('/sellyoursaas/temp','/sellyoursaas/git','/sellyoursaas/sqldump');
+		$this->dirs = array('/sellyoursaas/temp','/sellyoursaas/packages','/sellyoursaas/data','/sellyoursaas/git','/sellyoursaas/sqldump');
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
 		$this->config_page_url = array("setup.php@sellyoursaas");
@@ -68,15 +68,15 @@ class modSellYourSaas extends DolibarrModules
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
-		$this->phpmin = array(4,1);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(6,0,-4);	// Minimum version of Dolibarr required by module
+		$this->phpmin = array(4,1);						// Minimum version of PHP required by module
+		$this->need_dolibarr_version = array(7,0,-5);	// Minimum version of Dolibarr required by module
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		$this->module_parts = array('triggers' => 0,
 									'substitutions' => 0,
 									'menus' => 0,
 									'css' => array(),
-									'hooks' => array('searchform','thirdpartylist','customerlist','prospectlist'));
+									'hooks' => array('searchform','thirdpartylist','customerlist','prospectlist','contractlist'));
 
 		// Constants
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
@@ -125,11 +125,11 @@ class modSellYourSaas extends DolibarrModules
 		// 'thirdparty'       to add a tab in third party view
 		// 'user'             to add a tab in user view
 		$this->tabs = array();
-		$this->tabs[] = array('data'=>'contract:+infoinstance:InfoInstance:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->sellyoursaas->read:/sellyoursaas/backoffice/infoinstance.php?id=__ID__');
-		$this->tabs[] = array('data'=>'contract:+backup:Backup:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->sellyoursaas->read:/sellyoursaas/backoffice/dolicloud_card_backup.php?id=__ID__');
-		$this->tabs[] = array('data'=>'contract:+upgrade:Restore/Upgrade:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->sellyoursaas->read:/sellyoursaas/backoffice/dolicloud_card_upgrade.php?id=__ID__');
-		$this->tabs[] = array('data'=>'contract:+users:Users:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->sellyoursaas->read:/sellyoursaas/backoffice/dolicloud_card_users.php?id=__ID__');
-		$this->tabs[] = array('data'=>'contract:+payments:Payments:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->sellyoursaas->read:/sellyoursaas/backoffice/dolicloud_card_payments.php?id=__ID__');
+		$this->tabs[] = array('data'=>'contract:+infoinstance:InfoInstance:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->read:/sellyoursaas/backoffice/instance_info.php?id=__ID__');
+		$this->tabs[] = array('data'=>'contract:+backup:BackupInstance:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->read:/sellyoursaas/backoffice/instance_backup.php?id=__ID__');
+		$this->tabs[] = array('data'=>'contract:+upgrade:Restore/Upgrade:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->read:/sellyoursaas/backoffice/instance_links.php?id=__ID__');
+		$this->tabs[] = array('data'=>'contract:+users:Users:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->read:/sellyoursaas/backoffice/instance_users.php?id=__ID__');
+		//$this->tabs[] = array('data'=>'contract:+payments:Payments:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->sellyoursaas->read:/sellyoursaas/backoffice/dolicloud_card_payments.php?id=__ID__');
 
 
 		// Dictionaries
@@ -223,17 +223,17 @@ class modSellYourSaas extends DolibarrModules
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
 		// Example:
 		$this->rights[$r][0] = 101060; 				// Permission id (must not be already used)
-		$this->rights[$r][1] = 'Read DoliCloud informations';	// Permission label
+		$this->rights[$r][1] = 'Read SellYourSaaS data';	// Permission label
 		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
-		$this->rights[$r][4] = 'sellyoursaas';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		$this->rights[$r][5] = 'read';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][4] = 'read';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = '';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
 
 		$this->rights[$r][0] = 101061; 				// Permission id (must not be already used)
-		$this->rights[$r][1] = 'Create/edit DoliCloud data';	// Permission label
+		$this->rights[$r][1] = 'Create/edit SellYourSaaS data (package, ...)';	// Permission label
 		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
-		$this->rights[$r][4] = 'sellyoursaas';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
-		$this->rights[$r][5] = 'write';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][4] = 'create';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][5] = '';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
 
 		// Main menu entries
@@ -279,7 +279,7 @@ class modSellYourSaas extends DolibarrModules
 			'langs'=>'sellyoursaas@sellyoursaas',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>200,
 			'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-			'perms'=>'$user->rights->sellyoursaas->sellyoursaas->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
+			'perms'=>'$user->rights->sellyoursaas->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0);             // 0=Menu for internal users, 1=external users, 2=both
 		$r++;
@@ -295,7 +295,7 @@ class modSellYourSaas extends DolibarrModules
 			'langs'=>'',
 			'position'=>210,
 			'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-			'perms'=>'$user->rights->sellyoursaas->sellyoursaas->read',
+			'perms'=>'$user->rights->sellyoursaas->read',
 			'target'=>'',
 			'user'=>0);
 		$r++;
@@ -307,26 +307,42 @@ class modSellYourSaas extends DolibarrModules
 			'mainmenu'=>'sellyoursaas',
 			'leftmenu'=>'mysaas_createpackage',
 			'url'=>'/sellyoursaas/packages_card.php?action=create',
-			'langs'=>'',
+			'langs'=>'sellyoursaas@sellyoursaas',
 			'position'=>211,
 			'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-			'perms'=>'$user->rights->sellyoursaas->sellyoursaas->write',
+			'perms'=>'$user->rights->sellyoursaas->create',
 			'target'=>'',
 			'user'=>0);
 		$r++;
+
+		$this->menu[$r]=array(
+		'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_packages',
+		'type'=>'left',
+		'titre'=>'LiveRefsInstances',
+		'mainmenu'=>'sellyoursaas',
+		'leftmenu'=>'mysaas_live',
+		'url'=>'$conf->global->SELLYOURSAAS_REFS_URL',
+		'langs'=>'sellyoursaas@sellyoursaas',
+		'position'=>212,
+		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		'perms'=>'$user->rights->sellyoursaas->read',
+		'target'=>'_refs',
+		'user'=>0);
+		$r++;
+
 
 		// Products
 		$this->menu[$r]=array(
 		'fk_menu'=>'fk_mainmenu=sellyoursaas',
 		'type'=>'left',
-		'titre'=>'Products',
+		'titre'=>'Services',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_products',
 		'url'=>'/product/list.php?type=1',
 		'langs'=>'',
 		'position'=>220,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		'perms'=>'$user->rights->sellyoursaas->sellyoursaas->read',
+		'perms'=>'$user->rights->sellyoursaas->read',
 		'target'=>'',
 		'user'=>0);
 		$r++;
@@ -334,14 +350,14 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_products',
 		'type'=>'left',
-		'titre'=>'NewProduct',
+		'titre'=>'NewService',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_createproduct',
 		'url'=>'/product/card.php?type=1&action=create',
 		'langs'=>'',
 		'position'=>221,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		'perms'=>'$user->rights->sellyoursaas->sellyoursaas->write',
+		'perms'=>'$user->rights->sellyoursaas->create',
 		'target'=>'',
 		'user'=>0);
 		$r++;
@@ -350,14 +366,14 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_products',
 		'type'=>'left',
-		'titre'=>'Products V1',
+		'titre'=>'Services V1',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_productv1',
 		'url'=>'/product/list.php?type=1&search_categ=6',
 		'langs'=>'',
 		'position'=>222,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		'perms'=>'$user->rights->sellyoursaas->sellyoursaas->write',
+		'perms'=>'$user->rights->sellyoursaas->create',
 		'target'=>'',
 		'user'=>0);
 		$r++;
@@ -365,14 +381,14 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_products',
 		'type'=>'left',
-		'titre'=>'Products V2',
+		'titre'=>'Services V2',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_productv2',
 		'url'=>'/product/list.php?type=1&search_categ=7',
 		'langs'=>'',
 		'position'=>223,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		'perms'=>'$user->rights->sellyoursaas->sellyoursaas->write',
+		'perms'=>'$user->rights->sellyoursaas->create',
 		'target'=>'',
 		'user'=>0);
 		$r++;
@@ -384,11 +400,12 @@ class modSellYourSaas extends DolibarrModules
 		    'titre'=>'Customers',
 		    'mainmenu'=>'sellyoursaas',
 		    'leftmenu'=>'mysaas_customerlist',
-		    'url'=>'/societe/list.php?search_options_dolicloud=y',
-		    'langs'=>'',
+			//'url'=>'/societe/list.php?search_options_dolicloud=v',
+			'url'=>'/societe/list.php?search_categ_cus=5',
+			'langs'=>'',
 		    'position'=>230,
 		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		    'perms'=>'$user->rights->sellyoursaas->sellyoursaas->read',
+		    'perms'=>'$user->rights->sellyoursaas->read',
 		    'target'=>'',
 		    'user'=>0);
 		$r++;
@@ -398,13 +415,43 @@ class modSellYourSaas extends DolibarrModules
 			'titre'=>'NewCustomer',
 			'mainmenu'=>'sellyoursaas',
 			'leftmenu'=>'mysaas_createcustomer',
-			'url'=>'/societe/card.php?action=create&type=c',
+			'url'=>'/societe/card.php?action=create&type=c&custcats[]=5',
 			'langs'=>'sellyoursaas@sellyoursaas',
 			'position'=>231,
 			'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-			'perms'=>'$user->rights->sellyoursaas->sellyoursaas->write',
+			'perms'=>'$user->rights->sellyoursaas->create',
 			'target'=>'',
 			'user'=>0);
+		$r++;
+
+		// Reseller
+		$this->menu[$r]=array(
+		'fk_menu'=>'fk_mainmenu=sellyoursaas',
+		'type'=>'left',
+		'titre'=>'Resellers',
+		'mainmenu'=>'sellyoursaas',
+		'leftmenu'=>'mysaas_resellerlist',
+		'url'=>'/societe/list.php?search_categ_sup=9',
+		'langs'=>'',
+		'position'=>233,
+		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		'perms'=>'$user->rights->sellyoursaas->read',
+		'target'=>'',
+		'user'=>0);
+		$r++;
+
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_resellerlist',
+		'type'=>'left',
+		'titre'=>'NewReseller',
+		'mainmenu'=>'sellyoursaas',
+		'leftmenu'=>'mysaas_createreseller',
+		'url'=>'/societe/card.php?action=create&type=f&options_dolicloud=no&suppcats[]=9',
+		'langs'=>'sellyoursaas@sellyoursaas',
+		'position'=>234,
+		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		'perms'=>'$user->rights->sellyoursaas->create',
+		'target'=>'',
+		'user'=>0);
 		$r++;
 
 		// Instances
@@ -418,7 +465,7 @@ class modSellYourSaas extends DolibarrModules
 		    'langs'=>'sellyoursaas@sellyoursaas',
 		    'position'=>240,
 		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		    'perms'=>'$user->rights->sellyoursaas->sellyoursaas->read',
+		    'perms'=>'$user->rights->sellyoursaas->read',
 		    'target'=>'',
 		    'user'=>0);
 		$r++;
@@ -432,7 +479,7 @@ class modSellYourSaas extends DolibarrModules
 			'langs'=>'sellyoursaas@sellyoursaas',
 			'position'=>241,
 			'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-			'perms'=>'$user->rights->sellyoursaas->sellyoursaas->write',
+			'perms'=>'$user->rights->sellyoursaas->create',
 			'target'=>'',
 			'user'=>0);
 		$r++;
@@ -447,7 +494,7 @@ class modSellYourSaas extends DolibarrModules
 		'langs'=>'sellyoursaas@sellyoursaas',
 		'position'=>245,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		'perms'=>'$user->rights->sellyoursaas->sellyoursaas->read',
+		'perms'=>'$user->rights->sellyoursaas->read',
 		'target'=>'',
 		'user'=>0);
 		$r++;
@@ -462,7 +509,7 @@ class modSellYourSaas extends DolibarrModules
 		'langs'=>'sellyoursaas@sellyoursaas',
 		'position'=>246,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		'perms'=>'$user->rights->sellyoursaas->sellyoursaas->read',
+		'perms'=>'$user->rights->sellyoursaas->read',
 		'target'=>'',
 		'user'=>0);
 		$r++;
@@ -478,7 +525,7 @@ class modSellYourSaas extends DolibarrModules
 		 'langs'=>'sellyoursaas@sellyoursaas',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 		 'position'=>300,
 		 'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		 'perms'=>'$user->rights->sellyoursaas->sellyoursaas->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
+		 'perms'=>'$user->rights->sellyoursaas->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
 		 'target'=>'',
 		 'user'=>0);             // 0=Menu for internal users, 1=external users, 2=both
 		 $r++;
@@ -492,7 +539,7 @@ class modSellYourSaas extends DolibarrModules
 		 'langs'=>'',
 		 'position'=>200,
 		 'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		 'perms'=>'$user->rights->sellyoursaas->sellyoursaas->read',
+		 'perms'=>'$user->rights->sellyoursaas->read',
 		 'target'=>'',
 		 'user'=>0);
 		 $r++;
@@ -508,7 +555,7 @@ class modSellYourSaas extends DolibarrModules
 		 'langs'=>'sellyoursaas@sellyoursaas',
 		 'position'=>220,
 		 'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		 'perms'=>'$user->rights->sellyoursaas->sellyoursaas->write',
+		 'perms'=>'$user->rights->sellyoursaas->create',
 		 'target'=>'',
 		 'user'=>0);
 		 $r++;
@@ -524,7 +571,7 @@ class modSellYourSaas extends DolibarrModules
 		    'langs'=>'',
 		    'position'=>400,
 		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		    'perms'=>'$user->rights->sellyoursaas->sellyoursaas->read',
+		    'perms'=>'$user->rights->sellyoursaas->read',
 		    'target'=>'',
 		    'user'=>0);
 		$r++;
@@ -538,7 +585,7 @@ class modSellYourSaas extends DolibarrModules
 		    'langs'=>'',
 		    'position'=>500,
 		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		    'perms'=>'$user->rights->sellyoursaas->sellyoursaas->read',
+		    'perms'=>'$user->rights->sellyoursaas->read',
 		    'target'=>'',
 		    'user'=>0);
 		$r++;
@@ -556,7 +603,7 @@ class modSellYourSaas extends DolibarrModules
 		    'langs'=>'sellyoursaas@sellyoursaas',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 		    'position'=>300,
 		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		    'perms'=>'$user->rights->sellyoursaas->sellyoursaas->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
+		    'perms'=>'$user->rights->sellyoursaas->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
 		    'target'=>'',
 		    'user'=>0);             // 0=Menu for internal users, 1=external users, 2=both
 		$r++;
@@ -571,7 +618,7 @@ class modSellYourSaas extends DolibarrModules
 		    'langs'=>'sellyoursaas@sellyoursaas',
 		    'position'=>310,
 		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		    'perms'=>'$user->rights->sellyoursaas->sellyoursaas->read',
+		    'perms'=>'$user->rights->sellyoursaas->read',
 		    'target'=>'',
 		    'user'=>0);
 		$r++;
@@ -609,10 +656,10 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('paypal_info',               "Paypal info",   'varchar', 92, '255', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 
 		// Invoice
-		$resultx=$extrafields->addExtraField('manual_collect', 	     "Manual collection",  'boolean',  1,   '2',    'facture', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		//$resultx=$extrafields->addExtraField('manual_collect', 	     "Manual collection",  'boolean',  1,   '2',    'facture', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 
 		// Contract
-		$resultx=$extrafields->addExtraField('plan',                              "Plan", 'varchar',   2,  '32',    'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('plan',                              "Plan", 'varchar',   2,  '64',    'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('date_registration',    "Date registration", 'datetime',  3,    '',    'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('date_endfreeperiod',      "Date end trial", 'datetime',  4,    '',    'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('hostname_os',                "Hostname OS", 'varchar',   5,  '32',    'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
@@ -628,22 +675,6 @@ class modSellYourSaas extends DolibarrModules
 
 		$resultx=$extrafields->addExtraField('nb_users',     "Last nb of enabled users",       'int', 20,   '8',    'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('nb_gb',                   "Last nb of Gb",       'int', 21,   '8',    'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
-
-
-
-		$object->array_options['options_plan']=$dolicloudcustomer->plan;
-		$object->array_options['options_date_registration']=$dolicloudcustomer->date_registration;
-		$object->array_options['options_date_endfreeperiod']=$dolicloudcustomer->date_endfreeperiod;
-		$object->array_options['options_hostname_os']=$dolicloudcustomer->hostname_web;
-		$object->array_options['options_username_os']=$dolicloudcustomer->username_web;
-		$object->array_options['options_password_os']=$dolicloudcustomer->password_web;
-		$object->array_options['options_hostname_db']=$dolicloudcustomer->hostname_db;
-		$object->array_options['options_database_db']=$dolicloudcustomer->database_db;
-		$object->array_options['options_port_db']    =$dolicloudcustomer->port_db;
-		$object->array_options['options_username_db']=$dolicloudcustomer->username_db;
-		$object->array_options['options_password_db']=$dolicloudcustomer->password_db;
-		$object->array_options['fileauthorizekey']=$dolicloudcustomer->fileauthorizekey;
-		$object->array_options['filelock']=$dolicloudcustomer->filelock;
 
 
 		$sql = array();

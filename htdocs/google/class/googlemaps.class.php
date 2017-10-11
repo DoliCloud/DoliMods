@@ -152,15 +152,16 @@ class Googlemaps // extends CommonObject
     /**
      *    Load object in memory from database
      *
-     *    @param      int   $id          id object
-     *    @return     int                <0 if KO, >0 if OK
+     *    @param    int		$id          	Id of record
+     *    @param	int		$element_id		Id of object (used only if $id is empty)
+     *    @param	string	$element_type	Type of object (used only if $id is empty)
+     *    @return   int     				<0 if KO, >0 if OK
      */
-    function fetch($id)
-    {
-    	global $langs;
-        $sql = "SELECT";
+	function fetch($id, $element_id=0, $element_type='')
+	{
+		global $langs;
+		$sql = "SELECT";
 		$sql.= " t.rowid,";
-
 		$sql.= " t.fk_object,";
 		$sql.= " t.type_object,";
 		$sql.= " t.latitude,";
@@ -168,10 +169,15 @@ class Googlemaps // extends CommonObject
 		$sql.= " t.address,";
 		$sql.= " t.result_code,";
 		$sql.= " t.result_label";
-
         $sql.= " FROM ".MAIN_DB_PREFIX."google_maps as t";
-        $sql.= " WHERE t.fk_object = ".$id;
-
+        if (empty($id))
+        {
+        	$sql.= " WHERE t.fk_object = ".$this->db->escape($element_id)." AND t.type_object = '".$this->db->escape($element_type)."'";
+        }
+        else
+        {
+        	$sql.= " WHERE t.rowid = ".$id;
+        }
     	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
         $resql=$this->db->query($sql);
         if ($resql)

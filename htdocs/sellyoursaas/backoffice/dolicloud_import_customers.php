@@ -153,7 +153,7 @@ if ($action == 'import' || $action == 'create')
 
 		$listofid=array();
 		$i=0; $j=0;
-		$dolicloudcustomer=new Dolicloudcustomer($db);
+		$dolicloudcustomer=new Dolicloud_customers($db);
 		while(($data = fgetcsv($handle, 1000, ",")) !== FALSE)
 		{
 			// data[0] = organization

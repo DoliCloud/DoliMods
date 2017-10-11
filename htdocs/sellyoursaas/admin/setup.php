@@ -88,6 +88,8 @@ if ($action == 'set')
 		//dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS",GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS"),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG",GETPOST("SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG"),'chaine',0,'',$conf->entity);
+
+		dolibarr_set_const($db,"SELLYOURSAAS_REFS_URL",GETPOST("SELLYOURSAAS_REFS_URL"),'chaine',0,'',$conf->entity);
 	}
 }
 
@@ -163,15 +165,15 @@ print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("DirForScriptPath").'</td>';
 print '<td>';
-print '<input size="40" type="text" name="DOLICLOUD_SCRIPTS_PATH" value="'.$conf->global->DOLICLOUD_SCRIPTS_PATH.'">';
+print '<input class="minwidth300" type="text" name="DOLICLOUD_SCRIPTS_PATH" value="'.$conf->global->DOLICLOUD_SCRIPTS_PATH.'">';
 print '</td>';
-print '<td>/home/admin/wwwroot/dolibarr_nltechno/scripts</td>';
+print '<td>/home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/htdocs/scripts</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("DirForLastStableVersionOfDolibarr").'</td>';
 print '<td>';
-print '<input size="40" type="text" name="DOLICLOUD_LASTSTABLEVERSION_DIR" value="'.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.'">';
+print '<input class="minwidth300" type="text" name="DOLICLOUD_LASTSTABLEVERSION_DIR" value="'.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.'">';
 print '</td>';
 print '<td>/home/admin/wwwroot/dolibarr_documents/sellyoursaas/git/dolibarr_x.y</td>';
 print '<td>&nbsp;</td>';
@@ -220,6 +222,15 @@ print '<td>SaaS Customers</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 
+print '<tr class="oddeven"><td>'.$langs->trans("RefsUrl", DOL_DOCUMENT_ROOT.'/sellyoursaas/git');
+print '</td>';
+print '<td>';
+print '<input size="40" type="text" name="SELLYOURSAAS_REFS_URL" value="'.$conf->global->SELLYOURSAAS_REFS_URL.'">';
+print '</td>';
+print '<td>https://mysaas.com/refs</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
+
 print '</table>';
 
 print "</form>\n";
@@ -242,7 +253,7 @@ print '<td>'.$langs->trans("Examples").'</td>';
 print '<td align="right"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td>';
 print "</tr>\n";
 
-print '<tr class="oddeven"><td>'.$langs->trans("DirForDoliCloudInstances").'</td>';
+print '<tr class="oddeven"><td>'.$langs->trans("DirForDoliCloudInstances").' (remote dir)</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_EXT_HOME" value="'.$conf->global->DOLICLOUD_EXT_HOME.'">';
 print '</td>';

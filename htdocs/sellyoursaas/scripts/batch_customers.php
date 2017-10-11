@@ -53,7 +53,7 @@ if (! $res && file_exists($path."../../../master.inc.php")) $res=@include($path.
 if (! $res) die("Include of master fails");
 // After this $db, $mysoc, $langs and $conf->entity are defined. Opened handler to database will be closed at end of file.
 
-dol_include_once('/sellyoursaas/class/dolicloudcustomernew.class.php');
+dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 include_once dol_buildpath("/sellyoursaas/backoffice/lib/refresh.lib.php");		// do not use dol_buildpth to keep global declaration working
 
 
@@ -112,7 +112,7 @@ $instancefiltercomplete=$instancefilter;
 if (! empty($instancefiltercomplete) && ! preg_match('/\.on\.dolicloud\.com$/',$instancefiltercomplete)) $instancefiltercomplete=$instancefiltercomplete.'.on.dolicloud.com';
 
 
-$object=new Dolicloudcustomernew($db,$db2);
+$object=new Dolicloud_customers($db,$db2);
 
 
 $instances=array();

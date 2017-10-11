@@ -16,7 +16,7 @@
 */
 
 /**
- *       \file       htdocs/sellyoursaas/backoffice/infoinstance.php
+ *       \file       htdocs/sellyoursaas/backoffice/instance_info.php
  *       \ingroup    societe
  *       \brief      Card of a contact
  */
@@ -45,7 +45,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
 dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
 dol_include_once("/sellyoursaas/backoffice/lib/refresh.lib.php");
-dol_include_once('/sellyoursaas/class/dolicloudcustomernew.class.php');
+dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 dol_include_once('/sellyoursaas/class/cdolicloudplans.class.php');
 
 $langs->load("admin");
@@ -86,12 +86,12 @@ else
 		exit;
 	}
 
-	$object = new DoliCloudCustomerNew($db,$db2);
+	$object = new Dolicloud_customers($db,$db2);
 }
 
 // Security check
-$user->rights->sellyoursaas->sellyoursaas->delete = $user->rights->sellyoursaas->sellyoursaas->write;
-$result = restrictedArea($user, 'sellyoursaas', 0, '','sellyoursaas');
+$user->rights->sellyoursaas->delete = $user->rights->sellyoursaas->create;
+$result = restrictedArea($user, 'sellyoursaas', 0, '','');
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
@@ -123,7 +123,7 @@ if (empty($reshook))
 	}
 
 	// Add customer
-	if ($action == 'add' && $user->rights->sellyoursaas->sellyoursaas->write)
+	if ($action == 'add' && $user->rights->sellyoursaas->create)
 	{
 		$db->begin();
 
@@ -187,7 +187,7 @@ if (empty($reshook))
 		}
 	}
 
-	if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->sellyoursaas->sellyoursaas->write)
+	if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->sellyoursaas->create)
 	{
 		$result=$object->fetch($id);
 
@@ -203,7 +203,7 @@ if (empty($reshook))
 		}
 	}
 
-	if ($action == 'update' && ! $_POST["cancel"] && $user->rights->sellyoursaas->sellyoursaas->write)
+	if ($action == 'update' && ! $_POST["cancel"] && $user->rights->sellyoursaas->write)
 	{
 		if (empty($_POST["organization"]) || empty($_POST["plan"]) || empty($_POST["email"]))
 		{
@@ -315,8 +315,9 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 	$prefix = 'with';
 	$instance = 'xxxx';
+	$type_db = $conf->db->type;
 
-	if ($instanceoldid)
+	if ($instanceoldid)	// $object is old dolicloud_customers
 	{
 		$prefix='on';
 		$instance = $object->instance;
@@ -324,22 +325,33 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$username_db = $object->username_db;
 		$password_db = $object->password_db;
 		$database_db = $object->database_db;
-		$type_db = $conf->db->type;
 
 		$username_web = $object->username_web;
 		$password_web = $object->password_web;
 	}
+	else	// $object is a contract (on old or new instance)
+	{
+		if (preg_match('/\.on\./', $object->ref_customer)) $prefix='on';
+		else $prefix='with';
 
-	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);
+		$hostname_db = $object->array_options['options_hostname_db'];
+		$username_db = $object->array_options['options_username_db'];
+		$password_db = $object->array_options['options_password_db'];
+		$database_db = $object->array_options['options_database_db'];
+		$username_web = $object->array_options['options_username_os'];
+		$password_web = $object->array_options['options_username_os'];
+	}
 
-	if (is_object($newdb) && $newdb->connected)
+	$dbcustomerinstance=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);
+
+	if (is_object($dbcustomerinstance) && $dbcustomerinstance->connected)
 	{
 		// Get user/pass of last admin user
 		$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
-		$resql=$newdb->query($sql);
+		$resql=$dbcustomerinstance->query($sql);
 		if ($resql)
 		{
-			$obj = $newdb->fetch_object($resql);
+			$obj = $dbcustomerinstance->fetch_object($resql);
 			$object->lastlogin_admin=$obj->login;
 			$object->lastpass_admin=$obj->pass;
 			$lastloginadmin=$object->lastlogin_admin;
@@ -347,15 +359,14 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		}
 		else
 		{
-			setEventMessages('Failed to read remote customer instance.','','warnings');
+			setEventMessages('Failed to read remote customer instance: '.$dbcustomerinstance->lasterror(),'','warnings');
 		}
 	}
 
-	if (empty($instanceoldid))
+	if (preg_match('/\.with\./', $object->ref_customer))
 	{
 
 		print '<div class="fichecenter">';
-
 
 		// ----- SellYourSaas instance -----
 		$DNS_ROOT=(empty($conf->global->NLTECHNO_DNS_ROOT)?'/etc/bind':$conf->global->NLTECHNO_DNS_ROOT);
@@ -365,7 +376,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		/*
 		 print ' - '.$langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
-		 if (! $object->user_id && $user->rights->sellyoursaas->sellyoursaas->write)
+		 if (! $object->user_id && $user->rights->sellyoursaas->write)
 		 {
 		 print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 		 }
@@ -463,22 +474,54 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		print "</table>";
 
 		print '<br>';
+
+		print '</div>';
 	}
-	else
+
+	if (preg_match('/\.on\./', $object->ref_customer) || get_class($object) == 'Dolicloud_customers')
 	{
+		if (get_class($object) != 'Dolicloud_customers')
+		{
+			$ref_instance = $object->ref_customer;
+
+			if (! is_object($db2))
+			{
+				$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
+				if ($db2->error)
+				{
+					dol_print_error($db2,"host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db2->error);
+					exit;
+				}
+			}
+
+			$object = new Dolicloud_customers($db, $db2);
+			$object->fetch(0, $ref_instance);
+		}
+		/*var_dump($dolicloudcustomer); */
+		//var_dump($object);
+
 		print '<div class="fichecenter">';
 
-		$savdb=$object->db;
-		if (is_object($object->db2)) $object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
+		if (is_object($object->db2))
+		{
+			$savdb=$object->db;
+			$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function.  $db = stratus5 database
+		}
+
 		dol_banner_tab($object,($instanceoldid?'refold':'ref'),'',1,($instanceoldid?'name':'ref'),'ref','','',1);
-		$object->db=$savdb;
+
+		if (is_object($object->db2))
+		{
+			$savdb=$object->db;
+			$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function.  $db = stratus5 database
+		}
 
 		// ----- DoliCloud instance -----
 		print '<strong>INSTANCE DOLICLOUD v1</strong>';
 		// Last refresh
 		print ' - '.$langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
-		if (! $object->user_id && $user->rights->sellyoursaas->sellyoursaas->write)
+		if (! $object->user_id && $user->rights->sellyoursaas->write)
 		{
 			print ' <a href="'.$_SERVER["PHP_SELF"].'?instanceoldid='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 		}
@@ -634,10 +677,10 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		print '</tr>';
 
 		print "</table><br>";
+
+		print "</div>";	//  End fiche=center
 	}
 
-
-	print "</div>";	//  End fiche=center
 
 
 

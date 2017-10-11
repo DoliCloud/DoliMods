@@ -37,7 +37,7 @@ if (! $res) die("Include of main fails");
 
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 dol_include_once("/sellyoursaas/class/dolicloudcustomer.class.php");
-dol_include_once("/sellyoursaas/class/dolicloudcustomernew.class.php");
+dol_include_once("/sellyoursaas/class/dolicloud_customers.class.php");
 
 // Load traductions files requiredby by page
 $langs->load("companies");
@@ -122,23 +122,6 @@ if (GETPOST("button_removefilter_x") || GETPOST("button_removefilter.x") ||GETPO
 	$search_status = '';
 }
 
-if ($action == 'add')
-{
-	$myobject=new Dolicloudcustomer($db);
-	$myobject->prop1=$_POST["field1"];
-	$myobject->prop2=$_POST["field2"];
-	$result=$myobject->create($user);
-	if ($result > 0)
-	{
-		// Creation OK
-	}
-	{
-		// Creation KO
-		$mesg=$myobject->error;
-	}
-}
-
-
 
 
 
@@ -148,12 +131,12 @@ if ($action == 'add')
 * Put here all code to build page
 ****************************************************/
 
-$arraystatus=Dolicloudcustomernew::$listOfStatusNewShort;
+$arraystatus=Dolicloud_customers::$listOfStatusNewShort;
 
 llxHeader('',$langs->transnoentitiesnoconv('DoliCloudInstances'),'');
 
 $form=new Form($db);
-$dolicloudcustomerstaticnew = new Dolicloudcustomernew($db,$db2);
+$dolicloudcustomerstaticnew = new Dolicloud_customers($db,$db2);
 
 $now=dol_now();
 

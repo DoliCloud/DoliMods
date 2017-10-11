@@ -37,7 +37,7 @@ $langs->load("google@google");
 // url is:  gmaps.php?mode=thirdparty|contact|member&id=id
 
 
-$mode=GETPOST('mode');
+$mode=GETPOST('mode','alpha');
 $address='';
 
 // Load third party
@@ -88,7 +88,7 @@ $act = "";
 $head=array();
 $title='';
 $picto='';
-if (empty($mode) || $mode=='thirdparty')
+if (empty($mode) || $mode=='thirdparty' || $mode=='societe')
 {
 	$head = societe_prepare_head($object);
 	$title=$langs->trans("ThirdParty");
@@ -109,9 +109,10 @@ if ($mode=='member')
 
 dol_fiche_head($head, 'gmaps', $title, 0, $picto);
 
+
 if (function_exists('dol_banner_tab')) // 3.9+
 {
-    dol_banner_tab($object,'id','',$user->rights->user->user->lire || $user->admin);
+    dol_banner_tab($object,'id','',1);
 }
 else
 {
@@ -155,6 +156,9 @@ else
 
     print '</table>';
 }
+
+
+dol_fiche_end();
 
 // Show maps
 
@@ -239,7 +243,6 @@ else
 	print '<br>'.$langs->trans("GoogleAddressNotDefined").'<br>';
 }
 
-dol_fiche_end();
 
 llxfooter();
 

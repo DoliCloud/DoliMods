@@ -43,7 +43,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
-dol_include_once('/sellyoursaas/class/dolicloudcustomernew.class.php');
+dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 dol_include_once('/sellyoursaas/class/cdolicloudplans.class.php');
 
 $langs->load("admin");
@@ -78,12 +78,12 @@ else
 		exit;
 	}
 
-	$object = new DoliCloudCustomerNew($db,$db2);
+	$object = new Dolicloud_customers($db,$db2);
 }
 
 
 // Security check
-$result = restrictedArea($user, 'sellyoursaas', 0, '','sellyoursaas');
+$result = restrictedArea($user, 'sellyoursaas', 0, '','');
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
@@ -135,7 +135,7 @@ $form2 = new Form($db2);
 $formcompany = new FormCompany($db);
 
 $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
-$arraystatus=Dolicloudcustomernew::$listOfStatus;
+$arraystatus=Dolicloud_customers::$listOfStatus;
 
 if (empty($instanceoldid) && $action != 'create')
 {
@@ -162,6 +162,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 	$prefix = 'with';
 	$instance = 'xxxx';
+	$type_db = $conf->db->type;
 
 	if ($instanceoldid)
 	{
@@ -171,10 +172,21 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$username_db = $object->username_db;
 		$password_db = $object->password_db;
 		$database_db = $object->database_db;
-		$type_db = $conf->db->type;
 
 		$username_web = $object->username_web;
 		$password_web = $object->password_web;
+	}
+	else	// $object is a contract (on old or new instance)
+	{
+		if (preg_match('/\.on\./', $object->ref_customer)) $prefix='on';
+		else $prefix='with';
+
+		$hostname_db = $object->array_options['options_hostname_db'];
+		$username_db = $object->array_options['options_username_db'];
+		$password_db = $object->array_options['options_password_db'];
+		$database_db = $object->array_options['options_database_db'];
+		$username_web = $object->array_options['options_username_os'];
+		$password_web = $object->array_options['options_username_os'];
 	}
 
 	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);
@@ -192,11 +204,18 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	}
 	//	else print 'Error, failed to connect';
 
-	$savdb=$object->db;
-	$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
-	dol_banner_tab($object,($instanceoldid?'refold':'ref'),'',1,($instanceoldid?'name':'ref'),'ref','','',1);
-	$object->db=$savdb;
+	if (is_object($object->db2))
+	{
+		$savdb=$object->db;
+		$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function.  $db = stratus5 database
+	}
 
+	dol_banner_tab($object, ($instanceoldid?'refold':'ref'), '', 1, ($instanceoldid?'name':'ref'), 'ref', '', '', 1, '', '', 1);
+
+	if (is_object($object->db2))
+	{
+		$object->db=$savdb;
+	}
 
 	print '<div class="fichecenter">';
 	print '</div>';
@@ -216,7 +235,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	// Last refresh
 	print $langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
 
-	if (! $object->user_id && $user->rights->sellyoursaas->sellyoursaas->write)
+	if (! $object->user_id && $user->rights->sellyoursaas->create)
 	{
 		print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 	}*/
@@ -247,7 +266,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		 {
 		 print '<div class="tabsAction">';
 
-		 if ($user->rights->sellyoursaas->sellyoursaas->write)
+		 if ($user->rights->sellyoursaas->create)
 		 {
 		 print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=upgrade">'.$langs->trans('Upgrade').'</a>';
 		 }

@@ -73,3 +73,4 @@ OvhServiceNameHelp=Put here the SIP line number. Note, if you have several line 
 OVHURLMustNotBeLocal=Warning, URL you use for the application must NOT be a local URL but an URL you can access from internet to have this working.
 CreateSnapshot=Create snapshot
 SnapshotRequestSent=Snapshot request under name '%s' was successfully sent.
+NoneLabelOnOvhLineWillBeUsed=None (label of line in OVH invoice will be used)

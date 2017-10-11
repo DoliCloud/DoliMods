@@ -46,7 +46,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
 dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
 dol_include_once("/sellyoursaas/backoffice/lib/refresh.lib.php");
-dol_include_once('/sellyoursaas/class/dolicloudcustomernew.class.php');
+dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 dol_include_once('/sellyoursaas/class/cdolicloudplans.class.php');
 
 $langs->load("admin");
@@ -63,7 +63,8 @@ $action		= (GETPOST('action','alpha') ? GETPOST('action','alpha') : 'view');
 $confirm	= GETPOST('confirm','alpha');
 $backtopage = GETPOST('backtopage','alpha');
 $id			= GETPOST('id','int');
-$instanceoldid= GETPOST('instanceoldid','alpha');
+$instanceoldid = GETPOST('instanceoldid','alpha');
+$instance   = GETPOST('instance','alpha');
 $ref        = GETPOST('ref','alpha');
 $refold     = GETPOST('refold','alpha');
 $date_registration  = dol_mktime(0, 0, 0, GETPOST("date_registrationmonth",'int'), GETPOST("date_registrationday",'int'), GETPOST("date_registrationyear",'int'), 1);
@@ -83,13 +84,12 @@ if ($db2->error)
 	dol_print_error($db2,"host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db2->error);
 	exit;
 }
-$dolicloudcustomer = new DoliCloudCustomerNew($db,$db2);
-
+$dolicloudcustomer = new Dolicloud_customers($db,$db2);
 
 
 // Security check
-$user->rights->sellyoursaas->sellyoursaas->delete = $user->rights->sellyoursaas->sellyoursaas->write;
-$result = restrictedArea($user, 'sellyoursaas', 0, '','sellyoursaas');
+$user->rights->sellyoursaas->delete = $user->rights->sellyoursaas->create;
+$result = restrictedArea($user, 'sellyoursaas', 0, '','');
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
@@ -117,8 +117,81 @@ if (empty($reshook))
 		exit;
 	}
 
+
+	// Search if a thirdparty already exists
+	if (GETPOST('loadthirdparty') && (GETPOST('email') || GETPOST('instance') || GETPOST('thirdparty_id') > 0))
+	{
+		$emailtocreate = '';
+		$instancetocreate = '';
+		$nametocreate = '';
+		$paymentmodetocreate = '';
+		$_POST['nametocreate'] = '';
+		$_POST['emailtocreate'] = '';
+		$_POST['mode_reglement_id'] = '';
+
+		$result = $object->fetch((GETPOST('thirdparty_id') > 0 ? GETPOST('thirdparty_id') : 0), '', '', '','','','','','', '', GETPOST('email'));
+
+		if (GETPOST('instance'))
+		{
+			$contracttosearch=new Contrat($db);
+
+			$instancetosearch = GETPOST('instance');
+
+			// Add with.dolicloud.com to have a complete instance id
+			if (! empty($instancetosearch) && ! preg_match('/\.dolicloud\.com$/',$instancetosearch)) $instancetosearch=$instancetosearch.'.with.dolicloud.com';
+			$result = $contracttosearch->fetch(0, '', $instancetosearch);
+			if ($result > 0 && $contracttosearch->socid > 0)
+			{
+				$result = $object->fetch($contracttosearch->socid);
+			}
+
+			// If third party not found, we try with v1 name
+			if (empty($object->id))
+			{
+				$instancetosearch = GETPOST('instance');
+
+				// Add on.dolicloud.com to have a complete instance id
+				if (! empty($instancetosearch) && ! preg_match('/\.dolicloud\.com$/',$instancetosearch)) $instancetosearch=$instancetosearch.'.on.dolicloud.com';
+				$result = $contracttosearch->fetch(0, '', $instancetosearch);
+				if ($result > 0 && $contracttosearch->socid > 0)
+				{
+					$result = $object->fetch($contracttosearch->socid);
+				}
+			}
+		}
+
+		$emailtosearchinold = GETPOST('email');
+		$instancetosearchinold = GETPOST('instance');
+		if (empty($emailtosearchinold)) $emailtosearchinold = $object->email;
+
+		// Search also on data from old v1 mirror table
+		if ($emailtosearchinold || $instancetosearchinold)
+		{
+			$result = $dolicloudcustomer->fetch(0, $instancetosearchinold, '', $emailtosearchinold);
+			if ($result > 0)
+			{
+				if (empty($object->id))	// Failed to find in dolibarr
+				{
+					$object->name = $dolicloudcustomer->getFullName($langs);
+					$object->email = $dolicloudcustomer->email;
+
+					$paymentmodeid = 100;	// Stripe by default
+
+					if ($dolicloudcustomer->payment_type == 'paypal') $paymentmodeid = 101;
+					if ($dolicloudcustomer->manual_collection) $paymentmodeid = 0;
+					$dolicloudcustomer->mode_reglement_id = $paymentmodeid;
+
+					$object->mode_reglement_id = $paymentmodeid;
+					$object->manual_collection = $dolicloudcustomer->manual_collection;
+				}
+			}
+		}
+	}
+
+
+
 	// Add customer
-	if ($action == 'add' && $user->rights->sellyoursaas->sellyoursaas->write)
+	if ($action == 'add' && $user->rights->sellyoursaas->write)
 	{
 		$db->begin();
 
@@ -131,7 +204,7 @@ if (empty($reshook))
 		$thirdpartyidselected = GETPOST('thirdpartyidselected','int');
 
 
-		// Search info old v1 database to find more information
+		// Search info v1 database to find more information
 		$result = $dolicloudcustomer->fetch(0, $instancetocreate);
 
 		if ($thirdpartyidselected > 0)
@@ -186,6 +259,7 @@ if (empty($reshook))
 			if ($dolicloudcustomer->id > 0)
 			{
 				if (empty($object->name)) $object->name = $dolicloudcustomer->organization;
+				if (empty($object->mode_reglement_id)) $object->mode_reglement_id = $dolicloudcustomer->mode_reglement_id;
 				$object->client=1;
 				$object->code_client=-1;
 				$object->name_alias = $dolicloudcustomer->getFullName($langs);
@@ -222,6 +296,7 @@ if (empty($reshook))
 				$object->import_id = 'doliv1_'.$dolicloudcustomer->customer_id;
 			}
 
+			// If name not defined, we choosse email
 			if (empty($object->name)) $object->name = $object->email;
 
 			/*
@@ -314,6 +389,11 @@ if (empty($reshook))
 				}
 			}
 
+			if ($dolicloudcustomer->id > 0)
+			{
+				$contract->note_private = 'Value in V1 when created: plan='.$dolicloudcustomer->plan.', price_instance='.$dolicloudcustomer->price_instance.", price_per_user=".$dolicloudcustomer->price_user.", users=".$dolicloudcustomer->nbofusers;
+			}
+
 			/*var_dump($contract->array_options);
 			var_dump($instancetocreate);
 			var_dump($productidtocreate);
@@ -366,17 +446,21 @@ if (empty($reshook))
 					}
 					else
 					{
+						$frequeny_multiple = GETPOST('frequency_multiple','int');
 						$i = 1;
 						$now = dol_now();
-						while (dol_time_plus_duree($date_start, $product->duration_value * $i, $product->duration_unit) < $now)
+						while (dol_time_plus_duree($date_start, $product->duration_value * $i * $frequeny_multiple, $product->duration_unit) < $now)
 						{
 							$i++;
 						}
-						$date_end=dol_time_plus_duree($date_start, $product->duration_value * $i, $product->duration_unit);
+						$date_end=dol_time_plus_duree($date_start, $product->duration_value * $i * $frequeny_multiple, $product->duration_unit);
 					}
 				}
 				$save_date_end = $date_end;
 				//var_dump("$nb_user, $product->tva_tx, $product->localtax1_tx, $product->localtax2_tx, $productidtocreate, 0, ".dol_print_date($date_start, 'dayhourlog')." - ".dol_print_date($date_end, 'dayhourlog'));exit;
+
+				//$discount = GETPOST('discount');
+				$discount = 0;	// Discount for contracts is zero.
 
 				// Create contract line for INSTANCE
 				if (! $error)
@@ -386,7 +470,10 @@ if (empty($reshook))
 						$object->country_code = dol_getIdFromCode($db, $object->country_id, 'c_country', 'rowid', 'code');
 					}
 					$qty = 1;
+					//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
 					$vat = get_default_tva($mysoc, $object, $product->id);
+					$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
+					$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
 					//var_dump($mysoc->country_code);
 					//var_dump($object->country_code);
 					//var_dump($product->tva_tx);
@@ -396,9 +483,12 @@ if (empty($reshook))
 					if ($dolicloudcustomer->id > 0)
 					{
 						$price = $dolicloudcustomer->price_instance;
+						if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
 					}
 
-					$contactlineid = $contract->addline('', $price, $qty, $vat, $product->localtax1_tx, $product->localtax2_tx, $productidtocreate, 0, $date_start, $date_end, 'HT', 0);
+					if ($price == 0) $discount = 0;
+
+					$contactlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreate, $discount, $date_start, $date_end, 'HT', 0);
 					if ($contactlineid < 0)
 					{
 						$error++;
@@ -415,17 +505,20 @@ if (empty($reshook))
 				{
 					$qty = 0;
 					if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
-					$vat = get_default_tva($mysoc, $object, $product->id);
+					$vat = get_default_tva($mysoc, $object, 0);
+					$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
+					$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
 
 					$price = $product->array_options['options_price_per_user'];
 					if ($dolicloudcustomer->id > 0)
 					{
 						$price = $dolicloudcustomer->price_user;
+						if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
 					}
 
 					if ($price > 0 && $qty > 0)
 					{
-						$contactlineid = $contract->addline('Additional users', $price, $qty, $product->tva_tx, $product->localtax1_tx, $product->localtax2_tx, 0, 0, $date_start, $date_end, 'HT', 0);
+						$contactlineid = $contract->addline('Additional users', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, 0, $discount, $date_start, $date_end, 'HT', 0);
 						if ($contactlineid < 0)
 						{
 							$error++;
@@ -468,7 +561,9 @@ if (empty($reshook))
 				$invoice_draft->mode_reglement_id	= (GETPOST('mode_reglement_id','int') > 0 ? GETPOST('mode_reglement_id','int') : $thirdparty->mode_reglement_id);
 				$invoice_draft->cond_reglement_id	= dol_getIdFromCode($db, 'RECEP', 'c_payment_term', 'code', 'rowid');
 
-	            $invoice_draft->fk_account          = 0;
+	            $invoice_draft->fk_account          = 5;												// fiducial
+	            if ($invoice_draft->mode_reglement_id == 100) $invoice_draft->fk_account          = 8;	// stripe
+	            if ($invoice_draft->mode_reglement_id == 101) $invoice_draft->fk_account          = 7;	// paypal
 
 				$invoice_draft->fetch_thirdparty();
 
@@ -491,7 +586,7 @@ if (empty($reshook))
 
 			if (! $error)
 			{
-				// Add lines
+				// Add lines of invoice
 				$srcobject = $contract;
 
 				$lines = $srcobject->lines;
@@ -556,7 +651,10 @@ if (empty($reshook))
 						$localtax1_tx = get_localtax($tva_tx, 1, $invoice_draft->thirdparty);
 						$localtax2_tx = get_localtax($tva_tx, 2, $invoice_draft->thirdparty);
 
-						$result = $invoice_draft->addline($desc, $lines[$i]->subprice * GETPOST('frequency_multiple','int'), $lines[$i]->qty, $tva_tx, $localtax1_tx, $localtax2_tx, $lines[$i]->fk_product, $discount, $date_start, $date_end, 0, $lines[$i]->info_bits, $lines[$i]->fk_remise_except, 'HT', 0, $product_type, $lines[$i]->rang, $lines[$i]->special_code, $invoice_draft->origin, $lines[$i]->rowid, $fk_parent_line, $lines[$i]->fk_fournprice, $lines[$i]->pa_ht, $label, $array_options, $lines[$i]->situation_percent, $lines[$i]->fk_prev_id, $lines[$i]->fk_unit);
+						//$price_invoice_template_line = $lines[$i]->subprice * GETPOST('frequency_multiple','int');
+						$price_invoice_template_line = $lines[$i]->subprice;
+
+						$result = $invoice_draft->addline($desc, $price_invoice_template_line, $lines[$i]->qty, $tva_tx, $localtax1_tx, $localtax2_tx, $lines[$i]->fk_product, $discount, $date_start, $date_end, 0, $lines[$i]->info_bits, $lines[$i]->fk_remise_except, 'HT', 0, $product_type, $lines[$i]->rang, $lines[$i]->special_code, $invoice_draft->origin, $lines[$i]->rowid, $fk_parent_line, $lines[$i]->fk_fournprice, $lines[$i]->pa_ht, $label, $array_options, $lines[$i]->situation_percent, $lines[$i]->fk_prev_id, $lines[$i]->fk_unit);
 
 						if ($result > 0) {
 							$lineid = $result;
@@ -666,36 +764,6 @@ if (empty($reshook))
 	}
 
 
-	if (GETPOST('loadthirdparty') && (GETPOST('thirdparty_id') > 0 || GETPOST('email')))
-	{
-		$emailtocreate = '';
-		$instancetocreate = '';
-		$nametocreate = '';
-		$_POST['nametocreate'] = '';
-		$_POST['emailtocreate'] = '';
-
-		$result = $object->fetch((GETPOST('thirdparty_id') > 0 ? GETPOST('thirdparty_id') : 0), '', '', '','','','','','', '', GETPOST('email'));
-
-		$emailtosearchinold = GETPOST('email');
-		if (empty($emailtosearchinold)) $emailtosearchinold = $object->email;
-
-		// Search also on data from old v1 mirror table
-		if ($emailtosearchinold)
-		{
-			$result = $dolicloudcustomer->fetch(0, '', '', $emailtosearchinold);
-			if ($result > 0)
-			{
-				if (empty($object->id))
-				{
-					$object->name = $dolicloudcustomer->getFullName($langs);
-					$object->email = $dolicloudcustomer->email;
-				}
-			}
-		}
-	}
-
-
-
 	// Add action to create file, etc...
 	include 'refresh_action.inc.php';
 }
@@ -732,6 +800,12 @@ print '</td>';
 print '</tr>';
 
 print '<tr>';
+print '<td class="titlefield">'.$langs->trans("Instance/Ref customer").'</td><td>';
+print '<input type="text" name="instance" value="'.GETPOST('instance','alpha').'" class="minwidth300">';
+print '</td>';
+print '</tr>';
+
+print '<tr>';
 print '<td>'.$langs->trans("ThirdParty").'</td><td>';
 print $form->select_company($object->id, 'thirdparty_id', 's.client IN (1,3)', 1);
 print '</td>';
@@ -741,12 +815,13 @@ print '<tr><td></td><td>';
 print '<input type="submit" name="loadthirdparty" class="button" value="'.$langs->trans("Search").'">';
 print '</td></tr>';
 
-
+// Id thirdparty found in V1
 if ($dolicloudcustomer->id > 0)
 {
 	$nametocreate = $dolicloudcustomer->organization;
 	$instancetocreate = $dolicloudcustomer->instance.'.on.dolicloud.com';
 	$emailtocreate = $dolicloudcustomer->email;
+	$paymentmodetocreate = $dolicloudcustomer->mode_reglement_id;
 
 	print '<tr><td colspan="2"><hr>';
 	print '</td></tr>';
@@ -761,8 +836,18 @@ if ($dolicloudcustomer->id > 0)
 	print '</td>';
 
 	print '<tr><td class="fieldrequired">';
+	print $langs->trans('Contact').'</td><td>';
+	print $dolicloudcustomer->getFullName($langs);
+	print '</td>';
+
+	print '<tr><td class="fieldrequired">';
 	print $langs->trans('Status').'</td><td>';
 	print $dolicloudcustomer->instance_status.' - '.$dolicloudcustomer->status;
+	print '</td>';
+
+	print '<tr><td class="fieldrequired">';
+	print $langs->trans('Address').'</td><td>';
+	print $dolicloudcustomer->getFullAddress(0);
 	print '</td>';
 
 	print '<tr><td class="fieldrequired">';
@@ -773,6 +858,26 @@ if ($dolicloudcustomer->id > 0)
 	print '<tr><td class="fieldrequired">';
 	print $langs->trans('IntraVat').'</td><td>';
 	print $dolicloudcustomer->vat_number;
+	print '</td>';
+
+	/*print '<tr><td class="fieldrequired">';
+	print $langs->trans('Package').'</td><td>';
+	print $dolicloudcustomer->package;
+	print '</td>';*/
+
+	print '<tr><td class="fieldrequired">';
+	print $langs->trans('Plan').'</td><td>';
+	print $dolicloudcustomer->plan;
+	print '</td>';
+
+	print '<tr><td class="fieldrequired">';
+	print $langs->trans('Price').'</td><td>';
+	print 'Instance: '.$dolicloudcustomer->price_instance.' - Per user: '.$dolicloudcustomer->price_user;
+	print '</td>';
+
+	print '<tr><td class="fieldrequired">';
+	print $langs->trans('NbOfUsers').'</td><td>';
+	print $dolicloudcustomer->nbofusers;
 	print '</td>';
 
 	print '</tr>';
@@ -861,7 +966,7 @@ if ($object->id > 0)
     print '<tr><td class="nowrap">';
         print $langs->trans('PaymentMode');
         print '</td><td>';
-       	$form->form_modes_reglement($_SERVER['PHP_SELF'].'?socid='.$object->id,$object->mode_reglement_id,'none');
+        print $form->select_types_paiements($object->mode_reglement_id, 'mode_reglement_id');
         print "</td>";
     print '</tr>';
 
@@ -870,12 +975,13 @@ if ($object->id > 0)
 }
 
 // If criteria to search were provided
-if (GETPOST('email') || GETPOST('thirdparty_id') > 0 || $action == 'create2')
+if (GETPOST('email') || GETPOST('instance') || GETPOST('thirdparty_id') > 0 || $action == 'create2')
 {
+	// No thirdparty found in v1
 	if (empty($object->id))
 	{
 		print '<tr><td colspan="2"><hr>';
-		print '<div class="titre">'.$langs->trans("NoThirdPartyFoundForThisEmail").'.</div>';
+		print '<div class="titre">'.$langs->trans("NoThirdPartyFoundForThisEmailOrInstance").'.</div>';
 		print '<input type="hidden" name="thirdpartyidselected" value="tocreate">';
 		print '</td></tr>';
 
@@ -895,7 +1001,7 @@ if (GETPOST('email') || GETPOST('thirdparty_id') > 0 || $action == 'create2')
 		print '<tr><td class="nowrap">';
 		print $langs->trans('PaymentMode');
 		print '</td><td>';
-		print $form->select_types_paiements($object->mode_reglement_id,'mode_reglement_id',$filtertype,0,0,0,0,1);
+		print $form->select_types_paiements($paymentmodetocreate,'mode_reglement_id',$filtertype,0,0,0,0,1);
 		print "</td>";
 		print '</tr>';
 
@@ -945,9 +1051,15 @@ if (GETPOST('email') || GETPOST('thirdparty_id') > 0 || $action == 'create2')
 			print '</td>';
 			print '</tr>';
 
+			$frequency_multiple_default = 1;
+			if ($dolicloudcustomer->id > 0)
+			{
+				if (preg_match('/yearly/', $dolicloudcustomer->plan)) $frequency_multiple_default = 12;
+			}
+
 			print '<tr><td class="fieldrequired">';
 			print $langs->trans('FrequencyMultiple').'</td><td>';
-			print '<input type="text" size="2" name="frequency_multiple" value="'.(GETPOST('frequency_multiple','int')!=''?GETPOST('frequency_multiple','int'):'1').'">';
+			print '<input type="text" size="2" name="frequency_multiple" value="'.(GETPOST('frequency_multiple','int')!=''?GETPOST('frequency_multiple','int'):$frequency_multiple_default).'">';
 			print '</td>';
 			print '</tr>';
 
