@@ -189,9 +189,8 @@ if (empty($reshook))
 	}
 
 
-
 	// Add customer
-	if ($action == 'add' && $user->rights->sellyoursaas->write)
+	if ($action == 'add' && $user->rights->sellyoursaas->create)
 	{
 		$db->begin();
 
