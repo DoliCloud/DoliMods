@@ -154,7 +154,7 @@ class ActionsMulticompany
 				$this->dao->options['sharings']['agenda']		= (GETPOST('agenda') ? GETPOST('agenda') : null);
 				$this->dao->options['sharings']['bank_account']	= (GETPOST('bank_account') ? GETPOST('bank_account') : null);
 				$this->dao->options['sharings']['expensereport']= (GETPOST('expensereport') ? GETPOST('expensereport') : null);
-				
+
 				$extrafields = new ExtraFields($this->db);
 				$extralabels = $extrafields->fetch_name_optionals_label($this->dao->table_element, true);
 				$extrafields->setOptionalsFromPost($extralabels, $this->dao);
@@ -278,7 +278,7 @@ class ActionsMulticompany
 				$this->dao->options['sharings']['agenda']		= (GETPOST('agenda') ? GETPOST('agenda') : null);
 				$this->dao->options['sharings']['bank_account']	= (GETPOST('bank_account') ? GETPOST('bank_account') : null);
 				$this->dao->options['sharings']['expensereport']= (GETPOST('expensereport') ? GETPOST('expensereport') : null);
-				
+
 				$extrafields = new ExtraFields($this->db);
 				$extralabels = $extrafields->fetch_name_optionals_label($this->dao->table_element, true);
 				$extrafields->setOptionalsFromPost($extralabels, $this->dao);
@@ -813,6 +813,7 @@ class ActionsMulticompany
 		return 0;
 	}
 
+
 	/**
 	 *
 	 */
@@ -828,50 +829,31 @@ class ActionsMulticompany
 			}
 		}
 
-		$out=array();
-		$select_entity='';
-		$lastuser='';
-		$lastentity=(! empty($conf->multicompany->force_entity)?$conf->multicompany->force_entity:$entity);
-
-		// Entity cookie
-		if (! empty($conf->global->MULTICOMPANY_COOKIE_ENABLED))
-		{
-			$prefix=dol_getprefix();
-			$entityCookieName = 'DOLENTITYID_'.$prefix;
-			if (isset($_COOKIE[$entityCookieName]))
-			{
-				include_once(DOL_DOCUMENT_ROOT . "/core/class/cookie.class.php");
-
-				$cryptkey = (! empty($conf->file->cookie_cryptkey) ? $conf->file->cookie_cryptkey : '' );
-
-				$entityCookie = new DolCookie($cryptkey);
-				$cookieValue = $entityCookie->getCookie($entityCookieName);
-				list($lastuser, $lastentity) = explode('|', $cookieValue);
-				$out['username'] = $lastuser;
-			}
-		}
+		if (empty($entity)) $entity=1;
+		$lastentity=(! empty($conf->global->MULTICOMPANY_FORCE_ENTITY)?$conf->global->MULTICOMPANY_FORCE_ENTITY:$entity);
 
 		// Entity combobox
 		if (empty($conf->global->MULTICOMPANY_HIDE_LOGIN_COMBOBOX))
 		{
-			$select_entity = $this->select_entities($lastentity, 'entity', ' tabindex="3"', 1);
-
+			$select_entity = $this->select_entities($lastentity, 'entity', ' tabindex="3"', true);
+/*
 			$divformat = '<div class="entityBox">';
 			$divformat.= $select_entity;
 			$divformat.= '</div>';
 
-			$out['options']['div'] = $divformat;
-
-			$tableformat = '<tr><td class="nowrap center valignmiddle">';
+			$this->results['options']['div'] = $divformat;
+*/
+			$tableformat = '<tr id="entityBox"><td class="nowrap center valignmiddle">';
+			$tableformat.= '<div class="span-icon-multicompany">';
 			$tableformat.= $select_entity;
+			$tableformat.= '</div>';
 			$tableformat.= '</td></tr>';
 
-			$out['options']['table'] = $tableformat;
+			//$this->results['options']['table'] = $tableformat;
+			$this->resprints = $tableformat;
 		}
 
-		$this->results = $out;
-
-		return 1;
+		return 0;
 	}
 
 	/**
