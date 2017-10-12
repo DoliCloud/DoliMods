@@ -75,6 +75,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->module_parts = array('triggers' => 0,
 									'substitutions' => 0,
 									'menus' => 0,
+									'models' => 1,
 									'css' => array(),
 									'hooks' => array('searchform','thirdpartylist','customerlist','prospectlist','contractlist'));
 
