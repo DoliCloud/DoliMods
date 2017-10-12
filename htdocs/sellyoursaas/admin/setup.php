@@ -68,6 +68,8 @@ if ($action == 'set')
 
 		dolibarr_set_const($db,"SELLYOURSAAS_MAIN_DOMAIN_NAME",GETPOST("SELLYOURSAAS_MAIN_DOMAIN_NAME"),'chaine',0,'',$conf->entity);
 
+		dolibarr_set_const($db,"SELLYOURSAAS_MAIN_EMAIL",GETPOST("SELLYOURSAAS_MAIN_EMAIL"),'chaine',0,'',$conf->entity);
+
 		$dir=GETPOST("DOLICLOUD_SCRIPTS_PATH");
 		if (! dol_is_dir($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
 		dolibarr_set_const($db,"DOLICLOUD_SCRIPTS_PATH",GETPOST("DOLICLOUD_SCRIPTS_PATH"),'chaine',0,'',$conf->entity);
@@ -160,6 +162,14 @@ print '<td>';
 print '<input size="40" type="text" name="SELLYOURSAAS_MAIN_DOMAIN_NAME" value="'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'">';
 print '</td>';
 print '<td>mysaas.com</td>';
+print '<td>&nbsp;</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasMainEmail").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="SELLYOURSAAS_MAIN_EMAIL" value="'.$conf->global->SELLYOURSAAS_MAIN_EMAIL.'">';
+print '</td>';
+print '<td>contact@mysaas.com</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 

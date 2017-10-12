@@ -238,7 +238,7 @@ class pdf_sepamandate_sellyoursaas extends pdf_sepamandate
 				$posY=$pdf->GetY();
 				$posY+=1;
 				$pdf->SetXY($this->marge_gauche, $posY);
-				$pdf->MultiCell($this->page_largeur - $this->marge_gauche - $this->marge_droite, 3, $outputlangs->transnoentitiesnoconv("CreditorName").' : '.$mysoc->name.'('.$conf->global->SELLYOURSAAS_NAME.')', 0, 'L');
+				$pdf->MultiCell($this->page_largeur - $this->marge_gauche - $this->marge_droite, 3, $outputlangs->transnoentitiesnoconv("CreditorName").' : '.$mysoc->name.' ('.$conf->global->SELLYOURSAAS_NAME.')', 0, 'L');
 
 				$posY=$pdf->GetY();
 				$posY+=1;
@@ -441,7 +441,7 @@ class pdf_sepamandate_sellyoursaas extends pdf_sepamandate
 		// Logo
 		$logo=$conf->mycompany->dir_output.'/logos/'.$mysoc->logo;
 		$paramlogo='ONLINE_PAYMENT_LOGO_dolicloud';
-		if (! empty($conf->global->$paramlogo)) $logo=$conf->global->$paramlogo;
+		if (! empty($conf->global->$paramlogo)) $logo=$conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->$paramlogo;
 		if ($mysoc->logo)
 		{
 			if (is_readable($logo))
@@ -474,6 +474,7 @@ class pdf_sepamandate_sellyoursaas extends pdf_sepamandate
             $daterum = dol_print_date($object->date_rum,'day',false,$outputlangs,true);
 		}
 		else $daterum = dol_print_date($object->datec,'day',false,$outputlangs,true);   // For old record, the date_rum was not saved.
+
 		$pdf->MultiCell(100, 4, $outputlangs->transnoentities("Date")." : " . $daterum, '', 'R');
 		/*$posy+=6;
 		$pdf->SetXY($posx,$posy);
@@ -506,6 +507,40 @@ class pdf_sepamandate_sellyoursaas extends pdf_sepamandate
 	    }
         */
 
+	}
+
+
+	/**
+	 *   Show miscellaneous information (payment mode, payment term, ...)
+	 *
+	 *   @param		PDF			$pdf     		Object PDF
+	 *   @param		Object		$object			Object to show
+	 *   @param		int			$posy			Y
+	 *   @param		Translate	$outputlangs	Langs object
+	 *   @return	void
+	 */
+	function _tableau_info(&$pdf, $object, $posy, $outputlangs)
+	{
+		global $conf, $mysoc;
+
+		$default_font_size = pdf_getPDFFontSize($outputlangs);
+
+		$diffsizetitle=(empty($conf->global->PDF_DIFFSIZE_TITLE)?1:$conf->global->PDF_DIFFSIZE_TITLE);
+
+		$posy+=$this->_signature_area($pdf, $object, $posy, $outputlangs);
+
+		$pdf->SetXY($this->marge_gauche, $posy);
+		$pdf->SetFont('','', $default_font_size);
+		$pdf->MultiCell(100, 3, $outputlangs->transnoentitiesnoconv("PleaseReturnMandate", (empty($conf->global->SELLYOURSAAS_MAIN_EMAIL) ? $mysoc->email : $conf->global->SELLYOURSAAS_MAIN_EMAIL).':'), 0, 'L', 0);
+		$posy=$pdf->GetY()+2;
+
+		$pdf->SetXY($this->marge_gauche, $posy);
+		$pdf->SetFont('','', $default_font_size - $diffsizetitle);
+		$pdf->MultiCell(100, 6, $mysoc->name, 0, 'L', 0);
+		$pdf->MultiCell(100, 6, $outputlangs->convToOutputCharset($mysoc->getFullAddress()), 0, 'L', 0);
+		$posy=$pdf->GetY()+2;
+
+		return $posy;
 	}
 
 
