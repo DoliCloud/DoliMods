@@ -1,0 +1,76 @@
+# Dolibarr language file - en_US - sendgrid
+CHARSET=UTF-8
+SendgridSmsSetup=Setup of module Sendgrid
+SendgridSmsRecap=Summary main account
+SendgridSmsNick=Nick Handle for main account
+SendgridBillingAccount=Nick handle for main account
+SendgridServiceName=SENDGRID service account
+SendgridSmsPass=Password
+SendgridSmsLabelAccount=SMS account to use
+SendgridSmsLoginSuccessFull=Connection successfull!
+SendgridSmsNotConfigured=Module not configured
+SendgridAuthenticationPartNotConfigured=Authentication data not configured. Go onto setup of module SENDGRID, tab "Authentication" first. 
+NbSmsLeft=Number of remaining SMS
+SendgridSmsSoapUrl=URL of SENDGRID SOAP service
+SendgridSmsSend=Send SMS
+SendgridSmsAccountInfos=Information on SMS account
+SendgridSmsDestinataire=Target
+SendgridSmsLabelTexteMessage=Text of message 
+tabSendgridSms=sms
+SendgridSmsStatutSent=Received message
+SendgridSmsStatutSubmitted=Submited
+SendgridSmsStatutWaiting=Waiting
+SendgridSmsStatutFailed=Failed
+SendgridSmsBackToAdmin=Back to module admin
+SendgridSmsHistory=Log of last %s sendings
+ListOfSmsAccountsForNH=List of SMS accounts for account defined into "Authentication" tab
+ClickToDialLink=This is link to copy-paste into ClickToDial module setup to use the %s Click2Dial:<br>%s
+TestSendSMS=SMS Sending test
+TestLoginToApi=Test connection to API
+SendersAllowed=Senders allowed from SENDGRID manager
+ListOfDedicatedServers=List of your dedicated SENDGRID servers
+ListOfPublicCloudServers=List of your Public Cloud SENDGRID servers
+SendgridServers=SENDGRID servers
+SendgridDedicated=Dedicated servers
+SendgridPublicCloud=Public cloud servers
+SendgridGetInvoices=SENDGRID invoices import
+SendgridInvoiceImportShort=SENDGRID invoices import
+SendgridInvoiceImportDesc=This page list all SENDGRID invoices and suggest a way to import them. Click first onto button "Get invoice list". Then for each invoice not already present, check box and click onto "Import button".
+SupplierToUseForImport=Supplier to create imported invoices on
+ProductGenericToUseForImport=Product/Service to use for imported lines of invoices
+KeepEmptyToSaveLinesAsFreeLines=Keep this field empty if you don't want to see imported lines using a generic predefined product/service 
+ScanSendgridInvoices=Get invoices list
+ExcludeNullInvoices=Exclude invoice with null amount
+NotFound=Not found
+ImportIt=Import it ?
+ToImport=Import
+NoInvoicesSelected=No invoices selected
+FileDownloadedAndAttached=File <strong>%s</strong> downloaded and attached to invoice
+InvoiceFoundIntoDolibarr=Invoice found into Dolibarr: %s
+InvoicePDFFoundIntoDolibarr=Invoice+PDF found into Dolibarr: %s
+ConnectionParameters=Connection parameters
+TryToUseProxy=Using proxy server
+AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
+MoreModules=Other modules of same author are available on the official DoliStore market place...
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>  
+MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
+CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
+SendgridApplicationName=Application name
+SendgridApplicationDescription=Application description
+SendgridApplicationKey=Application key
+SendgridApplicationSecret=Application secret
+SendgridConsumerkey=Consumer key
+GoOnPageToCreateYourAPIKey=First go on page <a href="%s" target="_blank">%s</a> to create your SENDGRID application entry and get its API key and secret, or create a new one if you prefer and lost it, then fill this page.
+ListOfExistingAPIApp=Note: You can find list of already created application on page <a href="%s" target="_blank">%s</a>.
+ClickHereToLoginAndGetYourConsumerKey=Click <a href="%s"> here to login and get a new consumer key</a> (You must choose <strong>UNLIMITED</strong> validity)
+Authentication=Authentication
+FromThe=From the
+PleaseFillOtherFieldFirst=Please fill the other fields first...
+IfYouChangeHereChangeAlsoClickToDial=If you change data here, don't forget to update also the link into module ClickToDial
+ToGoOnClickToDialSetup=To go on ClickToDial module setup
+SendgridServiceNameHelp=Put here the SIP line number. Note, if you have several line numbers for different users, keep this field empty and change the value of "SIPLineNumber" into the URL you have to paste into the ClickToDial URL field on each user card (see lower)
+SENDGRIDURLMustNotBeLocal=Warning, URL you use for the application must NOT be a local URL but an URL you can access from internet to have this working.
+CreateSnapshot=Create snapshot
+SnapshotRequestSent=Snapshot request under name '%s' was successfully sent.
+NoneLabelOnSendgridLineWillBeUsed=None (label of line in SENDGRID invoice will be used)

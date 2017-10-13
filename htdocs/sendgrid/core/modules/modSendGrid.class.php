@@ -18,22 +18,22 @@
  * or see http://www.gnu.org/
  */
 
-/**     \defgroup   ovh     Module Ovh
- *      \brief      Permet de s'interface avec les service fourni par OVH (SMS, API,...)
+/**     \defgroup   sendgrid     Module SendGrid
+ *      \brief      Permet d'utiliser le service SMS fourni par SENDGRID
  */
 
 /**
- *      \file       htdocs/ovh/core/modules/modOvh.class.php
- *      \ingroup    ovhsms
- *      \brief      Description and activation file for module Ovh
+ *      \file       htdocs/sendgrid/core/modules/modSendGrid.class.php
+ *      \ingroup    sendgrid
+ *      \brief      Description and activation file for module Sendgrid
  */
 include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 
 
 /**
- *	Description and activation class for module Ovh
+ *	Description and activation class for module Sendgrid
  */
-class modOvh extends DolibarrModules
+class modSendgrid extends DolibarrModules
 {
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
@@ -45,20 +45,20 @@ class modOvh extends DolibarrModules
 		$this->db = $db;
 
 		// Id for module (must be unique).
-		$this->numero = 101330;
+		$this->numero = 101340;
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'ovh';
+		$this->rights_class = 'sendgrid';
 
 		// It is used to group modules in module setup page
 		$this->family = "technic";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
-		$this->description = "Add some features to use OVH interfaces (Send SMS with a subscription to OVH SMS API and make Click2Dial with OVH SIP server)";
+		$this->description = "Add some features to use SendGrid interfaces";
         $this->editor_name = 'NLTechno';
         $this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.8.3';
+		$this->version = '6.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -66,7 +66,7 @@ class modOvh extends DolibarrModules
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		$this->picto = 'ovh@ovh';
+		$this->picto = 'sendgrid@sendgrid';
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		// for default path (eg: /mymodule/core/xxxxx) (0=disable, 1=enable)
@@ -81,7 +81,7 @@ class modOvh extends DolibarrModules
 		    'tpl' => 0,                                      	// Set this to 1 if module overwrite template dir (core/tpl)
 		    'barcode' => 0,                                  	// Set this to 1 if module has its own barcode directory (core/modules/barcode)
 		    'models' => 0,                                   	// Set this to 1 if module has its own models directory (core/modules/xxx)
-		    'css' => array('/ovh/css/ovh.css.php'),	            // Set this to relative path of css file if module has its own css file
+		    'css' => array('/sendgrid/css/sendgrid.css.php'),	            // Set this to relative path of css file if module has its own css file
 		    'js' => array(),                                    // Set this to relative path of js file if module must load a js on all pages
 		    'hooks' => array() 	                                // Set here all hooks context managed by module. You can also set hook context 'all'
 		);
@@ -92,22 +92,22 @@ class modOvh extends DolibarrModules
 		$r=0;
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module.
-		$this->config_page_url = array("ovh_setup.php@ovh");
+		$this->config_page_url = array("setup.php@sendgrid");
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(5,4);					    // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(3,8,-3);	// Minimum version of Dolibarr required by module
-		$this->langfiles = array("ovh@ovh");
+		$this->langfiles = array("sendgrid@sendgrid");
 
 		// Constants
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
 		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add', 1, 'allentities', 1),
 		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add', 0, 'current', 0)
-		$this->const = array(0=>array('MAIN_MODULE_OVH_SMS','chaine','ovh','This is to enable OVH SMS module',0,'current',1),
-		                     1=>array('MAIN_SMS_SENDMODE','chaine','ovh','This is to enable OVH SMS engine',0,'current',1),
-		                     2=>array('MAIN_SMS_DEBUG','chaine','1','This is to enable OVH SMS debug',1,'allentities',0),
+		$this->const = array(0=>array('MAIN_MODULE_SENDGRID_SMS','chaine','sendgrid','This is to enable SENDGRID SMS module',0,'current',1),
+		                     1=>array('MAIN_SMS_SENDMODE','chaine','sendgrid','This is to enable SENDGRID SMS engine',0,'current',1),
+		                     2=>array('MAIN_SMS_DEBUG','chaine','1','This is to enable SENDGRID SMS debug',1,'allentities',0),
 							 3=>array('MAIN_MENU_ENABLE_MODULETOOLS','chaine','1','To enable module tools entry',0,'allentities',1)
 		);			// List of particular constants to add when module is enabled
 
@@ -131,8 +131,8 @@ class modOvh extends DolibarrModules
 		// 'group'            to add a tab in group view
 		// 'contact'          to add a tab in contact view
 		// 'categories_x'	  to add a tab in category view (replace 'x' by type of category (0=product, 1=supplier, 2=customer, 3=member)
-		$this->tabs = array('thirdparty:+tabSMS:SMS:ovh@ovh:$user->rights->ovh->send:/ovh/sms_thirdparty.php?id=__ID__',
-		                    'member:+tabSMS:SMS:ovh@ovh:$user->rights->ovh->send:/ovh/sms_member.php?id=__ID__');
+		$this->tabs = array('thirdparty:+tabSMS:SMS:sendgrid@sendgrid:$user->rights->sendgrid->send:/sendgrid/sms_thirdparty.php?id=__ID__',
+		                    'member:+tabSMS:SMS:sendgrid@sendgrid:$user->rights->sendgrid->send:/sendgrid/sms_member.php?id=__ID__');
 
 
 
@@ -151,19 +151,13 @@ class modOvh extends DolibarrModules
 
 		// Cronjobs (List of cron jobs entries to add when module is enabled)
 		$this->cronjobs = array(
-			0=>array('label'=>'Snapshot OVH', 'jobtype'=>'method', 'class'=>'/ovh/class/ovhserver.class.php', 'objectname'=>'OvhServer', 'method'=>'createSnapshot', 'parameters'=>'projectid, serverid, serverlabel', 'comment'=>'Ask a snaspshot request of a server. "projectid" and "serverid" are defined by OVH. "serverlabel" is a free text. Warning: This increase your OVH monthly billing.', 'frequency'=>4, 'unitfrequency'=>604800, 'status'=>0, 'test'=>true)
+			0=>array('label'=>'Snapshot SENDGRID', 'jobtype'=>'method', 'class'=>'/sendgrid/class/sendgridserver.class.php', 'objectname'=>'SendgridServer', 'method'=>'createSnapshot', 'parameters'=>'projectid, serverid, serverlabel', 'comment'=>'Ask a snaspshot request of a server. "projectid" and "serverid" are defined by SENDGRID. "serverlabel" is a free text. Warning: This increase your SENDGRID monthly billing.', 'frequency'=>4, 'unitfrequency'=>604800, 'status'=>0, 'test'=>true)
 		);
 
 		// Permissions
 		$this->rights = array();		// Permission array used by this module
 		$r=0;
 
-
-		$this->rights[$r][0] = 101331;
-		$this->rights[$r][1] = 'Send a SMS';
-		$this->rights[$r][3] = 0;
-		$this->rights[$r][4] = 'send';
-		$r++;
 
 		$this->rights[$r][0] = 101332;
 		$this->rights[$r][1] = 'Import Invoice';
@@ -172,7 +166,7 @@ class modOvh extends DolibarrModules
 		$r++;
 
 		$this->rights[$r][0] = 101333;
-		$this->rights[$r][1] = 'Administration of OVH servers';
+		$this->rights[$r][1] = 'Administration of SENDGRID servers';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'sysadmin';
 		$r++;
@@ -181,24 +175,12 @@ class modOvh extends DolibarrModules
 		$r=0;
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools',		    // Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 									'type'=>'left',			                // This is a Left menu entry
-									'titre'=>'OvhInvoiceImportShort',
-									'url'=>'/ovh/importovhinvoice.php',
-									'langs'=>'ovh@ovh',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+									'titre'=>'SendgridInvoiceImportShort',
+									'url'=>'/sendgrid/importsendgridinvoice.php',
+									'langs'=>'sendgrid@sendgrid',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>500,
-									'enabled'=>'$conf->ovh->enabled',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-									'perms'=>'$user->rights->ovh->importinvoice',	// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
-									'target'=>'',
-									'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
-		$r++;
-
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools',		    // Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
-									'type'=>'left',			                // This is a Left menu entry
-									'titre'=>'OvhServers',
-									'url'=>'/ovh/ovh_listinfoserver.php',
-									'langs'=>'ovh@ovh',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-									'position'=>500,
-									'enabled'=>'$conf->ovh->enabled',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-									'perms'=>'$user->rights->ovh->sysadmin',	// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
+									'enabled'=>'$conf->sendgrid->enabled',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+									'perms'=>'$user->rights->sendgrid->importinvoice',	// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
 		$r++;
@@ -252,7 +234,7 @@ class modOvh extends DolibarrModules
 	 */
 	function load_tables()
 	{
-		return $this->_load_tables('/ovh/sql/');
+		return $this->_load_tables('/sendgrid/sql/');
 	}
 
 }
