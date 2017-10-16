@@ -652,7 +652,6 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('dolicloud',            "DoliCloudCustomer",   'select',  1,   '3', 'thirdparty', 0, 1, '', $param, 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('partner',              "Reseller",          'varchar',   2,  '32', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('date_registration',    "RegistrationDate",  'datetime',  3,    '', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('password',            "DashboardPassword",  'password', 90, '128', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('cb_info',              "Credit Card info",   'varchar', 91, '255', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('paypal_info',               "Paypal info",   'varchar', 92, '255', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 
