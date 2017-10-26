@@ -624,6 +624,39 @@ class modSellYourSaas extends DolibarrModules
 		    'user'=>0);
 		$r++;
 
+
+		// Link to website pages
+
+		$this->menu[$r]=array(
+		'fk_menu'=>'fk_mainmenu=sellyoursaas',
+		'type'=>'left',
+		'titre'=>'Registration page',
+		'mainmenu'=>'sellyoursaas',
+		'leftmenu'=>'website',
+		'url'=>'/public/website/index.php?website=sellyoursaas&pageref=register&plan=abc',
+		'langs'=>'sellyoursaas@sellyoursaas',
+		'position'=>500,
+		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		'perms'=>'$user->rights->sellyoursaas->read',
+		'target'=>'',
+		'user'=>0);
+		$r++;
+
+		$this->menu[$r]=array(
+		'fk_menu'=>'fk_mainmenu=sellyoursaas',
+		'type'=>'left',
+		'titre'=>'Customer portal',
+		'mainmenu'=>'sellyoursaas',
+		'leftmenu'=>'website',
+		'url'=>'/public/website/index.php?website=sellyoursaas&pageref=myaccount',
+		'langs'=>'sellyoursaas@sellyoursaas',
+		'position'=>500,
+		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		'perms'=>'$user->rights->sellyoursaas->read',
+		'target'=>'',
+		'user'=>0);
+		$r++;
+
 	}
 
 	/**
@@ -636,7 +669,7 @@ class modSellYourSaas extends DolibarrModules
 	 */
 	function init($options='')
 	{
-	    global $langs;
+	    global $conf, $langs;
 
 		$result=$this->_load_tables('/sellyoursaas/sql/');
 
@@ -677,7 +710,9 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('nb_gb',                   "Last nb of Gb",       'int', 21,   '8',    'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 
 
-		$sql = array();
+
+		include_once DOL_DOCUMENT_ROOT.'/core/lib/website.lib.php';
+		$result = importWebSite('website_sellyoursaas-demo.zip');
 
 		return $this->_init($sql,$options);
 	}
