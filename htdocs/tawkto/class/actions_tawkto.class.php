@@ -52,9 +52,22 @@ class ActionsTawkto
 	 */
 	function printLeftBlock()
 	{
-	    global $user, $conf;
+	    global $user, $conf, $langs;
 
+	    // Get TawkTo ID
+	    $idsitetawkto = $conf->global->TAWKTO_ID;
+	    if (empty($idsitetawkto))
+	    {
+	    	if (! preg_match('/tawkto\/admin/', $_SERVER["PHP_SELF"]))
+	    	{
+	    		$langs->load("tawkto@tawkto");
+	    		setEventMessages($langs->trans("TawkToModuleEnabledWithoutSetup"), null, 'warnings');
+	    	}
+	    }
+
+	    // Return if chat not enabled
 		if (empty($_SESSION['tawktoonoff'])) return 0;
+
 
 		$userIdentity = $user->firstname.' '.$user->lastname;
 		$userEmail = empty($user->email) ? $conf->global->MAIN_INFO_SOCIETE_MAIL : $user->email;
@@ -98,9 +111,6 @@ class ActionsTawkto
 			<!--End of Tawk.to Script-->
 			";
 
-
-		$idsitetawkto = $conf->global->TAWKTO_ID;
-		$idsitetawkto = '59e0d01e4854b82732ff55e2';
 
 		$this->resprints = strtr($htmlChatScript, array(
 		       '{USER_NAME}' => $userIdentity,
