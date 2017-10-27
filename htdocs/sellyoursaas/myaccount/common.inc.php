@@ -1409,7 +1409,8 @@ function top_menu($head, $title='', $target='', $disablejs=0, $disablehead=0, $a
 
 	    $toprightmenu.='<div class="login_block_other">';
 
-		// Execute hook printTopRightMenu (hooks should output string like '<div class="login"><a href="">mylink</a></div>')
+		// Execute hook printTopRightMenu (hooks should output string like
+		// '<div class="inline-block"><div class="classfortooltip inline-block login_block_elem inline-block" style="padding: 0px; padding: 0px; padding-right: 3px !important;" title="xxx"><a href=""><span class="fa fa-bug atoplogin"></span>mylink</a></div></div>')
 	    $parameters=array();
 	    $result=$hookmanager->executeHooks('printTopRightMenu',$parameters);    // Note that $action and $object may have been modified by some hooks
 		if (is_numeric($result))

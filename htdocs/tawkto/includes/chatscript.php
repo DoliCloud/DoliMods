@@ -1,4 +1,5 @@
-<!--Start of Tawk.to Script-->
+<!-- Start of Tawk.to Script -->
+<!-- Even if this code is available into page, the widget may be visible only if service is online, depending on widget setup -->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 Tawk_API.onLoad = function(){
