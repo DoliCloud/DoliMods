@@ -17,9 +17,9 @@
  */
 
 /**
- *	    \file       htdocs/concatpdf/admin/concatpdf.php
- *      \ingroup    concatpdf
- *      \brief      Page to setup module ConcatPdf
+ *	    \file       htdocs/selectbank/admin/selectbank.php
+ *      \ingroup    selectbank
+ *      \brief      Page to setup module SelectBank
  */
 
 // Load Dolibarr environment

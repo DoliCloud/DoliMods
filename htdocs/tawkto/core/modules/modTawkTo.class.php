@@ -32,7 +32,7 @@ include_once DOL_DOCUMENT_ROOT .'/core/modules/DolibarrModules.class.php';
 /**
  *  Description and activation class for module TawkTo
  */
-class modTawkto extends DolibarrModules
+class modTawkTo extends DolibarrModules
 {
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
@@ -57,9 +57,9 @@ class modTawkto extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
-		$this->description = "Include the tawkto chat popup inside Dolibarr backoffice (if your TawkTo support is online or always)";
+		$this->description = "Allow to activate a tawkto chat popup inside Dolibarr backoffice (to chat with a support provider available on TawkTo)";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '1.1.0';
+		$this->version = '1.0.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
@@ -95,15 +95,15 @@ class modTawkto extends DolibarrModules
 		$this->dirs = array();
 
 		// Config pages. Put here list of php page, stored into mymodule/admin directory, to use to setup module.
-		//$this->config_page_url = array("setup_payplug.php@payplug");
+		$this->config_page_url = array("setup.php@tawkto");
 
 		// Dependencies
 		$this->hidden = false;			// A condition to hide module
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->conflictwith = array();	// List of modules id this module is in conflict with
-		$this->phpmin = array(5,0);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(5,0);	// Minimum version of Dolibarr required by module
+		$this->phpmin = array(6,0);					// Minimum version of PHP required by module
+		$this->need_dolibarr_version = array(6,0);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("tawkto@tawkto");
 
 		// Constants
