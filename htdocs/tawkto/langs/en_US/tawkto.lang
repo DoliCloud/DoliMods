@@ -1,0 +1,16 @@
+# Dolibarr language file - en_US - tawkto 
+CHARSET= UTF-8
+ModuleTawkToName=TawkTo Chat
+ModuleTawkToDesc=Allow to activate a tawkto chat popup inside Dolibarr backoffice (to chat with a support provider available on TawkTo)
+TawkToSetup=Setup page of module TawkTo
+AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
+MoreModules=Other modules of same author are available on the official DoliStore market place...
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>  
+MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
+CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
+ClickToOpenChat=Click to open Chat.
+ClickToCloseChat=Chat is available on bottom of page. Click to close Chat.
+TAWKTO_ID=TawkTo ID of support provider
+TAWKTO_IDTooltip=Enter here the TawkTo ID provided by the support center that offer its online support.
+TawkToModuleEnabledWithoutSetup=The module TawkTo was enabled but its setup is not complete.
