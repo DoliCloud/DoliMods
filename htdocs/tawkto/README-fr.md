@@ -4,7 +4,7 @@
 Ajoute une boite de Chat pour communiquer avec un service de support (via TawkTo)
 
 ### Pour les fournisseurs de supports
-Créer un compte sur TawkTo.io et insérer votre ID TawkTo ID dans la configuration Dolibarr de votre client utilisateur de Dolibarr ainsi il pourra interagir avec vous depuis son Dolibarr.
+Créer un compte sur TawkTo.io et insérer votre ID TawkTo ID dans la configuration du Dolibarr de votre client utilisateur ainsi il pourra interagir avec vous depuis son Dolibarr.
 En cas d'indisponibilité, vous pouvez choisir de masquer le service ou de permettre à votre client d'envoyer un email à la place.
 
 ### Pour les utilisateurs Dolibarr
