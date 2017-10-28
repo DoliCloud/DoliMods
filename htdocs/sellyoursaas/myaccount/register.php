@@ -131,6 +131,24 @@ $result = $tmpproduct->fetch(0, $productref);
           <section id="enterUserAccountDetails">
 
 
+			<?php
+			if (isset($_SESSION['dol_events']['errors'])) {
+				print '<div class="alert alert-error">';
+				if (is_array($_SESSION['dol_events']['errors']))
+				{
+					foreach($_SESSION['dol_events']['errors'] as $key => $val)
+					{
+						print '<ul><li>'.$val.'</li></ul>';
+					}
+				}
+				else
+				{
+					print '<ul><li>'.$_SESSION['dol_events']['errors'].'</li></ul>';
+				}
+				print '</div>'."\n";
+			}
+            ?>
+
             <div class="control-group  required">
             	<label class="control-label" for="orgName" trans="1"><?php echo $langs->trans("NameOfCompany") ?></label>
             	<div class="controls">
@@ -262,6 +280,6 @@ print $form->select_country($countryselected, 'address.country', 'optionsValue="
 
 <?php
 
-llxFooter();
+llxFooter('', 'public', 1);		// We disabled output of messages. Already done into page
 $db->close();
 

@@ -339,17 +339,18 @@ if (! function_exists("llxFooter"))
      * Close div /DIV class=fiche + /DIV id-right + /DIV id-container + /BODY + /HTML.
      * If global var $delayedhtmlcontent was filled, we output it just before closing the body.
      *
-     * @param	string	$comment    A text to add as HTML comment into HTML generated page
-	 * @param	string	$zone		'private' (for private pages) or 'public' (for public pages)
+     * @param	string	$comment    				A text to add as HTML comment into HTML generated page
+	 * @param	string	$zone						'private' (for private pages) or 'public' (for public pages)
+	 * @param	int		$disabledoutputofmessages	Clear all messages stored into session without diplaying them
      * @return	void
      */
-    function llxFooter($comment='',$zone='private')
+    function llxFooter($comment='',$zone='private', $disabledoutputofmessages=0)
     {
         global $conf, $langs, $user;
         global $delayedhtmlcontent;
 
         // Global html output events ($mesgs, $errors, $warnings)
-        dol_htmloutput_events();
+        dol_htmloutput_events($disabledoutputofmessages);
 
         // Save $user->lastsearch_values if defined (define on list pages when a form field search_xxx exists)
         if (is_object($user) && ! empty($user->lastsearch_values_tmp) && is_array($user->lastsearch_values_tmp))

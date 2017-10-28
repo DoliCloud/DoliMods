@@ -68,4 +68,3 @@ print "
         ";
 
 print "</head>\n\n";
-?>

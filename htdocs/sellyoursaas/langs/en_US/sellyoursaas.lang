@@ -96,3 +96,4 @@ ConfirmPassword=Confirm your password
 ChooseANameForYourApplication=Choose Application Address
 WhenRegisteringYouAccept=By registering you agree to our <a href="%s" target="_blank">Terms of Service</a>.
 SignMeUp=Sign Me Up!
+ErrorPasswordMismatch=Error, the 2 passwords must not differ

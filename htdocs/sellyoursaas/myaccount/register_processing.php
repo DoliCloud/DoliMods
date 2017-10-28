@@ -33,27 +33,66 @@ if (! $res) die("Include of main fails");
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 
-
+$langs->loadLangs(array("sellyoursaas@sellyoursaas","errors"));
 
 
 $orgname = GETPOST('orgName');
 $email = GETPOST('username');
 $password = GETPOST('password');
 $password2 = GETPOST('password2');
+$sldAndSubdomain = GETPOST('sldAndSubdomain');
 
 print "orgname = ".$orgname." email=".$email." password=".$password." password2=".$password2;
 
+// Back to url
+$newurl=$_SERVER["HTTP_REFERER"];
+if (! preg_match('/\?/', $newurl)) $newurl.='?';
+if (! preg_match('/orgName/i', $newurl)) $newurl.='&orgName='.urlencode($orgname);
+if (! preg_match('/username/i', $newurl)) $newurl.='&username='.urlencode($email);
+if (! preg_match('/sldAndSubdomain/i', $sldAndSubdomain)) $newurl.='&sldAndSubdomain='.urlencode($sldAndSubdomain);
+
+if (empty($password) || empty($password2))
+{
+	setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Password")), null, 'errors');
+    header("Location: ".$newurl);
+    exit;
+}
 if ($password != $password2)
 {
     setEventMessages($langs->trans("ErrorPasswordMismatch"), null, 'errors');
-    header("Location: ".$_SERVER["HTTP_REFERER"].'?orgname='.urlencode($orgname));
+    header("Location: ".$newurl);
     exit;
 }
 
 
 
+print $langs->trans("PleaseWait");
+
+
+// Create thirdparty (if it already exist, return warning)
+
+
+
+// andcontract with generated credentials
+
+
+
+// Create unix user
+
+
+
+// Edit DNS
+
+
+
+//
 
 
 
 
-?>
+
+
+
+
+
+
