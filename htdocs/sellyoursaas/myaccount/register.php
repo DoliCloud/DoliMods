@@ -57,7 +57,7 @@ $result = $tmpproduct->fetch(0, $productref);
 
 <div id="waitMask" style="display:none;">
     <font size="3em" style="color:#888; font-weight: bold;">Installing your instance...<br>Please Wait.<br></font>
-    <img id="waitMaskImg" width="100px" src="<?php echo DOL_URL_ROOT.'/viewimage.php?modulepart=medias&file=image/sellyoursaas/ajax-loader.gif'; ?>" alt="Loading" />
+    <img id="waitMaskImg" width="100px" src="<?php echo 'ajax-loader.gif'; ?>" alt="Loading" />
 </div>
 
     <style>

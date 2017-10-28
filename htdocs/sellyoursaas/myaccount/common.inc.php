@@ -202,20 +202,8 @@ function top_htmlhead_sellyoursaas($head, $title='', $disablejs=0, $disablehead=
 
         print '<!-- Includes CSS for Dolibarr theme -->'."\n";
         // Output style sheets (optioncss='print' or ''). Note: $conf->css looks like '/theme/eldy/style.css.php'
-        $themepath=dol_buildpath($conf->css,1);
-        $themesubdir='';
-        if (! empty($conf->modules_parts['theme']))	// This slow down
-        {
-	        foreach($conf->modules_parts['theme'] as $reldir)
-	        {
-	        	if (file_exists(dol_buildpath($reldir.$conf->css, 0)))
-	        	{
-					$themepath=dol_buildpath($reldir.$conf->css, 1);
-					$themesubdir=$reldir;
-					break;
-	        	}
-	        }
-        }
+        $themepath='styles.css.php';
+        $themeparam='';
         //print 'themepath='.$themepath.' themeparam='.$themeparam;exit;
         print '<link rel="stylesheet" type="text/css" href="'.$themepath.$themeparam.'">'."\n";
 	    if (! empty($conf->global->MAIN_FIX_FLASH_ON_CHROME)) print '<!-- Includes CSS that does not exists as a workaround of flash bug of chrome -->'."\n".'<link rel="stylesheet" type="text/css" href="filethatdoesnotexiststosolvechromeflashbug">'."\n";
@@ -332,20 +320,6 @@ function top_htmlhead_sellyoursaas($head, $title='', $disablejs=0, $disablehead=
             print '<!-- Includes JS of Dolibarr -->'."\n";
             print '<script type="text/javascript" src="'.DOL_URL_ROOT.'/core/js/lib_head.js.php'.($ext?'?'.$ext:'').'"></script>'."\n";
 
-            // JS forced by modules (relative url starting with /)
-            if (! empty($conf->modules_parts['js']))		// $conf->modules_parts['js'] is array('module'=>array('file1','file2'))
-        	{
-        		$arrayjs=(array) $conf->modules_parts['js'];
-	            foreach($arrayjs as $modjs => $filesjs)
-	            {
-        			$filesjs=(array) $filesjs;	// To be sure filejs is an array
-		            foreach($filesjs as $jsfile)
-		            {
-	    	    		// jsfile is a relative path
-	        	    	print '<!-- Include JS added by module '.$modjs. '-->'."\n".'<script type="text/javascript" src="'.dol_buildpath($jsfile,1).'"></script>'."\n";
-		            }
-	            }
-        	}
             // JS forced by page in top_htmlhead (relative url starting with /)
             if (is_array($arrayofjs))
             {
