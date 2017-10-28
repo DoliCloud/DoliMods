@@ -71,11 +71,11 @@ $result = $tmpproduct->fetch(0, $productref);
         margin-top: 20px;
       }
       .block.medium {
-        width: 700px;
-        min-width: 700px;
+        /*width: 700px;
+        min-width: 700px;*/
         margin-top: 20px;
       }
-      .signup { margin: 0 auto; width: 700px; }
+      .signup { margin: 0 auto; max-width: 700px; }
 
     div#waitMask {
         text-align: center;
@@ -120,7 +120,7 @@ $result = $tmpproduct->fetch(0, $productref);
       	}
       	</style>
         <header class="inverse">
-          <h1>Inscription <small><?php echo ($tmpproduct->label?'('.$tmpproduct->label.')':''); ?></h1>
+          <h1>Inscription <small><?php echo ($tmpproduct->label?'('.$tmpproduct->label.')':''); ?></small></h1>
         </header>
 
 
@@ -207,7 +207,7 @@ print $form->select_country($countryselected, 'address.country', 'optionsValue="
 
 
           <section id="formActions">
-          <p style="font-size:0.9em;color:#444;margin:10px 0;" trans="1"><?php echo $langs->trans("WhenRegisteringYouAccept", 'https://www.dolicloud.com/en/terms-and-conditions') ?></p>
+          <p style="color:#444;margin:10px 0;" trans="1"><?php echo $langs->trans("WhenRegisteringYouAccept", 'https://www.dolicloud.com/en/terms-and-conditions') ?></p>
           <div class="form-actions">
               <input type="submit" name="submit" value="<?php echo $langs->trans("SignMeUp") ?>" class="btn btn-primary" id="submit" />
           </div>
