@@ -148,13 +148,6 @@ $result = $tmpproduct->fetch(0, $productref);
             ?>
 
             <div class="control-group  required">
-            	<label class="control-label" for="orgName" trans="1"><?php echo $langs->trans("NameOfCompany") ?></label>
-            	<div class="controls">
-            		<input type="text" name="orgName" value="<?php echo GETPOST('orgName','alpha'); ?>" required="" maxlength="250" id="orgName" />
-            	</div>
-            </div>
-
-            <div class="control-group  required">
             	<label class="control-label" for="username" trans="1"><?php echo $langs->trans("Email") ?></label>
             	<div class="controls">
             		<input type="text" name="username" value="<?php echo GETPOST('username','alpha'); ?>" required="" id="username" />
@@ -162,7 +155,14 @@ $result = $tmpproduct->fetch(0, $productref);
             	</div>
             </div>
 
-          <div class="group">
+            <div class="control-group  required">
+            	<label class="control-label" for="orgName" trans="1"><?php echo $langs->trans("NameOfCompany") ?></label>
+            	<div class="controls">
+            		<input type="text" name="orgName" value="<?php echo GETPOST('orgName','alpha'); ?>" required="" maxlength="250" id="orgName" />
+            	</div>
+            </div>
+
+            <div class="group">
                 <div class="horizontal-fld">
 
                 <div class="control-group  required">

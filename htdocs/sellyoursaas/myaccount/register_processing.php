@@ -31,6 +31,7 @@ if (! $res) die("Include of main fails");
 
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
+require_once DOL_DOCUMENT_ROOT.'/website/class/websiteaccount.class.php';
 
 $langs->loadLangs(array("sellyoursaas@sellyoursaas","errors"));
 
@@ -41,7 +42,7 @@ if (empty($user->id))
 	// Set $user to the anonymous user
 	if (empty($user->id))
 	{
-		dol_print_error('', 'Error setup of module not complete or wrong.');
+		dol_print_error('', 'Error setup of module not complete or wrong. Missing the anonymous user.');
 	}
 
 	$user->getrights();
@@ -90,6 +91,12 @@ if (empty($email))
 	header("Location: ".$newurl);
 	exit;
 }
+if (! isValidEmail($email))
+{
+	setEventMessages($langs->trans("ErrorEmailNotValid"), null, 'errors');
+	header("Location: ".$newurl);
+	exit;
+}
 if (empty($password) || empty($password2))
 {
 	setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Password")), null, 'errors');
@@ -122,19 +129,52 @@ if ($tmpthirdparty->id)
 	exit;
 }
 
+
+// Generate credentials
+
+$generatedunixlogin = 'usr'.substr(getRandomPassword(true), 9);
+$generatedunixpassword = substr(getRandomPassword(true), 12);
+
+
+// Start creation of instance
+
+$error = 0;
+
+$db->begin();	// Start transaction
+
+
 $tmpthirdparty->nom = $orgname;
 $tmpthirdparty->email = $email;
-$tmpthirdparty->array_options['dolicloud'] = 'yesv2';
-$tmpthirdparty->array_options['date_registration'] = dol_now();
+$tmpthirdparty->client = 3;
+$tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
+$tmpthirdparty->array_options['options_date_registration'] = dol_now();
 
 $result = $tmpthirdparty->create($user);
+if ($result <= 0)
+{
+	$error++;
+}
 
+if (! empty($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG))
+{
+	$tmpthirdparty->setCategories(array($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG => $conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG), 'customer');
+}
+else
+{
+	dol_print_error('', 'Setup of module not complete. Missing the default customer tag');
+	$error++;
+}
 
-// Add contract with generated credentials
+if (! $error)
+{
+	$db->commit();
+}
+else
+{
+	$db->rollback();
+}
 
-
-
-// Create unix user
+// Create unix user and directories
 
 
 
@@ -143,10 +183,11 @@ $result = $tmpthirdparty->create($user);
 
 
 // Create account to dashboard
+$websiteaccount = new WebsiteAccount($db);
 
 
 
-
+// Go to dashboard with login session forced
 
 
 

@@ -711,9 +711,10 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('nb_gb',                   "Last nb of Gb",       'int', 21,   '8',    'contrat', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
 
 
-
+		// Create/import website called 'sellyoursaas'
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/website.lib.php';
 		$result = importWebSite('website_sellyoursaas-demo.zip');
+
 
 		return $this->_init($sql,$options);
 	}
