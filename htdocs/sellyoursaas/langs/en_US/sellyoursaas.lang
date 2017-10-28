@@ -89,3 +89,10 @@ ParentsId=Id of parent
 ResetPassword=Reset password of user of instance
 ConfirmResetPassword=Are you sure you want to reset password for this user ?
 SepaMandateForSellYourSaas=SEPA Mandate for SellYourSaas
+InstallingInstance=Installing your instance...
+PleaseWait=Please wait.
+NameOfCompany=Company/organization name
+ConfirmPassword=Confirm your password
+ChooseANameForYourApplication=Choose Application Address
+WhenRegisteringYouAccept=By registering you agree to our <a href="%s" target="_blank">Terms of Service</a>.
+SignMeUp=Sign Me Up!

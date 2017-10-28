@@ -649,7 +649,7 @@ class modSellYourSaas extends DolibarrModules
 		'titre'=>'Customer portal',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'website',
-		'url'=>'https://myaccount.dolicloud.com/index.php?plan=abc&partner=',
+		'url'=>'https://myaccount.dolicloud.com/',
 		'langs'=>'sellyoursaas@sellyoursaas',
 		'position'=>501,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.

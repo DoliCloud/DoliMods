@@ -130,23 +130,23 @@ function top_htmlhead_sellyoursaas($head, $title='', $disablejs=0, $disablehead=
     }
     print $doctype."\n";
     if (! empty($conf->global->MAIN_USE_CACHE_MANIFEST)) print '<html lang="'.substr($langs->defaultlang,0,2).'" manifest="'.DOL_URL_ROOT.'/cache.manifest">'."\n";
-    else print '<html lang="'.substr($langs->defaultlang,0,2).'">'."\n";
-    //print '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">'."\n";
+    else
+    {
+    	print '<html lang="'.substr($langs->defaultlang,0,2).'">'."\n";
+    	print '<!-- You language detected: '.$langs->defaultlang." -->\n";
+    }
+
     if (empty($disablehead))
     {
         print "<head>\n";
 		if (GETPOST('dol_basehref','alpha')) print '<base href="'.dol_escape_htmltag(GETPOST('dol_basehref','alpha')).'">'."\n";
         // Displays meta
         print '<meta name="robots" content="noindex'.($disablenofollow?'':',nofollow').'">'."\n";      				// Do not index
-        print '<meta name="viewport" content="width=device-width, initial-scale=1.0">';	// Scale for mobile device
-        print '<meta name="author" content="Dolibarr Development Team">'."\n";
+        print '<meta name="viewport" content="width=device-width, initial-scale=1.0">'."\n";	// Scale for mobile device
         // Favicon. Note, even if we remove this meta, the browser and android webview try to find a favicon.ico
 		$favicon=dol_buildpath('/theme/'.$conf->theme.'/img/favicon.ico',1);
         if (! empty($conf->global->MAIN_FAVICON_URL)) $favicon=$conf->global->MAIN_FAVICON_URL;
         print '<link rel="shortcut icon" type="image/x-icon" href="'.$favicon.'"/>'."\n";
-        //if (empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER) && ! GETPOST('textbrowser','int')) print '<link rel="top" title="'.$langs->trans("Home").'" href="'.(DOL_URL_ROOT?DOL_URL_ROOT:'/').'">'."\n";
-        if (empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER) && ! GETPOST('textbrowser','int')) print '<link rel="copyright" title="GNU General Public License" href="http://www.gnu.org/copyleft/gpl.html#SEC1">'."\n";
-        if (empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER) && ! GETPOST('textbrowser','int')) print '<link rel="author" title="Dolibarr Development Team" href="https://www.dolibarr.org">'."\n";
 
         // Displays title
         $appli=constant('DOL_APPLICATION_TITLE');
@@ -208,24 +208,6 @@ function top_htmlhead_sellyoursaas($head, $title='', $disablejs=0, $disablehead=
         print '<link rel="stylesheet" type="text/css" href="'.$themepath.$themeparam.'">'."\n";
 	    if (! empty($conf->global->MAIN_FIX_FLASH_ON_CHROME)) print '<!-- Includes CSS that does not exists as a workaround of flash bug of chrome -->'."\n".'<link rel="stylesheet" type="text/css" href="filethatdoesnotexiststosolvechromeflashbug">'."\n";
 
-        // CSS forced by modules (relative url starting with /)
-        if (! empty($conf->modules_parts['css']))
-        {
-        	$arraycss=(array) $conf->modules_parts['css'];
-        	foreach($arraycss as $modcss => $filescss)
-        	{
-        		$filescss=(array) $filescss;	// To be sure filecss is an array
-        		foreach($filescss as $cssfile)
-        		{
-        			if (empty($cssfile)) dol_syslog("Warning: module ".$modcss." declared a css path file into its descriptor that is empty.", LOG_WARNING);
-        			// cssfile is a relative path
-	        		print '<!-- Includes CSS added by module '.$modcss. ' -->'."\n".'<link rel="stylesheet" type="text/css" href="'.dol_buildpath($cssfile,1);
-	        		// We add params only if page is not static, because some web server setup does not return content type text/css if url has parameters, so browser cache is not used.
-	        		if (!preg_match('/\.css$/i',$cssfile)) print $themeparam;
-	        		print '">'."\n";
-        		}
-        	}
-        }
         // CSS forced by page in top_htmlhead call (relative url starting with /)
         if (is_array($arrayofcss))
         {
