@@ -91,11 +91,16 @@ ParentsId=Id of parent
 ResetPassword=Reset password of user of instance
 ConfirmResetPassword=Are you sure you want to reset password for this user ?
 SepaMandateForSellYourSaas=SEPA Mandate for SellYourSaas
+FooterContent=Contenu du pied de page pour les pages "myaccount"
 InstallingInstance=Installation de votre instance en cours...
 PleaseWait=Merci de patienter.
 NameOfCompany=Nom de société/institution
 ConfirmPassword=Confirmer mot de passe
-ChooseANameForYourApplication=Choisissez un nom d'adresse d'application.
+ChooseANameForYourApplication=Choisissez un nom d'adresse pour l'application.
 WhenRegisteringYouAccept=En vous enregistrant, vous acceptez les <a href="%s" target="_blank">Conditions d'utilisation</a>
 SignMeUp=Créer mon instance
 ErrorPasswordMismatch=Erreur, les 2 saisies de mot de passe doivent être identiques
+ErrorOnlyCharAZAllowedFor=Seuls les caractères a-z, 0-9 ou - sont autorisés pour le %s
+NameForYourApplication=nom d'adresse
+AccountAlreadyExistsForEmail=Un compte existe déjà pour cet email. Si vous avez déjà un compte client et voulez créer une seconde instance sur le même compte, logguez vous simplement sur votre <a href="%s" target="_myaccount">espace client</a> pour créer une instance suplémentaire.
+AnonymousUser=Utilisateur anonyme

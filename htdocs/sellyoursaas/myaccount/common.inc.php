@@ -401,6 +401,12 @@ if (! function_exists("llxFooter"))
         printCommonFooter($zone);
         //var_dump($langs);		// Uncommment to see the property _tab_loaded to see which language file were loaded
 
+        if (! empty($conf->global->SELLYOURSAAS_MYACCOUNT_FOOTER))
+        {
+        	print $conf->global->SELLYOURSAAS_MYACCOUNT_FOOTER;
+        }
+
+
         if (empty($conf->dol_hide_leftmenu) && empty($conf->dol_use_jmobile)) print '</div> <!-- End div id-container -->'."\n";	// End div container
 
         if (! empty($delayedhtmlcontent)) print $delayedhtmlcontent;

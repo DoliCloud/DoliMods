@@ -89,6 +89,7 @@ ParentsId=Id of parent
 ResetPassword=Reset password of user of instance
 ConfirmResetPassword=Are you sure you want to reset password for this user ?
 SepaMandateForSellYourSaas=SEPA Mandate for SellYourSaas
+FooterContent=Content of footer in "myaccount" web site 
 InstallingInstance=Installing your instance...
 PleaseWait=Please wait.
 NameOfCompany=Company/organization name
@@ -97,3 +98,7 @@ ChooseANameForYourApplication=Choose Application Address
 WhenRegisteringYouAccept=By registering you agree to our <a href="%s" target="_blank">Terms of Service</a>.
 SignMeUp=Sign Me Up!
 ErrorPasswordMismatch=Error, the 2 passwords must not differ
+ErrorOnlyCharAZAllowedFor=Only character a-z, 0-9 or - are allowed for the %s
+NameForYourApplication=application address
+AccountAlreadyExistsForEmail=An account already exists for this email. If you are an already registered user and want to create another instance for the your account, just loggin to your <a href="%s" target="_myaccount">customer dashboard</a> to create another instance.
+AnonymousUser=Anonymous user  

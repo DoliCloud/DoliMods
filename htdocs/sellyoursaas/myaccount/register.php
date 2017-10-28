@@ -71,8 +71,6 @@ $result = $tmpproduct->fetch(0, $productref);
         margin-top: 20px;
       }
       .block.medium {
-        /*width: 700px;
-        min-width: 700px;*/
         margin-top: 20px;
       }
       .signup { margin: 0 auto; max-width: 700px; }
@@ -159,7 +157,7 @@ $result = $tmpproduct->fetch(0, $productref);
             <div class="control-group  required">
             	<label class="control-label" for="username" trans="1"><?php echo $langs->trans("Email") ?></label>
             	<div class="controls">
-            		<input type="text" name="username" value="" required="" id="username" />
+            		<input type="text" name="username" value="<?php echo GETPOST('username','alpha'); ?>" required="" id="username" />
 
             	</div>
             </div>
@@ -199,6 +197,7 @@ $result = $tmpproduct->fetch(0, $productref);
 $countryselected=dolGetCountryCodeFromIp($_SERVER["REMOTE_ADDR"]);
 print '<!-- Autodetected IP/Country: '.$_SERVER["REMOTE_ADDR"].'/'.$countryselected.' -->'."\n";
 if (empty($countryselected)) $countryselected='US';
+if (GETPOST('address.country','alpha')) $countryselected=GETPOST('address.country','alpha');
 print $form->select_country($countryselected, 'address.country', 'optionsValue="name"', 0, 'minwidth300', 'code2');
 ?>
 	</div>
@@ -213,9 +212,9 @@ print $form->select_country($countryselected, 'address.country', 'optionsValue="
             <div class="fld select-domain required">
               <label trans="1"><?php echo $langs->trans("ChooseANameForYourApplication") ?></label>
               <div class="linked-flds">
-                <input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="" maxlength="29" />
+                <input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="<?php echo GETPOST('sldAndSubdomain','alpha') ?>" maxlength="29" />
                 <select name="tld.id" style="width:20em" id="tld.id" >
-                    <option value="23" >.with.dolicloud.com</option>
+                    <option value="23" >.with.<?php echo $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME; ?></option>
                 </select>
                 <br class="unfloat" />
               </div>
@@ -225,7 +224,7 @@ print $form->select_country($countryselected, 'address.country', 'optionsValue="
 
 
           <section id="formActions">
-          <p style="color:#444;margin:10px 0;" trans="1"><?php echo $langs->trans("WhenRegisteringYouAccept", 'https://www.dolicloud.com/en/terms-and-conditions') ?></p>
+          <p style="color:#444;margin:10px 0;" trans="1"><?php echo $langs->trans("WhenRegisteringYouAccept", 'https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/en/terms-and-conditions') ?></p>
           <div class="form-actions">
               <input type="submit" name="submit" value="<?php echo $langs->trans("SignMeUp") ?>" class="btn btn-primary" id="submit" />
           </div>

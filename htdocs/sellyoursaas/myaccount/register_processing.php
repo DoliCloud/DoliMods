@@ -29,33 +29,78 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res) die("Include of main fails");
 
-
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 
 $langs->loadLangs(array("sellyoursaas@sellyoursaas","errors"));
 
+// Force user
+if (empty($user->id))
+{
+	$user->fetch($conf->global->SELLYOURSAAS_ANONYMOUSUSER);
+	// Set $user to the anonymous user
+	if (empty($user->id))
+	{
+		dol_print_error('', 'Error setup of module not complete or wrong.');
+	}
 
-$orgname = GETPOST('orgName');
-$email = GETPOST('username');
-$password = GETPOST('password');
-$password2 = GETPOST('password2');
-$sldAndSubdomain = GETPOST('sldAndSubdomain');
+	$user->getrights();
+}
 
-print "orgname = ".$orgname." email=".$email." password=".$password." password2=".$password2;
+$orgname = trim(GETPOST('orgName','alpha'));
+$email = trim(GETPOST('username','alpha'));
+$password = GETPOST('password','alpha');
+$password2 = GETPOST('password2','alpha');
+$country_code = GETPOST('address.country','alpha');
+$sldAndSubdomain = GETPOST('sldAndSubdomain','alpha');
+$remoteip = $_SERVER['REMOTE_ADDRESS'];
+
+
+
+/*
+ * Actions
+ */
+
+//print "orgname = ".$orgname." email=".$email." password=".$password." password2=".$password2." country_code=".$country_code." remoteip=".$remoteip." sldAndSubdomain=".$sldAndSubdomain;
+
 
 // Back to url
 $newurl=$_SERVER["HTTP_REFERER"];
 if (! preg_match('/\?/', $newurl)) $newurl.='?';
 if (! preg_match('/orgName/i', $newurl)) $newurl.='&orgName='.urlencode($orgname);
 if (! preg_match('/username/i', $newurl)) $newurl.='&username='.urlencode($email);
+if (! preg_match('/address.country/i', $newurl)) $newurl.='&address.country='.urlencode($country_code);
 if (! preg_match('/sldAndSubdomain/i', $sldAndSubdomain)) $newurl.='&sldAndSubdomain='.urlencode($sldAndSubdomain);
 
+if (! preg_match('/^[a-zA-Z0-9\-]+$/', $sldAndSubdomain))
+{
+	setEventMessages($langs->trans("ErrorOnlyCharAZAllowedFor", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
+	header("Location: ".$newurl);
+	exit;
+}
+if (empty($orgname))
+{
+	setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("CompanyName")), null, 'errors');
+	header("Location: ".$newurl);
+	exit;
+}
+if (empty($email))
+{
+	setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Email")), null, 'errors');
+	header("Location: ".$newurl);
+	exit;
+}
 if (empty($password) || empty($password2))
 {
 	setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Password")), null, 'errors');
     header("Location: ".$newurl);
     exit;
+}
+if (empty($sldAndSubdomain))
+{
+	setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
+	header("Location: ".$newurl);
+	exit;
 }
 if ($password != $password2)
 {
@@ -65,15 +110,27 @@ if ($password != $password2)
 }
 
 
-
 print $langs->trans("PleaseWait");
 
-
 // Create thirdparty (if it already exist, return warning)
+$tmpthirdparty=new Societe($db);
+$tmpthirdparty->fetch(0, '', '', '', '', '', '', '', '', '', $email);
+if ($tmpthirdparty->id)
+{
+	setEventMessages($langs->trans("AccountAlreadyExistsForEmail", 'https://myaccount.dolicloud.com'), null, 'errors');
+	header("Location: ".$newurl);
+	exit;
+}
+
+$tmpthirdparty->nom = $orgname;
+$tmpthirdparty->email = $email;
+$tmpthirdparty->array_options['dolicloud'] = 'yesv2';
+$tmpthirdparty->array_options['date_registration'] = dol_now();
+
+$result = $tmpthirdparty->create($user);
 
 
-
-// andcontract with generated credentials
+// Add contract with generated credentials
 
 
 
@@ -85,8 +142,7 @@ print $langs->trans("PleaseWait");
 
 
 
-//
-
+// Create account to dashboard
 
 
 

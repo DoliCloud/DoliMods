@@ -21,6 +21,10 @@
  *     \brief      Page administration module SellYourSaas
  */
 
+
+if (! defined('NOSCANPOSTFORINJECTION')) define('NOSCANPOSTFORINJECTION','1');		// Do not check anti CSRF attack test
+
+
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
@@ -49,7 +53,7 @@ $langs->load("errors");
 $langs->load("install");
 $langs->load("sellyoursaas@sellyoursaas");
 
-$action=GETPOST('action');
+$action=GETPOST('action','alpha');
 
 //exit;
 
@@ -92,6 +96,10 @@ if ($action == 'set')
 		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG",GETPOST("SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG"),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_REFS_URL",GETPOST("SELLYOURSAAS_REFS_URL"),'chaine',0,'',$conf->entity);
+
+		dolibarr_set_const($db,"SELLYOURSAAS_MYACCOUNT_FOOTER",GETPOST("SELLYOURSAAS_MYACCOUNT_FOOTER",'none'),'chaine',0,'',$conf->entity);
+
+		dolibarr_set_const($db,"SELLYOURSAAS_ANONYMOUSUSER",GETPOST("SELLYOURSAAS_ANONYMOUSUSER",'none'),'chaine',0,'',$conf->entity);
 	}
 }
 
@@ -145,8 +153,7 @@ print '<input type="hidden" name="action" value="set">';
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
 print '<td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td>';
-print '<td>'.$langs->trans("Examples").'</td>';
-print '<td align="right"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td>';
+print '<td>'.$langs->trans("Examples").'<div class="floatright"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></div></td>';
 print "</tr>\n";
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasName").'</td>';
@@ -154,7 +161,6 @@ print '<td>';
 print '<input size="40" type="text" name="SELLYOURSAAS_NAME" value="'.$conf->global->SELLYOURSAAS_NAME.'">';
 print '</td>';
 print '<td>My SaaS service</td>';
-print '<td>&nbsp;</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasMainDomain").'</td>';
@@ -162,7 +168,6 @@ print '<td>';
 print '<input size="40" type="text" name="SELLYOURSAAS_MAIN_DOMAIN_NAME" value="'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'">';
 print '</td>';
 print '<td>mysaas.com</td>';
-print '<td>&nbsp;</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasMainEmail").'</td>';
@@ -170,7 +175,6 @@ print '<td>';
 print '<input size="40" type="text" name="SELLYOURSAAS_MAIN_EMAIL" value="'.$conf->global->SELLYOURSAAS_MAIN_EMAIL.'">';
 print '</td>';
 print '<td>contact@mysaas.com</td>';
-print '<td>&nbsp;</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("DirForScriptPath").'</td>';
@@ -178,7 +182,6 @@ print '<td>';
 print '<input class="minwidth300" type="text" name="DOLICLOUD_SCRIPTS_PATH" value="'.$conf->global->DOLICLOUD_SCRIPTS_PATH.'">';
 print '</td>';
 print '<td>/home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/htdocs/scripts</td>';
-print '<td>&nbsp;</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("DirForLastStableVersionOfDolibarr").'</td>';
@@ -186,7 +189,6 @@ print '<td>';
 print '<input class="minwidth300" type="text" name="DOLICLOUD_LASTSTABLEVERSION_DIR" value="'.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.'">';
 print '</td>';
 print '<td>/home/admin/wwwroot/dolibarr_documents/sellyoursaas/git/dolibarr_x.y</td>';
-print '<td>&nbsp;</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("DirForDoliCloudInstances").'</td>';
@@ -194,7 +196,6 @@ print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_INSTANCES_PATH" value="'.$conf->global->DOLICLOUD_INSTANCES_PATH.'">';
 print '</td>';
 print '<td>/home/dolicloud/home</td>';
-print '<td>&nbsp;</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("DirForDoliCloudBackupInstances").'</td>';
@@ -202,7 +203,6 @@ print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_BACKUP_PATH" value="'.$conf->global->DOLICLOUD_BACKUP_PATH.'">';
 print '</td>';
 print '<td>/home/dolicloud/backup</td>';
-print '<td>&nbsp;</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("DefaultProductForInstances").'</td>';
@@ -211,7 +211,6 @@ $defaultproductid=$conf->global->SELLYOURSAAS_DEFAULT_PRODUCT;
 print $form->select_produits($defaultproductid, 'SELLYOURSAAS_DEFAULT_PRODUCT');
 print '</td>';
 print '<td>My SaaS Instance</td>';
-print '<td>&nbsp;</td>';
 print '</tr>';
 /*
 print '<tr class="oddeven"><td>'.$langs->trans("DefaultProductForUsers").'</td>';
@@ -220,7 +219,6 @@ $defaultproductid=$conf->global->SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS;
 print $form->select_produits($defaultproductid, 'SELLYOURSAAS_DEFAULT_PRODUCT_USERS');
 print '</td>';
 print '<td>My SaaS product for additional users</td>';
-print '<td>&nbsp;</td>';
 print '</tr>';
 */
 print '<tr class="oddeven"><td>'.$langs->trans("DefaultCategoryForSaaSCustomers").'</td>';
@@ -229,7 +227,6 @@ $defaultcustomercategid=$conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG;
 print $formother->select_categories(Categorie::TYPE_CUSTOMER, $defaultcustomercategid, 'SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG', 0, 1, 'miwidth300');
 print '</td>';
 print '<td>SaaS Customers</td>';
-print '<td>&nbsp;</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("RefsUrl", DOL_DOCUMENT_ROOT.'/sellyoursaas/git');
@@ -238,7 +235,20 @@ print '<td>';
 print '<input size="40" type="text" name="SELLYOURSAAS_REFS_URL" value="'.$conf->global->SELLYOURSAAS_REFS_URL.'">';
 print '</td>';
 print '<td>https://mysaas.com/refs</td>';
-print '<td>&nbsp;</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("FooterContent").'</td>';
+print '<td>';
+print '<textarea name="SELLYOURSAAS_MYACCOUNT_FOOTER" class="quatrevingtpercent">'.$conf->global->SELLYOURSAAS_MYACCOUNT_FOOTER.'</textarea>';
+print '</td>';
+print '<td>&lt;script&gt;Your google analytics code&lt;/script&gt;</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("AnonymousUser").'</td>';
+print '<td>';
+print $form->select_users($conf->global->SELLYOURSAAS_ANONYMOUSUSER, 'SELLYOURSAAS_ANONYMOUSUSER', 1);
+print '</td>';
+print '<td>User used for all anonymous action (registering, actions from customer dashboard, ...)</td>';
 print '</tr>';
 
 print '</table>';
