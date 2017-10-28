@@ -844,17 +844,17 @@ EOB;
 		print '<br>';
 
 		print <<<EOB
-		<table class="border" width="100%"><tbody>
-			<tr><th colspan="2">$server</th></tr>
+		<table class="noborder" width="100%"><tbody>
+			<tr class="liste_titre"><th colspan="2">$server</th></tr>
 			<tr><th>Slab Id</th><th>Info</th></tr>
 EOB;
 
 			foreach($entries as $slabId => $slab) {
 			    $dumpUrl = $PHP_SELF.'&op=2&server='.(array_search($server,$MEMCACHE_SERVERS)).'&dumpslab='.$slabId;
 				echo
-					"<tr class=tr-$m>",
-					"<td class=td-0><center>",'<a href="',$dumpUrl,'">',$slabId,'</a>',"</center></td>",
-					"<td class=td-last><b>Item count:</b> ",$slab['number'],'<br/><b>Age:</b>',duration($time-$slab['age']),'<br/> <b>Evicted:</b>',((isset($slab['evicted']) && $slab['evicted']==1)? 'Yes':'No');
+					'<tr class="oddeven">',
+					"<td><center>",'<a href="',$dumpUrl,'">',$slabId,'</a>',"</center></td>",
+					"<td><b>Item count:</b> ",$slab['number'],'<br/><b>Age:</b>',duration($time-$slab['age']),'<br/> <b>Evicted:</b>',((isset($slab['evicted']) && $slab['evicted']==1)? 'Yes':'No');
 					if ((isset($_GET['dumpslab']) && $_GET['dumpslab']==$slabId) &&  (isset($_GET['server']) && $_GET['server']==array_search($server,$MEMCACHE_SERVERS))){
 					    echo "<br/><b>Items: item</b><br/>";
 					    $items = dumpCacheSlab($server,$slabId,$slab['number']);
