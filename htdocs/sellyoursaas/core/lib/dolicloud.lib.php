@@ -137,6 +137,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	$links.='<br>';
 
 	$upgradestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/rsync_instance.php '.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.' '.$object->instance;
+	$purgestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/../dev/initdata/dev/purge_data.php test xxx mysql '.$object->hostname_db.' '.$object->username_db.' '.$object->password_db.' '.$object->database_db.' '.$object->database_port;
 
 	// Mysql Restore
 	$mysqlresotrecommand='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db.' < filetorestore';
@@ -164,6 +165,12 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	$links.='Upgrade version line string (remplacer "test" par "confirmunlock" pour exécuter réellement)<br>';
 	$links.='<input type="text" id="upgradestring" name="upgradestring" value="'.$upgradestringtoshow.'" class="quatrevingtpercent"><br>';
 	$links.=ajax_autoselect("upgradestring", 0);
+	$links.='<br>';
+
+	// Upgrade link
+	$links.='Purge command line string (remplacer "test" par "confir" pour exécuter réellement)<br>';
+	$links.='<input type="text" id="purgestring" name="purgestring" value="'.$purgestringtoshow.'" class="quatrevingtpercent"><br>';
+	$links.=ajax_autoselect("purgestring", 0);
 	$links.='<br>';
 
 	return $links;
