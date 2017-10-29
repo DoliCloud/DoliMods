@@ -168,6 +168,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	$links.='<br>';
 
 	// Upgrade link
+	$purgestringtoshow=$purgestring;
 	$links.='Purge command line string (remplacer "test" par "confir" pour exécuter réellement)<br>';
 	$links.='<input type="text" id="purgestring" name="purgestring" value="'.$purgestringtoshow.'" class="quatrevingtpercent"><br>';
 	$links.=ajax_autoselect("purgestring", 0);
