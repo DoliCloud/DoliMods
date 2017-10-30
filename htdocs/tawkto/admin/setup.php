@@ -64,6 +64,36 @@ $arrayofparameters=array('TAWKTO_ID'=>array('css'=>'minwidth300'));
  * Actions
  */
 
+if ((float) DOL_VERSION < 7.0)
+{
+	if ($action == 'update' && is_array($arrayofparameters))
+	{
+		$db->begin();
+
+		$ok=True;
+		foreach($arrayofparameters as $key => $val)
+		{
+			$result=dolibarr_set_const($db,$key,GETPOST($key, 'alpha'),'chaine',0,'',$conf->entity);
+			if ($result < 0)
+			{
+				$ok=False;
+				break;
+			}
+		}
+
+		if (! $error)
+		{
+			$db->commit();
+			if (empty($nomessageinupdate)) setEventMessages($langs->trans("SetupSaved"), null, 'mesgs');
+		}
+		else
+		{
+			$db->rollback();
+			if (empty($nomessageinupdate)) setEventMessages($langs->trans("SetupNotSaved"), null, 'errors');
+		}
+	}
+}
+
 include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
 
 
