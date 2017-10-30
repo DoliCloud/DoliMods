@@ -1,4 +1,4 @@
-# NUMBERWORDS MODULE FOR DOLIBARR ERP/CRM
+# NUMBERWORDS MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 ## Features
 Add capabilities to convert amounts and numbers into value in full text (only few languages supported).

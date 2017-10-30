@@ -1,4 +1,4 @@
-# NUMBERWORDS MODULE FOR DOLIBARR ERP/CRM
+# NUMBERWORDS MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 ## 5.0
 

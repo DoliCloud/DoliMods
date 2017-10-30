@@ -1,4 +1,4 @@
-# OPENSTREETMAP MODULE FOR DOLIBARR ERP/CRM
+# OPENSTREETMAP MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 ## Features
 This module provides OpenStreet Map integration into Dolibarr:

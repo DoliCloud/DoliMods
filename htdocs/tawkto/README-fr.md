@@ -1,4 +1,4 @@
-# TAWKTO MODULE POUR DOLIBARR ERP/CRM
+# TAWKTO MODULE POUR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 ## Features
 Ajoute une boite de Chat pour communiquer avec un service de support (via TawkTo)

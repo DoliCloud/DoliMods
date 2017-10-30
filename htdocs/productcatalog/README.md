@@ -1,4 +1,4 @@
-# PRODUCTCATALOG FOR DOLIBARR ERP CRM
+# PRODUCT_CATALOG FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 ## Features
 ProductCatalogDescription

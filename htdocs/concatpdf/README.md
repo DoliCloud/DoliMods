@@ -1,4 +1,4 @@
-# CONCAT PDF MODULE FOR DOLIBARR ERP/CRM
+# CONCAT PDF MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 ## Features
 Allow to merge some PDF documents to the generated PDF files. For examle, to add your conditions and terms into the PDF of an order, or to add a catalog of product into commercial proposals PDFs.

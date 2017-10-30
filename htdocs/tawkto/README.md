@@ -1,4 +1,4 @@
-# TAWKTO MODULE FOR DOLIBARR ERP/CRM
+# TAWKTO MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 ## Features
 Add a chat box to communicate with a support center (using TawkTo)
@@ -10,6 +10,8 @@ Create an account on TawkTo.io and insert your TawkTo ID into your customer Doli
 Enter your support provider ID into module setup to make the bubble picto appears on right top of your screen.
 Just click on it to show the Chat box and communicate in real time, when you need, with your support provider.
 If your support provider is not available, you can still send him your message by email. 
+
+## Screenshots
 
 ![Screenshot patient card](img/tawkto_screenshot.png?raw=true "Tawkto chat")
 

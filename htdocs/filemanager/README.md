@@ -1,9 +1,11 @@
-# FILE MANAGER MODULE FOR DOLIBARR ERP/CRM
+# FILE MANAGER MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 ## Features
+
 Add a file manager into Dolibarr.
 
 ## Prerequisites
+
 Your PHP web server must have permissions to access directory you want to browse (this may need to edit your php.ini file or to change file system permissions).
 
 ## Scren shots
