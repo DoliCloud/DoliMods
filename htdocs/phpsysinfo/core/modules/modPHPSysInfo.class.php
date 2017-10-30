@@ -56,7 +56,7 @@ class modPHPSysInfo extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i','',get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
-		$this->description = "Description of module PHPSysInfo";
+		$this->description = "Add a system information page into your Tools menu";
         $this->editor_name = 'NLTechno';
         $this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version

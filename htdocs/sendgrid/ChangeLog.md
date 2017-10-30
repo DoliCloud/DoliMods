@@ -1,4 +1,4 @@
-# ChangeLog for SENDGRID MODULE FOR DOLIBARR ERP/CRM
+# ChangeLog for SENDGRID MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 ## 1.0
 

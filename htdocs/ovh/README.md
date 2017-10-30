@@ -1,4 +1,4 @@
-# OVH MODULE FOR DOLIBARR ERP/CRM
+# OVH MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 ## Features
 Add features to link Dolibarr between OVH web hosting services. Current version allows to:
@@ -9,3 +9,13 @@ Add features to link Dolibarr between OVH web hosting services. Current version 
 * Show some information of your dedicated servers
 
 More information <a href="https://wiki.dolibarr.org/index.php/Module_OVH_(SMS,_ClickToDial,_...)" target="_new">this wiki page</a>.
+
+
+### Screenshot - Invoice import
+
+![Screenshot patient card](img/screen_shot_invoiceimport.png?raw=true "Invoice import")
+
+
+### Screenshot - Sending SMS
+
+![Screenshot patient card](img/screen_shot_sms.png?raw=true "Sending SMS")

@@ -1,4 +1,4 @@
-# ChangeLog for OVH MODULE FOR DOLIBARR ERP/CRM
+# ChangeLog OVH MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 ## 3.8.3
 
@@ -11,3 +11,7 @@ Support option NOSTOP on SMS.
 More help.
 Set constant to log module.
 Add option OVH_CLICKTODIAL_NO_INTERCOM.
+
+## 1.0
+
+Initial version.
