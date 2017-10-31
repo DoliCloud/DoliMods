@@ -59,6 +59,8 @@ class modMemcached extends DolibarrModules
 		$this->version = '3.4';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		// Can be enabled / disabled only in the main company with superadmin account
+		$this->core_enabled = 1;
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
 		$this->special = 1;
 		// Name of png file (without png) used for this module
