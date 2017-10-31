@@ -150,9 +150,7 @@ class modSendgrid extends DolibarrModules
 
 
 		// Cronjobs (List of cron jobs entries to add when module is enabled)
-		$this->cronjobs = array(
-			0=>array('label'=>'Snapshot SENDGRID', 'jobtype'=>'method', 'class'=>'/sendgrid/class/sendgridserver.class.php', 'objectname'=>'SendgridServer', 'method'=>'createSnapshot', 'parameters'=>'projectid, serverid, serverlabel', 'comment'=>'Ask a snaspshot request of a server. "projectid" and "serverid" are defined by SENDGRID. "serverlabel" is a free text. Warning: This increase your SENDGRID monthly billing.', 'frequency'=>4, 'unitfrequency'=>604800, 'status'=>0, 'test'=>true)
-		);
+		$this->cronjobs = array();
 
 		// Permissions
 		$this->rights = array();		// Permission array used by this module
