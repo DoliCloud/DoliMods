@@ -11,15 +11,15 @@
 
 
 echo 
-echo "# user id ------------------>  $(id -u) "
-echo "# PWD ---------------------->  $PWD     " 
-echo "# arguments called with ---->  ${@}     "
-echo "# path to me --------------->  ${0}     "
-echo "# parent path -------------->  ${0%/*}  "
-echo "# my name ------------------>  ${0##*/} "
-echo "# realname ----------------->  $(realpath ${0})"
-echo "# realname name ------------>  $(basename $(realpath ${0}))"
-echo "# realname dir ------------->  $(dirname $(realpath ${0}))"
+echo "# user id ----------------> $(id -u)"
+echo "# PWD --------------------> $PWD" 
+echo "# arguments called with --> ${@}"
+echo "# path to me -------------> ${0}"
+echo "# parent path ------------> ${0%/*}"
+echo "# my name ----------------> ${0##*/}"
+echo "# realname ---------------> $(realpath ${0})"
+echo "# realname name ----------> $(basename $(realpath ${0}))"
+echo "# realname dir -----------> $(dirname $(realpath ${0}))"
 
 export scriptdir=$(dirname $(realpath ${0}))
 export vhostfile="$scriptdir/templates/vhostHttps-dolibarr.template"

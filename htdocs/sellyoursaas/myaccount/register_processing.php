@@ -30,7 +30,9 @@ if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main
 if (! $res) die("Include of main fails");
 
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
+require_once DOL_DOCUMENT_ROOT.'/cron/class/cronjob.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/websiteaccount.class.php';
 
 $langs->loadLangs(array("sellyoursaas@sellyoursaas","errors"));
@@ -174,12 +176,26 @@ else
 	$db->rollback();
 }
 
-// Create unix user and directories
+//print ini_get('safe_mode');exit;
 
+// Create unix user and directories and DNS
 
+// If you get error "sudo: PERM_ROOT: setresuid(0, -1, -1): Operation not permitted", check module mpm_itk
+// <IfModule mpm_itk_module>
+//LimitUIDRange 0 5000
+//LimitGIDRange 0 5000
+//</IfModule>
 
-// Edit DNS
+// If you get error "sudo: sorry, you must have a tty to run sudo", disable key "Defaults        requiretty" from /etc/sudoers
 
+$command = 'sudo /usr/bin/create_user_instance.sh';
+//$command = '/usr/bin/aaa.sh';
+$outputfile = $conf->sellyoursaas->dir_temp.'/register.'.dol_getmypid().'.out';
+
+$cronjob = new CronJob($db);
+$cronjob->executeCLI($command, $outputfile, 2);
+
+var_dump($cronjob);
 
 
 // Create account to dashboard
