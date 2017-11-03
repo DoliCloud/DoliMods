@@ -169,7 +169,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 
 	// Upgrade link
 	$purgestringtoshow=$purgestring;
-	$links.='Purge command line string (remplacer "test" par "confir" pour exécuter réellement)<br>';
+	$links.='Purge command line string (remplacer "test" par "confirm" pour exécuter réellement)<br>';
 	$links.='<input type="text" id="purgestring" name="purgestring" value="'.$purgestringtoshow.'" class="quatrevingtpercent"><br>';
 	$links.=ajax_autoselect("purgestring", 0);
 	$links.='<br>';
@@ -225,11 +225,6 @@ function dolicloud_prepare_head($object,$prefix='')
 	$head[$h][2] = 'infoinstance';
 	$h++;
 
-	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/instance_backup'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloud_customers'?'instanceoldid='.$object->id:'id='.$object->id);
-	$head[$h][1] = $langs->trans("Backup");
-	$head[$h][2] = 'backup';
-	$h++;
-
 	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/instance_links'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloud_customers'?'instanceoldid='.$object->id:'id='.$object->id);
 	$head[$h][1] = $langs->trans("UsefulLinks");
 	$head[$h][2] = 'upgrade';
@@ -243,6 +238,11 @@ function dolicloud_prepare_head($object,$prefix='')
 	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_payments'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloud_customers'?'instanceoldid='.$object->id:'id='.$object->id);
 	$head[$h][1] = $langs->trans("Payments");
 	$head[$h][2] = 'payments';
+	$h++;
+
+	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/instance_backup'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloud_customers'?'instanceoldid='.$object->id:'id='.$object->id);
+	$head[$h][1] = $langs->trans("Backup");
+	$head[$h][2] = 'backup';
 	$h++;
 
 	// Show more tabs from modules

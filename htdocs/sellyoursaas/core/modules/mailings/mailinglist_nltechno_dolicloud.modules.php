@@ -84,7 +84,7 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
         }
         $s.='</select>';
 
-        $s.=' ';
+        $s.='<br> ';
 
         $s.=$langs->trans("Language").': ';
         $formother=new FormAdmin($db);
@@ -93,6 +93,8 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
         $s.=$langs->trans("NotLanguage").': ';
         $formother=new FormAdmin($db);
         $s.=$formother->select_language('', 'not_lang_id', 0, 'null', 1);
+
+        $s.='<br> ';
 
         $s.=$langs->trans("Country").': ';
         $formother=new FormAdmin($db);

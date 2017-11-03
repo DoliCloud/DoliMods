@@ -29,10 +29,12 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res) die("Include of main fails");
 
+require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/cron/class/cronjob.class.php';
+require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/websiteaccount.class.php';
 
 $langs->loadLangs(array("sellyoursaas@sellyoursaas","errors"));
@@ -45,6 +47,7 @@ if (empty($user->id))
 	if (empty($user->id))
 	{
 		dol_print_error('', 'Error setup of module not complete or wrong. Missing the anonymous user.');
+		exit;
 	}
 
 	$user->getrights();
@@ -54,7 +57,7 @@ $orgname = trim(GETPOST('orgName','alpha'));
 $email = trim(GETPOST('username','alpha'));
 $password = GETPOST('password','alpha');
 $password2 = GETPOST('password2','alpha');
-$country_code = GETPOST('address.country','alpha');
+$country_code = GETPOST('address_country','alpha');
 $sldAndSubdomain = GETPOST('sldAndSubdomain','alpha');
 $remoteip = $_SERVER['REMOTE_ADDRESS'];
 
@@ -76,7 +79,7 @@ $newurl=preg_replace('/register_processing/', 'register', $newurl);
 if (! preg_match('/\?/', $newurl)) $newurl.='?';
 if (! preg_match('/orgName/i', $newurl)) $newurl.='&orgName='.urlencode($orgname);
 if (! preg_match('/username/i', $newurl)) $newurl.='&username='.urlencode($email);
-if (! preg_match('/address.country/i', $newurl)) $newurl.='&address.country='.urlencode($country_code);
+if (! preg_match('/address_country/i', $newurl)) $newurl.='&address_country='.urlencode($country_code);
 if (! preg_match('/sldAndSubdomain/i', $sldAndSubdomain)) $newurl.='&sldAndSubdomain='.urlencode($sldAndSubdomain);
 
 if (! preg_match('/^[a-zA-Z0-9\-]+$/', $sldAndSubdomain))
@@ -131,15 +134,16 @@ $tmpthirdparty->fetch(0, '', '', '', '', '', '', '', '', '', $email);
 if ($tmpthirdparty->id)
 {
 	setEventMessages($langs->trans("AccountAlreadyExistsForEmail", 'https://myaccount.dolicloud.com'), null, 'errors');
-	header("Location: ".$newurl);
-	exit;
+	// TODO Restore this
+	//	header("Location: ".$newurl);
+	//	exit;
 }
 
 
 // Generate credentials
 
-$generatedunixlogin = 'usr'.substr(getRandomPassword(true), 9);		// This is result of dol_hash, there is no special chars
-$generatedunixpassword = substr(getRandomPassword(true), 12);		// This is result of dol_hash, there is no special chars
+$generatedunixlogin = 'usr'.substr(getRandomPassword(true), 0, 9);		// This is result of dol_hash, there is no special chars
+$generatedunixpassword = substr(getRandomPassword(true), 0, 12);		// This is result of dol_hash, there is no special chars
 
 
 // Start creation of instance
@@ -154,11 +158,35 @@ $tmpthirdparty->email = $email;
 $tmpthirdparty->client = 3;
 $tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
 $tmpthirdparty->array_options['options_date_registration'] = dol_now();
-
-$result = $tmpthirdparty->create($user);
-if ($result <= 0)
+if ($country_code)
 {
-	$error++;
+	$tmpthirdparty->country_id = getCountry($country_code, 3, $db);
+}
+
+if ($tmpthirdparty->id > 0)
+{
+	$result = $tmpthirdparty->update(0, $user);
+	if ($result <= 0)
+	{
+		$db->rollback();
+		$error++;
+		setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+		header("Location: ".$newurl);
+		exit;
+	}
+}
+else
+{
+	$tmpthirdparty->code_client = -1;
+	$result = $tmpthirdparty->create($user);
+	if ($result <= 0)
+	{
+		$db->rollback();
+		$error++;
+		setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+		header("Location: ".$newurl);
+		exit;
+	}
 }
 
 if (! empty($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG))
@@ -166,6 +194,7 @@ if (! empty($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG))
 	$result = $tmpthirdparty->setCategories(array($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG => $conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG), 'customer');
 	if ($result < 0)
 	{
+		$db->rollback();
 		setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
 		header("Location: ".$newurl);
 		exit;
@@ -202,20 +231,41 @@ else
 
 if (! $error)
 {
-	$command = 'sudo /usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword;
+	//$command = 'sudo /usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword;
+	$command = '/usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword;
 	//$command = '/usr/bin/aaa.sh';
 	$outputfile = $conf->sellyoursaas->dir_temp.'/register.'.dol_getmypid().'.out';
 
 	$cronjob = new CronJob($db);
 	$cronjob->executeCLI($command, $outputfile, 2);
 
-	var_dump($cronjob);
+	//var_dump($cronjob);
+}
 
+
+if (! $error)
+{
+	$website = new Website($db);
+	$website->fetch(0, 'sellyoursaas');
+	//var_dump($website);
 
 	// Create account to dashboard
 	$websiteaccount = new WebsiteAccount($db);
-
-
+	$websiteaccount->fk_soc = $tmpthirdparty->id;
+	$websiteaccount->fk_website = $website->id;
+	$websiteaccount->login = $email;
+	$websiteaccount->pass_encoding = 'sha1-md5';
+	$websiteaccount->pass_crypted = dol_hash($generatedunixpassword, 2);
+	$websiteaccount->note_private = 'Initial pass = '.$generatedunixpassword;
+	$websiteaccount->status = 1;
+	$result = $websiteaccount->create($user);
+	if ($result < 0)
+	{
+		setEventMessages($websiteaccount->error, $websiteaccount->errors, 'errors');
+		// TODO Restore this
+		//header("Location: ".$newurl);
+		//exit;
+	}
 }
 
 

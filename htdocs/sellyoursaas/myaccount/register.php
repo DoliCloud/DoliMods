@@ -191,14 +191,14 @@ $result = $tmpproduct->fetch(0, $productref);
 
 
 <div class="control-group  ">
-	<label class="control-label" for="address.country"><?php echo $langs->trans("Country") ?></label>
+	<label class="control-label" for="address_country"><?php echo $langs->trans("Country") ?></label>
 	<div class="controls">
 <?php
 $countryselected=dolGetCountryCodeFromIp($_SERVER["REMOTE_ADDR"]);
 print '<!-- Autodetected IP/Country: '.$_SERVER["REMOTE_ADDR"].'/'.$countryselected.' -->'."\n";
 if (empty($countryselected)) $countryselected='US';
-if (GETPOST('address.country','alpha')) $countryselected=GETPOST('address.country','alpha');
-print $form->select_country($countryselected, 'address.country', 'optionsValue="name"', 0, 'minwidth300', 'code2');
+if (GETPOST('address_country','alpha')) $countryselected=GETPOST('address_country','alpha');
+print $form->select_country($countryselected, 'address_country', 'optionsValue="name"', 0, 'minwidth300', 'code2');
 ?>
 	</div>
 </div>

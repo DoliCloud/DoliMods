@@ -1,26 +1,28 @@
 <VirtualHost *:443 *:80>
         
-        ServerName @webAppDomain@
-        ServerAdmin admin@eazybusiness.com
-        
-        ServerAlias @webAppAliases@
-        DocumentRoot @webAppPath@/htdocs
+        ServerName __webAppDomain__
+        ServerAdmin admin@__myMainDomain__
+        ServerAlias __webAppAliases__
+        DocumentRoot __webAppPath__/htdocs
+
+		AddDefaultCharset UTF-8
 
 		# Need mpm-itk module
-        AssignUserID @osUsername@ @osGroupname@
+		<IfModule mpm_itk_module>
+        AssignUserID __osUsername__ __osGroupname__
+		</IfModule>
+		
 
-        #ErrorLog /var/log/apache2/@webAppLogName@Error.log
+        # Possible values include: debug, info, notice, warn, error, crit, alert, emerg.
+        LogLevel debug
 
-        # Possible values include: debug, info, notice, warn, error, crit,
-        # alert, emerg.
-        LogLevel warn
-
-        #CustomLog /var/log/apache2/@webAppLogName@Access.log combined
+        #ErrorLog /var/log/apache2/__webAppLogName___error.log
+        #TransferLog /var/log/apache2/__webAppLogName___access_log
 
         ServerSignature On
         
-        # Insert filter
-        SetOutputFilter DEFLATE
+        # Compress returned resources of type php pages, text file export, css and javascript
+   		AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript
 
         # Netscape 4.x has some problems...
         BrowserMatch ^Mozilla/4 gzip-only-text/html
@@ -31,15 +33,6 @@
         # MSIE masquerades as Netscape, but it is fine
         BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
 
-        # NOTE: Due to a bug in mod_setenvif up to Apache 2.0.48
-        # the above regex won't work. You can use the following
-        # workaround to get the desired effect:
-        # BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
-
-        # Don't compress images
-        SetEnvIfNoCase Request_URI \
-        \.(?:gif|jpe?g|png)$ no-gzip dont-vary
-
         # Make sure proxies don't deliver the wrong content
         #Header append Vary User-Agent env=!dont-vary
 
@@ -47,7 +40,7 @@
         DeflateFilterNote Output outstream
         DeflateFilterNote Ratio ratio
 
-        LogFormat '"%r" %{outstream}n/%{instream}n (%{ratio}n%%)' deflate
+        #LogFormat '"%r" %{outstream}n/%{instream}n (%{ratio}n%%)' deflate
         #CustomLog deflate_log deflate
 
         #   SSL Engine Switch:
@@ -62,15 +55,10 @@
         <FilesMatch "\.(cgi|shtml|phtml|php)$">
                 SSLOptions +StdEnvVars
         </FilesMatch>
-        <Directory /usr/lib/cgi-bin>
-                SSLOptions +StdEnvVars
-        </Directory>
 
         BrowserMatch ".*MSIE.*" \
                 nokeepalive ssl-unclean-shutdown \
                 downgrade-1.0 force-response-1.0
-
-
 
 </VirtualHost>
 
