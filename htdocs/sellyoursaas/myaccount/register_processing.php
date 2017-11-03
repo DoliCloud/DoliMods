@@ -142,8 +142,14 @@ if ($tmpthirdparty->id)
 
 // Generate credentials
 
-$generatedunixlogin = 'usr'.substr(getRandomPassword(true), 0, 9);		// This is result of dol_hash, there is no special chars
-$generatedunixpassword = substr(getRandomPassword(true), 0, 12);		// This is result of dol_hash, there is no special chars
+$generatedunixlogin = 'osu'.substr(getRandomPassword(true), 0, 9);
+$generatedunixpassword = substr(getRandomPassword(true), 0, 10);
+
+$generateddbname = 'dbn'.substr(getRandomPassword(true), 0, 8);
+$generateddbusername = 'dbu'.substr(getRandomPassword(true), 0, 9);
+$generateddbpassword = substr(getRandomPassword(true), 0, 10);
+
+$domainname = 'with.dolicloud.com';
 
 
 // Start creation of instance
@@ -232,12 +238,12 @@ else
 if (! $error)
 {
 	//$command = 'sudo /usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword;
-	$command = '/usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword;
+	$command = '/usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword.' '.$sldAndSubdomain.' '.$domainname.' '.$generateddbname.' '.$generateddbusername.' '.$generateddbpassword;
 	//$command = '/usr/bin/aaa.sh';
 	$outputfile = $conf->sellyoursaas->dir_temp.'/register.'.dol_getmypid().'.out';
 
 	$cronjob = new CronJob($db);
-	$cronjob->executeCLI($command, $outputfile, 2);
+	$retval = $cronjob->executeCLI($command, $outputfile, 1);
 
 	//var_dump($cronjob);
 }
@@ -251,20 +257,18 @@ if (! $error)
 
 	// Create account to dashboard
 	$websiteaccount = new WebsiteAccount($db);
-	$websiteaccount->fk_soc = $tmpthirdparty->id;
 	$websiteaccount->fk_website = $website->id;
+	$websiteaccount->fk_soc = $tmpthirdparty->id;
 	$websiteaccount->login = $email;
-	$websiteaccount->pass_encoding = 'sha1-md5';
-	$websiteaccount->pass_crypted = dol_hash($generatedunixpassword, 2);
-	$websiteaccount->note_private = 'Initial pass = '.$generatedunixpassword;
+	$websiteaccount->pass_encoding = 'sha1md5';
+	$websiteaccount->pass_crypted = dol_hash($password, 2);
+	$websiteaccount->note_private = 'Initial pass = '.$password;
 	$websiteaccount->status = 1;
 	$result = $websiteaccount->create($user);
 	if ($result < 0)
 	{
-		setEventMessages($websiteaccount->error, $websiteaccount->errors, 'errors');
-		// TODO Restore this
-		//header("Location: ".$newurl);
-		//exit;
+		// We ignore errors. This should not happen in real life.
+		//setEventMessages($websiteaccount->error, $websiteaccount->errors, 'errors');
 	}
 }
 
