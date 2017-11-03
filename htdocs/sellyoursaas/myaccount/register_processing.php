@@ -68,7 +68,11 @@ $remoteip = $_SERVER['REMOTE_ADDRESS'];
 
 
 // Back to url
-$newurl=$_SERVER["HTTP_REFERER"];
+$newurl=$_SERVER["PHP_SELF"];
+$newurl=preg_replace('/register_processing/', 'register', $newurl);
+//exit;
+//$newurl='myaccount.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/register.php';
+
 if (! preg_match('/\?/', $newurl)) $newurl.='?';
 if (! preg_match('/orgName/i', $newurl)) $newurl.='&orgName='.urlencode($orgname);
 if (! preg_match('/username/i', $newurl)) $newurl.='&username='.urlencode($email);
@@ -95,7 +99,7 @@ if (empty($email))
 }
 if (! isValidEmail($email))
 {
-	setEventMessages($langs->trans("ErrorEmailNotValid"), null, 'errors');
+	setEventMessages($langs->trans("ErrorBadEMail"), null, 'errors');
 	header("Location: ".$newurl);
 	exit;
 }
