@@ -138,8 +138,8 @@ if ($tmpthirdparty->id)
 
 // Generate credentials
 
-$generatedunixlogin = 'usr'.substr(getRandomPassword(true), 9);
-$generatedunixpassword = substr(getRandomPassword(true), 12);
+$generatedunixlogin = 'usr'.substr(getRandomPassword(true), 9);		// This is result of dol_hash, there is no special chars
+$generatedunixpassword = substr(getRandomPassword(true), 12);		// This is result of dol_hash, there is no special chars
 
 
 // Start creation of instance
@@ -163,7 +163,13 @@ if ($result <= 0)
 
 if (! empty($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG))
 {
-	$tmpthirdparty->setCategories(array($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG => $conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG), 'customer');
+	$result = $tmpthirdparty->setCategories(array($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG => $conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG), 'customer');
+	if ($result < 0)
+	{
+		setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+		header("Location: ".$newurl);
+		exit;
+	}
 }
 else
 {
@@ -184,31 +190,41 @@ else
 
 // Create unix user and directories and DNS
 
+// Check the user www-data is allowed to "sudo /usr/bin/create_test_instance.sh"
+
 // If you get error "sudo: PERM_ROOT: setresuid(0, -1, -1): Operation not permitted", check module mpm_itk
-// <IfModule mpm_itk_module>
+//<IfModule mpm_itk_module>
 //LimitUIDRange 0 5000
 //LimitGIDRange 0 5000
 //</IfModule>
 
-// If you get error "sudo: sorry, you must have a tty to run sudo", disable key "Defaults        requiretty" from /etc/sudoers
+// If you get error "sudo: sorry, you must have a tty to run sudo", disable key "Defaults requiretty" from /etc/sudoers
 
-$command = 'sudo /usr/bin/create_user_instance.sh';
-//$command = '/usr/bin/aaa.sh';
-$outputfile = $conf->sellyoursaas->dir_temp.'/register.'.dol_getmypid().'.out';
+if (! $error)
+{
+	$command = 'sudo /usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword;
+	//$command = '/usr/bin/aaa.sh';
+	$outputfile = $conf->sellyoursaas->dir_temp.'/register.'.dol_getmypid().'.out';
 
-$cronjob = new CronJob($db);
-$cronjob->executeCLI($command, $outputfile, 2);
+	$cronjob = new CronJob($db);
+	$cronjob->executeCLI($command, $outputfile, 2);
 
-var_dump($cronjob);
+	var_dump($cronjob);
 
 
-// Create account to dashboard
-$websiteaccount = new WebsiteAccount($db);
+	// Create account to dashboard
+	$websiteaccount = new WebsiteAccount($db);
 
+
+}
 
 
 // Go to dashboard with login session forced
+if (! $error)
+{
 
+
+}
 
 
 
