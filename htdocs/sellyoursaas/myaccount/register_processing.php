@@ -61,13 +61,45 @@ $country_code = GETPOST('address_country','alpha');
 $sldAndSubdomain = GETPOST('sldAndSubdomain','alpha');
 $remoteip = $_SERVER['REMOTE_ADDRESS'];
 
+$partner=GETPOST('partner','alpha');
+$plan=GETPOST('plan','alpha');
+
+include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+$productref='DOLICLOUD-PACK-Dolibarr';
+if ($plan)	// Plan is a product/service
+{
+	$productref=$plan;
+}
+$tmpproduct = new Product($db);
+$result = $tmpproduct->fetch(0, $productref);
+if (empty($tmpproduct->id))
+{
+	print 'Service/Plan '.$productref.' was not found.';
+	exit;
+}
+if (! preg_match('/^DOLICLOUD-PACK-(.+)$/', $tmpproduct->ref, $reg))
+{
+	print 'Service/Plan name is invalid. Name must be DOLICLOUD-PACK-...';
+	exit;
+}
+$packageref = $reg[1];
+
+dol_include_once('/sellyoursaas/class/packages.class.php');
+$tmppackage = new Packages($db);
+$tmppackage->fetch(0, $packageref);
+if (empty($tmppackage->id))
+{
+	print 'Package name '.$packageref.' was not found.';
+	exit;
+}
+
 
 
 /*
  * Actions
  */
 
-//print "orgname = ".$orgname." email=".$email." password=".$password." password2=".$password2." country_code=".$country_code." remoteip=".$remoteip." sldAndSubdomain=".$sldAndSubdomain;
+//print "partner=".$partner." plan=".$plan." orgname = ".$orgname." email=".$email." password=".$password." password2=".$password2." country_code=".$country_code." remoteip=".$remoteip." sldAndSubdomain=".$sldAndSubdomain;
 
 
 // Back to url
@@ -81,6 +113,9 @@ if (! preg_match('/orgName/i', $newurl)) $newurl.='&orgName='.urlencode($orgname
 if (! preg_match('/username/i', $newurl)) $newurl.='&username='.urlencode($email);
 if (! preg_match('/address_country/i', $newurl)) $newurl.='&address_country='.urlencode($country_code);
 if (! preg_match('/sldAndSubdomain/i', $sldAndSubdomain)) $newurl.='&sldAndSubdomain='.urlencode($sldAndSubdomain);
+if (! preg_match('/plan/i', $newurl)) $newurl.='&plan='.urlencode($plan);
+//if (! preg_match('/service/i', $newurl)) $newurl.='&orgName='.urlencode($orgname);
+if (! preg_match('/partner/i', $newurl)) $newurl.='&partner='.urlencode($partner);
 
 if (! preg_match('/^[a-zA-Z0-9\-]+$/', $sldAndSubdomain))
 {
@@ -237,8 +272,18 @@ else
 
 if (! $error)
 {
+	// TODO create tmp config file from $tmppackage->conffile1
+	// Replace __INSTANCEDIR__, __INSTALLHOURS__, __INSTALLMINUTES__, __OSUSERNAME__, __APPUNIQUEKEY__, __APPDOMAIN__, __APPWEBROOTPATH__,
+	$tmppackage->srcconffile1 = '/tmp/aaa';
+	$tmppackage->srccronfile = '/tmp/bbb';
+
 	//$command = 'sudo /usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword;
-	$command = '/usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword.' '.$sldAndSubdomain.' '.$domainname.' '.$generateddbname.' '.$generateddbusername.' '.$generateddbpassword;
+	$command = '/usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword.' '.$sldAndSubdomain.' '.$domainname;
+	$command.= ' '.$generateddbname.' '.$generateddbusername.' '.$generateddbpassword;
+	$command.= ' "'.$tmppackage->srcconffile1.'" "'.$tmppackage->targetconffile1.'" "'.$tmppackage->datafile1.'"';
+	$command.= ' "'.$tmppackage->srcfile1.'" "'.$tmppackage->targetsrcfile1.'" "'.$tmppackage->srcfile2.'" "'.$tmppackage->targetsrcfile2.'" "'.$tmppackage->srcfile3.'" "'.$tmppackage->targetsrcfile3.'"';
+	$command.= ' "'.$tmppackage->srccronfile.'"';
+
 	//$command = '/usr/bin/aaa.sh';
 	$outputfile = $conf->sellyoursaas->dir_temp.'/register.'.dol_getmypid().'.out';
 

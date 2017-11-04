@@ -85,15 +85,15 @@ class Packages extends CommonObject
 		'import_key' => array('type'=>'varchar(14)', 'label'=>'ImportId', 'visible'=>-1, 'enabled'=>1, 'position'=>1000, 'notnull'=>-1, 'index'=>1,),
 		//'sqldump' => array('type'=>'varchar(255)', 'label'=>'Sql with dump', 'visible'=>-1, 'enabled'=>1, 'position'=>50, 'notnull'=>-1,),
 		'srcfile1' => array('type'=>'varchar(255)', 'label'=>'Dir with sources 1', 'visible'=>-1, 'enabled'=>1, 'position'=>51, 'notnull'=>-1, 'css'=>'minwidth500'),
-		'targetsrcfile1' => array('type'=>'varchar(255)', 'label'=>'Target relative dir for sources 1', 'visible'=>-1, 'enabled'=>1, 'position'=>51, 'notnull'=>-1,),
+		'targetsrcfile1' => array('type'=>'varchar(255)', 'label'=>'Target relative dir for sources 1', 'visible'=>-1, 'enabled'=>1, 'position'=>51, 'notnull'=>-1, 'css'=>'minwidth500'),
 		'srcfile2' => array('type'=>'varchar(255)', 'label'=>'Dir with sources 2', 'visible'=>-1, 'enabled'=>1, 'position'=>52, 'notnull'=>-1, 'css'=>'minwidth500'),
-		'targetsrcfile2' => array('type'=>'varchar(255)', 'label'=>'Target relative dir for sources 2', 'visible'=>-1, 'enabled'=>1, 'position'=>52, 'notnull'=>-1,),
+		'targetsrcfile2' => array('type'=>'varchar(255)', 'label'=>'Target relative dir for sources 2', 'visible'=>-1, 'enabled'=>1, 'position'=>52, 'notnull'=>-1, 'css'=>'minwidth500'),
 		'srcfile3' => array('type'=>'varchar(255)', 'label'=>'Dir with sources 3', 'visible'=>-1, 'enabled'=>1, 'position'=>53, 'notnull'=>-1, 'css'=>'minwidth500'),
-		'targetsrcfile3' => array('type'=>'varchar(255)', 'label'=>'Target relative dir for sources 3', 'visible'=>-1, 'enabled'=>1, 'position'=>53, 'notnull'=>-1,),
-		'conffile1' => array('type'=>'text', 'label'=>'Template of config file 1', 'visible'=>-1, 'enabled'=>1, 'position'=>54, 'notnull'=>-1,),
-		'targetconffile1' => array('type'=>'varchar(255)', 'label'=>'Target relative dir for config file 1', 'visible'=>-1, 'enabled'=>1, 'position'=>54, 'notnull'=>-1,),
-		'datafile1' => array('type'=>'varchar(255)', 'label'=>'Dir with data 1', 'visible'=>-1, 'enabled'=>1, 'position'=>55, 'notnull'=>-1, 'css'=>'minwidth500'),
-		'targetdatafile1' => array('type'=>'varchar(255)', 'label'=>'Target dir for data 1', 'visible'=>-1, 'enabled'=>1, 'position'=>55, 'notnull'=>-1,),
+		'targetsrcfile3' => array('type'=>'varchar(255)', 'label'=>'Target relative dir for sources 3', 'visible'=>-1, 'enabled'=>1, 'position'=>53, 'notnull'=>-1, 'css'=>'minwidth500'),
+		'conffile1' => array('type'=>'text', 'label'=>'Template of config file 1', 'visible'=>-1, 'enabled'=>1, 'position'=>54, 'notnull'=>-1),
+		'targetconffile1' => array('type'=>'varchar(255)', 'label'=>'Target relative dir for config file 1', 'visible'=>-1, 'enabled'=>1, 'position'=>54, 'notnull'=>-1, 'css'=>'minwidth500'),
+		'datafile1' => array('type'=>'varchar(255)', 'label'=>'Dir with dump files', 'visible'=>-1, 'enabled'=>1, 'position'=>55, 'notnull'=>-1, 'css'=>'minwidth500'),
+		//'targetdatafile1' => array('type'=>'varchar(255)', 'label'=>'Target dir for data 1', 'visible'=>-1, 'enabled'=>1, 'position'=>55, 'notnull'=>-1, 'css'=>'minwidth500'),
 		'sqlafter' => array('type'=>'text', 'label'=>'Sql after', 'visible'=>-1, 'enabled'=>1, 'position'=>60, 'notnull'=>-1,),
 		'crontoadd' => array('type'=>'text', 'label'=>'Template of cron file', 'visible'=>-1, 'enabled'=>1, 'position'=>70, 'notnull'=>-1, 'help'=>'Content will be used to add a file into /etc/cron.d'),
 		'status' => array('type'=>'integer', 'label'=>'Status', 'visible'=>1, 'enabled'=>1, 'position'=>1000, 'notnull'=>-1, 'index'=>1, 'arrayofkeyval'=>array('0'=>'Draft', '1'=>'Active', '-1'=>'Cancel')),
@@ -111,9 +111,15 @@ class Packages extends CommonObject
 	public $import_key;
 	public $sqldump;
 	public $srcfile1;
+	public $targetsrcfile1;
 	public $srcfile2;
+	public $targetsrcfile2;
 	public $srcfile3;
-	public $conffile;
+	public $targetsrcfile3;
+	public $conffile1;
+	public $targetconffile1;
+	public $datafile1;
+	public $targetdatafile1;
 	public $sqlafter;
 	public $crontoadd;
 	public $status;

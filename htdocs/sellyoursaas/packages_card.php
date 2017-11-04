@@ -545,6 +545,10 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
     		{
     			print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=edit">'.$langs->trans("Modify").'</a></div>'."\n";
     		}
+    		else
+    		{
+    			print '<div class="inline-block divButAction"><a class="butActionRefused" href="#" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans('Modify').'</a></div>'."\n";
+    		}
 
     	    /*if ($user->rights->sellyoursaas->create)
     		{
@@ -561,6 +565,10 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
     		if ($user->rights->sellyoursaas->delete)
     		{
     			print '<div class="inline-block divButAction"><a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=delete">'.$langs->trans('Delete').'</a></div>'."\n";
+    		}
+    		else
+    		{
+    			print '<div class="inline-block divButAction"><a class="butActionRefused" href="#" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans('Delete').'</a></div>'."\n";
     		}
     	}
     	print '</div>'."\n";

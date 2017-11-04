@@ -35,6 +35,46 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 
 $langs->load("sellyoursaas@sellyoursaas");
 
+$partner=GETPOST('partner','alpha');
+$plan=GETPOST('plan','alpha');
+
+include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+$productref='DOLICLOUD-PACK-Dolibarr';
+if ($plan)	// Plan is a product/service
+{
+	$productref=$plan;
+}
+$tmpproduct = new Product($db);
+$result = $tmpproduct->fetch(0, $productref);
+if (empty($tmpproduct->id))
+{
+	print 'Service/Plan '.$productref.' was not found.';
+	exit;
+}
+if (! preg_match('/^DOLICLOUD-PACK-(.+)$/', $tmpproduct->ref, $reg))
+{
+	print 'Service/Plan name is invalid. Name must be DOLICLOUD-PACK-...';
+	exit;
+}
+$packageref = $reg[1];
+
+dol_include_once('/sellyoursaas/class/packages.class.php');
+$tmppackage = new Packages($db);
+$tmppackage->fetch(0, $packageref);
+if (empty($tmppackage->id))
+{
+	print 'Package name '.$packageref.' was not found.';
+	exit;
+}
+
+
+/*
+ * Action
+ */
+
+// Nothing
+
+
 
 /*
  * View
@@ -47,15 +87,6 @@ $conf->dol_hide_leftmenu = 1;
 
 llxHeader();
 
-
-include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
-$productref='DOLV1Basic';
-if (GETPOST('plan','alpha'))
-{
-	$productref='DOLICLOUD-PACK-'.GETPOST('plan','alpha');
-}
-$tmpproduct = new Product($db);
-$result = $tmpproduct->fetch(0, $productref);
 ?>
 
 <div id="waitMask" style="display:none;">
@@ -124,8 +155,10 @@ $result = $tmpproduct->fetch(0, $productref);
 
       <form action="register_processing.php" method="post" id="formregister">
         <div class="form-content">
-          <input type="hidden" name="planCode" value="basic" />
-          <input type="hidden" name="cpCode" value="" />
+    	  <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
+          <input type="hidden" name="service" value="<?php echo dol_escape_htmltag($tmpproduct->ref); ?>" />
+          <input type="hidden" name="package" value="<?php echo dol_escape_htmltag($tmppackage->ref); ?>" />
+          <input type="hidden" name="partner" value="<?php echo dol_escape_htmltag($partner); ?>" />
           <section id="enterUserAccountDetails">
 
 

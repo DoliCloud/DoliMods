@@ -11,18 +11,20 @@
 
 export now=`date +%Y%m%d%H%M%S`
 
-echo 
-echo "# now --------------------> $now"
-echo "# PID --------------------> ${$}"
-echo "# user id ----------------> $(id -u)"
-echo "# PWD --------------------> $PWD" 
-echo "# arguments called with --> ${@}"
-echo "# path to me -------------> ${0}"
-echo "# parent path ------------> ${0%/*}"
-echo "# my name ----------------> ${0##*/}"
-echo "# realname ---------------> $(realpath ${0})"
-echo "# realname name ----------> $(basename $(realpath ${0}))"
-echo "# realname dir -----------> $(dirname $(realpath ${0}))"
+echo
+echo "**** ${0}"
+echo "${0} ${@}"
+echo "# user id --------> $(id -u)"
+echo "# now ------------> $now"
+echo "# PID ------------> ${$}"
+echo "# PWD ------------> $PWD" 
+echo "# arguments ------> ${@}"
+echo "# path to me -----> ${0}"
+echo "# parent path ----> ${0%/*}"
+echo "# my name --------> ${0##*/}"
+echo "# realname -------> $(realpath ${0})"
+echo "# realname name --> $(basename $(realpath ${0}))"
+echo "# realname dir ---> $(dirname $(realpath ${0}))"
 
 export PID=${$}
 export scriptdir=$(dirname $(realpath ${0}))
@@ -71,34 +73,55 @@ export domainname=$4
 export dbname=$5
 export dbusername=$6
 export dbpassword=$7
+
+export dirforconfig1=$8
+export targetdirforconfig1=$9
+export dirwithdumpfile=${10}
+export dirwithsources1=${11}
+export targetdirwithsources1=${12}
+export dirwithsources2=${13}
+export targetdirwithsources2=${14}
+export dirwithsources3=${15}
+export targetdirwithsources3=${16}
+export cronfile=${17}
+
 export fqn=$instancename.$domainname
 
-echo "vhostfile = $vhostfile"
-echo "targetdir = $targetdir"
+# For debug
 echo "osusername = $osusername"
 echo "instancename = $instancename"
 echo "domainname = $domainname"
 echo "dbname = $dbname"
+echo "dbusername = $dbusername"
+echo "dbpassword = $dbpassword"
+echo "dirforconfig1 = $dirforconfig1"
+echo "targetdirforconfig1 = $targetdirforconfig1"
+echo "dirwithdumpfile = $dirwithdumpfile"
+echo "dirwithsources1 = $dirwithsources1"
+echo "targetdirwithsources1 = $targetdirwithsources1"
+echo "dirwithsources2 = $dirwithsources2"
+echo "targetdirwithsources2 = $targetdirwithsources2"
+echo "dirwithsources3 = $dirwithsources3"
+echo "targetdirwithsources3 = $targetdirwithsources3"
+echo "cronfile = $cronfile"
+echo "vhostfile = $vhostfile"
+echo "targetdir = $targetdir"
 echo "fqn = $fqn"
 
 
 # Create user and directory
+echo "***** Create user $targetdir/$osusername"
 if [[ -d $targetdir/$osusername ]]
 then
-	echo "Dir $targetdir/$osusername already exists"
+	echo "$osusername seems to already exists"
 else
-	echo "Create dir $targetdir/$osusername"
 	useradd -m -d $targetdir/$osusername $osusername
-	mkdir -p "$targetdir/$osusername/$dbname/documents"
-	mkdir -p "$targetdir/$osusername/$dbname/htdocs"
+	if [[ "$?x" != "0x" ]]; then
+		echo Error failed to create user $osusername 
+		#exit 1
+	fi 
 	echo "HTML test page for $osusername" > "$targetdir/$osusername/$dbname/test.html"
 fi
-
-#if [[ ! -L "$targetdir/$osusername/$dbname/dolibarrtest" ]]
-#then
-#	echo "Add link $targetdir/$osusername/$dbname/dolibarrtest to dolibarr files"
-#	ln -fs /home/ldestailleur/git/dolibarr/htdocs "$targetdir/$osusername/$instancename/dolibarrtest"
-#fi
 
 
 # Create DNS entry
@@ -122,9 +145,12 @@ fi
 #
 #; other sub-domain records
 
-echo Add DNS entry for $instancename in $domainname
+echo "***** Add DNS entry for $instancename in $domainname"
 
-cat /etc/bind/with.dolicloud.com.hosts > /tmp/with.dolicloud.com.hosts.$PID
+echo "cat /etc/bind/with.dolicloud.com.hosts | grep -v '^$instancename ' > /tmp/with.dolicloud.com.hosts.$PID"
+cat /etc/bind/with.dolicloud.com.hosts | grep -v '^$instancename ' > /tmp/with.dolicloud.com.hosts.$PID
+
+echo "***** Add $instancename A 79.137.96.15 into tmp host file"
 echo $instancename A 79.137.96.15 >> /tmp/with.dolicloud.com.hosts.$PID  
 named-checkzone with.dolicloud.com /tmp/with.dolicloud.com.hosts.$PID
 if [[ "$?x" != "0x" ]]; then
@@ -132,68 +158,92 @@ if [[ "$?x" != "0x" ]]; then
 	exit 1
 fi 
 
-echo cp /etc/bind/with.dolicloud.com.hosts /etc/bind/with.dolicloud.com.hosts.back-$now
-cp /etc/bind/with.dolicloud.com.hosts /etc/bind/with.dolicloud.com.hosts.back-$now
+echo "**** Archive file with cp /etc/bind/with.dolicloud.com.hosts /etc/bind/archives/with.dolicloud.com.hosts-$now"
+cp /etc/bind/with.dolicloud.com.hosts /etc/bind/archives/with.dolicloud.com.hosts-$now
 
-mv /tmp/with.dolicloud.com.hosts.$PID /etc/bind/with.dolicloud.com.hosts
+echo "**** Move new host file"
+mv -fu /tmp/with.dolicloud.com.hosts.$PID /etc/bind/with.dolicloud.com.hosts
 
+echo "**** Reload dns"
 rndc reload with.dolicloud.com.hosts
 /etc/init.d/bind9 reload
 
-echo nslookup $fqn 127.0.0.1
+echo "**** nslookup $fqn 127.0.0.1"
 nslookup $fqn 127.0.0.1
 if [[ "$?x" != "0x" ]]; then
 	echo Error after reloading DNS. nslookup of $fqn fails. 
 	#exit 1
 fi 
 
+
 # Deploy files
-echo Deploy files into $targetdir/$osusername/$dbname/htdocs and $targetdir/$osusername/$dbname/documents
+echo "***** Deploy files"
 
 
 
 
 # Create database
-echo Create database $dbname for user $dbusername
+echo "***** Create database $dbname for user $dbusername"
 
 MYSQL=`which mysql`
 Q1="CREATE DATABASE IF NOT EXISTS $dbname; "
-Q2="GRANT USAGE ON $dbname.* TO $dbusername@% IDENTIFIED BY '$dbpassword'; "
-Q3="GRANT ALL PRIVILEGES ON $dbname.* TO $dbusername@%; "
+Q2="CREATE USER '$dbusername'@'%' IDENTIFIED BY '$dbpassword'; "
+Q3="GRANT CREATE,CREATE TEMPORARY TABLES,CREATE VIEW,DROP,DELETE,INSERT,SELECT,UPDATE,ALTER,INDEX,LOCK TABLES,REFERENCES,SHOW VIEW ON $dbname.* TO '$dbusername'@'%'; "
 Q4="FLUSH PRIVILEGES; "
 SQL="${Q1}${Q2}${Q3}${Q4}"
+echo Search sellyoursaas credential
+passsellyoursaas=`cat /root/sellyoursaas`
+echo $passsellyoursaas
+if [[ "x$passsellyoursaas" == "x" ]]; then
+	echo Search sellyoursaas credential 2
+	passsellyoursaas=`cat /tmp/sellyoursaas`
+	if [[ "x$passsellyoursaas" == "x" ]]; then
+		echo Failed to get password for mysql user sellyoursaas 
+		exit 1
+	fi
+fi 
 
-echo $MYSQL -uroot -e "$SQL"
-$MYSQL -uroot -e "$SQL"
+echo "$MYSQL -usellyoursaas -e $SQL"
+$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL"
+
+echo "You can test with mysql -h remotehost -u $dbusername -p$dbpassword"
+
+# Load dump file
+$MYSQL -usellyoursaas -p$passsellyoursaas < $dumpfile
 
 
 # Create apache virtual host
 export apacheconf="/etc/apache2/sites-available/$fqn.conf"
+echo "***** Create apache conf $apacheconf from $vhostfile"
 if [[ -f $apacheconf ]]
 then
 	echo "Apache conf $apacheconf already exists"
 else
-	echo "Create apache conf $apacheconf from $vhostfile"
+	echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename/g' | \
+		  sed -e 's/__webAppAliases__/$instancename/g' | \
+		  sed -e 's/__webAppLogName__/$instancename/g' | \
+		  sed -e 's/__osUsername__/$osusername/g' | \
+		  sed -e 's/__osGroupname__/$osusername/g' | \
+		  sed -e 's/__webAppPath__/$targetdir/' > $apacheconf"
 	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename/g" | \
 		  sed -e "s/__webAppAliases__/$instancename/g" | \
 		  sed -e "s/__webAppLogName__/$instancename/g" | \
 		  sed -e "s/__osUsername__/$osusername/g" | \
 		  sed -e "s/__osGroupname__/$osusername/g" | \
-		  sed -e 's/%__webAppPath__%$targetdir%' > $apacheconf
+		  sed -e "s/__webAppPath__/$targetdir/" > $apacheconf
 
-	echo a2ensite $fqn.conf
-	
+	echo Enabled conf with a2ensite $fqn.conf
 	a2ensite $fqn.conf
 
 	/usr/sbin/apache2ctl configtest
-	if [[ "$?x" != "0x" ]]; then
+	if [[ "x$?" != "x0" ]]; then
 		echo Error when running apache2ctl configtest 
-		exit 1
+		#exit 1
 	fi 
 
-	#echo "Apache tasks finished. service apache2 reload"
+	echo "***** Apache tasks finished. service apache2 reload"
 	service apache2 reload
-	if [[ "$?x" != "0x" ]]; then
+	if [[ "x$?" != "x0" ]]; then
 		echo Error when running service apache2 reload 
 		exit 2
 	fi 
