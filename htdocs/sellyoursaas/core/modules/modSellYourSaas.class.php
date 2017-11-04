@@ -608,7 +608,7 @@ class modSellYourSaas extends DolibarrModules
 		    'titre'=>'Summary (dolicloud old)',
 		    'mainmenu'=>'sellyoursaas',
 		    'leftmenu'=>'dolicloud',
-		    'url'=>'/sellyoursaas/backoffice/index.php',
+		    'url'=>'/sellyoursaas/backoffice/dolicloudold_index.php',
 		    'langs'=>'sellyoursaas@sellyoursaas',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 		    'position'=>300,
 		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
