@@ -109,42 +109,65 @@ if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 
 	if (! $error)
 	{
-		if (preg_match('/\.pdf$/i', $_FILES['userfile']['name']))
+		if (is_array($_FILES['userfile']['name']))
 		{
-			$upload_dir = $conf->concatpdf->dir_output.'/'.GETPOST('module', 'alpha');
-			if (dol_mkdir($upload_dir) >= 0)
+			$listoffiles=$_FILES['userfile']['name'];
+		}
+		else
+		{
+			$listoffiles=array($_FILES['userfile']['name']);
+		}
+
+		foreach($listoffiles as $key => $filename)
+		{
+			if (preg_match('/\.pdf$/i', $filename))
 			{
-				$resupload=dol_move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_dir . "/" . $_FILES['userfile']['name'],0,0,$_FILES['userfile']['error']);
-				if (is_numeric($resupload) && $resupload > 0)
+				$upload_dir = $conf->concatpdf->dir_output.'/'.GETPOST('module', 'alpha');
+				if (dol_mkdir($upload_dir) >= 0)
 				{
-					setEventMessage($langs->trans("FileTransferComplete"),'mesgs');
+					if (is_array($_FILES['userfile']['name']))
+					{
+						$tmp_name = $_FILES['userfile']['tmp_name'][$key];
+						$fileerror = $_FILES['userfile']['error'][$key];
+					}
+					else
+					{
+						$tmp_name = $_FILES['userfile']['tmp_name'];
+						$fileerror = $_FILES['userfile']['error'];
+					}
+
+					$resupload=dol_move_uploaded_file($tmp_name, $upload_dir . "/" . $filename, 0, 0, $fileerror);
+					if (is_numeric($resupload) && $resupload > 0)
+					{
+						setEventMessage($langs->trans("FileTransferComplete"),'mesgs');
+					}
+					else
+					{
+						$langs->load("errors");
+						if ($resupload < 0)	// Unknown error
+						{
+							setEventMessage($langs->trans("ErrorFileNotUploaded"),'mesgs');
+						}
+						else if (preg_match('/ErrorFileIsInfectedWithAVirus/',$resupload))	// Files infected by a virus
+						{
+							setEventMessage($langs->trans("ErrorFileIsInfectedWithAVirus"),'mesgs');
+						}
+						else	// Known error
+						{
+							setEventMessage($langs->trans($resupload),'errors');
+						}
+					}
 				}
 				else
 				{
-					$langs->load("errors");
-					if ($resupload < 0)	// Unknown error
-					{
-						setEventMessage($langs->trans("ErrorFileNotUploaded"),'mesgs');
-					}
-					else if (preg_match('/ErrorFileIsInfectedWithAVirus/',$resupload))	// Files infected by a virus
-					{
-						setEventMessage($langs->trans("ErrorFileIsInfectedWithAVirus"),'mesgs');
-					}
-					else	// Known error
-					{
-						setEventMessage($langs->trans($resupload),'errors');
-					}
+					$langs->load('errors');
+					setEventMessage($langs->trans("ErrorFailToCreateDir",$upload_dir),'errors');
 				}
 			}
 			else
 			{
-			    $langs->load('errors');
-			    setEventMessage($langs->trans("ErrorFailToCreateDir",$upload_dir),'errors');
+				setEventMessage($langs->trans("ErrorFileMustBeAPdf"),'errors');
 			}
-		}
-		else
-		{
-		    setEventMessage($langs->trans("ErrorFileMustBeAPdf"),'errors');
 		}
 	}
 }
