@@ -83,30 +83,56 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 echo json_encode(array(0=>'ErrorPOSTFieldFilesIsNotProvided'));
                 break;
             }
-            //var_dump($_FILES);
-			$result=dol_move_uploaded_file($_FILES['files']['tmp_name'], $upload_dir."/".dol_unescapefile($_FILES['files']['name']), 0, 0, $_FILES['userfile']['error']);
 
-        	$file1 = new stdClass();
-        	//$file1->url='http://uuu';
-        	//$file1->thumbnail_url='http://ttt';
-        	$file1->name=$_FILES['files']['name'][0];
-        	$file1->type=dol_mimetype($file1->name);
-        	$file1->size=dol_filesize($pathoffile);
-        	//$file1->delete_url='ddd';
-        	//$file1->delete_type='DELETE';
-        	if (is_numeric($result) && $result > 0) {
-        		// ok
-        	}
-        	else
-        	{
-        		if ($result == -3)
-        		{
-        			// Test permission
-        			if (! is_writable($upload_dir)) $file1->error='ErrorFileManagerWebServerUserHasNotPermission';
-        			else $file1->error='FailedToWriteFileToTargetDir';
-        		}
-        		else $file1->error='UnkownErrorDuringMove '.$result;
-        	}
+            if (is_array($_FILES['files']['name']))
+            {
+            	$listoffiles=$_FILES['files']['name'];
+            }
+            else
+            {
+            	$listoffiles=array($_FILES['files']['name']);
+            }
+
+            foreach($listoffiles as $key => $filename)
+            {
+            	if (is_array($_FILES['files']['name']))
+            	{
+            		$name =  $_FILES['files']['name'][$key];
+            		$tmp_name = $_FILES['files']['tmp_name'][$key];
+            		$fileerror = $_FILES['files']['error'][$key];
+            	}
+            	else
+            	{
+            		$name =  $_FILES['files']['name'];
+            		$tmp_name = $_FILES['files']['tmp_name'];
+            		$fileerror = $_FILES['files']['error'];
+            	}
+
+	            //var_dump($_FILES);
+				$result=dol_move_uploaded_file($tmp_name, $upload_dir."/".dol_unescapefile($name), 0, 0, $fileerror);
+
+	        	$file1 = new stdClass();
+	        	//$file1->url='http://uuu';
+	        	//$file1->thumbnail_url='http://ttt';
+	        	$file1->name=$name;
+	        	$file1->type=dol_mimetype($file1->name);
+	        	$file1->size=dol_filesize($upload_dir."/".dol_unescapefile($name));
+	        	//$file1->delete_url='ddd';
+	        	//$file1->delete_type='DELETE';
+	        	if (is_numeric($result) && $result > 0) {
+	        		// ok
+	        	}
+	        	else
+	        	{
+	        		if ($result == -3)
+	        		{
+	        			// Test permission
+	        			if (! is_writable($upload_dir)) $file1->error='ErrorFileManagerWebServerUserHasNotPermission';
+	        			else $file1->error='FailedToWriteFileToTargetDir';
+	        		}
+	        		else $file1->error='UnkownErrorDuringMove '.$result;
+	        	}
+            }
 
  	        // This json return format is ok with current version of jquery fileupload
  	        // 	 echo '[{"url":"http://jquery-file-upload.appspot.com/AMIfv95fcu6lggyE5W9TYM78sKEwUny89rCzk6fhT0B_rkp1cJPseoxG3-8eQ5GVYR_bsFUerIWsEWMx0kQ2aNNgg-xsh7_6gWv92YMk6wMl7Gs4fe72RzcCuu4I0JVrTaA9DTi8vGEOrX4PEAR8bfAzyxGZ26P1eA/Julien-Lavergne_reference_medium.jpg","thumbnail_url":"http://lh5.ggpht.com/cTSujaK0enHNYJCIxRnrClnu43eQcDcipY7adGKIJUgZjpPeOSVvuH5De50wGTawLS-thCx6bN0ulyqd4gu7wk1kwINBY4s=s80","name":"Julien-Lavergne_reference_medium.jpg","type":"image/jpeg","size":8738,"delete_url":"http://jquery-file-upload.appspot.com/AMIfv95fcu6lggyE5W9TYM78sKEwUny89rCzk6fhT0B_rkp1cJPseoxG3-8eQ5GVYR_bsFUerIWsEWMx0kQ2aNNgg-xsh7_6gWv92YMk6wMl7Gs4fe72RzcCuu4I0JVrTaA9DTi8vGEOrX4PEAR8bfAzyxGZ26P1eA/Julien-Lavergne_reference_medium.jpg?delete=true","delete_type":"DELETE"}]';
