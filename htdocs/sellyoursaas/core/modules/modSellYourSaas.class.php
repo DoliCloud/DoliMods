@@ -721,7 +721,8 @@ class modSellYourSaas extends DolibarrModules
 
 		// Create/import website called 'sellyoursaas'
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/website.lib.php';
-		$result = importWebSite('website_sellyoursaas-demo.zip');
+		$tmpwebsite = new WebSite($this->db);
+		$result = $tmpwebsite->importWebSite('website_sellyoursaas-demo.zip');
 
 
 		return $this->_init($sql,$options);
