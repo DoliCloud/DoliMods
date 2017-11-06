@@ -38,7 +38,7 @@ class ActionsTawkto
 		$out.= '<div class="inline-block"><div class="classfortooltip inline-block login_block_elem inline-block" style="padding: 0px; padding: 0px; padding-right: 3px !important;" title="'.dol_escape_htmltag($tooltiptext).'">';
 
 		$out.= '<a href="'.$_SERVER['PHP_SELF'].'?tawktotoggle=1"><span class="fa '.$fontas.' atoplogin"></span></a>';
-		$out.= '</div></div>'."\n";
+		$out.= '</div></div>';	// Do not ouptu "\n" here, it create a space into toolbar
 
 		$this->resprints = $out;
 
