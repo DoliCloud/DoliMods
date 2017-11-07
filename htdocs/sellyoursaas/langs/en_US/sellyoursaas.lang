@@ -103,3 +103,7 @@ NameForYourApplication=application address
 AccountAlreadyExistsForEmail=An account already exists for this email. If you are an already registered user and want to create another instance for the your account, just loggin to your <a href="%s" target="_myaccount">customer dashboard</a> to create another instance.
 AnonymousUser=Anonymous user
 NotLanguage=Not language
+DeploymentDateStart=Deployment start date
+DeploymentDateEnd=Deployment end date
+DeploymentStatus=Deployment status
+UndeploymentDate=Undeployment date

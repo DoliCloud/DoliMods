@@ -30,6 +30,8 @@ export PID=${$}
 export scriptdir=$(dirname $(realpath ${0}))
 export vhostfile="$scriptdir/templates/vhostHttps-dolibarr.template"
 export targetdir="/home/jail/home"				
+export ZONES_PATH="/etc/bind/zones"
+export ZONE="with.dolicloud.com.hosts" 
 
 
 if [ "$(id -u)" != "0" ]; then
@@ -147,25 +149,48 @@ fi
 
 echo "***** Add DNS entry for $instancename in $domainname"
 
-echo "cat /etc/bind/with.dolicloud.com.hosts | grep -v '^$instancename ' > /tmp/with.dolicloud.com.hosts.$PID"
-cat /etc/bind/with.dolicloud.com.hosts | grep -v '^$instancename ' > /tmp/with.dolicloud.com.hosts.$PID
+echo "cat /etc/bind/${ZONE} | grep -v '^$instancename ' > /tmp/${ZONE}.$PID"
+cat /etc/bind/${ZONE} | grep -v '^$instancename ' > /tmp/${ZONE}.$PID
 
 echo "***** Add $instancename A 79.137.96.15 into tmp host file"
-echo $instancename A 79.137.96.15 >> /tmp/with.dolicloud.com.hosts.$PID  
-named-checkzone with.dolicloud.com /tmp/with.dolicloud.com.hosts.$PID
-if [[ "$?x" != "0x" ]]; then
-	echo Error when editing the DNS file. File /tmp/with.dolicloud.com.hosts.$PID is not valid 
-	exit 1
-fi 
+echo $instancename A 79.137.96.15 >> /tmp/${ZONE}.$PID  
 
-echo "**** Archive file with cp /etc/bind/with.dolicloud.com.hosts /etc/bind/archives/with.dolicloud.com.hosts-$now"
-cp /etc/bind/with.dolicloud.com.hosts /etc/bind/archives/with.dolicloud.com.hosts-$now
+# we're looking line containing this comment
+export DATE=`date +%y%m%d%H`
+export NEEDLE="serial number"
+curr=$(/bin/grep -e "${NEEDLE}$" /tmp/${ZONE}.$PID | /bin/sed -n "s/^\s*\([0-9]*\)\s*;\s*${NEEDLE}\s*/\1/p")
+# replace if current date is shorter (possibly using different format)
+echo "Current bind counter is $curr"
+if [ ${#curr} -lt ${#DATE} ]; then
+  serial="${DATE}00"
+else
+  prefix=${curr::-2}
+  if [ "$DATE" -eq "$prefix" ]; then # same day
+    num=${curr: -2} # last two digits from serial number
+    num=$((10#$num + 1)) # force decimal representation, increment
+    serial="${DATE}$(printf '%02d' $num )" # format for 2 digits
+  else
+    serial="${DATE}00" # just update date
+  fi
+fi
+echo Replace serial in /tmp/${ZONE}.$PID with ${serial}
+/bin/sed -i -e "s/^\(\s*\)[0-9]\{0,\}\(\s*;\s*${NEEDLE}\)$/\1${serial}\2/" /tmp/${ZONE}.$PID
+
+echo Test temporary file /tmp/${ZONE}.$PID
+named-checkzone with.dolicloud.com /tmp/${ZONE}.$PID
+if [[ "$?x" != "0x" ]]; then
+	echo Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid 
+	exit 1
+fi
+
+echo "**** Archive file with cp /etc/bind/${ZONE} /etc/bind/archives/${ZONE}-$now"
+cp /etc/bind/${ZONE} /etc/bind/archives/${ZONE}-$now
 
 echo "**** Move new host file"
-mv -fu /tmp/with.dolicloud.com.hosts.$PID /etc/bind/with.dolicloud.com.hosts
+mv -fu /tmp/${ZONE}.$PID /etc/bind/${ZONE}
 
 echo "**** Reload dns"
-rndc reload with.dolicloud.com.hosts
+rndc reload with.dolicloud.com
 /etc/init.d/bind9 reload
 
 echo "**** nslookup $fqn 127.0.0.1"
