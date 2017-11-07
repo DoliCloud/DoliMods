@@ -41,6 +41,7 @@ echo "testorconfirm = $testorconfirm"
 
 
 MYSQL=`which mysql`
+MYSQL=`which mysqldump`
 echo "Search sellyoursaas credential
 passsellyoursaas=`cat /root/sellyoursaas`
 echo $passsellyoursaas
@@ -84,6 +85,14 @@ do
 	fi
 done
 
+echo "***** Search home without home" 
+for osusername in `ls $targetdir/osu*`
+do
+	if [ grep $osusername /etc/passwd ]; then
+		echo $osusername >> /tmp/osutoclean
+	fi
+done
+
 echo "***** Search unix account osu with undeployed database" 
 echo Process $osusername
 Q1="use dolibarr_nltechno; "
@@ -97,6 +106,17 @@ $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" >> /tmp/osutoclean
 echo "***** Archive and delete users"
 for osusername in `grep '^osu' /etc/osutoclean`
 do
+	echo Try to find database name
+	$SQL="aaaaa
+	echo "$MYSQL -usellyoursaas xxx $SQL"
+	export dbname = `$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL"`
+
+	if [[ "x$dbname" != "x" ]]; then	
+		echo "Do a dump of database $dbname (may fails if already removed)"
+		mkdir -p $targetdir/$osusername
+		echo "$MYSQLDUMP -usellyoursaas xxx > $targetdir/$osusername/dump.$now.sql"
+	fi
+	
 	echo deluser --remove-home --backup --backup-to $archivedir $osusername
 	if [[ $testorconfirm == "confirm" ]]
 	then
