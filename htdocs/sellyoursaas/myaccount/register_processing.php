@@ -177,7 +177,7 @@ if ($tmpthirdparty->id)
 
 // Generate credentials
 
-$generatedunixlogin = 'osu'.substr(getRandomPassword(true), 0, 9);
+$generatedunixlogin = strtolower('osu'.substr(getRandomPassword(true), 0, 9));		// Must be lowercase as it can be used for default email
 $generatedunixpassword = substr(getRandomPassword(true), 0, 10);
 
 $generateddbname = 'dbn'.substr(getRandomPassword(true), 0, 8);
@@ -287,8 +287,10 @@ if (! $error)
 	//$command = '/usr/bin/aaa.sh';
 	$outputfile = $conf->sellyoursaas->dir_temp.'/register.'.dol_getmypid().'.out';
 
-	$cronjob = new CronJob($db);
-	$retval = $cronjob->executeCLI($command, $outputfile, 1);
+	include_once DOL_DOCUMENT_ROOT.'/core/class/utils.class.php';
+	$utils = new Utils($db);
+	$retarray = $utils->executeCLI($command, $outputfile, 1);
+
 
 	//var_dump($cronjob);
 }
