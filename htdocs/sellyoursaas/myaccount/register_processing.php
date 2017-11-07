@@ -174,6 +174,15 @@ if ($tmpthirdparty->id)
 	//	exit;
 }
 
+$contract = new Contrat($db);
+$contract->fetch(0, '', $sldAndSubdomain);
+if ($contract->id)
+{
+	setEventMessages($langs->trans("InstanceNameAlreadyExists", $sldAndSubdomain), null, 'errors');
+	header("Location: ".$newurl);
+	exit;
+}
+
 
 // Generate credentials
 
@@ -256,18 +265,30 @@ else
 	$db->rollback();
 }
 
-//print ini_get('safe_mode');exit;
+
+// Create contract/instance
+if (! $error)
+{
+	$contract->ref_customer = $sldAndSubdomain;
+	$contract->fk_soc = $tmpthirdparty->id;
+	$contract->array_options['deployment_status'] = 'processing';
+	$contract->array_options['deployment_date_start'] = dol_now();
+
+	$result = $contract->create($user);
+	if ($result < 0)
+	{
+
+	}
+}
+
 
 // Create unix user and directories and DNS
-
 // Check the user www-data is allowed to "sudo /usr/bin/create_test_instance.sh"
-
 // If you get error "sudo: PERM_ROOT: setresuid(0, -1, -1): Operation not permitted", check module mpm_itk
 //<IfModule mpm_itk_module>
 //LimitUIDRange 0 5000
 //LimitGIDRange 0 5000
 //</IfModule>
-
 // If you get error "sudo: sorry, you must have a tty to run sudo", disable key "Defaults requiretty" from /etc/sudoers
 
 if (! $error)
@@ -291,7 +312,11 @@ if (! $error)
 	$utils = new Utils($db);
 	$retarray = $utils->executeCLI($command, $outputfile, 1);
 
-
+	if ($retarra['result'] != 0)
+	{
+		$email = new CMailFile('WARNING: Deployment error', 'supervision@dolicloud.com', $conf->global->MAIN_MAIL_EMAIL_FROM, 'Deployement of instance '.$sldAndSubdomain.' failed.'."\nCommand = ".$command);
+		$email->sendfile();
+	}
 	//var_dump($cronjob);
 }
 
@@ -318,6 +343,20 @@ if (! $error)
 		//setEventMessages($websiteaccount->error, $websiteaccount->errors, 'errors');
 	}
 }
+
+if (! $error)
+{
+	$contract->array_options['deployment_status'] = 'done';
+	$contract->array_options['deployment_date_end'] = dol_now();
+
+	$result = $contract->update($user);
+	if ($result < 0)
+	{
+
+	}
+}
+
+
 
 
 // Go to dashboard with login session forced
