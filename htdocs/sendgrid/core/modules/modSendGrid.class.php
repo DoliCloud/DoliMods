@@ -156,13 +156,13 @@ class modSendgrid extends DolibarrModules
 		$r=0;
 
 
-		$this->rights[$r][0] = 101332;
+		$this->rights[$r][0] = 101342;
 		$this->rights[$r][1] = 'Import Invoice';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'importinvoice';
 		$r++;
 
-		$this->rights[$r][0] = 101333;
+		$this->rights[$r][0] = 101343;
 		$this->rights[$r][1] = 'Administration of SENDGRID servers';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'sysadmin';
