@@ -371,7 +371,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 	}
 	if (preg_match('/google:([^\/]+)$/',$eventId,$reg))
 	{
-		$neweventid=$reg[1];
+		$neweventid=$reg[1];	// TODO This may not be enough because ID in dolibarr is 250 char max and in google may have 1024 chars
 	}
 
 	try {
@@ -516,7 +516,7 @@ function deleteEventById($client, $eventId, $login='primary', $service=null)
 	}
 	if (preg_match('/google:([^\/]+)$/',$eventId,$reg))
 	{
-		$neweventid=$reg[1];
+		$neweventid=$reg[1];	// TODO This may not be enough because ID in dolibarr is 250 char max and in google may have 1024 chars
 	}
 
 	dol_syslog("deleteEventById Delete old record on Google calendar with login=".$login.", id=".$neweventid, LOG_DEBUG);
@@ -672,7 +672,8 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 					}
 
 					$object = new ActionComm($db);
-					$result = $object->fetch(0, '', 'google:'.$event->getId());
+					$ref_ext = substr('google:'.$event->getId(), 0, 255);
+					$result = $object->fetch(0, '', $ref_ext);
 
 					if ($result > 0)	// Found into dolibarr
 					{

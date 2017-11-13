@@ -170,7 +170,7 @@ class InterfaceGoogleContactSynchro
 					if (! preg_match('/ERROR/',$ret))
 					{
 						if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
-						$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+						$object->update_ref_ext(substr($ret, 0, 255));	// This is to store ref_ext to allow updates
 						return 1;
 					}
 					else
@@ -194,7 +194,7 @@ class InterfaceGoogleContactSynchro
 							if (! preg_match('/ERROR/',$ret))
 							{
 								if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
-								$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+								$object->update_ref_ext(substr($ret, 0, 255));	// This is to store ref_ext to allow updates
 								return 1;
 							}
 							else
@@ -218,7 +218,7 @@ class InterfaceGoogleContactSynchro
 						if (! preg_match('/ERROR/',$ret))
 						{
 							if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
-							$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+							$object->update_ref_ext(substr($ret, 0, 255));	// This is to store ref_ext to allow updates
 							return 1;
 						}
 						else

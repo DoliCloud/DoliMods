@@ -250,10 +250,10 @@ function googleCreateContact($client, $object, $useremail='default')
 		$userdefined->setAttribute('key','dolibarr-date-create');
 		$userdefined->setAttribute('value',dol_print_date(dol_now(), 'dayrfc'));
 		$entry->appendChild($userdefined);
-		
+
 		// TODO Add other dolibarr fields
 		//...
-		
+
 		// Comment
 		$tmpnote=$object->note_private;
 		if (strpos($tmpnote,$google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$idindolibarr;
@@ -357,7 +357,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 	}
 	if (preg_match('/google:([^\/]+)$/',$contactId,$reg))
 	{
-		$newcontactid=$reg[1];
+		$newcontactid=$reg[1];	// TODO This may not be enough because ID in dolibarr is 250 char max and in google may have 1024 chars
 	}
 
 	$tag_debug='updatecontact';
@@ -365,7 +365,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 	dol_syslog('googleUpdateContact object->id='.$object->id.' type='.$object->element.' ref_ext='.$object->ref_ext.' contactid='.$newcontactid);
 
 	include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
-	
+
 	$google_nltechno_tag=getCommentIDTag();
 
 	// Fields: http://tools.ietf.org/html/rfc4287
@@ -384,12 +384,12 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 
 		$result = getURLContent('https://www.google.com/m8/feeds/contacts/'.urlencode($useremail).'/base/'.$newcontactid, 'GET', '', 0, $addheaderscurl);
 		$xmlStr=$result['content'];
-        
+
         /*if (empty($xmlStr))
         {
-            print "Something is wrong. The getURLContent to Google return an empty string\n";    
+            print "Something is wrong. The getURLContent to Google return an empty string\n";
         }*/
-        
+
 		//$contactId='https://www.google.com/m8/feeds/contacts/eldy10%40gmail.com/base/4429b3590f5b343a';
 		//$contactId='https://www.google.com/m8/feeds/contacts/contact%40nltechno.com/base/ee6fc620dbab6d7';
 		try {
@@ -499,7 +499,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
     			}
     		}
 		}
-		
+
 		$newphone=empty($object->phone)?$object->phone_pro:$object->phone;
 
 		// Phone(s)
@@ -529,17 +529,17 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 		if (strpos($tmpnote, $google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
 		$xml->content=google_html_convert_entities($tmpnote);
 
-		
+
 		$xmlStr=$xml->saveXML();
 		//print_r($xml);exit;
-		
-		
+
+
 		// Convert xml into DOM so we can use dom function to add website element
 		$doc  = new DOMDocument("1.0", "utf-8");
 		$doc->loadXML($xmlStr);
 		$entries = $doc->getElementsByTagName('entry');
 
-		
+
 		// Birthday (in namespace gdContact)
 		if (! $xmlgcontact->birthday->asXml() && $object->birthday)    // Not into current remote record, we add it if defined
 		{
@@ -551,7 +551,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
         		$entry->appendChild($birthday);
     		}
 		}
-		
+
 		// URL
 		$oldurl='';
 		if (! empty($object->oldcopy->url)) $oldurl=$object->oldcopy->url;
@@ -590,12 +590,12 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
         			$company = $doc->createElement('gd:organization');
         			$company->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
         			$entry->appendChild($company);
-        
+
         			$object->fetch_thirdparty();
         			if (! empty($object->thirdparty->name) || ! empty($object->poste))   // Job position and company name of contact
         			{
         				$thirdpartyname=$object->thirdparty->name;
-        
+
         				$orgName = $doc->createElement('gd:orgName', $thirdpartyname);
         				if (! empty($thirdpartyname)) $company->appendChild($orgName);
         				$orgTitle = $doc->createElement('gd:orgTitle', $object->poste);
@@ -611,21 +611,21 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
         			$company = $doc->createElement('gd:organization');
         			$company->setAttribute('rel', 'http://schemas.google.com/g/2005#other');
         			$entry->appendChild($company);
-        
+
         			//$object->fetch_thirdparty();
         			if (! empty($object->company))
         			{
         				$thirdpartyname=$object->company;
-        
+
         				$orgName = $doc->createElement('gd:orgName', $thirdpartyname);
         				if (! empty($thirdpartyname)) $company->appendChild($orgName);
         				//$orgTitle = $doc->createElement('gd:orgTitle', $object->poste);
         				//if (! empty($object->poste)) $company->appendChild($orgTitle);
         			}
     			}
-    		}		
+    		}
 		}
-		
+
 		/* Old code used when using SimpleXML object (not working)
 			foreach ($xml->website as $key => $val) {	// $key='@attributes' $val is an array('href'=>,'label'=>), however to set href it we must do $xml->website['href'] (it's a SimpleXML object)
 				$oldvalue=(string) $val['href'];
@@ -634,7 +634,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 			}
 		*/
 		//var_dump($xmlStr);exit;
-		
+
 		$xmlStr=$doc->saveXML();
 
 
@@ -718,7 +718,7 @@ function googleDeleteContactByRef($client, $ref, $useremail='default')
 	}
 	if (preg_match('/google:([^\/]+)$/',$ref,$reg))
 	{
-		$newcontactid=$reg[1];
+		$newcontactid=$reg[1];	// TODO This may not be enough because ID in dolibarr is 250 char max and in google may have 1024 chars
 	}
 
 	dol_syslog('googleDeleteContactByRef Gcontact ref to delete='.$newcontactid);
@@ -1222,13 +1222,13 @@ function getURLContentBis($url,$postorget='GET',$param='',$followlocation=1,$add
 	curl_setopt($ch, CURLOPT_USERAGENT, 'Dolibarr geturl function');
 
 	@curl_setopt($ch, CURLOPT_FOLLOWLOCATION, ($followlocation?true:false));   // We use @ here because this may return warning if safe mode is on or open_basedir is on
-	
+
 	if (count($addheaders)) curl_setopt($ch, CURLOPT_HTTPHEADER, $addheaders);
 	curl_setopt($ch, CURLINFO_HEADER_OUT, true);	// To be able to retrieve request header and log it
 
 	// $conf->global->GOOGLE_SSLVERSION should be set to 1 to use TLSv1 by default or change to TLSv1.2 in module configuration
 	if (isset($conf->global->GOOGLE_SSLVERSION)) curl_setopt($ch, CURLOPT_SSLVERSION, $conf->global->GOOGLE_SSLVERSION);
-	
+
 	//turning off the server and peer verification(TrustManager Concept).
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);

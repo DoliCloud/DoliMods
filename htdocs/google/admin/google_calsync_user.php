@@ -327,7 +327,7 @@ if ($action == 'pushallevents')
 				if (! preg_match('/ERROR/',$ret))
 				{
 					if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
-					$objecttmp->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+					$objecttmp->update_ref_ext(substr($ret, 0, 255));	// This is to store ref_ext to allow updates
 					$nbinserted++;
 				}
 				else

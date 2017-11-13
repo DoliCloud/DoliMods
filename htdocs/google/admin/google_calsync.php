@@ -343,30 +343,30 @@ if ($action == 'pushallevents')
 			$i=0;
 			while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
 			{
-				$object = new ActionComm($db);
-				$object->id=$obj->id;
-				$object->datep=$db->jdate($obj->datep);
-				$object->datef=$db->jdate($obj->datef);
-				$object->code=$obj->code;
-				$object->label=$obj->label;
-				$object->transparency=$obj->transparency;
-				$object->priority=$obj->priority;
-				$object->fulldayevent=$obj->fulldayevent;
-				$object->punctual=$obj->punctual;
-				$object->percent=$obj->percent;
-				$object->location=$obj->location;
-				$object->socid=$obj->fk_soc;
-				$object->contactid=$obj->fk_contact;
-				$object->note=$obj->note;
+				$objecttmp = new ActionComm($db);
+				$objecttmp->id=$obj->id;
+				$objecttmp->datep=$db->jdate($obj->datep);
+				$objecttmp->datef=$db->jdate($obj->datef);
+				$objecttmp->code=$obj->code;
+				$objecttmp->label=$obj->label;
+				$objecttmp->transparency=$obj->transparency;
+				$objecttmp->priority=$obj->priority;
+				$objecttmp->fulldayevent=$obj->fulldayevent;
+				$objecttmp->punctual=$obj->punctual;
+				$objecttmp->percent=$obj->percent;
+				$objecttmp->location=$obj->location;
+				$objecttmp->socid=$obj->fk_soc;
+				$objecttmp->contactid=$obj->fk_contact;
+				$objecttmp->note=$obj->note;
 
 				// Event label can now include company and / or contact info, see configuration
-				google_complete_label_and_note($object, $langs);
+				google_complete_label_and_note($objecttmp, $langs);
 
-				$ret = createEvent($servicearray, $object, $userlogin);
+				$ret = createEvent($servicearray, $objecttmp, $userlogin);
 				if (! preg_match('/ERROR/',$ret))
 				{
 					if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
-					$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+					$objecttmp->update_ref_ext(substr($ret, 0, 255));	// This is to store ref_ext to allow updates
 					$nbinserted++;
 				}
 				else

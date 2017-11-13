@@ -113,7 +113,7 @@ class InterfaceGoogleCalendarSynchro
         {
             return 0;
         }
-		
+
 		$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
 		if (empty($userlogin))	// We use setup of user
 		{
@@ -138,7 +138,7 @@ class InterfaceGoogleCalendarSynchro
     				$fuser->fetch($object->usertodo->id);
     				$userlogin = $fuser->conf->GOOGLE_LOGIN;
     			}
-    			else 
+    			else
     			{
     			    return 0;    // Should not occurs. This means there is no owner of event.
     			}
@@ -156,13 +156,13 @@ class InterfaceGoogleCalendarSynchro
         				$fuser->fetch($idusersalerep);
         				$userlogin = $fuser->conf->GOOGLE_LOGIN;
     		        }
-    		        else 
+    		        else
     		        {
     				    dol_syslog("Setup to synchronize events into a Google calendar is on but there is no sale representative linked to this event.", LOG_DEBUG);
     		            return 0;     // There is no sale representative
     		        }
 		        }
-		        else 
+		        else
     		    {
     			    dol_syslog("Setup to synchronize events into a Google calendar is on but there this event is no linked to a company no not linked to any sale representative", LOG_DEBUG);
     		        return 0;     // There is no sale representative
@@ -214,7 +214,7 @@ class InterfaceGoogleCalendarSynchro
 					if (! preg_match('/ERROR/',$ret))
 					{
 						if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
-						$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+						$object->update_ref_ext(substr($ret, 0, 255));	// This is to store ref_ext to allow updates
 						return 1;
 					}
 					else
@@ -226,7 +226,7 @@ class InterfaceGoogleCalendarSynchro
 				if ($action == 'ACTION_MODIFY')
 				{
 					$gid = basename($object->ref_ext);
-					
+
 					if ($gid && preg_match('/google/i', $object->ref_ext)) // This record is linked with Google Calendar
 					{
 						$ret = updateEvent($servicearray, $gid, $object, $userlogin);
@@ -239,7 +239,7 @@ class InterfaceGoogleCalendarSynchro
 						        $this->errors[]=$ret;
 						        return -1;
 						    }
-						    
+
 						    // We suppose update failed because record was not found, we try to create it
 							$ret = createEvent($servicearray, $object, $userlogin);
 							//var_dump($ret); exit;
@@ -247,7 +247,7 @@ class InterfaceGoogleCalendarSynchro
 							if (! preg_match('/ERROR/',$ret))
 							{
 								if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
-								$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+								$object->update_ref_ext(substr($ret, 0, 255));	// This is to store ref_ext to allow updates
 								return 1;
 							}
 							else
@@ -264,7 +264,7 @@ class InterfaceGoogleCalendarSynchro
 						if (! preg_match('/ERROR/',$ret))
 						{
 							if (! preg_match('/google\.com/',$ret)) $ret='google:'.$ret;
-							$object->update_ref_ext($ret);	// This is to store ref_ext to allow updates
+							$object->update_ref_ext(substr($ret, 0, 255));	// This is to store ref_ext to allow updates
 							return 1;
 						}
 						else
