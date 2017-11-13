@@ -109,7 +109,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 	{
         if (empty($conf->global->GOOGLE_API_CLIENT_ID)) return 'ErrorModuleGoogleNoGoogleClientId';
         if (empty($conf->global->GOOGLE_API_CLIENT_SECRET)) return 'ErrorModuleGoogleNoGoogleClientSecret';
-	    
+
         $client->setClientId($conf->global->GOOGLE_API_CLIENT_ID);
 		$client->setClientSecret($conf->global->GOOGLE_API_CLIENT_SECRET);
 		$client->setAccessType('offline');
@@ -162,7 +162,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 	{
         if (empty($service_account_name)) return 'ErrorModuleGoogleNoServiceAccountName';
         if (empty($key_file_location) || ! file_exists($key_file_location)) return 'ErrorModuleGoogleKeyFileNotFound';
-	   
+
 	    /************************************************
 		  If we have an access token, we can carry on.
 		  Otherwise, we'll get one with the help of an
@@ -379,7 +379,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 
 		//$event = new Google_Service_Calendar_Event();
 		$event = $service->events->get($login, $neweventid);
-		
+
 		if (is_object($event)) dol_syslog("updateEvent get old record id=".$event->getId()." found into google calendar", LOG_DEBUG);
 
 		// Set new value of events
@@ -440,7 +440,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		$gadget->setLink($urlevent);
 		$gadget->setIconLink($urlicon);
 		$event->setGadget($gadget);*/
-		
+
 		$event->setStatus('confirmed');		// tentative, cancelled
 		$event->setVisibility('default');	// default, public, private (view by attendees only), confidential (do not use)
 
@@ -570,7 +570,7 @@ function google_complete_label_and_note(&$object, $langs)
 			if (! empty($thirdparty->fax)) $more.="\n".$langs->trans("Fax").': '.$thirdparty->fax;
 
 			$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
-			
+
 			$urltoelem=$urlwithroot.$pagename.'?socid='.$thirdparty->id;
 			$object->note.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
 		}
@@ -717,7 +717,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						//$object->type_code='AC_OTH';
 						//$object->code='AC_OTH';
 						$object->label=$event->getSummary();
-						$object->transparency=((empty($transtmp) || $transtmp == 'opaque')?1:0);		// null or 'opaque' = busy, 'transparent' = available
+						$object->transparency=((empty($transtmp) || $transtmp == 'opaque')?1:0);		// null or 'opaque' = busy = transparency to 1, 'transparent' = available
 						//$object->priority=0;
 						//$object->percentage=-1;
 						$object->location=$event->getLocation();
@@ -761,17 +761,17 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						}*/
 
 						// Owner
-						if ($dolibarr_user_id)		// If owner were saved
+						if ($dolibarr_user_id)		// If owner were saved and found into google event
 						{
 							$object->userassigned=array();
-							$object->userassigned[$dolibarr_user_id]=array('id'=>$dolibarr_user_id);
+							$object->userassigned[$dolibarr_user_id]=array('id'=>$dolibarr_user_id, 'transparency'=>$object->transparency);
 							$object->userownerid=$dolibarr_user_id;
 						}
 						else						// If owner were not saved, we keep old one
 						{
 							$object->userassigned=array();
 							//$object->userownerid=$fuser->id;
-							$object->userassigned[$object->userownerid]=array('id'=>$object->userownerid);
+							$object->userassigned[$object->userownerid]=array('id'=>$object->userownerid, 'transparency'=>$object->transparency);
 						}
 
 						// Attendees
@@ -794,7 +794,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 										{
 											$tmpid = $obj->rowid;
 											//$userstatic->fetch($tmpid)
-											$object->userassigned[$tmpid]=array('id'=>$tmpid);
+											$object->userassigned[$tmpid]=array('id'=>$tmpid, 'transparency'=>$object->transparency);
 										}
 									}
 									else
@@ -883,7 +883,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						$object->code='AC_OTH';
 						$object->label=$event->getSummary();
 						$transtmp=$event->getTransparency();
-						$object->transparency=((empty($transtmp) || $transtmp == 'opaque')?1:0);		// null or 'opaque' = busy, 'transparent' = available
+						$object->transparency=((empty($transtmp) || $transtmp == 'opaque')?1:0);		// null or 'opaque' = busy = transparency to 1, 'transparent' = available
 						$object->priority=0;
 						$object->percentage=(empty($conf->global->GOOGLE_NEW_EVENT_FROM_GOOGLE_STATUS)?-1:$conf->global->GOOGLE_NEW_EVENT_FROM_GOOGLE_STATUS);
 						$object->location=$event->getLocation();
@@ -930,14 +930,14 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						if ($dolibarr_user_id)		// If owner were saved
 						{
 							$object->userassigned=array();
-							$object->userassigned[$dolibarr_user_id]=array('id'=>$dolibarr_user_id);
+							$object->userassigned[$dolibarr_user_id]=array('id'=>$dolibarr_user_id, 'transparency'=>$object->transparency);
 							$object->userownerid=$dolibarr_user_id;
 						}
 						else						// If owner were not saved, we keep old one
 						{
 							$object->userassigned=array();
 							$object->userownerid=$fuser->id;
-							$object->userassigned[$object->userownerid]=array('id'=>$object->userownerid);
+							$object->userassigned[$object->userownerid]=array('id'=>$object->userownerid, 'transparency'=>$object->transparency);
 						}
 
 						// Attendees
@@ -959,7 +959,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 										{
 											$tmpid = $obj->rowid;
 											//$userstatic->fetch($tmpid)
-											$object->userassigned[$tmpid]=array('id'=>$tmpid);
+											$object->userassigned[$tmpid]=array('id'=>$tmpid, 'transparency'=>$object->transparency);
 										}
 									}
 									else
@@ -1017,7 +1017,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 
 								$event->setSource($source);
 								*/
-                                
+
 								dol_syslog("Update google record to set the extended property");
 								$updatedEvent = $service->events->update($userlogin, $event->getId(), $event);
 

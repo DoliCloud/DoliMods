@@ -99,7 +99,7 @@ GOOGLE_FIX_TZ=TimeZone fix
 GOOGLE_API_CLIENT_ID=Google Client ID
 GOOGLE_API_CLIENT_SECRET=Google Client Secret
 GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=Service account Client ID
-GOOGLE_API_SERVICEACCOUNT_EMAIL=Service account user/email à autoriser (NOT your Google account login/email)
+GOOGLE_API_SERVICEACCOUNT_EMAIL=Service account email to allow (NOT your Google account login/email)
 GOOGLE_API_SERVICEACCOUNT_P12KEY=Service account p12 file
 FillThisOnlyIfRequired=Example: +2 (fill only if problem experienced)
 AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
@@ -117,7 +117,7 @@ FillAndSaveGoogleAccount=Fill and save your Google account and Google Client ID 
 LinkToOAuthPage=Link to Google OAuth2 page
 GoogleWebTokenNotDefinedDoALoginInitFirst=Google token was never generated. Ask your administror to go onto 'Home - Setup - Modules - Google - Setup page of contact sync' and generated once a security token.
 ImportEventsFromGoogle=Import last <strong>%s</strong> modified Google events from Google calendar <strong>%s</strong> and modified after
-GetFromGoogleSucess=Sync from Google success. %s record(s) inserted into Dolibarr, %s record(s) updated into Dolibarr, %s record(s) deleted into Dolibarr.
+GetFromGoogleSucess=Sync from Google success.<br>%s record(s) inserted into Dolibarr<br>%s record(s) updated into Dolibarr<br>%s record(s) deleted into Dolibarr.
 GetFromGoogleAlreadyDeleted=%s record(s) deleted on Google and not found into Dolibarr.
 OperationMayBeLong=operation may be long, restart if you epxerience timeout
 ErrorModuleGoogleKeyFileNotFound=Google key file %s was not found

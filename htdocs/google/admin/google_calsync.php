@@ -169,6 +169,7 @@ if (preg_match('/^test/',$action))
 
 	$object=new ActionComm($db);
 	$result=$object->initAsSpecimen();
+	$object->label='Test Dolibar-Google - Label';
 
 	$tmparray=dol_getdate(dol_now());
 	$object->datep=dol_mktime(12, 0, 0, $tmparray['mon'], $tmparray['mday'], $tmparray['year']);
@@ -191,7 +192,7 @@ if (preg_match('/^test/',$action))
 
 	if (! $error)
 	{
-		$object->label='New label';
+		$object->label='Test Dolibar-Google - New label';
 		$object->location='New location';
 		$object->note='New note';
 		//$object->datep+=$testoffset;

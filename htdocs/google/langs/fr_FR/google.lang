@@ -97,7 +97,7 @@ GoogleClientSecret=Client secret
 GOOGLE_WEB_TOKEN=Jeton en cours
 GOOGLE_FIX_TZ=Correctif du TimeZone
 GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=ID client du compte de service
-GOOGLE_API_SERVICEACCOUNT_EMAIL=User/email du compte de service (PAS votre compte login/email Google)
+GOOGLE_API_SERVICEACCOUNT_EMAIL=Email du compte de service (PAS votre compte login/email Google)
 GOOGLE_API_SERVICEACCOUNT_P12KEY=Fichier de compte de service p12
 FillThisOnlyIfRequired=Exemple: +2 (ne renseigner que si décalage constaté)
 AboutInfo=Ce module est développé et diffusé par Laurent Destailleur pour NLTechno, <a target="_blank" href="https://www.nltechno.com">www.nltechno.com</a> (société labellisé Dolibarr Prefered Partner).
@@ -115,7 +115,7 @@ FillAndSaveGoogleAccount=Remplissez et sauver le compte Google, le Google Client
 LinkToOAuthPage=Lien vers la page d'authentification Google OAuth2
 GoogleWebTokenNotDefinedDoALoginInitFirst=Le jeton Google n'a jamais été généré. Demandez à votre administreur d'aller dans 'Accueil - Configuration - Modules - Google - Configuration de la page sync contact' et générer une fois pour toute le jeton de sécurité.  
 ImportEventsFromGoogle=Importer les <strong>%s</strong> derniers évènements modifiés sous Google depuis l'agenda Google calendar <strong>%s</strong> et modifié après le 
-GetFromGoogleSucess=Syncronisation depuis Google réussie. %s enregistrement(s) inséré(s) dans Dolibarr, %s enregistrement(s) mis à jour dans Dolibarr, %s enregistrement(s) supprimés dans Dolibarr.
+GetFromGoogleSucess=Syncronisation depuis Google réussie.<br>%s enregistrement(s) inséré(s) dans Dolibarr<br>%s enregistrement(s) mis à jour dans Dolibarr<br>%s enregistrement(s) supprimés dans Dolibarr.
 GetFromGoogleAlreadyDeleted=%s enregisrement(s) effacés de Google et non trouvé dans Dolibarr.
 OperationMayBeLong=l'opération peut être longue, relancez si vous avez un timeout
 ErrorModuleGoogleKeyFileNotFound=Le fichier de clé Google %s n'a pas été trouvé

@@ -248,11 +248,10 @@ dol_fiche_end();
 
 // Define parameters
 $bgcolor='FFFFFF';
-$color_file = DOL_DOCUMENT_ROOT."/theme/".$conf->theme."/graph-color.php";
-if (is_readable($color_file))
+if (! empty($conf->global->THEME_ELDY_BACKBODY))
 {
-	include_once($color_file);
-	if (! empty($theme_bgcolor)) $bgcolor=dechex($theme_bgcolor[0]).dechex($theme_bgcolor[1]).dechex($theme_bgcolor[2]);
+	include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
+	$bgcolor=colorArrayToHex(colorStringToArray($conf->global->THEME_ELDY_BACKBODY));
 }
 
 $frame ='<iframe src="https://www.google.com/calendar/embed?';
