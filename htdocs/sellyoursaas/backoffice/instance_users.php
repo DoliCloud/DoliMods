@@ -396,6 +396,13 @@ if (empty($instanceoldid))
 }
 
 
+// Dolibarr instance login
+$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+print 'Dolibarr link (last logged admin): '.$link.'<br>';
+print '<br>';
+
+
 // ----- Instance DoliCloud v1 -----
 if (! empty($instanceoldid))
 {
@@ -418,15 +425,6 @@ if (! $user->societe_id)
 
     print "</div><br>";
 }
-
-
-// Dolibarr instance login
-$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
-$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-print 'Dolibarr link<br>';
-//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
-print $link.'<br>';
-print '<br>';
 
 
 llxFooter();
@@ -491,8 +489,15 @@ function print_user_table($newdb)
 			while ($i < $num)
 			{
 				$obj = $newdb->fetch_object($resql);
+
+				global $object;
+				$url='https://'.$object->instance.'.on.dolicloud.com?username='.$obj->login.'&amp;password='.$obj->pass;
+
 				print '<tr class="oddeven">';
-				print '<td>'.$obj->login.'</td>';
+				print '<td>';
+				print $obj->login;
+				print ' <a href="'.$url.'">'.img_object('', 'globe').'</a>';
+				print '</td>';
 				print '<td>'.$obj->lastname.'</td>';
 				print '<td>'.$obj->firstname.'</td>';
 				print '<td>'.$obj->admin.'</td>';

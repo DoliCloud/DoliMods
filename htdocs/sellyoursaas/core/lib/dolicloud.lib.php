@@ -86,7 +86,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	// Dolibarr instance login
 	$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
 	$link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
-	$links.='Dolibarr link: ';
+	$links.='Dolibarr link (last logged admin): ';
 	//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
 	$links.=$link.'<br>';
 
@@ -104,7 +104,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
     $sshconnectstring='ssh '.$object->username_web.'@'.$object->hostname_web;
     $links.='SSH connect string: ';
 	$links.='<input type="text" name="sshconnectstring" id="sshconnectstring" value="'.$sshconnectstring.'" size="110"><br>';
-	$links.=ajax_autoselect('sshconnectstring');
+	if ($conf->use_javascript_ajax) $links.=ajax_autoselect('sshconnectstring');
 	//$links.='<br>';
 
 	// SFTP
@@ -112,14 +112,14 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
     $sftpconnectstring='sftp://'.$object->username_web.'@'.$object->hostname_web.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
     $links.='SFTP connect string: ';
 	$links.='<input type="text" name="sftpconnectstring" id="sftpconnectstring" value="'.$sftpconnectstring.'" size="110"><br>';
-	$links.=ajax_autoselect('sftpconnectstring');
+	if ($conf->use_javascript_ajax) $links.=ajax_autoselect('sftpconnectstring');
 	//$links.='<br>';
 
 	// MySQL
 	$mysqlconnectstring='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db;
 	$links.='Mysql connect string: ';
 	$links.='<input type="text" name="mysqlconnectstring" id="mysqlconnectstring" value="'.$mysqlconnectstring.'" size="110"><br>';
-	$links.=ajax_autoselect('mysqlconnectstring');
+	if ($conf->use_javascript_ajax) $links.=ajax_autoselect('mysqlconnectstring');
 
 	// MySQL backup
 	/*$mysqlconnectstring='mysqldump -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db;
@@ -131,7 +131,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	//$jdbcconnectstring.=$object->database_db;
 	$links.='JDBC connect string: ';
 	$links.='<input type="text" name="jdbcconnectstring" id="jdbcconnectstring" value="'.$jdbcconnectstring.'" size="110"><br>';
-	$links.=ajax_autoselect('jdbcconnectstring');
+	if ($conf->use_javascript_ajax) $links.=ajax_autoselect('jdbcconnectstring');
 
 	$links.='<br>';
 	$links.='<br>';
@@ -143,35 +143,35 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	$mysqlresotrecommand='mysql -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db.' < filetorestore';
 	$links.='Mysql overwrite database:<br>';
 	$links.='<input type="text" id="mysqlrestorecommand" name="mysqlrestorecommand" value="'.$mysqlresotrecommand.'" class="quatrevingtpercent"><br>';
-	$links.=ajax_autoselect("mysqlrestorecommand", 0);
+	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("mysqlrestorecommand", 0);
 	$links.='<br>';
 
 	// Document restore
 	$sftprestorestring='rsync -n -v -a dolibarr_documents/* '.$object->username_web.'@'.$object->hostname_web.':'.$object->fs_path.'/documents';
 	$links.='Rsync to copy/overwrite document dir (remove -n to execute really):<br>';
 	$links.='<input type="text" id="sftprestorestring" name="sftprestorestring" value="'.$sftprestorestring.'" class="quatrevingtpercent"><br>';
-	$links.=ajax_autoselect("sftprestorestring", 0);
+	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("sftprestorestring", 0);
 	$links.='<br>';
 
 	// Deploy module
 	$sftpdeploystring='rsync -n -v -a pathtohtdocsmodule/* '.$object->username_web.'@'.$object->hostname_web.':'.$object->fs_path.'/htdocs/namemodule';
 	$links.='Rsync to install or overwrite module (remove -n to execute really):<br>';
 	$links.='<input type="text" id="sftpdeploystring" name="sftpdeploystring" value="'.$sftpdeploystring.'" class="quatrevingtpercent"><br>';
-	$links.=ajax_autoselect("sftpdeploystring", 0);
+	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("sftpdeploystring", 0);
 	$links.='<br>';
 
 	// Upgrade link
 	$upgradestringtoshow=$upgradestring.' test';
 	$links.='Upgrade version line string (remplacer "test" par "confirmunlock" pour exécuter réellement)<br>';
 	$links.='<input type="text" id="upgradestring" name="upgradestring" value="'.$upgradestringtoshow.'" class="quatrevingtpercent"><br>';
-	$links.=ajax_autoselect("upgradestring", 0);
+	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("upgradestring", 0);
 	$links.='<br>';
 
 	// Upgrade link
 	$purgestringtoshow=$purgestring;
 	$links.='Purge command line string (remplacer "test" par "confirm" pour exécuter réellement)<br>';
 	$links.='<input type="text" id="purgestring" name="purgestring" value="'.$purgestringtoshow.'" class="quatrevingtpercent"><br>';
-	$links.=ajax_autoselect("purgestring", 0);
+	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("purgestring", 0);
 	$links.='<br>';
 
 	return $links;
