@@ -289,7 +289,7 @@ if ($resql)
 
 		$object=new stdClass();
 		$object->id=$obj->id;
-		$object->name=$obj->name?$obj->name:($obj->lastname.' '.$obj->firstname);
+		$object->name=($obj->name?$obj->name:($obj->societe?$obj->societe:($obj->lastname.' '.$obj->firstname)));
 		$object->latitude = $obj->latitude;
 		$object->longitude = $obj->longitude;
 		$object->address = $address;
