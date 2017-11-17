@@ -328,7 +328,7 @@ $arrayofmassactions =  array(
     //'presend'=>$langs->trans("SendByMail"),
     //'builddoc'=>$langs->trans("PDFMerge"),
 );
-if ($user->rights->sellyoursaas->delete) $arrayofmassactions['delete']=$langs->trans("Delete");
+if ($user->rights->sellyoursaas->delete) $arrayofmassactions['predelete']=$langs->trans("Delete");
 if ($massaction == 'presend') $arrayofmassactions=array();
 $massactionbutton=$form->selectMassAction('', $arrayofmassactions);
 
