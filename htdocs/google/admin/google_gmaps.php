@@ -204,7 +204,7 @@ dol_htmloutput_mesg($mesg);
 
 // Show message
 $message='';
-//$urlgooglehelp='<a href="http://www.google.com/calendar/embed/EmbedHelper_en.html" target="_blank">http://www.google.com/calendar/embed/EmbedHelper_en.html</a>';
+//$urlgooglehelp='<a href="https://www.google.com/calendar/embed/EmbedHelper_en.html" target="_blank">http://www.google.com/calendar/embed/EmbedHelper_en.html</a>';
 //$message.=$langs->trans("GoogleSetupHelp",$urlgooglehelp);
 //print info_admin($message);
 

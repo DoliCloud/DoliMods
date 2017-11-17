@@ -815,7 +815,7 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail='d
 
 /* HERE AN EXAMPLE STRING */
 
-// Exemple of group: http://www.google.com/m8/feeds/groups/eldy10%40gmail.com/base/766e9f670b5f327a
+// Exemple of group: https://www.google.com/m8/feeds/groups/eldy10%40gmail.com/base/766e9f670b5f327a
 /*
 $xmlStr = <<<END
 <?xml version="1.0" encoding="utf-8"?>
@@ -840,7 +840,7 @@ Text &eacute;
     </gdata:structuredPostalAddress>
     <gdata:email rel="http://schemas.google.com/g/2005#work" address="contact@email.com" primary="true"/>
     <gcontact:userDefinedField key="dolibarr-id" value="11/thirdparty"/>
-    <gcontact:groupMembershipInfo deleted="false" href="http://www.google.com/m8/feeds/groups/eldy10%40gmail.com/base/766e9f670b5f327a"/>
+    <gcontact:groupMembershipInfo deleted="false" href="https://www.google.com/m8/feeds/groups/eldy10%40gmail.com/base/766e9f670b5f327a"/>
     <batch:operation type="insert"/>
   </atom:entry>
 </atom:feed>

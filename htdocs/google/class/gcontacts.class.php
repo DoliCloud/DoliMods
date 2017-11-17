@@ -299,11 +299,11 @@ class GContact
         //$this->appendTextElement($doc, $el, 'gdata:namePrefix', $peopleTitle);
         $this->atomEntry->appendChild($el);
 
-        $elfullName = $this->doc->createElement('gdata:fullName', $this->fullName);
+        $elfullName = $this->doc->createElement('gdata:fullName', google_html_convert_entities(dol_htmlentities($this->fullName)));
         $el->appendChild($elfullName);
 
         // Note as comment and a custom field
-        $this->atomEntry->appendChild($this->doc->createElement('atom:content', google_html_convert_entities($this->note_private)));
+        $this->atomEntry->appendChild($this->doc->createElement('atom:content', google_html_convert_entities(dol_htmlentities($this->note_private))));
         //$this->appendCustomField("Origin", 'Onelog');
 
         // Phones

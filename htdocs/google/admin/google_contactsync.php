@@ -170,7 +170,7 @@ if (preg_match('/^test/',$action))
     {
     	$result=$object->initAsSpecimen();
 
-    	$object->name='Test Synchro Thirdparty (can be deleted)';
+    	$object->name='Test Synchro Thirdparty & Co (can be deleted)';
 	    $object->lastname='Thirdparty (can be deleted)';
 	    $object->firstname='Test Synchro';
 	    $object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
@@ -189,7 +189,7 @@ if (preg_match('/^test/',$action))
     {
     	$result=$object->initAsSpecimen();
 
-    	$object->name='Test Synchro Contact (can be deleted)';
+    	$object->name='Test Synchro Contact & Co (can be deleted)';
     	$object->lastname='Contact (can be deleted)';
     	$object->firstname='Test Synchro';
 	    $object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
@@ -201,7 +201,7 @@ if (preg_match('/^test/',$action))
     {
     	$result=$object->initAsSpecimen();
 
-    	$object->name='Test Synchro Member (can be deleted)';
+    	$object->name='Test Synchro Member & Co (can be deleted)';
     	$object->lastname='Member (can be deleted)';
     	$object->firstname='Test Synchro';
 	    $object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
@@ -853,10 +853,10 @@ else
 		}
 		else dol_print_error($db);
 		print ':<br>';
-		if (! empty($conf->global->GOOGLE_WEB_TOKEN)) print '<div style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">'.$conf->global->GOOGLE_WEB_TOKEN.'</div>';
+		if (! empty($conf->global->GOOGLE_WEB_TOKEN)) print '<div class="quatrevingtpercent" style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">'.$conf->global->GOOGLE_WEB_TOKEN.'</div>';
 		print '<br>';
 		print 'Current session token:<br>';
-		if (! empty($_SESSION['google_web_token_'.$conf->entity])) print '<div style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">'.$_SESSION['google_web_token_'.$conf->entity].'</div>';
+		if (! empty($_SESSION['google_web_token_'.$conf->entity])) print '<div class="quatrevingtpercent" style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">'.$_SESSION['google_web_token_'.$conf->entity].'</div>';
 		else print $langs->trans("None");
 		print '<br>';
 		print '<br>';
