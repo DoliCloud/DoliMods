@@ -314,6 +314,16 @@ if ($resql)
 			$countgeoencoding++;
 
 			$point = geocoding($addresstosearch);
+
+			if (! is_array($point) && $point == 'ZERO_RESULTS')
+			{
+				// Try with a degraded address (if address is only a zip or "lieu-dit")
+				$degradedaddresstosearch = '...';
+
+				//$object->result_on_degraded_address = 1;
+				//$point = geocoding($degradedaddresstosearch);
+			}
+
 			if (is_array($point))
 			{
 				$object->latitude=$point['lat'];

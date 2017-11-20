@@ -1,5 +1,5 @@
 -- ===================================================================
--- Copyright (C) 2004-2010 Laurent Destailleur  <eldy@users.sourceforge.net>
+-- Copyright (C) 2004-2017 Laurent Destailleur  <eldy@users.sourceforge.net>
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@ CREATE TABLE llx_google_maps (
 	latitude FLOAT NULL,
 	longitude FLOAT NULL,
 	address varchar(255),
+	result_on_degraded_address INTEGER DEFAULT 0,		-- Set 1 if we force search on a degraded address (town only for example) because first try return ZERO_RESULT
 	result_code varchar(16),
 	result_label varchar(255),
 	tms timestamp
