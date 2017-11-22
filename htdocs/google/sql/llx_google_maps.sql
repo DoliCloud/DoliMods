@@ -23,7 +23,7 @@ CREATE TABLE llx_google_maps (
 	latitude FLOAT NULL,
 	longitude FLOAT NULL,
 	address varchar(255),
-	result_on_degraded_address INTEGER DEFAULT 0,		-- Set 1 if we force search on a degraded address (town only for example) because first try return ZERO_RESULT
+	result_on_degraded_address TINYINT DEFAULT 0,		-- Set 1 if we force search on a degraded address (town only for example) because first try return ZERO_RESULT
 	result_code varchar(16),
 	result_label varchar(255),
 	tms timestamp

@@ -17,7 +17,7 @@
 -- -- VMYSQL4.1 DELETE FROM llx_usergroup_user      WHERE fk_usergroup NOT IN (SELECT rowid from llx_usergroup);
 
 
-ALTER TABLE llx_google_maps ADD COLUMN result_on_degraded_address INTEGER DEFAULT 0;
+ALTER TABLE llx_google_maps ADD COLUMN result_on_degraded_address TINYINT DEFAULT 0;
 
 
 -- -- VMYSQL4.1 update llx_google_maps set tms = NOW() where tms IS NULL or tms = 0;
