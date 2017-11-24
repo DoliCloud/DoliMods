@@ -1,5 +1,9 @@
 # ChangeLog OVH MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
+## 3.8.4
+
+Can attach imported invoices to a project
+
 ## 3.8.3
 
 Add view of cloud servers with ability to make snapshots.
