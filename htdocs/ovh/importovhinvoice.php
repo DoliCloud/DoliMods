@@ -44,11 +44,13 @@ require_once(DOL_DOCUMENT_ROOT."/user/class/user.class.php");
 require_once(DOL_DOCUMENT_ROOT.'/fourn/class/paiementfourn.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/product/class/product.class.php');
+require_once(DOL_DOCUMENT_ROOT.'/projet/class/project.class.php');
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/lib/fourn.lib.php');
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
+require_once(DOL_DOCUMENT_ROOT."/core/class/html.formprojet.class.php");
 
 require __DIR__ . '/includes/autoload.php';
 use \Ovh\Api;
@@ -64,6 +66,7 @@ $endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPO
 
 
 $action=GETPOST('action','aZ09');
+$projectid=GETPOST('projectid','int');
 $excludenullinvoice=GETPOST('excludenullinvoice');
 //$idovhsupplier=GETPOST('idovhsupplier');
 $idovhsupplier=empty($conf->global->OVH_THIRDPARTY_IMPORT)?'':$conf->global->OVH_THIRDPARTY_IMPORT;
@@ -76,6 +79,11 @@ $fuser = $user;
 $now = dol_now();
 $datefrom = dol_mktime(0, 0, 0, GETPOST('datefrommonth'), GETPOST('datefromday'), GETPOST('datefromyear'));
 if (! $datefrom) $datefrom = dol_time_plus_duree($now, -6, 'm');
+
+
+/*
+ * Actions
+ */
 
 // Init client if we must do an action (list invoice or import it)
 if (! empty($action))
@@ -129,12 +137,6 @@ if (! empty($action))
 		setEventMessage('Exception: '.$e->getMessage().' - '.$e->getTraceAsString(),'errors');
 	}
 }
-
-
-
-/*
- * Action
- */
 
 if ($action == 'import' && $ovhthirdparty->id > 0)
 {
@@ -276,6 +278,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 				    $facfou->date_echeance = is_numeric($r['date'])?$r['date']:dol_stringtotime($r['date'],1);
 				}
 				$facfou->note_public   = '';
+				if ($projectid > 0) $facfou->fk_project = $projectid;
 
 				//var_dump($billnum.' - '.$facfou->date.' - '.dol_print_date($facfou->date,'dayhour'));exit;
 
@@ -361,6 +364,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
  */
 
 $form=new Form($db);
+$formproject = new FormProjets($db);
 
 llxHeader('',$langs->trans("OvhInvoiceImportShort"),'');
 
@@ -391,6 +395,8 @@ if ($ovhthirdparty->id <= 0)
 }
 
 
+print '<form name="refresh" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+
 print_fiche_titre($langs->trans("OvhInvoiceImportShort"));
 
 print $langs->trans("OvhInvoiceImportDesc").'<br><br>';
@@ -410,15 +416,15 @@ if ($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID > 0)
     $producttmp=new Product($db);
     $producttmp->fetch($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID);
     print $producttmp->getNomUrl(1);
+    print '<br>';
 }
 else
 {
     print '<strong>'.$langs->trans("NoneLabelOnOvhLineWillBeUsed").'</strong>';
+    print '<br>';
 }
 
 print '<br><br>';
-
-print '<form name="refresh" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 
 print '<div class="tabBar">';
 print '<table class="notopnoborder"><tr><td>';
@@ -498,10 +504,19 @@ if ($action == 'refresh')
 	    {
 	    	print '<form name="import" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 
-	        print '<div><div style="float:left;"><strong>'.$nbfound.'</strong> '.$langs->trans("Invoices")."</div>\n";
+	        print '<div><div class="clearboth floatleft"><strong>'.$nbfound.'</strong> '.$langs->trans("Invoices")."</div>\n";
 
-	    	// Submit form to launch import
-	    	print '<div style="float: right;">';
+	        // Submit form to launch import
+	        print '<div class="floatleft">';
+	        // Project for invoices
+	        if ($conf->projet->enabled)
+	        {
+	        	$disabled=0;
+	        	//if ($action == 'refresh') $disabled=1;
+	        	print $langs->trans("ProjectForImport").': ';
+	        	print $formproject->select_projects(-1, $projectid, 'projectid', 0, 0, 1, 1, 0, $disabled);
+	        	//print '<br>';
+	        }
 	    	print '<input type="hidden" name="action" value="import">';
 	    	print '<input type="hidden" name="datefromday" value="'.dol_print_date($datefrom,'%d').'">';
 	    	print '<input type="hidden" name="datefrommonth" value="'.dol_print_date($datefrom,'%m').'">';
