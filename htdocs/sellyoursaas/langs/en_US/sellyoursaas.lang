@@ -108,4 +108,4 @@ DeploymentDateEnd=Deployment end date
 DeploymentStatus=Deployment status
 UndeploymentDate=Undeployment date
 YourYearlyPaymentRequest=Your yearly payment request
-YourYearlyPaymentRequestWaRecorded=Your request to make a yearly payment was recorded. Just after next deadline, the payment will be done for the full year.<br>For payment per credit/debit card, you will receive an email to make the payment.<br>If you made a request for a SEPA payment (europe only), the bank transfer will be done automatically.
+YourYearlyPaymentRequestWaRecorded=Your request to make a yearly payment for the subscription to __[SELLYOURSAAS_NAME]__ was recorded. Just after next deadline, the payment will be done for the full year.<br>For payment per credit/debit card, you will receive an email to make the payment.<br>If you made a request for a SEPA payment (europe only), the bank transfer will be done automatically
