@@ -69,6 +69,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,1);						// Minimum version of PHP required by module
+		$this->langfiles = array("sellyoursaas@sellyoursaas");
 		$this->need_dolibarr_version = array(7,0,-5);	// Minimum version of Dolibarr required by module
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
@@ -134,11 +135,6 @@ class modSellYourSaas extends DolibarrModules
 
 
 		// Dictionaries
-	    if (! isset($conf->sellyoursaas->enabled))
-        {
-        	$conf->sellyoursaas=new stdClass();
-        	$conf->sellyoursaas->enabled=0;
-        }
         /*$this->dictionaries=array(
 		'langs'=>'sellyoursaas@sellyoursaaschno',
 		'tabname'=>array(MAIN_DB_PREFIX."c_dolicloud_plans"),
