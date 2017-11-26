@@ -48,7 +48,7 @@ class Googlemaps // extends CommonObject
 	var $address;
 	var $result_code;
 	var $result_label;
-
+	var $result_on_degraded_address;
 
 
     /**
@@ -70,9 +70,10 @@ class Googlemaps // extends CommonObject
      *      @param      int     $notrigger	    0=launch triggers after, 1=disable triggers
      *      @return     int                    	<0 if KO, Id of created object if OK
      */
-    function create($user, $notrigger=0)
-    {
-    	global $conf, $langs;
+	function create($user, $notrigger=0)
+	{
+		global $conf, $langs;
+
 		$error=0;
 
 		// Clean parameters
@@ -92,7 +93,8 @@ class Googlemaps // extends CommonObject
 		$sql.= "longitude, ";
 		$sql.= "address, ";
 		$sql.= "result_code, ";
-		$sql.= "result_label";
+		$sql.= "result_label, ";
+		$sql.= "result_on_degraded_address";
 
         $sql.= ") VALUES (";
 
@@ -102,7 +104,8 @@ class Googlemaps // extends CommonObject
 		$sql.= " ".(! isset($this->longitude)?'NULL':"'".$this->longitude."'").",";
 		$sql.= " ".(! isset($this->address)?'NULL':"'".$this->db->escape($this->address)."'").",";
 		$sql.= " ".(! isset($this->result_code)?'NULL':"'".$this->db->escape($this->result_code)."'").",";
-		$sql.= " ".(! isset($this->result_label)?'NULL':"'".$this->db->escape($this->result_label)."'")."";
+		$sql.= " ".(! isset($this->result_label)?'NULL':"'".$this->db->escape($this->result_label)."'").",";
+		$sql.= " ".(! isset($this->result_on_degraded_address)?0:$this->result_on_degraded_address);
 
 		$sql.= ")";
 
@@ -110,7 +113,7 @@ class Googlemaps // extends CommonObject
 
 	   	dol_syslog(get_class($this)."::create sql=".$sql, LOG_DEBUG);
         $resql=$this->db->query($sql);
-    	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
+        	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
 
 		if (! $error)
         {
@@ -168,44 +171,46 @@ class Googlemaps // extends CommonObject
 		$sql.= " t.longitude,";
 		$sql.= " t.address,";
 		$sql.= " t.result_code,";
-		$sql.= " t.result_label";
-        $sql.= " FROM ".MAIN_DB_PREFIX."google_maps as t";
-        if (empty($id))
-        {
-        	$sql.= " WHERE t.fk_object = ".$this->db->escape($element_id)." AND t.type_object = '".$this->db->escape($element_type)."'";
-        }
-        else
-        {
-        	$sql.= " WHERE t.rowid = ".$id;
-        }
-    	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
-        $resql=$this->db->query($sql);
-        if ($resql)
-        {
-            if ($this->db->num_rows($resql))
-            {
-                $obj = $this->db->fetch_object($resql);
+		$sql.= " t.result_label,";
+		$sql.= " t.result_on_degraded_address";
+		$sql.= " FROM ".MAIN_DB_PREFIX."google_maps as t";
+		if (empty($id))
+		{
+			$sql.= " WHERE t.fk_object = ".$this->db->escape($element_id)." AND t.type_object = '".$this->db->escape($element_type)."'";
+		}
+		else
+		{
+			$sql.= " WHERE t.rowid = ".$id;
+		}
+		dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
+		$resql=$this->db->query($sql);
+		if ($resql)
+		{
+			if ($this->db->num_rows($resql))
+			{
+				$obj = $this->db->fetch_object($resql);
 
-                $this->id    = $obj->rowid;
-				$this->fk_object = $obj->fk_object;
-				$this->type_object = $obj->type_object;
-				$this->latitude = $obj->latitude;
-				$this->longitude = $obj->longitude;
-				$this->address = $obj->address;
-				$this->result_code = $obj->result_code;
-				$this->result_label = $obj->result_label;
-            }
-            $this->db->free($resql);
+				$this->id							= $obj->rowid;
+				$this->fk_object						= $obj->fk_object;
+				$this->type_object					= $obj->type_object;
+				$this->latitude						= $obj->latitude;
+				$this->longitude						= $obj->longitude;
+				$this->address						= $obj->address;
+				$this->result_code					= $obj->result_code;
+				$this->result_label					= $obj->result_label;
+				$this->result_on_degraded_address	= $obj->result_on_degraded_address;
+			}
+			$this->db->free($resql);
 
-            return 1;
-        }
-        else
-        {
-      	    $this->error="Error ".$this->db->lasterror();
-            dol_syslog(get_class($this)."::fetch ".$this->error, LOG_ERR);
-            return -1;
-        }
-    }
+			return 1;
+		}
+		else
+		{
+			$this->error="Error ".$this->db->lasterror();
+			dol_syslog(get_class($this)."::fetch ".$this->error, LOG_ERR);
+			return -1;
+		}
+	}
 
 
     /**
@@ -215,9 +220,10 @@ class Googlemaps // extends CommonObject
      *      @param      int     $notrigger	    0=launch triggers after, 1=disable triggers
      *      @return     int                    	<0 if KO, >0 if OK
      */
-    function update($user=null, $notrigger=0)
-    {
-    	global $conf, $langs;
+	function update($user=null, $notrigger=0)
+	{
+		global $conf, $langs;
+
 		$error=0;
 
 		// Clean parameters
@@ -238,7 +244,8 @@ class Googlemaps // extends CommonObject
 		$sql.= " longitude=".(isset($this->longitude)?"'".$this->longitude."'":"null").",";
 		$sql.= " address=".(isset($this->address)?"'".$this->db->escape($this->address)."'":"null").",";
 		$sql.= " result_code=".(isset($this->result_code)?"'".$this->db->escape($this->result_code)."'":"null").",";
-		$sql.= " result_label=".(isset($this->result_label)?"'".$this->db->escape($this->result_label)."'":"null")."";
+		$sql.= " result_label=".(isset($this->result_label)?"'".$this->db->escape($this->result_label)."'":"null").",";
+		$sql.= " result_on_degraded_address=".($this->result_on_degraded_address>0?(int)$this->result_on_degraded_address:0);
 
         $sql.= " WHERE rowid=".$this->id;
 
@@ -246,7 +253,7 @@ class Googlemaps // extends CommonObject
 
 		dol_syslog(get_class($this)."::update sql=".$sql, LOG_DEBUG);
         $resql = $this->db->query($sql);
-    	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
+        	if (! $resql) { $error++; $this->errors[]="Error ".$this->db->lasterror(); }
 
 		if (! $error)
 		{
