@@ -40,6 +40,9 @@ class modMemcached extends DolibarrModules
      */
 	function __construct($db)
 	{
+		global $conf;
+		global $dolibarr_memcached_setup_disable;
+
 		$this->db = $db;
 
 		// Id for module (must be unique).
@@ -59,6 +62,8 @@ class modMemcached extends DolibarrModules
 		$this->version = '3.4';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		// Can be enabled / disabled only in the main company with superadmin account
+		$this->core_enabled = 1;
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
 		$this->special = 1;
 		// Name of png file (without png) used for this module
@@ -67,8 +72,14 @@ class modMemcached extends DolibarrModules
 		// Data directories to create when module is enabled
 		$this->dirs = array();
 
+		if (! empty($conf->memcached->enabled) && ! empty($dolibarr_memcached_setup_disable)) {
+			$this->always_enabled = true;	// Can't be disabled
+		}
+
 		// Config pages. Put here list of php page names stored in admin directory used to setup module
-		$this->config_page_url = array('memcached.php@memcached');
+		if (empty($dolibarr_memcached_setup_disable)) {
+			$this->config_page_url = array('memcached.php@memcached');
+		}
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled

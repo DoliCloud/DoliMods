@@ -69,7 +69,7 @@ if ($action == 'set')
 
 	if (! $error)
 	{
-		dolibarr_set_const($db,"MEMCACHED_SERVER",GETPOST("MEMCACHED_SERVER"),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"MEMCACHED_SERVER",GETPOST("MEMCACHED_SERVER"),'chaine',0,'',0);
 	}
 }
 
