@@ -191,7 +191,7 @@ mv -fu /tmp/${ZONE}.$PID /etc/bind/${ZONE}
 
 echo "**** Reload dns"
 rndc reload with.dolicloud.com
-/etc/init.d/bind9 reload
+#/etc/init.d/bind9 reload
 
 echo "**** nslookup $fqn 127.0.0.1"
 nslookup $fqn 127.0.0.1
