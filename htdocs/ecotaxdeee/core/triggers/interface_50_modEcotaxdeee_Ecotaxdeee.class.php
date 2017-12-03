@@ -176,7 +176,7 @@ class InterfaceEcotaxdeee
 		    }
 		}
 		*/
-		
+
 		// Renvoi 0 car aucune action de faite
 		return 0;
 	}
@@ -184,12 +184,12 @@ class InterfaceEcotaxdeee
 
 	/**
 	 * Calculate ecotax
-	 * 
+	 *
 	 * @param  string  $action     Action
 	 * @param  Object  $object     Is a line of object (->element, ->table_element must be defined)
 	 * @param  User    $user       User
 	 * @param  Langs   $langs      Langs
-	 * @param  Conf    $conf       Conf 
+	 * @param  Conf    $conf       Conf
 	 */
 	function _add_replace_ecotax($action,$object,$user,$langs,$conf)
 	{
@@ -282,7 +282,7 @@ class InterfaceEcotaxdeee
 				$tmpproduct=new Product($this->db);
 				$tmpproduct->fetch($line->fk_product);
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-				if (versioncompare(versiondolibarrarray(),array(3,6,-3)) < 999)	// <0 to test if we are 3.6.0 alpha or -
+				if (versioncompare(versiondolibarrarray(),array(3,6,-3)) < 999)	// <0 to test if we are 3.6.0 alpha or -, <999 means always
 				{
 					// If version < 3.6.0, get eco tax deee amount from extra field
 					$result=$tmpproduct->fetch_optionals($tmpproduct->id, $optionsArray);
@@ -301,7 +301,14 @@ class InterfaceEcotaxdeee
 		{
 			if (empty($ecoamount[$ecocateg]))
 			{
-				if (is_object($tmpecotaxline[$ecocateg])) $result=$tmpecotaxline[$ecocateg]->delete();
+				if ((float) DOL_VERSION < 7.0)
+				{
+					if (is_object($tmpecotaxline[$ecocateg])) $result=$tmpecotaxline[$ecocateg]->delete();
+				}
+				else
+				{
+					if (is_object($tmpecotaxline[$ecocateg])) $result=$tmpecotaxline[$ecocateg]->delete($user);
+				}
 			}
 		}
 
@@ -334,11 +341,22 @@ class InterfaceEcotaxdeee
 					$tmpecotaxline[$ecocateg]->total_localtax1 = $tmparray[9];
 					$tmpecotaxline[$ecocateg]->total_localtax2 = $tmparray[10];
 
-					if ($parentobject->table_element == 'facture')  $result=$tmpecotaxline[$ecocateg]->update($user,0);
-					if ($parentobject->table_element == 'commande') $result=$tmpecotaxline[$ecocateg]->update(0);
-					if ($parentobject->table_element == 'propal')   $result=$tmpecotaxline[$ecocateg]->update(0);
-					//if ($parentobject->table_element == 'order_supplier')   $result=$tmpecotaxline[$ecocateg]->update(0);
-					if ($parentobject->table_element == 'invoice_supplier') $result=$tmpecotaxline[$ecocateg]->update(0);
+					if ((float) DOL_VERSION < 7.0)
+					{
+						if ($parentobject->table_element == 'facture')  $result=$tmpecotaxline[$ecocateg]->update($user,0);
+						if ($parentobject->table_element == 'commande') $result=$tmpecotaxline[$ecocateg]->update(0);
+						if ($parentobject->table_element == 'propal')   $result=$tmpecotaxline[$ecocateg]->update(0);
+						//if ($parentobject->table_element == 'order_supplier')   $result=$tmpecotaxline[$ecocateg]->update(0);
+						if ($parentobject->table_element == 'invoice_supplier') $result=$tmpecotaxline[$ecocateg]->update(0);
+					}
+					else
+					{
+						if ($parentobject->table_element == 'facture')  $result=$tmpecotaxline[$ecocateg]->update($user,0);
+						if ($parentobject->table_element == 'commande') $result=$tmpecotaxline[$ecocateg]->update($user, 0);
+						if ($parentobject->table_element == 'propal')   $result=$tmpecotaxline[$ecocateg]->update($user, 0);
+						//if ($parentobject->table_element == 'order_supplier')   $result=$tmpecotaxline[$ecocateg]->update($user, 0);
+						if ($parentobject->table_element == 'invoice_supplier') $result=$tmpecotaxline[$ecocateg]->update($user, 0);
+					}
 				}
 				else
 				{
@@ -355,13 +373,17 @@ class InterfaceEcotaxdeee
 				// Insert line
 				$rang = count($lines) + 1;
 				$special_code = 2;
-				$txtva=get_default_tva($seller, $buyer, 0, 0);	// Get default VAT for generic product id=0 (highest vat rate)
+				$txtva = 0;
+				if (empty($conf->global->WEEE_DISABLE_VAT_ON_ECOTAX))	// This option should not be set.
+				{
+					$txtva=get_default_tva($seller, $buyer, 0, 0);	// Get default VAT for generic product id=0 (highest vat rate)
+				}
 
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
 				$product_id = 0;
 				if (! empty($conf->global->WEEE_PRODUCT_ID)) $product_id = $conf->global->WEEE_PRODUCT_ID;
-				
+
 				// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $date_start='', $date_end='', $ventil=0, $info_bits=0, $fk_remise_except='', $price_base_type='HT', $pu_ttc=0, $type=0, $rang=-1, $special_code=0, $origin='', $origin_id=0, $fk_parent_line=0, $fk_fournprice=null, $pa_ht=0, $label='',$array_options=0)
 				if ($parentobject->table_element == 'facture')  $result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, 0, 0, $product_id, 0, '', '', 0, 0, '', 'HT', 0, 1, $rang, $special_code, '', 0, 0, null, 0, '', 0);
 				// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $info_bits=0, $fk_remise_except=0, $price_base_type='HT', $pu_ttc=0, $date_start='', $date_end='', $type=0, $rang=-1, $special_code=0, $fk_parent_line=0, $fk_fournprice=null, $pa_ht=0, $label='',$array_options=0)
@@ -369,7 +391,7 @@ class InterfaceEcotaxdeee
 				// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $price_base_type='HT', $pu_ttc=0, $info_bits=0, $type=0, $rang=-1, $special_code=0, $fk_parent_line=0, $fk_fournprice=0, $pa_ht=0, $label='',$date_start='', $date_end='',$array_options=0)
 				if ($parentobject->table_element == 'propal')   $result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, 0, 0, $product_id, 0, 'HT', 0, 0, 1, $rang, $special_code, '', 0, 0, null, '', '', 0);
                 // TODO order_supplier and invoice_supplier
-				
+
 				//var_dump($result);exit;
 				if ($result <= 0)
 				{
