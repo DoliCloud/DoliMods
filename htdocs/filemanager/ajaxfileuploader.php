@@ -116,11 +116,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
 	        	//$file1->thumbnail_url='http://ttt';
 	        	$file1->name=$name;
 	        	$file1->type=dol_mimetype($file1->name);
-	        	$file1->size=dol_filesize($upload_dir."/".dol_unescapefile($name));
 	        	//$file1->delete_url='ddd';
 	        	//$file1->delete_type='DELETE';
-	        	if (is_numeric($result) && $result > 0) {
-	        		// ok
+	        	if (is_numeric($result) && $result > 0)	// ok
+	        	{
+	        		$file1->size=dol_filesize($upload_dir."/".dol_unescapefile($name));
 	        	}
 	        	else
 	        	{

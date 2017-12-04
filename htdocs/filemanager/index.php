@@ -201,9 +201,6 @@ if (GETPOST('action')=='deletedir')
  * view
  */
 
-$conf->global->REQUIRE_JQUERY_FILEUPLOAD=1;		// For 3.3+
-$conf->global->MAIN_USE_JQUERY_FILEUPLOAD=1; 	// For compatibility with 3.2 (constant was not enough)
-
 $maxheightwin=(isset($_SESSION["dol_screenheight"]) && $_SESSION["dol_screenheight"] > 500)?($_SESSION["dol_screenheight"]-166):660;
 
 $morecss=array();
