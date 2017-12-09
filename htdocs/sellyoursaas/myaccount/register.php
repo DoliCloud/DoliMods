@@ -48,12 +48,12 @@ $tmpproduct = new Product($db);
 $result = $tmpproduct->fetch(0, $productref);
 if (empty($tmpproduct->id))
 {
-	print 'Service/Plan '.$productref.' was not found.';
+	print 'Service/Plan (Product ref) '.$productref.' was not found.';
 	exit;
 }
 if (! preg_match('/^DOLICLOUD-PACK-(.+)$/', $tmpproduct->ref, $reg))
 {
-	print 'Service/Plan name is invalid. Name must be DOLICLOUD-PACK-...';
+	print 'Service/Plan name (Product ref) is invalid. Name must be DOLICLOUD-PACK-...';
 	exit;
 }
 $packageref = $reg[1];

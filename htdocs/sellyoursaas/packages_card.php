@@ -257,7 +257,7 @@ jQuery(document).ready(function() {
 // Part to create
 if ($action == 'create')
 {
-	print load_fiche_titre($langs->trans("NewObject", $langs->transnoentitiesnoconv("Packages")));
+	print load_fiche_titre($langs->trans("NewObject", $langs->transnoentitiesnoconv("Package")));
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -267,40 +267,9 @@ if ($action == 'create')
 	dol_fiche_head(array(), '');
 
 	print '<table class="border centpercent">'."\n";
-	foreach($object->fields as $key => $val)
-	{
-	    if (in_array($key, array('rowid', 'entity', 'date_creation', 'tms', 'fk_user_creat', 'fk_user_modif', 'import_key'))) continue;
 
-    	print '<tr id="field_'.$key.'">';
-    	print '<td';
-    	print ' class="titlefieldcreate';
-    	if ($val['notnull'] > 0) print ' fieldrequired';
-		if ($val['type'] == 'text') print ' tdtop';
-		print '"';
-    	print '>';
-    	print $langs->trans($val['label']);
-    	print '</td>';
-    	print '<td>';
-    	$defaultcss='minwidth100';
-    	if ($val['type'] == 'text')
-    	{
-    		print '<textarea class="flat quatrevingtpercent" rows="'.ROWS_4.'" name="'.$key.'">';
-    		print GETPOST($key,'none');
-    		print '</textarea>';
-    	}
-    	elseif (is_array($val['arrayofkeyval']))
-   		{
-   			print $form->selectarray($key, $val['arrayofkeyval'], GETPOST($key, 'int'));
-    	}
-    	else
-    	{
-    		$cssforinput = empty($val['css'])?$defaultcss:$val['css'];
-    		print '<input class="flat'.($cssforinput?' '.$cssforinput:'').'" type="text" name="'.$key.'" value="'.(GETPOST($key,'alpha')?GETPOST($key,'alpha'):'').'">';
-    	}
-    	if ($key == 'ref') print '<span class="opacitymedium">Example: dolibarr, dolipos, dolibarrextended</span>';
-    	print '</td>';
-    	print '</tr>';
-	}
+	// Common attributes
+	include DOL_DOCUMENT_ROOT . '/core/tpl/commonfields_add.tpl.php';
 
 	// Other attributes
 	include DOL_DOCUMENT_ROOT . '/core/tpl/extrafields_add.tpl.php';
@@ -309,7 +278,11 @@ if ($action == 'create')
 
 	dol_fiche_end();
 
-	print '<div class="center"><input type="submit" class="button" name="add" value="'.dol_escape_htmltag($langs->trans("Create")).'"> &nbsp; <input type="submit" class="button" name="cancel" value="'.dol_escape_htmltag($langs->trans("Cancel")).'"></div>';
+	print '<div class="center">';
+	print '<input type="submit" class="button" name="add" value="'.dol_escape_htmltag($langs->trans("Create")).'">';
+	print '&nbsp; ';
+	print '<input type="'.($backtopage?"submit":"button").'" class="button" name="cancel" value="'.dol_escape_htmltag($langs->trans("Cancel")).'"'.($backtopage?'':' onclick="javascript:history.go(-1)"').'>';	// Cancel for create does not post form if we don't know the backtopage
+	print '</div>';
 
 	print '</form>';
 }
@@ -317,9 +290,10 @@ if ($action == 'create')
 // Part to edit record
 if (($id || $ref) && $action == 'edit')
 {
-	print load_fiche_titre($langs->trans("sellyoursaas"));
+	print load_fiche_titre($langs->trans("SellYourSaas"));
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 	print '<input type="hidden" name="action" value="update">';
 	print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
 	print '<input type="hidden" name="id" value="'.$object->id.'">';
@@ -327,37 +301,9 @@ if (($id || $ref) && $action == 'edit')
 	dol_fiche_head();
 
 	print '<table class="border centpercent">'."\n";
-	foreach($object->fields as $key => $val)
-	{
-	    if (in_array($key, array('rowid', 'entity', 'date_creation', 'tms', 'fk_user_creat', 'fk_user_modif', 'import_key'))) continue;
 
-    	print '<tr><td';
-    	print ' class="titlefieldcreate';
-    	if ($val['notnull'] > 0) print ' fieldrequired';
-		if ($val['type'] == 'text') print ' tdtop';
-    	print '"';
-    	print '>'.$langs->trans($val['label']).'</td>';
-    	print '<td>';
-    	$defaultcss='minwidth100';
-    	if ($val['type'] == 'text')
-    	{
-    		print '<textarea class="flat quatrevingtpercent" rows="'.ROWS_4.'" name="'.$key.'">';
-    		print GETPOST($key,'none')?GETPOST($key,'none'):$object->$key;
-    		print '</textarea>';
-    	}
-	    elseif (is_array($val['arrayofkeyval']))
-   		{
-   			print $form->selectarray($key, $val['arrayofkeyval'], GETPOST($key, 'int')!=''?GETPOST($key, 'int'):$object->$key);
-    	}
-    	else
-    	{
-    		$cssforinput = empty($val['css'])?$defaultcss:$val['css'];
-    		print '<input class="flat'.($cssforinput?' '.$cssforinput:'').'" type="text" name="'.$key.'" value="'.(GETPOST($key,'alpha')?GETPOST($key,'alpha'):$object->$key).'">';
-    	}
-    	if ($key == 'ref') print '<span class="opacitymedium">Example: dolibarr, dolipos, dolibarrextended</span>';
-    	print '</td>';
-    	print '</tr>';
-	}
+	// Common attributes
+	include DOL_DOCUMENT_ROOT . '/core/tpl/commonfields_edit.tpl.php';
 
 	// Other attributes
 	include DOL_DOCUMENT_ROOT . '/core/tpl/extrafields_edit.tpl.php';
@@ -470,51 +416,9 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	print '<div class="underbanner clearboth"></div>';
 	print '<table class="border centpercent">'."\n";
 
-	foreach($object->fields as $key => $val)
-	{
-	    if (in_array($key, array('rowid', 'ref', 'entity', 'note_public', 'note_private', 'date_creation', 'tms', 'fk_user_creat', 'fk_user_modif', 'import_key', 'status'))) continue;
-
-    	print '<tr><td';
-    	print ' class="titlefield';
-    	if ($val['notnull'] > 0) print ' fieldrequired';
-    	print '"';
-    	print '>'.$langs->trans($val['label']).'</td>';
-    	print '<td>';
-    	print dol_escape_htmltag($object->$key, 1, 1);
-    	print '</td>';
-    	print '</tr>';
-
-    	if ($key == 'targetsrcfile3') break;							// key used for break on second column
-	}
-
-	print '</table>';
-	print '</div>';
-	print '<div class="fichehalfright">';
-	print '<div class="ficheaddleft">';
-	print '<div class="underbanner clearboth"></div>';
-	print '<table class="border centpercent">';
-
-	$alreadyoutput = 1;
-	foreach($object->fields as $key => $val)
-	{
-		if ($alreadyoutput)
-		{
-			if ($key == 'targetsrcfile3') $alreadyoutput = 0;			// key used for break on second column
-			continue;
-		}
-
-	    if (in_array($key, array('rowid', 'ref', 'entity', 'note_public', 'note_private', 'date_creation', 'tms', 'fk_user_creat', 'fk_user_modif', 'import_key', 'status'))) continue;
-
-    	print '<tr><td';
-    	print ' class="titlefield';
-    	if ($val['notnull'] > 0) print ' fieldrequired';
-    	print '"';
-    	print '>'.$langs->trans($val['label']).'</td>';
-    	print '<td>';
-    	print dol_escape_htmltag($object->$key, 1, 1);
-    	print '</td>';
-    	print '</tr>';
-	}
+	// Common attributes
+	$keyforbreak = 'targetsrcfile3';
+	include DOL_DOCUMENT_ROOT . '/core/tpl/commonfields_view.tpl.php';
 
 	// Other attributes
 	include DOL_DOCUMENT_ROOT . '/core/tpl/extrafields_view.tpl.php';

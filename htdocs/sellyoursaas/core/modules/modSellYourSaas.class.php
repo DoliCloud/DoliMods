@@ -718,7 +718,7 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('filelock',                 "Date filelock", 'datetime',  29,    '',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
 
 		$resultx=$extrafields->addExtraField('nb_users',     "Last nb of enabled users",       'int',  40,   '8',    'contrat', 0, 0, '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('nb_gb',                   "Last nb of Gb",       'int',  41,   '8',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('nb_gb',                   "Last nb of Gb",    'double',  41,'10,2',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
 
 
 		// Create/import website called 'sellyoursaas'

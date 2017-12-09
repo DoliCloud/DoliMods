@@ -29,7 +29,6 @@ echo "# realname dir ---> $(dirname $(realpath ${0}))"
 export PID=${$}
 export scriptdir=$(dirname $(realpath ${0}))
 export vhostfile="$scriptdir/templates/vhostHttps-dolibarr.template"
-export targetdir="/home/jail/home"				
 export ZONES_PATH="/etc/bind/zones"
 export ZONE="with.dolicloud.com.hosts" 
 
@@ -86,6 +85,7 @@ export targetdirwithsources2=${14}
 export dirwithsources3=${15}
 export targetdirwithsources3=${16}
 export cronfile=${17}
+export targetdir=${18}
 
 export fqn=$instancename.$domainname
 

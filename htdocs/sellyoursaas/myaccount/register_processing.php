@@ -34,6 +34,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/cron/class/cronjob.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/websiteaccount.class.php';
 
@@ -60,7 +61,7 @@ $password2 = GETPOST('password2','alpha');
 $country_code = GETPOST('address_country','alpha');
 $sldAndSubdomain = GETPOST('sldAndSubdomain','alpha');
 $remoteip = $_SERVER['REMOTE_ADDRESS'];
-
+$generateduniquekey=getRandomPassword(true);
 $partner=GETPOST('partner','alpha');
 $plan=GETPOST('plan','alpha');
 
@@ -74,12 +75,12 @@ $tmpproduct = new Product($db);
 $result = $tmpproduct->fetch(0, $productref);
 if (empty($tmpproduct->id))
 {
-	print 'Service/Plan '.$productref.' was not found.';
+	print 'Service/Plan (Product ref) '.$productref.' was not found.';
 	exit;
 }
 if (! preg_match('/^DOLICLOUD-PACK-(.+)$/', $tmpproduct->ref, $reg))
 {
-	print 'Service/Plan name is invalid. Name must be DOLICLOUD-PACK-...';
+	print 'Service/Plan name (Product ref) is invalid. Name must be DOLICLOUD-PACK-...';
 	exit;
 }
 $packageref = $reg[1];
@@ -163,25 +164,31 @@ if ($password != $password2)
 
 print $langs->trans("PleaseWait");
 
+
 // Create thirdparty (if it already exist, return warning)
+dol_syslog("Fetch thirdparty from email ".$email);
 $tmpthirdparty=new Societe($db);
-$tmpthirdparty->fetch(0, '', '', '', '', '', '', '', '', '', $email);
-if ($tmpthirdparty->id)
+$result = $tmpthirdparty->fetch(0, '', '', '', '', '', '', '', '', '', $email);
+if ($result > 0 || $result < 0)
 {
-	setEventMessages($langs->trans("AccountAlreadyExistsForEmail", 'https://myaccount.dolicloud.com'), null, 'errors');
+	setEventMessages($langs->trans("AccountAlreadyExistsForEmail", $conf->global->SELLYOURSAAS_ACCOUNT_URL), null, 'errors');
 	// TODO Restore this
 	//	header("Location: ".$newurl);
 	//	exit;
 }
+else dol_syslog("Not found");
 
+dol_syslog("Fetch contract from domain name ".$sldAndSubdomain);
 $contract = new Contrat($db);
-$contract->fetch(0, '', $sldAndSubdomain);
-if ($contract->id)
+$result = $contract->fetch(0, '', $sldAndSubdomain);
+if ($result > 0)
 {
 	setEventMessages($langs->trans("InstanceNameAlreadyExists", $sldAndSubdomain), null, 'errors');
+	// TODO Restore this
 	header("Location: ".$newurl);
 	exit;
 }
+else dol_syslog("Not found");
 
 
 // Generate credentials
@@ -203,7 +210,7 @@ $error = 0;
 $db->begin();	// Start transaction
 
 
-$tmpthirdparty->nom = $orgname;
+$tmpthirdparty->name = $orgname;
 $tmpthirdparty->email = $email;
 $tmpthirdparty->client = 3;
 $tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
@@ -219,7 +226,6 @@ if ($tmpthirdparty->id > 0)
 	if ($result <= 0)
 	{
 		$db->rollback();
-		$error++;
 		setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
 		header("Location: ".$newurl);
 		exit;
@@ -232,7 +238,6 @@ else
 	if ($result <= 0)
 	{
 		$db->rollback();
-		$error++;
 		setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
 		header("Location: ".$newurl);
 		exit;
@@ -252,8 +257,9 @@ if (! empty($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG))
 }
 else
 {
-	dol_print_error('', 'Setup of module not complete. Missing the default customer tag');
+	dol_print_error('', 'Setup of module not complete. The default customer tag is not defined.');
 	$error++;
+	exit;
 }
 
 if (! $error)
@@ -269,15 +275,37 @@ else
 // Create contract/instance
 if (! $error)
 {
+	dol_syslog("Create contract with deployment status 'Processing'");
+
+	$now = dol_now();
+
 	$contract->ref_customer = $sldAndSubdomain;
-	$contract->fk_soc = $tmpthirdparty->id;
-	$contract->array_options['deployment_status'] = 'processing';
-	$contract->array_options['deployment_date_start'] = dol_now();
+	$contract->socid = $tmpthirdparty->id;
+	$contract->commercial_signature_id = $user->id;
+	$contract->commercial_suivi_id = $user->id;
+	$contract->date_contrat = $now;
+
+	$contract->array_options['options_plan'] = $tmppackage->ref;
+	$contract->array_options['options_deployment_status'] = 'processing';
+	$contract->array_options['options_deployment_date_start'] = $now;
+	$contract->array_options['options_date_endfreeperiod'] = dol_time_plus_duree($now, 15, 'd');
+	$contract->array_options['options_hostname_os'] = $domainname;
+	$contract->array_options['options_username_os'] = $generatedunixlogin;
+	$contract->array_options['options_password_os'] = $generatedunixpassword;
+	$contract->array_options['options_hostname_db'] = $domainname;
+	$contract->array_options['options_database_db'] = $generateddbname;
+	$contract->array_options['options_port_db'] = 3306;
+	$contract->array_options['options_username_db'] = $generateddbusername;
+	$contract->array_options['options_password_db'] = $generateddbpassword;
+	$contract->array_options['options_nb_users'] = 1;
+	$contract->array_options['options_nb_gb'] = 0.01;
 
 	$result = $contract->create($user);
-	if ($result < 0)
+	if ($result <= 0)
 	{
-
+		setEventMessages($contract->error, $contract->errors, 'errors');
+		header("Location: ".$newurl);
+		exit;
 	}
 }
 
@@ -293,17 +321,37 @@ if (! $error)
 
 if (! $error)
 {
-	// TODO create tmp config file from $tmppackage->conffile1
-	// Replace __INSTANCEDIR__, __INSTALLHOURS__, __INSTALLMINUTES__, __OSUSERNAME__, __APPUNIQUEKEY__, __APPDOMAIN__, __APPWEBROOTPATH__,
-	$tmppackage->srcconffile1 = '/tmp/aaa';
-	$tmppackage->srccronfile = '/tmp/bbb';
+	$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
+
+	// Replace __INSTANCEDIR__, __INSTALLHOURS__, __INSTALLMINUTES__, __OSUSERNAME__, __APPUNIQUEKEY__, __APPDOMAIN__, ...
+	$substitarray=array(
+	'__INSTANCEDIR__'=>$targetdir.'/'.$generatedunixlogin.'/'.$generateddbname,
+	'__INSTALLHOURS__'=>dol_print_date($now, '%H'),
+	'__INSTALLMINUTES__'=>dol_print_date($now, '%M'),
+	'__OSUSERNAME__'=>$generatedunixlogin,
+	'__APPUNIQUEKEY__'=>$generateduniquekey,
+	'__APPDOMAIN__'=>$domainname.'.'.$sldAndSubdomain,
+	'__DBNAME__'=>$generateddbname,
+	'__DBUSER__'=>$generateddbusername,
+	'__DBPASSWORD__'=>$generateddbpassword
+	);
+
+	$conffile = make_substitutions($tmppackage->conffile1, $substitarray);
+	$cronfile = make_substitutions($tmppackage->crontoadd, $substitarray);
+	$tmppackage->srcconffile1 = '/tmp/config.php'.$sldAndSubdomain.'.tmp';
+	$tmppackage->srccronfile = '/tmp/cron'.$sldAndSubdomain.'.tmp';
+
+	dol_syslog("Create conf file ".$tmppackage->srcconffile1);
+	file_put_contents($tmppackage->srcconffile1, $conffile);
+	dol_syslog("Create cron file ".$tmppackage->srccronfile1);
+	file_put_contents($tmppackage->srccronfile1, $cronfile);
 
 	//$command = 'sudo /usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword;
 	$command = '/usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword.' '.$sldAndSubdomain.' '.$domainname;
 	$command.= ' '.$generateddbname.' '.$generateddbusername.' '.$generateddbpassword;
 	$command.= ' "'.$tmppackage->srcconffile1.'" "'.$tmppackage->targetconffile1.'" "'.$tmppackage->datafile1.'"';
 	$command.= ' "'.$tmppackage->srcfile1.'" "'.$tmppackage->targetsrcfile1.'" "'.$tmppackage->srcfile2.'" "'.$tmppackage->targetsrcfile2.'" "'.$tmppackage->srcfile3.'" "'.$tmppackage->targetsrcfile3.'"';
-	$command.= ' "'.$tmppackage->srccronfile.'"';
+	$command.= ' "'.$tmppackage->srccronfile.'" "'.$targetdir.'"';
 
 	//$command = '/usr/bin/aaa.sh';
 	$outputfile = $conf->sellyoursaas->dir_temp.'/register.'.dol_getmypid().'.out';
