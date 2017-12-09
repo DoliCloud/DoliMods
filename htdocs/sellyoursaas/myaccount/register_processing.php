@@ -83,6 +83,12 @@ if (! preg_match('/^DOLICLOUD-PACK-(.+)$/', $tmpproduct->ref, $reg))
 	print 'Service/Plan name (Product ref) is invalid. Name must be DOLICLOUD-PACK-...';
 	exit;
 }
+if (empty($tmpproduct->duration_value) || empty($tmpproduct->duration_unit))
+{
+	print 'Service/Plan name (Product ref) '.$productref.' has no default duration';
+	exit;
+}
+
 $packageref = $reg[1];
 
 dol_include_once('/sellyoursaas/class/packages.class.php');
@@ -284,6 +290,7 @@ if (! $error)
 	$contract->commercial_signature_id = $user->id;
 	$contract->commercial_suivi_id = $user->id;
 	$contract->date_contrat = $now;
+	$contract->note_private = 'Created from web interface';
 
 	$contract->array_options['options_plan'] = $tmppackage->ref;
 	$contract->array_options['options_deployment_status'] = 'processing';
@@ -307,6 +314,9 @@ if (! $error)
 		header("Location: ".$newurl);
 		exit;
 	}
+
+
+
 }
 
 
@@ -326,6 +336,7 @@ if (! $error)
 	// Replace __INSTANCEDIR__, __INSTALLHOURS__, __INSTALLMINUTES__, __OSUSERNAME__, __APPUNIQUEKEY__, __APPDOMAIN__, ...
 	$substitarray=array(
 	'__INSTANCEDIR__'=>$targetdir.'/'.$generatedunixlogin.'/'.$generateddbname,
+	'__DOL_DATA_ROOT__'=>DOL_DATA_ROOT,
 	'__INSTALLHOURS__'=>dol_print_date($now, '%H'),
 	'__INSTALLMINUTES__'=>dol_print_date($now, '%M'),
 	'__OSUSERNAME__'=>$generatedunixlogin,
@@ -336,15 +347,26 @@ if (! $error)
 	'__DBPASSWORD__'=>$generateddbpassword
 	);
 
+	$tmppackage->srcconffile1 = '/tmp/config.php.'.$sldAndSubdomain.'.tmp';
+	$tmppackage->srccronfile = '/tmp/cron.'.$sldAndSubdomain.'.tmp';
+
 	$conffile = make_substitutions($tmppackage->conffile1, $substitarray);
 	$cronfile = make_substitutions($tmppackage->crontoadd, $substitarray);
-	$tmppackage->srcconffile1 = '/tmp/config.php'.$sldAndSubdomain.'.tmp';
-	$tmppackage->srccronfile = '/tmp/cron'.$sldAndSubdomain.'.tmp';
+
+	$tmppackage->targetconffile1 = make_substitutions($tmppackage->targetconffile1, $substitarray);
+	$tmppackage->datafile1 = make_substitutions($tmppackage->datafile1, $substitarray);
+	$tmppackage->srcfile1 = make_substitutions($tmppackage->srcfile1, $substitarray);
+	$tmppackage->srcfile2 = make_substitutions($tmppackage->srcfile2, $substitarray);
+	$tmppackage->srcfile3 = make_substitutions($tmppackage->srcfile3, $substitarray);
+	$tmppackage->targetsrcfile1 = make_substitutions($tmppackage->targetsrcfile1, $substitarray);
+	$tmppackage->targetsrcfile2 = make_substitutions($tmppackage->targetsrcfile2, $substitarray);
+	$tmppackage->targetsrcfile3 = make_substitutions($tmppackage->targetsrcfile3, $substitarray);
+
 
 	dol_syslog("Create conf file ".$tmppackage->srcconffile1);
 	file_put_contents($tmppackage->srcconffile1, $conffile);
 	dol_syslog("Create cron file ".$tmppackage->srccronfile1);
-	file_put_contents($tmppackage->srccronfile1, $cronfile);
+	file_put_contents($tmppackage->srccronfile, $cronfile);
 
 	//$command = 'sudo /usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword;
 	$command = '/usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword.' '.$sldAndSubdomain.' '.$domainname;
@@ -394,14 +416,99 @@ if (! $error)
 
 if (! $error)
 {
-	$contract->array_options['deployment_status'] = 'done';
-	$contract->array_options['deployment_date_end'] = dol_now();
+	$contract->array_options['options_deployment_status'] = 'done';
+	$contract->array_options['options_deployment_date_end'] = dol_now();
 
 	$result = $contract->update($user);
 	if ($result < 0)
 	{
-
+		// We ignore errors. This should not happen in real life.
+		//setEventMessages($contract->error, $contract->errors, 'errors');
 	}
+
+	$discount = 0;
+
+	$object = $tmpthirdparty;
+
+	if (! $error)
+	{
+		// Create contract line for INSTANCE
+		if (! $error)
+		{
+			if (empty($object->country_code))
+			{
+				$object->country_code = dol_getIdFromCode($db, $object->country_id, 'c_country', 'rowid', 'code');
+			}
+			$qty = 1;
+			//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+			$vat = get_default_tva($mysoc, $object, $product->id);
+			$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
+			$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
+			//var_dump($mysoc->country_code);
+			//var_dump($object->country_code);
+			//var_dump($product->tva_tx);
+			//var_dump($vat);exit;
+
+			$price = $product->price;
+			if ($dolicloudcustomer->id > 0)
+			{
+				$price = $dolicloudcustomer->price_instance;
+				if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
+			}
+
+			if ($price == 0) $discount = 0;
+
+			$contactlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreate, $discount, $date_start, $date_end, 'HT', 0);
+			if ($contactlineid < 0)
+			{
+				$error++;
+				setEventMessages($contract->error, $contract->errors, 'errors');
+			}
+		}
+
+		//var_dump('user:'.$dolicloudcustomer->price_user);
+		//var_dump('instance:'.$dolicloudcustomer->price_instance);
+		//exit;
+
+		// Create contract line for USERS
+		if (! $error)
+		{
+			$qty = 0;
+			if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+			$vat = get_default_tva($mysoc, $object, 0);
+			$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
+			$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
+
+			$price = $product->array_options['options_price_per_user'];
+			if ($dolicloudcustomer->id > 0)
+			{
+				$price = $dolicloudcustomer->price_user;
+				if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
+			}
+
+			if ($price > 0 && $qty > 0)
+			{
+				$contactlineid = $contract->addline('Additional users', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, 0, $discount, $date_start, $date_end, 'HT', 0);
+				if ($contactlineid < 0)
+				{
+					$error++;
+					setEventMessages($contract->error, $contract->errors, 'errors');
+				}
+			}
+		}
+
+		// Activate all lines
+		if (! $error)
+		{
+			$result = $contract->activateAll($user);
+			if ($result <= 0)
+			{
+				$error++;
+				setEventMessages($contract->error, $contract->errors, 'errors');
+			}
+		}
+	}
+
 }
 
 

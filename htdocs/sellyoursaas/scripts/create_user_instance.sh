@@ -117,11 +117,12 @@ if [[ -d $targetdir/$osusername ]]
 then
 	echo "$osusername seems to already exists"
 else
-	useradd -m -d $targetdir/$osusername $osusername
+	echo "useradd -m -d $targetdir/$osusername -p XXXXXXXXXX -s '/bin/secureBash' $osusername"
+	useradd -m -d $targetdir/$osusername -p $ospassword -s '/bin/secureBash' $osusername 
 	if [[ "$?x" != "0x" ]]; then
 		echo Error failed to create user $osusername 
 		#exit 1
-	fi 
+	fi
 	echo "HTML test page for $osusername" > "$targetdir/$osusername/$dbname/test.html"
 fi
 

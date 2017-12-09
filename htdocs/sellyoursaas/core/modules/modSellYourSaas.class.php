@@ -702,10 +702,10 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('deployment_status',     "DeploymentStatus",   'select',   5,    '',    'contrat', 0, 0, '',  $param, 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('deployment_date_start', "DeploymentDateStart", 'datetime',   6,    '',    'contrat', 0, 0, '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('deployment_date_end',     "DeploymentDateEnd", 'datetime',   6,    '',    'contrat', 0, 0, '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('deployment_ip',             "DeploymentIP",  'varchar',   7,    '',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('deployment_ip',             "DeploymentIP",  'varchar',   7, '128',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('date_endfreeperiod',      "Date end trial", 'datetime',   8,    '',    'contrat', 0, 0, '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('undeployment_date',     "UndeploymentDate", 'datetime',   9,    '',    'contrat', 0, 0, '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('undeployment_ip',         "UndeploymentIP",  'varchar',  10,    '',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('undeployment_ip',         "UndeploymentIP",  'varchar',  10, '128',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('hostname_os',                "Hostname OS",  'varchar',  20,  '32',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('username_os',                "Username OS",  'varchar',  21,  '32',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('password_os',                "Password OS",  'varchar',  22,  '32',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
@@ -714,11 +714,11 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('port_db',                        "Port DB",  'varchar',  25,  '32',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('username_db',                "Username DB",  'varchar',  26,  '32',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$resultx=$extrafields->addExtraField('password_db',                "Password DB",  'varchar',  27,  '64',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('fileauthorizekey', "Date fileauthorizekey", 'datetime',  28,    '',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('filelock',                 "Date filelock", 'datetime',  29,    '',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('fileauthorizekey',  "DateFileauthorizekey", 'datetime',  28,    '',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('filelock',                  "DateFilelock", 'datetime',  29,    '',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
 
-		$resultx=$extrafields->addExtraField('nb_users',     "Last nb of enabled users",       'int',  40,   '8',    'contrat', 0, 0, '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('nb_gb',                   "Last nb of Gb",    'double',  41,'10,2',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('nb_users',            "LastNbEnabledUsers",      'int',  40,   '8',    'contrat', 0, 0, '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('nb_gb',                       "LastNbOfGb",   'double',  41,'10,2',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
 
 
 		// Create/import website called 'sellyoursaas'
