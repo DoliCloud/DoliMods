@@ -87,9 +87,11 @@ export targetdirwithsources3=${16}
 export cronfile=${17}
 export targetdir=${18}
 
+export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
 
 # For debug
+echo "...input params..."
 echo "osusername = $osusername"
 echo "instancename = $instancename"
 echo "domainname = $domainname"
@@ -108,22 +110,24 @@ echo "targetdirwithsources3 = $targetdirwithsources3"
 echo "cronfile = $cronfile"
 echo "vhostfile = $vhostfile"
 echo "targetdir = $targetdir"
+echo "...calculated params..."
+echo "instancedir = $instancedir"
 echo "fqn = $fqn"
 
 
 # Create user and directory
-echo "***** Create user $targetdir/$osusername"
-if [[ -d $targetdir/$osusername ]]
+echo "***** Create user /home/jail/home/$osusername"
+if [[ -d /home/jail/home/$osusername ]]
 then
 	echo "$osusername seems to already exists"
 else
-	echo "useradd -m -d $targetdir/$osusername -p XXXXXXXXXX -s '/bin/secureBash' $osusername"
+	echo "useradd -m -d /home/jail/home/$osusername -p XXXXXXXXXX -s '/bin/secureBash' $osusername"
 	useradd -m -d $targetdir/$osusername -p $ospassword -s '/bin/secureBash' $osusername 
 	if [[ "$?x" != "0x" ]]; then
 		echo Error failed to create user $osusername 
 		#exit 1
 	fi
-	echo "HTML test page for $osusername" > "$targetdir/$osusername/$dbname/test.html"
+	chmod -R go-rwx /home/jail/home/$osusername
 fi
 
 
@@ -204,8 +208,26 @@ fi
 
 # Deploy files
 echo "***** Deploy files"
+if [ -d $dirwithsources1 ]; then
+if [ -d $targetdirwithsources1 ]; then
+	echo "cp -pr  $dirwithsources1 $targetdirwithsources1"
+	cp -pr  $dirwithsources1 $targetdirwithsources1
+fi
+fi
+if [ -d $dirwithsources2 ]; then
+if [ -d $targetdirwithsources2 ]; then
+	echo "cp -pr  $dirwithsources2 $targetdirwithsources2"
+	cp -pr  $dirwithsources2 $targetdirwithsources2
+fi
+fi
+if [ -d $dirwithsources3 ]; then
+if [ -d $targetdirwithsources3 ]; then
+	echo "cp -pr  $dirwithsources3 $targetdirwithsources3"
+	cp -pr  $dirwithsources3 $targetdirwithsources3
+fi
+fi
 
-
+echo "HTML test page for $osusername" > "$instancedir/test.html"
 
 
 # Create database
@@ -234,8 +256,13 @@ $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL"
 
 echo "You can test with mysql -h remotehost -u $dbusername -p$dbpassword"
 
+
 # Load dump file
-$MYSQL -usellyoursaas -p$passsellyoursaas < $dumpfile
+for $dumpfile in `ls $dirwithdumpfile/*.sql`
+do
+	echo "$MYSQL -usellyoursaas -p$passsellyoursaas < $dumpfile"
+	$MYSQL -usellyoursaas -p$passsellyoursaas < $dumpfile
+done
 
 
 # Create apache virtual host
@@ -250,13 +277,13 @@ else
 		  sed -e 's/__webAppLogName__/$instancename/g' | \
 		  sed -e 's/__osUsername__/$osusername/g' | \
 		  sed -e 's/__osGroupname__/$osusername/g' | \
-		  sed -e 's/__webAppPath__/$targetdir/' > $apacheconf"
+		  sed -e 's/__webAppPath__/$instancedir/' > $apacheconf"
 	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename/g" | \
 		  sed -e "s/__webAppAliases__/$instancename/g" | \
 		  sed -e "s/__webAppLogName__/$instancename/g" | \
 		  sed -e "s/__osUsername__/$osusername/g" | \
 		  sed -e "s/__osGroupname__/$osusername/g" | \
-		  sed -e "s/__webAppPath__/$targetdir/" > $apacheconf
+		  sed -e "s/__webAppPath__/$instancedir/" > $apacheconf
 
 	echo Enabled conf with a2ensite $fqn.conf
 	a2ensite $fqn.conf

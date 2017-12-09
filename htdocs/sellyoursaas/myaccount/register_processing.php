@@ -168,7 +168,7 @@ if ($password != $password2)
 }
 
 
-print $langs->trans("PleaseWait");
+print $langs->trans("PleaseWait");		// Message if redirection after this page fails
 
 
 // Create thirdparty (if it already exist, return warning)
@@ -384,8 +384,7 @@ if (! $error)
 
 	if ($retarra['result'] != 0)
 	{
-		$email = new CMailFile('WARNING: Deployment error', 'supervision@dolicloud.com', $conf->global->MAIN_MAIL_EMAIL_FROM, 'Deployement of instance '.$sldAndSubdomain.' failed.'."\nCommand = ".$command);
-		$email->sendfile();
+		$error++;
 	}
 	//var_dump($cronjob);
 }
@@ -517,10 +516,17 @@ if (! $error)
 // Go to dashboard with login session forced
 if (! $error)
 {
+	$newurl=$_SERVER["PHP_SELF"];
+	$newurl=preg_replace('/register_processing/', 'index', $newurl);
 
-
+	dol_syslog("Deployment successful");
+	header("Location: ".$newurl);
+	exit;
 }
-
-
-
+else
+{
+	dol_syslog("Error in deployment", LOG_ERR);
+	$email = new CMailFile('WARNING: Deployment error', 'supervision@dolicloud.com', $conf->global->MAIN_MAIL_EMAIL_FROM, 'Deployement of instance '.$sldAndSubdomain.' failed.'."\nCommand = ".$command);
+	$email->sendfile();
+}
 
