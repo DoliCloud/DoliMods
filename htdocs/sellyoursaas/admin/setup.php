@@ -97,6 +97,8 @@ if ($action == 'set')
 
 		dolibarr_set_const($db,"SELLYOURSAAS_REFS_URL",GETPOST("SELLYOURSAAS_REFS_URL"),'chaine',0,'',$conf->entity);
 
+		dolibarr_set_const($db,"SELLYOURSAAS_ACCOUNT_URL",GETPOST("SELLYOURSAAS_ACCOUNT_URL"),'chaine',0,'',$conf->entity);
+
 		dolibarr_set_const($db,"SELLYOURSAAS_MYACCOUNT_FOOTER",GETPOST("SELLYOURSAAS_MYACCOUNT_FOOTER",'none'),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_ANONYMOUSUSER",GETPOST("SELLYOURSAAS_ANONYMOUSUSER",'none'),'chaine',0,'',$conf->entity);
@@ -158,51 +160,51 @@ print "</tr>\n";
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasName").'</td>';
 print '<td>';
-print '<input size="40" type="text" name="SELLYOURSAAS_NAME" value="'.$conf->global->SELLYOURSAAS_NAME.'">';
+print '<input type="text" name="SELLYOURSAAS_NAME" value="'.$conf->global->SELLYOURSAAS_NAME.'">';
 print '</td>';
 print '<td>My SaaS service</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasMainDomain").'</td>';
 print '<td>';
-print '<input size="40" type="text" name="SELLYOURSAAS_MAIN_DOMAIN_NAME" value="'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'">';
+print '<input type="text" name="SELLYOURSAAS_MAIN_DOMAIN_NAME" value="'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'">';
 print '</td>';
 print '<td>mysaas.com</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasMainEmail").'</td>';
 print '<td>';
-print '<input size="40" type="text" name="SELLYOURSAAS_MAIN_EMAIL" value="'.$conf->global->SELLYOURSAAS_MAIN_EMAIL.'">';
+print '<input type="text" name="SELLYOURSAAS_MAIN_EMAIL" value="'.$conf->global->SELLYOURSAAS_MAIN_EMAIL.'">';
 print '</td>';
 print '<td>contact@mysaas.com</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("DirForScriptPath").'</td>';
 print '<td>';
-print '<input class="minwidth300" type="text" name="DOLICLOUD_SCRIPTS_PATH" value="'.$conf->global->DOLICLOUD_SCRIPTS_PATH.'">';
+print '<input class="minwidth500" type="text" name="DOLICLOUD_SCRIPTS_PATH" value="'.$conf->global->DOLICLOUD_SCRIPTS_PATH.'">';
 print '</td>';
-print '<td>/home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/htdocs/scripts</td>';
+print '<td>'.dol_buildpath('sellyoursaas/scripts').'</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("DirForLastStableVersionOfDolibarr").'</td>';
 print '<td>';
-print '<input class="minwidth300" type="text" name="DOLICLOUD_LASTSTABLEVERSION_DIR" value="'.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.'">';
+print '<input class="minwidth500" type="text" name="DOLICLOUD_LASTSTABLEVERSION_DIR" value="'.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.'">';
 print '</td>';
-print '<td>/home/admin/wwwroot/dolibarr_documents/sellyoursaas/git/dolibarr_x.y</td>';
+print '<td>'.$dolibarr_main_data_root.'/sellyoursaas/git/dolibarr_x.y</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("DirForDoliCloudInstances").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_INSTANCES_PATH" value="'.$conf->global->DOLICLOUD_INSTANCES_PATH.'">';
 print '</td>';
-print '<td>/home/dolicloud/home</td>';
+print '<td>/home/jail/home</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("DirForDoliCloudBackupInstances").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_BACKUP_PATH" value="'.$conf->global->DOLICLOUD_BACKUP_PATH.'">';
 print '</td>';
-print '<td>/home/dolicloud/backup</td>';
+print '<td>/home/jail/backup</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("DefaultProductForInstances").'</td>';
@@ -232,9 +234,16 @@ print '</tr>';
 print '<tr class="oddeven"><td>'.$langs->trans("RefsUrl", DOL_DOCUMENT_ROOT.'/sellyoursaas/git');
 print '</td>';
 print '<td>';
-print '<input size="40" type="text" name="SELLYOURSAAS_REFS_URL" value="'.$conf->global->SELLYOURSAAS_REFS_URL.'">';
+print '<input class="minwidth300" type="text" name="SELLYOURSAAS_REFS_URL" value="'.$conf->global->SELLYOURSAAS_REFS_URL.'">';
 print '</td>';
 print '<td>https://mysaas.com/refs</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasAccountUrl").'</td>';
+print '<td>';
+print '<input class="minwidth300" type="text" name="SELLYOURSAAS_ACCOUNT_URL" value="'.$conf->global->SELLYOURSAAS_ACCOUNT_URL.'">';
+print '</td>';
+print '<td>https://myaccount.mysaas.com (the virtual host must link to <strong>'.dol_buildpath('sellyoursaas/myaccount').'</strong>)</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("FooterContent").'</td>';
