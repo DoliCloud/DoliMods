@@ -108,23 +108,29 @@ class ActionsSellyoursaas
 
     	$result='';
 
-    	if (is_object($object) && is_object($object->thirdparty))
+    	if (is_object($object))
     	{
-    		$categ_customer_sellyoursaas = $conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG;
+    		$thirdparty = null;
+    		if (is_object($object->thirdparty)) $thirdparty = $object->thirdparty;
+    		elseif ($object->element == 'societe') $thirdparty = $object;
 
-    		include_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-    		$categobj = new Categorie($this->db);
-    		$categobj->fetch($categ_customer_sellyoursaas);
+    		if (is_object($thirdparty))
+    		{
+	    		$categ_customer_sellyoursaas = $conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG;
 
-    		// Search if customer is a dolicloud customer
-    		$hascateg = $categobj->containsObject('customer', $object->thirdparty->id);
-			if ($hascateg) $result='senderprofile_1_1';
-    		//var_dump($hascateg);
+	    		include_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+	    		$categobj = new Categorie($this->db);
+	    		$categobj->fetch($categ_customer_sellyoursaas);
 
-    		// Search if customer has a premium subscription
-    		//var_dump($object->thirdparty);
+	    		// Search if customer is a dolicloud customer
+	    		$hascateg = $categobj->containsObject('customer', $thirdparty->id);
+				if ($hascateg) $result='senderprofile_1_1';
+	    		//var_dump($hascateg);
 
+	    		// Search if customer has a premium subscription
+	    		//var_dump($object->thirdparty);
 
+    		}
     	}
     	$this->results['defaultfrom']=$result;
 
