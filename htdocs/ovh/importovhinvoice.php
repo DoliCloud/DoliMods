@@ -257,7 +257,9 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 				}
 				else
 				{
-				    if ($r['totalPrice'] > 0) $vatrate=round($r['vat'] * 100 / $r['totalPrice'], 2);    // a vat rate is on 2 digits
+					$nbdigits = 2;
+					if (! empty($conf->global->OVH_VAT_RATE_ON_ONE_DIGIT)) $nbdigits = 1;
+					if ($r['totalPrice'] > 0) $vatrate=round($r['vat'] * 100 / $r['totalPrice'], $nbdigits);    // a vat rate is on 2 digits
 				    //var_dump($r);
 				    //var_dump($vatrate);exit;
 				}
@@ -313,7 +315,6 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
     				{
     				    foreach($r['details'] as $d)
     				    {
-    				        $vatrate=$vatrate;
     				        //var_dump($d->start);
     				        //var_dump($d->end);
     				        $label='<strong>ref :'.$d['billDetailId'].'</strong><br>'.$d['description'].'<br>';
