@@ -306,6 +306,7 @@ if (! $error)
 	$contract->array_options['options_password_db'] = $generateddbpassword;
 	$contract->array_options['options_nb_users'] = 1;
 	$contract->array_options['options_nb_gb'] = 0.01;
+	$contract->array_options['options_deployment_ip'] = $_SERVER["REMOTE_ADDR"];
 
 	$result = $contract->create($user);
 	if ($result <= 0)

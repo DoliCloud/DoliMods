@@ -78,7 +78,7 @@ class modSellYourSaas extends DolibarrModules
 									'menus' => 0,
 									'models' => 1,
 									'css' => array(),
-									'hooks' => array('searchform','thirdpartylist','customerlist','prospectlist','contractlist'));
+									'hooks' => array('formmail','searchform','thirdpartylist','customerlist','prospectlist','contractlist'));
 
 		// Constants
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)

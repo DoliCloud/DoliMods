@@ -91,6 +91,47 @@ class ActionsSellyoursaas
 
         return 0;
     }
+
+
+    /**
+     * Complete search forms
+     *
+     * @param	array	$parameters		Array of parameters
+     * @return	int						1=Replace standard code, 0=Continue standard code
+     */
+    function getDefaultFromEmail($parameters)
+    {
+    	global $conf, $langs;
+    	global $object;
+
+    	$langs->load("sellyoursaas@sellyoursaas");
+
+    	$result='';
+
+    	if (is_object($object) && is_object($object->thirdparty))
+    	{
+    		$categ_customer_sellyoursaas = $conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG;
+
+    		include_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+    		$categobj = new Categorie($this->db);
+    		$categobj->fetch($categ_customer_sellyoursaas);
+
+    		// Search if customer is a dolicloud customer
+    		$hascateg = $categobj->containsObject('customer', $object->thirdparty->id);
+			if ($hascateg) $result='senderprofile_1_1';
+    		//var_dump($hascateg);
+
+    		// Search if customer has a premium subscription
+    		//var_dump($object->thirdparty);
+
+
+    	}
+    	$this->results['defaultfrom']=$result;
+
+    	return 0;
+    }
+
+
 }
 
 
