@@ -202,11 +202,14 @@ else dol_syslog("Not found");
 $generatedunixlogin = strtolower('osu'.substr(getRandomPassword(true), 0, 9));		// Must be lowercase as it can be used for default email
 $generatedunixpassword = substr(getRandomPassword(true), 0, 10);
 
+$domainname = 'with.dolicloud.com';
+
+
 $generateddbname = 'dbn'.substr(getRandomPassword(true), 0, 8);
 $generateddbusername = 'dbu'.substr(getRandomPassword(true), 0, 9);
 $generateddbpassword = substr(getRandomPassword(true), 0, 10);
-
-$domainname = 'with.dolicloud.com';
+$generateddbhostname = $domainname;
+$generatedunixhostname = $domainname;
 
 
 // Start creation of instance
@@ -296,10 +299,10 @@ if (! $error)
 	$contract->array_options['options_deployment_status'] = 'processing';
 	$contract->array_options['options_deployment_date_start'] = $now;
 	$contract->array_options['options_date_endfreeperiod'] = dol_time_plus_duree($now, 15, 'd');
-	$contract->array_options['options_hostname_os'] = $domainname;
+	$contract->array_options['options_hostname_os'] = $generatedunixhostname;
 	$contract->array_options['options_username_os'] = $generatedunixlogin;
 	$contract->array_options['options_password_os'] = $generatedunixpassword;
-	$contract->array_options['options_hostname_db'] = $domainname;
+	$contract->array_options['options_hostname_db'] = $generateddbhostname;
 	$contract->array_options['options_database_db'] = $generateddbname;
 	$contract->array_options['options_port_db'] = 3306;
 	$contract->array_options['options_username_db'] = $generateddbusername;
@@ -340,9 +343,14 @@ if (! $error)
 	'__DOL_DATA_ROOT__'=>DOL_DATA_ROOT,
 	'__INSTALLHOURS__'=>dol_print_date($now, '%H'),
 	'__INSTALLMINUTES__'=>dol_print_date($now, '%M'),
+	'__OSHOSTNAME__'=>$generatedunixhostname,
 	'__OSUSERNAME__'=>$generatedunixlogin,
+	'__OSPASSWORD__'=>$generatedunixpassword,
+	'__APPUSERNAME__'=>'admin',
+	'__APPPASSWORD__'=>$password,
 	'__APPUNIQUEKEY__'=>$generateduniquekey,
 	'__APPDOMAIN__'=>$domainname.'.'.$sldAndSubdomain,
+	'__DBHOSTNAME__'=>$generateddbhostname,
 	'__DBNAME__'=>$generateddbname,
 	'__DBUSER__'=>$generateddbusername,
 	'__DBPASSWORD__'=>$generateddbpassword
@@ -430,78 +438,64 @@ if (! $error)
 
 	$object = $tmpthirdparty;
 
+	// Create contract line for INSTANCE
 	if (! $error)
 	{
-		// Create contract line for INSTANCE
-		if (! $error)
+		if (empty($object->country_code))
 		{
-			if (empty($object->country_code))
-			{
-				$object->country_code = dol_getIdFromCode($db, $object->country_id, 'c_country', 'rowid', 'code');
-			}
-			$qty = 1;
-			//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
-			$vat = get_default_tva($mysoc, $object, $product->id);
-			$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
-			$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
-			//var_dump($mysoc->country_code);
-			//var_dump($object->country_code);
-			//var_dump($product->tva_tx);
-			//var_dump($vat);exit;
+			$object->country_code = dol_getIdFromCode($db, $object->country_id, 'c_country', 'rowid', 'code');
+		}
+		$qty = 1;
+		//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+		$vat = get_default_tva($mysoc, $object, $product->id);
+		$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
+		$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
+		//var_dump($mysoc->country_code);
+		//var_dump($object->country_code);
+		//var_dump($product->tva_tx);
+		//var_dump($vat);exit;
 
-			$price = $product->price;
-			if ($dolicloudcustomer->id > 0)
-			{
-				$price = $dolicloudcustomer->price_instance;
-				if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
-			}
+		$price = $product->price;
+		if ($dolicloudcustomer->id > 0)
+		{
+			$price = $dolicloudcustomer->price_instance;
+			if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
+		}
 
-			if ($price == 0) $discount = 0;
+		if ($price == 0) $discount = 0;
 
-			$contactlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreate, $discount, $date_start, $date_end, 'HT', 0);
+		$contactlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreate, $discount, $date_start, $date_end, 'HT', 0);
+		if ($contactlineid < 0)
+		{
+			$error++;
+			setEventMessages($contract->error, $contract->errors, 'errors');
+		}
+	}
+
+	//var_dump('user:'.$dolicloudcustomer->price_user);
+	//var_dump('instance:'.$dolicloudcustomer->price_instance);
+	//exit;
+
+	// Create contract line for USERS
+	if (! $error)
+	{
+		$qty = 0;
+		if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+		$vat = get_default_tva($mysoc, $object, 0);
+		$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
+		$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
+
+		$price = $product->array_options['options_price_per_user'];
+		if ($dolicloudcustomer->id > 0)
+		{
+			$price = $dolicloudcustomer->price_user;
+			if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
+		}
+
+		if ($price > 0 && $qty > 0)
+		{
+			$contactlineid = $contract->addline('Additional users', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, 0, $discount, $date_start, $date_end, 'HT', 0);
 			if ($contactlineid < 0)
-			{
-				$error++;
-				setEventMessages($contract->error, $contract->errors, 'errors');
-			}
-		}
-
-		//var_dump('user:'.$dolicloudcustomer->price_user);
-		//var_dump('instance:'.$dolicloudcustomer->price_instance);
-		//exit;
-
-		// Create contract line for USERS
-		if (! $error)
-		{
-			$qty = 0;
-			if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
-			$vat = get_default_tva($mysoc, $object, 0);
-			$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
-			$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
-
-			$price = $product->array_options['options_price_per_user'];
-			if ($dolicloudcustomer->id > 0)
-			{
-				$price = $dolicloudcustomer->price_user;
-				if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
-			}
-
-			if ($price > 0 && $qty > 0)
-			{
-				$contactlineid = $contract->addline('Additional users', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, 0, $discount, $date_start, $date_end, 'HT', 0);
-				if ($contactlineid < 0)
-				{
-					$error++;
-					setEventMessages($contract->error, $contract->errors, 'errors');
-				}
-			}
-		}
-
-		// Activate all lines
-		if (! $error)
-		{
-			$result = $contract->activateAll($user);
-			if ($result <= 0)
 			{
 				$error++;
 				setEventMessages($contract->error, $contract->errors, 'errors');
@@ -509,6 +503,34 @@ if (! $error)
 		}
 	}
 
+	// Activate all lines
+	if (! $error)
+	{
+		$result = $contract->activateAll($user);
+		if ($result <= 0)
+		{
+			$error++;
+			setEventMessages($contract->error, $contract->errors, 'errors');
+		}
+	}
+
+	// Execute personalized SQL requests
+	if (! $error)
+	{
+		$sqltoexecute = make_substitutions($tmppackage->sqlafter, $substitarray);
+
+		$dbinstance = new DoliDB('mysql', $generateddbhostname, $generateddbusername, $generateddbpassword, $generateddbname, 3306);
+		if (! $dbinstance || ! $dbinstance->connected)
+		{
+			$error++;
+			setEventMessages($dbinstance->error, $dbinstance->errors, 'errors');
+		}
+		else
+		{
+			$dbinstance->query($sqtoexecute);
+
+		}
+	}
 }
 
 
@@ -518,7 +540,10 @@ if (! $error)
 if (! $error)
 {
 	$newurl=$_SERVER["PHP_SELF"];
-	$newurl=preg_replace('/register_processing/', 'index', $newurl);
+	$newurl=preg_replace('/register_processing\.php/', 'index\.php?welcomecid='.$contract->id, $newurl);
+
+	$_SESSION['initialapplogin']='admin';
+	$_SESSION['initialapppassword']=$password;
 
 	dol_syslog("Deployment successful");
 	header("Location: ".$newurl);

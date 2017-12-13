@@ -118,3 +118,6 @@ DateFilelock=Date of lock file
 YourYearlyPaymentRequest=Your yearly payment request for your __[SELLYOURSAAS_NAME]__ subscription
 YourYearlyPaymentRequestWaRecorded=Your request to make a yearly payment for the subscription to __[SELLYOURSAAS_NAME]__ was recorded. Just after next deadline, the payment will be done for the full year.<br>For payment per credit/debit card, you will receive an email to make the payment online.<br>If you made a request for a SEPA payment (europe only), the bank transfer will be done automatically
 InstanceNameAlreadyExists=An instance with address name <strong>%s</strong> already exists. Please choose another one...
+InstallationComplete=Installation complete
+YouCanAccessYourInstance=You can access your new %s using the following information.
+TakeMeTo=Take me to my %s
