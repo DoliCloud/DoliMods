@@ -127,7 +127,7 @@ llxHeader();
 
       <div style="text-align: center; height: 80px">
         <?php
-        $logo = 'dolicloud_logo.png';
+        $logo = 'img/dolicloud_logo.png';
         if (GETPOST('partner','alpha'))
         {
             $tmpthirdparty = new Societe($db);
@@ -258,7 +258,7 @@ print $form->select_country($countryselected, 'address_country', 'optionsValue="
 
           <section id="formActions">
           <p style="color:#444;margin:10px 0;" trans="1"><?php echo $langs->trans("WhenRegisteringYouAccept", 'https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/en/terms-and-conditions') ?></p>
-          <div class="form-actions">
+          <div class="form-actions center">
               <input type="submit" name="submit" value="<?php echo $langs->trans("SignMeUp") ?>" class="btn btn-primary" id="submit" />
           </div>
          </section>

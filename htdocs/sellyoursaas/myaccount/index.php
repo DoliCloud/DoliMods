@@ -32,6 +32,7 @@ if (! $res) die("Include of main fails");
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
 
 $welcomecid = GETPOST('welcomecid','alpha');
 $mode = GETPOST('mode', 'alpha');
@@ -40,7 +41,7 @@ if (empty($mode) && empty($welcomecid)) $mode='dashboard';
 $langs=new Translate('', $conf);
 $langs->setDefaultLang('en_US');
 
-$langs->load("sellyoursaas");
+$langs->loadLangs(array("companies","bills","sellyoursaas@sellyoursaas"));
 
 
 
@@ -48,8 +49,19 @@ $langs->load("sellyoursaas");
  * View
  */
 
+$form = new Form($db);
+
+$head='<link rel="icon" href="img/favicon.ico">
+<!-- Bootstrap core CSS -->
+<link href="dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="dist/css/myaccount.css" rel="stylesheet">';
+
+$website = new Website($db);
+$website->fetch(0, 'sellyoursaas');
 
 //llxHeader($head);
+
+
 
 
 print '
@@ -61,10 +73,18 @@ print '
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="img/favicon.ico">
 
-    <title>Navbar</title>
+    <title>'.$langs->trans("MyAccount").'</title>
 
+	<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/css/smoothness/jquery-ui.css?layout=classic&version=7.0.0-beta">
+	<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/plugins/jnotify/jquery.jnotify-alt.min.css?layout=classic&version=7.0.0-beta">
+	<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/plugins/select2/dist/css/select2.css?layout=classic&version=7.0.0-beta">
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/js/jquery-ui.min.js?version=7.0.0-beta"></script>
+
+	<script src="'.DOL_URL_ROOT.'/core/js/lib_head.js.php?lang='.$langs->defaultlang.'"></script>
+	<script type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/plugins/select2/dist/js/select2.full.min.js?layout=classic&version=7.0.0-beta"></script>
     <!-- Bootstrap core CSS -->
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="dist/css/myaccount.css" rel="stylesheet">
@@ -72,6 +92,10 @@ print '
   </head>
 
   <body>
+
+';
+
+print '
 
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,7 +109,13 @@ print '
             <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=dashboard">'.$langs->trans("Dashboard").'</a>
           </li>
           <li class="nav-item'.($mode == 'instances'?'active':'').'">
-            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=instances">'.$langs->trans("Instances").'-'.$langs->trans("Options").'</a>
+            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=instances">'.$langs->trans("Subscriptions").'</a>
+          </li>
+          <li class="nav-item'.($mode == 'myaccount'?'active':'').'">
+            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=myaccount">'.$langs->trans("MyAccount").'</a>
+          </li>
+          <li class="nav-item'.($mode == 'billing'?'active':'').'">
+            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=billing">'.$langs->trans("Billing").'</a>
           </li>
           <!--
           <li class="nav-item'.($mode == 'dashboard'?'active':'').'">
@@ -95,7 +125,6 @@ print '
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Other</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
 
-            	<a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=billing">'.$langs->trans("Billing").'</a>
 	            <a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=support">'.$langs->trans("Support").'</a>
 	            <a class="dropdown-item" href="https://www.dolicloud.com/en/faq" target="_new">'.$langs->trans("FAQs").'</a>
 
@@ -103,9 +132,10 @@ print '
           </li>
         </ul>
 <!--
-        <form class="form-inline my-2 my-md-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <form class="form-inline my-2 my-md-0" action="'.$_SERVER["PHP_SELF"].'">
+		<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
+          <input class="form-control mr-sm-2" type="text" placeholder="'.$langs->trans("Search").'">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">'.$langs->trans("Search").'</button>
         </form>
 -->
       </div>
@@ -173,11 +203,12 @@ if ($welcomecid > 0)
 }
 else	// Show warning
 {
+
 	print '
 		<div class="note note-warning">
-		<h4 class="block">15 jours avant la fin de la période d essai pour l instance xxx</h4>
+		<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrial", 99, 'aaa').' !</h4>
 		<p>
-		<a href="/customerUI/updatePaymentMethod" class="btn btn-warning">Ajouter un mode de paiement</a>
+		<a href="/customerUI/updatePaymentMethod" class="btn btn-warning">'.$langs->trans("AddAPaymentMode").'</a>
 		</p>
 		</div>
 	';
@@ -188,6 +219,9 @@ else	// Show warning
 
 if ($mode == 'dashboard')
 {
+	$nbofinstances = 0;
+	$nboftickets = 0;
+
 	print '
 	<div class="page-content-wrapper">
 			<div class="page-content">
@@ -208,10 +242,6 @@ if ($mode == 'dashboard')
 	<!-- END PAGE HEADER-->
 
 
-
-
-
-
 	    <div class="row">
 	      <div class="col-md-6">
 
@@ -219,22 +249,28 @@ if ($mode == 'dashboard')
 
 	          <div class="portlet-title">
 	            <div class="caption">
-	              <span class="caption-subject font-green-sharp bold uppercase">Subscriptions</span>
+	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("Subscriptions").'</span>
 	            </div>
 	          </div>
 
 	          <div class="portlet-body">
 
-
 	            <div class="row">
 
 	              <div class="col-md-9">
-					Nb of instances
+					'.$langs->trans("NbOfInstances").'
 	              </div><!-- END COL -->
 	              <div class="col-md-3">
-	                1
+	                '.$nbofinstances.'
 	              </div>
 	            </div> <!-- END ROW -->
+
+				<div class="row">
+				<div class="center col-md-12"><br>
+					<a href="'.$_SERVER["PHP_SELF"].'?mode=instances" class="btn default btn-xs green-stripe">
+	            	'.$langs->trans("SeeDetailsAndOptions").'
+	                </a>
+				</div></div>
 
 	          </div> <!-- END PORTLET-BODY -->
 
@@ -248,35 +284,73 @@ if ($mode == 'dashboard')
 
 	          <div class="portlet-title">
 	            <div class="caption">
-	              <i class="icon-credit-card font-green-sharp"></i>
-	              <span class="caption-subject font-green-sharp bold uppercase">Payment</span>
+	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("MyAccount").'</span>
 	            </div>
 	          </div>
 
 	          <div class="portlet-body">
 	            <p>
 
-	                Up to date
+	                '.$langs->trans("ProfileIsComplete").'
 
 	            </p>
+
+				<div class="row">
+				<div class="center col-md-12"><br>
+					<a href="'.$_SERVER["PHP_SELF"].'?mode=myaccount" class="btn default btn-xs green-stripe">
+	            	'.$langs->trans("SeeOrEditProfile").'
+	                </a>
+				</div></div>
+
 	          </div> <!-- END PORTLET-BODY -->
 
 	        </div> <!-- END PORTLET -->
 	      </div><!-- END COL -->
 
+
 	    </div> <!-- END ROW -->
 
+	';
 
-
+	print '
 	    <div class="row">
+
 
 	      <div class="col-md-6">
 	        <div class="portlet light" id="paymentMethodSection">
 
 	          <div class="portlet-title">
 	            <div class="caption">
-	              <i class="icon-credit-card font-green-sharp"></i>
-	              <span class="caption-subject font-green-sharp bold uppercase">Support tickets</span>
+	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("PaymentBalance").'</span>
+	            </div>
+	          </div>
+
+	          <div class="portlet-body">
+	            <p>
+
+	                '.$langs->trans("UpToDate").'
+
+	            </p>
+
+				<div class="row">
+				<div class="center col-md-12"><br>
+					<a href="'.$_SERVER["PHP_SELF"].'?mode=billing" class="btn default btn-xs green-stripe">
+	            	'.$langs->trans("SeeDetailsOfPayments").'
+	                </a>
+				</div></div>
+
+	          </div> <!-- END PORTLET-BODY -->
+
+	        </div> <!-- END PORTLET -->
+	      </div><!-- END COL -->
+
+
+	      <div class="col-md-6">
+	        <div class="portlet light" id="paymentMethodSection">
+
+	          <div class="portlet-title">
+	            <div class="caption">
+	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("SupportTickets").'</span>
 	            </div>
 	          </div>
 
@@ -285,12 +359,19 @@ if ($mode == 'dashboard')
 	            <div class="row">
 
 	              <div class="col-md-9">
-					Nb of tickets
+					'.$langs->trans("NbOfTickets").'
 	              </div><!-- END COL -->
 	              <div class="col-md-3">
-	                1
+	                '.$nboftickets.'
 	              </div>
 	            </div> <!-- END ROW -->
+
+				<div class="row">
+				<div class="center col-md-12"><br>
+					<a href="'.$_SERVER["PHP_SELF"].'?mode=support" class="btn default btn-xs green-stripe">
+	            	'.$langs->trans("SeeDetailsOfTickets").'
+	                </a>
+				</div></div>
 
 	          </div> <!-- END PORTLET-BODY -->
 
@@ -298,6 +379,9 @@ if ($mode == 'dashboard')
 	      </div><!-- END COL -->
 
 	    </div> <!-- END ROW -->
+	';
+
+	print '
 
 		</div>
 
@@ -496,6 +580,165 @@ if ($mode == 'instances')
 }
 
 
+
+if ($mode == 'myaccount')
+{
+	print '
+	<div class="page-content-wrapper">
+			<div class="page-content">
+
+
+	     <!-- BEGIN PAGE HEADER-->
+	<!-- BEGIN PAGE HEAD -->
+	<div class="page-head">
+	  <!-- BEGIN PAGE TITLE -->
+	<div class="page-title">
+	  <h1>'.$langs->trans("MyAccount").' <small>'.$langs->trans("YourPersonalInformation").'</small></h1>
+	</div>
+	<!-- END PAGE TITLE -->
+
+
+	</div>
+	<!-- END PAGE HEAD -->
+	<!-- END PAGE HEADER-->
+
+
+	    <div class="row">
+	      <div class="col-md-6">
+
+	        <div class="portlet light">
+          <div class="portlet-title">
+            <div class="caption-subject font-green-sharp bold uppercase">Organization</div>
+          </div>
+          <div class="portlet-body">
+            <form action="'.$_SERVER["PHP_SELF"].'" method="post">
+			<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
+              <div class="form-body">
+
+                <div class="form-group">
+                  <label>Company Name</label>
+                  <input type="text" class="form-control" placeholder="name of your organization" value="Bobolink" name="orgName">
+                </div>
+
+                <div class="form-group">
+                  <label>Address Line 1</label>
+                  <input type="text" class="form-control" placeholder="house number and street" value="" name="address.addressLine1">
+                </div>
+                <div class="form-group">
+                  <label>Address Line 2</label>
+                  <input type="text" class="form-control" value="" name="address.addressLine2">
+                </div>
+                <div class="form-group">
+                  <label>City</label>
+                  <input type="text" class="form-control" value="" name="address.city">
+                </div>
+                <div class="form-group">
+                  <label>Zip Code</label>
+                  <input type="text" class="form-control input-small" value="" name="address.zip">
+                </div>
+                <div class="form-group">
+                  <label>State</label>
+                  <input type="text" class="form-control" placeholder="state or county" value="">
+                </div>
+                <div class="form-group">
+                  <label>Country</label>
+';
+print $form->select_country($countryselected, 'address_country', 'optionsValue="name"', 0, 'form-control minwidth300', 'code2');
+print '
+                </div>
+                <div class="form-group">
+                  <label>Tax Id</label>
+                  <input type="text" class="form-control input-small" value="0788752605" name="taxIdentificationNumber">
+                </div>
+              </div>
+              <!-- END FORM BODY -->
+
+              <div>
+                <input type="submit" name="submit" value="Save" class="btn green-haze btn-circle">
+              </div>
+
+            </form>
+            <!-- END FORM DIV -->
+          </div> <!-- END PORTLET-BODY -->
+        </div>
+
+
+
+
+	      </div> <!-- END COL -->
+
+	      <div class="col-md-6">
+
+			<div class="portlet light">
+	          <div class="portlet-title">
+	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("YourAdminAccount").'</div>
+	          </div>
+	          <div class="portlet-body">
+	            <form action="'.$_SERVER["PHP_SELF"].'" method="post">
+				<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
+	              <div class="form-body">
+	                <div class="row">
+	                  <div class="col-md-6">
+	                    <div class="form-group">
+	                      <label>'.$langs->trans("Firstname").'</label>
+	                      <input type="text" class="form-control" value="'.$user->firstname.'" name="firstName">
+	                    </div>
+	                  </div>
+	                  <div class="col-md-6">
+	                    <div class="form-group">
+	                      <label>'.$langs->trans("Lastname").'</label>
+	                      <input type="text" class="form-control" value="'.$user->lastname.'" name="lastName">
+	                    </div>
+	                  </div>
+	                </div>
+	                <div class="form-group">
+	                  <label>'.$langs->trans("Email").'</label>
+	                  <input type="text" class="form-control" value="'.$user->email.'" name="email">
+	                </div>
+	              </div>
+	              <div>
+	                <input type="submit" name="submit" value="Save" class="btn green-haze btn-circle">
+	              </div>
+	            </form>
+	          </div>
+	        </div>
+
+
+			<div class="portlet light">
+	          <div class="portlet-title">
+	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("Password").'</div>
+	          </div>
+	          <div class="portlet-body">
+	            <form action="'.$_SERVER["PHP_SELF"].'" method="post">
+				<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
+	              <div class="form-body">
+	                <div class="form-group">
+	                  <label>'.$langs->trans("Password").'</label>
+	                  <input type="password" class="form-control" name="password">
+	                </div>
+	                <div class="form-group">
+	                  <label>'.$langs->trans("RepeatPassword").'</label>
+	                  <input type="password" class="form-control" name="password2">
+	                </div>
+	              </div>
+	              <div>
+	                <input type="submit" name="submit" value="'.$langs->trans("ChangePassword").'" class="btn green-haze btn-circle">
+	              </div>
+	            </form>
+	          </div>
+	        </div>
+	      </div><!-- END COL -->
+
+	    </div> <!-- END ROW -->
+
+
+	    </div>
+		</div>
+	';
+}
+
+
+
 if ($mode == 'billing')
 {
 	print '
@@ -625,7 +868,6 @@ print '
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

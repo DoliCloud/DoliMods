@@ -208,8 +208,8 @@ $domainname = 'with.dolicloud.com';
 $generateddbname = 'dbn'.substr(getRandomPassword(true), 0, 8);
 $generateddbusername = 'dbu'.substr(getRandomPassword(true), 0, 9);
 $generateddbpassword = substr(getRandomPassword(true), 0, 10);
-$generateddbhostname = $domainname;
-$generatedunixhostname = $domainname;
+$generateddbhostname = $sldAndSubdomain.'.'.$domainname;
+$generatedunixhostname = $sldAndSubdomain.'.'.$domainname;
 
 
 // Start creation of instance
@@ -271,16 +271,6 @@ else
 	exit;
 }
 
-if (! $error)
-{
-	$db->commit();
-}
-else
-{
-	$db->rollback();
-}
-
-
 // Create contract/instance
 if (! $error)
 {
@@ -318,10 +308,107 @@ if (! $error)
 		header("Location: ".$newurl);
 		exit;
 	}
-
-
-
 }
+
+if (! $error)
+{
+	$website = new Website($db);
+	$website->fetch(0, 'sellyoursaas');
+	//var_dump($website);
+
+	// Create account to dashboard
+	$websiteaccount = new WebsiteAccount($db);
+	$websiteaccount->fk_website = $website->id;
+	$websiteaccount->fk_soc = $tmpthirdparty->id;
+	$websiteaccount->login = $email;
+	$websiteaccount->pass_encoding = 'sha1md5';
+	$websiteaccount->pass_crypted = dol_hash($password, 2);
+	$websiteaccount->note_private = 'Initial pass = '.$password;
+	$websiteaccount->status = 1;
+	$result = $websiteaccount->create($user);
+	if ($result < 0)
+	{
+		// We ignore errors. This should not happen in real life.
+		//setEventMessages($websiteaccount->error, $websiteaccount->errors, 'errors');
+	}
+}
+
+$object = $tmpthirdparty;
+
+// Create contract line for INSTANCE
+if (! $error)
+{
+	if (empty($object->country_code))
+	{
+		$object->country_code = dol_getIdFromCode($db, $object->country_id, 'c_country', 'rowid', 'code');
+	}
+	$qty = 1;
+	//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+	$vat = get_default_tva($mysoc, $object, $product->id);
+	$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
+	$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
+	//var_dump($mysoc->country_code);
+	//var_dump($object->country_code);
+	//var_dump($product->tva_tx);
+	//var_dump($vat);exit;
+
+	$price = $product->price;
+	if ($dolicloudcustomer->id > 0)
+	{
+		$price = $dolicloudcustomer->price_instance;
+		if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
+	}
+
+	if ($price == 0) $discount = 0;
+
+	$contactlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreate, $discount, $date_start, $date_end, 'HT', 0);
+	if ($contactlineid < 0)
+	{
+		$error++;
+		setEventMessages($contract->error, $contract->errors, 'errors');
+	}
+}
+
+//var_dump('user:'.$dolicloudcustomer->price_user);
+//var_dump('instance:'.$dolicloudcustomer->price_instance);
+//exit;
+
+// Create contract line for USERS
+if (! $error)
+{
+	$qty = 0;
+	if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+	$vat = get_default_tva($mysoc, $object, 0);
+	$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
+	$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
+
+	$price = $product->array_options['options_price_per_user'];
+	if ($dolicloudcustomer->id > 0)
+	{
+		$price = $dolicloudcustomer->price_user;
+		if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
+	}
+
+	if ($price > 0 && $qty > 0)
+	{
+		$contactlineid = $contract->addline('Additional users', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, 0, $discount, $date_start, $date_end, 'HT', 0);
+		if ($contactlineid < 0)
+		{
+			$error++;
+			setEventMessages($contract->error, $contract->errors, 'errors');
+		}
+	}
+}
+
+if (! $error)
+{
+	$db->commit();
+}
+else
+{
+	$db->rollback();
+}
+
 
 
 // Create unix user and directories and DNS
@@ -399,28 +486,6 @@ if (! $error)
 }
 
 
-if (! $error)
-{
-	$website = new Website($db);
-	$website->fetch(0, 'sellyoursaas');
-	//var_dump($website);
-
-	// Create account to dashboard
-	$websiteaccount = new WebsiteAccount($db);
-	$websiteaccount->fk_website = $website->id;
-	$websiteaccount->fk_soc = $tmpthirdparty->id;
-	$websiteaccount->login = $email;
-	$websiteaccount->pass_encoding = 'sha1md5';
-	$websiteaccount->pass_crypted = dol_hash($password, 2);
-	$websiteaccount->note_private = 'Initial pass = '.$password;
-	$websiteaccount->status = 1;
-	$result = $websiteaccount->create($user);
-	if ($result < 0)
-	{
-		// We ignore errors. This should not happen in real life.
-		//setEventMessages($websiteaccount->error, $websiteaccount->errors, 'errors');
-	}
-}
 
 if (! $error)
 {
@@ -435,103 +500,38 @@ if (! $error)
 	}
 
 	$discount = 0;
+}
 
-	$object = $tmpthirdparty;
-
-	// Create contract line for INSTANCE
-	if (! $error)
+// Activate all lines
+if (! $error)
+{
+	$result = $contract->activateAll($user);
+	if ($result <= 0)
 	{
-		if (empty($object->country_code))
-		{
-			$object->country_code = dol_getIdFromCode($db, $object->country_id, 'c_country', 'rowid', 'code');
-		}
-		$qty = 1;
-		//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
-		$vat = get_default_tva($mysoc, $object, $product->id);
-		$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
-		$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
-		//var_dump($mysoc->country_code);
-		//var_dump($object->country_code);
-		//var_dump($product->tva_tx);
-		//var_dump($vat);exit;
-
-		$price = $product->price;
-		if ($dolicloudcustomer->id > 0)
-		{
-			$price = $dolicloudcustomer->price_instance;
-			if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
-		}
-
-		if ($price == 0) $discount = 0;
-
-		$contactlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreate, $discount, $date_start, $date_end, 'HT', 0);
-		if ($contactlineid < 0)
-		{
-			$error++;
-			setEventMessages($contract->error, $contract->errors, 'errors');
-		}
-	}
-
-	//var_dump('user:'.$dolicloudcustomer->price_user);
-	//var_dump('instance:'.$dolicloudcustomer->price_instance);
-	//exit;
-
-	// Create contract line for USERS
-	if (! $error)
-	{
-		$qty = 0;
-		if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
-		$vat = get_default_tva($mysoc, $object, 0);
-		$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
-		$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
-
-		$price = $product->array_options['options_price_per_user'];
-		if ($dolicloudcustomer->id > 0)
-		{
-			$price = $dolicloudcustomer->price_user;
-			if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
-		}
-
-		if ($price > 0 && $qty > 0)
-		{
-			$contactlineid = $contract->addline('Additional users', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, 0, $discount, $date_start, $date_end, 'HT', 0);
-			if ($contactlineid < 0)
-			{
-				$error++;
-				setEventMessages($contract->error, $contract->errors, 'errors');
-			}
-		}
-	}
-
-	// Activate all lines
-	if (! $error)
-	{
-		$result = $contract->activateAll($user);
-		if ($result <= 0)
-		{
-			$error++;
-			setEventMessages($contract->error, $contract->errors, 'errors');
-		}
-	}
-
-	// Execute personalized SQL requests
-	if (! $error)
-	{
-		$sqltoexecute = make_substitutions($tmppackage->sqlafter, $substitarray);
-
-		$dbinstance = new DoliDB('mysql', $generateddbhostname, $generateddbusername, $generateddbpassword, $generateddbname, 3306);
-		if (! $dbinstance || ! $dbinstance->connected)
-		{
-			$error++;
-			setEventMessages($dbinstance->error, $dbinstance->errors, 'errors');
-		}
-		else
-		{
-			$dbinstance->query($sqtoexecute);
-
-		}
+		$error++;
+		setEventMessages($contract->error, $contract->errors, 'errors');
 	}
 }
+
+// Execute personalized SQL requests
+if (! $error)
+{
+	$sqltoexecute = make_substitutions($tmppackage->sqlafter, $substitarray);
+
+	//var_dump($generateddbhostname);
+	$dbinstance = getDoliDBInstance('mysqli', $generateddbhostname, $generateddbusername, $generateddbpassword, $generateddbname, 3306);
+	if (! $dbinstance || ! $dbinstance->connected)
+	{
+		$error++;
+		setEventMessages($dbinstance->error, $dbinstance->errors, 'errors');
+	}
+	else
+	{
+		$dbinstance->query($sqtoexecute);
+
+	}
+}
+
 
 
 

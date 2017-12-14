@@ -16,6 +16,14 @@
     border-radius: 0 4px 4px 0;
 }
 
+.center {
+	text-align: center;
+}
+
+.select2-container .select2-selection--single
+{
+	height: unset;	
+}
 .portlet {
     border: 1px solid #222;
     padding: 20px;
