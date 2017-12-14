@@ -85,7 +85,7 @@ $form = new Form($db);
 $conf->dol_hide_topmenu = 1;
 $conf->dol_hide_leftmenu = 1;
 
-llxHeader();
+llxHeader('', $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(), array('../dist/css/myaccount.css'));
 
 ?>
 
@@ -93,35 +93,6 @@ llxHeader();
     <font size="3em" style="color:#888; font-weight: bold;"><?php echo $langs->trans("InstallingInstance") ?><br><?php echo $langs->trans("PleaseWait") ?><br></font>
     <img id="waitMaskImg" width="100px" src="<?php echo 'ajax-loader.gif'; ?>" alt="Loading" />
 </div>
-
-    <style>
-      #logo { text-align: center;margin-bottom:20px;max-width:300px; }
-      .block.small {
-        width: 500px;
-        min-width: 500px;
-        margin-top: 20px;
-      }
-      .block.medium {
-        margin-top: 20px;
-      }
-      .signup { margin: 0 auto; max-width: 700px; }
-
-    div#waitMask {
-        text-align: center;
-        z-index: 999;
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 100%;
-        width: 100%;
-        cursor: wait;
-        padding-top: 250px;
-        background-color: #000;
-        opacity: 0;
-        transition-duration: 0.5s;
-        -webkit-transition-duration: 0.5s;
-    }
-    </style>
 
     <div class="signup">
 

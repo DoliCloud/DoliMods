@@ -59,10 +59,9 @@ $head='<link rel="icon" href="img/favicon.ico">
 $website = new Website($db);
 $website->fetch(0, 'sellyoursaas');
 
+
+
 //llxHeader($head);
-
-
-
 
 print '
 
@@ -76,15 +75,17 @@ print '
 
     <title>'.$langs->trans("MyAccount").'</title>
 
-	<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/css/smoothness/jquery-ui.css?layout=classic&version=7.0.0-beta">
+	<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/css/smoothness/jquery-ui.css?version=7.0.0-beta">
 	<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/plugins/jnotify/jquery.jnotify-alt.min.css?layout=classic&version=7.0.0-beta">
 	<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/plugins/select2/dist/css/select2.css?layout=classic&version=7.0.0-beta">
 
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/js/jquery.min.js?version=7.0.0-beta"></script>
+	<script type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/js/jquery-migrate.min.js?version=7.0.0-beta"></script>
 	<script type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/js/jquery-ui.min.js?version=7.0.0-beta"></script>
 
 	<script src="'.DOL_URL_ROOT.'/core/js/lib_head.js.php?lang='.$langs->defaultlang.'"></script>
 	<script type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/plugins/select2/dist/js/select2.full.min.js?layout=classic&version=7.0.0-beta"></script>
+
     <!-- Bootstrap core CSS -->
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="dist/css/myaccount.css" rel="stylesheet">
