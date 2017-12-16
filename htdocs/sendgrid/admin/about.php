@@ -63,11 +63,13 @@ $head=sendgridadmin_prepare_head();
 
 dol_fiche_head($head, 'tababout', $langs->trans("SendGrid"));
 
+dol_include_once('/sendgrid/core/modules/modSendGrid.class.php');
+$tmpmodule = new modSendGrid($db);
+print $tmpmodule->getDescLong();
+
+print '<br><hr><br>';
+
 print $langs->trans("AboutInfo").'<br>';
-print '<br>';
-//$url='https://www.nltechno.com';
-//print '<a href="'.$url.'" target="_blank"><img border="0" width="60" src="../img/nltechno.gif"></a><br><br>';
-print '<br>';
 
 print $langs->trans("MoreModules").'<br>';
 print '&nbsp; &nbsp; &nbsp; '.$langs->trans("MoreModulesLink").'<br>';

@@ -17,11 +17,10 @@
  */
 
 /**
- *	    \file       htdocs/zipautofillfr/admin/about.php
- *      \ingroup    zipautofillfr
+ *	    \file       htdocs/sellyoursaas/admin/about.php
+ *      \ingroup    sellyoursaas
  *      \brief      Page about
  */
-
 
 // Load Dolibarr environment
 $res=0;
@@ -38,6 +37,7 @@ if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main
 if (! $res) die("Include of main fails");
 
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
+dol_include_once("/sellyoursaas/lib/sellyoursaas.lib.php");
 
 
 if (!$user->admin) accessforbidden();
@@ -45,7 +45,8 @@ if (!$user->admin) accessforbidden();
 
 $langs->load("admin");
 $langs->load("other");
-$langs->load("zipautofillfr@zipautofillfr");
+$langs->load("sellyoursaas@sellyoursaas");
+$langs->load("sms");
 
 
 /**
@@ -56,27 +57,14 @@ $help_url='';
 llxHeader('','',$help_url);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("ZipAutoFillSetup"),$linkback,'setup');
-print '<br>';
+print_fiche_titre($langs->trans("Setup"),$linkback,'setup');
 
-print $langs->trans("ZipAutoFillDesc").'<br>';
-print '<br>';
+$head=sellyoursaasadmin_prepare_head();
 
-$h=0;
-$head[$h][0] = 'zipautofillfr.php';
-$head[$h][1] = $langs->trans("Setup");
-$head[$h][2] = 'tabsetup';
-$h++;
+dol_fiche_head($head, 'tababout', $langs->trans("sellyoursaas"));
 
-$head[$h][0] = $_SERVER["PHP_SELF"];
-$head[$h][1] = $langs->trans("About");
-$head[$h][2] = 'tababout';
-$h++;
-
-dol_fiche_head($head, 'tababout', '');
-
-dol_include_once('/zipautofillfr/core/modules/modZipAutoFillFr.class.php');
-$tmpmodule = new modZipAutoFillFr($db);
+dol_include_once('/sellyoursaas/core/modules/modSellYourSaas.class.php');
+$tmpmodule = new modSellYourSaas($db);
 print $tmpmodule->getDescLong();
 
 print '<br><hr><br>';
@@ -98,8 +86,6 @@ print '<br>';
 print $langs->trans("CompatibleWithDoliDroid").'<br>';
 $url='https://play.google.com/store/apps/details?id=com.nltechno.dolidroidpro';
 print '<a href="'.$url.'" target="_blank"><img border="0" width="180" src="../img/dolidroid_512x512_en.png"></a><br><br>';
-
-print '<br>';
 
 dol_fiche_end();
 
