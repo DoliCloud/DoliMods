@@ -70,11 +70,11 @@ $h++;
 
 dol_fiche_head($head, 'tababout', '');
 
-print $langs->trans("AboutInfo").'<br>';
-print '<br>';
-//$url='https://www.nltechno.com';
-//print '<a href="'.$url.'" target="_blank"><img border="0" width="60" src="../img/nltechno.gif"></a><br><br>';
-print '<br>';
+dol_include_once('/phpsysinfo/core/modules/modPHPSysInfo.class.php');
+$tmpmodule = new modPHPSysInfo($db);
+print $tmpmodule->getDescLong();
+
+print '<br><hr><br>';
 
 print $langs->trans("MoreModules").'<br>';
 print '&nbsp; &nbsp; &nbsp; '.$langs->trans("MoreModulesLink").'<br>';

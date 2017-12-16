@@ -8,9 +8,9 @@ Add a file manager into Dolibarr.
 
 Your PHP web server must have permissions to access directory you want to browse (this may need to edit your php.ini file or to change file system permissions).
 
-## Scren shots
+## Screnshots
 
-![Screenshot filemanager](img/screen_shot_filemanager.png?raw=true "File manager"){imgmd}
+![Screenshot filemanager](img/screen_shot_filemanager.png?raw=true "File manager")
 
 ![Screenshot filemanager](img/screen_shot_filemanager_2.png?raw=true "File manager"){imgmd}
 

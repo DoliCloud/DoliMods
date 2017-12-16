@@ -70,14 +70,16 @@ $head[$h][0] = $_SERVER["PHP_SELF"];
 $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
-print $langs->trans("MoreModules");
+
 dol_fiche_head($head, 'tababout', '');
 
+dol_include_once('/numberwords/core/modules/modNumberWords.class.php');
+$tmpmodule = new modNumberWords($db);
+print $tmpmodule->getDescLong();
+
+print '<br><hr><br>';
+
 print $langs->trans("AboutInfo").'<br>';
-print '<br>';
-//$url='https://www.nltechno.com';
-//print '<a href="'.$url.'" target="_blank"><img border="0" width="60" src="../img/nltechno.gif"></a><br><br>';
-print '<br>';
 
 print $langs->trans("MoreModules").'<br>';
 print '&nbsp; &nbsp; &nbsp; '.$langs->trans("MoreModulesLink").'<br>';
