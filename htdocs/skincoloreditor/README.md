@@ -9,4 +9,4 @@ More information <a href="https://wiki.dolibarr.org/index.php/Module_SkinEditor"
 
 ### Screenshot
 
-![Screenshot patient card](img/screen_shot_skincolor.png?raw=true "Skin color editor")
+![Screenshot skin color editor](img/screen_shot_skincolor.png?raw=true "Skin color editor"){imgmd}

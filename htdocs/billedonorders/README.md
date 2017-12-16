@@ -10,4 +10,4 @@ More information <a href="https://wiki.dolibarr.org/index.php/Module_BilledOnOrd
 
 ### Screenshots
 
-![Screenshot awsats](img/screenshot_orderlist_1.png?raw=true "Billed on orders")
+![Screenshot awsats](img/screenshot_orderlist_1.png?raw=true "Billed on orders"){imgmd}

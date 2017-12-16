@@ -8,9 +8,9 @@ More information <a href="https://wiki.dolibarr.org/index.php/Module_MemCached_E
 
 ### Screenshot - Main statistic page
 
-![Screenshot patient card](img/memcached_screenshot_1.png?raw=true "Statistic page")
+![Screenshot statistics](img/memcached_screenshot_1.png?raw=true "Statistic page"){imgmd}
 
 
 ### Screenshot - Performance comparison
 
-![Screenshot patient card](img/comparison_with_blackfire.png?raw=true "Performance comparison")
+![Screenshot performance](img/comparison_with_blackfire.png?raw=true "Performance comparison"){imgmd}

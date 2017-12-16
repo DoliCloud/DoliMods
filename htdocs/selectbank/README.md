@@ -8,4 +8,4 @@ More information <a href="https://wiki.dolibarr.org/index.php/Module_SelectBank"
 
 ### Screenshot
 
-![Screenshot patient card](img/screen_shot_selectbank.png?raw=true "Select Bank screenshot")
+![Screenshot select bank](img/screen_shot_selectbank.png?raw=true "Select Bank screenshot"){imgmd}

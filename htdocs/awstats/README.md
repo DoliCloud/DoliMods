@@ -8,4 +8,4 @@ More information <a href="https://wiki.dolibarr.org/index.php/Module_AWStats_EN"
 
 ### Screenshots
 
-![Screenshot awsats](img/screen_shot_awstats_2.png?raw=true "AWStats")
+![Screenshot awstats](img/screen_shot_awstats_2.png?raw=true "AWStats")

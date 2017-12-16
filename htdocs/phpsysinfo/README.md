@@ -15,4 +15,4 @@ More information <a href="https://wiki.dolibarr.org/index.php/Module_PHPSysinfo_
 
 ### Screenshot - PHPSysinfo
 
-![Screenshot patient card](img/screen_shot_phpsysinfo.png?raw=true "PHPSysinfo")
+![Screenshot phpsysinfo](img/screen_shot_phpsysinfo.png?raw=true "PHPSysinfo"){imgmd}

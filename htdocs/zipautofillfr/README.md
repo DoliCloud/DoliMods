@@ -8,4 +8,4 @@ More information <a href="https://wiki.dolibarr.org/index.php/Module_ZipAutoFill
 
 ## Screenshots
 
-![Screenshot autofillzip](img/screenshot_zip_frbe.png?raw=true "Autofill Zip")
+![Screenshot autofillzip](img/screenshot_zip_frbe.png?raw=true "Autofill Zip"){imgmd}

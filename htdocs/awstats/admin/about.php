@@ -55,7 +55,7 @@ $help_url='';
 llxHeader('','',$help_url);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("AWStatsSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("AWStatsSetup"), $linkback, 'setup');
 print '<br>';
 
 $h=0;
@@ -71,11 +71,13 @@ $h++;
 
 dol_fiche_head($head, 'tababout', '');
 
+dol_include_once('/awstats/core/modules/modAWStats.class.php');
+$tmpmodule = new modAWStats($db);
+print $tmpmodule->getDescLong();
+
+print '<br><hr><br>';
+
 print $langs->trans("AboutInfo").'<br>';
-print '<br>';
-//$url='https://www.nltechno.com';
-//print '<a href="'.$url.'" target="_blank"><img border="0" width="60" src="../img/nltechno.gif"></a><br><br>';
-print '<br>';
 
 print $langs->trans("MoreModules").'<br>';
 print '&nbsp; &nbsp; &nbsp; '.$langs->trans("MoreModulesLink").'<br>';

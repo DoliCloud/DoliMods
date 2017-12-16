@@ -12,5 +12,5 @@ Entrez l'ID TawkTo de votre fournisseur d'assistance dans la configuration du mo
 Un simple click sur la bulle affichera la popup de Chat pour communiquer en temps réel, quand vous le désirez avec votre fournisseur.
 En cas d'indisponibilité du fournisseur, il est possible de lui envoyer votre message par email.
 
-![Screenshot patient card](img/tawkto_screenshot.png?raw=true "Tawkto chat")
+![Screenshot tawkto](img/tawkto_screenshot.png?raw=true "Tawkto chat"){imgmd}
 

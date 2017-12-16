@@ -17,4 +17,4 @@ More information on <a href="https://wiki.dolibarr.org/index.php/Module_Google_E
 
 ### Screenshot - Google map
 
-![Screenshot patient card](img/screen_shot_google_map.png?raw=true "Statistic page")
+![Screenshot statistic](img/screen_shot_google_map.png?raw=true "Statistic page"){imgmd}

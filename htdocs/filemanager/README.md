@@ -10,9 +10,9 @@ Your PHP web server must have permissions to access directory you want to browse
 
 ## Scren shots
 
-![Screenshot filemanager](img/screen_shot_filemanager.png?raw=true "File manager")
+![Screenshot filemanager](img/screen_shot_filemanager.png?raw=true "File manager"){imgmd}
 
-![Screenshot filemanager](img/screen_shot_filemanager_2.png?raw=true "File manager")
+![Screenshot filemanager](img/screen_shot_filemanager_2.png?raw=true "File manager"){imgmd}
 
 ## More...
 

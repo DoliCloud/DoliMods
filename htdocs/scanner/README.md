@@ -8,4 +8,4 @@ More information <a href="https://wiki.dolibarr.org/index.php/Module_Scanner" ta
 
 ### Screenshot - Scanner page
 
-![Screenshot patient card](img/screen_shot_scanner_1.png?raw=true "Scanner")
+![Screenshot scanner](img/screen_shot_scanner_1.png?raw=true "Scanner"){imgmd}

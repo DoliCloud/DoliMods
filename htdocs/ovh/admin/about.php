@@ -57,17 +57,19 @@ $help_url='';
 llxHeader('','',$help_url);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("OvhSmsSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("OvhSmsSetup"), $linkback, 'setup');
 
 $head=ovhadmin_prepare_head();
 
 dol_fiche_head($head, 'tababout', $langs->trans("Ovh"));
 
+dol_include_once('/ovh/core/modules/modOvh.class.php');
+$tmpmodule = new modOvh($db);
+print $tmpmodule->getDescLong();
+
+print '<br><hr><br>';
+
 print $langs->trans("AboutInfo").'<br>';
-print '<br>';
-//$url='https://www.nltechno.com';
-//print '<a href="'.$url.'" target="_blank"><img border="0" width="60" src="../img/nltechno.gif"></a><br><br>';
-print '<br>';
 
 print $langs->trans("MoreModules").'<br>';
 print '&nbsp; &nbsp; &nbsp; '.$langs->trans("MoreModulesLink").'<br>';
