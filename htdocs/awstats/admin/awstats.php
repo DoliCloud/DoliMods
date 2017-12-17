@@ -71,10 +71,10 @@ if ($actionsave)
 
     if (! $error)
     {
-	    if ($i >= 0) $i+=dolibarr_set_const($db,'AWSTATS_DATA_DIR',trim($_POST["AWSTATS_DATA_DIR"]),'chaine',0);
-	    if ($i >= 0) $i+=dolibarr_set_const($db,'AWSTATS_CGI_PATH',trim($_POST["AWSTATS_CGI_PATH"]),'chaine',0);
-	    if ($i >= 0) $i+=dolibarr_set_const($db,'AWSTATS_PROG_PATH',trim($_POST["AWSTATS_PROG_PATH"]),'chaine',0);
-	    if ($i >= 0) $i+=dolibarr_set_const($db,'AWSTATS_LIMIT_CONF',trim($_POST["AWSTATS_LIMIT_CONF"]),'chaine',0);
+	    if ($i >= 0) $i+=dolibarr_set_const($db,'AWSTATS_DATA_DIR',trim($_POST["AWSTATS_DATA_DIR"]),'chaine',0,'',$conf->entity);
+	    if ($i >= 0) $i+=dolibarr_set_const($db,'AWSTATS_CGI_PATH',trim($_POST["AWSTATS_CGI_PATH"]),'chaine',0,'',$conf->entity);
+	    if ($i >= 0) $i+=dolibarr_set_const($db,'AWSTATS_PROG_PATH',trim($_POST["AWSTATS_PROG_PATH"]),'chaine',0,'',$conf->entity);
+	    if ($i >= 0) $i+=dolibarr_set_const($db,'AWSTATS_LIMIT_CONF',trim($_POST["AWSTATS_LIMIT_CONF"]),'chaine',0,'',$conf->entity);
 
 	    if ($i >= 3)
 	    {
