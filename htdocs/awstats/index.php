@@ -261,7 +261,7 @@ Check your <a href="'.dol_buildpath('/awstats/admin/awstats.php',1).'">AWStats s
 // Define list of qualified files
 while(($file = readdir($dir)) !== false)
 {
-	if((substr_count($file, "awstats") == 0 && strlen($file) >= 14) || substr_count($file,".") == 0 || $file == "." || $file == "..") continue;				// Drop all files except history files
+	if ((substr_count($file, "awstats") == 0 && strlen($file) >= 14) || substr_count($file,".") == 0 || $file == "." || $file == "..") continue;				// Drop all files except history files
 	{
 		$domname = substr($file,14);								// Find Domain Name
 		$domname = substr($domname,0,-4);							// And remove trailing
@@ -295,8 +295,10 @@ while(($file = readdir($dir)) !== false)
 // Check if there are any valid files, otherwise exit
 if(count($files) == 0)
 {
-	$output_table = '
-	<div align="'.$table_align.'">Sorry, No AWStats data files (awstatsYYYYMMDD.*) found into directory <b>'.$history_dir.'</b> for the selected filters.</div>';
+	$output_table = '<div align="'.$table_align.'">';
+	$output_table.= 'Sorry, No AWStats data files (awstatsYYMMDD.*) found into directory <b>'.$history_dir.'</b> for the selected filters.';
+	if (! empty($conf->global->AWSTATS_LIMIT_CONF)) $output_table.='<br>Note that search is restricted to config name <b>'.$conf->global->AWSTATS_LIMIT_CONF.'</b>';
+	$output_table.= '</div>';
 }
 else
 {

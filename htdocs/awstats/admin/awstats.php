@@ -132,7 +132,7 @@ print "</tr>";
 
 $var=!$var;
 print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("AWSTATS_DATA_DIR")."</td>";
+print '<td class="fieldrequired">'.$langs->trans("AWSTATS_DATA_DIR")."</td>";
 print "<td><input type=\"text\" class=\"flat\" name=\"AWSTATS_DATA_DIR\" value=\"". ($_POST["AWSTATS_DATA_DIR"]?$_POST["AWSTATS_DATA_DIR"]:$conf->global->AWSTATS_DATA_DIR) . "\" size=\"50\"></td>";
 print "<td>/usr/local/awstats/data/<br>/var/lib/awstats/";
 print "</td>";
@@ -140,7 +140,7 @@ print "</tr>";
 
 $var=!$var;
 print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("AWSTATS_CGI_PATH")."</td>";
+print '<td class="fieldrequired">'.$langs->trans("AWSTATS_CGI_PATH")."</td>";
 print "<td><input type=\"text\" class=\"flat\" name=\"AWSTATS_CGI_PATH\" value=\"". ($_POST["AWSTATS_CGI_PATH"]?$_POST["AWSTATS_CGI_PATH"]:$conf->global->AWSTATS_CGI_PATH) . "\" size=\"50\"></td>";
 print "<td>http://myserver/awstats/awstats.pl<br>http://myserver/cgi-bin/awstats.pl?configdir=/home/awstats/conf";
 print "</td>";
@@ -148,7 +148,7 @@ print "</tr>";
 
 $var=!$var;
 print "<tr ".$bc[$var].">";
-print "<td>".$langs->trans("AWSTATS_PROG_PATH")."</td>";
+print '<td class="fieldrequired">'.$langs->trans("AWSTATS_PROG_PATH")."</td>";
 print "<td><input type=\"text\" class=\"flat\" name=\"AWSTATS_PROG_PATH\" value=\"". ($_POST["AWSTATS_PROG_PATH"]?$_POST["AWSTATS_PROG_PATH"]:$conf->global->AWSTATS_PROG_PATH) . "\" size=\"50\"></td>";
 print "<td>/usr/local/awstats/wwwroot/cgi-bin/awstats.pl<br>/usr/lib/cgi-bin/awstats.pl<br>c:\MyDir\awstats.pl";
 print "</td>";
