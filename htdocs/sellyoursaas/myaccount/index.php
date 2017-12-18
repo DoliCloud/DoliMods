@@ -7,13 +7,14 @@
 //if (! defined('NOCSRFCHECK'))    define('NOCSRFCHECK','1');			// Do not check anti CSRF attack test
 //if (! defined('NOSTYLECHECK'))   define('NOSTYLECHECK','1');			// Do not check style html tag into posted data
 //if (! defined('NOTOKENRENEWAL')) define('NOTOKENRENEWAL','1');		// Do not check anti POST attack test
-//if (! defined('NOREQUIREMENU'))  define('NOREQUIREMENU','1');			// If there is no need to load and show top and left menu
+if (! defined('NOREQUIREMENU'))  define('NOREQUIREMENU','1');			// If there is no need to load and show top and left menu
 //if (! defined('NOREQUIREHTML'))  define('NOREQUIREHTML','1');			// If we don't need to load the html.form.class.php
 //if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
 if (! defined("NOLOGIN"))        define("NOLOGIN",'1');				    // If this page is public (can be called outside logged session)
+if (! defined("MAIN_LANG_DEFAULT")) define('MAIN_LANG_DEFAULT','auto');
 
-
-include ('./common.inc.php');
+// Load Dolibarr environment
+include ('./mainmyaccount.inc.php');
 
 // Load Dolibarr environment
 $res=0;
@@ -39,10 +40,9 @@ $mode = GETPOST('mode', 'alpha');
 if (empty($mode) && empty($welcomecid)) $mode='dashboard';
 
 $langs=new Translate('', $conf);
-$langs->setDefaultLang('en_US');
+$langs->setDefaultLang('auto');
 
 $langs->loadLangs(array("companies","bills","sellyoursaas@sellyoursaas"));
-
 
 
 /*
@@ -60,41 +60,8 @@ $website = new Website($db);
 $website->fetch(0, 'sellyoursaas');
 
 
+llxHeader($head, $langs->trans("MyAccount"));
 
-//llxHeader($head);
-
-print '
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>'.$langs->trans("MyAccount").'</title>
-
-	<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/css/smoothness/jquery-ui.css?version=7.0.0-beta">
-	<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/plugins/jnotify/jquery.jnotify-alt.min.css?layout=classic&version=7.0.0-beta">
-	<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/plugins/select2/dist/css/select2.css?layout=classic&version=7.0.0-beta">
-
-	<script type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/js/jquery.min.js?version=7.0.0-beta"></script>
-	<script type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/js/jquery-migrate.min.js?version=7.0.0-beta"></script>
-	<script type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/js/jquery-ui.min.js?version=7.0.0-beta"></script>
-
-	<script src="'.DOL_URL_ROOT.'/core/js/lib_head.js.php?lang='.$langs->defaultlang.'"></script>
-	<script type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/plugins/select2/dist/js/select2.full.min.js?layout=classic&version=7.0.0-beta"></script>
-
-    <!-- Bootstrap core CSS -->
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="dist/css/myaccount.css" rel="stylesheet">
-
-  </head>
-
-  <body>
-
-';
 
 print '
 
@@ -110,7 +77,7 @@ print '
             <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=dashboard">'.$langs->trans("Dashboard").'</a>
           </li>
           <li class="nav-item'.($mode == 'instances'?'active':'').'">
-            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=instances">'.$langs->trans("Subscriptions").'</a>
+            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=instances">'.$langs->trans("Instances").'</a>
           </li>
           <li class="nav-item'.($mode == 'myaccount'?'active':'').'">
             <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=myaccount">'.$langs->trans("MyAccount").'</a>
@@ -128,6 +95,7 @@ print '
 
 	            <a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=support">'.$langs->trans("Support").'</a>
 	            <a class="dropdown-item" href="https://www.dolicloud.com/en/faq" target="_new">'.$langs->trans("FAQs").'</a>
+	            <a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=logout" target="_new">'.$langs->trans("Logout").'</a>
 
             </div>
           </li>
@@ -250,7 +218,7 @@ if ($mode == 'dashboard')
 
 	          <div class="portlet-title">
 	            <div class="caption">
-	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("Subscriptions").'</span>
+	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("Instances").'</span>
 	            </div>
 	          </div>
 
@@ -773,7 +741,7 @@ if ($mode == 'billing')
 
 	          <div class="portlet-title">
 	            <div class="caption">
-	              <span class="caption-subject font-green-sharp bold uppercase">Subscription</span>
+	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("Instances").'</span>
 	            </div>
 	          </div>
 

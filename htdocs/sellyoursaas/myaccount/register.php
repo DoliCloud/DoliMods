@@ -13,7 +13,7 @@
 if (! defined("NOLOGIN"))        define("NOLOGIN",'1');				    // If this page is public (can be called outside logged session)
 
 
-include ('./common.inc.php');
+include ('./mainmyaccount.inc.php');
 
 // Load Dolibarr environment
 $res=0;
@@ -29,11 +29,14 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res) die("Include of main fails");
 
-
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 
-$langs->load("sellyoursaas@sellyoursaas");
+$langs=new Translate('', $conf);
+$langs->setDefaultLang('auto');
+
+$langs->loadLangs(array("sellyoursaas@sellyoursaas","errors"));
+
 
 $partner=GETPOST('partner','alpha');
 $plan=GETPOST('plan','alpha');
@@ -85,7 +88,13 @@ $form = new Form($db);
 $conf->dol_hide_topmenu = 1;
 $conf->dol_hide_leftmenu = 1;
 
-llxHeader('', $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(), array('../dist/css/myaccount.css'));
+
+$head='<link rel="icon" href="img/favicon.ico">
+<!-- Bootstrap core CSS -->
+<link href="dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="dist/css/myaccount.css" rel="stylesheet">';
+
+llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(), array('../dist/css/myaccount.css'));
 
 ?>
 
@@ -110,17 +119,8 @@ llxHeader('', $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(), 
       </div>
       <div class="block medium">
 
-        <style>
-      	div.block .content section {
-      		padding-top: 0em;
-      		padding-bottom: 0em;
-      	}
-      	select .chzn-select{
-      		margin-right: 20px;
-      	}
-      	</style>
         <header class="inverse">
-          <h1>Inscription <small><?php echo ($tmpproduct->label?'('.$tmpproduct->label.')':''); ?></small></h1>
+          <h1><?php echo $langs->trans("Registration") ?> <small><?php echo ($tmpproduct->label?'('.$tmpproduct->label.')':''); ?></small></h1>
         </header>
 
 
@@ -217,7 +217,7 @@ print $form->select_country($countryselected, 'address_country', 'optionsValue="
               <label trans="1"><?php echo $langs->trans("ChooseANameForYourApplication") ?></label>
               <div class="linked-flds">
                 <input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="<?php echo GETPOST('sldAndSubdomain','alpha') ?>" maxlength="29" />
-                <select name="tld.id" style="width:20em" id="tld.id" >
+                <select name="tldid" id="tldid" >
                     <option value="23" >.with.<?php echo $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME; ?></option>
                 </select>
                 <br class="unfloat" />
@@ -226,6 +226,7 @@ print $form->select_country($countryselected, 'address_country', 'optionsValue="
           </section>
 
 
+			<br>
 
           <section id="formActions">
           <p style="color:#444;margin:10px 0;" trans="1"><?php echo $langs->trans("WhenRegisteringYouAccept", 'https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/en/terms-and-conditions') ?></p>

@@ -13,7 +13,7 @@
 if (! defined("NOLOGIN"))        define("NOLOGIN",'1');				    // If this page is public (can be called outside logged session)
 
 
-include ('./common.inc.php');
+include ('./mainmyaccount.inc.php');
 
 // Load Dolibarr environment
 $res=0;
@@ -38,7 +38,11 @@ require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/websiteaccount.class.php';
 
+$langs=new Translate('', $conf);
+$langs->setDefaultLang('auto');
+
 $langs->loadLangs(array("sellyoursaas@sellyoursaas","errors"));
+
 
 // Force user
 if (empty($user->id))
@@ -167,6 +171,11 @@ if ($password != $password2)
     exit;
 }
 
+
+
+/*
+ * View
+ */
 
 print $langs->trans("PleaseWait");		// Message if redirection after this page fails
 
