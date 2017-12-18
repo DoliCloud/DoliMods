@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 $langs=new Translate('', $conf);
 $langs->setDefaultLang('auto');
 
-$langs->loadLangs(array("sellyoursaas@sellyoursaas","errors"));
+$langs->loadLangs(array("main","sellyoursaas@sellyoursaas","errors"));
 
 
 $partner=GETPOST('partner','alpha');

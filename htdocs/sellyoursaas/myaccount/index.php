@@ -42,7 +42,7 @@ if (empty($mode) && empty($welcomecid)) $mode='dashboard';
 $langs=new Translate('', $conf);
 $langs->setDefaultLang('auto');
 
-$langs->loadLangs(array("companies","bills","sellyoursaas@sellyoursaas"));
+$langs->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas"));
 
 
 /*
@@ -77,7 +77,7 @@ print '
             <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=dashboard">'.$langs->trans("Dashboard").'</a>
           </li>
           <li class="nav-item'.($mode == 'instances'?'active':'').'">
-            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=instances">'.$langs->trans("Instances").'</a>
+            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=instances">'.$langs->trans("MyInstances").'</a>
           </li>
           <li class="nav-item'.($mode == 'myaccount'?'active':'').'">
             <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=myaccount">'.$langs->trans("MyAccount").'</a>
@@ -90,7 +90,7 @@ print '
             <a class="nav-link" href="#">Disabled</a>
           </li>-->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Other</a>
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$langs->trans("Other").'</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
 
 	            <a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=support">'.$langs->trans("Support").'</a>
@@ -201,7 +201,7 @@ if ($mode == 'dashboard')
 	<div class="page-head">
 	  <!-- BEGIN PAGE TITLE -->
 	<div class="page-title">
-	  <h1>Your dashboard</h1>
+	  <h1>'.$langs->trans("Dashboard").'</h1>
 	</div>
 	<!-- END PAGE TITLE -->
 
@@ -218,7 +218,7 @@ if ($mode == 'dashboard')
 
 	          <div class="portlet-title">
 	            <div class="caption">
-	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("Instances").'</span>
+	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("MyInstances").'</span>
 	            </div>
 	          </div>
 
@@ -372,7 +372,7 @@ if ($mode == 'instances')
 	<div class="page-head">
 	  <!-- BEGIN PAGE TITLE -->
 	<div class="page-title">
-	  <h1>Your instances ';
+	  <h1>'.$langs->trans("MyInstances");
 	  //print '<small>Review your billing history, adjust your subscription, update your payment method</small>';
 	  print '</h1>
 	</div>
@@ -720,7 +720,7 @@ if ($mode == 'billing')
 	<div class="page-head">
 	  <!-- BEGIN PAGE TITLE -->
 	<div class="page-title">
-	  <h1>Billing &amp; Plans <small>Review your billing history, adjust your subscription, update your payment method</small></h1>
+	  <h1>'.$langs->trans("Billing").' <small>'.$langs->trans("BillingDesc").'</small></h1>
 	</div>
 	<!-- END PAGE TITLE -->
 
@@ -741,7 +741,7 @@ if ($mode == 'billing')
 
 	          <div class="portlet-title">
 	            <div class="caption">
-	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("Instances").'</span>
+	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("MyInstances").'</span>
 	            </div>
 	          </div>
 
