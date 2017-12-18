@@ -190,7 +190,7 @@ else
         $htmltext=$langs->trans("OvhServiceNameHelp");
         print $form->textwithpicto($langs->trans("OvhServiceName"), $htmltext).'</td><td>';
         print '<input size="64" type="text" name="OVHSN_ACCOUNT" value="'.$conf->global->OVHSN_ACCOUNT.'">';
-        print '<br>'.$langs->trans("Example").': 00331234567';
+        print '<br>'.$langs->trans("Example").': 0033123456789';
         print '</td><td></td></tr>';
     }
 
