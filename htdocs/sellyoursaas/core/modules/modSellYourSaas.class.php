@@ -326,7 +326,7 @@ class modSellYourSaas extends DolibarrModules
 		'titre'=>'LiveRefsInstances',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_live',
-		'url'=>'$conf->global->SELLYOURSAAS_REFS_URL',
+		'url'=>'__[SELLYOURSAAS_REFS_URL]__',
 		'langs'=>'sellyoursaas@sellyoursaas',
 		'position'=>212,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.

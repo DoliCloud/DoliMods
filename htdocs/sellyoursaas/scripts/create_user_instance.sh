@@ -39,59 +39,65 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 if [ "x$1" == "x" ]; then
-	echo "Missing parameter 1 - osusername" 1>&2
+	echo "Missing parameter 1 - mode (all|deploy)" 1>&2
 	exit 1
 fi
 if [ "x$2" == "x" ]; then
-	echo "Missing parameter 2 - ospassword" 1>&2
+	echo "Missing parameter 2 - osusername" 1>&2
 	exit 1
 fi
 if [ "x$3" == "x" ]; then
-	echo "Missing parameter 3 - instancename" 1>&2
+	echo "Missing parameter 3 - ospassword" 1>&2
 	exit 1
 fi
 if [ "x$4" == "x" ]; then
-	echo "Missing parameter 4 - domainname" 1>&2
+	echo "Missing parameter 4 - instancename" 1>&2
 	exit 1
 fi
 if [ "x$5" == "x" ]; then
-	echo "Missing parameter 5 - dbname" 1>&2
+	echo "Missing parameter 5 - domainname" 1>&2
 	exit 1
 fi
 if [ "x$6" == "x" ]; then
-	echo "Missing parameter 6 - dbusername" 1>&2
+	echo "Missing parameter 6 - dbname" 1>&2
 	exit 1
 fi
 if [ "x$7" == "x" ]; then
-	echo "Missing parameter 7 - dbpassword" 1>&2
+	echo "Missing parameter 7 - dbusername" 1>&2
+	exit 1
+fi
+if [ "x$8" == "x" ]; then
+	echo "Missing parameter 8 - dbpassword" 1>&2
 	exit 1
 fi
 
-export osusername=$1
-export ospassword=$2
-export instancename=$3
-export domainname=$4
-export dbname=$5
-export dbusername=$6
-export dbpassword=$7
+export mode=$1
+export osusername=$2
+export ospassword=$3
+export instancename=$4
+export domainname=$5
+export dbname=$6
+export dbusername=$7
+export dbpassword=$8
 
-export dirforconfig1=$8
-export targetdirforconfig1=$9
-export dirwithdumpfile=${10}
-export dirwithsources1=${11}
-export targetdirwithsources1=${12}
-export dirwithsources2=${13}
-export targetdirwithsources2=${14}
-export dirwithsources3=${15}
-export targetdirwithsources3=${16}
-export cronfile=${17}
-export targetdir=${18}
+export dirforconfig1=$9
+export targetdirforconfig1=$10
+export dirwithdumpfile=${11}
+export dirwithsources1=${12}
+export targetdirwithsources1=${13}
+export dirwithsources2=${14}
+export targetdirwithsources2=${15}
+export dirwithsources3=${16}
+export targetdirwithsources3=${17}
+export cronfile=${18}
+export targetdir=${19}
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
 
 # For debug
 echo "...input params..."
+echo "mode = $mode"
 echo "osusername = $osusername"
 echo "instancename = $instancename"
 echo "domainname = $domainname"
@@ -115,7 +121,10 @@ echo "instancedir = $instancedir"
 echo "fqn = $fqn"
 
 
+
 # Create user and directory
+
+if [[ "$mode" == "all" ]]; then
 echo "***** Create user /home/jail/home/$osusername"
 if [[ -d /home/jail/home/$osusername ]]
 then
@@ -129,9 +138,13 @@ else
 	fi
 	chmod -R go-rwx /home/jail/home/$osusername
 fi
+fi
+
 
 
 # Create DNS entry
+
+if [[ "$mode" == "all" ]]; then
 #$ttl 1d
 #$ORIGIN with.dolicloud.com.
 #@               IN     SOA   ns1with.dolicloud.com. admin.dolicloud.com. (
@@ -205,40 +218,52 @@ if [[ "$?x" != "0x" ]]; then
 	#exit 1
 fi 
 
+fi
+
+
 
 # Deploy files
+
 echo "***** Deploy files"
+echo "Create dir for instance = /home/jail/home/$osusername/$dbname"
+mkdir -p /home/jail/home/$osusername/$dbname
+
+echo "Check dirwithsources1=$dirwithsources1 targetdirwithsources1=$targetdirwithsources1"
 if [ -d $dirwithsources1 ]; then
-if [ -d $targetdirwithsources1 ]; then
-	echo "cp -pr  $dirwithsources1 $targetdirwithsources1"
-	cp -pr  $dirwithsources1 $targetdirwithsources1
+if [[ "x$targetdirwithsources1" != "x" ]]; then
+	mkdir -p $targetdirwithsources1
+	echo "cp -pr  $dirwithsources1/ $targetdirwithsources1"
+	cp -pr  $dirwithsources1/. $targetdirwithsources1
+	echo "HTML test page for $osusername" > $targetdirwithsources1/test.html
 fi
 fi
+echo "Check dirwithsources2=$dirwithsources2 targetdirwithsources2=$targetdirwithsources2"
 if [ -d $dirwithsources2 ]; then
-if [ -d $targetdirwithsources2 ]; then
-	echo "cp -pr  $dirwithsources2 $targetdirwithsources2"
-	cp -pr  $dirwithsources2 $targetdirwithsources2
+if [[ "x$targetdirwithsources2" != "x" ]]; then
+	mkdir -p $targetdirwithsources2
+	echo "cp -pr  $dirwithsources2/ $targetdirwithsources2"
+	cp -pr  $dirwithsources2/. $targetdirwithsources2
 fi
 fi
+echo "Check dirwithsources3=$dirwithsources3 targetdirwithsources3=$targetdirwithsources3"
 if [ -d $dirwithsources3 ]; then
-if [ -d $targetdirwithsources3 ]; then
-	echo "cp -pr  $dirwithsources3 $targetdirwithsources3"
-	cp -pr  $dirwithsources3 $targetdirwithsources3
+if [[ "x$targetdirwithsources3" != "x" ]]; then
+	mkdir -p $targetdirwithsources3
+	echo "cp -pr  $dirwithsources3/ $targetdirwithsources3"
+	cp -pr  $dirwithsources3/. $targetdirwithsources3
 fi
 fi
 
-echo "HTML test page for $osusername" > "$instancedir/test.html"
+chown -R $osusername.$osusername /home/jail/home/$osusername/$dbname
+chmod -R go-rwx /home/jail/home/$osusername/$dbname
+
 
 
 # Create database
+
+if [[ "$mode" == "all" ]]; then
 echo "***** Create database $dbname for user $dbusername"
 
-MYSQL=`which mysql`
-Q1="CREATE DATABASE IF NOT EXISTS $dbname; "
-Q2="CREATE USER '$dbusername'@'%' IDENTIFIED BY '$dbpassword'; "
-Q3="GRANT CREATE,CREATE TEMPORARY TABLES,CREATE VIEW,DROP,DELETE,INSERT,SELECT,UPDATE,ALTER,INDEX,LOCK TABLES,REFERENCES,SHOW VIEW ON $dbname.* TO '$dbusername'@'%'; "
-Q4="FLUSH PRIVILEGES; "
-SQL="${Q1}${Q2}${Q3}${Q4}"
 echo Search sellyoursaas credential
 passsellyoursaas=`cat /root/sellyoursaas`
 echo $passsellyoursaas
@@ -251,58 +276,83 @@ if [[ "x$passsellyoursaas" == "x" ]]; then
 	fi
 fi 
 
+MYSQL=`which mysql`
+
+Q1="CREATE DATABASE IF NOT EXISTS $dbname; "
+Q2="CREATE USER '$dbusername'@'localhost' IDENTIFIED BY '$dbpassword'; "
+SQL="${Q1}${Q2}"
+echo "$MYSQL -usellyoursaas -e $SQL"
+$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL"
+
+Q1="CREATE DATABASE IF NOT EXISTS $dbname; "
+Q2="CREATE USER '$dbusername'@'%' IDENTIFIED BY '$dbpassword'; "
+SQL="${Q1}${Q2}"
+echo "$MYSQL -usellyoursaas -e $SQL"
+$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL"
+
+Q1="GRANT CREATE,CREATE TEMPORARY TABLES,CREATE VIEW,DROP,DELETE,INSERT,SELECT,UPDATE,ALTER,INDEX,LOCK TABLES,REFERENCES,SHOW VIEW ON $dbname.* TO '$dbusername'@'localhost'; "
+Q2="GRANT CREATE,CREATE TEMPORARY TABLES,CREATE VIEW,DROP,DELETE,INSERT,SELECT,UPDATE,ALTER,INDEX,LOCK TABLES,REFERENCES,SHOW VIEW ON $dbname.* TO '$dbusername'@'%'; "
+Q3="FLUSH PRIVILEGES; "
+SQL="${Q1}${Q2}${Q3}"
 echo "$MYSQL -usellyoursaas -e $SQL"
 $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL"
 
 echo "You can test with mysql -h remotehost -u $dbusername -p$dbpassword"
 
-
 # Load dump file
-for $dumpfile in `ls $dirwithdumpfile/*.sql`
+echo Search dumpfile into $dirwithdumpfile
+for dumpfile in `ls $dirwithdumpfile/*.sql 2>/dev/null`
 do
-	echo "$MYSQL -usellyoursaas -p$passsellyoursaas < $dumpfile"
-	$MYSQL -usellyoursaas -p$passsellyoursaas < $dumpfile
+	echo "$MYSQL -usellyoursaas -p$passsellyoursaas -D $dbname < $dumpfile"
+	$MYSQL -usellyoursaas -p$passsellyoursaas -D $dbname < $dumpfile
 done
+
+fi
 
 
 # Create apache virtual host
+
+if [[ "$mode" == "all" ]]; then
 export apacheconf="/etc/apache2/sites-available/$fqn.conf"
 echo "***** Create apache conf $apacheconf from $vhostfile"
-if [[ -f $apacheconf ]]
+if [[ -s $apacheconf ]]
 then
 	echo "Apache conf $apacheconf already exists"
 else
-	echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename/g' | \
-		  sed -e 's/__webAppAliases__/$instancename/g' | \
+	echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
+		  sed -e 's/__webAppAliases__/$instancename.$domainname/g' | \
 		  sed -e 's/__webAppLogName__/$instancename/g' | \
+		  sed -e 's/__myMainDomain__/dolicloud.com/g' | \
 		  sed -e 's/__osUsername__/$osusername/g' | \
 		  sed -e 's/__osGroupname__/$osusername/g' | \
-		  sed -e 's/__webAppPath__/$instancedir/' > $apacheconf"
-	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename/g" | \
-		  sed -e "s/__webAppAliases__/$instancename/g" | \
+		  sed -e 's;__webAppPath__;$instancedir;' > $apacheconf"
+	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
+		  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
 		  sed -e "s/__webAppLogName__/$instancename/g" | \
+		  sed -e 's/__myMainDomain__/dolicloud.com/g' | \
 		  sed -e "s/__osUsername__/$osusername/g" | \
 		  sed -e "s/__osGroupname__/$osusername/g" | \
-		  sed -e "s/__webAppPath__/$instancedir/" > $apacheconf
-
-	echo Enabled conf with a2ensite $fqn.conf
-	a2ensite $fqn.conf
-
-	/usr/sbin/apache2ctl configtest
-	if [[ "x$?" != "x0" ]]; then
-		echo Error when running apache2ctl configtest 
-		#exit 1
-	fi 
-
-	echo "***** Apache tasks finished. service apache2 reload"
-	service apache2 reload
-	if [[ "x$?" != "x0" ]]; then
-		echo Error when running service apache2 reload 
-		exit 2
-	fi 
-	
+		  sed -e "s;__webAppPath__;$instancedir;" > $apacheconf
 fi
 
+echo Enabled conf with a2ensite $fqn.conf
+a2ensite $fqn.conf
+
+/usr/sbin/apache2ctl configtest
+if [[ "x$?" != "x0" ]]; then
+	echo Error when running apache2ctl configtest 
+	#exit 1
+fi 
+
+echo "***** Apache tasks finished. service apache2 reload"
+service apache2 reload
+if [[ "x$?" != "x0" ]]; then
+	echo Error when running service apache2 reload 
+	exit 2
+fi 
+
+
+fi
 
 
 #if ! grep test_$i /etc/hosts >/dev/null; then

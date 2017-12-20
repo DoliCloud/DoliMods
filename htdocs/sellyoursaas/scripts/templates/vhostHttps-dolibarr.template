@@ -5,13 +5,19 @@
         ServerAlias __webAppAliases__
         DocumentRoot __webAppPath__/htdocs
 
-		AddDefaultCharset UTF-8
+        AddDefaultCharset UTF-8
+        Require all granted
 
-		# Need mpm-itk module
-		<IfModule mpm_itk_module>
+        # Need mpm-itk module
+        <IfModule mpm_itk_module>
         AssignUserID __osUsername__ __osGroupname__
-		</IfModule>
-		
+        </IfModule>
+
+        <Directory "__webAppPath__/htdocs">
+        allow from all
+        Options +Indexes +FollowSymLinks
+        Require all granted
+        </Directory>
 
         # Possible values include: debug, info, notice, warn, error, crit, alert, emerg.
         LogLevel debug
@@ -22,7 +28,7 @@
         ServerSignature On
         
         # Compress returned resources of type php pages, text file export, css and javascript
-   		AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript
+        AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript
 
         # Netscape 4.x has some problems...
         BrowserMatch ^Mozilla/4 gzip-only-text/html

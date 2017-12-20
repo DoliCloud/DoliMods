@@ -184,12 +184,17 @@ print $langs->trans("PleaseWait");		// Message if redirection after this page fa
 dol_syslog("Fetch thirdparty from email ".$email);
 $tmpthirdparty=new Societe($db);
 $result = $tmpthirdparty->fetch(0, '', '', '', '', '', '', '', '', '', $email);
-if ($result > 0 || $result < 0)
+if ($result < 0)
+{
+	dol_print_error_email('FETCHTP'.$email, $tmpthirdparty->error, $tmpthirdparty->errors);
+	exit;
+}
+else if ($result > 0)	// Found one record
 {
 	setEventMessages($langs->trans("AccountAlreadyExistsForEmail", $conf->global->SELLYOURSAAS_ACCOUNT_URL), null, 'errors');
 	// TODO Restore this
 	//	header("Location: ".$newurl);
-	//	exit;
+	//exit;
 }
 else dol_syslog("Not found");
 
@@ -200,8 +205,8 @@ if ($result > 0)
 {
 	setEventMessages($langs->trans("InstanceNameAlreadyExists", $sldAndSubdomain), null, 'errors');
 	// TODO Restore this
-	header("Location: ".$newurl);
-	exit;
+	//header("Location: ".$newurl);
+	//exit;
 }
 else dol_syslog("Not found");
 
@@ -313,8 +318,7 @@ if (! $error)
 	$result = $contract->create($user);
 	if ($result <= 0)
 	{
-		setEventMessages($contract->error, $contract->errors, 'errors');
-		header("Location: ".$newurl);
+		dol_print_error_email('FETCHTP', $contract->error, $contract->errors);
 		exit;
 	}
 }
@@ -474,7 +478,7 @@ if (! $error)
 	file_put_contents($tmppackage->srccronfile, $cronfile);
 
 	//$command = 'sudo /usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword;
-	$command = '/usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword.' '.$sldAndSubdomain.' '.$domainname;
+	$command = '/usr/bin/create_user_instance.sh all '.$generatedunixlogin.' '.$generatedunixpassword.' '.$sldAndSubdomain.' '.$domainname;
 	$command.= ' '.$generateddbname.' '.$generateddbusername.' '.$generateddbpassword;
 	$command.= ' "'.$tmppackage->srcconffile1.'" "'.$tmppackage->targetconffile1.'" "'.$tmppackage->datafile1.'"';
 	$command.= ' "'.$tmppackage->srcfile1.'" "'.$tmppackage->targetsrcfile1.'" "'.$tmppackage->srcfile2.'" "'.$tmppackage->targetsrcfile2.'" "'.$tmppackage->srcfile3.'" "'.$tmppackage->targetsrcfile3.'"';
@@ -482,6 +486,11 @@ if (! $error)
 
 	//$command = '/usr/bin/aaa.sh';
 	$outputfile = $conf->sellyoursaas->dir_temp.'/register.'.dol_getmypid().'.out';
+
+	// To remove
+	print "<br>Command: ".$command.'<br>';
+	var_dump($retarray);
+	sleep(10);
 
 	include_once DOL_DOCUMENT_ROOT.'/core/class/utils.class.php';
 	$utils = new Utils($db);
@@ -492,6 +501,7 @@ if (! $error)
 		$error++;
 	}
 	//var_dump($cronjob);
+
 }
 
 
@@ -528,11 +538,12 @@ if (! $error)
 	$sqltoexecute = make_substitutions($tmppackage->sqlafter, $substitarray);
 
 	//var_dump($generateddbhostname);
-	$dbinstance = getDoliDBInstance('mysqli', $generateddbhostname, $generateddbusername, $generateddbpassword, $generateddbname, 3306);
+	$dbinstance = @getDoliDBInstance('mysqli', $generateddbhostname, $generateddbusername, $generateddbpassword, $generateddbname, 3306);
 	if (! $dbinstance || ! $dbinstance->connected)
 	{
 		$error++;
-		setEventMessages($dbinstance->error, $dbinstance->errors, 'errors');
+		dol_print_error_email('GETDOLIDBI'.$generateddbhostname, $dbinstance->error, $dbinstance->errors);
+		exit;
 	}
 	else
 	{
