@@ -234,7 +234,7 @@ if [[ "x$targetdirwithsources1" != "x" ]]; then
 	mkdir -p $targetdirwithsources1
 	echo "cp -pr  $dirwithsources1/ $targetdirwithsources1"
 	cp -pr  $dirwithsources1/. $targetdirwithsources1
-	echo "HTML test page for $osusername" > $targetdirwithsources1/test.html
+	cp -pr $scriptdir/templates/suspended.php $targetdirwithsources1/suspended.php
 fi
 fi
 echo "Check dirwithsources2=$dirwithsources2 targetdirwithsources2=$targetdirwithsources2"
