@@ -16,5 +16,6 @@ file_put_contents($tmpfile, var_export($_GET, true), FILE_APPEND);
 file_put_contents($tmpfile, var_export($_POST, true), FILE_APPEND);
 file_put_contents("\n", FILE_APPEND);
 
-mail('supervision@nltechno.com', 'Spam report recevied from SendGrid', 'Spam was reported by sendgrid');
+$headers = 'From: robot@nltechno.com' . "\r\n";
+mail('supervision@nltechno.com', 'Spam report received', 'Spam was reported by sendgrid', $headers);
 
