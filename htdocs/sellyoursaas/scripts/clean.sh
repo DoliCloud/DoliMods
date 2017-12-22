@@ -100,6 +100,10 @@ SQL="${Q1}${Q2}"
 
 echo "$MYSQL -usellyoursaas -e '$SQL' | grep -v 'ref_customer'"
 $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep -v 'ref_customer' >> /tmp/instancefound
+if [ "x$?" != "x0" ]; then
+	echo "Failed to make first SQL request to get instances. Exit 1."
+	exit 1
+fi
 
 Q1="use mysql; "
 Q2="SHOW DATABASES; ";
@@ -107,6 +111,10 @@ SQL="${Q1}${Q2}"
 
 echo "$MYSQL -usellyoursaas -e '$SQL' | grep 'dbn' "
 $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep 'dbn' | awk ' { print "NULL unknown "$1 } ' >> /tmp/instancefound
+if [ "x$?" != "x0" ]; then
+	echo "Failed to make second SQL request to get instances. Exit 1."
+	exit 1
+fi
 
 
 echo "***** Search osu unix account without home in $targetdir"
