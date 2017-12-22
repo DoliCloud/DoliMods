@@ -683,42 +683,42 @@ class modSellYourSaas extends DolibarrModules
 		$extrafields = new ExtraFields($this->db);
 
 		// Product
-		$resultx=$extrafields->addExtraField('price_per_user', 	       "Price per user",     'price',  1, '24,8',  'product', 0, 0, '0',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('price_per_user', 	       "Price per user",     'price',  1, '24,8',  'product', 0, 0, '0',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas');
 
 		// Thirdparty
 		$param=array('options'=>array('no'=>'No','yesv1'=>'V1','yesv2'=>'V2'));
-		$resultx=$extrafields->addExtraField('dolicloud',            "DoliCloudCustomer",   'select',  1,   '3', 'thirdparty', 0, 1, '', $param, 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('partner',              "Reseller",           'varchar',  2,  '32', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('date_registration',    "RegistrationDate",  'datetime',  3,    '', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
-		//$resultx=$extrafields->addExtraField('cb_info',              "Credit Card info",   'varchar', 91, '255', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
-		//$resultx=$extrafields->addExtraField('paypal_info',               "Paypal info",   'varchar', 92, '255', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('dolicloud',            "DoliCloudCustomer",   'select',  1,   '3', 'thirdparty', 0, 1, '', $param, 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('partner',              "Reseller",           'varchar',  2,  '32', 'thirdparty', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('date_registration',    "RegistrationDate",  'datetime',  3,    '', 'thirdparty', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		//$resultx=$extrafields->addExtraField('cb_info',            "Credit Card info",   'varchar', 91, '255', 'thirdparty', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		//$resultx=$extrafields->addExtraField('paypal_info',             "Paypal info",   'varchar', 92, '255', 'thirdparty', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas');
 
 		// Invoice
-		//$resultx=$extrafields->addExtraField('manual_collect', 	     "Manual collection",  'boolean',  1,   '2',    'facture', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas');
+		//$resultx=$extrafields->addExtraField('manual_collect',    "Manual collection",  'boolean',  1,   '2',      'facture', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas');
 
 		// Contract
-		$resultx=$extrafields->addExtraField('plan',                              "Plan",  'varchar',   2,  '64',    'contrat', 0, 0, '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('plan',                              "Plan",  'varchar',   2,  '64',    'contrat', 0, 0, '',      '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
 		$param=array('options'=>array('processing'=>'Processing','done'=>'Done','undeployed'=>'Undeployed'));
-		$resultx=$extrafields->addExtraField('deployment_status',     "DeploymentStatus",   'select',   5,    '',    'contrat', 0, 0, '',  $param, 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('deployment_date_start', "DeploymentDateStart", 'datetime',   6,    '',    'contrat', 0, 0, '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('deployment_date_end',     "DeploymentDateEnd", 'datetime',   6,    '',    'contrat', 0, 0, '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('deployment_ip',             "DeploymentIP",  'varchar',   7, '128',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('date_endfreeperiod',      "Date end trial", 'datetime',   8,    '',    'contrat', 0, 0, '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('undeployment_date',     "UndeploymentDate", 'datetime',   9,    '',    'contrat', 0, 0, '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('undeployment_ip',         "UndeploymentIP",  'varchar',  10, '128',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('hostname_os',                "Hostname OS",  'varchar',  20,  '32',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('username_os',                "Username OS",  'varchar',  21,  '32',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('password_os',                "Password OS",  'varchar',  22,  '32',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('hostname_db',                "Hostname DB",  'varchar',  23,  '32',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('database_db',                "Database DB",  'varchar',  24,  '32',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('port_db',                        "Port DB",  'varchar',  25,  '32',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('username_db',                "Username DB",  'varchar',  26,  '32',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('password_db',                "Password DB",  'varchar',  27,  '64',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('fileauthorizekey',  "DateFileauthorizekey", 'datetime',  28,    '',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('filelock',                  "DateFilelock", 'datetime',  29,    '',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('deployment_status',     "DeploymentStatus",   'select',   5,    '',    'contrat', 0, 0, '',  $param, 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('deployment_date_start', "DeploymentDateStart", 'datetime',   6,  '',   'contrat', 0, 0, '',      '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('deployment_date_end',     "DeploymentDateEnd", 'datetime',   6,  '',   'contrat', 0, 0, '',      '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('deployment_ip',             "DeploymentIP",  'varchar',   7, '128',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('date_endfreeperiod',      "Date end trial", 'datetime',   8,    '',    'contrat', 0, 0, '',      '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('undeployment_date',     "UndeploymentDate", 'datetime',   9,    '',    'contrat', 0, 0, '',      '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('undeployment_ip',         "UndeploymentIP",  'varchar',  10, '128',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('hostname_os',                "Hostname OS",  'varchar',  20,  '32',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('username_os',                "Username OS",  'varchar',  21,  '32',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('password_os',                "Password OS",  'varchar',  22,  '32',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('hostname_db',                "Hostname DB",  'varchar',  23,  '32',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('database_db',                "Database DB",  'varchar',  24,  '32',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('port_db',                        "Port DB",  'varchar',  25,  '32',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('username_db',                "Username DB",  'varchar',  26,  '32',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('password_db',                "Password DB",  'varchar',  27,  '64',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('fileauthorizekey',  "DateFileauthorizekey", 'datetime',  28,    '',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('filelock',                  "DateFilelock", 'datetime',  29,    '',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
 
-		$resultx=$extrafields->addExtraField('nb_users',            "LastNbEnabledUsers",      'int',  40,   '8',    'contrat', 0, 0, '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
-		$resultx=$extrafields->addExtraField('nb_gb',                       "LastNbOfGb",   'double',  41,'10,2',    'contrat', 0, 0, '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('nb_users',            "LastNbEnabledUsers",      'int',  40,   '8',    'contrat', 0, 0, '',      '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas');
+		$resultx=$extrafields->addExtraField('nb_gb',                       "LastNbOfGb",   'double',  41,'10,2',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas');
 
 
 		// Create/import website called 'sellyoursaas'

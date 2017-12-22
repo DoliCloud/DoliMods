@@ -81,7 +81,7 @@ export dbusername=$7
 export dbpassword=$8
 
 export dirforconfig1=$9
-export targetdirforconfig1=$10
+export targetdirforconfig1=${10}
 export dirwithdumpfile=${11}
 export dirwithsources1=${12}
 export targetdirwithsources1=${13}
@@ -258,8 +258,64 @@ chown -R $osusername.$osusername /home/jail/home/$osusername/$dbname
 chmod -R go-rwx /home/jail/home/$osusername/$dbname
 
 
+# Deploy config file
 
-# Create database
+echo "Deploy config file"
+echo "mv $dirforconfig1 $targetdirforconfig1/conf.php"
+if [[ -s $targetdirforconfig1/conf.php ]]; then
+	echo File $targetdirforconfig1/conf.php already exists. We change nothing.
+else
+	mv $dirforconfig1 $targetdirforconfig1/conf.php
+fi
+
+# Create apache virtual host
+
+if [[ "$mode" == "all" ]]; then
+export apacheconf="/etc/apache2/sites-available/$fqn.conf"
+echo "***** Create apache conf $apacheconf from $vhostfile"
+if [[ -s $apacheconf ]]
+then
+	echo "Apache conf $apacheconf already exists"
+else
+	echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
+		  sed -e 's/__webAppAliases__/$instancename.$domainname/g' | \
+		  sed -e 's/__webAppLogName__/$instancename/g' | \
+		  sed -e 's/__myMainDomain__/dolicloud.com/g' | \
+		  sed -e 's/__osUsername__/$osusername/g' | \
+		  sed -e 's/__osGroupname__/$osusername/g' | \
+		  sed -e 's;__webAppPath__;$instancedir;' > $apacheconf"
+	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
+		  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
+		  sed -e "s/__webAppLogName__/$instancename/g" | \
+		  sed -e 's/__myMainDomain__/dolicloud.com/g' | \
+		  sed -e "s/__osUsername__/$osusername/g" | \
+		  sed -e "s/__osGroupname__/$osusername/g" | \
+		  sed -e "s;__webAppPath__;$instancedir;" > $apacheconf
+fi
+
+echo Enabled conf with a2ensite $fqn.conf
+a2ensite $fqn.conf
+
+/usr/sbin/apache2ctl configtest
+if [[ "x$?" != "x0" ]]; then
+	echo Error when running apache2ctl configtest 
+	#exit 1
+fi 
+
+echo "***** Apache tasks finished. service apache2 reload"
+service apache2 reload
+if [[ "x$?" != "x0" ]]; then
+	echo Error when running service apache2 reload 
+	exit 2
+fi 
+
+
+fi
+
+
+
+
+# Create database (last step, the longer one)
 
 if [[ "$mode" == "all" ]]; then
 echo "***** Create database $dbname for user $dbusername"
@@ -310,54 +366,14 @@ done
 fi
 
 
-# Create apache virtual host
 
-if [[ "$mode" == "all" ]]; then
-export apacheconf="/etc/apache2/sites-available/$fqn.conf"
-echo "***** Create apache conf $apacheconf from $vhostfile"
-if [[ -s $apacheconf ]]
-then
-	echo "Apache conf $apacheconf already exists"
-else
-	echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
-		  sed -e 's/__webAppAliases__/$instancename.$domainname/g' | \
-		  sed -e 's/__webAppLogName__/$instancename/g' | \
-		  sed -e 's/__myMainDomain__/dolicloud.com/g' | \
-		  sed -e 's/__osUsername__/$osusername/g' | \
-		  sed -e 's/__osGroupname__/$osusername/g' | \
-		  sed -e 's;__webAppPath__;$instancedir;' > $apacheconf"
-	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
-		  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
-		  sed -e "s/__webAppLogName__/$instancename/g" | \
-		  sed -e 's/__myMainDomain__/dolicloud.com/g' | \
-		  sed -e "s/__osUsername__/$osusername/g" | \
-		  sed -e "s/__osGroupname__/$osusername/g" | \
-		  sed -e "s;__webAppPath__;$instancedir;" > $apacheconf
-fi
-
-echo Enabled conf with a2ensite $fqn.conf
-a2ensite $fqn.conf
-
-/usr/sbin/apache2ctl configtest
-if [[ "x$?" != "x0" ]]; then
-	echo Error when running apache2ctl configtest 
-	#exit 1
-fi 
-
-echo "***** Apache tasks finished. service apache2 reload"
-service apache2 reload
-if [[ "x$?" != "x0" ]]; then
-	echo Error when running service apache2 reload 
-	exit 2
-fi 
-
-
-fi
 
 
 #if ! grep test_$i /etc/hosts >/dev/null; then
 #	echo Add name test_$i into /etc/hosts
 #	echo 127.0.0.1 test_$i >> /etc/hosts
 #fi
-	
+
+echo System deployment of $instancename.$domainname for user $osusername finished
+
 exit 0

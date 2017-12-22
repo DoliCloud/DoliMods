@@ -180,18 +180,11 @@ function top_htmlhead_sellyoursaas($head, $title='', $disablejs=0, $disablehead=
 		if (! defined('DISABLE_JQUERY') && ! $disablejs && $conf->use_javascript_ajax)
 		{
 			print '<!-- Includes CSS for JQuery (Ajax library) -->'."\n";
-			$jquerytheme = 'smoothness';
+			$jquerytheme = 'base';
 			if (!empty($conf->global->MAIN_USE_JQUERY_THEME)) $jquerytheme = $conf->global->MAIN_USE_JQUERY_THEME;
 			if (constant('JS_JQUERY_UI')) print '<link rel="stylesheet" type="text/css" href="'.JS_JQUERY_UI.'css/'.$jquerytheme.'/jquery-ui.min.css'.($ext?'?'.$ext:'').'">'."\n";  // JQuery
 			else print '<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/css/'.$jquerytheme.'/jquery-ui.css'.($ext?'?'.$ext:'').'">'."\n";    // JQuery
 			if (! defined('DISABLE_JQUERY_JNOTIFY')) print '<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/plugins/jnotify/jquery.jnotify-alt.min.css'.($ext?'?'.$ext:'').'">'."\n";          // JNotify
-			/* Removed a old hidden problematic feature never used in Dolibarr. If an external module need datatable, the module must provide all lib it needs and manage version problems with other dolibarr components
-			 if (! empty($conf->global->MAIN_USE_JQUERY_DATATABLES) || (defined('REQUIRE_JQUERY_DATATABLES') && constant('REQUIRE_JQUERY_DATATABLES')))     // jQuery datatables
-			 {
-			 print '<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/plugins/datatables/media/css/jquery.dataTables.min.css'.($ext?'?'.$ext:'').'">'."\n";
-			 print '<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/plugins/datatables/extensions/Buttons/css/buttons.dataTables.min.css'.($ext?'?'.$ext:'').'">'."\n";
-			 print '<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/plugins/datatables/extensions/ColReorder/css/colReorder.dataTables.min.css'.($ext?'?'.$ext:'').'"></script>'."\n";
-			 }*/
 			if (! defined('DISABLE_SELECT2') && (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT) || defined('REQUIRE_JQUERY_MULTISELECT')))     // jQuery plugin "mutiselect", "multiple-select", "select2"...
 			{
 				$tmpplugin=empty($conf->global->MAIN_USE_JQUERY_MULTISELECT)?constant('REQUIRE_JQUERY_MULTISELECT'):$conf->global->MAIN_USE_JQUERY_MULTISELECT;
@@ -233,11 +226,6 @@ function top_htmlhead_sellyoursaas($head, $title='', $disablejs=0, $disablehead=
 			print '<!-- Includes JS for JQuery -->'."\n";
 			if (defined('JS_JQUERY') && constant('JS_JQUERY')) print '<script type="text/javascript" src="'.JS_JQUERY.'jquery.min.js'.($ext?'?'.$ext:'').'"></script>'."\n";
 			else print '<script type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/js/jquery.min.js'.($ext?'?'.$ext:'').'"></script>'."\n";
-			if (! empty($conf->global->MAIN_FEATURES_LEVEL) && ! defined('JS_JQUERY_MIGRATE_DISABLED'))
-			{
-				if (defined('JS_JQUERY_MIGRATE') && constant('JS_JQUERY_MIGRATE')) print '<script type="text/javascript" src="'.JS_JQUERY_MIGRATE.'jquery-migrate.min.js'.($ext?'?'.$ext:'').'"></script>'."\n";
-				else print '<script type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/js/jquery-migrate.min.js'.($ext?'?'.$ext:'').'"></script>'."\n";
-			}
 			if (defined('JS_JQUERY_UI') && constant('JS_JQUERY_UI')) print '<script type="text/javascript" src="'.JS_JQUERY_UI.'jquery-ui.min.js'.($ext?'?'.$ext:'').'"></script>'."\n";
 			else print '<script type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/js/jquery-ui.min.js'.($ext?'?'.$ext:'').'"></script>'."\n";
 			if (! defined('DISABLE_JQUERY_TABLEDND')) print '<script type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/plugins/tablednd/jquery.tablednd.min.js'.($ext?'?'.$ext:'').'"></script>'."\n";
@@ -304,8 +292,8 @@ function top_htmlhead_sellyoursaas($head, $title='', $disablejs=0, $disablehead=
 			}
 
 			// Global js function
-			print '<!-- Includes JS of Dolibarr -->'."\n";
-			print '<script type="text/javascript" src="'.DOL_URL_ROOT.'/core/js/lib_head.js.php'.($ext?'?'.$ext:'').'"></script>'."\n";
+			//print '<!-- Includes JS of Dolibarr -->'."\n";
+			//print '<script type="text/javascript" src="'.DOL_URL_ROOT.'/core/js/lib_head.js.php'.($ext?'?'.$ext:'').'"></script>'."\n";
 
 			// JS forced by page in top_htmlhead (relative url starting with /)
 			if (is_array($arrayofjs))
@@ -668,7 +656,7 @@ function dol_loginfunction($langs,$conf,$mysoc)
 	$dol_loginmesg = (! empty($_SESSION["dol_loginmesg"])?$_SESSION["dol_loginmesg"]:'');
 	$favicon=dol_buildpath('/theme/'.$conf->theme.'/img/favicon.ico',1);
 	if (! empty($conf->global->MAIN_FAVICON_URL)) $favicon=$conf->global->MAIN_FAVICON_URL;
-	$jquerytheme = 'smoothness';
+	$jquerytheme = 'base';
 	if (! empty($conf->global->MAIN_USE_JQUERY_THEME)) $jquerytheme = $conf->global->MAIN_USE_JQUERY_THEME;
 
 	// Set dol_hide_topmenu, dol_hide_leftmenu, dol_optimize_smallscreen, dol_no_mouse_hover

@@ -32,6 +32,8 @@ if (! $res) die("Include of main fails");
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 
+$conf->global->SYSLOG_FILE_ONEPERSESSION=1;
+
 $langs=new Translate('', $conf);
 $langs->setDefaultLang('auto');
 

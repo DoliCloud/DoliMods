@@ -6,7 +6,6 @@
         DocumentRoot __webAppPath__/htdocs
 
         AddDefaultCharset UTF-8
-        Require all granted
 
         # Need mpm-itk module
         <IfModule mpm_itk_module>
@@ -14,9 +13,9 @@
         </IfModule>
 
         <Directory "__webAppPath__/htdocs">
-        allow from all
-        Options +Indexes +FollowSymLinks
         Require all granted
+
+        Options +Indexes +FollowSymLinks
         </Directory>
 
         # Possible values include: debug, info, notice, warn, error, crit, alert, emerg.

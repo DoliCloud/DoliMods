@@ -38,11 +38,12 @@ require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/websiteaccount.class.php';
 
+$conf->global->SYSLOG_FILE_ONEPERSESSION=1;
+
 $langs=new Translate('', $conf);
 $langs->setDefaultLang('auto');
 
 $langs->loadLangs(array("sellyoursaas@sellyoursaas","errors"));
-
 
 // Force user
 if (empty($user->id))
@@ -204,9 +205,8 @@ $result = $contract->fetch(0, '', $sldAndSubdomain);
 if ($result > 0)
 {
 	setEventMessages($langs->trans("InstanceNameAlreadyExists", $sldAndSubdomain), null, 'errors');
-	// TODO Restore this
-	//header("Location: ".$newurl);
-	//exit;
+	header("Location: ".$newurl);
+	exit;
 }
 else dol_syslog("Not found");
 
@@ -318,7 +318,7 @@ if (! $error)
 	$result = $contract->create($user);
 	if ($result <= 0)
 	{
-		dol_print_error_email('FETCHTP', $contract->error, $contract->errors);
+		dol_print_error_email('CREATECONTRACT', $contract->error, $contract->errors);
 		exit;
 	}
 }
@@ -355,17 +355,18 @@ if (! $error)
 	{
 		$object->country_code = dol_getIdFromCode($db, $object->country_id, 'c_country', 'rowid', 'code');
 	}
+
 	$qty = 1;
 	//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
-	$vat = get_default_tva($mysoc, $object, $product->id);
+	$vat = get_default_tva($mysoc, $object, $tmpproduct->id);
 	$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
 	$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
 	//var_dump($mysoc->country_code);
 	//var_dump($object->country_code);
-	//var_dump($product->tva_tx);
+	//var_dump($tmpproduct->tva_tx);
 	//var_dump($vat);exit;
 
-	$price = $product->price;
+	$price = $tmpproduct->price;
 	if ($dolicloudcustomer->id > 0)
 	{
 		$price = $dolicloudcustomer->price_instance;
@@ -374,11 +375,13 @@ if (! $error)
 
 	if ($price == 0) $discount = 0;
 
-	$contactlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreate, $discount, $date_start, $date_end, 'HT', 0);
-	if ($contactlineid < 0)
+	$productidtocreate = $tmpproduct->id;
+
+	$contractlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreate, $discount, $date_start, $date_end, 'HT', 0);
+	if ($contractlineid < 0)
 	{
-		$error++;
-		setEventMessages($contract->error, $contract->errors, 'errors');
+		dol_print_error_email('CREATECONTRACTLINE1', $contract->error, $contract->errors, 'errors');
+		exit;
 	}
 }
 
@@ -389,26 +392,30 @@ if (! $error)
 // Create contract line for USERS
 if (! $error)
 {
-	$qty = 0;
+	$qty = 1;
 	if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
 	$vat = get_default_tva($mysoc, $object, 0);
 	$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
 	$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
 
-	$price = $product->array_options['options_price_per_user'];
+	$price = $tmpproduct->array_options['options_price_per_user'];
 	if ($dolicloudcustomer->id > 0)
 	{
 		$price = $dolicloudcustomer->price_user;
 		if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
 	}
+	/*var_dump($tmpproduct);
+	var_dump('qty:'.$qty.'-price:'.$price);
+	var_dump('instance:'.$dolicloudcustomer->price_instance);
+	exit;*/
 
 	if ($price > 0 && $qty > 0)
 	{
-		$contactlineid = $contract->addline('Additional users', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, 0, $discount, $date_start, $date_end, 'HT', 0);
-		if ($contactlineid < 0)
+		$contractlineid = $contract->addline('Users', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, 0, $discount, $date_start, $date_end, 'HT', 0);
+		if ($contractlineid < 0)
 		{
-			$error++;
-			setEventMessages($contract->error, $contract->errors, 'errors');
+			dol_print_error_email('CREATECONTRACTLINE2', $contract->error, $contract->errors, 'errors');
+			exit;
 		}
 	}
 }
@@ -449,14 +456,14 @@ if (! $error)
 	'__APPUSERNAME__'=>'admin',
 	'__APPPASSWORD__'=>$password,
 	'__APPUNIQUEKEY__'=>$generateduniquekey,
-	'__APPDOMAIN__'=>$domainname.'.'.$sldAndSubdomain,
+	'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname,
 	'__DBHOSTNAME__'=>$generateddbhostname,
 	'__DBNAME__'=>$generateddbname,
 	'__DBUSER__'=>$generateddbusername,
 	'__DBPASSWORD__'=>$generateddbpassword
 	);
 
-	$tmppackage->srcconffile1 = '/tmp/config.php.'.$sldAndSubdomain.'.tmp';
+	$tmppackage->srcconffile1 = '/tmp/conf.php.'.$sldAndSubdomain.'.tmp';
 	$tmppackage->srccronfile = '/tmp/cron.'.$sldAndSubdomain.'.tmp';
 
 	$conffile = make_substitutions($tmppackage->conffile1, $substitarray);
@@ -487,14 +494,14 @@ if (! $error)
 	//$command = '/usr/bin/aaa.sh';
 	$outputfile = $conf->sellyoursaas->dir_temp.'/register.'.dol_getmypid().'.out';
 
-	// To remove
+	// TODO To remove
 	print "<br>Command: ".$command.'<br>';
-	var_dump($retarray);
-	sleep(10);
+	sleep(2);
 
 	include_once DOL_DOCUMENT_ROOT.'/core/class/utils.class.php';
 	$utils = new Utils($db);
 	$retarray = $utils->executeCLI($command, $outputfile, 1);
+	//var_dump($retarray);
 
 	if ($retarra['result'] != 0)
 	{
@@ -547,6 +554,8 @@ if (! $error)
 	}
 	else
 	{
+		dol_syslog("Execute sql=".$sqltoexecute);
+		var_dmp($sqltoexecute);
 		$dbinstance->query($sqtoexecute);
 
 	}

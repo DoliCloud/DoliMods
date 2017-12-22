@@ -90,7 +90,7 @@ class Packages extends CommonObject
 		'srcfile3' => array('type'=>'varchar(255)', 'label'=>'Dir with sources 3', 'visible'=>-1, 'enabled'=>1, 'position'=>53, 'notnull'=>-1, 'css'=>'minwidth500'),
 		'targetsrcfile3' => array('type'=>'varchar(255)', 'label'=>'Target relative dir for sources 3', 'visible'=>-1, 'enabled'=>1, 'position'=>53, 'notnull'=>-1, 'css'=>'minwidth500'),
 		'conffile1' => array('type'=>'text', 'label'=>'Template of config file 1', 'visible'=>-1, 'enabled'=>1, 'position'=>54, 'notnull'=>-1),
-		'targetconffile1' => array('type'=>'varchar(255)', 'label'=>'Target relative dir for config file 1', 'visible'=>-1, 'enabled'=>1, 'position'=>54, 'notnull'=>-1, 'css'=>'minwidth500'),
+		'targetconffile1' => array('type'=>'varchar(255)', 'label'=>'Target relative file for config file 1', 'visible'=>-1, 'enabled'=>1, 'position'=>54, 'notnull'=>-1, 'css'=>'minwidth500'),
 		'datafile1' => array('type'=>'varchar(255)', 'label'=>'Dir with dump files', 'visible'=>-1, 'enabled'=>1, 'position'=>55, 'notnull'=>-1, 'css'=>'minwidth500'),
 		//'targetdatafile1' => array('type'=>'varchar(255)', 'label'=>'Target dir for data 1', 'visible'=>-1, 'enabled'=>1, 'position'=>55, 'notnull'=>-1, 'css'=>'minwidth500'),
 		'sqlafter' => array('type'=>'text', 'label'=>'Sql after', 'visible'=>-1, 'enabled'=>1, 'position'=>60, 'notnull'=>-1,),

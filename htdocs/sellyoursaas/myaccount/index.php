@@ -35,6 +35,8 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
 
+$conf->global->SYSLOG_FILE_ONEPERSESSION=1;
+
 $welcomecid = GETPOST('welcomecid','alpha');
 $mode = GETPOST('mode', 'alpha');
 if (empty($mode) && empty($welcomecid)) $mode='dashboard';
@@ -119,13 +121,13 @@ if ($welcomecid > 0)
 {
 	$contract = new Contrat($db);
 	$contract->fetch($welcomecid);
+	$contract->fetch_thirdparty();
 
 	print '
       <div class="jumbotron">
         <div class="col-sm-8 mx-auto">
 
 
-		<!-- BEGIN PAGE HEADER-->
 		<!-- BEGIN PAGE HEAD -->
 		<div class="page-head">
 		<!-- BEGIN PAGE TITLE -->
@@ -133,27 +135,41 @@ if ($welcomecid > 0)
 		<h1>'.$langs->trans("Welcome").'</h1>
 		</div>
 		<!-- END PAGE TITLE -->
-
-
 		</div>
 		<!-- END PAGE HEAD -->
-		<!-- END PAGE HEADER-->
 
+
+		<!-- BEGIN PORTLET -->
 		<div class="portletnoborder light">
+
 		<div class="portlet-header">
 		<div class="caption">
 		<span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("InstallationComplete").'</span>
 		</div>
-		</div>
+		</div>';
+
+	if (in_array($contract->thirdparty->country_code, array('aaa', 'bbb')))
+	{
+		print '
+		<div class="portlet-body">
+		<p>
+		'.$langs->trans("YourCredentialToAccessYourInstanceHasBeenSentByEmail").'
+		</p>
+
+		</div>';
+	}
+	else
+	{
+	print '
 		<div class="portlet-body">
 		<p>
 		'.$langs->trans("YouCanAccessYourInstance", $contract->array_options['options_plan']).'
 		</p>
 		<p class="well">
-		Url: <a href="http://'.$contract->ref_customer.'" target="_blank">'.$contract->ref_customer.'</a>
+		'.$langs->trans("Url").': <a href="http://'.$contract->ref_customer.'" target="_blank">'.$contract->ref_customer.'</a>
 
-		<br /> Username: '.($_SESSION['initialappplogin']?$_SESSION['initialappplogin']:'NA').'
-		<br /> Password: '.($_SESSION['initialappppassword']?$_SESSION['initialappppassword']:'NA').'
+		<br> '.$langs->trans("Username").': '.($_SESSION['initialappplogin']?$_SESSION['initialappplogin']:'NA').'
+		<br> '.$langs->trans("Password").': '.($_SESSION['initialappppassword']?$_SESSION['initialappppassword']:'NA').'
 		</p>
 		<p>
 		<a class="btn btn-primary" target="_blank" href="http://'.$contract->ref_customer.'">
@@ -161,9 +177,11 @@ if ($welcomecid > 0)
 		</a>
 		</p>
 
-		</div>
-		</div> <!-- END PORTLET -->
+		</div>';
+	}
 
+	print '
+		</div> <!-- END PORTLET -->
 
 
         </div>
@@ -577,7 +595,7 @@ if ($mode == 'myaccount')
 
 	        <div class="portlet light">
           <div class="portlet-title">
-            <div class="caption-subject font-green-sharp bold uppercase">Organization</div>
+            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("Organization").'</div>
           </div>
           <div class="portlet-body">
             <form action="'.$_SERVER["PHP_SELF"].'" method="post">
@@ -585,45 +603,45 @@ if ($mode == 'myaccount')
               <div class="form-body">
 
                 <div class="form-group">
-                  <label>Company Name</label>
+                  <label>'.$langs->trans("NameOfCompany").'</label>
                   <input type="text" class="form-control" placeholder="name of your organization" value="Bobolink" name="orgName">
                 </div>
 
                 <div class="form-group">
-                  <label>Address Line 1</label>
-                  <input type="text" class="form-control" placeholder="house number and street" value="" name="address.addressLine1">
+                  <label>'.$langs->trans("AddressLine").' 1</label>
+                  <input type="text" class="form-control" placeholder="'.$langs->trans("HouseNumberAndStreet").'" value="" name="address.addressLine1">
                 </div>
                 <div class="form-group">
-                  <label>Address Line 2</label>
+                  <label>'.$langs->trans("AddressLine").' 2</label>
                   <input type="text" class="form-control" value="" name="address.addressLine2">
                 </div>
                 <div class="form-group">
-                  <label>City</label>
+                  <label>'.$langs->trans("Town").'</label>
                   <input type="text" class="form-control" value="" name="address.city">
                 </div>
                 <div class="form-group">
-                  <label>Zip Code</label>
+                  <label>'.$langs->trans("Zip").'</label>
                   <input type="text" class="form-control input-small" value="" name="address.zip">
                 </div>
                 <div class="form-group">
-                  <label>State</label>
-                  <input type="text" class="form-control" placeholder="state or county" value="">
+                  <label>'.$langs->trans("State").'</label>
+                  <input type="text" class="form-control" placeholder="'.$langs->trans("StateOrCounty").'" value="">
                 </div>
                 <div class="form-group">
-                  <label>Country</label>
+                  <label>'.$langs->trans("Country").'</label>
 ';
 print $form->select_country($countryselected, 'address_country', 'optionsValue="name"', 0, 'form-control minwidth300', 'code2');
 print '
                 </div>
                 <div class="form-group">
-                  <label>Tax Id</label>
-                  <input type="text" class="form-control input-small" value="0788752605" name="taxIdentificationNumber">
+                  <label>'.$langs->trans("VATIntra").'</label>
+                  <input type="text" class="form-control input-small" value="" name="taxIdentificationNumber">
                 </div>
               </div>
               <!-- END FORM BODY -->
 
               <div>
-                <input type="submit" name="submit" value="Save" class="btn green-haze btn-circle">
+                <input type="submit" name="submit" value="'.$langs->trans("Save").'" class="btn green-haze btn-circle">
               </div>
 
             </form>
@@ -666,7 +684,7 @@ print '
 	                </div>
 	              </div>
 	              <div>
-	                <input type="submit" name="submit" value="Save" class="btn green-haze btn-circle">
+	                <input type="submit" name="submit" value="'.$langs->trans("Save").'" class="btn green-haze btn-circle">
 	              </div>
 	            </form>
 	          </div>
