@@ -7,7 +7,7 @@
 
 $tmpfile = '/home/admin/logs/spamreport.log';
 
-fil_put_contents($tmpfile, "***** Spam report received *****\n");
+file_put_contents($tmpfile, "***** Spam report received *****\n");
 file_put_contents($tmpfile, var_export($_SERVER, true), FILE_APPEND);
 file_put_contents($tmpfile, var_export($_GET, true), FILE_APPEND);
 file_put_contents($tmpfile, var_export($_POST, true), FILE_APPEND);
