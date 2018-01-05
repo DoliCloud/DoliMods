@@ -67,7 +67,7 @@ dol_fiche_head($head, 'tababout', $langs->trans("EcoTaxDeee"));
 
 dol_include_once('/ecotaxdeee/core/modules/modEcoTaxDeee.class.php');
 $tmpmodule = new modEcoTaxDeee($db);
-print $tmpmodule->getDescLong();
+if (method_exists($tmpmodule, 'getDescLong')) print $tmpmodule->getDescLong();
 
 print '<br><hr><br>';
 

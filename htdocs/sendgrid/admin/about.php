@@ -65,7 +65,7 @@ dol_fiche_head($head, 'tababout', $langs->trans("SendGrid"));
 
 dol_include_once('/sendgrid/core/modules/modSendGrid.class.php');
 $tmpmodule = new modSendGrid($db);
-print $tmpmodule->getDescLong();
+if (method_exists($tmpmodule, 'getDescLong')) print $tmpmodule->getDescLong();
 
 print '<br><hr><br>';
 

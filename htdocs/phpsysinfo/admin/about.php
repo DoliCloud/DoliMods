@@ -72,7 +72,7 @@ dol_fiche_head($head, 'tababout', '');
 
 dol_include_once('/phpsysinfo/core/modules/modPHPSysInfo.class.php');
 $tmpmodule = new modPHPSysInfo($db);
-print $tmpmodule->getDescLong();
+if (method_exists($tmpmodule, 'getDescLong')) print $tmpmodule->getDescLong();
 
 print '<br><hr><br>';
 

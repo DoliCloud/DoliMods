@@ -76,7 +76,7 @@ dol_fiche_head($head, 'tababout', '');
 
 dol_include_once('/externalbackup/core/modules/modExternalBackup.class.php');
 $tmpmodule = new modExternalBackup($db);
-print $tmpmodule->getDescLong();
+if (method_exists($tmpmodule, 'getDescLong')) print $tmpmodule->getDescLong();
 
 print '<br><hr><br>';
 

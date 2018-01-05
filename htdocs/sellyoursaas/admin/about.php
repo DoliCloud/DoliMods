@@ -65,7 +65,7 @@ dol_fiche_head($head, 'tababout', $langs->trans("sellyoursaas"));
 
 dol_include_once('/sellyoursaas/core/modules/modSellYourSaas.class.php');
 $tmpmodule = new modSellYourSaas($db);
-print $tmpmodule->getDescLong();
+if (method_exists($tmpmodule, 'getDescLong')) print $tmpmodule->getDescLong();
 
 print '<br><hr><br>';
 

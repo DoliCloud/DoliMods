@@ -65,7 +65,7 @@ dol_fiche_head($head, 'tababout', $langs->trans("OpenStreetMapTools"));
 
 dol_include_once('/openstreetmap/core/modules/modOpenStreetMap.class.php');
 $tmpmodule = new modOpenStreetMap($db);
-print $tmpmodule->getDescLong();
+if (method_exists($tmpmodule, 'getDescLong')) print $tmpmodule->getDescLong();
 
 print '<br><hr><br>';
 

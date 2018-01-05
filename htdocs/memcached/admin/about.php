@@ -65,7 +65,7 @@ dol_fiche_head($head, 'tababout', '');
 
 dol_include_once('/memcached/core/modules/modMemcached.class.php');
 $tmpmodule = new modMemcached($db);
-print $tmpmodule->getDescLong();
+if (method_exists($tmpmodule, 'getDescLong')) print $tmpmodule->getDescLong();
 
 print '<br><hr><br>';
 

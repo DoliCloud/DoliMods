@@ -67,7 +67,7 @@ dol_fiche_head($head, 'tababout', $langs->trans("GoogleTools"));
 
 dol_include_once('/google/core/modules/modGoogle.class.php');
 $tmpmodule = new modGoogle($db);
-print $tmpmodule->getDescLong();
+if (method_exists($tmpmodule, 'getDescLong')) print $tmpmodule->getDescLong();
 
 print '<br><hr><br>';
 

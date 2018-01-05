@@ -75,7 +75,7 @@ dol_fiche_head($head, 'tababout', '');
 
 dol_include_once('/numberwords/core/modules/modNumberWords.class.php');
 $tmpmodule = new modNumberWords($db);
-print $tmpmodule->getDescLong();
+if (method_exists($tmpmodule, 'getDescLong')) print $tmpmodule->getDescLong();
 
 print '<br><hr><br>';
 
