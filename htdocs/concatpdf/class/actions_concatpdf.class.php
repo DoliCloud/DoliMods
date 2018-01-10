@@ -103,8 +103,8 @@ class ActionsConcatPdf
         $preselected=(isset($object->extraparams['concatpdf'][0])?$object->extraparams['concatpdf'][0]:-1);	// string with preselected string
         if ($preselected == -1 && ! empty($conf->global->CONCATPDF_PRESELECTED_MODELS))
         {
-            // List of value key into setup -> value for modulepart
-            $altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'commande_fournisseur', 'invoice_order'=>'facture_fournisseur');
+        	// List of value key into setup -> value for modulepart
+        	$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'commande_fournisseur', 'invoice_order'=>'facture_fournisseur');
 
         	// $conf->global->CONCATPDF_PRESELECTED_MODELS may contains value of preselected model with format
         	// propal:model1a,model1b;invoice:model2;...
@@ -125,7 +125,7 @@ class ActionsConcatPdf
         {
             foreach ($staticpdf as $filename)
             {
-            	$newfilekey=basename($filename, ".pdf");	// We do not remove extensionif it is uppercase .PDF otherwise there is no way to retrieve file name later
+            	$newfilekey=basename($filename, ".pdf");	// We do not remove extension if it is uppercase .PDF otherwise there is no way to retrieve file name later
             	$newfilelabel=$newfilekey;
         		if ($preselected && $newfilekey == $preselected) $newfilelabel.=' ('.$langs->trans("Default").')';
             	$morefiles[$newfilekey] = $newfilelabel;
@@ -151,10 +151,11 @@ class ActionsConcatPdf
 
         	if (! empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED))
         	{
-        		$out.='</td></tr>';
+        		$arraypreselected = explode(',', $preselected);
 
+        		$out.='</td></tr>';
         		$out.='<tr><td id="selectconcatpdf" colspan="4" valign="top">';
-        		$out.= $form->multiselectarray('concatpdffile', $morefiles, (! empty($object->extraparams['concatpdf'])?$object->extraparams['concatpdf']:''), 0, 0, '', 1, '95%');
+        		$out.= $form->multiselectarray('concatpdffile', $morefiles, (! empty($object->extraparams['concatpdf'])?$object->extraparams['concatpdf']:$arraypreselected), 0, 0, '', 1, '95%');
         	}
         	else
         	{
@@ -188,14 +189,27 @@ class ActionsConcatPdf
 
         $outputlangs=$langs;
 
+        //var_dump($parameters['object']);
+
         $ret=0; $deltemp=array();
         dol_syslog(get_class($this).'::executeHooks action='.$action);
+
+        if (! is_object($parameters['object']))
+        {
+        	dol_syslog("Trigger afterPDFCreation was called but parameter 'object' was not set by caller.", LOG_WARNING);
+        	return 0;
+        }
 
         $check='alpha';
         if (! empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED)) $check='array';
 
         $concatpdffile = GETPOST('concatpdffile',$check);
-        if (! is_array($concatpdffile) && ! empty($concatpdffile)) $concatpdffile = array($concatpdffile);
+        if (! is_array($concatpdffile))
+        {
+        	if (! empty($concatpdffile)) $concatpdffile = array($concatpdffile);
+        	else $concatpdffile = array();
+        }
+
         // Includes default models if no model selection
         if (empty($concatpdffile) && ! isset($_POST['concatpdffile']) && ! empty($conf->global->CONCATPDF_PRESELECTED_MODELS)) {
         	// $conf->global->CONCATPDF_PRESELECTED_MODELS may contains value of preselected model with format
