@@ -110,12 +110,13 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	// SSH
     $sshconnectstring='ssh '.$object->username_web.'@'.$object->hostname_web;
     $links.='SSH connect string: ';
-    $links.='<input type="text" name="sshconnectstring" id="sshconnectstring" value="'.$sshconnectstring.'" size="50"><br>';
+    $links.='<input type="text" name="sshconnectstring" id="sshconnectstring" value="'.$sshconnectstring.'" size="50">';
     if ($conf->use_javascript_ajax) $links.=ajax_autoselect('sshconnectstring');
-    $links.=' &nbsp; SU: ';
+    $links.=' &nbsp; '.$langs->trans("or").' SU: ';
     $sustring='su '.$object->username_web;
-    $links.='<input type="text" name="sustring" id="sustring" value="'.$sustring.'" size="50"><br>';
-    //$links.='<br>';
+    $links.='<input type="text" name="sustring" id="sustring" value="'.$sustring.'" size="30"><br>';
+    if ($conf->use_javascript_ajax) $links.=ajax_autoselect('sustring');
+    $links.='<br>';
 
 	// SFTP
 	//$sftpconnectstring=$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
