@@ -76,7 +76,7 @@ function refreshContract(Contrat $contract)
  */
 function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 {
-    global $conf;
+    global $conf, $langs;
 
 	// Define links
     $links='';
