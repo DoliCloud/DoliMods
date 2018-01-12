@@ -96,7 +96,7 @@ class ActionsSelectBank
         	$out.='<td align="left" colspan="4" valign="top" class="formdoc">';
         	$out.='<span class="valignmiddle inline-block">';
         	$out.=$langs->trans("BankAccount").' (pdf) ';
-        	$out.='</span>';
+        	$out.='</span> ';
         	$out.='<span class="valignmiddle inline-block">';
         	$out.= $form->selectarray('fk_bank',$listofbankaccounts,$selectedbank,(count($listofbankaccounts)>1?1:0));	// This info will be set into object->fk_bank into action "buildoc" before generating document.
         	$out.='</span>';
