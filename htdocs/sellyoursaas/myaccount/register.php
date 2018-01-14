@@ -109,14 +109,15 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
 
       <div style="text-align: center; height: 80px">
         <?php
-        $logo = 'img/dolicloud_logo.png';
+        $linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI);
+
         if (GETPOST('partner','alpha'))
         {
             $tmpthirdparty = new Societe($db);
             $result = $tmpthirdparty->fetch(0, GETPOST('partner','alpha'));
             $logo = $tmpthirdparty->logo;
         }
-        print '<img style="center" class="logoheader"  src="'.$logo.'" id="logo" />';
+        print '<img style="center" class="logoheader"  src="'.$linklogo.'" id="logo" />';
         ?>
       </div>
       <div class="block medium">

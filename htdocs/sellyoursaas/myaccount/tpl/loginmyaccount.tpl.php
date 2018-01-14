@@ -171,6 +171,18 @@ if ($captcha) {
 
 <div id="login_line2" style="clear: both">
 
+<?php
+// Show error message if defined
+if (! empty($_SESSION['dol_loginmesg']))
+{
+?>
+	<div class="center"><font class="error">
+	<?php echo $_SESSION['dol_loginmesg']; ?>
+	</font></div><br>
+<?php
+}
+?>
+
 <!-- Button Connection -->
 <section id="formActions">
 <div class="form-actions center">
@@ -216,6 +228,8 @@ if ($forgetpasslink || $helpcenterlink)
 <!-- Common footer is not used for login page, this is same than footer but inside login tpl -->
 
 <?php
+
+
 if (! empty($conf->global->MAIN_HTML_FOOTER)) print $conf->global->MAIN_HTML_FOOTER;
 
 if (! empty($morelogincontent) && is_array($morelogincontent)) {
