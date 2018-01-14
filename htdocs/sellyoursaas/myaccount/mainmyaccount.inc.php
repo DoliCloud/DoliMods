@@ -593,14 +593,13 @@ function dol_loginfunction($langs,$conf,$mysoc)
 	// Show logo (search in order: small company logo, large company logo, theme logo, common logo)
 	$width=0;
 	$urllogo=DOL_URL_ROOT.'/theme/login_logo.png';
-
-	if (! empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small))
+	if (! empty($conf->global->SELLYOURSAAS_LOGO_SMALL) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL))
 	{
-		$urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('thumbs/'.$mysoc->logo_small);
+		$urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL);
 	}
-	elseif (! empty($mysoc->logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$mysoc->logo))
+	elseif (! empty($conf->global->SELLYOURSAAS_LOGO) && is_readable($conf->mycompany->dir_output.'/logos/'.$conf->global->SELLYOURSAAS_LOGO))
 	{
-		$urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode($mysoc->logo);
+		$urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode($conf->global->SELLYOURSAAS_LOGO);
 		$width=128;
 	}
 	elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/img/dolibarr_logo.png'))
@@ -611,7 +610,6 @@ function dol_loginfunction($langs,$conf,$mysoc)
 	{
 		$urllogo=DOL_URL_ROOT.'/theme/dolibarr_logo.png';
 	}
-	$urllogo = './img/dolicloud_logo.png';
 
 	// Security graphical code
 	$captcha=0;

@@ -77,6 +77,7 @@ class modSellYourSaas extends DolibarrModules
 									'substitutions' => 0,
 									'menus' => 0,
 									'models' => 1,
+									'login' => 1,
 									'css' => array(),
 									'hooks' => array('formmail','searchform','thirdpartylist','customerlist','prospectlist','contractlist'));
 

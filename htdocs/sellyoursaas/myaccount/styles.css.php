@@ -112,6 +112,27 @@ print "
 	        -webkit-transition-duration: 0.5s;
 	    }
 
+
+		.center {
+		    text-align: center;
+		    margin: 0px auto;
+		}
+		.login_main_message {
+			text-align: center;
+			max-width: 570px;
+			margin-top: 20px;
+			margin-bottom: 10px;
+		}
+		.login_main_message .error {
+			border: 1px solid #caa;
+			padding: 10px;
+		}
+
+		/* Error message */
+		div.error {
+		  background: #EFCFCF;
+		}
+
 ";
 
 print "</head>\n\n";

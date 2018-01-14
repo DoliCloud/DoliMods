@@ -41,6 +41,7 @@ if (! $res) die("Include of main fails");
 
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/images.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
 require_once(DOL_DOCUMENT_ROOT."/categories/class/categorie.class.php");
 
@@ -102,6 +103,75 @@ if ($action == 'set')
 		dolibarr_set_const($db,"SELLYOURSAAS_MYACCOUNT_FOOTER",GETPOST("SELLYOURSAAS_MYACCOUNT_FOOTER",'none'),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_ANONYMOUSUSER",GETPOST("SELLYOURSAAS_ANONYMOUSUSER",'none'),'chaine',0,'',$conf->entity);
+
+		$varforimage='logo'; $dirforimage=$conf->mycompany->dir_output.'/logos/';
+		if ($_FILES[$varforimage]["tmp_name"])
+		{
+			if (preg_match('/([^\\/:]+)$/i',$_FILES[$varforimage]["name"],$reg))
+			{
+				$original_file=$reg[1];
+
+				$isimage=image_format_supported($original_file);
+				if ($isimage >= 0)
+				{
+					dol_syslog("Move file ".$_FILES[$varforimage]["tmp_name"]." to ".$dirforimage.$original_file);
+					if (! is_dir($dirforimage))
+					{
+						dol_mkdir($dirforimage);
+					}
+					$result=dol_move_uploaded_file($_FILES[$varforimage]["tmp_name"],$dirforimage.$original_file,1,0,$_FILES[$varforimage]['error']);
+					if ($result > 0)
+					{
+						dolibarr_set_const($db, "SELLYOURSAAS_LOGO",$original_file,'chaine',0,'',$conf->entity);
+
+						// Create thumbs of logo (Note that PDF use original file and not thumbs)
+						if ($isimage > 0)
+						{
+							// Create thumbs
+							//$object->addThumbs($newfile);    // We can't use addThumbs here yet because we need name of generated thumbs to add them into constants. TODO Check if need such constants. We should be able to retreive value with get...
+
+							// Create small thumb, Used on logon for example
+							$imgThumbSmall = vignette($dirforimage.$original_file, $maxwidthsmall, $maxheightsmall, '_small', $quality);
+							if (image_format_supported($imgThumbSmall) >= 0 && preg_match('/([^\\/:]+)$/i',$imgThumbSmall,$reg))
+							{
+								$imgThumbSmall = $reg[1];    // Save only basename
+								dolibarr_set_const($db, "SELLYOURSAAS_LOGO_SMALL",$imgThumbSmall,'chaine',0,'',$conf->entity);
+							}
+							else dol_syslog($imgThumbSmall);
+
+							// Create mini thumb, Used on menu or for setup page for example
+							$imgThumbMini = vignette($dirforimage.$original_file, $maxwidthmini, $maxheightmini, '_mini', $quality);
+							if (image_format_supported($imgThumbMini) >= 0 && preg_match('/([^\\/:]+)$/i',$imgThumbMini,$reg))
+							{
+								$imgThumbMini = $reg[1];     // Save only basename
+								dolibarr_set_const($db, "SELLYOURSAAS_LOGO_MINI",$imgThumbMini,'chaine',0,'',$conf->entity);
+							}
+							else dol_syslog($imgThumbMini);
+						}
+						else dol_syslog("ErrorImageFormatNotSupported",LOG_WARNING);
+					}
+					else if (preg_match('/^ErrorFileIsInfectedWithAVirus/',$result))
+					{
+						$error++;
+						$langs->load("errors");
+						$tmparray=explode(':',$result);
+						setEventMessages($langs->trans('ErrorFileIsInfectedWithAVirus',$tmparray[1]), null, 'errors');
+					}
+					else
+					{
+						$error++;
+						setEventMessages($langs->trans("ErrorFailedToSaveFile"), null, 'errors');
+					}
+				}
+				else
+				{
+					$error++;
+					$langs->load("errors");
+					setEventMessages($langs->trans("ErrorBadImageFormat"), null, 'errors');
+				}
+			}
+		}
+
 	}
 }
 
@@ -124,6 +194,22 @@ if ($action == 'setstratus5')
 	}
 }
 
+if ($action == 'removelogo')
+{
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+
+	$logofile=$conf->mycompany->dir_output.'/logos/'.$conf->global->SELLYOURSAAS_LOGO;
+	if ($conf->global->SELLYOURSAAS_LOGO != '') dol_delete_file($logofile);
+	dolibarr_del_const($db, "SELLYOURSAAS_LOGO",$conf->entity);
+
+	$logosmallfile=$conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL;
+	if ($conf->global->SELLYOURSAAS_LOGO_SMALL != '') dol_delete_file($logosmallfile);
+	dolibarr_del_const($db, "SELLYOURSAAS_LOGO_SMALL",$conf->entity);
+
+	$logominifile=$conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI;
+	if ($conf->global->SELLYOURSAAS_LOGO_MINI != '') dol_delete_file($logominifile);
+	dolibarr_del_const($db, "SELLYOURSAAS_LOGO_MINI",$conf->entity);
+}
 
 
 /*
@@ -148,14 +234,14 @@ print "<br>\n";
 $error=0;
 
 
-print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<form enctype="multipart/form-data" method="POST" action="'.$_SERVER["PHP_SELF"].'" name="form_index">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="action" value="set">';
 
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
 print '<td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td>';
-print '<td>'.$langs->trans("Examples").'<div class="floatright"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></div></td>';
+print '<td>'.$langs->trans("Examples").'<div class="floatright"><input type="submit" class="button" value="'.$langs->trans("Save").'"></div></td>';
 print "</tr>\n";
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasName").'</td>';
@@ -255,10 +341,30 @@ print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("AnonymousUser").'</td>';
 print '<td>';
-print $form->select_users($conf->global->SELLYOURSAAS_ANONYMOUSUSER, 'SELLYOURSAAS_ANONYMOUSUSER', 1);
+print $form->select_dolusers($conf->global->SELLYOURSAAS_ANONYMOUSUSER, 'SELLYOURSAAS_ANONYMOUSUSER', 1);
 print '</td>';
 print '<td>User used for all anonymous action (registering, actions from customer dashboard, ...)</td>';
 print '</tr>';
+
+// Logo
+print '<tr class="oddeven hideonsmartphone"><td><label for="logo">'.$langs->trans("Logo").' (png,jpg)</label></td><td>';
+print '<table width="100%" class="nobordernopadding"><tr class="nocellnopadd"><td valign="middle" class="nocellnopadd">';
+print '<input type="file" class="flat class=minwidth200" name="logo" id="logo">';
+print '</td><td class="nocellnopadd" valign="middle" align="right">';
+if (! empty($conf->global->SELLYOURSAAS_LOGO_MINI)) {
+	print '<a href="'.$_SERVER["PHP_SELF"].'?action=removelogo">'.img_delete($langs->trans("Delete")).'</a>';
+	if (file_exists($conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI)) {
+		print ' &nbsp; ';
+		print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI).'">';
+	}
+} else {
+	print '<img height="30" src="'.DOL_URL_ROOT.'/public/theme/common/nophoto.png">';
+}
+print '</td></tr></table>';
+print '</td><td>';
+print '</td></tr>';
+
+
 
 print '</table>';
 
@@ -279,7 +385,7 @@ print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
 print '<td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td>';
 print '<td>'.$langs->trans("Examples").'</td>';
-print '<td align="right"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td>';
+print '<td align="right"><input type="submit" class="button" value="'.$langs->trans("Save").'"></td>';
 print "</tr>\n";
 
 print '<tr class="oddeven"><td>'.$langs->trans("DirForDoliCloudInstances").' (remote dir)</td>';
