@@ -13,7 +13,6 @@ if (! defined('NOREQUIREMENU'))  define('NOREQUIREMENU','1');			// If there is n
 //if (! defined("NOLOGIN"))        define("NOLOGIN",'1');				    	// If this page is public (can be called outside logged session)
 if (! defined("MAIN_LANG_DEFAULT")) define('MAIN_LANG_DEFAULT','auto');
 if (! defined("MAIN_AUTHENTICATION_MODE")) define('MAIN_AUTHENTICATION_MODE','sellyoursaas');
-if (! defined("MAIN_SWITCH_TO_USER_AFTER_LOGIN")) define('MAIN_SWITCH_TO_USER_AFTER_LOGIN', 'SELLYOURSAAS_ANONYMOUSUSER');
 
 // Load Dolibarr environment
 include ('./mainmyaccount.inc.php');
@@ -91,7 +90,11 @@ print '
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+<<<<<<< HEAD
       <a class="navbar-brand" href="#"><img src="'.$linklogo.'" width="160px"></a>
+=======
+      <a class="navbar-brand" href="#"><img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI).'" width="160px"></a>
+>>>>>>> branch 'develop' of git@git.framasoft.org:eldy/dolimods.git
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">

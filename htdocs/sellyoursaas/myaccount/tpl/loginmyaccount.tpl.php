@@ -221,6 +221,18 @@ if ($forgetpasslink || $helpcenterlink)
 
 </form>
 
+<?php
+// Show error message if defined
+if (! empty($_SESSION['dol_loginmesg']))
+{
+?>
+	<div class="center login_main_message"><div class="error">
+	<?php echo $_SESSION['dol_loginmesg']; ?>
+	</div></div>
+<?php
+}
+?>
+
 <!-- authentication mode = <?php echo $main_authentication ?> -->
 <!-- cookie name used for this session = <?php echo $session_name ?> -->
 <!-- urlfrom in this session = <?php echo isset($_SESSION["urlfrom"])?$_SESSION["urlfrom"]:''; ?> -->
