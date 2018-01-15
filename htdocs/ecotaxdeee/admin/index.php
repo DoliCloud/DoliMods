@@ -99,20 +99,18 @@ print '<form name="ecotaxdeeeconfig" action="'.$_SERVER["PHP_SELF"].'" method="p
 print '<input type="hidden" name="action" value="save">';
 
 
-dol_fiche_head($head, 'tabsetup', $langs->trans("EcoTaxDeee"));
+dol_fiche_head($head, 'tabsetup', $langs->trans("EcoTaxDeee"), (((float) DOL_VERSION < 6) ? 0 : -1));
 
 $elements='';
 
-$var=false;
 print "<table class=\"noborder\" width=\"100%\">";
 
-print "<tr class=\"liste_titre\">";
+print '<tr class="liste_titre">';
 print '<td>'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
 // GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")
-$var=!$var;
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")."</td>";
 print "<td>";
 $selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER;
@@ -120,8 +118,7 @@ print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER",$selectedvalue,1);
 print "</td>";
 print "</tr>";
 // GETPOST("ECOTAXDEEE_USE_ON_PROPOSAL")
-$var=!$var;
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_PROPOSAL")."</td>";
 print "<td>";
 $selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_PROPOSAL;
@@ -129,8 +126,7 @@ print $form->selectyesno("ECOTAXDEEE_USE_ON_PROPOSAL",$selectedvalue,1);
 print "</td>";
 print "</tr>";
 // GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")
-$var=!$var;
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")."</td>";
 print "<td>";
 $selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE;
@@ -139,8 +135,7 @@ print "</td>";
 print "</tr>";
 
 // GETPOST("ECOTAXDEEE_LABEL_LINE")
-$var=!$var;
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 if (! empty($conf->produit->enabled) || ! empty($conf->service->enabled))
 {
     print "<td>".$langs->trans("ECOTAXDEEE_PRODUCT_OR_LABEL_LINE")."</td>";
@@ -160,8 +155,7 @@ print "</td>";
 print "</tr>";
 
 // ECOTAXDEEE_DOC_FOOTER
-$var=!$var;
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_DOC_FOOTER")." (Dolibarr 3.6+)</td>";
 print "<td>";
 $selectedvalue=(empty($conf->global->ECOTAXDEEE_DOC_FOOTER)?'':$conf->global->ECOTAXDEEE_DOC_FOOTER);
@@ -175,13 +169,11 @@ print "</td>";
 print "</tr>";
 
 print '</table>';
-print '<br>';
 
 /*
 // Table of categories
 print $langs->trans("AddPageWithWEEEUnitPrices").'<br>';
 
-$var=false;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
@@ -190,8 +182,7 @@ print "<td>".$langs->trans("UnitPrice")."</td>";
 print "</tr>";
 for ($i=0; $i < 8; $i++)
 {
-	$var=!$var;
-	print "<tr ".$bc[$var].">";
+	print '<tr class="oddeven">';
 	print '<td><input type="text" name="label'.$i.'" size="40"></td>';
 	print '<td><input type="text" name="value'.$i.'" size="5"></td>';
 	print "</tr>";
