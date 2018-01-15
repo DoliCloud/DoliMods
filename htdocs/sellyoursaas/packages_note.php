@@ -68,7 +68,7 @@ include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php';  // Must be inclu
 if ($id > 0 || ! empty($ref)) $upload_dir = $conf->sellyoursaas->multidir_output[$object->entity] . "/" . $object->id;
 
 $permissionnote=1;
-//$permissionnote=$user->rights->sellyoursaas->create;	// Used by the include of actions_setnotes.inc.php
+//$permissionnote=$user->rights->sellyoursaas->write;	// Used by the include of actions_setnotes.inc.php
 
 
 /*

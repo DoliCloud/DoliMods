@@ -1,5 +1,6 @@
 <?php
 /* Copyright (C) 2017 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) ---Put here your own copyright and developer email---
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,9 +17,9 @@
  */
 
 /**
- *   	\file       packages_card.php
+ *   	\file       cancellation_card.php
  *		\ingroup    sellyoursaas
- *		\brief      Page to create/edit/view packages
+ *		\brief      Page to create/edit/view cancellation
  */
 
 //if (! defined('NOREQUIREUSER'))          define('NOREQUIREUSER','1');
@@ -26,8 +27,8 @@
 //if (! defined('NOREQUIRESOC'))           define('NOREQUIRESOC','1');
 //if (! defined('NOREQUIRETRAN'))          define('NOREQUIRETRAN','1');
 //if (! defined('NOSCANGETFORINJECTION'))  define('NOSCANGETFORINJECTION','1');			// Do not check anti CSRF attack test
-if (! defined('NOSCANPOSTFORINJECTION')) define('NOSCANPOSTFORINJECTION','1');			// Do not check anti CSRF attack test
-//if (! defined('NOCSRFCHECK'))            define('NOCSRFCHECK','1');			// Do not check anti CSRF attack test
+//if (! defined('NOSCANPOSTFORINJECTION')) define('NOSCANPOSTFORINJECTION','1');		// Do not check anti CSRF attack test
+//if (! defined('NOCSRFCHECK'))            define('NOCSRFCHECK','1');			// Do not check anti CSRF attack test done when option MAIN_SECURITY_CSRF_WITH_TOKEN is on.
 //if (! defined('NOSTYLECHECK'))           define('NOSTYLECHECK','1');			// Do not check style html tag into posted data
 //if (! defined('NOTOKENRENEWAL'))         define('NOTOKENRENEWAL','1');		// Do not check anti POST attack test
 //if (! defined('NOREQUIREMENU'))          define('NOREQUIREMENU','1');			// If there is no need to load and show top and left menu
@@ -52,8 +53,8 @@ if (! $res) die("Include of main fails");
 
 include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php');
-dol_include_once('/sellyoursaas/class/packages.class.php');
-dol_include_once('/sellyoursaas/lib/packages.lib.php');
+dol_include_once('/sellyoursaas/class/cancellation.class.php');
+dol_include_once('/sellyoursaas/lib/cancellation.lib.php');
 
 // Load traductions files requiredby by page
 $langs->loadLangs(array("sellyoursaas@sellyoursaas","other"));
@@ -66,12 +67,12 @@ $cancel     = GETPOST('cancel', 'aZ09');
 $backtopage = GETPOST('backtopage', 'alpha');
 
 // Initialize technical objects
-$object=new Packages($db);
+$object=new Cancellation($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction=$conf->sellyoursaas->dir_output . '/temp/massgeneration/'.$user->id;
-$hookmanager->initHooks(array('packagescard'));     // Note that conf->hooks_modules contains array
+$hookmanager->initHooks(array('cancellationcard'));     // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
-$extralabels = $extrafields->fetch_name_optionals_label('packages');
+$extralabels = $extrafields->fetch_name_optionals_label('cancellation');
 $search_array_options=$extrafields->getOptionalsFromPost($extralabels,'','search_');
 
 // Initialize array of search criterias
@@ -97,9 +98,8 @@ include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php';  // Must be inclu
 
 
 
-
 /*
- * ACTIONS
+ * Actions
  *
  * Put here all code to do according to value of "action" parameter
  */
@@ -114,7 +114,7 @@ if (empty($reshook))
 
 	$permissiontoadd = $user->rights->sellyoursaas->write;
 	$permissiontodelete = $user->rights->sellyoursaas->delete;
-	$backurlforlist = dol_buildpath('/sellyoursaas/packages_list.php',1);
+	$backurlforlist = dol_buildpath('/sellyoursaas/cancellation_list.php',1);
 
 	// Actions cancel, add, update or delete
 	include DOL_DOCUMENT_ROOT.'/core/actions_addupdatedelete.inc.php';
@@ -123,16 +123,17 @@ if (empty($reshook))
 	include DOL_DOCUMENT_ROOT.'/core/actions_printing.inc.php';
 
 	// Actions to send emails
-	/*$trigger_name='MYOBJECT_SENTBYMAIL';
+	$trigger_name='MYOBJECT_SENTBYMAIL';
 	$autocopy='MAIN_MAIL_AUTOCOPY_MYOBJECT_TO';
-	$trackid='myobject'.$object->id;
-	include DOL_DOCUMENT_ROOT.'/core/actions_sendmails.inc.php';*/
+	$trackid='cancellation'.$object->id;
+	include DOL_DOCUMENT_ROOT.'/core/actions_sendmails.inc.php';
 }
 
 
 
+
 /*
- * VIEW
+ * View
  *
  * Put here all code to build page
  */
@@ -140,7 +141,7 @@ if (empty($reshook))
 $form=new Form($db);
 $formfile=new FormFile($db);
 
-llxHeader('','Packages','');
+llxHeader('','Cancellation','');
 
 // Example : Adding jquery code
 print '<script type="text/javascript" language="javascript">
@@ -161,7 +162,7 @@ jQuery(document).ready(function() {
 // Part to create
 if ($action == 'create')
 {
-	print load_fiche_titre($langs->trans("NewObject", $langs->transnoentitiesnoconv("Package")));
+	print load_fiche_titre($langs->trans("NewObject", $langs->transnoentitiesnoconv("Cancellation")));
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -194,10 +195,10 @@ if ($action == 'create')
 // Part to edit record
 if (($id || $ref) && $action == 'edit')
 {
-	print load_fiche_titre($langs->trans("SellYourSaas"));
+	print load_fiche_titre($langs->trans("Cancellation"));
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
-	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 	print '<input type="hidden" name="action" value="update">';
 	print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
 	print '<input type="hidden" name="id" value="'.$object->id.'">';
@@ -228,14 +229,14 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 {
     $res = $object->fetch_optionals($object->id, $extralabels);
 
-	$head = packagesPrepareHead($object);
-	dol_fiche_head($head, 'card', $langs->trans("Packages"), -1, 'packages@sellyoursaas');
+	$head = cancellationPrepareHead($object);
+	dol_fiche_head($head, 'card', $langs->trans("Cancellation"), -1, 'cancellation@sellyoursaas');
 
 	$formconfirm = '';
 
 	// Confirmation to delete
 	if ($action == 'delete') {
-	    $formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id, $langs->trans('DeletePackages'), $langs->trans('ConfirmDeletePackages'), 'confirm_delete', '', 0, 1);
+	    $formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id, $langs->trans('DeleteCancellation'), $langs->trans('ConfirmDeleteCancellation'), 'confirm_delete', '', 0, 1);
 	}
 
 	// Confirmation of action xxxx
@@ -265,7 +266,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	// Object card
 	// ------------------------------------------------------------
-	$linkback = '<a href="' .dol_buildpath('/sellyoursaas/packages_list.php',1) . '?restore_lastsearch_values=1' . (! empty($socid) ? '&socid=' . $socid : '') . '">' . $langs->trans("BackToList") . '</a>';
+	$linkback = '<a href="' .dol_buildpath('/sellyoursaas/cancellation_list.php',1) . '?restore_lastsearch_values=1' . (! empty($socid) ? '&socid=' . $socid : '') . '">' . $langs->trans("BackToList") . '</a>';
 
 	$morehtmlref='<div class="refidno">';
 	/*
@@ -321,7 +322,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	print '<table class="border centpercent">'."\n";
 
 	// Common attributes
-	$keyforbreak = 'targetsrcfile3';
+	//$keyforbreak='fieldkeytoswithonsecondcolumn';
 	include DOL_DOCUMENT_ROOT . '/core/tpl/commonfields_view.tpl.php';
 
 	// Other attributes
@@ -347,36 +348,38 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
     	if (empty($reshook))
     	{
     	    // Send
-            print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=presend&mode=init#formmailbeforetitle">' . $langs->trans('SendByMail') . '</a></div>'."\n";
+            print '<a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=presend&mode=init#formmailbeforetitle">' . $langs->trans('SendMail') . '</a>'."\n";
 
-            if ($user->rights->sellyoursaas->write)
+    		if ($user->rights->sellyoursaas->write)
     		{
-    			print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=edit">'.$langs->trans("Modify").'</a></div>'."\n";
+    			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=edit">'.$langs->trans("Modify").'</a>'."\n";
     		}
     		else
     		{
-    			print '<div class="inline-block divButAction"><a class="butActionRefused" href="#" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans('Modify').'</a></div>'."\n";
+    			print '<a class="butActionRefused" href="#" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans('Modify').'</a>'."\n";
     		}
 
-    	    /*if ($user->rights->sellyoursaas->write)
+    		/*
+    		if ($user->rights->sellyoursaas->write)
     		{
     			if ($object->status == 1)
-    			{
-    				print '<div class="inline-block divButAction"><a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=disable">'.$langs->trans("Disable").'</a></div>'."\n";
-    			}
-    			else
-    			{
-    				print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=enable">'.$langs->trans("Enable").'</a></div>'."\n";
-    			}
-    		}*/
+    		 	{
+    		 		print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=disable">'.$langs->trans("Disable").'</a>'."\n";
+    		 	}
+    		 	else
+    		 	{
+    		 		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=enable">'.$langs->trans("Enable").'</a>'."\n";
+    		 	}
+    		}
+    		*/
 
     		if ($user->rights->sellyoursaas->delete)
     		{
-    			print '<div class="inline-block divButAction"><a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=delete">'.$langs->trans('Delete').'</a></div>'."\n";
+    			print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=delete">'.$langs->trans('Delete').'</a>'."\n";
     		}
     		else
     		{
-    			print '<div class="inline-block divButAction"><a class="butActionRefused" href="#" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans('Delete').'</a></div>'."\n";
+    			print '<a class="butActionRefused" href="#" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans('Delete').'</a>'."\n";
     		}
     	}
     	print '</div>'."\n";
@@ -392,38 +395,53 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	{
 	    print '<div class="fichecenter"><div class="fichehalfleft">';
 	    print '<a name="builddoc"></a>'; // ancre
-	    // Documents
-	    $comref = dol_sanitizeFileName($object->ref);
-	    $relativepath = $comref . '/' . $comref . '.pdf';
-	    $filedir = $conf->sellyoursaas->dir_output . '/' . $comref;
-	    $urlsource = $_SERVER["PHP_SELF"] . "?id=" . $object->id;
-	    $genallowed = $user->rights->sellyoursaas->creer;
-	    $delallowed = $user->rights->sellyoursaas->supprimer;
-	    print $formfile->showdocuments('sellyoursaas', $comref, $filedir, $urlsource, $genallowed, $delallowed, $object->modelpdf, 1, 0, 0, 28, 0, '', '', '', $soc->default_lang);
 
+	    // Documents
+	    /*$objref = dol_sanitizeFileName($object->ref);
+	    $relativepath = $comref . '/' . $comref . '.pdf';
+	    $filedir = $conf->sellyoursaas->dir_output . '/' . $objref;
+	    $urlsource = $_SERVER["PHP_SELF"] . "?id=" . $object->id;
+	    $genallowed = $user->rights->sellyoursaas->read;	// If you can read, you can build the PDF to read content
+	    $delallowed = $user->rights->sellyoursaas->write;	// If you can create/edit, you can remove a file on card
+	    print $formfile->showdocuments('sellyoursaas', $objref, $filedir, $urlsource, $genallowed, $delallowed, $object->modelpdf, 1, 0, 0, 28, 0, '', '', '', $soc->default_lang);
+		*/
 
 	    // Show links to link elements
-	    $linktoelem = $form->showLinkToObjectBlock($object, null, array('packages'));
+	    /*
+	    $linktoelem = $form->showLinkToObjectBlock($object, null, array('cancellation'));
 	    $somethingshown = $form->showLinkedObjectBlock($object, $linktoelem);
-
+		*/
 
 	    print '</div><div class="fichehalfright"><div class="ficheaddleft">';
+
+	    /*
+	    $MAXEVENT = 10;
+
+	    $morehtmlright = '<a href="'.dol_buildpath('/sellyoursaas/cancellation_info.php', 1).'?id='.$object->id.'">';
+	    $morehtmlright.= $langs->trans("SeeAll");
+	    $morehtmlright.= '</a>';
 
 	    // List of actions on element
 	    include_once DOL_DOCUMENT_ROOT . '/core/class/html.formactions.class.php';
 	    $formactions = new FormActions($db);
-	    $somethingshown = $formactions->showactions($object, 'packages', $socid, 1);
+	    $somethingshown = $formactions->showactions($object, 'cancellation', $socid, 1, '', $MAXEVENT, '', $morehtmlright);
+		*/
 
 	    print '</div></div></div>';
 	}
 
-	// Presend form
-	$modelmail='packages';
-	$defaulttopic='Information';
-	$diroutput = $conf->sellyoursaas->dir_output;
-	$trackid = 'packages'.$object->id;
+	//Select mail models is same action as presend
+	/*
+	 if (GETPOST('modelselected')) $action = 'presend';
 
-	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';
+	 // Presend form
+	 $modelmail='inventory';
+	 $defaulttopic='InformationMessage';
+	 $diroutput = $conf->product->dir_output.'/inventory';
+	 $trackid = 'stockinv'.$object->id;
+
+	 include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';
+	 */
 }
 
 

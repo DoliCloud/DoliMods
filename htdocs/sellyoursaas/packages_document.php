@@ -170,9 +170,9 @@ if ($object->id)
 	dol_fiche_end();
 
 	$modulepart = 'sellyoursaas';
-	//$permission = $user->rights->sellyoursaas->create;
+	//$permission = $user->rights->sellyoursaas->write;
 	$permission = 1;
-	//$permtoedit = $user->rights->sellyoursaas->create;
+	//$permtoedit = $user->rights->sellyoursaas->write;
 	$permtoedit = 1;
 	$param = '&id=' . $object->id;
 

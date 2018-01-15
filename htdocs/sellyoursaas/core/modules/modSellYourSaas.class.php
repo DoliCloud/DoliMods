@@ -230,7 +230,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->rights[$r][0] = 101061; 				// Permission id (must not be already used)
 		$this->rights[$r][1] = 'Create/edit SellYourSaaS data (package, ...)';	// Permission label
 		$this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
-		$this->rights[$r][4] = 'create';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$this->rights[$r][4] = 'write';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$this->rights[$r][5] = '';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
 
@@ -316,7 +316,7 @@ class modSellYourSaas extends DolibarrModules
 			'langs'=>'sellyoursaas@sellyoursaas',
 			'position'=>211,
 			'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-			'perms'=>'$user->rights->sellyoursaas->create',
+			'perms'=>'$user->rights->sellyoursaas->write',
 			'target'=>'',
 			'user'=>0);
 		$r++;
@@ -363,7 +363,7 @@ class modSellYourSaas extends DolibarrModules
 		'langs'=>'',
 		'position'=>221,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		'perms'=>'$user->rights->sellyoursaas->create',
+		'perms'=>'$user->rights->sellyoursaas->write',
 		'target'=>'',
 		'user'=>0);
 		$r++;
@@ -379,7 +379,7 @@ class modSellYourSaas extends DolibarrModules
 		'langs'=>'',
 		'position'=>222,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		'perms'=>'$user->rights->sellyoursaas->create',
+		'perms'=>'$user->rights->sellyoursaas->write',
 		'target'=>'',
 		'user'=>0);
 		$r++;
@@ -394,7 +394,7 @@ class modSellYourSaas extends DolibarrModules
 		'langs'=>'',
 		'position'=>223,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		'perms'=>'$user->rights->sellyoursaas->create',
+		'perms'=>'$user->rights->sellyoursaas->write',
 		'target'=>'',
 		'user'=>0);
 		$r++;
@@ -425,7 +425,7 @@ class modSellYourSaas extends DolibarrModules
 			'langs'=>'sellyoursaas@sellyoursaas',
 			'position'=>231,
 			'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-			'perms'=>'$user->rights->sellyoursaas->create',
+			'perms'=>'$user->rights->sellyoursaas->write',
 			'target'=>'',
 			'user'=>0);
 		$r++;
@@ -455,7 +455,7 @@ class modSellYourSaas extends DolibarrModules
 		'langs'=>'sellyoursaas@sellyoursaas',
 		'position'=>234,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		'perms'=>'$user->rights->sellyoursaas->create',
+		'perms'=>'$user->rights->sellyoursaas->write',
 		'target'=>'',
 		'user'=>0);
 		$r++;
@@ -485,7 +485,7 @@ class modSellYourSaas extends DolibarrModules
 			'langs'=>'sellyoursaas@sellyoursaas',
 			'position'=>241,
 			'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-			'perms'=>'$user->rights->sellyoursaas->create',
+			'perms'=>'$user->rights->sellyoursaas->write',
 			'target'=>'',
 			'user'=>0);
 		$r++;
@@ -546,12 +546,12 @@ class modSellYourSaas extends DolibarrModules
 			'langs'=>'sellyoursaas@sellyoursaas',
 			'position'=>241,
 			'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-			'perms'=>'$user->rights->sellyoursaas->create',
+			'perms'=>'$user->rights->sellyoursaas->write',
 			'target'=>'',
 			'user'=>0);
 		$r++;
-		
-		
+
+
 		// Link to website pages
 
 		$this->menu[$r]=array(
@@ -584,8 +584,8 @@ class modSellYourSaas extends DolibarrModules
 		'target'=>'_sellyoursaas_customer',
 		'user'=>0);
 		$r++;
-		
-		
+
+
 
 		// Old DoliCloud
 		$this->menu[$r]=array(
@@ -617,7 +617,7 @@ class modSellYourSaas extends DolibarrModules
 		    'target'=>'',
 		    'user'=>0);
 		$r++;
-		
+
 
 	}
 

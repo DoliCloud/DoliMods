@@ -417,7 +417,7 @@ if (! $user->societe_id)
 {
     print '<div class="tabsAction">';
 
-    if ($user->rights->sellyoursaas->create)
+    if ($user->rights->sellyoursaas->write)
     {
         print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?'.($instanceoldid?'instanceoldid':'id').'='.$object->id.'&amp;action=createsupportdolicloud">'.$langs->trans('CreateSupportUser').'</a>';
         print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?'.($instanceoldid?'instanceoldid':'id').'='.$object->id.'&amp;action=deletesupportdolicloud">'.$langs->trans('DeleteSupportUser').'</a>';
