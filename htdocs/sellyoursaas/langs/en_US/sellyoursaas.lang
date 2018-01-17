@@ -8,6 +8,7 @@ DateRegistration=Subscription date
 DateDeployment=Deployment date
 DateNextBilling=Next billing date
 DateEndFreePeriod=End trial date
+DateEndCurrentPeriod=End current period
 DateLastCheck=Refresh
 NbOfUsers=Nb users
 LastLogin=Last login

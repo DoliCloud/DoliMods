@@ -879,14 +879,22 @@ if ($dolicloudcustomer->id > 0)
 	print $dolicloudcustomer->nbofusers;
 	print '</td>';
 
+	// Subscription date
 	print '<tr><td class="fieldrequired">';
 	print $langs->trans('DateRegistration').'</td><td>';
 	print dol_print_date($dolicloudcustomer->date_registration, 'dayhour');
 	print '</td>';
 
+	// End trial date
 	print '<tr><td class="fieldrequired">';
 	print $langs->trans('DateEndFreePeriod').'</td><td>';
 	print dol_print_date($dolicloudcustomer->date_endfreeperiod, 'dayhour');
+	print '</td>';
+
+	// Date end current period
+	print '<tr><td class="fieldrequired">';
+	print $langs->trans('DateEndCurrentPeriod').'</td><td>';
+	print dol_print_date($dolicloudcustomer->date_current_period_end, 'dayhour');
 	print '</td>';
 
 	print '</tr>';
