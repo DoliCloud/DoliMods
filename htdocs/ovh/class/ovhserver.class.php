@@ -271,10 +271,14 @@ class OvhServer extends CommonObject
 		global $conf, $langs;
 
 		$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;
+		$connect_timeout = empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT;
+		$timeout = empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT;
 
 		$http_client = new GClient();
-		$http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
-		$http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
+		$http_client->setDefaultOption('connect_timeout', $connect_timeout);  // Timeout by default of OVH is 5 and it is not enough
+		$http_client->setDefaultOption('timeout', $timeout);
+
+		dol_syslog("createSnapshot endpoint=".$endpoint." connect_timeout=".$connect_timeout." timeout=".$timeout);
 
 		$conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY, $http_client);
 
