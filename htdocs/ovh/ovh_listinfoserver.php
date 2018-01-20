@@ -262,7 +262,6 @@ else
     		dol_banner_tab($object, 'ref', $linkback, 1, 'none');
 
     		print '<div class="fichecenter">';
-    		//print '<div class="fichehalfleft">';
     		print '<div class="underbanner clearboth"></div>';
     		print '<table class="border centpercent">'."\n";
         	print '<tr><td class="titlefield">'.$langs->trans("Id").'</td><td> ' . $server . '</td></tr>';
@@ -295,8 +294,6 @@ else
 
             print '</div>';
 
-            //print dol_fiche_end();
-
             print '<br>';
 
             //var_dump($resultinfosnapshot);
@@ -321,17 +318,23 @@ else
             }
             print '</table>';
     	}
-    	else
+    	else	// mode = dedicated
     	{
-    		$title = empty($resultinfo->name)?$server:$resultinfo->name;
-    		print_fiche_titre($title,'','');
+    		$object = new OvhServer($db);
+    		$object->id = $server;
+    		$object->ref = empty($resultinfo->name)?$server:$resultinfo->name;
 
-    		print '<br>';
+    		$linkback = '<a href="' . dol_buildpath('/ovh/ovh_listinfoserver.php',1).'?mode=dedicated' . '">' . $langs->trans("BackToList") . '</a>';
+
+    		dol_banner_tab($object, 'ref', $linkback, 1, 'none');
 
         	$reverse1 = gethostbyname($server);
         	$reverse = gethostbyaddr($reverse1);
 
-        	print '<table class="border centpercent">';
+        	print '<div class="fichecenter">';
+        	print '<div class="underbanner clearboth"></div>';
+        	print '<table class="border centpercent">'."\n";
+
         	print '<tr><td class="titlefield">'.$langs->trans("Server").'</td><td> ' . $server . '</td></tr>';
 
         	print '<tr><td>Reverse </td><td>  ' . $reverse . '</td></tr>';
@@ -373,6 +376,8 @@ else
         	print '<tr><td>IP</td><td> ' . gethostbyname($server) . '</td></tr>';
         	print '<tr><td>Rescue email</td><td> ' . $resultinfo->rescueMail . '</td></tr>';
         	print '</table>';
+
+        	print '</div>';
 
 
     		if (! empty($conf->global->OVH_OLDAPI))
@@ -578,10 +583,10 @@ else
         	        print '</td>';
         	        print '</tr>';
         	    }
-        	    else
+        	    else	// dedicated
         	    {
-        	        print '<tr>';
-        	        print '<td><a href="?server=' . $serverobj . '">' . $serverobj . '</a></td>';
+        	        print '<tr class="oddeven">';
+        	        print '<td><a href="?mode=dedicated&server=' . $serverobj . '">' . $serverobj . '</a></td>';
         	        print '</tr>';
         	    }
         	}
