@@ -4,6 +4,7 @@
 
 Can attach imported invoices to a project
 Add option OVH_VAT_RATE_ON_ONE_DIGIT to force rounding of vat rate on 1 digit and get 20 instead of 19.99
+Can set the OVHCONSUMERKEY from setup page
 
 ## 3.8.3
 

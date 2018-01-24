@@ -107,9 +107,9 @@ if ($action == 'setvalue' && $user->admin)
     else
     {
         $result=dolibarr_set_const($db, "OVHAPPNAME",trim(GETPOST("OVHAPPNAME")),'chaine',0,'',$conf->entity);
-        $result=dolibarr_set_const($db, "OVHAPPDESC",trim(GETPOST("OVHAPPDESC")),'chaine',0,'',$conf->entity);
         $result=dolibarr_set_const($db, "OVHAPPKEY",trim(GETPOST("OVHAPPKEY")),'chaine',0,'',$conf->entity);
         $result=dolibarr_set_const($db, "OVHAPPSECRET",trim(GETPOST("OVHAPPSECRET")),'chaine',0,'',$conf->entity);
+        $result=dolibarr_set_const($db, "OVHCONSUMERKEY",trim(GETPOST("OVHCONSUMERKEY")),'chaine',0,'',$conf->entity);
     }
 
     if ($result >= 0)
