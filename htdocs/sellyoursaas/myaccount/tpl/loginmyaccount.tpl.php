@@ -1,6 +1,5 @@
 <?php
-/* Copyright (C) 2009-2015 Regis Houssin <regis.houssin@capnetworks.com>
- * Copyright (C) 2011-2013 Laurent Destailleur <eldy@users.sourceforge.net>
+/* Copyright (C) 2011-2018 Laurent Destailleur <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +17,14 @@
 
 // Need global variable $title to be defined by caller (like dol_loginfunction)
 // Caller can also set 	$morelogincontent = array(['options']=>array('js'=>..., 'table'=>...);
+
+// Protection to avoid direct call of template
+if (empty($conf) || ! is_object($conf))
+{
+	print "Error, template page can't be called as URL";
+	exit;
+}
+
 
 header('Cache-Control: Public, must-revalidate');
 header("Content-type: text/html; charset=".$conf->file->character_set_client);
@@ -40,12 +47,12 @@ $arrayofjs=array(
 	'/includes/jstz/jstz.min.js'.(empty($conf->dol_use_jmobile)?'':'?version='.urlencode(DOL_VERSION)),
 	'/core/js/dst.js'.(empty($conf->dol_use_jmobile)?'':'?version='.urlencode(DOL_VERSION))
 );
-$titleofloginpage=$langs->trans('Login').' @ '.$titletruedolibarrversion;	// $titletruedolibarrversion is defined by dol_loginfunction in security2.lib.php. We must keep the @, some tools use it to know it is login page and find true dolibarr version.
+$titleofpage=$langs->trans('Login').' @ '.$titletruedolibarrversion;	// $titletruedolibarrversion is defined by dol_loginfunction in security2.lib.php. We must keep the @, some tools use it to know it is login page and find true dolibarr version.
 
 $disablenofollow=1;
 if (! preg_match('/'.constant('DOL_APPLICATION_TITLE').'/', $title)) $disablenofollow=0;
 
-print top_htmlhead_sellyoursaas('', $titleofloginpage, 0, 0, $arrayofjs, array(), 0, $disablenofollow);
+print top_htmlhead_sellyoursaas('', $titleofpage, 0, 0, $arrayofjs, array(), 0, $disablenofollow);
 
 ?>
 <!-- BEGIN PHP TEMPLATE LOGIN.TPL.PHP -->
@@ -65,22 +72,22 @@ $(document).ready(function () {
 <div class="login_vertical_align">
 
 
-<form id="login" name="login" method="post" action="<?php echo $php_self; ?>">
-<input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
-<input type="hidden" name="loginfunction" value="loginfunction" />
+<form id="login" name="login" method="POST" action="<?php echo $php_self; ?>">
+<input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>">
+<input type="hidden" name="loginfunction" value="loginfunction">
 <!-- Add fields to send local user information -->
-<input type="hidden" name="tz" id="tz" value="" />
-<input type="hidden" name="tz_string" id="tz_string" value="" />
-<input type="hidden" name="dst_observed" id="dst_observed" value="" />
-<input type="hidden" name="dst_first" id="dst_first" value="" />
-<input type="hidden" name="dst_second" id="dst_second" value="" />
-<input type="hidden" name="screenwidth" id="screenwidth" value="" />
-<input type="hidden" name="screenheight" id="screenheight" value="" />
-<input type="hidden" name="dol_hide_topmenu" id="dol_hide_topmenu" value="<?php echo $dol_hide_topmenu; ?>" />
-<input type="hidden" name="dol_hide_leftmenu" id="dol_hide_leftmenu" value="<?php echo $dol_hide_leftmenu; ?>" />
-<input type="hidden" name="dol_optimize_smallscreen" id="dol_optimize_smallscreen" value="<?php echo $dol_optimize_smallscreen; ?>" />
-<input type="hidden" name="dol_no_mouse_hover" id="dol_no_mouse_hover" value="<?php echo $dol_no_mouse_hover; ?>" />
-<input type="hidden" name="dol_use_jmobile" id="dol_use_jmobile" value="<?php echo $dol_use_jmobile; ?>" />
+<input type="hidden" name="tz" id="tz" value="">
+<input type="hidden" name="tz_string" id="tz_string" value="">
+<input type="hidden" name="dst_observed" id="dst_observed" value="">
+<input type="hidden" name="dst_first" id="dst_first" value="">
+<input type="hidden" name="dst_second" id="dst_second" value="">
+<input type="hidden" name="screenwidth" id="screenwidth" value="">
+<input type="hidden" name="screenheight" id="screenheight" value="">
+<input type="hidden" name="dol_hide_topmenu" id="dol_hide_topmenu" value="<?php echo $dol_hide_topmenu; ?>">
+<input type="hidden" name="dol_hide_leftmenu" id="dol_hide_leftmenu" value="<?php echo $dol_hide_leftmenu; ?>">
+<input type="hidden" name="dol_optimize_smallscreen" id="dol_optimize_smallscreen" value="<?php echo $dol_optimize_smallscreen; ?>">
+<input type="hidden" name="dol_no_mouse_hover" id="dol_no_mouse_hover" value="<?php echo $dol_no_mouse_hover; ?>">
+<input type="hidden" name="dol_use_jmobile" id="dol_use_jmobile" value="<?php echo $dol_use_jmobile; ?>">
 
 
 <div class="signup">
@@ -157,7 +164,7 @@ if ($captcha) {
 	</span>
 	</td>
 	<td><img src="<?php echo DOL_URL_ROOT ?>/core/antispamimage.php" border="0" width="80" height="32" id="img_securitycode" /></td>
-	<td><a href="<?php echo $php_self; ?>" tabindex="4" data-role="button"><?php echo $captcha_refresh; ?></a></td>
+	<td><a href="<?php echo $php_self; ?>" tabindex="4"><?php echo $captcha_refresh; ?></a></td>
 	</tr></table>
 
 	</td></tr>
@@ -221,17 +228,6 @@ if ($forgetpasslink || $helpcenterlink)
 
 </form>
 
-<?php
-// Show error message if defined
-if (! empty($_SESSION['dol_loginmesg']))
-{
-?>
-	<div class="center login_main_message"><div class="error">
-	<?php echo $_SESSION['dol_loginmesg']; ?>
-	</div></div>
-<?php
-}
-?>
 
 <!-- authentication mode = <?php echo $main_authentication ?> -->
 <!-- cookie name used for this session = <?php echo $session_name ?> -->

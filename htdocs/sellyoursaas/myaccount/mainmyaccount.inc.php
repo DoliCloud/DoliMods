@@ -89,9 +89,10 @@ if (! function_exists("llxHeader"))
  *  Show HTTP header
  *
  *  @param  string  $contenttype    Content type. For example, 'text/html'
+ *  @param	int		$forcenocache	Force disabling of cache for the page
  *  @return	void
  */
-function top_httphead_sellyoursaas($contenttype='text/html')
+function top_httphead_sellyoursaas($contenttype='text/html', $forcenocache=0)
 {
 	global $conf;
 
@@ -99,11 +100,18 @@ function top_httphead_sellyoursaas($contenttype='text/html')
 	else header("Content-Type: ".$contenttype);
 	header("X-Content-Type-Options: nosniff");
 	header("X-Frame-Options: SAMEORIGIN");
-
-	// On the fly GZIP compression for all pages (if browser support it). Must set the bit 3 of constant to 1.
-	/*if (isset($conf->global->MAIN_OPTIMIZE_SPEED) && ($conf->global->MAIN_OPTIMIZE_SPEED & 0x04)) {
-	 ob_start("ob_gzhandler");
-	 }*/
+	if (! empty($conf->global->MAIN_HTTP_CONTENT_SECURITY_POLICY))
+	{
+		// For example, to restrict script, object, frames or img to some domains
+		// script-src https://api.google.com https://anotherhost.com; object-src https://youtube.com; child-src https://youtube.com; img-src: https://static.example.com
+		// For example, to restrict everything to one domain, except object, ...
+		// default-src https://cdn.example.net; object-src 'none'
+		header("Content-Security-Policy: ".$conf->global->MAIN_HTTP_CONTENT_SECURITY_POLICY);
+	}
+	if ($forcenocache)
+	{
+		header("Cache-Control: no-cache, no-store, must-revalidate, max-age=0");
+	}
 }
 
 /**
@@ -553,7 +561,7 @@ function dol_loginfunction($langs,$conf,$mysoc)
 	$template_dir = dirname(__FILE__).'/tpl/';
 
 	// Set cookie for timeout management
-	$prefix='sellyourssas'.dol_getprefix('');
+	$prefix=dol_getprefix('');
 	$sessiontimeout='DOLSESSTIMEOUT_'.$prefix;
 	if (! empty($conf->global->MAIN_SESSION_TIMEOUT)) setcookie($sessiontimeout, $conf->global->MAIN_SESSION_TIMEOUT, 0, "/", null, false, true);
 

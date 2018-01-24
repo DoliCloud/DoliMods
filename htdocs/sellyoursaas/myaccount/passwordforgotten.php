@@ -177,6 +177,7 @@ $dol_url_root = '';
 // Title
 $title='Dolibarr '.DOL_VERSION;
 if (! empty($conf->global->MAIN_APPLICATION_TITLE)) $title=$conf->global->MAIN_APPLICATION_TITLE;
+$title=$langs->trans("YourCustomerDashboard");
 
 // Select templates
 $template_dir = dirname(__FILE__).'/tpl/';
@@ -193,7 +194,26 @@ if (! empty($conf->global->MAIN_SECURITY_ENABLE_SENDPASSWORD)) $disabled='';	 //
 $width=0;
 $rowspan=2;
 
-$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI);
+// Show logo (search in order: small company logo, large company logo, theme logo, common logo)
+$width=0;
+$urllogo=DOL_URL_ROOT.'/theme/login_logo.png';
+if (! empty($conf->global->SELLYOURSAAS_LOGO_SMALL) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL))
+{
+	$urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL);
+}
+elseif (! empty($conf->global->SELLYOURSAAS_LOGO) && is_readable($conf->mycompany->dir_output.'/logos/'.$conf->global->SELLYOURSAAS_LOGO))
+{
+	$urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode($conf->global->SELLYOURSAAS_LOGO);
+	$width=128;
+}
+elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/img/dolibarr_logo.png'))
+{
+	$urllogo=DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/dolibarr_logo.png';
+}
+elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.png'))
+{
+	$urllogo=DOL_URL_ROOT.'/theme/dolibarr_logo.png';
+}
 
 // Security graphical code
 if (function_exists("imagecreatefrompng") && ! $disabled)

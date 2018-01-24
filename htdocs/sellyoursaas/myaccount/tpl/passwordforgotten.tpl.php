@@ -1,6 +1,5 @@
 <?php
-/* Copyright (C) 2009-2010 Regis Houssin <regis.houssin@capnetworks.com>
- * Copyright (C) 2011-2013 Laurent Destailleur <eldy@users.sourceforge.net>
+/* Copyright (C) 2011-2018 Laurent Destailleur <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +26,7 @@ if (empty($conf) || ! is_object($conf))
 header('Cache-Control: Public, must-revalidate');
 header("Content-type: text/html; charset=".$conf->file->character_set_client);
 
-if (GETPOST('dol_hide_topmenu')) $conf->dol_use_jmobile=1;
+if (GETPOST('dol_hide_topmenu')) $conf->dol_hide_topmenu=1;
 if (GETPOST('dol_hide_leftmenu')) $conf->dol_hide_leftmenu=1;
 if (GETPOST('dol_optimize_smallscreen')) $conf->dol_optimize_smallscreen=1;
 if (GETPOST('dol_no_mouse_hover')) $conf->dol_no_mouse_hover=1;
@@ -36,61 +35,70 @@ if (GETPOST('dol_use_jmobile')) $conf->dol_use_jmobile=1;
 // If we force to use jmobile, then we reenable javascript
 if (! empty($conf->dol_use_jmobile)) $conf->use_javascript_ajax=1;
 
-$php_self = $_SERVER['PHP_SELF'];
+$php_self = dol_escape_htmltag($_SERVER['PHP_SELF']);
 $php_self.= dol_escape_htmltag($_SERVER["QUERY_STRING"])?'?'.dol_escape_htmltag($_SERVER["QUERY_STRING"]):'';
 
-print top_htmlhead('',$langs->trans('SendNewPassword'));
+$arrayofjs=array();
+$titleofloginpage=$langs->trans('SendNewPassword');
+
+$disablenofollow=1;
+if (! preg_match('/'.constant('DOL_APPLICATION_TITLE').'/', $title)) $disablenofollow=0;
+
+print top_htmlhead_sellyoursaas('', $titleofloginpage, 0, 0, $arrayofjs, array(), 0, $disablenofollow);
+
 ?>
 <!-- BEGIN PHP TEMPLATE PASSWORDFORGOTTEN.TPL.PHP -->
 
-<body class="body bodylogin"<?php print empty($conf->global->MAIN_LOGIN_BACKGROUND)?'':' style="background-size: cover; background-position: center center; background-attachment: fixed; background-repeat: no-repeat; background-image: url(\''.DOL_URL_ROOT.'/viewimage.php?cache=1&noalt=1&modulepart=mycompany&file='.urlencode($conf->global->MAIN_LOGIN_BACKGROUND).'\')"'; ?>>
+<body class="body bodylogin">
+
+<style>
+div.error { background: unset; }
+</style>
 
 <?php if (empty($conf->dol_use_jmobile)) { ?>
 <script type="text/javascript">
 $(document).ready(function () {
-	/* Set focus on correct field */
+	// Set focus on correct field
 	<?php if ($focus_element) { ?>$('#<?php echo $focus_element; ?>').focus(); <?php } ?>		// Warning to use this only on visible element
 });
 </script>
 <?php } ?>
 
-
 <div class="login_center center">
 <div class="login_vertical_align">
+
 
 <form id="login" name="login" method="POST" action="<?php echo $php_self; ?>">
 <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>">
 <input type="hidden" name="action" value="buildnewpassword">
 
 
-<!-- Title with version -->
-<div class="login_table_title center" title="<?php echo dol_escape_htmltag($title); ?>">
-<?php
-if ($disablenofollow) echo '<a class="login_table_title" href="https://www.dolibarr.org" target="_blank">';
-echo dol_escape_htmltag($title);
-if ($disablenofollow) echo '</a>';
-?>
+<div class="signup">
+
+<div id="login_left">
+<img alt="" src="<?php echo $urllogo; ?>" id="logo" />
 </div>
 
+<div class="block medium">
+
+        <header class="inverse">
+          <h1><?php echo dol_escape_htmltag($title); ?></h1>
+        </header>
 
 
 <div class="login_table">
 
 <div id="login_line1">
 
-<div id="login_left">
-<img alt="Logo" title="" src="<?php echo $urllogo; ?>" id="img_logo" />
-</div>
-
 <div id="login_right">
 
-<table summary="Login pass" class="centpercent">
-
+<table class="center">
 <!-- Login -->
 <tr>
-<td valign="bottom" class="nowrap center">
+<td class="nowrap valignmiddle" style="text-align: left;">
+<?php if (! empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER)) { ?><label for="username" class="hidden"><?php echo $langs->trans("Login"); ?></label><?php } ?>
 <span class="span-icon-user">
-<input type="text" placeholder="<?php echo $langs->trans("Login"); ?>" <?php echo $disabled; ?> id="username" name="username" class="flat input-icon-user" size="20" value="<?php echo dol_escape_htmltag($username); ?>" tabindex="1" />
+<input type="text" id="username" placeholder="<?php echo $langs->trans("Login"); ?>" <?php echo $disabled; ?> name="username" class="flat input-icon-user" size="20" value="<?php echo dol_escape_htmltag($username); ?>" tabindex="1"  autofocus="autofocus" />
 </span>
 </td>
 </tr>
@@ -111,17 +119,17 @@ if (! empty($morelogincontent)) {
 		echo $morelogincontent;
 	}
 }
-?>
 
-<?php if ($captcha) {
-		// Add a variable param to force not using cache (jmobile)
-		$php_self = preg_replace('/[&\?]time=(\d+)/','',$php_self);	// Remove param time
-		if (preg_match('/\?/',$php_self)) $php_self.='&time='.dol_print_date(dol_now(),'dayhourlog');
-		else $php_self.='?time='.dol_print_date(dol_now(),'dayhourlog');
-	?>
+if ($captcha) {
+	// Add a variable param to force not using cache (jmobile)
+	$php_self = preg_replace('/[&\?]time=(\d+)/','',$php_self);	// Remove param time
+	if (preg_match('/\?/',$php_self)) $php_self.='&time='.dol_print_date(dol_now(),'dayhourlog');
+	else $php_self.='?time='.dol_print_date(dol_now(),'dayhourlog');
+?>
 	<!-- Captcha -->
 	<tr>
-	<td class="tdtop nowrap none center">
+	<td class="nowrap none center">
+	<br>
 
 	<table class="login_table_securitycode centpercent"><tr>
 	<td>
@@ -129,24 +137,39 @@ if (! empty($morelogincontent)) {
 	<input id="securitycode" placeholder="<?php echo $langs->trans("SecurityCode"); ?>" class="flat input-icon-security" type="text" size="12" maxlength="5" name="code" tabindex="3" />
 	</span>
 	</td>
-	<td><img src="<?php echo DOL_URL_ROOT ?>/core/antispamimage.php" border="0" width="80" height="32" id="img_securitycode" /></td>
+	<td> &nbsp; <i class="fa fa-arrow-left"></i> <img src="antispamimage.php" style="border: 1px solid #ddd;" width="76" id="img_securitycode" /></td>
 	<td><a href="<?php echo $php_self; ?>" tabindex="4"><?php echo $captcha_refresh; ?></a></td>
 	</tr></table>
 
+	</br>
 	</td></tr>
 <?php } ?>
-
 </table>
 
-</div> <!-- end div login right -->
+</div> <!-- end div login-right -->
 
-</div> <!-- end div login_line1 -->
+</div> <!-- end div login-line1 -->
 
 
 <div id="login_line2" style="clear: both">
 
-<!-- Button "Regenerate and Send password" -->
-<br><input type="submit" <?php echo $disabled; ?> class="button" name="password" value="<?php echo $langs->trans('SendNewPassword'); ?>" tabindex="4" />
+<?php
+// Show error message if defined
+if ($message)
+{
+?>
+	<div class="center"><font class="error">
+	<?php print $message; ?>
+	</font></div><br>
+<?php
+}
+?>
+
+
+<!-- Button SendNewPassword -->
+<section id="formActions">
+<div class="form-actions center">
+<input type="submit" class="btn btn-primary" name="password" value="&nbsp; <?php echo $langs->trans('SendNewPassword'); ?> &nbsp;" tabindex="4" />
 
 <br>
 <div align="center" style="margin-top: 8px;">
@@ -160,13 +183,18 @@ if (! empty($morelogincontent)) {
 	print '<a class="alogin" href="'.$dol_url_root.'/index.php'.$moreparam.'">('.$langs->trans('BackToLoginPage').')</a>';
 	?>
 </div>
+</section>
+
+</div> <!-- end login line 2 -->
+
+</div> <!-- end login table -->
 
 </div>
-
 </div>
 
 </form>
 
+<br>
 
 <div class="center login_main_home paddingtopbottom<?php echo empty($conf->global->MAIN_LOGIN_BACKGROUND)?'':' backgroundsemitransparent'; ?>" style="max-width: 70%">
 <?php if ($mode == 'dolibarr' || ! $disabled) { ?>
@@ -179,17 +207,20 @@ if (! empty($morelogincontent)) {
 	</div>
 <?php } ?>
 </div>
-
-
 <br>
 
-<?php if ($message) { ?>
-	<div class="center login_main_message">
-	<?php echo dol_htmloutput_mesg($message,'','',1); ?>
-	</div>
-<?php } ?>
+<!-- authentication mode = <?php echo $main_authentication ?> -->
+<!-- cookie name used for this session = <?php echo $session_name ?> -->
+<!-- urlfrom in this session = <?php echo isset($_SESSION["urlfrom"])?$_SESSION["urlfrom"]:''; ?> -->
 
-<?php if (! empty($morelogincontent) && is_array($morelogincontent)) {
+<!-- Common footer is not used for login page, this is same than footer but inside login tpl -->
+
+<?php
+
+
+if (! empty($conf->global->MAIN_HTML_FOOTER)) print $conf->global->MAIN_HTML_FOOTER;
+
+if (! empty($morelogincontent) && is_array($morelogincontent)) {
 	foreach ($morelogincontent as $format => $option)
 	{
 		if ($format == 'js') {
@@ -201,6 +232,26 @@ if (! empty($morelogincontent)) {
 else if (! empty($moreloginextracontent)) {
 	echo '<!-- Javascript by hook -->';
 	echo $moreloginextracontent;
+}
+
+// Google Analytics (need Google module)
+if (! empty($conf->google->enabled) && ! empty($conf->global->MAIN_GOOGLE_AN_ID))
+{
+	if (empty($conf->dol_use_jmobile))
+	{
+		print "\n";
+		print '<script type="text/javascript">'."\n";
+		print '  var _gaq = _gaq || [];'."\n";
+		print '  _gaq.push([\'_setAccount\', \''.$conf->global->MAIN_GOOGLE_AN_ID.'\']);'."\n";
+		print '  _gaq.push([\'_trackPageview\']);'."\n";
+		print ''."\n";
+		print '  (function() {'."\n";
+		print '    var ga = document.createElement(\'script\'); ga.type = \'text/javascript\'; ga.async = true;'."\n";
+		print '    ga.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.google-analytics.com/ga.js\';'."\n";
+		print '    var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);'."\n";
+		print '  })();'."\n";
+		print '</script>'."\n";
+	}
 }
 ?>
 
