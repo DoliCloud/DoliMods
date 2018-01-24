@@ -92,13 +92,16 @@ $(document).ready(function () {
 
 <div id="login_right">
 
+<?php
+if (! preg_match('/class="ok"/', $message)) {
+?>
 <table class="center">
 <!-- Login -->
 <tr>
 <td class="nowrap valignmiddle" style="text-align: left;">
 <?php if (! empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER)) { ?><label for="username" class="hidden"><?php echo $langs->trans("Login"); ?></label><?php } ?>
 <span class="span-icon-user">
-<input type="text" id="username" placeholder="<?php echo $langs->trans("Login"); ?>" <?php echo $disabled; ?> name="username" class="flat input-icon-user" size="20" value="<?php echo dol_escape_htmltag($username); ?>" tabindex="1"  autofocus="autofocus" />
+<input type="text" id="username" placeholder="<?php echo $langs->trans("LoginEmail"); ?>" <?php echo $disabled; ?> name="username" class="flat input-icon-user" size="20" value="<?php echo dol_escape_htmltag($username); ?>" tabindex="1"  autofocus="autofocus" />
 </span>
 </td>
 </tr>
@@ -145,7 +148,7 @@ if ($captcha) {
 	</td></tr>
 <?php } ?>
 </table>
-
+<?php } ?>
 </div> <!-- end div login-right -->
 
 </div> <!-- end div login-line1 -->
@@ -158,18 +161,26 @@ if ($captcha) {
 if ($message)
 {
 ?>
-	<div class="center"><font class="error">
-	<?php print $message; ?>
-	</font></div><br>
+	<div class="center">
+	<?php
+	if (preg_match('/class="ok"/', $message)) print '<font class="ok">';
+	else print '<font class="error">';
+	print $message;
+	print '</font>';
+	?>
+	</div><br>
 <?php
 }
 ?>
 
+<?php
+if (! preg_match('/class="ok"/', $message)) {
+?>
 
 <!-- Button SendNewPassword -->
 <section id="formActions">
 <div class="form-actions center">
-<input type="submit" class="btn btn-primary" name="password" value="&nbsp; <?php echo $langs->trans('SendNewPassword'); ?> &nbsp;" tabindex="4" />
+<input type="submit" class="btn btn-primary" name="password" value="&nbsp; <?php echo $langs->trans('SendNewPasswordLink'); ?> &nbsp;" tabindex="4" />
 
 <br>
 <div align="center" style="margin-top: 8px;">
@@ -185,6 +196,10 @@ if ($message)
 </div>
 </section>
 
+<?php
+}
+?>
+
 </div> <!-- end login line 2 -->
 
 </div> <!-- end login table -->
@@ -199,7 +214,11 @@ if ($message)
 <div class="center login_main_home paddingtopbottom<?php echo empty($conf->global->MAIN_LOGIN_BACKGROUND)?'':' backgroundsemitransparent'; ?>" style="max-width: 70%">
 <?php if ($mode == 'dolibarr' || ! $disabled) { ?>
 	<span class="passwordmessagedesc">
-	<?php echo $langs->trans('SendNewPasswordDesc'); ?>
+	<?php
+	if (! preg_match('/class="ok"/', $message)) {
+		echo $langs->trans('SendNewPasswordDesc');
+	}
+	?>
 	</span>
 <?php }else{ ?>
 	<div class="warning" align="center">

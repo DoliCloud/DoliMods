@@ -125,44 +125,62 @@ if ($action == 'buildnewpassword' && $username)
     }
     else
     {
-        $edituser = new User($db);
-        $result=$edituser->fetch('',$username,'',1);
-        if ($result <= 0 && $edituser->error == 'USERNOTFOUND')
+    	$thirdparty = new Societe($db);
+    	$result = $thirdparty->fetch(0, '', '', '', '', '', '', '', '', '', $username);
+
+        if ($result <= 0)
         {
             $message = '<div class="error">'.$langs->trans("ErrorLoginDoesNotExists",$username).'</div>';
             $username='';
         }
         else
         {
-            if (! $edituser->email)
+            /*if (! $edituser->email)
             {
                 $message = '<div class="error">'.$langs->trans("ErrorLoginHasNoEmail").'</div>';
             }
             else
-            {
-                $newpassword=$edituser->setPassword($user,'',1);
-                if ($newpassword < 0)
+            {*/
+        	include_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
+        		$hashreset = getRandomPassword(true);
+        		$thirdparty->options_array['renewpass_hash']=$hashreset.':'.dol_print_date(dol_time_plus_duree(dol_now(), 1, 'd'), 'dayhourlog');
+        		$result=$thirdparty->update($thirdparty->id, $user, 0);
+                if ($result < 0)
                 {
                     // Failed
-                    $message = '<div class="error">'.$langs->trans("ErrorFailedToChangePassword").'</div>';
+                    $message = '<div class="error">'.$langs->trans("ErrorFailedToSetTemporaryHash").'</div>';
                 }
                 else
                 {
                     // Success
-                    if ($edituser->send_password($user,$newpassword,1) > 0)
+                	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+
+                	$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/passwordforgotten.php?id='.$thirdparty->id.'&hashreset='.$hashreset;
+                	$trackid='thi'.$thirdparty->id;
+                	$appli = $conf->global->SELLYOURSAAS_NAME;
+                	$subject = $langs->transnoentitiesnoconv("SubjectNewPassword", $appli);
+                	$mesg='';
+                	$mesg.= '\n__(Hello)__,'."\n";
+                	$mesg.= $langs->transnoentitiesnoconv("RequestToResetPasswordReceived")."\n";
+                	$mesg.= "\n";
+                	$mesg.= $langs->transnoentitiesnoconv("YouMustClickToChange")." :\n";
+                	$mesg.= $url."\n\n";
+                	$mesg.= $langs->transnoentitiesnoconv("ForgetIfNothing")."\n\n";
+
+                	$newemail = new CMailFile($subject, $username, $conf->global->SELLYOURSAAS_MAIN_EMAIL, $mesg,array(),array(),array(),'','',0,-1,'','',$trackid,'','standard');
+
+                	if ($newemail->sendfile() > 0)
                     {
 
-                        $message = '<div class="ok">'.$langs->trans("PasswordChangeRequestSent",$edituser->login,dolObfuscateEmail($edituser->email)).'</div>';
-                        //$message.=$newpassword;
+                    	$message = '<div class="ok">'.$langs->trans("PasswordChangeRequestSent", $username, $username).'</div>';
                         $username='';
                     }
                     else
                     {
-                        //$message = '<div class="ok">'.$langs->trans("PasswordChangedTo",$newpassword).'</div>';
                         $message.= '<div class="error">'.$edituser->error.'</div>';
                     }
                 }
-            }
+            //}
         }
     }
 }

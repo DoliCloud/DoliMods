@@ -115,7 +115,7 @@ $(document).ready(function () {
 <td class="nowrap center valignmiddle">
 <?php if (! empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER)) { ?><label for="username" class="hidden"><?php echo $langs->trans("Login"); ?></label><?php } ?>
 <span class="span-icon-user">
-<input type="text" id="username" placeholder="<?php echo $langs->trans("Login"); ?>" name="username" class="flat input-icon-user" size="20" value="<?php echo dol_escape_htmltag($login); ?>" tabindex="1" autofocus="autofocus" />
+<input type="text" id="username" placeholder="<?php echo $langs->trans("LoginEmail"); ?>" name="username" class="flat input-icon-user" size="20" value="<?php echo dol_escape_htmltag($login); ?>" tabindex="1" autofocus="autofocus" />
 </span>
 </td>
 </tr>
