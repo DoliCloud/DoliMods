@@ -160,12 +160,16 @@ if ($action == 'buildnewpassword' && $username)
                 	$appli = $conf->global->SELLYOURSAAS_NAME;
                 	$subject = $langs->transnoentitiesnoconv("SubjectNewPassword", $appli);
                 	$mesg='';
-                	$mesg.= '\n__(Hello)__,'."\n";
+                	$mesg.= "\n__(Hello)__,\n";
                 	$mesg.= $langs->transnoentitiesnoconv("RequestToResetPasswordReceived")."\n";
                 	$mesg.= "\n";
                 	$mesg.= $langs->transnoentitiesnoconv("YouMustClickToChange")." :\n";
                 	$mesg.= $url."\n\n";
                 	$mesg.= $langs->transnoentitiesnoconv("ForgetIfNothing")."\n\n";
+
+                	$substitutionarray = getCommonSubstitutionArray($langs, 0, null, $thirdparty);
+                	complete_substitutions_array($substitutionarray, $langs, $thirdparty);
+                	$mesg = make_substitutions($mesg, $substitutionarray, $langs);
 
                 	$newemail = new CMailFile($subject, $username, $conf->global->SELLYOURSAAS_MAIN_EMAIL, $mesg,array(),array(),array(),'','',0,-1,'','',$trackid,'','standard');
 
