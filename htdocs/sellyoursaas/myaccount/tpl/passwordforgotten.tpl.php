@@ -98,10 +98,30 @@ if (! preg_match('/class="ok"/', $message)) {
 <table class="center">
 <!-- Login -->
 <tr>
-<td class="nowrap valignmiddle" style="text-align: left;">
+<td class="nowrap valignmiddle" style="text-align: center;">
 <?php if (! empty($conf->global->MAIN_OPTIMIZEFORTEXTBROWSER)) { ?><label for="username" class="hidden"><?php echo $langs->trans("Login"); ?></label><?php } ?>
 <span class="span-icon-user">
-<input type="text" id="username" placeholder="<?php echo $langs->trans("LoginEmail"); ?>" <?php echo $disabled; ?> name="username" class="flat input-icon-user" size="20" value="<?php echo dol_escape_htmltag($username); ?>" tabindex="1"  autofocus="autofocus" />
+<?php
+if (empty($asknewpass))
+{
+?>
+	<input type="text" id="username" placeholder="<?php echo $langs->trans("LoginEmail"); ?>" <?php echo $disabled; ?> name="username" class="flat input-icon-user" size="20" value="<?php echo dol_escape_htmltag($username); ?>" tabindex="1"  autofocus="autofocus" />
+<?php
+}
+else
+{
+	print $langs->trans("PasswordChangeRequest", $username).'<br><br>';
+	print '<input type="hidden" name="action" value="confirmpasswordreset">';
+	print '<input type="hidden" name="id" value="'.$id.'">';
+	print '<input type="hidden" name="hashreset" value="'.$hashreset.'">';
+
+	print '<input type="text" id="newpassword1" placeholder="'.$langs->trans("Password").'" name="newpassword1" class="flat input-icon-user" size="20" tabindex="1"  autofocus="autofocus" />';
+	print '<br><br>';
+
+	print '<input type="text" id="newpassword2" placeholder="'.$langs->trans("ConfirmPassword").'" name="newpassword2" class="flat input-icon-user" size="20" tabindex="1"  autofocus="autofocus" />';
+	print '<br><br>';
+}
+?>
 </span>
 </td>
 </tr>
@@ -123,7 +143,7 @@ if (! empty($morelogincontent)) {
 	}
 }
 
-if ($captcha) {
+if (empty($asknewpass) && $captcha) {
 	// Add a variable param to force not using cache (jmobile)
 	$php_self = preg_replace('/[&\?]time=(\d+)/','',$php_self);	// Remove param time
 	if (preg_match('/\?/',$php_self)) $php_self.='&time='.dol_print_date(dol_now(),'dayhourlog');
@@ -173,16 +193,25 @@ if ($message)
 }
 ?>
 
-<?php
-if (! preg_match('/class="ok"/', $message)) {
-?>
-
-<!-- Button SendNewPassword -->
 <section id="formActions">
 <div class="form-actions center">
-<input type="submit" class="btn btn-primary" name="password" value="&nbsp; <?php echo $langs->trans('SendNewPasswordLink'); ?> &nbsp;" tabindex="4" />
 
-<br>
+<?php
+if (empty($asknewpass) && ! preg_match('/class="ok"/', $message)) {
+?>
+<!-- Button SendNewPassword -->
+<input type="submit" class="btn btn-primary" name="password" value="&nbsp; <?php echo $langs->trans('SendNewPasswordLink'); ?> &nbsp;" tabindex="4" />
+<?php
+}
+elseif (! empty($asknewpass) && $asknewpass == 1)
+{
+?>
+<!-- Button ConfirmReset -->
+<input type="submit" class="btn btn-primary" name="confirmpasswordreset" value="&nbsp; <?php echo $langs->trans('ConfirmPasswordReset'); ?> &nbsp;" tabindex="4" />
+<?php
+}
+?>
+
 <div align="center" style="margin-top: 8px;">
 	<?php
 	$moreparam='';
@@ -191,14 +220,12 @@ if (! preg_match('/class="ok"/', $message)) {
 	if (! empty($conf->dol_no_mouse_hover)) $moreparam.=(strpos($moreparam,'?')===false?'?':'&').'dol_no_mouse_hover='.$conf->dol_no_mouse_hover;
 	if (! empty($conf->dol_use_jmobile))    $moreparam.=(strpos($moreparam,'?')===false?'?':'&').'dol_use_jmobile='.$conf->dol_use_jmobile;
 
-	print '<a class="alogin" href="'.$dol_url_root.'/index.php'.$moreparam.'">('.$langs->trans('BackToLoginPage').')</a>';
+	print '<a class="alogin" href="'.$dol_url_root.'/index.php'.$moreparam.'">('.((empty($asknewpass) || $asknewpass == 2)? $langs->trans('BackToLoginPage') : $langs->trans("Cancel")).')</a>';
 	?>
 </div>
-</section>
 
-<?php
-}
-?>
+</div>
+</section>
 
 </div> <!-- end login line 2 -->
 
@@ -215,7 +242,7 @@ if (! preg_match('/class="ok"/', $message)) {
 <?php if ($mode == 'dolibarr' || ! $disabled) { ?>
 	<span class="passwordmessagedesc">
 	<?php
-	if (! preg_match('/class="ok"/', $message)) {
+	if (empty($asknewpass) && ! preg_match('/class="ok"/', $message)) {
 		echo $langs->trans('SendNewPasswordDesc');
 	}
 	?>

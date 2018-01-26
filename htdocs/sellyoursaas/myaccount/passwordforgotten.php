@@ -64,12 +64,16 @@ if (! empty($conf->global->SELLYOURSAAS_SECURITY_DISABLEFORGETPASSLINK))
     exit;
 }
 
+$id=GETPOST('id','int');
 $action=GETPOST('action', 'alpha');
 $mode=$dolibarr_main_authentication;
 if (! $mode) $mode='http';
 
 $username 		= GETPOST('username','alpha');
-$passwordhash	= GETPOST('passwordhash','alpha');
+$hashreset		= GETPOST('hashreset','alpha');
+$newpassword1   = GETPOST('newpassword1', 'none');
+$newpassword2   = GETPOST('newpassword2', 'none');
+
 $conf->entity 	= (GETPOST('entity','int') ? GETPOST('entity','int') : 1);
 
 // Instantiate hooks of thirdparty module only if not already define
@@ -82,33 +86,81 @@ if (GETPOST('dol_optimize_smallscreen','alpha') || ! empty($_SESSION['dol_optimi
 if (GETPOST('dol_no_mouse_hover','alpha') || ! empty($_SESSION['dol_no_mouse_hover']))             $conf->dol_no_mouse_hover=1;
 if (GETPOST('dol_use_jmobile','alpha') || ! empty($_SESSION['dol_use_jmobile']))                   $conf->dol_use_jmobile=1;
 
+$asknewpass=0;
+
 
 /**
  * Actions
  */
 
 // Validate new password
-if ($action == 'validatenewpassword' && $username && $passwordhash)
+if ($hashreset)
 {
-    $edituser = new User($db);
-    $result=$edituser->fetch('',$_GET["username"]);
-    if ($result < 0)
+    $editthirdparty = new Societe($db);
+    if ($id > 0)
     {
-        $message = '<div class="error">'.$langs->trans("ErrorLoginDoesNotExists",$username).'</div>';
+    	$result=$editthirdparty->fetch($id);
+    }
+    if ($result <= 0)
+    {
+        $message = '<div class="error">'.$langs->trans("ErrorBadIdInLinkToResetPassword",$id).'</div>';
     }
     else
     {
-        if (dol_hash($edituser->pass_temp) == $passwordhash)
+    	$tmparray = explode(':', $editthirdparty->array_options['options_pass_temp']);
+
+    	if ($hashreset == $tmparray[0])
         {
-            $newpassword=$edituser->setPassword($user,$edituser->pass_temp,0);
-            dol_syslog("passwordforgotten.php new password for user->id=".$edituser->id." validated in database");
-            header("Location: ".DOL_URL_ROOT.'/');
-            exit;
+        	$maxdate = dol_stringtotime($tmparray[1]);
+			if (dol_now() > $maxdate)
+			{
+				$langs->load("errors");
+				$message = '<div class="error">'.$langs->trans("ErrorLinkToResetPasswordHasExpired").'</div>';
+			}
+			else
+			{
+        		$username = $editthirdparty->email;
+        		if (GETPOST('confirmpasswordreset'))
+        		{
+        			$MINPASSWORDLENGTH = 6;
+        			if (empty($newpassword1) && empty($newpassword2))
+        			{
+        				$langs->load("install");
+        				$message = '<div class="error">'.$langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Password")).'</div>';
+        				$asknewpass = 1;
+        			}
+        			else if (empty($newpassword1) || empty($newpassword2) || ($newpassword1 != $newpassword2))
+        			{
+        				$langs->load("install");
+        				$message = '<div class="error">'.$langs->trans("PasswordsMismatch").'</div>';
+						$asknewpass = 1;
+        			}
+					elseif (strlen($newpassword1) < $MINPASSWORDLENGTH)
+					{
+						$langs->load("other");
+						$message = '<div class="error">'.$langs->trans("YourPasswordMustHaveAtLeastXChars", $MINPASSWORDLENGTH).'</div>';
+						$asknewpass = 1;
+					}
+					else
+					{
+						// Everything is ok to reset password
+						$editthirdparty->array_options['options_password']=$newpassword1;
+						$editthirdparty->array_options['options_pass_temp']='';
+						$result=$editthirdparty->update($editthirdparty->id, $user, 0);
+						$message = '<div class="ok">'.$langs->trans("YourPasswordHasBeenReset").'</div>';
+						$asknewpass = 2;
+					}
+        		}
+				else
+				{
+        			$asknewpass = 1;
+				}
+			}
         }
         else
         {
         	$langs->load("errors");
-            $message = '<div class="error">'.$langs->trans("ErrorFailedToValidatePasswordReset").'</div>';
+            $message = '<div class="error">'.$langs->trans("ErrorBadHashInLinkToResetPassword").'</div>';
         }
     }
 }
@@ -143,7 +195,7 @@ if ($action == 'buildnewpassword' && $username)
             {*/
         	include_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
         		$hashreset = getRandomPassword(true);
-        		$thirdparty->options_array['renewpass_hash']=$hashreset.':'.dol_print_date(dol_time_plus_duree(dol_now(), 1, 'd'), 'dayhourlog');
+        		$thirdparty->array_options['options_pass_temp']=$hashreset.':'.dol_print_date(dol_time_plus_duree(dol_now(), 1, 'd'), 'dayhourlog');
         		$result=$thirdparty->update($thirdparty->id, $user, 0);
                 if ($result < 0)
                 {
@@ -165,6 +217,7 @@ if ($action == 'buildnewpassword' && $username)
                 	$mesg.= "\n";
                 	$mesg.= $langs->transnoentitiesnoconv("YouMustClickToChange")." :\n";
                 	$mesg.= $url."\n\n";
+                	$mesg.= $langs->transnoentitiesnoconv("ApplicantIpAddress").': __USER_REMOTE_IP__'."\n";
                 	$mesg.= $langs->transnoentitiesnoconv("ForgetIfNothing")."\n\n";
 
                 	$substitutionarray = getCommonSubstitutionArray($langs, 0, null, $thirdparty);
