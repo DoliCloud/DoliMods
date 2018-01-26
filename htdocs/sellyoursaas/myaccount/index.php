@@ -56,7 +56,8 @@ $form = new Form($db);
 
 $head='<link rel="icon" href="img/favicon.ico">
 <!-- Bootstrap core CSS -->
-<link href="dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+<!--<link href="dist/css/bootstrap.min.css" rel="stylesheet">-->
 <link href="dist/css/myaccount.css" rel="stylesheet">';
 $head.="
 <script>
@@ -110,16 +111,31 @@ print '
           <li class="nav-item'.($mode == 'dashboard'?'active':'').'">
             <a class="nav-link" href="#">Disabled</a>
           </li>-->
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$langs->trans("Other").'</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
 
 	            <a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=support">'.$langs->trans("Support").'</a>
 	            <a class="dropdown-item" href="https://www.dolicloud.com/en/faq" target="_new">'.$langs->trans("FAQs").'</a>
-	            <a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=logout" target="_new">'.$langs->trans("Logout").'</a>
 
             </div>
           </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
+                        <i class="fa fa-user fa-fw"></i> '.$langs->trans("MyAccount").'
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="'.$_SERVER["PHP_SELF"].'?mode=myaccount" class="dropdown-item"><i class="fa fa-user fa-fw"></i> '.$langs->trans("MyAccount").'</a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li><a href="'.$_SERVER["PHP_SELF"].'?mode=logout" class="dropdown-item"><i class="fa fa-sign-out fa-fw"></i> '.$langs->trans("Logout").'</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+
         </ul>
 <!--
         <form class="form-inline my-2 my-md-0" action="'.$_SERVER["PHP_SELF"].'">
@@ -877,17 +893,14 @@ print '
 	<!-- Bootstrap core JavaScript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<!--
 	<script src="dist/js/tether.min.js"></script>
+	<script src="dist/js/popper.min.js"></script>
 	<script src="dist/js/bootstrap.min.js"></script>
-	-->
-
+	<!--
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-
-	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<!-- <script src="/assets/js/ie10-viewport-bug-workaround.js"></script> -->
+	-->
 
 	</body>
 </html>

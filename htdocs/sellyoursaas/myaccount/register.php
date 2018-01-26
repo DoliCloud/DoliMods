@@ -93,7 +93,7 @@ $conf->dol_hide_leftmenu = 1;
 
 $head='<link rel="icon" href="img/favicon.ico">
 <!-- Bootstrap core CSS -->
-<link href="dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="dist/css/bootstrap.css" rel="stylesheet">
 <link href="dist/css/myaccount.css" rel="stylesheet">';
 
 llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(), array('../dist/css/myaccount.css'));
