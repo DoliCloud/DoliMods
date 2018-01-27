@@ -48,6 +48,20 @@ $langs->setDefaultLang('auto');
 $langs->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas"));
 
 
+
+
+/*
+ * Action
+ */
+
+if ($mode == 'logout')
+{
+	session_destroy();
+	header("Location: /index.php");
+	exit;
+}
+
+
 /*
  * View
  */
@@ -56,8 +70,8 @@ $form = new Form($db);
 
 $head='<link rel="icon" href="img/favicon.ico">
 <!-- Bootstrap core CSS -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
-<!--<link href="dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">-->
+<link href="dist/css/bootstrap.css" rel="stylesheet">
 <link href="dist/css/myaccount.css" rel="stylesheet">';
 $head.="
 <script>
@@ -91,38 +105,32 @@ print '
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#"><img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI).'" width="160px"></a>
+      <a class="navbar-brand" href="#"><img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI).'" height="48px"></a>
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item'.($mode == 'dashboard'?'active':'').'">
-            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=dashboard">'.$langs->trans("Dashboard").'</a>
+          <li class="nav-item'.($mode == 'dashboard'?' active':'').'">
+            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=dashboard"><i class="fa fa-tachometer"></i> '.$langs->trans("Dashboard").'</a>
           </li>
-          <li class="nav-item'.($mode == 'instances'?'active':'').'">
-            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=instances">'.$langs->trans("MyInstances").'</a>
+          <li class="nav-item'.($mode == 'instances'?' active':'').'">
+            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=instances"><i class="fa fa-server"></i> '.$langs->trans("MyInstances").'</a>
           </li>
-          <li class="nav-item'.($mode == 'myaccount'?'active':'').'">
-            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=myaccount">'.$langs->trans("MyAccount").'</a>
+          <li class="nav-item'.($mode == 'billing'?' active':'').'">
+            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=billing"><i class="fa fa-usd"></i> '.$langs->trans("Billing").'</a>
           </li>
-          <li class="nav-item'.($mode == 'billing'?'active':'').'">
-            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=billing">'.$langs->trans("Billing").'</a>
-          </li>
-          <!--
-          <li class="nav-item'.($mode == 'dashboard'?'active':'').'">
-            <a class="nav-link" href="#">Disabled</a>
-          </li>-->
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$langs->trans("Other").'</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-gear"></i> '.$langs->trans("Other").'</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown01">
 
 	            <a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=support">'.$langs->trans("Support").'</a>
-	            <a class="dropdown-item" href="https://www.dolicloud.com/en/faq" target="_new">'.$langs->trans("FAQs").'</a>
+                <li class="dropdown-divider"></li>
+	            <a class="dropdown-item" href="https://www.dolicloud.com/en/faq" target="_newfaq">'.$langs->trans("FAQs").'</a>
 
-            </div>
+            </ul>
           </li>
 
-                <li class="nav-item dropdown">
+                <li class="nav-item'.($mode == 'myaccount'?' active':'').' dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
                         <i class="fa fa-user fa-fw"></i> '.$langs->trans("MyAccount").'
                     </a>
