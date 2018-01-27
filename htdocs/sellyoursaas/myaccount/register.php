@@ -108,7 +108,7 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
 
     <div class="signup">
 
-      <div style="text-align: center; height: 80px">
+      <div style="text-align: center;">
         <?php
         $linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL);
 

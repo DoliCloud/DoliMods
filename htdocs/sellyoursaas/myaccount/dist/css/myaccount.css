@@ -1,3 +1,8 @@
+/* CSS myaccount */
+li.nav-item {
+	padding-left: 5px;
+	padding-right: 5px;
+}
 
 .note.note-warning {
     background-color: #fcf8e3;
@@ -5,6 +10,11 @@
     color: #8a6d3b;
 }
 
+.btn-transparent {
+	background: unset;
+	border: none;
+	color: #FFF;	
+}
 .note {
     margin: 0 0 20px 0;
     padding: 15px 30px 15px 15px;
@@ -126,8 +136,10 @@ background-color: #eaeaea;border-left: 1px solid #cecece;}::
 font-weight: 300;}h1 {font-size: 33px;}h2 {font-size: 27px;}h3 {
 font-size: 23px;}h4 {font-size: 17px;}h5 {font-size: 13px;}h6 {
 font-size: 12px;}h1 small,h2 small,h3 small,h4 small,h5 small,h6 
-small {color: #444444;}h1.block,h2.block,h3.block,h4.block,h5.block,
-h6.block {padding-top: 10px;padding-bottom: 10px;}a {text-shadow: 
+small {color: #444444;}
+h1.block,h2.block,h3.block,h4.block,h5.block,h6.block
+{padding-top: 10px;padding-bottom: 10px;margin-bottom: 0px !important;}
+a {text-shadow: 
 none;color: #5b9bd1;}a:hover {color: #3175af;}a:focus, a:hover, a:
 active {outline: 0;}hr {margin: 20px 0;border: 0;border-top: 1px 
 solid #eee;border-bottom: 0;}.list-unstyled li > .list-unstyled {

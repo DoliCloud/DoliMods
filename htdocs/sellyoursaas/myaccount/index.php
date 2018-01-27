@@ -68,6 +68,49 @@ if ($mode == 'logout')
 
 $form = new Form($db);
 
+
+$socid = $_SESSION['dol_loginsellyoursaas'];
+
+$listofcontractid = array();
+require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+$documentstatic=new Contrat($db);
+$documentstaticline=new ContratLigne($db);
+$sql = 'SELECT c.rowid as rowid';
+$sql.= ' FROM '.MAIN_DB_PREFIX."contrat as c, ".MAIN_DB_PREFIX."contratdet as d, ".MAIN_DB_PREFIX."societe as s";
+$sql.= " WHERE c.fk_soc = s.rowid AND s.rowid = ".$socid;
+$sql.= " AND d.fk_contrat = c.rowid";
+$sql.= " AND c.entity = ".$conf->entity;
+
+$resql=$db->query($sql);
+if ($resql)
+{
+	$num_rows = $db->num_rows($resql);
+	$i = 0;
+	while ($i < $num_rows)
+	{
+		$obj = $db->fetch_object($resql);
+		if ($obj)
+		{
+			$contract=new Contrat($db);
+			$contract->fetch($obj->rowid);
+			$listofcontractid[$obj->rowid]=$contract;
+		}
+		$i++;
+	}
+}
+else
+{
+	setEventMessages($db->lasterror(), null, 'errors');
+}
+if ($welcomecid > 0)
+{
+	$contract=new Contrat($db);
+	$contract->fetch($welcomecid);
+	$listofcontractid[$welcomecid]=$contract;
+}
+//var_dump($listofcontractid);
+
+
 $head='<link rel="icon" href="img/favicon.ico">
 <!-- Bootstrap core CSS -->
 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">-->
@@ -91,8 +134,9 @@ var select2arrayoflanguage = {
 </script>
 ";
 
-$website = new Website($db);
-$website->fetch(0, 'sellyoursaas');
+
+//$website = new Website($db);
+//$website->fetch(0, 'sellyoursaas');
 
 
 llxHeader($head, $langs->trans("MyAccount"));
@@ -100,7 +144,6 @@ llxHeader($head, $langs->trans("MyAccount"));
 $linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI);
 
 print '
-
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -119,54 +162,53 @@ print '
             <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=billing"><i class="fa fa-usd"></i> '.$langs->trans("Billing").'</a>
           </li>
 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-gear"></i> '.$langs->trans("Other").'</a>
-            <ul class="dropdown-menu" aria-labelledby="dropdown01">
-
-	            <a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=support">'.$langs->trans("Support").'</a>
+          <li class="nav-item'.($mode == 'support'?' active':'').' dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-gear"></i> '.$langs->trans("Other").'</a>
+            <ul class="dropdown-menu">
+	            <li><a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=support">'.$langs->trans("Support").'</a></li>
                 <li class="dropdown-divider"></li>
-	            <a class="dropdown-item" href="https://www.dolicloud.com/en/faq" target="_newfaq">'.$langs->trans("FAQs").'</a>
-
+	            <li><a class="dropdown-item" href="https://www.dolicloud.com/en/faq" target="_newfaq">'.$langs->trans("FAQs").'</a></li>
             </ul>
           </li>
 
-                <li class="nav-item'.($mode == 'myaccount'?' active':'').' dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
-                        <i class="fa fa-user fa-fw"></i> '.$langs->trans("MyAccount").'
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="'.$_SERVER["PHP_SELF"].'?mode=myaccount" class="dropdown-item"><i class="fa fa-user fa-fw"></i> '.$langs->trans("MyAccount").'</a>
-                        </li>
-                        <li class="dropdown-divider"></li>
-                        <li><a href="'.$_SERVER["PHP_SELF"].'?mode=logout" class="dropdown-item"><i class="fa fa-sign-out fa-fw"></i> '.$langs->trans("Logout").'</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
+          <li class="nav-item'.($mode == 'myaccount'?' active':'').' dropdown">
+             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user"></i> '.$langs->trans("MyAccount").'</a>
+             <ul class="dropdown-menu">
+                 <li><a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=myaccount"><i class="fa fa-user"></i> '.$langs->trans("MyAccount").'</a></li>
+                 <li class="dropdown-divider"></li>
+                 <li><a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=logout"><i class="fa fa-sign-out"></i> '.$langs->trans("Logout").'</a></li>
+             </ul>
+           </li>
 
         </ul>
-<!--
+
+		<!--
         <form class="form-inline my-2 my-md-0" action="'.$_SERVER["PHP_SELF"].'">
 		<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
           <input class="form-control mr-sm-2" type="text" placeholder="'.$langs->trans("Search").'">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">'.$langs->trans("Search").'</button>
+          <button class="btn-transparent nav-link" type="submit"><i class="fa fa-search"></i></button>
         </form>
--->
+		-->
+
       </div>
     </nav>
+';
 
 
+print '
     <div class="container">
 		<br>
 ';
 
-var_dump($_SESSION["dol_loginsellyoursaas"]);
-var_dump($user);
 
+//var_dump($_SESSION["dol_loginsellyoursaas"]);
+//var_dump($user);
+
+
+// Special case - when coming from a specific contract id $welcomid
 if ($welcomecid > 0)
 {
-	$contract = new Contrat($db);
-	$contract->fetch($welcomecid);
+	$contract = $listofcontractid[$welcomecid];
 	$contract->fetch_thirdparty();
 
 	print '
@@ -234,26 +276,42 @@ if ($welcomecid > 0)
       </div>
 	';
 }
-else	// Show warning
+
+
+if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE))	// Show warning
 {
 
 	print '
 		<div class="note note-warning">
-		<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrial", 99, 'aaa').' !</h4>
-		<p>
-		<a href="/customerUI/updatePaymentMethod" class="btn btn-warning">'.$langs->trans("AddAPaymentMode").'</a>
-		</p>
+		<h4 class="block">'.$langs->trans($conf->global->SELLYOURSAAS_ANNOUNCE).'</h4>
 		</div>
 	';
 }
 
 
+if (1 == 1)	// Show warning
+{
+	foreach ($listofcontractid as $contractid => $contract)
+	{
+		$firstline = reset($contract->lines);
+		var_dump($contract->array_options);
+		print '
+			<div class="note note-warning">
+			<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrial", 99, 'aaa').' !</h4>
+			<p>
+			<a href="/customerUI/updatePaymentMethod" class="btn btn-warning">'.$langs->trans("AddAPaymentMode").'</a>
+			</p>
+			</div>
+		';
+	}
+}
+
 
 
 if ($mode == 'dashboard')
 {
-	$nbofinstances = 0;
-	$nboftickets = 0;
+	$nbofinstances = count($listofcontractid);
+	$nboftickets = $langs->trans("SoonAvailable");
 
 	print '
 	<div class="page-content-wrapper">
@@ -294,7 +352,7 @@ if ($mode == 'dashboard')
 					'.$langs->trans("NbOfInstances").'
 	              </div><!-- END COL -->
 	              <div class="col-md-3">
-	                '.$nbofinstances.'
+	                <h2>'.$nbofinstances.'</h2>
 	              </div>
 	            </div> <!-- END ROW -->
 
@@ -329,7 +387,7 @@ if ($mode == 'dashboard')
 	            </p>
 
 				<div class="row">
-				<div class="center col-md-12"><br>
+				<div class="center col-md-12">
 					<a href="'.$_SERVER["PHP_SELF"].'?mode=myaccount" class="btn default btn-xs green-stripe">
 	            	'.$langs->trans("SeeOrEditProfile").'
 	                </a>
@@ -366,7 +424,7 @@ if ($mode == 'dashboard')
 	            </p>
 
 				<div class="row">
-				<div class="center col-md-12"><br>
+				<div class="center col-md-12">
 					<a href="'.$_SERVER["PHP_SELF"].'?mode=billing" class="btn default btn-xs green-stripe">
 	            	'.$langs->trans("SeeDetailsOfPayments").'
 	                </a>
@@ -913,5 +971,7 @@ print '
 	</body>
 </html>
 ';
+
+llxFooter();
 
 $db->close();

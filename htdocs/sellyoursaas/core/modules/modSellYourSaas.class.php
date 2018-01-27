@@ -250,28 +250,13 @@ class modSellYourSaas extends DolibarrModules
 								'type'=>'top',
 								'titre'=>'SellYourSaas',
 								'mainmenu'=>'sellyoursaas',
-								'url'=>'/sellyoursaas/index.php',
+								'url'=>'/sellyoursaas/backoffice/index.php',
 								'langs'=>'',
 								'position'=>200,
                 				'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->rights->sellyoursaas->liens->voir',
 								'target'=>'',
 								'user'=>0);
-		$r++;
-
-		$this->menu[$r]=array(
-			'fk_menu'=>'fk_mainmenu=sellyoursaas',
-			'type' => 'left',
-			'titre' => 'Home',
-			'mainmenu' => 'sellyoursaas',
-			'url' => '/sellyoursaas/index.php',
-			'langs' => '',
-			'position' => 100,
-			'enabled' => '$conf->sellyoursaas->enabled', // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-			'perms' => '$user->rights->sellyoursaas->liens->voir',
-			'target' => '',
-			'user' => 0
-		);
 		$r++;
 
 		// Summary
@@ -283,11 +268,27 @@ class modSellYourSaas extends DolibarrModules
 			'leftmenu'=>'mysaas_summary',
 			'url'=>'/sellyoursaas/backoffice/index.php',
 			'langs'=>'sellyoursaas@sellyoursaas',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-			'position'=>200,
+			'position'=>100,
 			'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 			'perms'=>'$user->rights->sellyoursaas->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>0);             // 0=Menu for internal users, 1=external users, 2=both
+		$r++;
+
+		// Old DoliCloud
+		$this->menu[$r]=array(
+		'fk_menu'=>'fk_mainmenu=sellyoursaas',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
+		'type'=>'left',         // This is a Left menu entry
+		'titre'=>'Summary (dolicloud old)',
+		'mainmenu'=>'sellyoursaas',
+		'leftmenu'=>'dolicloud',
+		'url'=>'/sellyoursaas/backoffice/dolicloudold_index.php',
+		'langs'=>'sellyoursaas@sellyoursaas',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+		'position'=>105,
+		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		'perms'=>'$user->rights->sellyoursaas->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
+		'target'=>'',
+		'user'=>0);             // 0=Menu for internal users, 1=external users, 2=both
 		$r++;
 
 		// Packages
@@ -585,23 +586,6 @@ class modSellYourSaas extends DolibarrModules
 		'user'=>0);
 		$r++;
 
-
-
-		// Old DoliCloud
-		$this->menu[$r]=array(
-		    'fk_menu'=>'fk_mainmenu=sellyoursaas',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
-		    'type'=>'left',         // This is a Left menu entry
-		    'titre'=>'Summary (dolicloud old)',
-		    'mainmenu'=>'sellyoursaas',
-		    'leftmenu'=>'dolicloud',
-		    'url'=>'/sellyoursaas/backoffice/dolicloudold_index.php',
-		    'langs'=>'sellyoursaas@sellyoursaas',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-		    'position'=>3000,
-		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		    'perms'=>'$user->rights->sellyoursaas->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
-		    'target'=>'',
-		    'user'=>0);             // 0=Menu for internal users, 1=external users, 2=both
-		$r++;
 
 		$this->menu[$r]=array(
 		    'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=dolicloud',

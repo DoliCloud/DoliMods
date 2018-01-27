@@ -35,6 +35,7 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res) die("Include of main fails");
 
+require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
 dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
@@ -43,9 +44,7 @@ include_once dol_buildpath("/sellyoursaas/backoffice/lib/refresh.lib.php");		// 
 
 
 // Load traductions files requiredby by page
-$langs->load("companies");
-$langs->load("other");
-$langs->load("sellyoursaas@sellyoursaas");
+$langs->loadLangs(array("companies","other","sellyoursaas@sellyoursaas"));
 
 // Get parameters
 $id			= GETPOST('id','int');
@@ -85,11 +84,20 @@ if ($db2->error)
     exit;
 }
 
+
 /*******************************************************************
 * ACTIONS
 ********************************************************************/
 
+if ($action == 'update')
+{
+	dolibarr_set_const($db,"NLTECHNO_NOTE",GETPOST("NLTECHNO_NOTE", 'none'),'chaine',0,'',$conf->entity);
+}
 
+if (GETPOST('saveannounce','alpha'))
+{
+	dolibarr_set_const($db,"SELLYOURSAAS_ANNOUNCE",GETPOST("SELLYOURSAAS_ANNOUNCE", 'none'),'chaine',0,'',$conf->entity);
+}
 
 
 /***************************************************
@@ -122,10 +130,20 @@ print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<table class="noborder nohover" width="100%">';
 print '<tr class="liste_titre">';
 print '<td colspan="3">'.$langs->trans("Search").'</td></tr>';
-print "<tr ".$bc[false]."><td>";
+print '<tr class="oddeven"><td>';
 print $langs->trans("Instance").':</td><td><input class="flat inputsearch" type="text" name="search_instance"></td>';
 print '<td rowspan="'.$rowspan.'"><input type="submit" class="button" value="'.$langs->trans("Search").'"></td></tr>';
+print "</table></form><br>";
 
+print '<form method="post" action="'.dol_buildpath('/sellyoursaas/backoffice/index.php',1).'">';
+print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+print '<table class="noborder nohover" width="100%">';
+print '<tr class="liste_titre">';
+print '<td>'.$langs->trans("Announce").'</td></tr>';
+print '<tr class="oddeven"><td><textarea class="flat inputsearch centpercent" type="text" name="SELLYOURSAAS_ANNOUNCE">';
+print $conf->global->SELLYOURSAAS_ANNOUNCE;
+print '</textarea>';
+print '<br><input type="submit" name="saveannounce" class="button" value="'.$langs->trans("Save").'"></td></tr>';
 print "</table></form><br>";
 
 
@@ -373,6 +391,34 @@ print '</center></div></div>';
 print '<div class="fichecenter"><div class="impair"><center>';
 print $px2->show();
 print '</center></div></div>';
+
+
+print '<br><hr><br>';
+
+print_fiche_titre($langs->trans("Notes"));
+
+print '<br>';
+
+if ($action != 'edit')
+{
+	print dol_htmlcleanlastbr($conf->global->NLTECHNO_NOTE);
+
+	print '<div class="tabsAction">';
+
+	print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=edit">'.$langs->trans("Edit").'</a></div>';
+
+	print '</div>';
+}
+else
+{
+	print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+	print '<input type="hidden" name="action" value="update">';
+	$doleditor=new DolEditor('NLTECHNO_NOTE',$conf->global->NLTECHNO_NOTE,'',480,'Full');
+	print $doleditor->Create(1);
+	print '<br>';
+	print '<input class="button" type="submit" name="'.$langs->trans("Save").'">';
+	print '</form>';
+}
 
 
 // End of page
