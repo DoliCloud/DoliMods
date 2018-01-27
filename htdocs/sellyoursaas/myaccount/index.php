@@ -76,10 +76,11 @@ require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 $documentstatic=new Contrat($db);
 $documentstaticline=new ContratLigne($db);
 $sql = 'SELECT c.rowid as rowid';
-$sql.= ' FROM '.MAIN_DB_PREFIX."contrat as c, ".MAIN_DB_PREFIX."contratdet as d, ".MAIN_DB_PREFIX."societe as s";
+$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c LEFT JOIN '.MAIN_DB_PREFIX.'contrat_extrafields as ce ON ce.fk_object = c.rowid, '.MAIN_DB_PREFIX.'contratdet as d, '.MAIN_DB_PREFIX.'societe as s';
 $sql.= " WHERE c.fk_soc = s.rowid AND s.rowid = ".$socid;
 $sql.= " AND d.fk_contrat = c.rowid";
 $sql.= " AND c.entity = ".$conf->entity;
+$sql.= " AND ce.deployment_status IN ('processing', 'done')";
 
 $resql=$db->query($sql);
 if ($resql)
@@ -293,16 +294,44 @@ if (1 == 1)	// Show warning
 {
 	foreach ($listofcontractid as $contractid => $contract)
 	{
-		$firstline = reset($contract->lines);
-		var_dump($contract->array_options);
-		print '
-			<div class="note note-warning">
-			<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrial", 99, 'aaa').' !</h4>
-			<p>
-			<a href="/customerUI/updatePaymentMethod" class="btn btn-warning">'.$langs->trans("AddAPaymentMode").'</a>
-			</p>
-			</div>
-		';
+		if ($contract->array_options['options_date_endfreeperiod'] > 0)
+		{
+			$dateendfreeperiod = $contract->array_options['options_date_endfreeperiod'];
+			if (! is_numeric($dateendfreeperiod)) $dateendfreeperiod = dol_stringtotime($dateendfreeperiod);
+			$delaybeforeendoftrial = ($dateendfreeperiod - dol_now());
+
+			// TODO Test if a pyament method exists.
+
+
+			if ($delaybeforeendoftrial > 0)
+			{
+				$delayindays = round($delaybeforeendoftrial / 3600 / 24);
+
+				$firstline = reset($contract->lines);
+				print '
+					<div class="note note-warning">
+					<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrial", abs($delayindays), $contract->ref_customer).' !</h4>
+					<p>
+					<a href="/customerUI/updatePaymentMethod" class="btn btn-warning">'.$langs->trans("AddAPaymentMode").'</a>
+					</p>
+					</div>
+				';
+			}
+			else
+			{
+				$delayindays = round($delaybeforeendoftrial / 3600 / 24);
+
+				$firstline = reset($contract->lines);
+				print '
+					<div class="note note-warning">
+					<h4 class="block">'.$langs->trans("XDaysAfterEndOfTrial", abs($delayindays), $contract->ref_customer).' !</h4>
+					<p>
+					<a href="/customerUI/updatePaymentMethod" class="btn btn-warning">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>
+					</p>
+					</div>
+				';
+			}
+		}
 	}
 }
 
