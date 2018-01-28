@@ -300,7 +300,7 @@ if (1 == 1)	// Show warning
 			if (! is_numeric($dateendfreeperiod)) $dateendfreeperiod = dol_stringtotime($dateendfreeperiod);
 			$delaybeforeendoftrial = ($dateendfreeperiod - dol_now());
 
-			// TODO Test if a pyament method exists.
+			// TODO Test if a payment method exists = a recurring invoice exists.
 
 
 			if ($delaybeforeendoftrial > 0)
