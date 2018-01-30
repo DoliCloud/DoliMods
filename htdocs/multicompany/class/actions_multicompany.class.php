@@ -689,17 +689,26 @@ class ActionsMulticompany
 	 * 	@param	int		$shared		1=Return shared entities
 	 * 	@return	int					Entity id to use
 	 */
-	function getEntity($element=false, $shared=false)
+	function getEntity($element=false, $shared=1)
 	{
 		global $conf;
 
-		$addzero = array('user', 'usergroup');
+		$addzero = array('user', 'usergroup', 'email_templates', 'default_values');
 		if (in_array($element, $addzero))
 		{
 			$out = '0,';
 			if (!empty($conf->multicompany->transverse_mode)) $out.= '1,';
 
 			return $out.$conf->entity;
+		}
+
+		if ($shared == 1 && $element == 'c_paiement')
+		{
+			return 1;
+		}
+		if ($shared == 1 && $element == 'c_payment_term')
+		{
+			return 1;
 		}
 
 		$elementkey = $element;
