@@ -106,7 +106,7 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
     <img id="waitMaskImg" width="100px" src="<?php echo 'ajax-loader.gif'; ?>" alt="Loading" />
 </div>
 
-    <div class="signup">
+<div class="signup">
 
       <div style="text-align: center;">
         <?php
@@ -134,6 +134,7 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
           <input type="hidden" name="service" value="<?php echo dol_escape_htmltag($tmpproduct->ref); ?>" />
           <input type="hidden" name="package" value="<?php echo dol_escape_htmltag($tmppackage->ref); ?>" />
           <input type="hidden" name="partner" value="<?php echo dol_escape_htmltag($partner); ?>" />
+
           <section id="enterUserAccountDetails">
 
 
@@ -191,25 +192,25 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
                     </div>
                   </div>
                 </div>
-              </div>
+            </div>
 
             <hr />
 
 
 
 
-<div class="control-group  ">
-	<label class="control-label" for="address_country"><?php echo $langs->trans("Country") ?></label>
-	<div class="controls">
-<?php
-$countryselected=dolGetCountryCodeFromIp($_SERVER["REMOTE_ADDR"]);
-print '<!-- Autodetected IP/Country: '.$_SERVER["REMOTE_ADDR"].'/'.$countryselected.' -->'."\n";
-if (empty($countryselected)) $countryselected='US';
-if (GETPOST('address_country','alpha')) $countryselected=GETPOST('address_country','alpha');
-print $form->select_country($countryselected, 'address_country', 'optionsValue="name"', 0, 'minwidth300', 'code2');
-?>
-	</div>
-</div>
+			<div class="control-group  ">
+				<label class="control-label" for="address_country"><?php echo $langs->trans("Country") ?></label>
+				<div class="controls">
+			<?php
+			$countryselected=dolGetCountryCodeFromIp($_SERVER["REMOTE_ADDR"]);
+			print '<!-- Autodetected IP/Country: '.$_SERVER["REMOTE_ADDR"].'/'.$countryselected.' -->'."\n";
+			if (empty($countryselected)) $countryselected='US';
+			if (GETPOST('address_country','alpha')) $countryselected=GETPOST('address_country','alpha');
+			print $form->select_country($countryselected, 'address_country', 'optionsValue="name"', 0, 'minwidth300', 'code2');
+			?>
+				</div>
+			</div>
 
 
           </section>
@@ -242,8 +243,8 @@ print $form->select_country($countryselected, 'address_country', 'optionsValue="
      </form>
 
 
-      </div>
-    </div>
+  </div>
+</div>
 
 
 

@@ -52,7 +52,7 @@ if (empty($user->id))
 	// Set $user to the anonymous user
 	if (empty($user->id))
 	{
-		dol_print_error('', 'Error setup of module not complete or wrong. Missing the anonymous user.');
+		dol_print_error_email('SETUPANON', 'Error setup of module not complete or wrong. Missing the anonymous user.', null, 'alert alert-error');
 		exit;
 	}
 
@@ -178,7 +178,9 @@ if ($password != $password2)
  * View
  */
 
-print $langs->trans("PleaseWait");		// Message if redirection after this page fails
+$errormessages = array();
+
+//print '<center>'.$langs->trans("PleaseWait").'</center>';		// Message if redirection after this page fails
 
 
 // Create thirdparty (if it already exist, return warning)
@@ -187,7 +189,7 @@ $tmpthirdparty=new Societe($db);
 $result = $tmpthirdparty->fetch(0, '', '', '', '', '', '', '', '', '', $email);
 if ($result < 0)
 {
-	dol_print_error_email('FETCHTP'.$email, $tmpthirdparty->error, $tmpthirdparty->errors);
+	dol_print_error_email('FETCHTP'.$email, $tmpthirdparty->error, $tmpthirdparty->errors, 'alert alert-error');
 	exit;
 }
 else if ($result > 0)	// Found one record
@@ -280,8 +282,7 @@ if (! empty($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG))
 }
 else
 {
-	dol_print_error('', 'Setup of module not complete. The default customer tag is not defined.');
-	$error++;
+	dol_print_error_email('SETUPTAG', 'Setup of module not complete. The default customer tag is not defined.', null, 'alert alert-error');
 	exit;
 }
 
@@ -318,7 +319,7 @@ if (! $error)
 	$result = $contract->create($user);
 	if ($result <= 0)
 	{
-		dol_print_error_email('CREATECONTRACT', $contract->error, $contract->errors);
+		dol_print_error_email('CREATECONTRACT', $contract->error, $contract->errors, 'alert alert-error');
 		exit;
 	}
 }
@@ -380,7 +381,7 @@ if (! $error)
 	$contractlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreate, $discount, $date_start, $date_end, 'HT', 0);
 	if ($contractlineid < 0)
 	{
-		dol_print_error_email('CREATECONTRACTLINE1', $contract->error, $contract->errors, 'errors');
+		dol_print_error_email('CREATECONTRACTLINE1', $contract->error, $contract->errors, 'alert alert-error');
 		exit;
 	}
 }
@@ -414,7 +415,7 @@ if (! $error)
 		$contractlineid = $contract->addline('Users', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, 0, $discount, $date_start, $date_end, 'HT', 0);
 		if ($contractlineid < 0)
 		{
-			dol_print_error_email('CREATECONTRACTLINE2', $contract->error, $contract->errors, 'errors');
+			dol_print_error_email('CREATECONTRACTLINE2', $contract->error, $contract->errors, 'alert alert-error');
 			exit;
 		}
 	}
@@ -491,42 +492,43 @@ if (! $error)
 	$command.= ' "'.$tmppackage->srcfile1.'" "'.$tmppackage->targetsrcfile1.'" "'.$tmppackage->srcfile2.'" "'.$tmppackage->targetsrcfile2.'" "'.$tmppackage->srcfile3.'" "'.$tmppackage->targetsrcfile3.'"';
 	$command.= ' "'.$tmppackage->srccronfile.'" "'.$targetdir.'"';
 
+	$commandurl = 'all&'.$generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
+	$commandurl.= '&'.$generateddbname.'&'.$generateddbusername.'&'.$generateddbpassword;
+	$commandurl.= '&'.$tmppackage->srcconffile1.'&'.$tmppackage->targetconffile1.'&'.$tmppackage->datafile1;
+	$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
+	$commandurl.= '&'.$tmppackage->srccronfile.'&'.$targetdir;
+
 	//$command = '/usr/bin/aaa.sh';
 	$outputfile = $conf->sellyoursaas->dir_temp.'/register.'.dol_getmypid().'.out';
 
+
 	// TODO To remove
-	print "<br>Command: ".$command.'<br>';
-	sleep(2);
+	//print "<br>Command: ".$command.'<br>';
+	//sleep(2);
 
-	include_once DOL_DOCUMENT_ROOT.'/core/class/utils.class.php';
-	$utils = new Utils($db);
-	$retarray = $utils->executeCLI($command, $outputfile, 1);
+	//include_once DOL_DOCUMENT_ROOT.'/core/class/utils.class.php';
+	//$utils = new Utils($db);
+	//$retarray = $utils->executeCLI($command, $outputfile, 1);
 	//var_dump($retarray);
+	//if ($retarray['result'] != 0)
+	//{
+	//	$error++;
+	//}
 
-	if ($retarra['result'] != 0)
+	$serverdeployement = '79.137.96.15';
+
+	$urltoget='http://'.$serverdeployement.':8080/deploy/'.urlencode($commandurl);
+	include DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+	$retarray = getURLContent($urltoget);
+
+	if ($retarray['curl_error_no'] != '')
 	{
 		$error++;
+		$errormessages[] = $retarray['curl_error_msg'];
 	}
 	//var_dump($cronjob);
-
 }
 
-
-
-if (! $error)
-{
-	$contract->array_options['options_deployment_status'] = 'done';
-	$contract->array_options['options_deployment_date_end'] = dol_now();
-
-	$result = $contract->update($user);
-	if ($result < 0)
-	{
-		// We ignore errors. This should not happen in real life.
-		//setEventMessages($contract->error, $contract->errors, 'errors');
-	}
-
-	$discount = 0;
-}
 
 // Activate all lines
 if (! $error)
@@ -549,7 +551,7 @@ if (! $error)
 	if (! $dbinstance || ! $dbinstance->connected)
 	{
 		$error++;
-		dol_print_error_email('GETDOLIDBI'.$generateddbhostname, $dbinstance->error, $dbinstance->errors);
+		dol_print_error_email('GETDOLIDBI'.$generateddbhostname, $dbinstance->error, $dbinstance->errors, 'alert alert-error');
 		exit;
 	}
 	else
@@ -561,11 +563,26 @@ if (! $error)
 	}
 }
 
+// End of deployment is no OK / Complete
+if (! $error)
+{
+	$contract->array_options['options_deployment_status'] = 'done';
+	$contract->array_options['options_deployment_date_end'] = dol_now();
 
+	$result = $contract->update($user);
+	if ($result < 0)
+	{
+		// We ignore errors. This should not happen in real life.
+		//setEventMessages($contract->error, $contract->errors, 'errors');
+	}
+
+	$discount = 0;
+}
 
 
 
 // Go to dashboard with login session forced
+
 if (! $error)
 {
 	$newurl=$_SERVER["PHP_SELF"];
@@ -578,10 +595,79 @@ if (! $error)
 	header("Location: ".$newurl);
 	exit;
 }
-else
-{
-	dol_syslog("Error in deployment", LOG_ERR);
-	$email = new CMailFile('WARNING: Deployment error', 'supervision@dolicloud.com', $conf->global->MAIN_MAIL_EMAIL_FROM, 'Deployement of instance '.$sldAndSubdomain.' failed.'."\nCommand = ".$command);
-	$email->sendfile();
-}
 
+
+
+// If we are here, there was an error
+
+$errormessages[] = 'Deployement of instance '.$sldAndSubdomain.' started but failed.';
+$errormessages[] = 'Our team was alerted. You will receive an email as soon as deployment is complete.';
+
+dol_syslog("Error in deployment", LOG_ERR);
+$email = new CMailFile('WARNING: Deployment error', 'supervision@dolicloud.com', $conf->global->MAIN_MAIL_EMAIL_FROM, join("\n",$errormessages)."\nCommand = ".$commandurl);
+$email->sendfile();
+
+
+$conf->dol_hide_topmenu = 1;
+$conf->dol_hide_leftmenu = 1;
+
+
+$head='<link rel="icon" href="img/favicon.ico">
+<!-- Bootstrap core CSS -->
+<!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">-->
+<link href="dist/css/bootstrap.css" rel="stylesheet">
+<link href="dist/css/myaccount.css" rel="stylesheet">';
+
+llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(), array('../dist/css/myaccount.css'));
+
+?>
+
+<div id="waitMask" style="display:none;">
+    <font size="3em" style="color:#888; font-weight: bold;"><?php echo $langs->trans("InstallingInstance") ?><br><?php echo $langs->trans("PleaseWait") ?><br></font>
+    <img id="waitMaskImg" width="100px" src="<?php echo 'ajax-loader.gif'; ?>" alt="Loading" />
+</div>
+
+<div class="signup">
+
+      <div style="text-align: center;">
+        <?php
+        $linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL);
+
+        if (GETPOST('partner','alpha'))
+        {
+            $tmpthirdparty = new Societe($db);
+            $result = $tmpthirdparty->fetch(0, GETPOST('partner','alpha'));
+            $logo = $tmpthirdparty->logo;
+        }
+        print '<img style="center" class="logoheader"  src="'.$linklogo.'" id="logo" />';
+        ?>
+      </div>
+      <div class="block medium">
+
+        <header class="inverse">
+          <h1><?php echo $langs->trans("Registration") ?> <small><?php echo ($tmpproduct->label?'('.$tmpproduct->label.')':''); ?></small></h1>
+        </header>
+
+
+      <form action="register_processing.php" method="post" id="formregister">
+        <div class="form-content">
+    	  <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
+          <input type="hidden" name="service" value="<?php echo dol_escape_htmltag($tmpproduct->ref); ?>" />
+          <input type="hidden" name="package" value="<?php echo dol_escape_htmltag($tmppackage->ref); ?>" />
+          <input type="hidden" name="partner" value="<?php echo dol_escape_htmltag($partner); ?>" />
+
+          <section id="enterUserAccountDetails">
+
+			Oops...
+			<?php
+			dol_print_error_email('DEPLOY'.$generateddbhostname, '', $errormessages, 'alert alert-error');
+			?>
+
+		  </section>
+		</div>
+	   </form>
+	   </div>
+</div>
+
+<?php
+llxFooter();
