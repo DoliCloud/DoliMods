@@ -702,13 +702,13 @@ class ActionsMulticompany
 			return $out.$conf->entity;
 		}
 
-		if ($shared == 1 && $element == 'c_paiement')
+		if ($shared == 1)
 		{
-			return 1;
-		}
-		if ($shared == 1 && $element == 'c_payment_term')
-		{
-			return 1;
+			$tmpelement = str_replace(MAIN_DB_PREFIX, '', $element);
+			if ($tmpelement == 'c_paiement' || $tmpelement == 'c_payment_term')
+			{
+				return 1;
+			}
 		}
 
 		$elementkey = $element;
