@@ -23,5 +23,12 @@ echo "# realname dir ---> $(dirname $(realpath ${0}))"
 export PID=${$}
 export scriptdir=$(dirname $(realpath ${0}))
 
-echo "socat TCP4-LISTEN:8080,fork EXEC:$scriptdir/remote_server.sh"
-socat TCP4-LISTEN:8080,fork EXEC:$scriptdir/remote_server.sh
+if [ "x$1" == "xstart" ]; then
+	echo "socat TCP4-LISTEN:8080,fork EXEC:$scriptdir/remote_server.sh"
+	socat TCP4-LISTEN:8080,fork EXEC:$scriptdir/remote_server.sh &
+fi
+
+if [ "x$1" == "xstop" ]; then
+	killall socat
+fi
+
