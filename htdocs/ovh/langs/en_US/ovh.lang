@@ -75,3 +75,4 @@ OVHURLMustNotBeLocal=Warning, URL you use for the application must NOT be a loca
 CreateSnapshot=Create snapshot
 SnapshotRequestSent=Snapshot request under name '%s' was successfully sent.
 NoneLabelOnOvhLineWillBeUsed=None (label of line in OVH invoice will be used)
+OvhDefaultBankAccount=Default bank account on invoices

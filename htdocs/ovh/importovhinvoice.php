@@ -43,6 +43,7 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/user/class/user.class.php");
 require_once(DOL_DOCUMENT_ROOT.'/fourn/class/paiementfourn.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php');
+require_once(DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/product/class/product.class.php');
 require_once(DOL_DOCUMENT_ROOT.'/projet/class/project.class.php');
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
@@ -265,6 +266,20 @@ if ($action == 'import' && $ovhthirdparty->id > 0)
 				}
 
 				$facfou = new FactureFournisseur($db);
+
+				// Get default payment conditions and terms of supplier
+				$fourn = new Fournisseur($db);
+				if ($fourn->fetch($idovhsupplier) > 0)
+				{
+					$facfou->cond_reglement_id = $fourn->cond_reglement_supplier_id;
+					$facfou->mode_reglement_id = $fourn->mode_reglement_supplier_id;
+				}
+
+				// Get default bank account
+				if (! empty($conf->global->OVH_DEFAULT_BANK_ACCOUNT))
+				{
+					$facfou->fk_account = $conf->global->OVH_DEFAULT_BANK_ACCOUNT;
+				}
 
 				$facfou->ref_supplier  = $billnum;
 				$facfou->socid         = $idovhsupplier;

@@ -1,5 +1,11 @@
 # ChangeLog OVH MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
+## 3.9
+
+* Add constant OVH_DEFAULT_BANK_ACCOUNT to set default bank account
+* Payment condition and terms on imported invoices use the value on supplier if defined.
+* Fix: can also select product that are not on sell as product for imported invoice lines.
+
 ## 3.8.4
 
 * Can attach imported invoices to a project
