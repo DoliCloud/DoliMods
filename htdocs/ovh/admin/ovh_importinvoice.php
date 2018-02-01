@@ -53,8 +53,10 @@ $endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPO
 
 if ($action == 'setvalue' && $user->admin)
 {
-    $result1=dolibarr_set_const($db, "OVH_THIRDPARTY_IMPORT",GETPOST("OVH_THIRDPARTY_IMPORT"),'chaine',0,'',$conf->entity);
-    $result2=dolibarr_set_const($db, "OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID",GETPOST("OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID"),'chaine',0,'',$conf->entity);
+	$idproduct = GETPOST("OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID");
+
+    $result1=dolibarr_set_const($db, "OVH_THIRDPARTY_IMPORT", GETPOST("OVH_THIRDPARTY_IMPORT"), 'chaine', 0, '', $conf->entity);
+    $result2=dolibarr_set_const($db, "OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID", $idproduct, 'chaine', 0, '', $conf->entity);
     if ($result1 >= 0 && $result2 >= 0)
     {
         $mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
@@ -141,12 +143,12 @@ else
     print '<td>';
     print '</td></tr>';
 
-    if ($conf->product->enable || $conf->service->enabled)
+    if ($conf->product->enabled || $conf->service->enabled)
     {
         $var=!$var;
         print '<tr '.$bc[$var].'><td>';
         print $langs->trans("ProductGenericToUseForImport").'</td><td>';
-        print $form->select_produits($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID, 'OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID');
+        print $form->select_produits($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID, 'OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID', '', 0, 0, -1);
         print '<td>';
         print $langs->trans("KeepEmptyToSaveLinesAsFreeLines");
         print '</td></tr>';
