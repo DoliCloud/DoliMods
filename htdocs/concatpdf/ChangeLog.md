@@ -1,6 +1,11 @@
 # ChangeLog MODULE CONCATPDF FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## 6.0.1
+
+FIX: concat of file selected mut be done also without clicking generate
+...
+
 ## 6.0
 
 Fix error Uncaught Error: [] operator not supported for strings in /..../custom/concatpdf/class/actions_concatpdf.class.php
