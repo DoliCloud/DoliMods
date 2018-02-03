@@ -90,7 +90,8 @@ class modSellYourSaas extends DolibarrModules
 		    0=>array('NLTECHNO_NOTE', 'chaine',
 		        'Welcome on SellYourSaas Home page<br><br>
 		        Link to the specification: https://framagit.org/eldy/sell-your-saas<br><br>
-		        ...You can enter content on this page to save any notes/information of your choices.', 'This is another constant to add', 0, 'allentities', 0)
+		        ...You can enter content on this page to save any notes/information of your choices.', 'This is another constant to add', 0, 'allentities', 0),
+			1=>array('CONTRACT_SYNC_PLANNED_DATE_OF_SERVICES', 'chaine', 1, 'Sync planned date of services in same contract', 0, 'current', 1)
 		);
 
 
