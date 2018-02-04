@@ -71,6 +71,7 @@ UsefulLinks=Useful links
 NoThirdPartyFoundForThisEmailOrInstance=No thirdparty found for this instance or email, will be created...
 DefaultProductForInstances=Default product/service for instance (suggested for new contract/instance)
 DefaultCategoryForSaaSCustomers=Default customer category/tag for your SaaS customers
+DefaultCategoryForSaaSResellers=Default reseller category/tag for your SaaS resellers
 DefaultCategoryForSaaSServices=Default service category/tag for your SaaS services
 ProductsToIncludeInContract=Product/service to include into new contract/instance
 ThirdPartyFound=Third party found
