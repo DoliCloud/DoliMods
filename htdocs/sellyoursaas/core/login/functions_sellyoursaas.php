@@ -48,7 +48,9 @@ function check_user_password_sellyoursaas($usertotest, $passwordtotest, $entityt
 	}
 	else
 	{
-		if ($passwordtotest == $thirdparty->array_options['options_password'])
+		$passwordtotest_crypted = dol_hash($passwordtotest, 2);
+
+		if ($passwordtotest_crypted == $thirdparty->array_options['options_password'])
 		{
 			if (empty($conf->global->SELLYOURSAAS_ANONYMOUSUSER))
 			{
