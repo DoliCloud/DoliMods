@@ -223,7 +223,7 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
               <div class="linked-flds">
                 <input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="<?php echo GETPOST('sldAndSubdomain','alpha') ?>" maxlength="29" />
                 <select name="tldid" id="tldid" >
-                    <option value="23" >.with.<?php echo $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME; ?></option>
+                    <option value=".with.<?php echo $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME; ?>" >.with.<?php echo $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME; ?></option>
                 </select>
                 <br class="unfloat" />
               </div>

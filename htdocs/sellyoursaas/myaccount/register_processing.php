@@ -65,6 +65,7 @@ $password = GETPOST('password','alpha');
 $password2 = GETPOST('password2','alpha');
 $country_code = GETPOST('address_country','alpha');
 $sldAndSubdomain = GETPOST('sldAndSubdomain','alpha');
+$tldid = GETPOST('tldid','alpha');
 $remoteip = $_SERVER['REMOTE_ADDRESS'];
 $generateduniquekey=getRandomPassword(true);
 $partner=GETPOST('partner','alpha');
@@ -111,7 +112,7 @@ if (empty($tmppackage->id))
  * Actions
  */
 
-//print "partner=".$partner." plan=".$plan." orgname = ".$orgname." email=".$email." password=".$password." password2=".$password2." country_code=".$country_code." remoteip=".$remoteip." sldAndSubdomain=".$sldAndSubdomain;
+//print "partner=".$partner." plan=".$plan." orgname = ".$orgname." email=".$email." password=".$password." password2=".$password2." country_code=".$country_code." remoteip=".$remoteip." sldAndSubdomain=".$sldAndSubdomain." tldid=".$tldid;
 
 
 // Back to url
@@ -125,6 +126,7 @@ if (! preg_match('/orgName/i', $newurl)) $newurl.='&orgName='.urlencode($orgname
 if (! preg_match('/username/i', $newurl)) $newurl.='&username='.urlencode($email);
 if (! preg_match('/address_country/i', $newurl)) $newurl.='&address_country='.urlencode($country_code);
 if (! preg_match('/sldAndSubdomain/i', $sldAndSubdomain)) $newurl.='&sldAndSubdomain='.urlencode($sldAndSubdomain);
+if (! preg_match('/tldid/i', $tldid)) $newurl.='&tldid='.urlencode($tldid);
 if (! preg_match('/plan/i', $newurl)) $newurl.='&plan='.urlencode($plan);
 //if (! preg_match('/service/i', $newurl)) $newurl.='&orgName='.urlencode($orgname);
 if (! preg_match('/partner/i', $newurl)) $newurl.='&partner='.urlencode($partner);
@@ -195,18 +197,19 @@ if ($result < 0)
 else if ($result > 0)	// Found one record
 {
 	setEventMessages($langs->trans("AccountAlreadyExistsForEmail", $conf->global->SELLYOURSAAS_ACCOUNT_URL), null, 'errors');
-	// TODO Restore this
-	//	header("Location: ".$newurl);
-	//exit;
+	header("Location: ".$newurl);
+	exit;
 }
 else dol_syslog("Not found");
 
-dol_syslog("Fetch contract from domain name ".$sldAndSubdomain);
+$fqdninstance = $sldAndSubdomain.$tldid;
+
+dol_syslog("Fetch contract from domain name ".$fqdninstance);
 $contract = new Contrat($db);
-$result = $contract->fetch(0, '', $sldAndSubdomain);
+$result = $contract->fetch(0, '', $fqdninstance);
 if ($result > 0)
 {
-	setEventMessages($langs->trans("InstanceNameAlreadyExists", $sldAndSubdomain), null, 'errors');
+	setEventMessages($langs->trans("InstanceNameAlreadyExists", $fqdninstance), null, 'errors');
 	header("Location: ".$newurl);
 	exit;
 }
@@ -218,8 +221,7 @@ else dol_syslog("Not found");
 $generatedunixlogin = strtolower('osu'.substr(getRandomPassword(true), 0, 9));		// Must be lowercase as it can be used for default email
 $generatedunixpassword = substr(getRandomPassword(true), 0, 10);
 
-$domainname = 'with.dolicloud.com';
-
+$domainname = preg_replace('/^\./', '', $tldid);
 
 $generateddbname = 'dbn'.substr(getRandomPassword(true), 0, 8);
 $generateddbusername = 'dbu'.substr(getRandomPassword(true), 0, 9);
@@ -234,12 +236,15 @@ $error = 0;
 
 $db->begin();	// Start transaction
 
+$password_encoding = 'sha1md5';
+$password_crypted = dol_hash($password, 2);
 
 $tmpthirdparty->name = $orgname;
 $tmpthirdparty->email = $email;
 $tmpthirdparty->client = 3;
 $tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
 $tmpthirdparty->array_options['options_date_registration'] = dol_now();
+$tmpthirdparty->array_options['options_password'] = $password_crypted;
 if ($country_code)
 {
 	$tmpthirdparty->country_id = getCountry($country_code, 3, $db);
@@ -293,7 +298,7 @@ if (! $error)
 
 	$now = dol_now();
 
-	$contract->ref_customer = $sldAndSubdomain;
+	$contract->ref_customer = $sldAndSubdomain.$tldid;
 	$contract->socid = $tmpthirdparty->id;
 	$contract->commercial_signature_id = $user->id;
 	$contract->commercial_suivi_id = $user->id;
@@ -326,7 +331,7 @@ if (! $error)
 
 if (! $error)
 {
-	$website = new Website($db);
+/*	$website = new Website($db);
 	$website->fetch(0, 'sellyoursaas');
 	//var_dump($website);
 
@@ -335,8 +340,8 @@ if (! $error)
 	$websiteaccount->fk_website = $website->id;
 	$websiteaccount->fk_soc = $tmpthirdparty->id;
 	$websiteaccount->login = $email;
-	$websiteaccount->pass_encoding = 'sha1md5';
-	$websiteaccount->pass_crypted = dol_hash($password, 2);
+	$websiteaccount->pass_encoding = $password_encoding;
+	$websiteaccount->pass_crypted = $password_crypted;
 	$websiteaccount->note_private = 'Initial pass = '.$password;
 	$websiteaccount->status = 1;
 	$result = $websiteaccount->create($user);
@@ -345,6 +350,7 @@ if (! $error)
 		// We ignore errors. This should not happen in real life.
 		//setEventMessages($websiteaccount->error, $websiteaccount->errors, 'errors');
 	}
+*/
 }
 
 $object = $tmpthirdparty;
@@ -457,15 +463,15 @@ if (! $error)
 	'__APPUSERNAME__'=>'admin',
 	'__APPPASSWORD__'=>$password,
 	'__APPUNIQUEKEY__'=>$generateduniquekey,
-	'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname,
+	'__APPDOMAIN__'=>$sldAndSubdomain.$tldid,
 	'__DBHOSTNAME__'=>$generateddbhostname,
 	'__DBNAME__'=>$generateddbname,
 	'__DBUSER__'=>$generateddbusername,
 	'__DBPASSWORD__'=>$generateddbpassword
 	);
 
-	$tmppackage->srcconffile1 = '/tmp/conf.php.'.$sldAndSubdomain.'.tmp';
-	$tmppackage->srccronfile = '/tmp/cron.'.$sldAndSubdomain.'.tmp';
+	$tmppackage->srcconffile1 = '/tmp/conf.php.'.$sldAndSubdomain.$tldid.'.tmp';
+	$tmppackage->srccronfile = '/tmp/cron.'.$sldAndSubdomain.$tldid.'.tmp';
 
 	$conffile = make_substitutions($tmppackage->conffile1, $substitarray);
 	$cronfile = make_substitutions($tmppackage->crontoadd, $substitarray);
@@ -600,7 +606,7 @@ if (! $error)
 
 // If we are here, there was an error
 
-$errormessages[] = 'Deployement of instance '.$sldAndSubdomain.' started but failed.';
+$errormessages[] = 'Deployement of instance '.$sldAndSubdomain.$tldid.' started but failed.';
 $errormessages[] = 'Our team was alerted. You will receive an email as soon as deployment is complete.';
 
 dol_syslog("Error in deployment", LOG_ERR);

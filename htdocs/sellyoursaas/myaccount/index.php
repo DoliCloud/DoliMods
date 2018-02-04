@@ -35,6 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
+dol_include_once('/sellyoursaas/class/packages.class.php');
 
 $conf->global->SYSLOG_FILE_ONEPERSESSION=1;
 
@@ -146,12 +147,12 @@ $linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('
 
 print '
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <a class="navbar-brand" href="#"><img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI).'" height="48px"></a>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <div class="collapse navbar-collapse" id="navbars">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item'.($mode == 'dashboard'?' active':'').'">
             <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=dashboard"><i class="fa fa-tachometer"></i> '.$langs->trans("Dashboard").'</a>
@@ -386,7 +387,8 @@ if ($mode == 'dashboard')
 	            </div> <!-- END ROW -->
 
 				<div class="row">
-				<div class="center col-md-12"><br>
+				<div class="center col-md-12">
+					<br>
 					<a href="'.$_SERVER["PHP_SELF"].'?mode=instances" class="btn default btn-xs green-stripe">
 	            	'.$langs->trans("SeeDetailsAndOptions").'
 	                </a>
@@ -409,18 +411,20 @@ if ($mode == 'dashboard')
 	          </div>
 
 	          <div class="portlet-body">
-	            <p>
-
+				<div class="row">
+				<div class="col-md-12">
 	                '.$langs->trans("ProfileIsComplete").'
-
-	            </p>
+	            </div>
+				</div>
 
 				<div class="row">
 				<div class="center col-md-12">
+					<br>
 					<a href="'.$_SERVER["PHP_SELF"].'?mode=myaccount" class="btn default btn-xs green-stripe">
 	            	'.$langs->trans("SeeOrEditProfile").'
 	                </a>
-				</div></div>
+				</div>
+				</div>
 
 	          </div> <!-- END PORTLET-BODY -->
 
@@ -446,18 +450,19 @@ if ($mode == 'dashboard')
 	          </div>
 
 	          <div class="portlet-body">
-	            <p>
-
+				<div class="row">
+				<div class="col-md-12">
 	                '.$langs->trans("UpToDate").'
-
-	            </p>
-
+				</div>
+	            </div>
 				<div class="row">
 				<div class="center col-md-12">
+					<br>
 					<a href="'.$_SERVER["PHP_SELF"].'?mode=billing" class="btn default btn-xs green-stripe">
 	            	'.$langs->trans("SeeDetailsOfPayments").'
 	                </a>
-				</div></div>
+				</div>
+				</div>
 
 	          </div> <!-- END PORTLET-BODY -->
 
@@ -477,7 +482,6 @@ if ($mode == 'dashboard')
 	          <div class="portlet-body">
 
 	            <div class="row">
-
 	              <div class="col-md-9">
 					'.$langs->trans("NbOfTickets").'
 	              </div><!-- END COL -->
@@ -487,7 +491,8 @@ if ($mode == 'dashboard')
 	            </div> <!-- END ROW -->
 
 				<div class="row">
-				<div class="center col-md-12"><br>
+				<div class="center col-md-12">
+					<br>
 					<a href="'.$_SERVER["PHP_SELF"].'?mode=support" class="btn default btn-xs green-stripe">
 	            	'.$langs->trans("SeeDetailsOfTickets").'
 	                </a>
@@ -523,177 +528,186 @@ if ($mode == 'instances')
 	<div class="page-head">
 	  <!-- BEGIN PAGE TITLE -->
 	<div class="page-title">
-	  <h1>'.$langs->trans("MyInstances");
-	  //print '<small>Review your billing history, adjust your subscription, update your payment method</small>';
-	  print '</h1>
+	  <h1>'.$langs->trans("MyInstances").'</h1>
 	</div>
 	<!-- END PAGE TITLE -->
 
 
 	</div>
 	<!-- END PAGE HEAD -->
-	<!-- END PAGE HEADER-->
+	<!-- END PAGE HEADER-->';
+
+	foreach ($listofcontractid as $id => $contract)
+	{
+		$planref = $contract->array_options['options_plan'];
+		$statuslabel = $contract->array_options['options_deployment_status'];
+		$instancename = preg_replace('/\..*$/', '', $contract->ref_customer);
+
+		$package = new Packages($db);
+		$package->fetch(0, $planref);
+
+		print '
+		    <div class="row">
+		      <div class="col-md-12">
+
+				<div class="portlet light">
+
+			      <div class="portlet-title">
+			        <div class="caption">
+			          <span class="caption-subject font-green-sharp bold uppercase">'.$instancename.'</span>
+			          <span class="caption-helper"> - '.$package->label.'</span>
+			          <p style="margin-top:3px;font-size:0.8em;">
+			            <span class="caption-helper">'.$langs->trans("ID").' : '.$contract->ref.'</span><br>
+			            <span class="caption-helper">'.$langs->trans("Status").' : <span class="bold uppercase" style="color:green">'.$statuslabel.'</span></span><br>
+			            <span>';
+		if ($contract->array_options['options_deployment_status'] == 'processing')
+		{
+			print $langs->trans("DateStart").' : <span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_start'], 'dayhour').'</span>';
+		}
+		if ($contract->array_options['options_deployment_status'] == 'deployed')
+		{
+			print $langs->trans("Date").' : <span class="bold">'.dol_print_date($contract->array_options['options_deployment_end_start'], 'dayhour').'</span>';
+		}
+
+		print          '</span>
+			          </p>
+			        </div>
+
+			        <div class="tools">
+			          <a href="javascript:;" class="collapse" data-original-title="" title=""></a>
+			        </div>
+
+			      </div>
 
 
-	    <div class="row">
-	      <div class="col-md-12">
+			      <div class="portlet-body" style="">
 
-			<div class="portlet light">
+			        <div class="tabbable-custom nav-justified">
+			          <ul class="nav nav-tabs nav-justified">
+			            <li><a href="#tab_domain_'.$contract->id.'" data-toggle="tab">Domain</a></li>
+			            <li><a href="#tab_resource_'.$contract->id.'" data-toggle="tab">App Resources</a></li>
+			            <li><a href="#tab_ssh_'.$contract->id.'" data-toggle="tab">'.$langs->trans("SSH").' / '.$langs->trans("SFTP").'</a></li>
+			            <li><a href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>
+			            <li><a href="#tab_danger_'.$contract->id.'" data-toggle="tab">'.$langs->trans("DangerZone").'</a></li>
+			          </ul>
 
-		      <div class="portlet-title">
-		        <div class="caption">
-		          <span class="caption-subject font-green-sharp bold uppercase">asoftingsas.on.dolicloud.com</span>
-		          <span class="caption-helper">Dolibarr ERP-CRM</span>
-		          <p style="margin-top:3px;font-size:0.8em;">
-		            <span class="lowercase" style="color:green">DEPLOYED</span>
-		            <small>13 déc. 2017</small>
-		          </p>
-		        </div>
-
-		        <div class="tools">
-		          <a href="javascript:;" class="collapse" data-original-title="" title=""></a>
-		        </div>
-
-		      </div>
-
-
-		      <div class="portlet-body" style="">
-
-		        <div class="tabbable-custom nav-justified">
-		          <ul class="nav nav-tabs nav-justified">
-		            <li class="active"><a href="#tab_1_1_140211" data-toggle="tab">Domain</a></li>
-		            <li><a href="#tab_1_1_240211" data-toggle="tab">App Resources</a></li>
-
-		              <li><a href="#tab_1_1_340211" data-toggle="tab">SSH &amp; SFTP</a></li>
-		              <li><a href="#tab_1_1_440211" data-toggle="tab">Database</a></li>
-
-		            <li><a href="#tab_1_1_540211" data-toggle="tab">Danger Zone</a></li>
-		          </ul>
-		          <div class="tab-content">
-		            <div class="tab-pane active" id="tab_1_1_140211">
-		              <p>
-		                </p><div class="form-group">
-		                  <label>Domain</label>
-		                  <input type="text" class="form-control input-xlarge" value="asoftingsas.on.dolicloud.com">
-		                </div>
-		                <a class="btn default change-domain-link" data-app-id="40211" data-app-ip="176.9.35.249" href="javascript:;">Change domain</a>
-		              <p></p>
-		            </div>
-		            <div class="tab-pane" id="tab_1_1_240211">
-		              <!-- STAT -->
-		              <div class="row list-separated profile-stat">
-
-		                <div class="col-md-2 col-sm-4 col-xs-6">
-		                  <div class="uppercase profile-stat-title">
-		                     1.00
-		                  </div>
-		                  <div class="uppercase profile-stat-text">
-		                     Dolibarr Users
-		                  </div>
-		                </div>
-
-		              </div>
-		              <!-- END STAT -->
-		            </div> <!-- END TABBED PANE -->
+			          <div class="tab-content">
+			            <div class="tab-pane active" id="tab_domain_'.$contract->id.'">
+			              <div class="form-group">
+			                  '.$langs->trans("URL").' <input type="text" class="" value="'.$contract->ref_customer.'">
+			              </div>
+			                <!--<a class="btn default change-domain-link" data-app-id="40211" data-app-ip="176.9.35.249" href="javascript:;">Change domain</a>-->
+			            </div>
+			            <div class="tab-pane" id="tab_resource_'.$contract->id.'">
+			              <!-- STAT -->
+			              <div class="">
+			                  <div class="uppercase profile-stat-text">'.$langs->trans("Users").'</div>
+			                  <div class="uppercase profile-stat-title">
+			                     1.00
+			                  </div>
+			              </div>
+			              <!-- END STAT -->
+			            </div> <!-- END TABBED PANE -->
 
 
-		              <div class="tab-pane" id="tab_1_1_340211">
-		                <p>Secure FTP (SFTP) est un protocol simple et sécurisé pour accéder aux fichiers de votre instance (Par exemple par WinSCP ou FileZilla, des clients SFtp populaires pour Windows). Afin d accèder aux fichiers, vous aurez besoin des identifiants suivant:</p>
-		                <form class="form-horizontal" role="form">
-		                <div class="form-body">
-		                  <div class="form-group">
-		                    <label class="col-md-3 control-label">Hostname</label>
-		                    <div class="col-md-9">
-		                      <input type="text" class="form-control input-medium" value="asoftingsas.on.dolicloud.com">
-		                    </div>
-		                  </div>
-		                  <div class="form-group">
-		                    <label class="col-md-3 control-label">Port</label>
-		                    <div class="col-md-9">
-		                      <input type="text" class="form-control input-medium" value="">
-		                    </div>
-		                  </div>
-		                  <div class="form-group">
-		                    <label class="col-md-3 control-label">SFTP Username</label>
-		                    <div class="col-md-9">
-		                      <input type="text" class="form-control input-medium" value="ebwhlDU6CO">
-		                    </div>
-		                  </div>
-		                  <div class="form-group">
-		                    <label class="col-md-3 control-label">Password</label>
-		                    <div class="col-md-9">
-		                      <input type="text" class="form-control input-medium" value="LQFIhlhPG9">
-		                    </div>
-		                  </div>
-		                </div>
-		                </form>
-		              </div> <!-- END TAB PANE -->
+			              <div class="tab-pane" id="tab_ssh_'.$contract->id.'">
+			                <p>Secure FTP (SFTP) est un protocol simple et sécurisé pour accéder aux fichiers de votre instance (Par exemple par WinSCP ou FileZilla, des clients SFtp populaires pour Windows). Afin d accèder aux fichiers, vous aurez besoin des identifiants suivant:</p>
+			                <form class="form-horizontal" role="form">
+			                <div class="form-body">
+			                  <div class="form-group">
+			                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
+			                    <div class="col-md-9">
+			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_hostname_os'].'">
+			                    </div>
+			                  </div>
+			                  <div class="form-group">
+			                    <label class="col-md-3 control-label">'.$langs->trans("Port").'</label>
+			                    <div class="col-md-9">
+			                      <input type="text" class="form-control input-medium" value="'.($contract->array_options['options_port_os']?$contract->array_options['options_port_os']:22).'">
+			                    </div>
+			                  </div>
+			                  <div class="form-group">
+			                    <label class="col-md-3 control-label">'.$langs->trans("SFTP Username").'</label>
+			                    <div class="col-md-9">
+			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_username_os'].'">
+			                    </div>
+			                  </div>
+			                  <div class="form-group">
+			                    <label class="col-md-3 control-label">'.$langs->trans("Password").'</label>
+			                    <div class="col-md-9">
+			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_password_os'].'">
+			                    </div>
+			                  </div>
+			                </div>
+			                </form>
+			              </div> <!-- END TAB PANE -->
 
-		              <div class="tab-pane" id="tab_1_1_440211">
-		                <p>Vous pouvez accéder à la base de donnée avec tout logiciel d administration pour Mysql et les identifiants suivants:</p>
-		                <form class="form-horizontal" role="form">
-		                <div class="form-body">
-		                  <div class="form-group">
-		                    <label class="col-md-3 control-label">Hostname</label>
-		                    <div class="col-md-9">
-		                      <input type="text" class="form-control input-medium" value="176.9.35.249">
-		                    </div>
-		                  </div>
-		                  <div class="form-group">
-		                    <label class="col-md-3 control-label">Port</label>
-		                    <div class="col-md-9">
-		                      <input type="text" class="form-control input-medium" value="3306">
-		                    </div>
-		                  </div>
-		                  <div class="form-group">
-		                    <label class="col-md-3 control-label">Database Name</label>
-		                    <div class="col-md-9">
-		                      <input type="text" class="form-control input-medium" value="4xqLl6mVUcMgaav_dolibarr">
-		                    </div>
-		                  </div>
-		                  <div class="form-group">
-		                    <label class="col-md-3 control-label">Database Username</label>
-		                    <div class="col-md-9">
-		                      <input type="text" class="form-control input-medium" value="ebwql8hhcT">
-		                    </div>
-		                  </div>
-		                  <div class="form-group">
-		                    <label class="col-md-3 control-label">Password</label>
-		                    <div class="col-md-9">
-		                      <input type="text" class="form-control input-medium" value="CKWAa9GvjM">
-		                    </div>
-		                  </div>
-		                </div>
-		                </form>
-		              </div> <!-- END TAB PANE -->
+			              <div class="tab-pane" id="tab_db_'.$contract->id.'">
+			                <p>Vous pouvez accéder à la base de donnée avec tout logiciel d administration pour Mysql et les identifiants suivants:</p>
+			                <form class="form-horizontal" role="form">
+			                <div class="form-body">
+			                  <div class="form-group">
+			                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
+			                    <div class="col-md-9">
+			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_database_db'].'">
+			                    </div>
+			                  </div>
+			                  <div class="form-group">
+			                    <label class="col-md-3 control-label">'.$langs->trans("Port").'</label>
+			                    <div class="col-md-9">
+			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_port_db'].'">
+			                    </div>
+			                  </div>
+			                  <div class="form-group">
+			                    <label class="col-md-3 control-label">'.$langs->trans("DatabaseName").'</label>
+			                    <div class="col-md-9">
+			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_database_db'].'">
+			                    </div>
+			                  </div>
+			                  <div class="form-group">
+			                    <label class="col-md-3 control-label">'.$langs->trans("DatabaseLogin").'</label>
+			                    <div class="col-md-9">
+			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_username_db'].'">
+			                    </div>
+			                  </div>
+			                  <div class="form-group">
+			                    <label class="col-md-3 control-label">'.$langs->trans("Password").'</label>
+			                    <div class="col-md-9">
+			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_password_db'].'">
+			                    </div>
+			                  </div>
+			                </div>
+			                </form>
+			              </div> <!-- END TAB PANE -->
 
-		            <div class="tab-pane" id="tab_1_1_540211">
-		              <div class="alert alert-block alert-danger fade in">
-		                <p>
-		                  Please be certain. There is no undo. There is no going back!
-		                </p>
-		                <p>
-		                  <a href="/customerUI/deleteAppInstance?appId=40211" class="btn btn-danger">Undeploy App Instance</a>
-		                </p>
-		              </div>
-		            </div> <!-- END TAB PANE -->
+			            <div class="tab-pane" id="tab_danger_'.$contract->id.'">
+			              <div class="">
+			                <div>
+			                    '.$langs->trans("PleaseBeSure").'
+								<br><br>
+			                  <a href="/customerUI/deleteAppInstance?appId=40211" class="btn btn-danger">'.$langs->trans("UndeployInstance").'</a>
+			                </div>
+			              </div>
+			            </div> <!-- END TAB PANE -->
 
-		          </div> <!-- END TAB CONTENT -->
-		        </div> <!-- END TABABLE CUSTOM-->
+			          </div> <!-- END TAB CONTENT -->
+			        </div> <!-- END TABABLE CUSTOM-->
 
-		      </div><!-- END PORTLET-BODY -->
+			      </div><!-- END PORTLET-BODY -->
 
 
-			</div> <!-- END PORTLET -->
+				</div> <!-- END PORTLET -->
 
 
 
-	      </div> <!-- END COL -->
+		      </div> <!-- END COL -->
 
 
-	    </div> <!-- END ROW -->
+		    </div> <!-- END ROW -->
+		';
+	}
 
-
+	print '
 	    </div>
 		</div>
 	';
