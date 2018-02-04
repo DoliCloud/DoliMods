@@ -73,7 +73,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->need_dolibarr_version = array(7,0,-5);	// Minimum version of Dolibarr required by module
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
-		$this->module_parts = array('triggers' => 0,
+		$this->module_parts = array('triggers' => 1,
 									'substitutions' => 0,
 									'menus' => 0,
 									'models' => 1,
@@ -625,7 +625,10 @@ class modSellYourSaas extends DolibarrModules
 		$extrafields = new ExtraFields($this->db);
 
 		// Product
-		$resultx=$extrafields->addExtraField('price_per_user', 	       "Price per user",     'price',  1, '24,8',  'product', 0, 0, '0',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$resultx=$extrafields->addExtraField('price_per_user', 	       "PricePerUser",           'price',  1, '24,8',  'product', 0, 0,  '0',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$param=array('options'=>array('app'=>'Application','option'=>'Option'));
+		$resultx=$extrafields->addExtraField('app_or_option',              "AppOrOption",       'select',  1,     '',  'product', 0, 0,   '', $param, 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$resultx=$extrafields->addExtraField('freeperioddays', 	       "Days for free period",     'int',  1,    '6',  'product', 0, 0, '15',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 
 		// Thirdparty
 		$param=array('options'=>array('no'=>'No','yesv1'=>'V1','yesv2'=>'V2'));

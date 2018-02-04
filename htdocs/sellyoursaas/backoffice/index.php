@@ -349,7 +349,7 @@ if (! $mesg)
 	$px1->mode='depth';
 	$px1->SetTitle($langs->trans("Amount"));
 
-	$px1->draw('dolicloudamount.png',$fileurlnb);
+	$px1->draw('dolicloudamount.png', $fileurlnb);
 }
 
 $px2 = new DolGraph();
@@ -377,7 +377,7 @@ if (! $mesg)
 	$px2->mode='depth';
 	$px2->SetTitle($langs->trans("Instances").'/'.$langs->trans("Users"));
 
-	$px2->draw('dolicloudcustomersusers.png',$fileurlnb);
+	$px2->draw('dolicloudcustomersusers.png', $fileurlnb);
 }
 
 print '<div class="fichecenter"><br></div>';
