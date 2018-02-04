@@ -4,7 +4,6 @@
 ## 6.0.1
 
 FIX: concat of file selected mut be done also without clicking generate
-...
 
 ## 6.0
 
