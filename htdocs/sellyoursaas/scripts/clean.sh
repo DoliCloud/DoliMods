@@ -29,11 +29,11 @@ export ZONE="with.dolicloud.com.hosts"
 
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
-   #exit 1
+   exit 1
 fi
 
 if [ "x$1" == "x" ]; then
-	echo "Missing parameter 1 - sellyoursaas databasename" 1>&2
+	echo "Missing parameter 1 - sellyoursaas admin databasename" 1>&2
 	exit 1
 fi
 if [ "x$2" == "x" ]; then
@@ -51,7 +51,7 @@ echo "testorconfirm = $testorconfirm"
 
 MYSQL=`which mysql`
 MYSQLDUMP=`which mysqldump`
-echo "Search sellyoursaas database credential"
+echo "Search sellyoursaas database credential in /root/sellyoursaas"
 passsellyoursaas=`cat /root/sellyoursaas`		# First seach into root
 #echo $passsellyoursaas
 if [[ "x$passsellyoursaas" == "x" ]]; then
@@ -98,7 +98,7 @@ Q1="use $database; "
 Q2="SELECT c.ref_customer, ce.username_os, ce.database_db FROM llx_contrat as c, llx_contrat_extrafields as ce WHERE ce.fk_object = c.rowid";
 SQL="${Q1}${Q2}"
 
-echo "$MYSQL -usellyoursaas -e '$SQL' | grep -v 'ref_customer'"
+echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL' | grep -v 'ref_customer'"
 $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep -v 'ref_customer' >> /tmp/instancefound
 if [ "x$?" != "x0" ]; then
 	echo "Failed to make first SQL request to get instances. Exit 1."
@@ -109,7 +109,7 @@ Q1="use mysql; "
 Q2="SHOW DATABASES; ";
 SQL="${Q1}${Q2}"
 
-echo "$MYSQL -usellyoursaas -e '$SQL' | grep 'dbn' "
+echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL' | grep 'dbn' "
 $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep 'dbn' | awk ' { print "NULL unknown "$1 } ' >> /tmp/instancefound
 if [ "x$?" != "x0" ]; then
 	echo "Failed to make second SQL request to get instances. Exit 1."

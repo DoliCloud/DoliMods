@@ -95,6 +95,7 @@ if ($action == 'set')
 		//dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS",GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS"),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG",GETPOST("SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG"),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_PRODUCT_CATEG",GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT_CATEG"),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_REFS_URL",GETPOST("SELLYOURSAAS_REFS_URL"),'chaine',0,'',$conf->entity);
 
@@ -315,6 +316,14 @@ $defaultcustomercategid=$conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG;
 print $formother->select_categories(Categorie::TYPE_CUSTOMER, $defaultcustomercategid, 'SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG', 0, 1, 'miwidth300');
 print '</td>';
 print '<td>SaaS Customers</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("DefaultCategoryForSaaSServices").'</td>';
+print '<td>';
+$defaultproductcategid=$conf->global->SELLYOURSAAS_DEFAULT_PRODUCT_CATEG;
+print $formother->select_categories(Categorie::TYPE_PRODUCT, $defaultproductcategid, 'SELLYOURSAAS_DEFAULT_PRODUCT_CATEG', 0, 1, 'miwidth300');
+print '</td>';
+print '<td>SaaS Products</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("RefsUrl", DOL_DOCUMENT_ROOT.'/sellyoursaas/git');

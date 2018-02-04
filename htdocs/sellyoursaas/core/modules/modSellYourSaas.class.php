@@ -361,7 +361,7 @@ class modSellYourSaas extends DolibarrModules
 		'titre'=>'NewService',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_createproduct',
-		'url'=>'/product/card.php?type=1&action=create',
+		'url'=>'/product/card.php?type=1&action=create&categories[]=__[SELLYOURSAAS_DEFAULT_PRODUCT_CATEG]__',
 		'langs'=>'',
 		'position'=>221,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -392,7 +392,7 @@ class modSellYourSaas extends DolibarrModules
 		'titre'=>'Services V2',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_productv2',
-		'url'=>'/product/list.php?type=1&search_categ=7',
+		'url'=>'/product/list.php?type=1&search_categ=__[SELLYOURSAAS_DEFAULT_PRODUCT_CATEG]__',
 		'langs'=>'',
 		'position'=>223,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
