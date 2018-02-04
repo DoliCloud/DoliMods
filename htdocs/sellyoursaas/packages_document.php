@@ -111,7 +111,7 @@ if ($object->id)
 	if (! empty($conf->notification->enabled)) $langs->load("mails");
 	$head = packagesPrepareHead($object);
 
-	dol_fiche_head($head, 'document', $langs->trans("Packages"), -1, 'packages@sellyoursaas');
+	dol_fiche_head($head, 'document', $langs->trans("Packages"), -1, 'label');
 
 
 	// Construit liste des fichiers

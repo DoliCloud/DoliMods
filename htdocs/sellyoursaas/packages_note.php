@@ -94,7 +94,7 @@ if ($id > 0 || ! empty($ref))
 
 	$head = packagesPrepareHead($object);
 
-	dol_fiche_head($head, 'note', $langs->trans("Packages"), -1, 'packages@sellyoursaas');
+	dol_fiche_head($head, 'note', $langs->trans("Packages"), -1, 'label');
 
 	// Object card
 	// ------------------------------------------------------------

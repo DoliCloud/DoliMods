@@ -141,7 +141,7 @@ if ($object->id > 0)
 	$head = packagesPrepareHead($object);
 
 
-	dol_fiche_head($head, 'agenda', $langs->trans("Packages"), -1, 'packages@sellyoursaas');
+	dol_fiche_head($head, 'agenda', $langs->trans("Packages"), -1, 'label');
 
 	// Object card
 	// ------------------------------------------------------------

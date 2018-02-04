@@ -229,7 +229,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
     $res = $object->fetch_optionals($object->id, $extralabels);
 
 	$head = packagesPrepareHead($object);
-	dol_fiche_head($head, 'card', $langs->trans("Packages"), -1, 'packages@sellyoursaas');
+	dol_fiche_head($head, 'card', $langs->trans("Packages"), -1, 'label');
 
 	$formconfirm = '';
 
