@@ -147,11 +147,24 @@ $linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('
 
 print '
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand" href="#"><img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI).'" height="48px"></a>
 
+	  <!-- Search + Menu -->
+
+	  <form class="navbar-toggle navbar-toggler-right form-inline my-2 my-md-0" action="'.$_SERVER["PHP_SELF"].'">
+			<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
+<!--
+	          <input class="form-control mr-sm-2" style="max-width: 100px;" type="text" placeholder="'.$langs->trans("Search").'">
+	          <button class="btn-transparent nav-link" type="submit"><i class="fa fa-search"></i></button>
+-->
+	      <button class="inline-block navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="navbar-toggler-icon"></span>
+	      </button>
+	  </form>
+
+	  <!-- Logo -->
+      <a class="navbar-brand" href="#"><img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI).'" height="34px"></a>
+
+	  <!-- Menu -->
       <div class="collapse navbar-collapse" id="navbars">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item'.($mode == 'dashboard'?' active':'').'">
@@ -184,13 +197,6 @@ print '
 
         </ul>
 
-		<!--
-        <form class="form-inline my-2 my-md-0" action="'.$_SERVER["PHP_SELF"].'">
-		<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
-          <input class="form-control mr-sm-2" type="text" placeholder="'.$langs->trans("Search").'">
-          <button class="btn-transparent nav-link" type="submit"><i class="fa fa-search"></i></button>
-        </form>
-		-->
 
       </div>
     </nav>
