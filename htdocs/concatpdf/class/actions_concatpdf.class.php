@@ -216,8 +216,10 @@ class ActionsConcatPdf
         // Defined $preselected value
         $preselected=(isset($parameters['object']->extraparams['concatpdf'][0])?$parameters['object']->extraparams['concatpdf'][0]:-1);	// string with preselected string
 
+        $formwassubmittedwithemptyselection = (GETPOST('builddoc_generatebutton') && ! GETPOST('concatpdffile'));
+
         // Includes default models if no model selection
-        if (empty($concatpdffile) && ! isset($_POST['concatpdffile']))
+        if (empty($concatpdffile) && ! $formwassubmittedwithemptyselection)
         {
         	if ($preselected == -1 && ! empty($conf->global->CONCATPDF_PRESELECTED_MODELS))
         	{
