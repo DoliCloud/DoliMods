@@ -103,19 +103,19 @@ fail_with() {
 serve_deploy() {
     add_response_header "Content-Type" "text/plain"
     
-    export aaa=`ls /tmp 2>&1`
+    export listofparam=`echo $2 | sed 's/%26/ /g'`
 
-    send_response_ok_exit <<< "Hello, deploy $2 $aaa"
- }
+    send_response_ok_exit <<< "Hello, deploy $listofparam"
+}
 
 # Undeploy
 serve_undeploy() {
     add_response_header "Content-Type" "text/plain"
     
-    export aaa=`ls /tmp 2>&1`
+    export listofparam=`echo $2 | sed 's/%26/ /g'`
 
-    send_response_ok_exit <<< "Hello, undelpoy $2 $aaa"
- }
+    send_response_ok_exit <<< "Hello, deploy $listofparam"
+}
  
  
 serve_static_string() {

@@ -161,3 +161,5 @@ AppOrOption=Application or option
 PricePerUser=Price per user
 PleaseBeSure=You will destroy your instance. All data of this application will be destroyed. Please be certain. There is no undo. There is no going back!
 UndeployInstance=Undeploy instance
+DangerZone=Danger Zone
+SellYourSaasRemoteServerIpForDeployement=Remove server ip for instances

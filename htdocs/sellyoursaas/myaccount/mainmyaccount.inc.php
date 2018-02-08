@@ -679,3 +679,16 @@ function dol_loginfunction($langs,$conf,$mysoc)
 	$_SESSION["dol_loginmesg"] = '';
 }
 
+
+/**
+ * Return IP of server to deploy to
+ */
+function getRemoveServerDeploymentIp()
+{
+	global $conf;
+
+	if (empty($conf->global->SELLYOURSAAS_REMOTE_SERVER_IP_FOR_INSTANCES)) $ip='localhost';
+	else $ip = $conf->global->SELLYOURSAAS_REMOTE_SERVER_IP_FOR_INSTANCES;
+
+	return $ip;
+}

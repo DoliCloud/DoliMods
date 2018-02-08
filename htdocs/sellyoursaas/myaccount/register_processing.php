@@ -1,4 +1,10 @@
 <?php
+/**
+ * Call can be done with
+ * reusecontractid=id of contract
+ *
+ */
+
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
 //if (! defined('NOREQUIREDB'))    define('NOREQUIREDB','1');
@@ -33,6 +39,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/cron/class/cronjob.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
@@ -71,8 +78,15 @@ $generateduniquekey=getRandomPassword(true);
 $partner=GETPOST('partner','alpha');
 $plan=GETPOST('plan','alpha');
 
+$reusecontactid = GETPOST('reusecontractid','int');
+
 include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
-$productref='DOLICLOUD-PACK-Dolibarr';
+
+
+$productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):'DOLICLOUD-PACK-Dolibarr');
+
+
+
 if ($plan)	// Plan is a product/service
 {
 	$productref=$plan;
@@ -95,6 +109,7 @@ if (empty($tmpproduct->duration_value) || empty($tmpproduct->duration_unit))
 	exit;
 }
 
+// TODO Use package from a dedicated field
 $packageref = $reg[1];
 
 dol_include_once('/sellyoursaas/class/packages.class.php');
@@ -106,6 +121,8 @@ if (empty($tmppackage->id))
 	exit;
 }
 
+$now = dol_now();
+
 
 
 /*
@@ -114,64 +131,69 @@ if (empty($tmppackage->id))
 
 //print "partner=".$partner." plan=".$plan." orgname = ".$orgname." email=".$email." password=".$password." password2=".$password2." country_code=".$country_code." remoteip=".$remoteip." sldAndSubdomain=".$sldAndSubdomain." tldid=".$tldid;
 
-
 // Back to url
 $newurl=$_SERVER["PHP_SELF"];
-$newurl=preg_replace('/register_processing/', 'register', $newurl);
 //exit;
 //$newurl='myaccount.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/register.php';
 
-if (! preg_match('/\?/', $newurl)) $newurl.='?';
-if (! preg_match('/orgName/i', $newurl)) $newurl.='&orgName='.urlencode($orgname);
-if (! preg_match('/username/i', $newurl)) $newurl.='&username='.urlencode($email);
-if (! preg_match('/address_country/i', $newurl)) $newurl.='&address_country='.urlencode($country_code);
-if (! preg_match('/sldAndSubdomain/i', $sldAndSubdomain)) $newurl.='&sldAndSubdomain='.urlencode($sldAndSubdomain);
-if (! preg_match('/tldid/i', $tldid)) $newurl.='&tldid='.urlencode($tldid);
-if (! preg_match('/plan/i', $newurl)) $newurl.='&plan='.urlencode($plan);
-//if (! preg_match('/service/i', $newurl)) $newurl.='&orgName='.urlencode($orgname);
-if (! preg_match('/partner/i', $newurl)) $newurl.='&partner='.urlencode($partner);
+if ($reusecontactid)
+{
+	$newurl=preg_replace('/register_processing/', 'index', $newurl);
+}
+else
+{
+	if (! preg_match('/\?/', $newurl)) $newurl.='?';
+	if (! preg_match('/orgName/i', $newurl)) $newurl.='&orgName='.urlencode($orgname);
+	if (! preg_match('/username/i', $newurl)) $newurl.='&username='.urlencode($email);
+	if (! preg_match('/address_country/i', $newurl)) $newurl.='&address_country='.urlencode($country_code);
+	if (! preg_match('/sldAndSubdomain/i', $sldAndSubdomain)) $newurl.='&sldAndSubdomain='.urlencode($sldAndSubdomain);
+	if (! preg_match('/tldid/i', $tldid)) $newurl.='&tldid='.urlencode($tldid);
+	if (! preg_match('/plan/i', $newurl)) $newurl.='&plan='.urlencode($plan);
+	//if (! preg_match('/service/i', $newurl)) $newurl.='&orgName='.urlencode($orgname);
+	if (! preg_match('/partner/i', $newurl)) $newurl.='&partner='.urlencode($partner);
 
-if (! preg_match('/^[a-zA-Z0-9\-]+$/', $sldAndSubdomain))
-{
-	setEventMessages($langs->trans("ErrorOnlyCharAZAllowedFor", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
-	header("Location: ".$newurl);
-	exit;
-}
-if (empty($orgname))
-{
-	setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("CompanyName")), null, 'errors');
-	header("Location: ".$newurl);
-	exit;
-}
-if (empty($email))
-{
-	setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Email")), null, 'errors');
-	header("Location: ".$newurl);
-	exit;
-}
-if (! isValidEmail($email))
-{
-	setEventMessages($langs->trans("ErrorBadEMail"), null, 'errors');
-	header("Location: ".$newurl);
-	exit;
-}
-if (empty($password) || empty($password2))
-{
-	setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Password")), null, 'errors');
-    header("Location: ".$newurl);
-    exit;
-}
-if (empty($sldAndSubdomain))
-{
-	setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
-	header("Location: ".$newurl);
-	exit;
-}
-if ($password != $password2)
-{
-    setEventMessages($langs->trans("ErrorPasswordMismatch"), null, 'errors');
-    header("Location: ".$newurl);
-    exit;
+	if (! preg_match('/^[a-zA-Z0-9\-]+$/', $sldAndSubdomain))
+	{
+		setEventMessages($langs->trans("ErrorOnlyCharAZAllowedFor", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
+		header("Location: ".$newurl);
+		exit;
+	}
+	if (empty($orgname))
+	{
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("CompanyName")), null, 'errors');
+		header("Location: ".$newurl);
+		exit;
+	}
+	if (empty($email))
+	{
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Email")), null, 'errors');
+		header("Location: ".$newurl);
+		exit;
+	}
+	if (! isValidEmail($email))
+	{
+		setEventMessages($langs->trans("ErrorBadEMail"), null, 'errors');
+		header("Location: ".$newurl);
+		exit;
+	}
+	if (empty($password) || empty($password2))
+	{
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Password")), null, 'errors');
+	    header("Location: ".$newurl);
+	    exit;
+	}
+	if (empty($sldAndSubdomain))
+	{
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
+		header("Location: ".$newurl);
+		exit;
+	}
+	if ($password != $password2)
+	{
+	    setEventMessages($langs->trans("ErrorPasswordMismatch"), null, 'errors');
+	    header("Location: ".$newurl);
+	    exit;
+	}
 }
 
 
@@ -185,260 +207,295 @@ $errormessages = array();
 //print '<center>'.$langs->trans("PleaseWait").'</center>';		// Message if redirection after this page fails
 
 
-// Create thirdparty (if it already exist, return warning)
-dol_syslog("Fetch thirdparty from email ".$email);
-$tmpthirdparty=new Societe($db);
-$result = $tmpthirdparty->fetch(0, '', '', '', '', '', '', '', '', '', $email);
-if ($result < 0)
-{
-	dol_print_error_email('FETCHTP'.$email, $tmpthirdparty->error, $tmpthirdparty->errors, 'alert alert-error');
-	exit;
-}
-else if ($result > 0)	// Found one record
-{
-	setEventMessages($langs->trans("AccountAlreadyExistsForEmail", $conf->global->SELLYOURSAAS_ACCOUNT_URL), null, 'errors');
-	header("Location: ".$newurl);
-	exit;
-}
-else dol_syslog("Not found");
-
-$fqdninstance = $sldAndSubdomain.$tldid;
-
-dol_syslog("Fetch contract from domain name ".$fqdninstance);
-$contract = new Contrat($db);
-$result = $contract->fetch(0, '', $fqdninstance);
-if ($result > 0)
-{
-	setEventMessages($langs->trans("InstanceNameAlreadyExists", $fqdninstance), null, 'errors');
-	header("Location: ".$newurl);
-	exit;
-}
-else dol_syslog("Not found");
-
-
-// Generate credentials
-
-$generatedunixlogin = strtolower('osu'.substr(getRandomPassword(true), 0, 9));		// Must be lowercase as it can be used for default email
-$generatedunixpassword = substr(getRandomPassword(true), 0, 10);
-
-$domainname = preg_replace('/^\./', '', $tldid);
-
-$generateddbname = 'dbn'.substr(getRandomPassword(true), 0, 8);
-$generateddbusername = 'dbu'.substr(getRandomPassword(true), 0, 9);
-$generateddbpassword = substr(getRandomPassword(true), 0, 10);
-$generateddbhostname = $sldAndSubdomain.'.'.$domainname;
-$generatedunixhostname = $sldAndSubdomain.'.'.$domainname;
-
-
-// Start creation of instance
-
 $error = 0;
 
-$db->begin();	// Start transaction
+dol_syslog("Fetch contract (id = ".$reusecontactid.", domain name  = ".$fqdninstance.")");
 
-$password_encoding = 'sha1md5';
-$password_crypted = dol_hash($password, 2);
-
-$tmpthirdparty->name = $orgname;
-$tmpthirdparty->email = $email;
-$tmpthirdparty->client = 3;
-$tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
-$tmpthirdparty->array_options['options_date_registration'] = dol_now();
-$tmpthirdparty->array_options['options_password'] = $password_crypted;
-if ($country_code)
+$contract = new Contrat($db);
+if ($reusecontactid)
 {
-	$tmpthirdparty->country_id = getCountry($country_code, 3, $db);
-}
-
-if ($tmpthirdparty->id > 0)
-{
-	$result = $tmpthirdparty->update(0, $user);
-	if ($result <= 0)
+	// Get contract
+	$result = $contract->fetch($reusecontactid);
+	if ($result < 0)
 	{
-		$db->rollback();
-		setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+		setEventMessages($langs->trans("NotFound"), null, 'errors');
 		header("Location: ".$newurl);
 		exit;
 	}
+
+	$contract->fetch_thirdparty();
+
+	$tmpthirdparty = $contract->thirdparty;
+
+	$generatedunixhostname = $contract->array_options['options_hostname_os'];
+	$generatedunixlogin = $contract->array_options['options_username_os'];
+	$generatedunixpassword = $contract->array_options['options_password_os'];
+	$generateddbhostname = $contract->array_options['options_hostname_db'];
+	$generateddbname = $contract->array_options['options_database_db'];
+	$generateddbport = 3306;
+	$generateddbusername = $contract->array_options['options_username_db'];
+	$generateddbpassword = $contract->array_options['options_password_db'];
+
+	$tmparray = explode('.', $contract->ref_customer, 2);
+	$sldAndSubdomain = $tmparray[0];
+	$tldid = $tmparray[1];
+	$fqdninstance = $sldAndSubdomain.$tldid;
 }
 else
 {
-	$tmpthirdparty->code_client = -1;
-	$result = $tmpthirdparty->create($user);
-	if ($result <= 0)
+	// Create thirdparty (if it already exist, do nothing and return a warning to user)
+	dol_syslog("Fetch thirdparty from email ".$email);
+	$tmpthirdparty=new Societe($db);
+	$result = $tmpthirdparty->fetch(0, '', '', '', '', '', '', '', '', '', $email);
+	if ($result < 0)
 	{
-		$db->rollback();
-		setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+		dol_print_error_email('FETCHTP'.$email, $tmpthirdparty->error, $tmpthirdparty->errors, 'alert alert-error');
+		exit;
+	}
+	else if ($result > 0)	// Found one record
+	{
+		setEventMessages($langs->trans("AccountAlreadyExistsForEmail", $conf->global->SELLYOURSAAS_ACCOUNT_URL), null, 'errors');
 		header("Location: ".$newurl);
 		exit;
 	}
-}
+	else dol_syslog("Not found");
 
-if (! empty($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG))
-{
-	$result = $tmpthirdparty->setCategories(array($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG => $conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG), 'customer');
-	if ($result < 0)
+	$fqdninstance = $sldAndSubdomain.$tldid;
+
+	$result = $contract->fetch(0, '', $fqdninstance);
+	if ($result > 0)
 	{
-		$db->rollback();
-		setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+		setEventMessages($langs->trans("InstanceNameAlreadyExists", $fqdninstance), null, 'errors');
 		header("Location: ".$newurl);
 		exit;
 	}
-}
-else
-{
-	dol_print_error_email('SETUPTAG', 'Setup of module not complete. The default customer tag is not defined.', null, 'alert alert-error');
-	exit;
-}
+	else dol_syslog("Not found");
 
-// Create contract/instance
-if (! $error)
-{
-	dol_syslog("Create contract with deployment status 'Processing'");
 
-	$now = dol_now();
+	// Generate credentials
 
-	$contract->ref_customer = $sldAndSubdomain.$tldid;
-	$contract->socid = $tmpthirdparty->id;
-	$contract->commercial_signature_id = $user->id;
-	$contract->commercial_suivi_id = $user->id;
-	$contract->date_contrat = $now;
-	$contract->note_private = 'Created from web interface';
+	$generatedunixlogin = strtolower('osu'.substr(getRandomPassword(true), 0, 9));		// Must be lowercase as it can be used for default email
+	$generatedunixpassword = substr(getRandomPassword(true), 0, 10);
 
-	$contract->array_options['options_plan'] = $tmppackage->ref;
-	$contract->array_options['options_deployment_status'] = 'processing';
-	$contract->array_options['options_deployment_date_start'] = $now;
-	$contract->array_options['options_date_endfreeperiod'] = dol_time_plus_duree($now, 15, 'd');
-	$contract->array_options['options_hostname_os'] = $generatedunixhostname;
-	$contract->array_options['options_username_os'] = $generatedunixlogin;
-	$contract->array_options['options_password_os'] = $generatedunixpassword;
-	$contract->array_options['options_hostname_db'] = $generateddbhostname;
-	$contract->array_options['options_database_db'] = $generateddbname;
-	$contract->array_options['options_port_db'] = 3306;
-	$contract->array_options['options_username_db'] = $generateddbusername;
-	$contract->array_options['options_password_db'] = $generateddbpassword;
-	$contract->array_options['options_nb_users'] = 1;
-	$contract->array_options['options_nb_gb'] = 0.01;
-	$contract->array_options['options_deployment_ip'] = $_SERVER["REMOTE_ADDR"];
+	$domainname = preg_replace('/^\./', '', $tldid);
 
-	$result = $contract->create($user);
-	if ($result <= 0)
+	$generateddbname = 'dbn'.substr(getRandomPassword(true), 0, 8);
+	$generateddbusername = 'dbu'.substr(getRandomPassword(true), 0, 9);
+	$generateddbpassword = substr(getRandomPassword(true), 0, 10);
+	$generateddbhostname = $sldAndSubdomain.'.'.$domainname;
+	$generatedunixhostname = $sldAndSubdomain.'.'.$domainname;
+
+
+	// Create contract
+
+	$db->begin();	// Start transaction
+
+	$password_encoding = 'sha1md5';
+	$password_crypted = dol_hash($password, 2);
+
+	$tmpthirdparty->name = $orgname;
+	$tmpthirdparty->email = $email;
+	$tmpthirdparty->client = 3;
+	$tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
+	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
+	$tmpthirdparty->array_options['options_password'] = $password_crypted;
+	if ($country_code)
 	{
-		dol_print_error_email('CREATECONTRACT', $contract->error, $contract->errors, 'alert alert-error');
-		exit;
-	}
-}
-
-if (! $error)
-{
-/*	$website = new Website($db);
-	$website->fetch(0, 'sellyoursaas');
-	//var_dump($website);
-
-	// Create account to dashboard
-	$websiteaccount = new WebsiteAccount($db);
-	$websiteaccount->fk_website = $website->id;
-	$websiteaccount->fk_soc = $tmpthirdparty->id;
-	$websiteaccount->login = $email;
-	$websiteaccount->pass_encoding = $password_encoding;
-	$websiteaccount->pass_crypted = $password_crypted;
-	$websiteaccount->note_private = 'Initial pass = '.$password;
-	$websiteaccount->status = 1;
-	$result = $websiteaccount->create($user);
-	if ($result < 0)
-	{
-		// We ignore errors. This should not happen in real life.
-		//setEventMessages($websiteaccount->error, $websiteaccount->errors, 'errors');
-	}
-*/
-}
-
-$object = $tmpthirdparty;
-
-// Create contract line for INSTANCE
-if (! $error)
-{
-	if (empty($object->country_code))
-	{
-		$object->country_code = dol_getIdFromCode($db, $object->country_id, 'c_country', 'rowid', 'code');
+		$tmpthirdparty->country_id = getCountry($country_code, 3, $db);
 	}
 
-	$qty = 1;
-	//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
-	$vat = get_default_tva($mysoc, $object, $tmpproduct->id);
-	$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
-	$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
-	//var_dump($mysoc->country_code);
-	//var_dump($object->country_code);
-	//var_dump($tmpproduct->tva_tx);
-	//var_dump($vat);exit;
-
-	$price = $tmpproduct->price;
-	if ($dolicloudcustomer->id > 0)
+	if ($tmpthirdparty->id > 0)
 	{
-		$price = $dolicloudcustomer->price_instance;
-		if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
-	}
-
-	if ($price == 0) $discount = 0;
-
-	$productidtocreate = $tmpproduct->id;
-
-	$contractlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreate, $discount, $date_start, $date_end, 'HT', 0);
-	if ($contractlineid < 0)
-	{
-		dol_print_error_email('CREATECONTRACTLINE1', $contract->error, $contract->errors, 'alert alert-error');
-		exit;
-	}
-}
-
-//var_dump('user:'.$dolicloudcustomer->price_user);
-//var_dump('instance:'.$dolicloudcustomer->price_instance);
-//exit;
-
-// Create contract line for USERS
-if (! $error)
-{
-	$qty = 1;
-	if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
-	$vat = get_default_tva($mysoc, $object, 0);
-	$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
-	$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
-
-	$price = $tmpproduct->array_options['options_price_per_user'];
-	if ($dolicloudcustomer->id > 0)
-	{
-		$price = $dolicloudcustomer->price_user;
-		if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
-	}
-	/*var_dump($tmpproduct);
-	var_dump('qty:'.$qty.'-price:'.$price);
-	var_dump('instance:'.$dolicloudcustomer->price_instance);
-	exit;*/
-
-	if ($price > 0 && $qty > 0)
-	{
-		$contractlineid = $contract->addline('Users', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, 0, $discount, $date_start, $date_end, 'HT', 0);
-		if ($contractlineid < 0)
+		$result = $tmpthirdparty->update(0, $user);
+		if ($result <= 0)
 		{
-			dol_print_error_email('CREATECONTRACTLINE2', $contract->error, $contract->errors, 'alert alert-error');
+			$db->rollback();
+			setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+			header("Location: ".$newurl);
 			exit;
 		}
 	}
+	else
+	{
+		$tmpthirdparty->code_client = -1;
+		$result = $tmpthirdparty->create($user);
+		if ($result <= 0)
+		{
+			$db->rollback();
+			setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+			header("Location: ".$newurl);
+			exit;
+		}
+	}
+
+	if (! empty($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG))
+	{
+		$result = $tmpthirdparty->setCategories(array($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG => $conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG), 'customer');
+		if ($result < 0)
+		{
+			$db->rollback();
+			setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+			header("Location: ".$newurl);
+			exit;
+		}
+	}
+	else
+	{
+		dol_print_error_email('SETUPTAG', 'Setup of module not complete. The default customer tag is not defined.', null, 'alert alert-error');
+		exit;
+	}
+
+	// Create contract/instance
+	if (! $error)
+	{
+		dol_syslog("Create contract with deployment status 'Processing'");
+
+		$contract->ref_customer = $sldAndSubdomain.$tldid;
+		$contract->socid = $tmpthirdparty->id;
+		$contract->commercial_signature_id = $user->id;
+		$contract->commercial_suivi_id = $user->id;
+		$contract->date_contrat = $now;
+		$contract->note_private = 'Created from web interface';
+
+		$contract->array_options['options_plan'] = $tmppackage->ref;
+		$contract->array_options['options_deployment_status'] = 'processing';
+		$contract->array_options['options_deployment_date_start'] = $now;
+		$contract->array_options['options_date_endfreeperiod'] = dol_time_plus_duree($now, 15, 'd');
+		$contract->array_options['options_hostname_os'] = $generatedunixhostname;
+		$contract->array_options['options_username_os'] = $generatedunixlogin;
+		$contract->array_options['options_password_os'] = $generatedunixpassword;
+		$contract->array_options['options_hostname_db'] = $generateddbhostname;
+		$contract->array_options['options_database_db'] = $generateddbname;
+		$contract->array_options['options_port_db'] = 3306;
+		$contract->array_options['options_username_db'] = $generateddbusername;
+		$contract->array_options['options_password_db'] = $generateddbpassword;
+		$contract->array_options['options_nb_users'] = 1;
+		$contract->array_options['options_nb_gb'] = 0.01;
+		$contract->array_options['options_deployment_ip'] = $_SERVER["REMOTE_ADDR"];
+
+		$result = $contract->create($user);
+		if ($result <= 0)
+		{
+			dol_print_error_email('CREATECONTRACT', $contract->error, $contract->errors, 'alert alert-error');
+			exit;
+		}
+	}
+
+	if (! $error)
+	{
+	/*	$website = new Website($db);
+		$website->fetch(0, 'sellyoursaas');
+		//var_dump($website);
+
+		// Create account to dashboard
+		$websiteaccount = new WebsiteAccount($db);
+		$websiteaccount->fk_website = $website->id;
+		$websiteaccount->fk_soc = $tmpthirdparty->id;
+		$websiteaccount->login = $email;
+		$websiteaccount->pass_encoding = $password_encoding;
+		$websiteaccount->pass_crypted = $password_crypted;
+		$websiteaccount->note_private = 'Initial pass = '.$password;
+		$websiteaccount->status = 1;
+		$result = $websiteaccount->create($user);
+		if ($result < 0)
+		{
+			// We ignore errors. This should not happen in real life.
+			//setEventMessages($websiteaccount->error, $websiteaccount->errors, 'errors');
+		}
+	*/
+	}
+
+	$object = $tmpthirdparty;
+
+	// Create contract line for INSTANCE
+	if (! $error)
+	{
+		if (empty($object->country_code))
+		{
+			$object->country_code = dol_getIdFromCode($db, $object->country_id, 'c_country', 'rowid', 'code');
+		}
+
+		$qty = 1;
+		//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+		$vat = get_default_tva($mysoc, $object, $tmpproduct->id);
+		$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
+		$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
+		//var_dump($mysoc->country_code);
+		//var_dump($object->country_code);
+		//var_dump($tmpproduct->tva_tx);
+		//var_dump($vat);exit;
+
+		$price = $tmpproduct->price;
+		if ($dolicloudcustomer->id > 0)
+		{
+			$price = $dolicloudcustomer->price_instance;
+			if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
+		}
+
+		if ($price == 0) $discount = 0;
+
+		$productidtocreate = $tmpproduct->id;
+
+		$contractlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreate, $discount, $date_start, $date_end, 'HT', 0);
+		if ($contractlineid < 0)
+		{
+			dol_print_error_email('CREATECONTRACTLINE1', $contract->error, $contract->errors, 'alert alert-error');
+			exit;
+		}
+	}
+
+	//var_dump('user:'.$dolicloudcustomer->price_user);
+	//var_dump('instance:'.$dolicloudcustomer->price_instance);
+	//exit;
+
+	// Create contract line for USERS
+	if (! $error)
+	{
+		$qty = 1;
+		if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+		$vat = get_default_tva($mysoc, $object, 0);
+		$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
+		$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
+
+		$price = $tmpproduct->array_options['options_price_per_user'];
+		if ($dolicloudcustomer->id > 0)
+		{
+			$price = $dolicloudcustomer->price_user;
+			if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
+		}
+		/*var_dump($tmpproduct);
+		var_dump('qty:'.$qty.'-price:'.$price);
+		var_dump('instance:'.$dolicloudcustomer->price_instance);
+		exit;*/
+
+		if ($price > 0 && $qty > 0)
+		{
+			$contractlineid = $contract->addline('Users', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, 0, $discount, $date_start, $date_end, 'HT', 0);
+			if ($contractlineid < 0)
+			{
+				dol_print_error_email('CREATECONTRACTLINE2', $contract->error, $contract->errors, 'alert alert-error');
+				exit;
+			}
+		}
+	}
+
+	if (! $error)
+	{
+		$db->commit();
+	}
+	else
+	{
+		$db->rollback();
+	}
 }
 
-if (! $error)
-{
-	$db->commit();
-}
-else
-{
-	$db->rollback();
-}
 
 
 
+// -----------------------------------------------------------------------------------------------------------------------
 // Create unix user and directories and DNS
+//
+// With old method:
 // Check the user www-data is allowed to "sudo /usr/bin/create_test_instance.sh"
 // If you get error "sudo: PERM_ROOT: setresuid(0, -1, -1): Operation not permitted", check module mpm_itk
 //<IfModule mpm_itk_module>
@@ -446,6 +503,9 @@ else
 //LimitGIDRange 0 5000
 //</IfModule>
 // If you get error "sudo: sorry, you must have a tty to run sudo", disable key "Defaults requiretty" from /etc/sudoers
+//
+// With new method, call the deploy server
+// -----------------------------------------------------------------------------------------------------------------------
 
 if (! $error)
 {
@@ -521,7 +581,7 @@ if (! $error)
 	//	$error++;
 	//}
 
-	$serverdeployement = '79.137.96.15';
+	$serverdeployement = getRemoveServerDeploymentIp();
 
 	$urltoget='http://'.$serverdeployement.':8080/deploy/'.urlencode($commandurl);
 	include DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
@@ -557,15 +617,17 @@ if (! $error)
 	if (! $dbinstance || ! $dbinstance->connected)
 	{
 		$error++;
-		dol_print_error_email('GETDOLIDBI'.$generateddbhostname, $dbinstance->error, $dbinstance->errors, 'alert alert-error');
+		setEventMessages($dbinstance->error, $dbinstance->errors, 'errors');
+		header("Location: ".$newurl);
 		exit;
+
+		//dol_print_error_email('GETDOLIDBI'.$generateddbhostname, $dbinstance->error, $dbinstance->errors, 'alert alert-error');
+		//exit;
 	}
 	else
 	{
 		dol_syslog("Execute sql=".$sqltoexecute);
-		var_dmp($sqltoexecute);
 		$dbinstance->query($sqtoexecute);
-
 	}
 }
 
@@ -610,7 +672,7 @@ $errormessages[] = 'Deployement of instance '.$sldAndSubdomain.$tldid.' started 
 $errormessages[] = 'Our team was alerted. You will receive an email as soon as deployment is complete.';
 
 dol_syslog("Error in deployment", LOG_ERR);
-$email = new CMailFile('WARNING: Deployment error', 'supervision@dolicloud.com', $conf->global->MAIN_MAIL_EMAIL_FROM, join("\n",$errormessages)."\nCommand = ".$commandurl);
+$email = new CMailFile('WARNING: Deployment error', 'supervision@dolicloud.com', $conf->global->MAIN_MAIL_EMAIL_FROM, join("\n",$errormessages)."\n\nParameters of command used:\n".$commandurl);
 $email->sendfile();
 
 
@@ -664,8 +726,10 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
 
           <section id="enterUserAccountDetails">
 
-			Oops...
+			<center>OOPS...</center>
 			<?php
+			$errormessages[] = 'URL: '.$urltoget;
+
 			dol_print_error_email('DEPLOY'.$generateddbhostname, '', $errormessages, 'alert alert-error');
 			?>
 

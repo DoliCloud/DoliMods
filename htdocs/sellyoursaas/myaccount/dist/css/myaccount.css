@@ -134,9 +134,19 @@ ul.nav-tabs {
     padding-top: 3px;
     padding-bottom: 3px;
 }
-ul.nav-tabs li {
-	padding-right: 20px;
+ul.nav-tabs li a {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 7px;
+	padding-bottom: 8px;
 }
+ul.nav-tabs li a.active {
+	border-top: 3px solid #000;
+	border-left: 1px solid #bbb;
+	border-right: 1px solid #bbb;
+}
+
+
 div.tab-content {
 	padding-top: 15px;	
 }

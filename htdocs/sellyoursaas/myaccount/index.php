@@ -569,6 +569,10 @@ if ($mode == 'instances')
 		if ($contract->array_options['options_deployment_status'] == 'processing')
 		{
 			print $langs->trans("DateStart").' : <span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_start'], 'dayhour').'</span>';
+			if ((dol_now() - $contract->array_options['options_deployment_date_start']) > 120)	// More then 2 minutes ago
+			{
+				print ' - <a href="register_processing.php?reusecontractid='.$contract->id.'">'.$langs->trans("Restart").'</a>';
+			}
 		}
 		if ($contract->array_options['options_deployment_status'] == 'deployed')
 		{
@@ -590,7 +594,7 @@ if ($mode == 'instances')
 
 			        <div class="tabbable-custom nav-justified">
 			          <ul class="nav nav-tabs nav-justified">
-			            <li><a href="#tab_domain_'.$contract->id.'" data-toggle="tab">Domain</a></li>
+			            <li><a href="#tab_domain_'.$contract->id.'" data-toggle="tab" class="active">Domain</a></li>
 			            <li><a href="#tab_resource_'.$contract->id.'" data-toggle="tab">App Resources</a></li>
 			            <li><a href="#tab_ssh_'.$contract->id.'" data-toggle="tab">'.$langs->trans("SSH").' / '.$langs->trans("SFTP").'</a></li>
 			            <li><a href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>
@@ -655,7 +659,7 @@ if ($mode == 'instances')
 			                  <div class="form-group">
 			                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
 			                    <div class="col-md-9">
-			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_database_db'].'">
+			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_hostname_db'].'">
 			                    </div>
 			                  </div>
 			                  <div class="form-group">
