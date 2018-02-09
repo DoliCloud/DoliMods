@@ -176,6 +176,8 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$password_db  = $object->password_db;
 		$database_db  = $object->database_db;
 		$port_db      = $object->port_db;
+		$username_os  = $object->username_os;
+		$password_os  = $object->password_os;
 		$username_web = $object->username_web;
 		$password_web = $object->password_web;
 	}
@@ -189,13 +191,16 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$password_db  = $object->array_options['options_password_db'];
 		$database_db  = $object->array_options['options_database_db'];
 		$port_db      = $object->array_options['options_port_db'];
-		$username_web = $object->array_options['options_username_os'];
-		$password_web = $object->array_options['options_password_os'];
-		$password_web = $object->array_options['options_hostname_web'];
+		$username_os  = $object->array_options['options_username_os'];
+		$password_os  = $object->array_options['options_password_os'];
+		$username_web = $object->thirdparty->email;
+		$password_web = $object->thirdparty->array_options['options_password'];
 
 		$tmp = explode('.', $object->ref_customer, 2);
 		$object->instance = $tmp[0];
 		$object->hostname_web  = $object->instance.'.'.$prefix.'.dolicloud.com';
+
+		$object->email = $object->thirdparty->email;
 
 		$object->hostname_db  = $hostname_db;
 		$object->username_db  = $username_db;
