@@ -209,6 +209,8 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$object->password_db  = $password_db;
 		$object->database_db  = $database_db;
 		$object->port_db      = $port_db;
+		$object->username_os  = $username_os;
+		$object->password_os  = $password_os;
 		$object->username_web = $username_web;
 		$object->password_web = $password_web;
 	}
