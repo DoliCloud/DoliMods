@@ -178,8 +178,15 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$port_db      = $object->port_db;
 		$username_os  = $object->username_web;		// $object->username_os not used on dolicloudcustomer
 		$password_os  = $object->password_web;		// $object->password_os not used on dolicloudcustomer
+		$hostname_os  = $object->hostname_web;		// $object->password_os not used on dolicloudcustomer
 		$username_web = $object->email;
 		$password_web = $object->xxx;
+		$hostname_web = $object->hostname_web;
+
+		$object->username_os  = $username_os;
+		$object->password_os  = $password_os;
+		$object->hostname_os  = $object->instance.'.'.$prefix.'.dolicloud.com';
+
 	}
 	else	// $object is a contract (on old or new instance)
 	{
