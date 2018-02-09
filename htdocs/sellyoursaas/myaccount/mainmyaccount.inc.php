@@ -34,7 +34,6 @@
 
 
 define('DOL_URL_ROOT', 'source');
-define('DOL_URL_MYACCOUNTROOT', 'source');
 
 
 
@@ -476,7 +475,6 @@ if (! function_exists("llxFooter"))
 }
 
 
-
 /**
  *  Return a prefix to use for this Dolibarr instance, for session/cookie names or email id.
  *  This prefix is valid in a web context only and is unique for instance and avoid conflict
@@ -508,6 +506,7 @@ if (! function_exists('dol_getprefix'))
 		else return 'sellyoursaas'.dol_hash(DOL_DOCUMENT_ROOT.DOL_URL_ROOT);
 	}
 }
+
 
 /**
  * Show login page for myaccount.
@@ -679,16 +678,3 @@ function dol_loginfunction($langs,$conf,$mysoc)
 	$_SESSION["dol_loginmesg"] = '';
 }
 
-
-/**
- * Return IP of server to deploy to
- */
-function getRemoveServerDeploymentIp()
-{
-	global $conf;
-
-	if (empty($conf->global->SELLYOURSAAS_REMOTE_SERVER_IP_FOR_INSTANCES)) $ip='localhost';
-	else $ip = $conf->global->SELLYOURSAAS_REMOTE_SERVER_IP_FOR_INSTANCES;
-
-	return $ip;
-}

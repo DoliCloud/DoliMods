@@ -1,10 +1,21 @@
 <?php
-/**
+/* Copyright (C) 2017 Laurent Destailleur  <eldy@users.sourceforge.net>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * Call can be done with
  * reusecontractid=id of contract
- *
  */
-
 
 //if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
 //if (! defined('NOREQUIREDB'))    define('NOREQUIREDB','1');
@@ -18,7 +29,7 @@
 //if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
 if (! defined("NOLOGIN"))        define("NOLOGIN",'1');				    // If this page is public (can be called outside logged session)
 
-
+// Add specific definition to allow a dedicated session management
 include ('./mainmyaccount.inc.php');
 
 // Load Dolibarr environment
@@ -44,13 +55,15 @@ require_once DOL_DOCUMENT_ROOT.'/cron/class/cronjob.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/websiteaccount.class.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
 
+// Re set variables specific to new environment
 $conf->global->SYSLOG_FILE_ONEPERSESSION=1;
-
 $langs=new Translate('', $conf);
 $langs->setDefaultLang('auto');
-
 $langs->loadLangs(array("sellyoursaas@sellyoursaas","errors"));
+
 
 // Force user
 if (empty($user->id))
@@ -79,8 +92,6 @@ $partner=GETPOST('partner','alpha');
 $plan=GETPOST('plan','alpha');
 
 $reusecontactid = GETPOST('reusecontractid','int');
-
-include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
 
 $productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):'DOLICLOUD-PACK-Dolibarr');
@@ -728,8 +739,6 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
 
 			<center>OOPS...</center>
 			<?php
-			$errormessages[] = 'URL: '.$urltoget;
-
 			dol_print_error_email('DEPLOY'.$generateddbhostname, '', $errormessages, 'alert alert-error');
 			?>
 
