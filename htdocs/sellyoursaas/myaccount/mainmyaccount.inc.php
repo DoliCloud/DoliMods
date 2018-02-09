@@ -299,8 +299,8 @@ function top_htmlhead_sellyoursaas($head, $title='', $disablejs=0, $disablehead=
 			}
 
 			// Global js function
-			//print '<!-- Includes JS of Dolibarr -->'."\n";
-			//print '<script type="text/javascript" src="'.DOL_URL_ROOT.'/core/js/lib_head.js.php'.($ext?'?'.$ext:'').'"></script>'."\n";
+			print '<!-- Includes JS of Dolibarr -->'."\n";
+			print '<script type="text/javascript" src="'.DOL_URL_ROOT.'/core/js/lib_head.js.php'.($ext?'?'.$ext:'').'"></script>'."\n";
 
 			// JS forced by page in top_htmlhead (relative url starting with /)
 			if (is_array($arrayofjs))
