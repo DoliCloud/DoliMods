@@ -70,11 +70,12 @@ function refreshContract(Contrat $contract)
 /**
  * getListOfLinks
  *
- * @param Object $object            Object
- * @param string $lastloginadmin    Last login admin
- * @param string $lastpassadmin     Last pass admin
+ * @param	Object 	$object            	Object
+ * @param	string 	$lastloginadmin    	Last login admin
+ * @param	string 	$lastpassadmin     	Last pass admin
+ * @param	int		$instanceoldid		Instance old id (defined if this is a old v1 object)
  */
-function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
+function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid=0)
 {
     global $conf, $langs;
 
@@ -84,7 +85,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
     //if (empty($conf->global->DOLICLOUD_EXT_HOME)) $links='Error: DOLICLOUD_EXT_HOME not defined<br>';
 
 	// Dolibarr instance login
-	$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+	$url='https://'.$object->instance_full.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
 	$link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
 	$links.='Dolibarr link (last logged admin): ';
 	//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
@@ -93,7 +94,14 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	$links.='<br>';
 
 	// Dashboard
-	$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email.'&amp;password='.$object->password_web;	// Note that password may have change and not being the one of dolibarr admin user
+	if ($instanceoldid)
+	{
+		$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email.'&amp;password='.$object->password_web;	// Note that password may have change and not being the one of dolibarr admin user
+	}
+	else
+	{
+		$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?email='.$object->email.'&amp;password='.$object->password_web;	// Note that password may have change and not being the one of dolibarr admin user
+	}
 	$link='<a href="'.$url.'" target="_blank" id="dashboardlink">'.$url.'</a>';
 	$links.='Dashboard: ';
 	$links.=$link.'<br>';

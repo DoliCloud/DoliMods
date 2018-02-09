@@ -170,12 +170,13 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	if ($instanceoldid)
 	{
 		$prefix='on';
-		$instance = $object->instance;
-		$hostname_db = $object->hostname_db;
-		$username_db = $object->username_db;
-		$password_db = $object->password_db;
-		$database_db = $object->database_db;
+		$object->instance_full = $object->instance.'.'.$prefix.'.dolicloud.com';
 
+		$hostname_db  = $object->hostname_db;
+		$username_db  = $object->username_db;
+		$password_db  = $object->password_db;
+		$database_db  = $object->database_db;
+		$port_db      = $object->port_db;
 		$username_web = $object->username_web;
 		$password_web = $object->password_web;
 	}
@@ -184,15 +185,29 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		if (preg_match('/\.on\./', $object->ref_customer)) $prefix='on';
 		else $prefix='with';
 
-		$hostname_db = $object->array_options['options_hostname_db'];
-		$username_db = $object->array_options['options_username_db'];
-		$password_db = $object->array_options['options_password_db'];
-		$database_db = $object->array_options['options_database_db'];
+		$hostname_db  = $object->array_options['options_hostname_db'];
+		$username_db  = $object->array_options['options_username_db'];
+		$password_db  = $object->array_options['options_password_db'];
+		$database_db  = $object->array_options['options_database_db'];
+		$port_db      = $object->array_options['options_port_db'];
 		$username_web = $object->array_options['options_username_os'];
-		$password_web = $object->array_options['options_username_os'];
+		$password_web = $object->array_options['options_password_os'];
+
+		$tmp = explode('.', $object->ref_customer, 2);
+		$object->instance = $tmp[0];
+		$object->instance_full = $object->instance.'.'.$prefix.'.dolicloud.com';
+
+		$object->hostname_db  = $hostname_db;
+		$object->username_db  = $username_db;
+		$object->password_db  = $password_db;
+		$object->database_db  = $database_db;
+		$object->port_db      = $port_db;
+		$object->username_web = $username_web;
+		$object->password_web = $password_web;
+
 	}
 
-	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);
+	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db?$port_db:3306);
 
 	if (is_object($newdb) && $newdb->connected)
 	{
@@ -321,7 +336,7 @@ if ($id > 0 || $instanceoldid > 0)
 print '<br>';
 
 
-print getListOfLinks($object, $lastloginadmin, $lastpassadmin);
+print getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid);
 
 
 llxFooter();
