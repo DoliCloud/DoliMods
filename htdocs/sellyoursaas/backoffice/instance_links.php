@@ -176,13 +176,15 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$password_db  = $object->password_db;
 		$database_db  = $object->database_db;
 		$port_db      = $object->port_db;
-		$username_os  = $object->username_os;
-		$password_os  = $object->password_os;
-		$username_web = $object->username_web;
-		$password_web = $object->password_web;
+		$username_os  = $object->username_web;		// $object->username_os not used on dolicloudcustomer
+		$password_os  = $object->password_web;		// $object->password_os not used on dolicloudcustomer
+		$username_web = $object->email;
+		$password_web = $object->xxx;
 	}
 	else	// $object is a contract (on old or new instance)
 	{
+		$object->fetch_thirdparty();
+
 		if (preg_match('/\.on\./', $object->ref_customer)) $prefix='on';
 		else $prefix='with';
 

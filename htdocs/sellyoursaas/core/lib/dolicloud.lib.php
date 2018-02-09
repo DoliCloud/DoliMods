@@ -85,7 +85,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
     //if (empty($conf->global->DOLICLOUD_EXT_HOME)) $links='Error: DOLICLOUD_EXT_HOME not defined<br>';
 
 	// Dolibarr instance login
-	$url='https://'.$object->hostname_web.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+	$url='https://'.$object->hostname_os.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
 	$link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
 	$links.='Dolibarr link (last logged admin): ';
 	//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
@@ -109,26 +109,26 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
 	$links.='<br>';
 
 	// Home
-	$homestring=$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
+	$homestring=$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
 	$links.='Home dir: ';
 	$links.='<input type="text" name="homestring" id="homestring" value="'.$homestring.'" size="110"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect('homestring');
 	//$links.='<br>';
 
 	// SSH
-    $sshconnectstring='ssh '.$object->username_web.'@'.$object->hostname_web;
+    $sshconnectstring='ssh '.$object->username_os.'@'.$object->hostname_os;
     $links.='SSH connect string: ';
     $links.='<input type="text" name="sshconnectstring" id="sshconnectstring" value="'.$sshconnectstring.'" size="50">';
     if ($conf->use_javascript_ajax) $links.=ajax_autoselect('sshconnectstring');
     $links.=' &nbsp; '.$langs->trans("or").' SU: ';
-    $sustring='su '.$object->username_web;
+    $sustring='su '.$object->username_os;
     $links.='<input type="text" name="sustring" id="sustring" value="'.$sustring.'" size="30"><br>';
     if ($conf->use_javascript_ajax) $links.=ajax_autoselect('sustring');
     $links.='<br>';
 
 	// SFTP
-	//$sftpconnectstring=$object->username_web.':'.$object->password_web.'@'.$object->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
-    $sftpconnectstring='sftp://'.$object->username_web.'@'.$object->hostname_web.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
+	//$sftpconnectstring=$object->username_os.':'.$object->password_web.'@'.$object->hostname_os.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
+    $sftpconnectstring='sftp://'.$object->username_os.'@'.$object->hostname_os.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
     $links.='SFTP connect string: ';
 	$links.='<input type="text" name="sftpconnectstring" id="sftpconnectstring" value="'.$sftpconnectstring.'" size="110"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect('sftpconnectstring');
@@ -173,14 +173,14 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
 	$links.='<br>';
 
 	// Document restore
-	$sftprestorestring='rsync -n -v -a --exclude \'*.cache\' dolibarr_documents/* '.$object->username_web.'@'.$object->hostname_web.':'.$object->fs_path.'/documents';
+	$sftprestorestring='rsync -n -v -a --exclude \'*.cache\' dolibarr_documents/* '.$object->username_os.'@'.$object->hostname_os.':'.$object->fs_path.'/documents';
 	$links.='Rsync to copy/overwrite document dir (remove -n to execute really):<br>';
 	$links.='<input type="text" id="sftprestorestring" name="sftprestorestring" value="'.$sftprestorestring.'" class="quatrevingtpercent"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("sftprestorestring", 0);
 	$links.='<br>';
 
 	// Deploy module
-	$sftpdeploystring='rsync -n -v -a --exclude \'*.cache\' pathtohtdocsmodule/* '.$object->username_web.'@'.$object->hostname_web.':'.$object->fs_path.'/htdocs/namemodule';
+	$sftpdeploystring='rsync -n -v -a --exclude \'*.cache\' pathtohtdocsmodule/* '.$object->username_os.'@'.$object->hostname_os.':'.$object->fs_path.'/htdocs/namemodule';
 	$links.='Rsync to install or overwrite module (remove -n to execute really):<br>';
 	$links.='<input type="text" id="sftpdeploystring" name="sftpdeploystring" value="'.$sftpdeploystring.'" class="quatrevingtpercent"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("sftpdeploystring", 0);
