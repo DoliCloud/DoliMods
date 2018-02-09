@@ -85,7 +85,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
     //if (empty($conf->global->DOLICLOUD_EXT_HOME)) $links='Error: DOLICLOUD_EXT_HOME not defined<br>';
 
 	// Dolibarr instance login
-	$url='https://'.$object->instance_full.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+	$url='https://'.$object->hostname_web.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
 	$link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
 	$links.='Dolibarr link (last logged admin): ';
 	//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';

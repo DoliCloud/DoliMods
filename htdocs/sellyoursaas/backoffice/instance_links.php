@@ -170,7 +170,6 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	if ($instanceoldid)
 	{
 		$prefix='on';
-		$object->instance_full = $object->instance.'.'.$prefix.'.dolicloud.com';
 
 		$hostname_db  = $object->hostname_db;
 		$username_db  = $object->username_db;
@@ -192,10 +191,11 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$port_db      = $object->array_options['options_port_db'];
 		$username_web = $object->array_options['options_username_os'];
 		$password_web = $object->array_options['options_password_os'];
+		$password_web = $object->array_options['options_hostname_web'];
 
 		$tmp = explode('.', $object->ref_customer, 2);
 		$object->instance = $tmp[0];
-		$object->instance_full = $object->instance.'.'.$prefix.'.dolicloud.com';
+		$object->hostname_web  = $object->instance.'.'.$prefix.'.dolicloud.com';
 
 		$object->hostname_db  = $hostname_db;
 		$object->username_db  = $username_db;
@@ -204,7 +204,6 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$object->port_db      = $port_db;
 		$object->username_web = $username_web;
 		$object->password_web = $password_web;
-
 	}
 
 	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db?$port_db:3306);
