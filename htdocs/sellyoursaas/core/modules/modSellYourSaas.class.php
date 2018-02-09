@@ -563,7 +563,7 @@ class modSellYourSaas extends DolibarrModules
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'website',
 		//'url'=>'/public/website/index.php?website=sellyoursaas&pageref=register&plan=abc',
-		'url'=>'http://localhostmyaccount/register.php?plan=DOLICLOUD-PACK-Dolibarr&partner=',
+		'url'=>'__[SELLYOURSAAS_ACCOUNT_URL]__/register.php?plan=DOLICLOUD-PACK-Dolibarr&partner=',
 		'langs'=>'sellyoursaas@sellyoursaas',
 		'position'=>500,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -578,7 +578,7 @@ class modSellYourSaas extends DolibarrModules
 		'titre'=>'Customer portal',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'website',
-		'url'=>'http://localhostmyaccount',
+		'url'=>'__[SELLYOURSAAS_ACCOUNT_URL]__',
 		'langs'=>'sellyoursaas@sellyoursaas',
 		'position'=>501,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
