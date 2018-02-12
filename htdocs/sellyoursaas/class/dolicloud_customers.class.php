@@ -506,7 +506,7 @@ class Dolicloud_customers extends CommonObject
 				$this->package = $obj->package;
 				$this->plan = $obj->plan;
 
-				if (empty($this->price_user))
+				if (empty($obj->price_user))
 				{
 					$this->price_instance = 0;
 					$this->price_user = $obj->price_instance;

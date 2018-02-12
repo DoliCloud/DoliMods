@@ -34,6 +34,7 @@ if (! $res) die("Include of main fails");
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
 dol_include_once('/sellyoursaas/class/packages.class.php');
 
@@ -41,13 +42,13 @@ $conf->global->SYSLOG_FILE_ONEPERSESSION=1;
 
 $welcomecid = GETPOST('welcomecid','alpha');
 $mode = GETPOST('mode', 'alpha');
+$action = GETPOST('action', 'alpha');
 if (empty($mode) && empty($welcomecid)) $mode='dashboard';
 
 $langs=new Translate('', $conf);
 $langs->setDefaultLang('auto');
 
-$langs->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas"));
-
+$langs->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas","other"));
 
 
 
@@ -62,6 +63,10 @@ if ($mode == 'logout')
 	exit;
 }
 
+if ($action == 'updateurl')
+{
+	setEventMessages($langs->trans("FeatureNotYetAvailable"), null, 'warnings');
+}
 
 /*
  * View
@@ -94,7 +99,7 @@ if ($resql)
 		if ($obj)
 		{
 			$contract=new Contrat($db);
-			$contract->fetch($obj->rowid);
+			$contract->fetch($obj->rowid);					// This load also lines
 			$listofcontractid[$obj->rowid]=$contract;
 		}
 		$i++;
@@ -552,6 +557,15 @@ if ($mode == 'instances')
 		$package = new Packages($db);
 		$package->fetch(0, $planref);
 
+		$color = "green";
+		if ($statuslabel == 'processing')
+		{
+			$color = 'orange';
+		}
+
+		$dbprefix = $contract->array_options['options_db_prefix'];
+		if (empty($dbprefix)) $dbprefix = 'llx_';
+
 		print '
 		    <div class="row">
 		      <div class="col-md-12">
@@ -564,27 +578,26 @@ if ($mode == 'instances')
 			          <span class="caption-helper"> - '.$package->label.'</span>
 			          <p style="margin-top:3px;font-size:0.8em;">
 			            <span class="caption-helper">'.$langs->trans("ID").' : '.$contract->ref.'</span><br>
-			            <span class="caption-helper">'.$langs->trans("Status").' : <span class="bold uppercase" style="color:green">'.$statuslabel.'</span></span><br>
-			            <span>';
-		if ($contract->array_options['options_deployment_status'] == 'processing')
-		{
-			print $langs->trans("DateStart").' : <span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_start'], 'dayhour').'</span>';
-			if ((dol_now() - $contract->array_options['options_deployment_date_start']) > 120)	// More then 2 minutes ago
-			{
-				print ' - <a href="register_processing.php?reusecontractid='.$contract->id.'">'.$langs->trans("Restart").'</a>';
-			}
-		}
-		if ($contract->array_options['options_deployment_status'] == 'deployed')
-		{
-			print $langs->trans("Date").' : <span class="bold">'.dol_print_date($contract->array_options['options_deployment_end_start'], 'dayhour').'</span>';
-		}
-
-		print          '</span>
+			            <span class="caption-helper">'.$langs->trans("Status").' : <span class="bold uppercase" style="color:'.$color.'">'.$statuslabel.'</span></span><br>
+			            <span class="caption-helper">';
+							if ($contract->array_options['options_deployment_status'] == 'processing')
+							{
+								print $langs->trans("DateStart").' : <span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_start'], 'dayhour').'</span>';
+								if ((dol_now() - $contract->array_options['options_deployment_date_start']) > 120)	// More then 2 minutes ago
+								{
+									print ' - <a href="register_processing.php?reusecontractid='.$contract->id.'">'.$langs->trans("Restart").'</a>';
+								}
+							}
+							if ($contract->array_options['options_deployment_status'] == 'deployed')
+							{
+								print $langs->trans("Date").' : <span class="bold">'.dol_print_date($contract->array_options['options_deployment_end_start'], 'dayhour').'</span>';
+							}
+						print '
+						</span><br>';
+						print '<span class="caption-helper">';
+						print $langs->trans("YourURLToGoOnYourAppInstance").' : <a class="linktoinstance" href="https://'.$contract->ref_customer.'" target="blankinstance">'.$contract->ref_customer.'</a>';
+						print '</span>
 			          </p>
-			        </div>
-
-			        <div class="tools">
-			          <a href="javascript:;" class="collapse" data-original-title="" title=""></a>
 			        </div>
 
 			      </div>
@@ -594,34 +607,75 @@ if ($mode == 'instances')
 
 			        <div class="tabbable-custom nav-justified">
 			          <ul class="nav nav-tabs nav-justified">
-			            <li><a href="#tab_domain_'.$contract->id.'" data-toggle="tab" class="active">Domain</a></li>
-			            <li><a href="#tab_resource_'.$contract->id.'" data-toggle="tab">App Resources</a></li>
+			            <li><a href="#tab_resource_'.$contract->id.'" data-toggle="tab"'.(! in_array($action, array('updateurlxxx')) ? ' class="active"' : '').'>'.$langs->trans("ResourcesAndOptions").'</a></li>
+			            <li><a href="#tab_domain_'.$contract->id.'" data-toggle="tab"'.($action == 'updateurlxxx' ? ' class="active"' : '').'>'.$langs->trans("Domain").'</a></li>
 			            <li><a href="#tab_ssh_'.$contract->id.'" data-toggle="tab">'.$langs->trans("SSH").' / '.$langs->trans("SFTP").'</a></li>
 			            <li><a href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>
 			            <li><a href="#tab_danger_'.$contract->id.'" data-toggle="tab">'.$langs->trans("DangerZone").'</a></li>
 			          </ul>
 
 			          <div class="tab-content">
-			            <div class="tab-pane active" id="tab_domain_'.$contract->id.'">
-			              <div class="form-group">
-			                  '.$langs->trans("URL").' <input type="text" class="" value="'.$contract->ref_customer.'">
+
+			            <div class="tab-pane active" id="tab_resource_'.$contract->id.'">
+							<p class="opacitymedium" style="padding: 15px">'.$langs->trans("YourResourceAndOptionsDesc").' :</p>
+				            <div style="padding-left: 15px; padding-bottom: 15px; padding-right: 15px">';
+							foreach($contract->lines as $keyline => $line)
+							{
+								//var_dump($line);
+								print '<div class="resource inline-block boxresource">';
+			                  	print '<div class="">';
+
+			                  	$resourceformula='';
+			                  	$tmpproduct = new Product($db);
+			                  	if ($line->fk_product > 0)
+			                  	{
+				                  	$tmpproduct->fetch($line->fk_product);
+
+				                  	print $tmpproduct->show_photos($conf->product->dir_output, 1, 1, 1, 0, 0, 40);
+
+				                  	//var_dump($tmpproduct->array_options);
+				                  	print $langs->trans("Type").': ';
+				                  	print $tmpproduct->array_options['options_app_or_option']?$tmpproduct->array_options['options_app_or_option']:'Unknown';
+									print '<br>';
+
+				                  	$resourceformula = $tmpproduct->array_options['options_resource_formula'];
+				                  	if (preg_match('/SQL:/', $resourceformula))
+				                  	{
+				                  		$resourceformula = preg_match('/__d__/', $dbprefix, $resourceformula);
+				                  	}
+				                  	if (preg_match('/DISK:/', $resourceformula))
+				                  	{
+				                  		$resourceformula = $resourceformula;
+				                  	}
+				                  	print $tmpproduct->ref.' '.$resourceformula;
+			                  	}
+			                  	else	// If there is no product, this is users
+			                  	{
+			                  		print ($line->label ? $line->label : $line->libelle);
+			                  	}
+
+			                  	print '</div>';
+								print '</div>';
+							}
+			            	print '
+							  </div>
 			              </div>
-			                <!--<a class="btn default change-domain-link" data-app-id="40211" data-app-ip="176.9.35.249" href="javascript:;">Change domain</a>-->
+
+			            <div class="tab-pane" id="tab_domain_'.$contract->id.'">
+			                <p class="opacitymedium" style="padding: 15px">'.$langs->trans("TheURLDomainOfYourInstance").' :</p>
+							<form class="form-group" action="'.$_SERVER["PHP_SELF"].'" method="POST">
+							<div class="col-md-9">
+								<input type="text" class="urlofinstance" value="'.$contract->ref_customer.'">
+								<input type="hidden" name="mode" value="instances"/>
+								<input type="hidden" name="action" value="updateurl" />
+								<input type="hidden" name="contractid" value="'.$contract->id.'" />
+				                <input type="submit" class="btn btn-warning default change-domain-link" value="'.$langs->trans("ChangeDomain").'">
+							</div>
+						  	</form>
 			            </div>
-			            <div class="tab-pane" id="tab_resource_'.$contract->id.'">
-			              <!-- STAT -->
-			              <div class="">
-			                  <div class="uppercase profile-stat-text">'.$langs->trans("Users").'</div>
-			                  <div class="uppercase profile-stat-title">
-			                     1.00
-			                  </div>
-			              </div>
-			              <!-- END STAT -->
-			            </div> <!-- END TABBED PANE -->
 
-
-			              <div class="tab-pane" id="tab_ssh_'.$contract->id.'">
-			                <p>Secure FTP (SFTP) est un protocol simple et sécurisé pour accéder aux fichiers de votre instance (Par exemple par WinSCP ou FileZilla, des clients SFtp populaires pour Windows). Afin d accèder aux fichiers, vous aurez besoin des identifiants suivant:</p>
+			            <div class="tab-pane" id="tab_ssh_'.$contract->id.'">
+			                <p class="opacitymedium" style="padding: 15px">'.$langs->trans("SSHFTPDesc").' :</p>
 			                <form class="form-horizontal" role="form">
 			                <div class="form-body">
 			                  <div class="form-group">
@@ -653,7 +707,7 @@ if ($mode == 'instances')
 			              </div> <!-- END TAB PANE -->
 
 			              <div class="tab-pane" id="tab_db_'.$contract->id.'">
-			                <p>Vous pouvez accéder à la base de donnée avec tout logiciel d administration pour Mysql et les identifiants suivants:</p>
+			                <p class="opacitymedium" style="padding: 15px">'.$langs->trans("DBDesc").' :</p>
 			                <form class="form-horizontal" role="form">
 			                <div class="form-body">
 			                  <div class="form-group">
@@ -692,11 +746,11 @@ if ($mode == 'instances')
 
 			            <div class="tab-pane" id="tab_danger_'.$contract->id.'">
 			              <div class="">
-			                <div>
+			                <p class="opacitymedium" style="padding: 15px">
 			                    '.$langs->trans("PleaseBeSure").'
 								<br><br>
-			                  <a href="/customerUI/deleteAppInstance?appId=40211" class="btn btn-danger">'.$langs->trans("UndeployInstance").'</a>
-			                </div>
+			                </p>
+			                <p class="center"><a href="'.$_SERVER["PHP_SELF"].'" class="btn btn-danger">'.$langs->trans("UndeployInstance").'</a></p>
 			              </div>
 			            </div> <!-- END TAB PANE -->
 

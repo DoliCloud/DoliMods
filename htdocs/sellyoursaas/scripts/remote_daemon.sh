@@ -29,7 +29,7 @@ fi
 
 if [ "x$1" == "xstart" ]; then
 	echo "socat TCP4-LISTEN:8080,fork EXEC:$scriptdir/remote_server.sh"
-	socat TCP4-LISTEN:8080,fork EXEC:$scriptdir/remote_server.sh &
+	socat TCP4-LISTEN:8080,fork EXEC:$scriptdir/remote_server.sh & > /var/log/remote_server.log
 fi
 
 if [ "x$1" == "xstop" ]; then

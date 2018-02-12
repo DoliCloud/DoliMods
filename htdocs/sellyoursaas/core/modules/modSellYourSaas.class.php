@@ -625,10 +625,11 @@ class modSellYourSaas extends DolibarrModules
 		$extrafields = new ExtraFields($this->db);
 
 		// Product
-		$resultx=$extrafields->addExtraField('price_per_user', 	          "PricePerUser",   'price',  1, '24,8',  'product', 0, 0,  '0',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
-		$param=array('options'=>array('app'=>'Application','option'=>'Option'));
-		$resultx=$extrafields->addExtraField('app_or_option',              "AppOrOption",  'select',  1,     '',  'product', 0, 0,   '', $param, 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
-		$resultx=$extrafields->addExtraField('freeperioddays', 	  "Days for free period",     'int',  1,    '6',  'product', 0, 0,   '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$param=array('options'=>array('app'=>'Application','system'=>'System','option'=>'Option'));
+		$resultx=$extrafields->addExtraField('app_or_option',                   "AppOrOption", 'select',  10,     '',  'product', 0, 0,   '', $param, 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		//$resultx=$extrafields->addExtraField('price_per_user', 	           "PricePerResource",  'price',  11, '24,8',  'product', 0, 0,  '0',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$resultx=$extrafields->addExtraField('resource_formula', "QuantityCalculationFormula",   'text',  12, '8192',  'product', 0, 0,   '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$resultx=$extrafields->addExtraField('freeperioddays', 	       "Days for free period",    'int',  13,    '6',  'product', 0, 0,   '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 
 		// Thirdparty
 		$param=array('options'=>array('no'=>'No','yesv1'=>'V1','yesv2'=>'V2'));
@@ -664,8 +665,8 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('fileauthorizekey',  "DateFileauthorizekey", 'datetime',  28,    '',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('filelock',                  "DateFilelock", 'datetime',  29,    '',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 
-		$resultx=$extrafields->addExtraField('nb_users',            "LastNbEnabledUsers",      'int',  40,   '8',    'contrat', 0, 0, '',      '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
-		$resultx=$extrafields->addExtraField('nb_gb',                       "LastNbOfGb",   'double',  41,'10,2',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		//$resultx=$extrafields->addExtraField('nb_users',            "LastNbEnabledUsers",      'int',  40,   '8',    'contrat', 0, 0, '',      '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		//$resultx=$extrafields->addExtraField('nb_gb',                       "LastNbOfGb",   'double',  41,'10,2',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 
 
 		// Create/import website called 'sellyoursaas'

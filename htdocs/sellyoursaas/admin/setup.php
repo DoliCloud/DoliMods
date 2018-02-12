@@ -92,7 +92,7 @@ if ($action == 'set')
 		dolibarr_set_const($db,"DOLICLOUD_BACKUP_PATH",GETPOST("DOLICLOUD_BACKUP_PATH"),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_PRODUCT",GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT"),'chaine',0,'',$conf->entity);
-		//dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS",GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS"),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS",GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS"),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG",GETPOST("SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG"),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_RESELLER_CATEG",GETPOST("SELLYOURSAAS_DEFAULT_RESELLER_CATEG"),'chaine',0,'',$conf->entity);
@@ -302,17 +302,17 @@ print '<td>';
 $defaultproductid=$conf->global->SELLYOURSAAS_DEFAULT_PRODUCT;
 print $form->select_produits($defaultproductid, 'SELLYOURSAAS_DEFAULT_PRODUCT');
 print '</td>';
-print '<td>My SaaS Instance</td>';
+print '<td>My SaaS service for instance</td>';
 print '</tr>';
-/*
+
 print '<tr class="oddeven"><td>'.$langs->trans("DefaultProductForUsers").'</td>';
 print '<td>';
-$defaultproductid=$conf->global->SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS;
-print $form->select_produits($defaultproductid, 'SELLYOURSAAS_DEFAULT_PRODUCT_USERS');
+$defaultproductforusersid=$conf->global->SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS;
+print $form->select_produits($defaultproductforusersid, 'SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS');
 print '</td>';
-print '<td>My SaaS product for additional users</td>';
+print '<td>My SaaS service for users</td>';
 print '</tr>';
-*/
+
 print '<tr class="oddeven"><td>'.$langs->trans("DefaultCategoryForSaaSCustomers").'</td>';
 print '<td>';
 $defaultcustomercategid=$conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG;

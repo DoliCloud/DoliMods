@@ -151,6 +151,20 @@ div.tab-content {
 	padding-top: 15px;	
 }
 
+.boxresource {
+    width: 140px;
+    border: 1px solid #aaa;
+    height: 120px;
+    display: inline-block;
+    margin: 6px;
+    vertical-align: top;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+}
+.boxresource .uppercase {
+    text-transform: unset !important;
+}
 body {color: #333333;font-family: "Open Sans", sans-serif;padding:0px !important;margin: 0px !important;direction: ltr;}
 @-webkit-viewport {width: device-width;}@-moz-viewport {width: 
 device-width;}@-ms-viewport {width: device-width;}@-o-viewport {width

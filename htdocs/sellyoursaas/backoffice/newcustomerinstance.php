@@ -200,6 +200,7 @@ if (empty($reshook))
 
 		$instancetocreate = GETPOST('instancetocreate','alpha');
 		$productidtocreate = GETPOST('producttocreate','alpha');
+		$productidtocreateforusers = GETPOST('productforuserstocreate','alpha');
 		$thirdpartyidselected = GETPOST('thirdpartyidselected','int');
 
 
@@ -371,6 +372,8 @@ if (empty($reshook))
 				$contract->import_id = 'doliv1_'.$dolicloudcustomer->id;
 			}
 
+			$nbusers = 0;
+			$nbgb = 0;
 			if (! empty($contract->array_options['options_hostname_db']) && ! empty($contract->array_options['options_database_db']))
 			{
 				// Scan remote instance to get fresh data
@@ -383,8 +386,10 @@ if (empty($reshook))
 				}
 				else
 				{
-					$contract->array_options['options_nb_users'] = $result['nb_users'];
-					$contract->array_options['options_nb_gb'] = $result['nb_gb'];
+					//$contract->array_options['options_nb_users'] = $result['nb_users'];
+					//$contract->array_options['options_nb_gb'] = $result['nb_gb'];
+					$nbusers = $result['nb_users'];
+					$nbgb = $result['nb_gb'];
 				}
 			}
 
@@ -458,6 +463,15 @@ if (empty($reshook))
 				$save_date_end = $date_end;
 				//var_dump("$nb_user, $product->tva_tx, $product->localtax1_tx, $product->localtax2_tx, $productidtocreate, 0, ".dol_print_date($date_start, 'dayhourlog')." - ".dol_print_date($date_end, 'dayhourlog'));exit;
 
+				$productforusers=new Product($db);
+				$productforusers->fetch($productidtocreateforusers);
+				if (empty($productforusers->id))
+				{
+					$error++;
+					setEventMessages($productforusers->error, $productforusers->errors, 'errors');
+				}
+
+
 				//$discount = GETPOST('discount');
 				$discount = 0;	// Discount for contracts is zero.
 
@@ -471,8 +485,8 @@ if (empty($reshook))
 					$qty = 1;
 					//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
 					$vat = get_default_tva($mysoc, $object, $product->id);
-					$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
-					$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
+					$localtax1_tx = get_default_localtax($mysoc, $object, 1, $product->id);
+					$localtax2_tx = get_default_localtax($mysoc, $object, 2, $product->id);
 					//var_dump($mysoc->country_code);
 					//var_dump($object->country_code);
 					//var_dump($product->tva_tx);
@@ -503,12 +517,13 @@ if (empty($reshook))
 				if (! $error)
 				{
 					$qty = 0;
-					if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+					//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+					if ($nbusers > 0) $qty = $nbusers;
 					$vat = get_default_tva($mysoc, $object, 0);
-					$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
-					$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
+					$localtax1_tx = get_default_localtax($mysoc, $object, 1, $productforusers->id);
+					$localtax2_tx = get_default_localtax($mysoc, $object, 2, $productforusers->id);
 
-					$price = $product->array_options['options_price_per_user'];
+					$price = $productforusers->price;
 					if ($dolicloudcustomer->id > 0)
 					{
 						$price = $dolicloudcustomer->price_user;
@@ -517,7 +532,7 @@ if (empty($reshook))
 
 					if ($price > 0 && $qty > 0)
 					{
-						$contactlineid = $contract->addline('Additional users', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, 0, $discount, $date_start, $date_end, 'HT', 0);
+						$contactlineid = $contract->addline('Additional users', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreateforusers, $discount, $date_start, $date_end, 'HT', 0);
 						if ($contactlineid < 0)
 						{
 							$error++;
@@ -1065,6 +1080,13 @@ if (GETPOST('email') || GETPOST('instance') || GETPOST('thirdparty_id') > 0 || $
 			print $langs->trans('ProductForInstance').'</td><td>';
 			$defaultproductid=$conf->global->SELLYOURSAAS_DEFAULT_PRODUCT;
 			print $form->select_produits($defaultproductid, 'producttocreate');
+			print '</td>';
+			print '</tr>';
+
+			print '<tr><td class="fieldrequired">';
+			print $langs->trans('ProductForUsers').'</td><td>';
+			$defaultproductforusersid=$conf->global->SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS;
+			print $form->select_produits($defaultproductforusersid, 'productforuserstocreate');
 			print '</td>';
 			print '</tr>';
 

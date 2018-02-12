@@ -380,8 +380,8 @@ else
 		$contract->array_options['options_port_db'] = 3306;
 		$contract->array_options['options_username_db'] = $generateddbusername;
 		$contract->array_options['options_password_db'] = $generateddbpassword;
-		$contract->array_options['options_nb_users'] = 1;
-		$contract->array_options['options_nb_gb'] = 0.01;
+		//$contract->array_options['options_nb_users'] = 1;
+		//$contract->array_options['options_nb_gb'] = 0.01;
 		$contract->array_options['options_deployment_ip'] = $_SERVER["REMOTE_ADDR"];
 
 		$result = $contract->create($user);
@@ -463,7 +463,7 @@ else
 	if (! $error)
 	{
 		$qty = 1;
-		if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+		//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
 		$vat = get_default_tva($mysoc, $object, 0);
 		$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
 		$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
