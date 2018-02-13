@@ -149,6 +149,7 @@ SeeOrEditProfile=See or edit profile
 SeeDetailsOfPayments=See details of my payments
 SeeDetailsOfTickets=See details of my tickets
 ProfileIsComplete=Your profile is complete
+ProfileIsNotComplete=Your profile is not complete, %s data missing. <a href="%s">click here to correct</a>
 RepeatPassword=Repeat password
 ChangePassword=Change password
 YourPersonalInformation=My personal information
@@ -173,3 +174,8 @@ YourResourceAndOptionsDesc=List of resources and options of this instance
 TheURLDomainOfYourInstance=The URL/domain name of your instance
 SSHFTPDesc=Secure FTP (SFTP) est un protocol simple et sécurisé pour accéder aux fichiers de votre instance (Par exemple par WinSCP ou FileZilla, des clients SFtp populaires pour Windows). Afin d accèder aux fichiers, vous aurez besoin des identifiants suivant:
 DBDesc=You can access the database of your application with any software compatible with Mysql/MariaDB with the following credentials
+Server=Server
+NameOfYourOrganization=Name of your organization
+HouseNumberAndStreet=House number and street and more
+StateOrCounty=State or country
+PasswordModified=Password modified

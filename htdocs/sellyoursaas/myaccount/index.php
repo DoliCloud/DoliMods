@@ -46,9 +46,20 @@ $action = GETPOST('action', 'alpha');
 if (empty($mode) && empty($welcomecid)) $mode='dashboard';
 
 $langs=new Translate('', $conf);
-$langs->setDefaultLang('auto');
+$langs->setDefaultLang(GETPOST('lang','aZ09')?GETPOST('lang','aZ09'):'auto');
 
-$langs->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas","other"));
+$langs->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas","other","errors"));
+
+$mythirdpartyaccount = new Societe($db);
+
+// Id of connected thirdparty
+$socid = $_SESSION['dol_loginsellyoursaas'];
+$result = $mythirdpartyaccount->fetch($socid);
+if ($result <= 0)
+{
+	dol_print_error("Failed to load thirdparty for socid=".$socid);
+	exit;
+}
 
 
 
@@ -68,14 +79,150 @@ if ($action == 'updateurl')
 	setEventMessages($langs->trans("FeatureNotYetAvailable"), null, 'warnings');
 }
 
+if ($action == 'updatemythirdpartyaccount')
+{
+	$orgname = GETPOST('orgName','nohtml');
+	$address = GETPOST('address','nohtml');
+	$town = GETPOST('town','nohtml');
+	$zip = GETPOST('zip','nohtml');
+	$stateorcounty = GETPOST('stateorcounty','nohtml');
+	$country_code = GETPOST('country_id','aZ09');
+	$vatassuj = (GETPOST('vatassuj','alpha') == 'on' ? 1 : 0);
+	$vatnumber = GETPOST('vatnumber','alpha');
+
+	if (empty($orgname))
+	{
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameOfCompany")), null, 'errors');
+		header("Location: ".$_SERVER['PHP_SELF']."?mode=myaccount#updatemythirdpartyaccount");
+		exit;
+	}
+	if (empty($country_code))
+	{
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Country")), null, 'errors');
+		header("Location: ".$_SERVER['PHP_SELF']."?mode=myaccount#updatemythirdpartyaccount");
+		exit;
+	}
+
+	$country_id = dol_getIdFromCode($db, $country_code, 'c_country', 'code', 'rowid');
+
+	$db->begin();	// Start transaction
+
+	$mythirdpartyaccount->email = $email;
+	$mythirdpartyaccount->address = $address;
+	$mythirdpartyaccount->town = $town;
+	$mythirdpartyaccount->zip = $zip;
+	if ($country_id > 0) $mythirdpartyaccount->country_id = $country_id;
+	$mythirdpartyaccount->tva_assuj = $vatassuj;
+	$mythirdpartyaccount->tva_intra = $vatnumber;
+
+	$result = $mythirdpartyaccount->update($mythirdpartyaccount->id, $user);
+
+	if ($result > 0)
+	{
+		$mythirdpartyaccount->country_code = $country_code;
+
+		setEventMessages($langs->trans("RecordSaved"), null, 'mesgs');
+		$db->commit();
+	}
+	else
+	{
+		$langs->load("errors");
+		setEventMessages($langs->trans('ErrorFailedToSaveRecord'), null, 'errors');
+		setEventMessages($mythirdpartyaccount->error, $mythirdpartyaccount->errors, 'errors');
+		$db->rollback();
+	}
+}
+
+if ($action == 'updatemythirdpartylogin')
+{
+	$email = GETPOST('email','nohtml');
+	$firstname = GETPOST('firstName','nohtml');
+	$lastname = GETPOST('lastName','nohtml');
+
+	if (empty($email))
+	{
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Email")), null, 'errors');
+		header("Location: ".$_SERVER['PHP_SELF']."?mode=myaccount#updatemythirdpartylogin");
+		exit;
+	}
+	if (! isValidEmail($email))
+	{
+		setEventMessages($langs->trans("ErrorBadValueForEmail"), null, 'errors');
+		header("Location: ".$_SERVER['PHP_SELF']."?mode=myaccount#updatemythirdpartylogin");
+		exit;
+	}
+
+	$db->begin();	// Start transaction
+
+	$mythirdpartyaccount->email = $email;
+	$mythirdpartyaccount->array_options['options_firstname'] = $firstname;
+	$mythirdpartyaccount->array_options['options_lastname'] = $lastname;
+
+	$result = $mythirdpartyaccount->update($mythirdpartyaccount->id, $user);
+
+	if ($result > 0)
+	{
+		setEventMessages($langs->trans("RecordSaved"), null, 'mesgs');
+		$db->commit();
+	}
+	else
+	{
+		$langs->load("errors");
+		setEventMessages($langs->trans('ErrorFailedToSaveRecord'), null, 'errors');
+		setEventMessages($mythirdpartyaccount->error, $mythirdpartyaccount->errors, 'errors');
+		$db->rollback();
+	}
+}
+
+if ($action == 'updatepassword')
+{
+	$password = GETPOST('password','nohtml');
+	$password2 = GETPOST('password2','nohtml');
+
+	if (empty($password) || empty($password2))
+	{
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Password")), null, 'errors');
+		header("Location: ".$_SERVER['PHP_SELF']."?mode=myaccount#updatepassword");
+		exit;
+	}
+	if ($password != $password2)
+	{
+		setEventMessages($langs->trans("ErrorPasswordMismatch"), null, 'errors');
+		header("Location: ".$_SERVER['PHP_SELF']."?mode=myaccount#updatepassword");
+		exit;
+	}
+
+	$db->begin();	// Start transaction
+
+	$password_encoding = 'sha1md5';
+	$password_crypted = dol_hash($password, 2);
+
+	$mythirdpartyaccount->array_options['options_password'] = $password_crypted;
+
+	$result = $mythirdpartyaccount->update($mythirdpartyaccount->id, $user);
+
+	if ($result > 0)
+	{
+		setEventMessages($langs->trans("PasswordModified"), null, 'mesgs');
+		$db->commit();
+	}
+	else
+	{
+		$langs->load("errors");
+		setEventMessages($langs->trans('ErrorFailedToChangePassword'), null, 'errors');
+		setEventMessages($mythirdpartyaccount->error, $mythirdpartyaccount->errors, 'errors');
+		$db->rollback();
+	}
+}
+
+
+
+
 /*
  * View
  */
 
 $form = new Form($db);
-
-
-$socid = $_SESSION['dol_loginsellyoursaas'];
 
 $listofcontractid = array();
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
@@ -157,10 +304,10 @@ print '
 
 	  <form class="navbar-toggle navbar-toggler-right form-inline my-2 my-md-0" action="'.$_SERVER["PHP_SELF"].'">
 			<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
-<!--
-	          <input class="form-control mr-sm-2" style="max-width: 100px;" type="text" placeholder="'.$langs->trans("Search").'">
-	          <button class="btn-transparent nav-link" type="submit"><i class="fa fa-search"></i></button>
--->
+			<!--
+				          <input class="form-control mr-sm-2" style="max-width: 100px;" type="text" placeholder="'.$langs->trans("Search").'">
+				          <button class="btn-transparent nav-link" type="submit"><i class="fa fa-search"></i></button>
+			-->
 	      <button class="inline-block navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="navbar-toggler-icon"></span>
 	      </button>
@@ -424,7 +571,25 @@ if ($mode == 'dashboard')
 	          <div class="portlet-body">
 				<div class="row">
 				<div class="col-md-12">
-	                '.$langs->trans("ProfileIsComplete").'
+	                ';
+					if (empty($welcomecid))		// If we just created an instance, we don't show warnings yet.
+					{
+		                $missing = 0;
+		                if (empty($mythirdpartyaccount->array_options['options_firstname'])) $missing++;
+		                if (empty($mythirdpartyaccount->array_options['options_lastname'])) $missing++;
+		                if (empty($mythirdpartyaccount->tva_intra)) $missing++;
+
+		                if (! $missing)
+		                {
+							print $langs->trans("ProfileIsComplete");
+		                }
+		                else
+		                {
+		                	print $langs->trans("ProfileIsNotComplete", $missing, $_SERVER["PHP_SELF"].'?mode=myaccount');
+		                	print ' '.img_warning();
+		                }
+					}
+	                print '
 	            </div>
 				</div>
 
@@ -576,8 +741,8 @@ if ($mode == 'instances')
 			        <div class="caption">
 			          <span class="caption-subject font-green-sharp bold uppercase">'.$instancename.'</span>
 			          <span class="caption-helper"> - '.$package->label.'</span>
-			          <p style="margin-top:3px;font-size:0.8em;">
-			            <span class="caption-helper">'.$langs->trans("ID").' : '.$contract->ref.'</span><br>
+			          <p style="margin-top:3px;">
+			            <!-- <span class="caption-helper">'.$langs->trans("ID").' : '.$contract->ref.'</span><br> -->
 			            <span class="caption-helper">'.$langs->trans("Status").' : <span class="bold uppercase" style="color:'.$color.'">'.$statuslabel.'</span></span><br>
 			            <span class="caption-helper">';
 							if ($contract->array_options['options_deployment_status'] == 'processing')
@@ -595,7 +760,7 @@ if ($mode == 'instances')
 						print '
 						</span><br>';
 						print '<span class="caption-helper">';
-						print $langs->trans("YourURLToGoOnYourAppInstance").' : <a class="linktoinstance" href="https://'.$contract->ref_customer.'" target="blankinstance">'.$contract->ref_customer.'</a>';
+						print $langs->trans("YourURLToGoOnYourAppInstance").' : <a class="font-green-sharp linktoinstance" href="https://'.$contract->ref_customer.'" target="blankinstance">'.$contract->ref_customer.'</a>';
 						print '</span>
 			          </p>
 			        </div>
@@ -617,8 +782,8 @@ if ($mode == 'instances')
 			          <div class="tab-content">
 
 			            <div class="tab-pane active" id="tab_resource_'.$contract->id.'">
-							<p class="opacitymedium" style="padding: 15px">'.$langs->trans("YourResourceAndOptionsDesc").' :</p>
-				            <div style="padding-left: 15px; padding-bottom: 15px; padding-right: 15px">';
+							<p class="opacitymedium" style="padding: 15px; margin-bottom: 5px;">'.$langs->trans("YourResourceAndOptionsDesc").' :</p>
+				            <div style="padding-left: 12px; padding-bottom: 12px; padding-right: 12px">';
 							foreach($contract->lines as $keyline => $line)
 							{
 								//var_dump($line);
@@ -631,13 +796,27 @@ if ($mode == 'instances')
 			                  	{
 				                  	$tmpproduct->fetch($line->fk_product);
 
-				                  	print $tmpproduct->show_photos($conf->product->dir_output, 1, 1, 1, 0, 0, 40);
+				                  	print $tmpproduct->show_photos($conf->product->dir_output, 1, 1, 1, 0, 0, 40, 40, 1, 1, 1);
 
 				                  	//var_dump($tmpproduct->array_options);
-				                  	print $langs->trans("Type").': ';
-				                  	print $tmpproduct->array_options['options_app_or_option']?$tmpproduct->array_options['options_app_or_option']:'Unknown';
-									print '<br>';
-
+				                  	//print $langs->trans("Type").': ';
+				                  	if ($tmpproduct->array_options['options_app_or_option'] == 'app')
+				                  	{
+				                  		print '<span class="opacitymedium small">'.'&nbsp;'.'</span><br>';
+				                  	}
+				                  	if ($tmpproduct->array_options['options_app_or_option'] == 'system')
+				                  	{
+				                  		print '<span class="opacitymedium small">'.'&nbsp;'.'</span><br>';
+				                  	}
+				                  	if ($tmpproduct->array_options['options_app_or_option'] == 'option')
+				                  	{
+				                  		print '<span class="opacitymedium small">'.$langs->trans("Option").'</span><br>';
+				                  	}
+									// Label
+				                  	if (preg_match('/instance/i', $tmpproduct->label)) print '<span class="opacitymedium small">'.$langs->trans("Application").'</span><br>';
+				                  	elseif (preg_match('/users/i', $tmpproduct->label)) print '<span class="opacitymedium small">'.$langs->trans("Users").'</span><br>';
+				                  	else print '<span class="opacitymedium small">'.$tmpproduct->label.'</span>';
+				                  	// Qty
 				                  	$resourceformula = $tmpproduct->array_options['options_resource_formula'];
 				                  	if (preg_match('/SQL:/', $resourceformula))
 				                  	{
@@ -647,7 +826,8 @@ if ($mode == 'instances')
 				                  	{
 				                  		$resourceformula = $resourceformula;
 				                  	}
-				                  	print $tmpproduct->ref.' '.$resourceformula;
+
+									print '<span class="font-green-sharp counternumber">'.$line->qty.'</span>';
 			                  	}
 			                  	else	// If there is no product, this is users
 			                  	{
@@ -681,25 +861,25 @@ if ($mode == 'instances')
 			                  <div class="form-group">
 			                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
 			                    <div class="col-md-9">
-			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_hostname_os'].'">
+			                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_hostname_os'].'">
 			                    </div>
 			                  </div>
 			                  <div class="form-group">
 			                    <label class="col-md-3 control-label">'.$langs->trans("Port").'</label>
 			                    <div class="col-md-9">
-			                      <input type="text" class="form-control input-medium" value="'.($contract->array_options['options_port_os']?$contract->array_options['options_port_os']:22).'">
+			                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.($contract->array_options['options_port_os']?$contract->array_options['options_port_os']:22).'">
 			                    </div>
 			                  </div>
 			                  <div class="form-group">
 			                    <label class="col-md-3 control-label">'.$langs->trans("SFTP Username").'</label>
 			                    <div class="col-md-9">
-			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_username_os'].'">
+			                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_username_os'].'">
 			                    </div>
 			                  </div>
 			                  <div class="form-group">
 			                    <label class="col-md-3 control-label">'.$langs->trans("Password").'</label>
 			                    <div class="col-md-9">
-			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_password_os'].'">
+			                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_password_os'].'">
 			                    </div>
 			                  </div>
 			                </div>
@@ -713,31 +893,31 @@ if ($mode == 'instances')
 			                  <div class="form-group">
 			                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
 			                    <div class="col-md-9">
-			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_hostname_db'].'">
+			                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_hostname_db'].'">
 			                    </div>
 			                  </div>
 			                  <div class="form-group">
 			                    <label class="col-md-3 control-label">'.$langs->trans("Port").'</label>
 			                    <div class="col-md-9">
-			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_port_db'].'">
+			                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_port_db'].'">
 			                    </div>
 			                  </div>
 			                  <div class="form-group">
 			                    <label class="col-md-3 control-label">'.$langs->trans("DatabaseName").'</label>
 			                    <div class="col-md-9">
-			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_database_db'].'">
+			                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_database_db'].'">
 			                    </div>
 			                  </div>
 			                  <div class="form-group">
 			                    <label class="col-md-3 control-label">'.$langs->trans("DatabaseLogin").'</label>
 			                    <div class="col-md-9">
-			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_username_db'].'">
+			                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_username_db'].'">
 			                    </div>
 			                  </div>
 			                  <div class="form-group">
 			                    <label class="col-md-3 control-label">'.$langs->trans("Password").'</label>
 			                    <div class="col-md-9">
-			                      <input type="text" class="form-control input-medium" value="'.$contract->array_options['options_password_db'].'">
+			                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_password_db'].'">
 			                    </div>
 			                  </div>
 			                </div>
@@ -750,7 +930,7 @@ if ($mode == 'instances')
 			                    '.$langs->trans("PleaseBeSure").'
 								<br><br>
 			                </p>
-			                <p class="center"><a href="'.$_SERVER["PHP_SELF"].'" class="btn btn-danger">'.$langs->trans("UndeployInstance").'</a></p>
+			                <p class="center"><a href="'.$_SERVER["PHP_SELF"].'?action=undeploy&contractid='.$contract->id.'" class="btn btn-danger">'.$langs->trans("UndeployInstance").'</a></p>
 			              </div>
 			            </div> <!-- END TAB PANE -->
 
@@ -810,43 +990,48 @@ if ($mode == 'myaccount')
           </div>
           <div class="portlet-body">
             <form action="'.$_SERVER["PHP_SELF"].'" method="post">
-			<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
+				<input type="hidden" name="action" value="updatemythirdpartyaccount">
+				<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
               <div class="form-body">
 
                 <div class="form-group">
                   <label>'.$langs->trans("NameOfCompany").'</label>
-                  <input type="text" class="form-control" placeholder="name of your organization" value="Bobolink" name="orgName">
+                  <input type="text" class="form-control" placeholder="'.$langs->trans("NameOfYourOrganization").'" value="'.$mythirdpartyaccount->name.'" name="orgName">
                 </div>
 
                 <div class="form-group">
-                  <label>'.$langs->trans("AddressLine").' 1</label>
-                  <input type="text" class="form-control" placeholder="'.$langs->trans("HouseNumberAndStreet").'" value="" name="address.addressLine1">
-                </div>
-                <div class="form-group">
-                  <label>'.$langs->trans("AddressLine").' 2</label>
-                  <input type="text" class="form-control" value="" name="address.addressLine2">
+                  <label>'.$langs->trans("AddressLine").'</label>
+                  <input type="text" class="form-control" placeholder="'.$langs->trans("HouseNumberAndStreet").'" value="'.$mythirdpartyaccount->address.'" name="address">
                 </div>
                 <div class="form-group">
                   <label>'.$langs->trans("Town").'</label>
-                  <input type="text" class="form-control" value="" name="address.city">
+                  <input type="text" class="form-control" value="'.$mythirdpartyaccount->town.'" name="town">
                 </div>
                 <div class="form-group">
                   <label>'.$langs->trans("Zip").'</label>
-                  <input type="text" class="form-control input-small" value="" name="address.zip">
+                  <input type="text" class="form-control input-small" value="'.$mythirdpartyaccount->zip.'" name="zip">
                 </div>
                 <div class="form-group">
                   <label>'.$langs->trans("State").'</label>
-                  <input type="text" class="form-control" placeholder="'.$langs->trans("StateOrCounty").'" value="">
+                  <input type="text" class="form-control" placeholder="'.$langs->trans("StateOrCounty").'" name="stateorcounty" value="">
                 </div>
                 <div class="form-group">
-                  <label>'.$langs->trans("Country").'</label>
-';
-print $form->select_country($countryselected, 'address_country', 'optionsValue="name"', 0, 'form-control minwidth300', 'code2');
-print '
+                  <label>'.$langs->trans("Country").'</label><br>';
+				$countryselected = $mythirdpartyaccount->country_code;
+				print $form->select_country($countryselected, 'country_id', '', 0, 'minwidth300', 'code2', 0);
+				print '
                 </div>
                 <div class="form-group">
-                  <label>'.$langs->trans("VATIntra").'</label>
-                  <input type="text" class="form-control input-small" value="" name="taxIdentificationNumber">
+                  <label>'.$langs->trans("VATIntra").'</label> ';
+				if (! empty($mythirdpartyaccount->tva_assuj) && empty($mythirdpartyaccount->tva_intra))
+					{
+						print img_warning($langs->trans("WarningMandatorySetupNotComplete"));
+					}
+					print '
+					<br>
+                  <input type="checkbox" style="vertical-align: top" class="inline-block"'.($mythirdpartyaccount->tva_assuj?' checked="checked"':'').'" name="vatassuj"> '.$langs->trans("VATIsUsed").'
+					<br>
+                  <input type="text" class="input-small quatrevingtpercent" value="'.$mythirdpartyaccount->tva_intra.'" name="vatnumber">
                 </div>
               </div>
               <!-- END FORM BODY -->
@@ -873,25 +1058,31 @@ print '
 	          </div>
 	          <div class="portlet-body">
 	            <form action="'.$_SERVER["PHP_SELF"].'" method="post">
+				<input type="hidden" name="action" value="updatemythirdpartylogin">
 				<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
 	              <div class="form-body">
+	                <div class="form-group">
+	                  <label>'.$langs->trans("Email").'</label>
+	                  <input type="text" class="form-control" value="'.$mythirdpartyaccount->email.'" name="email">
+	                </div>
 	                <div class="row">
 	                  <div class="col-md-6">
 	                    <div class="form-group">
-	                      <label>'.$langs->trans("Firstname").'</label>
-	                      <input type="text" class="form-control" value="'.$user->firstname.'" name="firstName">
+	                      <label>'.$langs->trans("Firstname").'</label> ';
+							if (empty($mythirdpartyaccount->array_options['options_firstname'])) print img_warning($langs->trans("WarningMandatorySetupNotComplete"));
+						print '
+							<br>
+	                      <input type="text" class="inline-block" value="'.$mythirdpartyaccount->array_options['options_firstname'].'" name="firstName">
 	                    </div>
 	                  </div>
 	                  <div class="col-md-6">
 	                    <div class="form-group">
-	                      <label>'.$langs->trans("Lastname").'</label>
-	                      <input type="text" class="form-control" value="'.$user->lastname.'" name="lastName">
+	                      <label>'.$langs->trans("Lastname").'</label> ';
+							if (empty($mythirdpartyaccount->array_options['options_lastname'])) print img_warning($langs->trans("WarningMandatorySetupNotComplete"));
+						print '<br>
+	                      <input type="text" class="inline-block" value="'.$mythirdpartyaccount->array_options['options_lastname'].'" name="lastName">
 	                    </div>
 	                  </div>
-	                </div>
-	                <div class="form-group">
-	                  <label>'.$langs->trans("Email").'</label>
-	                  <input type="text" class="form-control" value="'.$user->email.'" name="email">
 	                </div>
 	              </div>
 	              <div>
@@ -907,7 +1098,8 @@ print '
 	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("Password").'</div>
 	          </div>
 	          <div class="portlet-body">
-	            <form action="'.$_SERVER["PHP_SELF"].'" method="post">
+	            <form action="'.$_SERVER["PHP_SELF"].'" method="post" id="updatepassword">
+				<input type="hidden" name="action" value="updatepassword">
 				<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
 	              <div class="form-body">
 	                <div class="form-group">

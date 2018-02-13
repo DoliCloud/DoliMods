@@ -1,4 +1,18 @@
 /* CSS myaccount */
+
+input.form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  opacity: 0.5;
+}
+input.form-control::-moz-placeholder { /* Firefox 19+ */
+  opacity: 0.5;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  opacity: 0.5;
+}
+:-moz-placeholder { /* Firefox 18- */
+  opacity: 0.5;
+}
+
 li.nav-item {
 	padding-left: 5px;
 	padding-right: 5px;
@@ -132,20 +146,30 @@ li.nav-item {
 ul.nav-tabs {
     margin-left: 0;
     padding-top: 3px;
-    padding-bottom: 3px;
+    /* padding-bottom: 3px; */
+}
+ul.nav {
+	display: inline-block;	
+}
+ul.nav-tabs li {
+	display: inline-flex;
 }
 ul.nav-tabs li a {
-	padding-left: 10px;
-	padding-right: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
 	padding-top: 7px;
 	padding-bottom: 8px;
 }
 ul.nav-tabs li a.active {
-	border-top: 3px solid #000;
+	border-top: 3px solid #3b5ba1;
 	border-left: 1px solid #bbb;
 	border-right: 1px solid #bbb;
 }
 
+.counternumber {
+	padding: 5px;
+	font-size: 2em;
+}
 
 div.tab-content {
 	padding-top: 15px;	
@@ -154,7 +178,7 @@ div.tab-content {
 .boxresource {
     width: 140px;
     border: 1px solid #aaa;
-    height: 120px;
+    /* height: 120px; */
     display: inline-block;
     margin: 6px;
     vertical-align: top;
@@ -162,6 +186,22 @@ div.tab-content {
     border-radius: 5px;
     text-align: center;
 }
+@media only screen and (max-width: 360px)	/* reduction 3 */
+{
+	.boxresource {
+	    width: 120px;
+	}
+}
+
+.jnotify-container .jnotify-notification .jnotify-background {
+	opacity: 1;	
+}
+
+.quatrevingtpercent {
+    width: 80%;
+}
+.minwidth300 { min-width: 300px; }
+
 .boxresource .uppercase {
     text-transform: unset !important;
 }
@@ -185,9 +225,13 @@ font-size: 12px;}h1 small,h2 small,h3 small,h4 small,h5 small,h6
 small {color: #444444;}
 h1.block,h2.block,h3.block,h4.block,h5.block,h6.block
 {padding-top: 10px;padding-bottom: 10px;margin-bottom: 0px !important;}
-a {text-shadow: 
-none;color: #5b9bd1;}a:hover {color: #3175af;}a:focus, a:hover, a:
-active {outline: 0;}hr {margin: 20px 0;border: 0;border-top: 1px 
+
+a {text-shadow: none;color: #3b5ba1;}
+a:hover {color: #3175af;}
+a:focus, a:hover, a:active {outline: 0;}
+a.active { color: #111; }
+
+hr {margin: 20px 0;border: 0;border-top: 1px 
 solid #eee;border-bottom: 0;}.list-unstyled li > .list-unstyled {
 margin-left: 25px;}code {border: 1px solid #e1e1e1;-webkit-box-shadow
 : 0 1px 4px rgba(0, 0, 0, 0.1);-moz-box-shadow: 0 1px 4px rgba(0, 0, 

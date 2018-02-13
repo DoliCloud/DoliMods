@@ -163,6 +163,12 @@ else
 	//if (! preg_match('/service/i', $newurl)) $newurl.='&orgName='.urlencode($orgname);
 	if (! preg_match('/partner/i', $newurl)) $newurl.='&partner='.urlencode($partner);
 
+	if (empty($sldAndSubdomain))
+	{
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
+		header("Location: ".$newurl);
+		exit;
+	}
 	if (! preg_match('/^[a-zA-Z0-9\-]+$/', $sldAndSubdomain))
 	{
 		setEventMessages($langs->trans("ErrorOnlyCharAZAllowedFor", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
@@ -192,12 +198,6 @@ else
 		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Password")), null, 'errors');
 	    header("Location: ".$newurl);
 	    exit;
-	}
-	if (empty($sldAndSubdomain))
-	{
-		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
-		header("Location: ".$newurl);
-		exit;
 	}
 	if ($password != $password2)
 	{
@@ -307,6 +307,7 @@ else
 	$tmpthirdparty->name = $orgname;
 	$tmpthirdparty->email = $email;
 	$tmpthirdparty->client = 3;
+	$tmpthirdparty->tva_assuj = 1;
 	$tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
 	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
 	$tmpthirdparty->array_options['options_password'] = $password_crypted;

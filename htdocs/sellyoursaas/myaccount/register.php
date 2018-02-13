@@ -52,7 +52,7 @@ require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 $conf->global->SYSLOG_FILE_ONEPERSESSION=1;
 $langs=new Translate('', $conf);
 $langs->setDefaultLang('auto');
-$langs->loadLangs(array("sellyoursaas@sellyoursaas","errors"));
+$langs->loadLangs(array("main","companies","sellyoursaas@sellyoursaas","errors"));
 
 
 $partner=GETPOST('partner','alpha');
