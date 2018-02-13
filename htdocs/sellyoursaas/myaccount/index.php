@@ -334,7 +334,12 @@ print '
             <ul class="dropdown-menu">
 	            <li><a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=support">'.$langs->trans("Support").'</a></li>
                 <li class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="https://www.dolicloud.com/en/faq" target="_newfaq">'.$langs->trans("FAQs").'</a></li>
+				';
+				$langcode = 'en';
+				if ($langs->getDefaultLang(1) == 'es') $langcode = 'es';
+				if ($langs->getDefaultLang(1) == 'fr') $langcode = 'fr';
+				print '
+	            <li><a class="dropdown-item" href="https://www.dolicloud.com/'.$langcode.'/faq" target="_newfaq">'.$langs->trans("FAQs").'</a></li>
             </ul>
           </li>
 
