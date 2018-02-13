@@ -107,7 +107,7 @@ if ($action == 'updatemythirdpartyaccount')
 
 	$db->begin();	// Start transaction
 
-	$mythirdpartyaccount->email = $email;
+	$mythirdpartyaccount->name = $orgname;
 	$mythirdpartyaccount->address = $address;
 	$mythirdpartyaccount->town = $town;
 	$mythirdpartyaccount->zip = $zip;
