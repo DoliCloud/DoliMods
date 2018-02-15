@@ -40,6 +40,10 @@ li.nav-item {
     border-radius: 0 4px 4px 0;
 }
 
+.fa-file-text-o, .fa-file-code-o, .fa-file-powerpoint-o, .fa-file-excel-o, .fa-file-word-o, .fa-file-o, .fa-file-image-o, .fa-file-video-o, .fa-file-audio-o, .fa-file-archive-o, .fa-file-pdf-o {
+	color: #055;
+}
+
 .center {
 	text-align: center;
 }

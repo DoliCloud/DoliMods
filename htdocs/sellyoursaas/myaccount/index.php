@@ -5,6 +5,7 @@
 //if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
 //if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1');
 //if (! defined('NOCSRFCHECK'))    define('NOCSRFCHECK','1');			// Do not check anti CSRF attack test
+if (! defined('NOIPCHECK'))      define('NOIPCHECK','1');				// Do not check IP defined into conf $dolibarr_main_restrict_ip
 //if (! defined('NOSTYLECHECK'))   define('NOSTYLECHECK','1');			// Do not check style html tag into posted data
 //if (! defined('NOTOKENRENEWAL')) define('NOTOKENRENEWAL','1');		// Do not check anti POST attack test
 if (! defined('NOREQUIREMENU'))  define('NOREQUIREMENU','1');			// If there is no need to load and show top and left menu
@@ -77,6 +78,12 @@ if ($mode == 'logout')
 if ($action == 'updateurl')
 {
 	setEventMessages($langs->trans("FeatureNotYetAvailable"), null, 'warnings');
+}
+
+if ($action == 'changeplan')
+{
+	setEventMessages($langs->trans("FeatureNotYetAvailable"), null, 'warnings');
+	$action = '';
 }
 
 if ($action == 'updatemythirdpartyaccount')
@@ -476,7 +483,7 @@ if (1 == 1)	// Show warning
 					<div class="note note-warning">
 					<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrial", abs($delayindays), $contract->ref_customer).' !</h4>
 					<p>
-					<a href="/customerUI/updatePaymentMethod" class="btn btn-warning">'.$langs->trans("AddAPaymentMode").'</a>
+					<a href="register_paymentmode.php" class="btn btn-warning">'.$langs->trans("AddAPaymentMode").'</a>
 					</p>
 					</div>
 				';
@@ -490,7 +497,7 @@ if (1 == 1)	// Show warning
 					<div class="note note-warning">
 					<h4 class="block">'.$langs->trans("XDaysAfterEndOfTrial", abs($delayindays), $contract->ref_customer).' !</h4>
 					<p>
-					<a href="/customerUI/updatePaymentMethod" class="btn btn-warning">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>
+					<a href="register_paymentmode.php" class="btn btn-warning">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>
 					</p>
 					</div>
 				';
@@ -724,9 +731,6 @@ if ($mode == 'instances')
 		$statuslabel = $contract->array_options['options_deployment_status'];
 		$instancename = preg_replace('/\..*$/', '', $contract->ref_customer);
 
-		$package = new Packages($db);
-		$package->fetch(0, $planref);
-
 		$color = "green";
 		if ($statuslabel == 'processing')
 		{
@@ -736,17 +740,39 @@ if ($mode == 'instances')
 		$dbprefix = $contract->array_options['options_db_prefix'];
 		if (empty($dbprefix)) $dbprefix = 'llx_';
 
+		$package = new Packages($db);
+		$package->fetch(0, $planref);
+
+		$plan = ($package->label?$package->label:$planref);
+		$planid = 0;
+		foreach($contract->lines as $keyline => $line)
+		{
+			$tmpproduct = new Product($db);
+			if ($line->fk_product > 0)
+			{
+				$tmpproduct->fetch($line->fk_product);
+				if ($tmpproduct->array_options['options_app_or_option'] == 'app')
+				{
+					$plan = $tmpproduct->label;		// Warning, label is in language of user
+					$planid = $tmpproduct->id;
+					break;
+				}
+			}
+		}
+
 		print '
-		    <div class="row">
+		    <div class="row" id="contractid'.$contract->id.'" data-contractref="'.$contract->ref.'">
 		      <div class="col-md-12">
 
 				<div class="portlet light">
 
 			      <div class="portlet-title">
-			        <div class="caption">
-			          <span class="caption-subject font-green-sharp bold uppercase">'.$instancename.'</span>
-			          <span class="caption-helper"> - '.$package->label.'</span>
-			          <p style="margin-top:3px;">
+			        <div class="caption">';
+					  print '<form class="inline-block" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+			          print '<span class="caption-subject font-green-sharp bold uppercase">'.$instancename.'</span>
+			          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->
+			          ';
+					  print '<p style="margin-top:3px;">
 			            <!-- <span class="caption-helper">'.$langs->trans("ID").' : '.$contract->ref.'</span><br> -->
 			            <span class="caption-helper">'.$langs->trans("Status").' : <span class="bold uppercase" style="color:'.$color.'">'.$statuslabel.'</span></span><br>
 			            <span class="caption-helper">';
@@ -755,7 +781,7 @@ if ($mode == 'instances')
 								print $langs->trans("DateStart").' : <span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_start'], 'dayhour').'</span>';
 								if ((dol_now() - $contract->array_options['options_deployment_date_start']) > 120)	// More then 2 minutes ago
 								{
-									print ' - <a href="register_processing.php?reusecontractid='.$contract->id.'">'.$langs->trans("Restart").'</a>';
+									print ' - <a href="register_instance.php?reusecontractid='.$contract->id.'">'.$langs->trans("Restart").'</a>';
 								}
 							}
 							if ($contract->array_options['options_deployment_status'] == 'deployed')
@@ -766,22 +792,81 @@ if ($mode == 'instances')
 						</span><br>';
 						print '<span class="caption-helper">';
 						print $langs->trans("YourURLToGoOnYourAppInstance").' : <a class="font-green-sharp linktoinstance" href="https://'.$contract->ref_customer.'" target="blankinstance">'.$contract->ref_customer.'</a>';
-						print '</span>
-			          </p>
-			        </div>
+						print '</span><br>';
+						print '<span class="caption-helper">'.$langs->trans("YourSubscriptionPlan").' : ';
+						if ($action == 'changeplan' && $planid > 0 && $id == GETPOST('id','int'))
+						{
+							print '<input type="hidden" name="mode" value="instances"/>';
+							print '<input type="hidden" name="action" value="updateplan" />';
+							print '<input type="hidden" name="contractid" value="'.$contract->id.'" />';
 
-			      </div>
+							// TODO Add rul
+							$arrayofplans=array();
+							$sqlproducts = 'SELECT p.rowid, p.ref, p.label FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
+							$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
+							$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
+							$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";		// TODO Restict on compatible plans...
+							$resqlproducts = $db->query($sqlproducts);
+							if ($resqlproducts)
+							{
+								$num = $db->num_rows($resqlproducts);
+								$i=0;
+								while($i < $num)
+								{
+									$obj = $db->fetch_object($resqlproducts);
+									if ($obj)
+									{
+										$arrayofplans[$obj->rowid]=$obj->label;
+									}
+									$i++;
+								}
+							}
+							print $form->selectarray('planid', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth300');
+							print '<input type="submit" class="btn btn-warning default change-plan-link" name="changeplan" value="'.$langs->trans("ChangePlan").'">';
+						}
+						else
+						{
+							print '<span class="bold">'.$plan.'</span>';
+							print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=instances&action=changeplan&id='.$contract->id.'#contractid'.$contract->id.'">'.$langs->trans("ChangePlan").'</a>';
+						}
+						print '</span>';
+						print '<br>';
+
+						$contract->fetchObjectLinked();
+						print '<span class="caption-helper">'.$langs->trans("Commitment").' : ';
+						$foundtemplate=0;
+						$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
+						if (is_array($contract->linkedObjects['facturerec']))
+						{
+							print '<span class="bold">';
+							foreach($contract->linkedObjects['facturerec'] as $idtemplateinvoice => $templateinvoice)
+							{
+								$foundtemplate++;
+								if ($templateinvoice->suspended) print $langs->trans("InvoicingSuspended");
+								else print $templateinvoice->frequency.' '.$freqlabel[$templateinvoice->unit_frequency];
+							}
+							print '</span>';
+						}
+						if ($foundtemplate == 0) print ' <span style="color:'.$color.'">'.$langs->trans("Trial").'</span> - <a href="register_paymentmode.php">'.$langs->trans("AddAPaymentMode").'</a>';
+						if ($foundtemplate > 1) print ' - <span class="bold">'.$langs->trans("WarningFoundMoreThanOneInvoicingTemplate").'</span>';
+						print '</span>';
+
+						print '
+			          </p>';
+					print '</form>';
+					print '</div>';
+			     print '</div>
 
 
 			      <div class="portlet-body" style="">
 
 			        <div class="tabbable-custom nav-justified">
 			          <ul class="nav nav-tabs nav-justified">
-			            <li><a href="#tab_resource_'.$contract->id.'" data-toggle="tab"'.(! in_array($action, array('updateurlxxx')) ? ' class="active"' : '').'>'.$langs->trans("ResourcesAndOptions").'</a></li>
-			            <li><a href="#tab_domain_'.$contract->id.'" data-toggle="tab"'.($action == 'updateurlxxx' ? ' class="active"' : '').'>'.$langs->trans("Domain").'</a></li>
-			            <li><a href="#tab_ssh_'.$contract->id.'" data-toggle="tab">'.$langs->trans("SSH").' / '.$langs->trans("SFTP").'</a></li>
-			            <li><a href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>
-			            <li><a href="#tab_danger_'.$contract->id.'" data-toggle="tab">'.$langs->trans("DangerZone").'</a></li>
+			            <li><a id="a_tab_resource_'.$contract->id.'" href="#tab_resource_'.$contract->id.'" data-toggle="tab"'.(! in_array($action, array('updateurlxxx')) ? ' class="active"' : '').'>'.$langs->trans("ResourcesAndOptions").'</a></li>
+			            <li><a id="a_tab_domain_'.$contract->id.'" href="#tab_domain_'.$contract->id.'" data-toggle="tab"'.($action == 'updateurlxxx' ? ' class="active"' : '').'>'.$langs->trans("Domain").'</a></li>
+			            <li><a id="a_tab_ssh_'.$contract->id.'" href="#tab_ssh_'.$contract->id.'" data-toggle="tab">'.$langs->trans("SSH").' / '.$langs->trans("SFTP").'</a></li>
+			            <li><a id="a_tab_db_'.$contract->id.'" href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>
+			            <li><a id="a_tab_danger_'.$contract->id.'" href="#tab_danger_'.$contract->id.'" data-toggle="tab">'.$langs->trans("DangerZone").'</a></li>
 			          </ul>
 
 			          <div class="tab-content">
@@ -854,7 +939,7 @@ if ($mode == 'instances')
 								<input type="hidden" name="mode" value="instances"/>
 								<input type="hidden" name="action" value="updateurl" />
 								<input type="hidden" name="contractid" value="'.$contract->id.'" />
-				                <input type="submit" class="btn btn-warning default change-domain-link" value="'.$langs->trans("ChangeDomain").'">
+								<input type="submit" class="btn btn-warning default change-domain-link" name="changedomain" value="'.$langs->trans("ChangeDomain").'">
 							</div>
 						  	</form>
 			            </div>
@@ -957,6 +1042,181 @@ if ($mode == 'instances')
 	}
 
 	print '
+	    </div>
+		</div>
+	';
+
+	if (GETPOST('tab','int'))
+	{
+		print '<script type="text/javascript" language="javascript">
+		jQuery(document).ready(function() {
+			console.log("Click on '.GETPOST('tab','int').'");
+			jQuery("#a_tab_danger_'.GETPOST('tab','int').'").click();
+		});
+		</script>';
+	}
+}
+
+
+
+
+if ($mode == 'billing')
+{
+	print '
+	<div class="page-content-wrapper">
+			<div class="page-content">
+
+
+	     <!-- BEGIN PAGE HEADER-->
+	<!-- BEGIN PAGE HEAD -->
+	<div class="page-head">
+	  <!-- BEGIN PAGE TITLE -->
+	<div class="page-title">
+	  <h1>'.$langs->trans("Billing").' <small>'.$langs->trans("BillingDesc").'</small></h1>
+	</div>
+	<!-- END PAGE TITLE -->
+
+
+	</div>
+	<!-- END PAGE HEAD -->
+	<!-- END PAGE HEADER-->
+
+
+	    <div class="row">
+	      <div class="col-md-9">
+
+	        <div class="portlet light" id="planSection">
+
+	          <div class="portlet-title">
+	            <div class="caption">
+	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("MyInvoices").'</span>
+	            </div>
+	          </div>
+
+';
+
+		foreach ($listofcontractid as $id => $contract)
+		{
+			$planref = $contract->array_options['options_plan'];
+			$statuslabel = $contract->array_options['options_deployment_status'];
+			$instancename = preg_replace('/\..*$/', '', $contract->ref_customer);
+
+			$package = new Packages($db);
+			$package->fetch(0, $planref);
+
+			$color = "green";
+			if ($statuslabel == 'processing')
+			{
+				$color = 'orange';
+			}
+
+			$dbprefix = $contract->array_options['options_db_prefix'];
+			if (empty($dbprefix)) $dbprefix = 'llx_';
+
+			print '
+	        <div class="portlet-body">
+
+	            <div class="row">
+
+	              <div class="col-md-6">
+			          <span class="caption-subject font-green-sharp bold uppercase">'.$instancename.'</span>
+			          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->
+	              </div><!-- END COL -->
+	              <div class="col-md-3">
+	                '.$langs->trans("Date").'
+	              </div>
+	              <div class="col-md-3">
+	                '.$langs->trans("Amount").'
+	              </div>
+	            </div> <!-- END ROW -->
+			';
+
+			$contract->fetchObjectLinked();
+			$foundtemplate=0;
+			$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
+			if (is_array($contract->linkedObjects['facture']) && count($contract->linkedObjects['facture']) > 0)
+			{
+				function cmp($a, $b)
+				{
+					return strcmp($a->date, $b->date);
+				}
+				usort($contract->linkedObjects['facture'], "cmp");
+
+				//var_dump($contract->linkedObjects['facture']);
+				//dol_sort_array($contract->linkedObjects['facture'], 'date');
+				foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
+				{
+						print '
+				            <div class="row" style="margin-top:20px">
+
+				              <div class="col-md-6">
+								';
+								$url = $invoice->getLastMainDocLink($invoice->element, 0, 1);
+								print '<a href="'.DOL_URL_ROOT.'/'.$url.'">'.$invoice->ref.' '.img_mime($invoice->ref.'.pdf', $langs->trans("File").': '.$invoice->ref.'.pdf').'</a>
+				              </div>
+				              <div class="col-md-3">
+								'.dol_print_date($invoice->date, 'day').'
+				              </div>
+				              <div class="col-md-3">
+								'.price(price2num($invoice->total_ttc), 1, $langs, 0, 0, 0, $conf->currency).'
+				              </div>
+
+				            </div>
+						';
+				}
+			}
+			else
+			{
+				print '
+				            <div class="row" style="margin-top:20px">
+
+				              <div class="col-md-12">
+							<span class="opacitymedium">'.$langs->trans("NoneF").'</span>
+							  </div>
+							</div>
+					';
+			}
+
+			print '
+	          </div> <!-- END PORTLET-BODY -->
+			<br><br>
+			';
+		}
+
+		print '
+
+	        </div> <!-- END PORTLET -->
+
+
+
+	      </div> <!-- END COL -->
+
+	      <div class="col-md-3">
+	        <div class="portlet light" id="paymentMethodSection">
+
+	          <div class="portlet-title">
+	            <div class="caption">
+	              <i class="icon-credit-card font-green-sharp"></i>
+	              <span class="caption-subject font-green-sharp bold uppercase">Payment Method</span>
+	            </div>
+	          </div>
+
+	          <div class="portlet-body">
+	            <p>
+
+	                No payment method on file.
+	                <br><br>
+	                <a href="/customerUI/updatePaymentMethod" class="btn default btn-xs green-stripe">Add Payment Method</a>
+
+	            </p>
+	          </div> <!-- END PORTLET-BODY -->
+
+	        </div> <!-- END PORTLET -->
+	      </div><!-- END COL -->
+
+	    </div> <!-- END ROW -->
+
+
 	    </div>
 		</div>
 	';
@@ -1132,116 +1392,6 @@ if ($mode == 'myaccount')
 	';
 }
 
-
-
-if ($mode == 'billing')
-{
-	print '
-	<div class="page-content-wrapper">
-			<div class="page-content">
-
-
-	     <!-- BEGIN PAGE HEADER-->
-	<!-- BEGIN PAGE HEAD -->
-	<div class="page-head">
-	  <!-- BEGIN PAGE TITLE -->
-	<div class="page-title">
-	  <h1>'.$langs->trans("Billing").' <small>'.$langs->trans("BillingDesc").'</small></h1>
-	</div>
-	<!-- END PAGE TITLE -->
-
-
-	</div>
-	<!-- END PAGE HEAD -->
-	<!-- END PAGE HEADER-->
-
-
-
-
-
-
-	    <div class="row">
-	      <div class="col-md-9">
-
-	        <div class="portlet light" id="planSection">
-
-	          <div class="portlet-title">
-	            <div class="caption">
-	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("MyInstances").'</span>
-	            </div>
-	          </div>
-
-	          <div class="portlet-body">
-
-
-	            <div class="row">
-
-	              <div class="col-md-9">
-	                Dolibarr ERP &amp; CRM Basic <br>
-	                Basic version - Support limited to migration <br>
-	              </div><!-- END COL -->
-	              <div class="col-md-3">
-	                9,00 € / User / Month
-	              </div>
-	            </div> <!-- END ROW -->
-
-	            <div class="row" style="margin-top:20px">
-
-	              <div class="col-md-3">
-	                <a href="/customerUI/changePlanForSubscription" class="btn default btn-xs green-stripe">
-	                  Modifier formule
-	                </a>
-	              </div><!-- END COL -->
-
-
-	              <div class="col-md-3">
-	                <a href="/customerUI/requestAccountClosure" class="btn default btn-xs red-stripe">
-	                  Fermet et détruire l instance
-	                </a>
-	              </div>
-
-	            </div>
-
-
-
-	          </div> <!-- END PORTLET-BODY -->
-
-	        </div> <!-- END PORTLET -->
-
-
-
-	      </div> <!-- END COL -->
-
-	      <div class="col-md-3">
-	        <div class="portlet light" id="paymentMethodSection">
-
-	          <div class="portlet-title">
-	            <div class="caption">
-	              <i class="icon-credit-card font-green-sharp"></i>
-	              <span class="caption-subject font-green-sharp bold uppercase">Payment Method</span>
-	            </div>
-	          </div>
-
-	          <div class="portlet-body">
-	            <p>
-
-	                No payment method on file.
-	                <br><br>
-	                <a href="/customerUI/updatePaymentMethod" class="btn default btn-xs green-stripe">Add Payment Method</a>
-
-	            </p>
-	          </div> <!-- END PORTLET-BODY -->
-
-	        </div> <!-- END PORTLET -->
-	      </div><!-- END COL -->
-
-	    </div> <!-- END ROW -->
-
-
-	    </div>
-		</div>
-	';
-}
 
 
 if ($mode == 'support')

@@ -142,7 +142,7 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
         </header>
 
 
-      <form action="register_processing.php" method="post" id="formregister">
+      <form action="register_instance" method="post" id="formregister">
         <div class="form-content">
     	  <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
           <input type="hidden" name="service" value="<?php echo dol_escape_htmltag($tmpproduct->ref); ?>" />
