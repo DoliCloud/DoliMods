@@ -1373,7 +1373,7 @@ if ($mode == 'billing')
 
 	                No payment method on file.
 	                <br><br>
-	                <a href="/customerUI/updatePaymentMethod" class="btn default btn-xs green-stripe">Add Payment Method</a>
+	                <a href="register_paymentmode.php" class="btn default btn-xs green-stripe">Add Payment Method</a>
 
 	            </p>
 	          </div> <!-- END PORTLET-BODY -->
