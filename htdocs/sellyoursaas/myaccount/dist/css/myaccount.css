@@ -3,7 +3,12 @@
 .clearboth {
 	clear: both;
 }
-
+div.nowrap {
+    white-space: nowrap;
+}
+.right {
+	text-align: right;
+}
 input.form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   opacity: 0.5;
 }
@@ -184,9 +189,9 @@ div.tab-content {
 }
 
 .boxresource {
-    width: 140px;
+    width: 170px;
     border: 1px solid #aaa;
-    /* height: 120px; */
+    height: 170px;
     display: inline-block;
     margin: 6px;
     vertical-align: top;
@@ -656,7 +661,8 @@ rgba(102, 102, 102, 0.1);border: 1px solid #eee;font-family:
 #f1f3f6;}.dropdown-menu li.dropdown-header {padding: 8px 14px 2px 
 14px;}.dropdown-menu li > a {padding: 8px 14px;color: #555;
 text-decoration: none;display: block;clear: both;font-weight: 300;
-line-height: 18px;white-space: nowrap;}.dropdown-menu li > a > [
+line-height: 18px;white-space: nowrap;}
+.dropdown-menu li > a > [
 class^="fa-"],.dropdown-menu li > a > [class*=" fa-"] {color: #888;}.
 dropdown-menu li > a > [class^="icon-"],.dropdown-menu li > a > [
 class*=" icon-"] {color: #666;}.dropdown-menu li > a > [class^=
@@ -1594,7 +1600,8 @@ important;margin-bottom: 0;background-color: #fff;}.table-scrollable
 > .table > thead > tr > th,.table-scrollable > .table > tbody > tr > 
 th,.table-scrollable > .table > tfoot > tr > th,.table-scrollable > .
 table > tfoot > tr > th,.table-scrollable > .table > tfoot > tr > td 
-{white-space: nowrap;}.table-scrollable > .table-bordered {border: 0
+{white-space: nowrap;}
+.table-scrollable > .table-bordered {border: 0
 ;}.table-scrollable > .table-bordered > thead > tr > th:first-child,.
 table-scrollable > .table-bordered > tbody > tr > th:first-child,.
 table-scrollable > .table-bordered > tfoot > tr > th:first-child,.
@@ -1626,7 +1633,8 @@ solid #ddd !important;font-size: 13px !important;padding: 5px;width:
 auto !important;}.flip-scroll table {display: block;position: 
 relative;width: 100%;}.flip-scroll thead {display: block;float: left
 ;}.flip-scroll tbody {display: block;width: auto;position: relative;
-overflow-x: auto;white-space: nowrap;}.flip-scroll thead tr {display:
+overflow-x: auto;white-space: nowrap;}
+.flip-scroll thead tr {display:
 block;}.flip-scroll th {display: block;text-align: right;}.
 flip-scroll tbody tr {display: inline-block;vertical-align: top;
 margin-left: -5px;}.flip-scroll td {display: block;min-height: 1.25em

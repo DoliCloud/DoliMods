@@ -344,7 +344,7 @@ print '
 	  </form>
 
 	  <!-- Logo -->
-      <a class="navbar-brand" href="#"><img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI).'" height="34px"></a>
+      <span class="navbar-brand"><img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI).'" height="34px"></span>
 
 	  <!-- Menu -->
       <div class="collapse navbar-collapse" id="navbars">
@@ -446,13 +446,13 @@ if ($welcomecid > 0)
 	print '
 		<div class="portlet-body">
 		<p>
-		'.$langs->trans("YouCanAccessYourInstance", $contract->array_options['options_plan']).'
+		'.$langs->trans("YouCanAccessYourInstance", $contract->array_options['options_plan']).' :
 		</p>
 		<p class="well">
-		'.$langs->trans("Url").': <a href="http://'.$contract->ref_customer.'" target="_blank">'.$contract->ref_customer.'</a>
+		'.$langs->trans("URL").' : <a href="http://'.$contract->ref_customer.'" target="_blank">'.$contract->ref_customer.'</a>
 
-		<br> '.$langs->trans("Username").': '.($_SESSION['initialappplogin']?$_SESSION['initialappplogin']:'NA').'
-		<br> '.$langs->trans("Password").': '.($_SESSION['initialappppassword']?$_SESSION['initialappppassword']:'NA').'
+		<br> '.$langs->trans("Username").' : '.($_SESSION['initialappplogin']?$_SESSION['initialappplogin']:'NA').'
+		<br> '.$langs->trans("Password").' : '.($_SESSION['initialappppassword']?$_SESSION['initialappppassword']:'NA').'
 		</p>
 		<p>
 		<a class="btn btn-primary" target="_blank" href="http://'.$contract->ref_customer.'">
@@ -484,7 +484,7 @@ if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE))	// Show warning
 }
 
 
-if (1 == 1)	// Show warning
+if (empty($welcomecid))	// Show warning
 {
 	foreach ($listofcontractid as $contractid => $contract)
 	{
@@ -494,7 +494,8 @@ if (1 == 1)	// Show warning
 			if (! is_numeric($dateendfreeperiod)) $dateendfreeperiod = dol_stringtotime($dateendfreeperiod);
 			$delaybeforeendoftrial = ($dateendfreeperiod - dol_now());
 
-			// TODO Test if a payment method exists = a recurring invoice exists.
+			// TODO Test if a payment method exists
+
 
 
 			if ($delaybeforeendoftrial > 0)
@@ -573,8 +574,8 @@ if ($mode == 'dashboard')
 
 	              <div class="col-md-9">
 					'.$langs->trans("NbOfInstances").'
-	              </div><!-- END COL -->
-	              <div class="col-md-3">
+	              </div>
+	              <div class="col-md-3 right">
 	                <h2>'.$nbofinstances.'</h2>
 	              </div>
 	            </div> <!-- END ROW -->
@@ -658,14 +659,53 @@ if ($mode == 'dashboard')
 	            <div class="caption">
 	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("PaymentBalance").'</span>
 	            </div>
-	          </div>
+	          </div>';
 
+				//var_dump($contract->linkedObjects['facture']);
+				//dol_sort_array($contract->linkedObjects['facture'], 'date');
+				$nbinvoicenotpayed = 0;
+				$amountdue = 0;
+				foreach ($listofcontractid as $id => $contract)
+				{
+					$contract->fetchObjectLinked();
+					if (is_array($contract->linkedObjects['facture']))
+					{
+						foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
+						{
+							if ($invoice->statut != $invoice::STATUS_CLOSED)
+							{
+								$nbinvoicenotpayed++;
+							}
+							$alreadypayed = $invoice->getSommePaiement();
+							$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
+							$amountdue = $invoice->total_ttc - $alreadypayed - $amount_credit_notes_included;
+						}
+					}
+				}
+				print '
 	          <div class="portlet-body">
+
 				<div class="row">
-				<div class="col-md-12">
-	                '.$langs->trans("UpToDate").'
+				<div class="col-md-9">
+	                '.$langs->trans("UnpaidInvoices").'
 				</div>
+				<div class="col-md-3 right"><h2>';
+				if ($nbinvoicenotpayed > 0) print '<font style="color: orange">';
+				print $nbinvoicenotpayed;
+				if ($nbinvoicenotpayed) print '</font>';
+				print '<h2></div>
 	            </div>
+				<div class="row">
+				<div class="col-md-9">
+	                '.$langs->trans("RemainderToPay").'
+				</div>
+				<div class="col-md-3 right"><h2>';
+				if ($amountdue > 0) print '<font style="color: orange">';
+				print price($amountdue, 1, $langs, 0, -1, -1, $conf->currency);
+				if ($amountdue > 0) print '</font>';
+				print '</h2></div>
+	            </div>
+
 				<div class="row">
 				<div class="center col-md-12">
 					<br>
@@ -688,16 +728,32 @@ if ($mode == 'dashboard')
 	            <div class="caption">
 	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("SupportTickets").'</span>
 	            </div>
-	          </div>
+	          </div>';
 
+			$nboftickets = 0;
+			$nbofopentickets = 0;
+
+			print '
 	          <div class="portlet-body">
 
 	            <div class="row">
 	              <div class="col-md-9">
 					'.$langs->trans("NbOfTickets").'
-	              </div><!-- END COL -->
-	              <div class="col-md-3">
+	              </div>
+	              <div class="col-md-3 right"><h2>
 	                '.$nboftickets.'
+	              </h2></div>
+	            </div> <!-- END ROW -->
+
+	            <div class="row">
+	              <div class="col-md-9">
+					'.$langs->trans("NbOfOpenTickets").'
+	              </div>
+	              <div class="col-md-3 right"><h2>';
+					if ($nbofopentickets > 0) print '<font style="color: orange">';
+					print $nbofopentickets;
+					if ($nbofopentickets > 0) print '</font>';
+	                print '</h2>
 	              </div>
 	            </div> <!-- END ROW -->
 
@@ -763,11 +819,14 @@ if ($mode == 'instances')
 		$dbprefix = $contract->array_options['options_db_prefix'];
 		if (empty($dbprefix)) $dbprefix = 'llx_';
 
+
+		// Get info about PLAN of Contract
 		$package = new Packages($db);
 		$package->fetch(0, $planref);
-
-		$plan = ($package->label?$package->label:$planref);
+		$planlabel = ($package->label?$package->label:$planref);
 		$planid = 0;
+		$freeperioddays = 0;
+		$directaccess = 0;
 		foreach($contract->lines as $keyline => $line)
 		{
 			$tmpproduct = new Product($db);
@@ -776,12 +835,15 @@ if ($mode == 'instances')
 				$tmpproduct->fetch($line->fk_product);
 				if ($tmpproduct->array_options['options_app_or_option'] == 'app')
 				{
-					$plan = $tmpproduct->label;		// Warning, label is in language of user
+					$planlabel = $tmpproduct->label;		// Warning, label is in language of user
 					$planid = $tmpproduct->id;
+					$freeperioddays = $tmpproduct->array_options['options_freeperioddays'];
+					$directaccess = $tmpproduct->array_options['options_directaccess'];
 					break;
 				}
 			}
 		}
+
 
 		print '
 		    <div class="row" id="contractid'.$contract->id.'" data-contractref="'.$contract->ref.'">
@@ -866,10 +928,10 @@ if ($mode == 'instances')
 			        <div class="tabbable-custom nav-justified">
 			          <ul class="nav nav-tabs nav-justified">
 			            <li><a id="a_tab_resource_'.$contract->id.'" href="#tab_resource_'.$contract->id.'" data-toggle="tab"'.(! in_array($action, array('updateurlxxx')) ? ' class="active"' : '').'>'.$langs->trans("ResourcesAndOptions").'</a></li>
-			            <li><a id="a_tab_domain_'.$contract->id.'" href="#tab_domain_'.$contract->id.'" data-toggle="tab"'.($action == 'updateurlxxx' ? ' class="active"' : '').'>'.$langs->trans("Domain").'</a></li>
-			            <li><a id="a_tab_ssh_'.$contract->id.'" href="#tab_ssh_'.$contract->id.'" data-toggle="tab">'.$langs->trans("SSH").' / '.$langs->trans("SFTP").'</a></li>
-			            <li><a id="a_tab_db_'.$contract->id.'" href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>
-			            <li><a id="a_tab_danger_'.$contract->id.'" href="#tab_danger_'.$contract->id.'" data-toggle="tab">'.$langs->trans("DangerZone").'</a></li>
+			            <li><a id="a_tab_domain_'.$contract->id.'" href="#tab_domain_'.$contract->id.'" data-toggle="tab"'.($action == 'updateurlxxx' ? ' class="active"' : '').'>'.$langs->trans("Domain").'</a></li>';
+			     		if ($directaccess) print '<li><a id="a_tab_ssh_'.$contract->id.'" href="#tab_ssh_'.$contract->id.'" data-toggle="tab">'.$langs->trans("SSH").' / '.$langs->trans("SFTP").'</a></li>';
+			     		if ($directaccess) print '<li><a id="a_tab_db_'.$contract->id.'" href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>';
+			            print '<li><a id="a_tab_danger_'.$contract->id.'" href="#tab_danger_'.$contract->id.'" data-toggle="tab">'.$langs->trans("DangerZone").'</a></li>
 			          </ul>
 
 			          <div class="tab-content">
@@ -934,19 +996,27 @@ if ($mode == 'instances')
 									print '<br>';
 									if ($line->price)
 									{
-										print '<span class="small">'.price($line->price, 1, $langs, 0, -1, -1, $conf->currency);
+										print '<span class="opacitymedium small">'.price($line->price, 1, $langs, 0, -1, -1, $conf->currency);
 										if ($line->qty > 1 && $labelprodsing) print ' / '.$labelprodsing;
+										// TODO
+										print ' / '.$langs->trans("Month");
 										print '</span>';
 									}
 									else
 									{
-										print '<span class="small">'.price($line->price, 1, $langs, 0, -1, -1, $conf->currency);
+										print '<span class="opacitymedium small">'.price($line->price, 1, $langs, 0, -1, -1, $conf->currency);
+										// TODO
+										print ' / '.$langs->trans("Month");
 										print '</span>';
 									}
 			                  	}
 			                  	else	// If there is no product, this is users
 			                  	{
+			                  		print '<span class="opacitymedium small">';
 			                  		print ($line->label ? $line->label : $line->libelle);
+			                  		// TODO
+			                  		print ' / '.$langs->trans("Month");
+			                  		print '</span>';
 			                  	}
 
 			                  	print '</div>';
@@ -988,7 +1058,7 @@ if ($mode == 'instances')
 							}
 							else
 							{
-								print '<span class="bold">'.$plan.'</span>';
+								print '<span class="bold">'.$planlabel.'</span>';
 								if ($priceinvoicedht == $contrat->total_ht)
 								{
 									print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=instances&action=changeplan&id='.$contract->id.'#contractid'.$contract->id.'">'.$langs->trans("ChangePlan").'</a>';
@@ -1000,10 +1070,16 @@ if ($mode == 'instances')
 							print '<span class="caption-helper">'.$langs->trans("Billing").' : ';
 							if ($priceinvoicedht != $contrat->total_ht)
 							{
-								print $langs->trans("FlatOrDiscountedPrice").', ';
+								print $langs->trans("FlatOrDiscountedPrice").' = ';
 							}
 							print '<span class="bold">'.$pricetoshow.'<span>';
-							if ($foundtemplate == 0) print ' <span style="color:'.$color.'">'.$langs->trans("Trial").'</span> - <a href="register_paymentmode.php">'.$langs->trans("AddAPaymentMode").'</a>';
+							if ($foundtemplate == 0)
+							{
+								print ' <span style="color:'.$color.'">';
+								if ($contract->array_options['options_date_endfreeperiod'] > 0) print $langs->trans("TrialUntil", dol_print_date($contract->array_options['options_date_endfreeperiod'], 'day'));
+								else print $langs->trans("Trial");
+								print '</span> - <a href="register_paymentmode.php">'.$langs->trans("AddAPaymentMode").'</a>';
+							}
 							if ($foundtemplate > 1) print ' - <span class="bold">'.$langs->trans("WarningFoundMoreThanOneInvoicingTemplate").'</span>';
 							print '</span>';
 
@@ -1243,10 +1319,12 @@ if ($mode == 'billing')
 				              <div class="col-md-2">
 								'.price(price2num($invoice->total_ttc), 1, $langs, 0, 0, 0, $conf->currency).'
 				              </div>
-				              <div class="col-md-2">
+				              <div class="col-md-2 nowrap">
 								';
-								$alreadypayed = -1;
-								print $invoice->getLibStatut(2, $alreadypayed);
+								$alreadypayed = $invoice->getSommePaiement();
+								$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
+
+								print $invoice->getLibStatut(2, $alreadypayed + $amount_credit_notes_included);
 								print '
 				              </div>
 
@@ -1485,9 +1563,9 @@ if ($mode == 'myaccount')
 
 if ($mode == 'support')
 {
-	print 'Soon, follow your support ticket here...';
-
-
+	print '<center>';
+	print $langs->trans("SoonAvailable").'...';
+	print '</center>';
 }
 
 
