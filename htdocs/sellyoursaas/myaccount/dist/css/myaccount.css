@@ -1,5 +1,9 @@
 /* CSS myaccount */
 
+.clearboth {
+	clear: both;
+}
+
 input.form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   opacity: 0.5;
 }
@@ -11,11 +15,6 @@ input.form-control::-moz-placeholder { /* Firefox 19+ */
 }
 :-moz-placeholder { /* Firefox 18- */
   opacity: 0.5;
-}
-
-li.nav-item {
-	padding-left: 5px;
-	padding-right: 5px;
 }
 
 .note.note-warning {
@@ -147,6 +146,11 @@ li.nav-item {
 .portlet-body {
     min-height: 100px;
 }
+
+li.nav-item {
+	padding-left: 5px;
+	padding-right: 5px;
+}
 ul.nav-tabs {
     margin-left: 0;
     padding-top: 3px;
@@ -190,11 +194,10 @@ div.tab-content {
     border-radius: 5px;
     text-align: center;
 }
-@media only screen and (max-width: 360px)	/* reduction 3 */
+@media only screen and (max-width: 400px)	/* reduction 3 */
 {
-	.boxresource {
-	    width: 120px;
-	}
+	.boxresource { width: 120px; }
+	.hideonsmartphone { display: none; }
 }
 
 .jnotify-container .jnotify-notification .jnotify-background {

@@ -332,7 +332,7 @@ print '
 
 	  <!-- Search + Menu -->
 
-	  <form class="navbar-toggle navbar-toggler-right form-inline my-2 my-md-0" action="'.$_SERVER["PHP_SELF"].'">
+	  <form class="navbar-toggle navbar-toggler-right form-inline my-md-0" action="'.$_SERVER["PHP_SELF"].'">
 			<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
 			<!--
 				          <input class="form-control mr-sm-2" style="max-width: 100px;" type="text" placeholder="'.$langs->trans("Search").'">
@@ -791,13 +791,13 @@ if ($mode == 'instances')
 
 			      <div class="portlet-title">
 			        <div class="caption">';
-					  print '<form class="inline-block" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+					  print '<form class="inline-block centpercent" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 			          print '<span class="caption-subject font-green-sharp bold uppercase">'.$instancename.'</span>
 			          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->
+			          <span class="caption-helper floatright clearboth">'.$langs->trans("Status").' : <span class="bold uppercase" style="color:'.$color.'">'.$statuslabel.'</span></span><br>
 			          ';
-					  print '<p style="margin-top:3px;">
+					  print '<p style="padding-top: 8px;" class="clearboth">
 			            <!-- <span class="caption-helper">'.$langs->trans("ID").' : '.$contract->ref.'</span><br> -->
-			            <span class="caption-helper">'.$langs->trans("Status").' : <span class="bold uppercase" style="color:'.$color.'">'.$statuslabel.'</span></span><br>
 			            <span class="caption-helper">';
 							if ($contract->array_options['options_deployment_status'] == 'processing')
 							{
@@ -813,55 +813,20 @@ if ($mode == 'instances')
 							}
 						print '
 						</span><br>';
+						// URL
 						print '<span class="caption-helper">';
-						print $langs->trans("YourURLToGoOnYourAppInstance").' : <a class="font-green-sharp linktoinstance" href="https://'.$contract->ref_customer.'" target="blankinstance">'.$contract->ref_customer.'</a>';
+						if ($conf->dol_optimize_smallscreen) print $langs->trans("URL");
+						else print $langs->trans("YourURLToGoOnYourAppInstance");
+						print ' : <a class="font-green-sharp linktoinstance" href="https://'.$contract->ref_customer.'" target="blankinstance">'.$contract->ref_customer.'</a>';
 						print '</span><br>';
-						print '<span class="caption-helper">'.$langs->trans("YourSubscriptionPlan").' : ';
-						if ($action == 'changeplan' && $planid > 0 && $id == GETPOST('id','int'))
-						{
-							print '<input type="hidden" name="mode" value="instances"/>';
-							print '<input type="hidden" name="action" value="updateplan" />';
-							print '<input type="hidden" name="contractid" value="'.$contract->id.'" />';
 
-							// TODO Add rul
-							$arrayofplans=array();
-							$sqlproducts = 'SELECT p.rowid, p.ref, p.label FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
-							$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
-							$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
-							$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";		// TODO Restict on compatible plans...
-							$resqlproducts = $db->query($sqlproducts);
-							if ($resqlproducts)
-							{
-								$num = $db->num_rows($resqlproducts);
-								$i=0;
-								while($i < $num)
-								{
-									$obj = $db->fetch_object($resqlproducts);
-									if ($obj)
-									{
-										$arrayofplans[$obj->rowid]=$obj->label;
-									}
-									$i++;
-								}
-							}
-							print $form->selectarray('planid', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth300');
-							print '<input type="submit" class="btn btn-warning default change-plan-link" name="changeplan" value="'.$langs->trans("ChangePlan").'">';
-						}
-						else
-						{
-							print '<span class="bold">'.$plan.'</span>';
-							print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=instances&action=changeplan&id='.$contract->id.'#contractid'.$contract->id.'">'.$langs->trans("ChangePlan").'</a>';
-						}
-						print '</span>';
-						print '<br>';
-
+						// Calculate price on invoicing
 						$contract->fetchObjectLinked();
-						print '<span class="caption-helper">'.$langs->trans("Commitment").' : ';
 						$foundtemplate=0;
+						$pricetoshow = ''; $priceinvoicedht = 0;
 						$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
 						if (is_array($contract->linkedObjects['facturerec']))
 						{
-							print '<span class="bold">';
 							foreach($contract->linkedObjects['facturerec'] as $idtemplateinvoice => $templateinvoice)
 							{
 								$foundtemplate++;
@@ -870,23 +835,24 @@ if ($mode == 'instances')
 								{
 									if ($templateinvoice->unit_frequency == 'm' && $templateinvoice->frequency == 1)
 									{
-										print $langs->trans("MonthlyPayment");
+										$pricetoshow = price($templateinvoice->total_ht, 1, $langs, 0, -1, -1, $conf->currency).' '.$langs->trans("HT").' / '.$langs->trans("Month");
+										$priceinvoicedht = $templateinvoice->total_ht;
 									}
 									elseif ($templateinvoice->unit_frequency == 'y' && $templateinvoice->frequency == 1)
 									{
-										print $langs->trans("YearlyPayment");
+										$pricetoshow = price($templateinvoice->total_ht, 1, $langs, 0, -1, -1, $conf->currency).' '.$langs->trans("HT").' / '.$langs->trans("Year");
+										$priceinvoicedht = $templateinvoice->total_ht;
 									}
 									else
 									{
-										print $templateinvoice->frequency.' '.$freqlabel[$templateinvoice->unit_frequency];
+										$pricetoshow  = $templateinvoice->frequency.' '.$freqlabel[$templateinvoice->unit_frequency];
+										$pricetoshow .= ', ';
+										$pricetoshow .= price($templateinvoice->total_ht, 1, $langs, 0, -1, -1, $conf->currency).' '.$langs->trans("HT");
+										$priceinvoicedht = $templateinvoice->total_ht;
 									}
 								}
 							}
-							print '</span>';
 						}
-						if ($foundtemplate == 0) print ' <span style="color:'.$color.'">'.$langs->trans("Trial").'</span> - <a href="register_paymentmode.php">'.$langs->trans("AddAPaymentMode").'</a>';
-						if ($foundtemplate > 1) print ' - <span class="bold">'.$langs->trans("WarningFoundMoreThanOneInvoicingTemplate").'</span>';
-						print '</span>';
 
 						print '
 			          </p>';
@@ -926,8 +892,7 @@ if ($mode == 'instances')
 				                  	print $tmpproduct->show_photos($conf->product->dir_output, 1, 1, 1, 0, 0, 40, 40, 1, 1, 1);
 
 				                  	//var_dump($tmpproduct->array_options);
-				                  	//print $langs->trans("Type").': ';
-				                  	if ($tmpproduct->array_options['options_app_or_option'] == 'app')
+				                  	/*if ($tmpproduct->array_options['options_app_or_option'] == 'app')
 				                  	{
 				                  		print '<span class="opacitymedium small">'.'&nbsp;'.'</span><br>';
 				                  	}
@@ -938,11 +903,22 @@ if ($mode == 'instances')
 				                  	if ($tmpproduct->array_options['options_app_or_option'] == 'option')
 				                  	{
 				                  		print '<span class="opacitymedium small">'.$langs->trans("Option").'</span><br>';
+				                  	}*/
+
+				                  	$labelprod = $tmpproduct->label;
+				                  	$labelprodsing = '';
+				                  	if (preg_match('/instance/i', $tmpproduct->label))
+				                  	{
+				                  		$labelprod = $langs->trans("Application");
+				                  		$labelprodsing = $langs->trans("Application");
+				                  	}
+				                  	elseif (preg_match('/users/i', $tmpproduct->label))
+				                  	{
+				                  		$labelprod = $langs->trans("Users");
+				                  		$labelprodsing = $langs->trans("User");
 				                  	}
 									// Label
-				                  	if (preg_match('/instance/i', $tmpproduct->label)) print '<span class="opacitymedium small">'.$langs->trans("Application").'</span><br>';
-				                  	elseif (preg_match('/users/i', $tmpproduct->label)) print '<span class="opacitymedium small">'.$langs->trans("Users").'</span><br>';
-				                  	else print '<span class="opacitymedium small">'.$tmpproduct->label.'</span>';
+				                  	print '<span class="opacitymedium small">'.$labelprod.'</span><br>';
 				                  	// Qty
 				                  	$resourceformula = $tmpproduct->array_options['options_resource_formula'];
 				                  	if (preg_match('/SQL:/', $resourceformula))
@@ -955,6 +931,18 @@ if ($mode == 'instances')
 				                  	}
 
 									print '<span class="font-green-sharp counternumber">'.$line->qty.'</span>';
+									print '<br>';
+									if ($line->price)
+									{
+										print '<span class="small">'.price($line->price, 1, $langs, 0, -1, -1, $conf->currency);
+										if ($line->qty > 1 && $labelprodsing) print ' / '.$labelprodsing;
+										print '</span>';
+									}
+									else
+									{
+										print '<span class="small">'.price($line->price, 1, $langs, 0, -1, -1, $conf->currency);
+										print '</span>';
+									}
 			                  	}
 			                  	else	// If there is no product, this is users
 			                  	{
@@ -964,6 +952,61 @@ if ($mode == 'instances')
 			                  	print '</div>';
 								print '</div>';
 							}
+
+							print '<br><br>';
+							// Plan
+							print '<span class="caption-helper">'.$langs->trans("YourSubscriptionPlan").' : ';
+							if ($action == 'changeplan' && $planid > 0 && $id == GETPOST('id','int'))
+							{
+								print '<input type="hidden" name="mode" value="instances"/>';
+								print '<input type="hidden" name="action" value="updateplan" />';
+								print '<input type="hidden" name="contractid" value="'.$contract->id.'" />';
+
+								// List of available plans
+								$arrayofplans=array();
+								$sqlproducts = 'SELECT p.rowid, p.ref, p.label FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
+								$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
+								$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
+								$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";		// TODO Restict on compatible plans...
+								$resqlproducts = $db->query($sqlproducts);
+								if ($resqlproducts)
+								{
+									$num = $db->num_rows($resqlproducts);
+									$i=0;
+									while($i < $num)
+									{
+										$obj = $db->fetch_object($resqlproducts);
+										if ($obj)
+										{
+											$arrayofplans[$obj->rowid]=$obj->label;
+										}
+										$i++;
+									}
+								}
+								print $form->selectarray('planid', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth300');
+								print '<input type="submit" class="btn btn-warning default change-plan-link" name="changeplan" value="'.$langs->trans("ChangePlan").'">';
+							}
+							else
+							{
+								print '<span class="bold">'.$plan.'</span>';
+								if ($priceinvoicedht == $contrat->total_ht)
+								{
+									print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=instances&action=changeplan&id='.$contract->id.'#contractid'.$contract->id.'">'.$langs->trans("ChangePlan").'</a>';
+								}
+							}
+							print '</span>';
+							print '<br>';
+							// Billing
+							print '<span class="caption-helper">'.$langs->trans("Billing").' : ';
+							if ($priceinvoicedht != $contrat->total_ht)
+							{
+								print $langs->trans("FlatOrDiscountedPrice").', ';
+							}
+							print '<span class="bold">'.$pricetoshow.'<span>';
+							if ($foundtemplate == 0) print ' <span style="color:'.$color.'">'.$langs->trans("Trial").'</span> - <a href="register_paymentmode.php">'.$langs->trans("AddAPaymentMode").'</a>';
+							if ($foundtemplate > 1) print ' - <span class="bold">'.$langs->trans("WarningFoundMoreThanOneInvoicingTemplate").'</span>';
+							print '</span>';
+
 			            	print '
 							  </div>
 			              </div>
@@ -1153,17 +1196,20 @@ if ($mode == 'billing')
 			print '
 	        <div class="portlet-body">
 
-	            <div class="row">
+	            <div class="row" style="border-bottom: 1px solid #ddd;">
 
 	              <div class="col-md-6">
 			          <span class="caption-subject font-green-sharp bold uppercase">'.$instancename.'</span>
 			          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->
 	              </div><!-- END COL -->
-	              <div class="col-md-3">
+	              <div class="col-md-2 hideonsmartphone">
 	                '.$langs->trans("Date").'
 	              </div>
-	              <div class="col-md-3">
+	              <div class="col-md-2 hideonsmartphone">
 	                '.$langs->trans("Amount").'
+	              </div>
+	              <div class="col-md-2 hideonsmartphone">
+	                '.$langs->trans("Status").'
 	              </div>
 	            </div> <!-- END ROW -->
 			';
@@ -1191,11 +1237,17 @@ if ($mode == 'billing')
 								$url = $invoice->getLastMainDocLink($invoice->element, 0, 1);
 								print '<a href="'.DOL_URL_ROOT.'/'.$url.'">'.$invoice->ref.' '.img_mime($invoice->ref.'.pdf', $langs->trans("File").': '.$invoice->ref.'.pdf').'</a>
 				              </div>
-				              <div class="col-md-3">
+				              <div class="col-md-2">
 								'.dol_print_date($invoice->date, 'day').'
 				              </div>
-				              <div class="col-md-3">
+				              <div class="col-md-2">
 								'.price(price2num($invoice->total_ttc), 1, $langs, 0, 0, 0, $conf->currency).'
+				              </div>
+				              <div class="col-md-2">
+								';
+								$alreadypayed = -1;
+								print $invoice->getLibStatut(2, $alreadypayed);
+								print '
 				              </div>
 
 				            </div>

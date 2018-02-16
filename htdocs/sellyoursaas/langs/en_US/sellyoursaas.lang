@@ -187,3 +187,5 @@ Commitment=Commitment
 MyInvoices=My invoices
 MonthlyPayment=Monthly payment
 YearlyPayment=Yearly payment
+FlatOrDiscountedPrice=Discounted price
+PDFForSellYourSaas=PDF template of invoice with logo for SellYourSaas
