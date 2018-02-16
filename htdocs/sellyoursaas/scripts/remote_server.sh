@@ -42,8 +42,12 @@ warn() { echo "WARNING: $@" >&2; }
 #    send_response_ok_exit <<< "Hello, $2!"
 # }
 #
+on_uri_match '^/deployall/(.*)$' serve_deployall
+on_uri_match '^/undeployall/(.*)$' serve_undeployall
 on_uri_match '^/deploy/(.*)$' serve_deploy
 on_uri_match '^/undeploy/(.*)$' serve_undeploy
+on_uri_match '^/suspend/(.*)$' serve_suspend
+on_uri_match '^/unsuspend/(.*)$' serve_unsuspend
 
 # In all other cases
 unconditionally serve_static_string 'Hello, world!  You can configure bashttpd by modifying bashttpd.conf.'
@@ -54,6 +58,16 @@ EOF
    warn "socat TCP4-LISTEN:8080,fork EXEC:.../remote_server.sh"
    exit 1
 }
+
+
+
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
+
+export pathtodir=`dirname $(realpath ${0})`
+echo $pathtodir
 
 recv() { echo "< $@" >&2; }
 send() { echo "> $@" >&2;
@@ -99,13 +113,37 @@ fail_with() {
 }
 
 
+# Deploy all
+serve_deployall() {
+    add_response_header "Content-Type" "text/plain"
+    
+    export listofparam=`echo $2 | sed 's/%26/ /g'`
+
+	$pathtodir/action_deploy_undeploy.sh deployall $listofparam
+	
+    send_response_ok_exit <<< "Hello, deployall return $? for action_create_user_instance deployall $listofparam"
+}
+
+# Undeploy
+serve_undeployall() {
+    add_response_header "Content-Type" "text/plain"
+    
+    export listofparam=`echo $2 | sed 's/%26/ /g'`
+
+	$pathtodir/action_deploy_undeploy.sh undeployall $listofparam
+	
+    send_response_ok_exit <<< "Hello, undeployall return $? for action_create_user_instance undeployall $listofparam"
+}
+
 # Deploy
 serve_deploy() {
     add_response_header "Content-Type" "text/plain"
     
     export listofparam=`echo $2 | sed 's/%26/ /g'`
 
-    send_response_ok_exit <<< "Hello, deploy $listofparam"
+	$pathtodir/action_deploy_undeploy.sh deploy $listofparam
+	
+    send_response_ok_exit <<< "Hello, deploy return $? for action_create_user_instance deploy $listofparam"
 }
 
 # Undeploy
@@ -114,8 +152,33 @@ serve_undeploy() {
     
     export listofparam=`echo $2 | sed 's/%26/ /g'`
 
-    send_response_ok_exit <<< "Hello, deploy $listofparam"
+	$pathtodir/action_deploy_undeploy.sh undeploy $listofparam
+	
+    send_response_ok_exit <<< "Hello, undeploy return $? for action_create_user_instance undeploy $listofparam"
 }
+
+# Suspend
+serve_suspend() {
+    add_response_header "Content-Type" "text/plain"
+    
+    export listofparam=`echo $2 | sed 's/%26/ /g'`
+
+	$pathtodir/action_suspend_unsuspend.sh suspend $listofparam
+	
+    send_response_ok_exit <<< "Hello, suspend return $? for suspend_unsuspend.sh suspend $listofparam"
+}
+
+# Unsuspend
+serve_unsuspend() {
+    add_response_header "Content-Type" "text/plain"
+    
+    export listofparam=`echo $2 | sed 's/%26/ /g'`
+
+	$pathtodir/action_suspend_unsuspend.sh unsuspend $listofparam
+	
+    send_response_ok_exit <<< "Hello, unsuspend return $? for suspend_unsuspend.sh unsuspend $listofparam"
+}
+ 
  
  
 serve_static_string() {

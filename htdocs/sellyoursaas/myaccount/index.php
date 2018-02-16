@@ -223,6 +223,29 @@ if ($action == 'updatepassword')
 }
 
 
+if ($action == 'undeploy')
+{
+	// Remote action : undeploy all
+	$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
+	$commandurl.= '&'.$generateddbname.'&'.$generateddbusername.'&'.$generateddbpassword;
+	$commandurl.= '&'.$tmppackage->srcconffile1.'&'.$tmppackage->targetconffile1.'&'.$tmppackage->datafile1;
+	$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
+	$commandurl.= '&'.$tmppackage->srccronfile.'&'.$targetdir;
+
+	$outputfile = $conf->sellyoursaas->dir_temp.'/action_deploy_undeploy-undeploy.'.dol_getmypid().'.out';
+
+	$serverdeployement = getRemoveServerDeploymentIp();
+
+	$urltoget='http://'.$serverdeployement.':8080/undeployall/'.urlencode($commandurl);
+	include DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+	$retarray = getURLContent($urltoget);
+
+	if ($retarray['curl_error_no'] != '')
+	{
+		$error++;
+		$errormessages[] = $retarray['curl_error_msg'];
+	}
+}
 
 
 /*
@@ -843,7 +866,21 @@ if ($mode == 'instances')
 							{
 								$foundtemplate++;
 								if ($templateinvoice->suspended) print $langs->trans("InvoicingSuspended");
-								else print $templateinvoice->frequency.' '.$freqlabel[$templateinvoice->unit_frequency];
+								else
+								{
+									if ($templateinvoice->unit_frequency == 'm' && $templateinvoice->frequency == 1)
+									{
+										print $langs->trans("MonthlyPayment");
+									}
+									elseif ($templateinvoice->unit_frequency == 'y' && $templateinvoice->frequency == 1)
+									{
+										print $langs->trans("YearlyPayment");
+									}
+									else
+									{
+										print $templateinvoice->frequency.' '.$freqlabel[$templateinvoice->unit_frequency];
+									}
+								}
 							}
 							print '</span>';
 						}

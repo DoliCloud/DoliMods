@@ -22,6 +22,7 @@
 //if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
 //if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1');
 //if (! defined('NOCSRFCHECK'))    define('NOCSRFCHECK','1');			// Do not check anti CSRF attack test
+//if (! defined('NOIPCHECK'))      define('NOIPCHECK','1');				// Do not check IP defined into conf $dolibarr_main_restrict_ip
 //if (! defined('NOSTYLECHECK'))   define('NOSTYLECHECK','1');			// Do not check style html tag into posted data
 //if (! defined('NOTOKENRENEWAL')) define('NOTOKENRENEWAL','1');		// Do not check anti POST attack test
 //if (! defined('NOREQUIREMENU'))  define('NOREQUIREMENU','1');			// If there is no need to load and show top and left menu
@@ -557,45 +558,23 @@ if (! $error)
 	$tmppackage->targetsrcfile2 = make_substitutions($tmppackage->targetsrcfile2, $substitarray);
 	$tmppackage->targetsrcfile3 = make_substitutions($tmppackage->targetsrcfile3, $substitarray);
 
-
 	dol_syslog("Create conf file ".$tmppackage->srcconffile1);
 	file_put_contents($tmppackage->srcconffile1, $conffile);
 	dol_syslog("Create cron file ".$tmppackage->srccronfile1);
 	file_put_contents($tmppackage->srccronfile, $cronfile);
 
-	//$command = 'sudo /usr/bin/create_user_instance.sh '.$generatedunixlogin.' '.$generatedunixpassword;
-	$command = '/usr/bin/create_user_instance.sh all '.$generatedunixlogin.' '.$generatedunixpassword.' '.$sldAndSubdomain.' '.$domainname;
-	$command.= ' '.$generateddbname.' '.$generateddbusername.' '.$generateddbpassword;
-	$command.= ' "'.$tmppackage->srcconffile1.'" "'.$tmppackage->targetconffile1.'" "'.$tmppackage->datafile1.'"';
-	$command.= ' "'.$tmppackage->srcfile1.'" "'.$tmppackage->targetsrcfile1.'" "'.$tmppackage->srcfile2.'" "'.$tmppackage->targetsrcfile2.'" "'.$tmppackage->srcfile3.'" "'.$tmppackage->targetsrcfile3.'"';
-	$command.= ' "'.$tmppackage->srccronfile.'" "'.$targetdir.'"';
-
-	$commandurl = 'all&'.$generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
+	// Remote action : deploy all
+	$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
 	$commandurl.= '&'.$generateddbname.'&'.$generateddbusername.'&'.$generateddbpassword;
 	$commandurl.= '&'.$tmppackage->srcconffile1.'&'.$tmppackage->targetconffile1.'&'.$tmppackage->datafile1;
 	$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
 	$commandurl.= '&'.$tmppackage->srccronfile.'&'.$targetdir;
 
-	//$command = '/usr/bin/aaa.sh';
-	$outputfile = $conf->sellyoursaas->dir_temp.'/register.'.dol_getmypid().'.out';
-
-
-	// TODO To remove
-	//print "<br>Command: ".$command.'<br>';
-	//sleep(2);
-
-	//include_once DOL_DOCUMENT_ROOT.'/core/class/utils.class.php';
-	//$utils = new Utils($db);
-	//$retarray = $utils->executeCLI($command, $outputfile, 1);
-	//var_dump($retarray);
-	//if ($retarray['result'] != 0)
-	//{
-	//	$error++;
-	//}
+	$outputfile = $conf->sellyoursaas->dir_temp.'/action_deploy_undeploy-deploy.'.dol_getmypid().'.out';
 
 	$serverdeployement = getRemoveServerDeploymentIp();
 
-	$urltoget='http://'.$serverdeployement.':8080/deploy/'.urlencode($commandurl);
+	$urltoget='http://'.$serverdeployement.':8080/deployall/'.urlencode($commandurl);
 	include DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 	$retarray = getURLContent($urltoget);
 
@@ -604,7 +583,6 @@ if (! $error)
 		$error++;
 		$errormessages[] = $retarray['curl_error_msg'];
 	}
-	//var_dump($cronjob);
 }
 
 

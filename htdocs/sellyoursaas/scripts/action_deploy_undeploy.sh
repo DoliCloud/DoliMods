@@ -124,7 +124,7 @@ echo "fqn = $fqn"
 
 # Create user and directory
 
-if [[ "$mode" == "all" ]]; then
+if [[ "$mode" == "deployall" ]]; then
 echo "***** Create user /home/jail/home/$osusername"
 if [[ -d /home/jail/home/$osusername ]]
 then
@@ -144,7 +144,7 @@ fi
 
 # Create DNS entry
 
-if [[ "$mode" == "all" ]]; then
+if [[ "$mode" == "deployall" ]]; then
 #$ttl 1d
 #$ORIGIN with.dolicloud.com.
 #@               IN     SOA   ns1with.dolicloud.com. admin.dolicloud.com. (
@@ -270,7 +270,7 @@ fi
 
 # Create apache virtual host
 
-if [[ "$mode" == "all" ]]; then
+if [[ "$mode" == "deployall" ]]; then
 export apacheconf="/etc/apache2/sites-available/$fqn.conf"
 echo "***** Create apache conf $apacheconf from $vhostfile"
 if [[ -s $apacheconf ]]
@@ -317,7 +317,7 @@ fi
 
 # Create database (last step, the longer one)
 
-if [[ "$mode" == "all" ]]; then
+if [[ "$mode" == "deployall" ]]; then
 echo "***** Create database $dbname for user $dbusername"
 
 echo Search sellyoursaas credential

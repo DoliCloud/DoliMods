@@ -27,8 +27,13 @@ if [ "x$1" == "x" ]; then
 	echo "Usage: ${0##*/} start|stop"
 fi
 
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
+
 if [ "x$1" == "xstart" ]; then
-	echo "socat TCP4-LISTEN:8080,fork EXEC:$scriptdir/remote_server.sh"
+	echo "socat TCP4-LISTEN:8080,fork EXEC:$scriptdir/remote_server.sh > /var/log/remote_server.log"
 	socat TCP4-LISTEN:8080,fork EXEC:$scriptdir/remote_server.sh & > /var/log/remote_server.log
 fi
 

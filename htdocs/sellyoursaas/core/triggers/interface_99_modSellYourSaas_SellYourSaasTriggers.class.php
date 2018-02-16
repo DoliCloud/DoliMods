@@ -91,19 +91,68 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 	    // Put here code you want to execute when a Dolibarr business events occurs.
 		// Data and type of action are stored into $object and $action
 
+        $error = 0;
+        $remoteaction = '';
+
         switch ($action) {
-	        // Contracts
-		    case 'CONTRACT_CREATE':
-		    case 'CONTRACT_MODIFY':
-		    case 'CONTRACT_ACTIVATE':
-		    case 'CONTRACT_CANCEL':
-		    case 'CONTRACT_CLOSE':
-		    case 'CONTRACT_DELETE':
-		    case 'LINECONTRACT_INSERT':
-		    case 'LINECONTRACT_UPDATE':
-		    case 'LINECONTRACT_DELETE':
-		    	dol_syslog("eee");
+        	case 'LINECONTRACT_ACTIVATE':
+        		$remoteaction = 'unsuspend';
+        		break;
+        	case 'LINECONTRACT_CLOSE':
+	    		$remoteaction = 'suspend';
+	    		break;
         }
+
+    	if ($remoteaction)
+    	{
+    		$producttmp = new Product($this->db);
+    		$producttmp->fetch($object->fk_product);
+
+    		if ($producttmp->array_options['options_app_or_option'] == 'app')
+    		{
+	    		dol_syslog("Suspend/unsuspend instance remoteaction=".$remoteaction);
+
+	    		include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+	    		dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
+	    		$contract = new Contrat($this->db);
+				$contract->fetch($object->fk_contrat);
+
+				$generatedunixlogin=$contract->array_options['options_username_os'];
+				$generatedunixpassword=$contract->array_options['options_password_os'];
+				$tmp=preg_replace('/\./', $contract->ref_customer, 2);
+				$sldAndSubdomain=$tmp[0];
+				$domainname=$tmp[1];
+				$generateddbname=$contract->array_options['options_username_db'];
+				$generateddbpassword=$contract->array_options['options_password_db'];
+
+				// Remote action : unsuspend
+				$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
+				$commandurl.= '&'.$generateddbname.'&'.$generateddbusername.'&'.$generateddbpassword;
+				$commandurl.= '&'.$tmppackage->srcconffile1.'&'.$tmppackage->targetconffile1.'&'.$tmppackage->datafile1;
+				$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
+				$commandurl.= '&'.$tmppackage->srccronfile.'&'.$targetdir;
+
+				$outputfile = $conf->sellyoursaas->dir_temp.'/action_deploy_undeploy-'.$remoteaction.'-'.dol_getmypid().'.out';
+
+				$serverdeployement = getRemoveServerDeploymentIp();
+
+				$urltoget='http://'.$serverdeployement.':8080/'.$remoteaction.'/'.urlencode($commandurl);
+				include DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+				$retarray = getURLContent($urltoget);
+
+				if ($retarray['curl_error_no'] != '')
+				{
+					$error++;
+					$errormessages[] = $retarray['curl_error_msg'];
+				}
+    		}
+    	}
+
+    	if ($error)
+    	{
+    		$this->errors=$errormessages;
+    		return -1;
+    	}
 
 		return 0;
 	}
