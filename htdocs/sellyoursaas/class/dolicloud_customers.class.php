@@ -476,6 +476,7 @@ class Dolicloud_customers extends CommonObject
 		$sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,";	// meter_id = 1 = users
 		$sql.= " app_package as p";
 		$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id AND s.plan_id = pl.id AND pl.app_package_id = p.id";
+		$sql.= " AND i.status <> 'UNDEPLOYED'";
 
         if ($ref) $sql.= " AND i.name = '".$this->db2->escape($ref)."'";
         elseif ($organization) $sql.= " AND c.organization = '".$this->db2->escape($organization)."'";
