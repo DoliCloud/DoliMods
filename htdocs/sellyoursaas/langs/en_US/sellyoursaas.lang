@@ -194,3 +194,4 @@ FlatOrDiscountedPrice=Discounted price
 PDFForSellYourSaas=PDF template of invoice with logo for SellYourSaas
 UnpaidInvoices=Unpaid invoices
 NbOfOpenTickets=Nb of open tickets
+ATemplateInvoiceExistsNoWayToChangeTrial=A billing template has been already sheduled. Change of trial end date is no more possible.

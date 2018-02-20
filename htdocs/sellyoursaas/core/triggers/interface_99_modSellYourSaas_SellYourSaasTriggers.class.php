@@ -101,6 +101,38 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         	case 'LINECONTRACT_CLOSE':
 	    		$remoteaction = 'suspend';
 	    		break;
+        	case 'CONTRACT_MODIFY':
+        		/*var_dump($object->oldcopy->array_options['options_date_endfreeperiod']);
+        		var_dump($object->array_options['options_date_endfreeperiod']);
+        		var_dump($object->lines);*/
+        		if ($object->oldcopy->array_options['options_date_endfreeperiod'] != $object->array_options['options_date_endfreeperiod'])
+        		{
+        			// Check there is no recurring invoice. If yes, we refuse to change this.
+        			$object->fetchObjectLinked();
+        			//var_dump($object->linkedObjects);
+        			if (is_array($object->linkedObjects['facturerec']))
+        			{
+        				if (count($object->linkedObjects['facturerec']) > 0)
+        				{
+        					$this->errors[]="ATemplateInvoiceExistsNoWayToChangeTrial";
+        					return -1;
+        				}
+        			}
+
+	        		foreach($object->lines as $line)
+	        		{
+	        			if ($line->date_end < $object->array_options['options_date_endfreeperiod'])
+	        			{
+	        				$line->date_end = $object->array_options['options_date_endfreeperiod'];
+	        				$line->date_fin_validite = $object->array_options['options_date_endfreeperiod'];
+	        				$line->update($user);
+	        				//exit;
+	        				break;	// No need to loop on all, there is also trigger that update all other when we update one
+	        			}
+	        		}
+        		}
+        		break;
+
         }
 
     	if ($remoteaction)
