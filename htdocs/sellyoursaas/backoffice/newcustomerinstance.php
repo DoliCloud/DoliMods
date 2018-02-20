@@ -544,6 +544,10 @@ if (empty($reshook))
 				// Activate all lines
 				if (! $error)
 				{
+					if ($dolicloudcustomer->id > 0)
+					{
+						$contract->context['fromdolucloudcustomerv1']=1;
+					}
 					$result = $contract->activateAll($user);
 					if ($result <= 0)
 					{
