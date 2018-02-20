@@ -108,7 +108,8 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
     		$producttmp = new Product($this->db);
     		$producttmp->fetch($object->fk_product);
 
-   			if (empty($object->context['fromdolucloudcustomerv1']) && $producttmp->array_options['options_app_or_option'] == 'app')
+    		if (empty($object->context['fromdolucloudcustomerv1']) &&
+    			($producttmp->array_options['options_app_or_option'] == 'app' || $producttmp->array_options['options_app_or_option'] == 'option'))
     		{
 	    		dol_syslog("Suspend/unsuspend instance remoteaction=".$remoteaction);
 
