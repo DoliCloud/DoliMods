@@ -68,7 +68,7 @@ export instancename=$4
 export domainname=$5
 
 export targetdirwithsources1=${6}
-export targetdir=${6}
+export targetdir=${7}
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
@@ -79,7 +79,7 @@ echo "mode = $mode"
 echo "osusername = $osusername"
 echo "instancename = $instancename"
 echo "domainname = $domainname"
-echo "targetdirforconfig1 = $targetdirforconfig1"
+echo "targetdirwithsources1 = $targetdirwithsources1"
 echo "targetdir = $targetdir"
 echo "...calculated params..."
 echo "instancedir = $instancedir"
@@ -89,6 +89,8 @@ if [[ ! -d $archivedir ]]; then
 	echo Failed to find archive directory $archivedir
 	exit 1
 fi
+
+testorconfirm="confirm"
 
 
 
@@ -110,5 +112,8 @@ echo "***** Unsuspend instance in /home/jail/home/$osusername"
 
 fi
 
-	
+
+echo System suspend or unsuspend of $instancename.$domainname for user $osusername finished
+echo
+
 exit 0

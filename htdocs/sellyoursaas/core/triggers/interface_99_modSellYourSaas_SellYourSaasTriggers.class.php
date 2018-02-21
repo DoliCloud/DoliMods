@@ -174,7 +174,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 				$serverdeployement = getRemoveServerDeploymentIp();
 
 				$urltoget='http://'.$serverdeployement.':8080/'.$remoteaction.'?'.urlencode($commandurl);
-				include DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+				include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 				$retarray = getURLContent($urltoget);
 
 				if ($retarray['curl_error_no'] != '')

@@ -283,17 +283,21 @@ do
 				fi
 			fi
 			
+
+			apacheconf = /etc/apache2/sites-enabled/$instancename.with.dolicloud.conf
 			
-			# Remove apache virtual host
-			echo "***** Disable apache conf with a2dissite $instancename.with.dolicloud.conf"
-			echo a2dissite $instancename.with.dolicloud.conf
-			if [[ $testorconfirm == "confirm" ]]
-			then
-				a2dissite $instancename.with.dolicloud.conf
+			if [ -f $apacheconf ]; then
+				# Remove apache virtual host
+				echo "***** Disable apache conf with a2dissite $instancename.with.dolicloud.conf"
+				echo a2dissite $instancename.with.dolicloud.conf
+				if [[ $testorconfirm == "confirm" ]]
+				then
+					a2dissite $instancename.with.dolicloud.conf
+				fi
 			fi
-	
+				
 			echo "***** Remove apache conf /etc/apache2/sites-available/$instancename.with.dolicloud.conf"
-			if [[ -f $apacheconf ]]
+			if [[ -f /etc/apache2/sites-available/$instancename.with.dolicloud.conf ]]
 			then
 				if [[ $testorconfirm == "confirm" ]]
 				then
@@ -307,7 +311,7 @@ do
 			/usr/sbin/apache2ctl configtest
 			if [[ "x$?" != "x0" ]]; then
 				echo Error when running apache2ctl configtest 
-				#exit 1
+				exit 1
 			fi 
 		
 			echo "***** Apache tasks finished."

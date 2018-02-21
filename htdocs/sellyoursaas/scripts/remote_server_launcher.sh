@@ -36,10 +36,15 @@ if [ "x$1" == "xstart" ]; then
 	#echo "socat TCP4-LISTEN:8080,fork EXEC:$scriptdir/remote_server.sh > /var/log/remote_server.log"
 	#socat TCP4-LISTEN:8080,fork EXEC:$scriptdir/remote_server.sh & > /var/log/remote_server.log
 
-	echo Switch on directory $scriptdir
-	cd $scriptdir
-	php -S 0.0.0.0:8080 -t remote_server > /var/log/remote_server.log 2>&1 &
-	echo "Server started with php -S 0.0.0.0:8080 -t remote_server > /var/log/remote_server.log 2&1"
+	pid=`ps a | grep 'php -S 0.0.0.0' | grep -v grep | awk ' { print $1 } '`
+	if [ "x$pid" == "x" ]; then
+		echo Switch on directory $scriptdir
+		cd $scriptdir
+		php -S 0.0.0.0:8080 -t remote_server > /var/log/remote_server.log 2>&1 &
+		echo "Server started with php -S 0.0.0.0:8080 -t remote_server > /var/log/remote_server.log 2&1"
+	else
+		echo Server is already running with PID $pid
+	fi
 fi
 
 if [ "x$1" == "xstop" ]; then

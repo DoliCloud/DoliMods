@@ -35,3 +35,75 @@ function getRemoveServerDeploymentIp()
 	return $ip;
 }
 
+/**
+ * Return if instance is a paid instance or not
+ * Check if there is a template invoice
+ *
+ * @param 	Contrat $contract		Object contract
+ * @return	int						>0 if this is a paid contract
+ */
+function sellyoursaasIsPaidInstance($contract)
+{
+	$contract->fetchObjectLinked();
+	$foundtemplate=0;
+
+	if (is_array($contract->linkedObjects['facturerec']))
+	{
+		foreach($contract->linkedObjects['facturerec'] as $idtemplateinvoice => $templateinvoice)
+		{
+			$foundtemplate++;
+			break;
+		}
+	}
+
+	if ($foundtemplate) return 1;
+
+	/*
+	$nbinvoicenotpayed = 0;
+	$amountdue = 0;
+	foreach ($listofcontractid as $id => $contract)
+	{
+		$contract->fetchObjectLinked();
+		if (is_array($contract->linkedObjects['facture']))
+		{
+			foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
+			{
+				if ($invoice->statut != $invoice::STATUS_CLOSED)
+				{
+					$nbinvoicenotpayed++;
+				}
+				$alreadypayed = $invoice->getSommePaiement();
+				$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
+				$amountdue = $invoice->total_ttc - $alreadypayed - $amount_credit_notes_included;
+			}
+		}
+	}*/
+
+	return 0;
+}
+
+
+/**
+ * Return date of expiration
+ * Take lowest end of planed date for services (whatever is service status)
+ *
+ * @param 	Contrat $contract		Object contract
+ * @return	int						Timestamp of expiration date, or 0 if error or not found
+ */
+function sellyoursaasGetExpirationDate($contract)
+{
+	$expirationdate = 0;
+
+	// Loop on each line to get lowest expiration date
+	foreach($contract->lines as $line)
+	{
+		if ($line->date_end)
+		{
+			if ($expirationdate > 0) $expirationdate = min($expirationdate, $line->date_end);
+			else $expirationdate = $line->date_end;
+		}
+	}
+
+	return $expirationdate;
+}
+

@@ -87,13 +87,14 @@ export osusername=$2
 export ospassword=$3
 export instancename=$4
 export domainname=$5
+
 export dbname=$6
 export dbport=$7
 export dbusername=$8
 export dbpassword=$9
 
-export dirforconfig1=$10
-export targetdirforconfig1=${11}
+export dirforconfig1=${10}
+export targetfileforconfig1=${11}
 export dirwithdumpfile=${12}
 export dirwithsources1=${13}
 export targetdirwithsources1=${14}
@@ -118,7 +119,7 @@ echo "dbport = $dbport"
 echo "dbusername = $dbusername"
 echo "dbpassword = $dbpassword"
 echo "dirforconfig1 = $dirforconfig1"
-echo "targetdirforconfig1 = $targetdirforconfig1"
+echo "targetfileforconfig1 = $targetfileforconfig1"
 echo "dirwithdumpfile = $dirwithdumpfile"
 echo "dirwithsources1 = $dirwithsources1"
 echo "targetdirwithsources1 = $targetdirwithsources1"
@@ -146,8 +147,13 @@ testorconfirm="confirm"
 
 if [[ "$mode" == "deployall" ]]; then
 
-	echo "***** Create user /home/jail/home/$osusername"
-	if [[ -d /home/jail/home/$osusername ]]
+	echo "***** Create user $osusername with home into /home/jail/home/$osusername"
+	
+	id -u $osusername
+	notfound=$?
+	echo notfound=$notfound
+	
+	if [[ $notfound == 0 ]]
 	then
 		echo "$osusername seems to already exists"
 	else
@@ -160,11 +166,18 @@ if [[ "$mode" == "deployall" ]]; then
 		chmod -R go-rwx /home/jail/home/$osusername
 	fi
 
+	if [[ -d /home/jail/home/$osusername ]]
+	then
+		echo "/home/jail/home/$osusername exists"
+	else
+		mkdir /home/jail/home/$osusername
+		chmod -R go-rwx /home/jail/home/$osusername
+	fi
 fi
 
 if [[ "$mode" == "undeployall" ]]; then
 
-	echo "***** Delete user /home/jail/home/$osusername"
+	echo "***** Delete user $osusername with home into /home/jail/home/$osusername"
 	
 	echo deluser --remove-home --backup --backup-to $archivedir $osusername
 	if [[ $testorconfirm == "confirm" ]]
@@ -182,7 +195,7 @@ fi
 
 
 
-# Create DNS entry
+# Create/Remove DNS entry
 
 if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 
@@ -213,7 +226,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	echo notfound=$notfound
 
 	if [[ $notfound == 0 ]]; then
-		echo "$instancename already found into host /etc/bind/${ZONE}"
+		echo "entry $instancename already found into host /etc/bind/${ZONE}"
 	else
 		echo "cat /etc/bind/${ZONE} | grep -v '^$instancename ' > /tmp/${ZONE}.$PID"
 		cat /etc/bind/${ZONE} | grep -v "^$instancename " > /tmp/${ZONE}.$PID
@@ -277,7 +290,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 	echo notfound=$notfound
 	
 	if [[ $notfound == 1 ]]; then
-		echo "$instancename already not found into host /etc/bind/${ZONE}"
+		echo "entry $instancename already not found into host /etc/bind/${ZONE}"
 	else
 		echo "cat /etc/bind/${ZONE} | grep -v '^$instancename ' > /tmp/${ZONE}.$PID"
 		cat /etc/bind/${ZONE} | grep -v "^$instancename " > /tmp/${ZONE}.$PID
@@ -336,7 +349,7 @@ fi
 
 
 
-# Deploy files
+# Deploy/Archive files
 
 if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 
@@ -385,6 +398,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		echo mv -f $targetdir/$osusername/$dbname $archivedir/$osusername/$dbname
 		if [[ $testorconfirm == "confirm" ]]
 		then
+			mkdir $archivedir/$osusername
 			mv -f $targetdir/$osusername/$dbname $archivedir/$osusername/$dbname
 		fi
 	else
@@ -400,18 +414,18 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	
 	echo "***** Deploy config file"
 	
-	echo "mv $dirforconfig1 $targetdirforconfig1/conf.php"
-	if [[ -s $targetdirforconfig1/conf.php ]]; then
-		echo File $targetdirforconfig1/conf.php already exists. We change nothing.
+	echo "mv $dirforconfig1 $targetfileforconfig1"
+	if [[ -s $targetfileforconfig1 ]]; then
+		echo File $targetfileforconfig1 already exists. We change nothing.
 	else
-		mv $dirforconfig1 $targetdirforconfig1/conf.php
+		mv $dirforconfig1 $targetfileforconfig1
 	fi
 
 fi
 
 
 
-# Create apache virtual host
+# Create/Disable Apache virtual host
 
 if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 
@@ -419,32 +433,34 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	echo "***** Create apache conf $apacheconf from $vhostfile"
 	if [[ -s $apacheconf ]]
 	then
-		echo "Apache conf $apacheconf already exists"
-	else
-		echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
+		echo "Apache conf $apacheconf already exists, we delete it since it may be a file from an old instance with same name"
+		rm -f $apacheconf
+	fi
+
+	echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
 			  sed -e 's/__webAppAliases__/$instancename.$domainname/g' | \
 			  sed -e 's/__webAppLogName__/$instancename/g' | \
 			  sed -e 's/__myMainDomain__/dolicloud.com/g' | \
 			  sed -e 's/__osUsername__/$osusername/g' | \
 			  sed -e 's/__osGroupname__/$osusername/g' | \
 			  sed -e 's;__webAppPath__;$instancedir;' > $apacheconf"
-		cat $vhostfile | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
+	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
 			  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
 			  sed -e "s/__webAppLogName__/$instancename/g" | \
 			  sed -e 's/__myMainDomain__/dolicloud.com/g' | \
 			  sed -e "s/__osUsername__/$osusername/g" | \
 			  sed -e "s/__osGroupname__/$osusername/g" | \
 			  sed -e "s;__webAppPath__;$instancedir;" > $apacheconf
-	fi
 
 
 	echo Enabled conf with a2ensite $fqn.conf
 	a2ensite $fqn.conf
 	
+	echo /usr/sbin/apache2ctl configtest
 	/usr/sbin/apache2ctl configtest
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running apache2ctl configtest 
-		#exit 1
+		exit 1
 	fi 
 	
 	echo "***** Apache tasks finished. service apache2 reload"
@@ -452,10 +468,36 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running service apache2 reload 
 		exit 2
-	fi 
+	fi
 
 fi
 
+if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
+
+	export apacheconf="/etc/apache2/sites-enabled/$fqn.conf"
+	echo "***** Remove apache conf $apacheconf"
+
+	if [ -f $apacheconf ]; then
+	
+		echo Disable conf with a2dissite $fqn.conf
+		a2dissite $fqn.conf
+		
+		/usr/sbin/apache2ctl configtest
+		if [[ "x$?" != "x0" ]]; then
+			echo Error when running apache2ctl configtest 
+			exit 1
+		fi 
+		
+		echo "***** Apache tasks finished. service apache2 reload"
+		service apache2 reload
+		if [[ "x$?" != "x0" ]]; then
+			echo Error when running service apache2 reload 
+			exit 2
+		fi
+	else
+		echo "Virtual host $apacheconf seems already disabled"
+	fi
+fi
 
 
 
@@ -519,6 +561,7 @@ fi
 #	echo 127.0.0.1 test_$i >> /etc/hosts
 #fi
 
-echo System deployment of $instancename.$domainname for user $osusername finished
+echo System deployment or undeployment of $instancename.$domainname for user $osusername finished with no error
+echo
 
 exit 0

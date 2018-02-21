@@ -26,6 +26,8 @@
 //require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
 //require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
 //require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
+require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+dol_include_once('sellyoursaas/lib/sellyoursaas.lib.php');
 
 
 /**
@@ -60,6 +62,8 @@ class SellYourSaasUtils
     {
     	global $conf, $langs;
 
+    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doSendWelcomeMessage.log';
+
     	$this->output = '';
     	$this->error='';
 
@@ -80,6 +84,8 @@ class SellYourSaasUtils
     public function doAlertSoftEndTrial()
     {
     	global $conf, $langs;
+
+    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertSoftEndTrial.log';
 
     	$this->output = '';
     	$this->error='';
@@ -102,12 +108,95 @@ class SellYourSaasUtils
     {
     	global $conf, $langs;
 
+    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doSuspendNotPaidTestInstances.log';
+
+    	dol_syslog(__METHOD__, LOG_DEBUG);
+    	return $this->doSuspendInstances('test');
+    }
+
+    /**
+     * Action executed by scheduler
+     * CAN BE A CRON TASK
+     *
+     * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
+     */
+    public function doSuspendNotPaidRealInstances()
+    {
+    	global $conf, $langs;
+
+    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doSuspendNotPaidRealInstances.log';
+
+    	dol_syslog(__METHOD__, LOG_DEBUG);
+    	return $this->doSuspendInstances('paid');
+    }
+
+
+   	/**
+   	 * Called by doSuspendNotPaidTestInstances or doSuspendNotPaidRealInstances
+   	 *
+   	 * @param	string	$mode		'test' or 'paid'
+   	 * @return	int					0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
+   	 */
+   	private function doSuspendInstances($mode)
+   	{
+    	global $conf, $langs, $user;
+
+    	if ($mode != 'test' && $mode != 'paid') return -1;
+
     	$this->output = '';
     	$this->error='';
 
-    	dol_syslog(__METHOD__, LOG_DEBUG);
+    	$now = dol_now();
 
-    	// ...
+    	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid';
+    	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce';
+    	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
+    	$sql.= " AND ce.deployment_status = 'done'";
+    	//$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree(dol_now(), 1, 'd'))."'";
+    	$sql.= " AND cd.date_fin_validite < '".$this->db->idate($now)."'";
+    	$sql.= " AND cd.statut = 4";
+
+    	$resql = $this->db->query($sql);
+    	if ($resql)
+    	{
+    		$num = $this->db->num_rows($resql);
+
+    		$contractprocessed = array();
+
+    		$i=0;
+    		while ($i < $num)
+    		{
+				$obj = $this->db->fetch_object($resql);
+				if ($obj)
+				{
+					if (! empty($contractprocessed[$object->id])) continue;
+
+					// Test if this is a paid or not instance
+					$object = new Contrat($this->db);
+					$object->fetch($obj->rowid);
+
+					$ispaid = sellyoursaasIsPaidInstance($object);
+					if ($mode == 'test' && $ispaid) continue;											// Discard if this is a paid instance when we are in test mode
+					if ($mode == 'paid' && ! $ispaid) continue;											// Discard if this is a test instance when we are in paid mode
+
+					// Suspend instance
+					$expirationdate = sellyoursaasGetExpirationDate($object);
+
+					if ($expirationdate && $expirationdate < $now)
+					{
+						var_dump($object->ref_customer);
+						//$object->array_options['options_deployment_status'] = 'suspended';
+						$object->closeAll($user);			// This may execute trigger that make system actions to suspend instance
+
+						$contractprocessed[$object->id]=$object->id;
+					}
+				}
+    			$i++;
+    		}
+    	}
+    	else $this->error = $this->db->lasterror();
+
+    	$this->output = count($contractprocessed).' contract(s) suspended';
 
     	return 0;
     }
@@ -122,6 +211,8 @@ class SellYourSaasUtils
     public function doUndeployOldSuspendedTestInstances()
     {
     	global $conf, $langs;
+
+    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doUndeployOldSuspendedTestInstances.log';
 
     	$this->output = '';
     	$this->error='';
@@ -144,6 +235,8 @@ class SellYourSaasUtils
     {
     	global $conf, $langs;
 
+    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doTakePaymentPaypal.log';
+
     	$this->output = '';
     	$this->error='';
 
@@ -165,26 +258,7 @@ class SellYourSaasUtils
     {
     	global $conf, $langs;
 
-    	$this->output = '';
-    	$this->error='';
-
-    	dol_syslog(__METHOD__, LOG_DEBUG);
-
-    	// ...
-
-    	return 0;
-    }
-
-
-    /**
-     * Action executed by scheduler
-     * CAN BE A CRON TASK
-     *
-     * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
-     */
-    public function doSuspendNotPaidRealInstances()
-    {
-    	global $conf, $langs;
+    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doTakePaymentStripe.log';
 
     	$this->output = '';
     	$this->error='';
@@ -207,6 +281,8 @@ class SellYourSaasUtils
     {
     	global $conf, $langs;
 
+    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertCreditCardExpiration.log';
+
     	$this->output = '';
     	$this->error='';
 
@@ -227,6 +303,8 @@ class SellYourSaasUtils
     public function doAlertPaypalExpiration()
     {
     	global $conf, $langs;
+
+    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertPaypalExpiration.log';
 
     	$this->output = '';
     	$this->error='';

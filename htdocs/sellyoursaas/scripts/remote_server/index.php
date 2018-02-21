@@ -1,9 +1,20 @@
 <?php
+/* Server agent for SellYourSaas */
+
+$DEBUG = 1;
+
+$fh = fopen('/var/log/remote_server.log','a+');
+if (empty($fh))
+{
+	http_response_code(501);
+	exit();
+}
 
 if (! in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1','1.2.3.4')))
 {
-	print 'Forbidden by IP address';
+	fwrite($fh, "\n\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call done with bad ip '.$_SERVER['REMOTE_ADDR']."\n");
 	http_response_code(503);
+	print 'Forbidden by IP address';
 	exit();
 }
 
@@ -16,6 +27,7 @@ foreach($paramarray as $val)
 	$paramspace.=($val!='' ? $val : '-').' ';
 }
 
+
 /*
  * Actions
  */
@@ -23,28 +35,61 @@ foreach($paramarray as $val)
 $output='';
 $return_var=0;
 
+if ($DEBUG) fwrite($fh, "\n\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call '.$_SERVER['REQUEST_URI']."\n");
+else fwrite($fh, "\n\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call for action '.$tmparray[0]." by ".$_SERVER['REMOTE_ADDR']."\n");
+
 if (in_array($tmparray[0], array('deploy', 'undeploy', 'deployall', 'undeployall')))
 {
+	if ($DEBUG) fwrite($fh, date('Y-m-d H:i:s').' ../action_deploy_undeploy.sh '.$tmparray[0].' '.$paramspace."\n");
+	else fwrite($fh, date('Y-m-d H:i:s').' ../action_deploy_undeploy.sh '.$tmparray[0].' ...'."\n");
+
 	exec('../action_deploy_undeploy.sh '.$tmparray[0].' '.$paramspace, $output, $return_var);
 
-	print 'return = '.$return_var;
-	print join("\n",$output);
+	fwrite($fh, date('Y-m-d H:i:s').' return = '.$return_var."\n");
+	fwrite($fh, date('Y-m-d H:i:s').' '.join("\n",$output));
+	fclose($fh);
 
-	http_response_code(200);
+	$httpresponse = 500;
+	if ($return_var == 0)
+	{
+		$httpresponse = 200;
+	}
+	http_response_code($httpresponse);
+
+	print 'action_deploy_undeploy.sh return '.$return_var.", \n";
+	print "so remote agent returns http code ".$httpresponse."\n";
+
 	exit();
 }
 if (in_array($tmparray[0], array('suspend', 'unsuspend')))
 {
+	if ($DEBUG) fwrite($fh, date('Y-m-d H:i:s').' ../action_deploy_undeploy.sh '.$tmparray[0].' '.$paramspace."\n");
+	else fwrite($fh, date('Y-m-d H:i:s').' ../action_deploy_undeploy.sh '.$tmparray[0].' ...'."\n");
+
 	exec('../action_suspend_unsuspend.sh '.$tmparray[0].' '.$paramspace, $output, $return_var);
 
-	print 'return = '.$return_var;
-	print join("\n",$output);
+	fwrite($fh, date('Y-m-d H:i:s').' return = '.$return_var."\n");
+	fwrite($fh, date('Y-m-d H:i:s').' '.join("\n",$output));
+	fclose($fh);
 
-	http_response_code(200);
+	$httpresponse = 500;
+	if ($return_var == 0)
+	{
+		$httpresponse = 200;
+	}
+	http_response_code($httpresponse);
+
+	print 'action_deploy_undeploy.sh return '.$return_var.", \n";
+	print "so remote agent returns http code ".$httpresponse."\n";
+
 	exit();
 }
 
+fwrite($fh, date('Y-m-d H:i:s').' code for action not found'."\n");
+fclose($fh);
+
 http_response_code(404);
+
 exit();
 
 

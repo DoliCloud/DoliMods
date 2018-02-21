@@ -266,7 +266,7 @@ if ($action == 'undeploy')
 		$serverdeployement = getRemoveServerDeploymentIp();
 
 		$urltoget='http://'.$serverdeployement.':8080/undeploy?'.urlencode($commandurl);
-		include DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+		include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 		$retarray = getURLContent($urltoget);
 
 		if ($retarray['curl_error_no'] != '')
@@ -476,13 +476,13 @@ if ($welcomecid > 0)
 	print '
 		<div class="portlet-body">
 		<p>
-		'.$langs->trans("YouCanAccessYourInstance", $contract->array_options['options_plan']).' :
+		'.$langs->trans("YouCanAccessYourInstance", $contract->array_options['options_plan']).'&nbsp:
 		</p>
 		<p class="well">
-		'.$langs->trans("URL").' : <a href="http://'.$contract->ref_customer.'" target="_blank">'.$contract->ref_customer.'</a>
+		'.$langs->trans("URL").' : <a href="http://'.$contract->ref_customer.'" target="_blank">'.$contract->ref_customer.'</a>';
 
-		<br> '.$langs->trans("Username").' : '.($_SESSION['initialappplogin']?$_SESSION['initialappplogin']:'NA').'
-		<br> '.$langs->trans("Password").' : '.($_SESSION['initialappppassword']?$_SESSION['initialappppassword']:'NA').'
+		print '<br> '.$langs->trans("Username").' : '.($_SESSION['initialapplogin']?$_SESSION['initialapplogin']:'NA').'
+		<br> '.$langs->trans("Password").' : '.($_SESSION['initialapppassword']?$_SESSION['initialapppassword']:'NA').'
 		</p>
 		<p>
 		<a class="btn btn-primary" target="_blank" href="http://'.$contract->ref_customer.'">
@@ -518,19 +518,18 @@ if (empty($welcomecid))	// Show warning
 {
 	foreach ($listofcontractid as $contractid => $contract)
 	{
-		if ($contract->array_options['options_date_endfreeperiod'] > 0)
+		$isapaidinstance = sellyoursaasIsPaidInstance($contract);
+		$expirationdate = sellyoursaasGetExpirationDate($contract);
+
+		if (! $isapaidinstance && $contract->array_options['options_date_endfreeperiod'] > 0)
 		{
 			$dateendfreeperiod = $contract->array_options['options_date_endfreeperiod'];
 			if (! is_numeric($dateendfreeperiod)) $dateendfreeperiod = dol_stringtotime($dateendfreeperiod);
 			$delaybeforeendoftrial = ($dateendfreeperiod - dol_now());
-
-			// TODO Test if a payment method exists
-
-
+			$delayindays = round($delaybeforeendoftrial / 3600 / 24);
 
 			if ($delaybeforeendoftrial > 0)
 			{
-				$delayindays = round($delaybeforeendoftrial / 3600 / 24);
 
 				$firstline = reset($contract->lines);
 				print '
@@ -544,8 +543,6 @@ if (empty($welcomecid))	// Show warning
 			}
 			else
 			{
-				$delayindays = round($delaybeforeendoftrial / 3600 / 24);
-
 				$firstline = reset($contract->lines);
 				print '
 					<div class="note note-warning">
@@ -557,6 +554,28 @@ if (empty($welcomecid))	// Show warning
 				';
 			}
 		}
+
+		/*
+		if ($isapaidinstance && $expirationdate > 0)
+		{
+			$delaybeforeexpiration = ($expirationdate - dol_now());
+			$delayindays = round($delaybeforeexpiration / 3600 / 24);
+
+			// TODO
+			if ($delaybeforeexpiration > 0)
+			{
+
+			}
+			else
+			{
+
+			}
+		}*/
+
+
+		// Test if there is a paiment error to ask to fix payment data
+		// @TODO
+
 	}
 }
 
@@ -841,10 +860,8 @@ if ($mode == 'instances')
 		$instancename = preg_replace('/\..*$/', '', $contract->ref_customer);
 
 		$color = "green";
-		if ($statuslabel == 'processing')
-		{
-			$color = 'orange';
-		}
+		if ($statuslabel == 'processing') $color = 'orange';
+		if ($statuslabel == 'suspended') $color = 'orange';
 
 		$dbprefix = $contract->array_options['options_db_prefix'];
 		if (empty($dbprefix)) $dbprefix = 'llx_';
@@ -886,8 +903,12 @@ if ($mode == 'instances')
 					  print '<form class="inline-block centpercent" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 			          print '<span class="caption-subject font-green-sharp bold uppercase">'.$instancename.'</span>
 			          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->
-			          <span class="caption-helper floatright clearboth">'.$langs->trans("Status").' : <span class="bold uppercase" style="color:'.$color.'">'.$statuslabel.'</span></span><br>
-			          ';
+			          <span class="caption-helper floatright clearboth">'.$langs->trans("Status").' : <span class="bold uppercase" style="color:'.$color.'">';
+			          if ($statuslabel == 'processing') print $langs->trans("DeploymentInProgress");
+			          elseif ($statuslabel == 'done') print $langs->trans("Running");
+			          elseif ($statuslabel == 'suspended') print $langs->trans("Suspended");
+			          else print $statuslabel;
+			          print '</span></span><br>';
 					  print '<p style="padding-top: 8px;" class="clearboth">
 			            <!-- <span class="caption-helper">'.$langs->trans("ID").' : '.$contract->ref.'</span><br> -->
 			            <span class="caption-helper">';
@@ -899,9 +920,15 @@ if ($mode == 'instances')
 									print ' - <a href="register_instance.php?reusecontractid='.$contract->id.'">'.$langs->trans("Restart").'</a>';
 								}
 							}
-							if ($contract->array_options['options_deployment_status'] == 'deployed')
+							elseif ($contract->array_options['options_deployment_status'] == 'done')
 							{
-								print $langs->trans("Date").' : <span class="bold">'.dol_print_date($contract->array_options['options_deployment_end_start'], 'dayhour').'</span>';
+								print $langs->trans("DeploymentDate").' : <span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_end'], 'dayhour').'</span>';
+							}
+							else
+							{
+								print $langs->trans("DeploymentDate").' : <span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_end'], 'dayhour').'</span>';
+								print '<br>';
+								print $langs->trans("UndeploymentDate").' : <span class="bold">'.dol_print_date($contract->array_options['options_undeployment_date'], 'dayhour').'</span>';
 							}
 						print '
 						</span><br>';
@@ -1097,18 +1124,23 @@ if ($mode == 'instances')
 							print '</span>';
 							print '<br>';
 							// Billing
-							print '<span class="caption-helper">'.$langs->trans("Billing").' : ';
+							print '<span class="caption-helper spanbilling">'.$langs->trans("Billing").' : ';
 							if ($priceinvoicedht != $contrat->total_ht)
 							{
 								print $langs->trans("FlatOrDiscountedPrice").' = ';
 							}
-							print '<span class="bold">'.$pricetoshow.'<span>';
+							print '<span class="bold">'.$pricetoshow.'</span>';
 							if ($foundtemplate == 0)
 							{
 								print ' <span style="color:'.$color.'">';
 								if ($contract->array_options['options_date_endfreeperiod'] > 0) print $langs->trans("TrialUntil", dol_print_date($contract->array_options['options_date_endfreeperiod'], 'day'));
 								else print $langs->trans("Trial");
-								print '</span> - <a href="register_paymentmode.php">'.$langs->trans("AddAPaymentMode").'</a>';
+								print '</span>';
+								if ($contract->array_options['options_date_endfreeperiod'] < dol_now())
+								{
+									print ' - <span style="color: orange">'.$langs->trans("SuspendWillBeDoneSoon").'</span>';
+								}
+								print ' - <a href="register_paymentmode.php">'.$langs->trans("AddAPaymentMode").'</a>';
 							}
 							if ($foundtemplate > 1) print ' - <span class="bold">'.$langs->trans("WarningFoundMoreThanOneInvoicingTemplate").'</span>';
 							print '</span>';
@@ -1302,10 +1334,8 @@ if ($mode == 'billing')
 			$package->fetch(0, $planref);
 
 			$color = "green";
-			if ($statuslabel == 'processing')
-			{
-				$color = 'orange';
-			}
+			if ($statuslabel == 'processing') $color = 'orange';
+			if ($statuslabel == 'suspended') $color = 'orange';
 
 			$dbprefix = $contract->array_options['options_db_prefix'];
 			if (empty($dbprefix)) $dbprefix = 'llx_';

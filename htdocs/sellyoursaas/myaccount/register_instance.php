@@ -87,12 +87,13 @@ $password2 = GETPOST('password2','alpha');
 $country_code = GETPOST('address_country','alpha');
 $sldAndSubdomain = GETPOST('sldAndSubdomain','alpha');
 $tldid = GETPOST('tldid','alpha');
+$domainname = preg_replace('/^\./', '', $tldid);
 $remoteip = $_SERVER['REMOTE_ADDRESS'];
 $generateduniquekey=getRandomPassword(true);
 $partner=GETPOST('partner','alpha');
 $plan=GETPOST('plan','alpha');
 
-$reusecontactid = GETPOST('reusecontractid','int');
+$reusecontractid = GETPOST('reusecontractid','int');
 
 
 $productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):'DOLICLOUD-PACK-Dolibarr');
@@ -148,9 +149,11 @@ $newurl=$_SERVER["PHP_SELF"];
 //exit;
 //$newurl='myaccount.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/register.php';
 
-if ($reusecontactid)
+if ($reusecontractid)
 {
 	$newurl=preg_replace('/register_instance/', 'index', $newurl);
+	if (! preg_match('/\?/', $newurl)) $newurl.='?';
+	$newurl.='&mode=instances';
 }
 else
 {
@@ -221,13 +224,13 @@ $errormessages = array();
 
 $error = 0;
 
-dol_syslog("Fetch contract (id = ".$reusecontactid.", domain name  = ".$fqdninstance.")");
+dol_syslog("Fetch contract (id = ".$reusecontractid.", domain name  = ".$fqdninstance.")");
 
 $contract = new Contrat($db);
-if ($reusecontactid)
+if ($reusecontractid)
 {
 	// Get contract
-	$result = $contract->fetch($reusecontactid);
+	$result = $contract->fetch($reusecontractid);
 	if ($result < 0)
 	{
 		setEventMessages($langs->trans("NotFound"), null, 'errors');
@@ -250,8 +253,9 @@ if ($reusecontactid)
 
 	$tmparray = explode('.', $contract->ref_customer, 2);
 	$sldAndSubdomain = $tmparray[0];
-	$tldid = $tmparray[1];
-	$fqdninstance = $sldAndSubdomain.$tldid;
+	$domainname = $tmparray[1];
+	$tldid = '.'.$domainname;
+	$fqdninstance = $sldAndSubdomain.'.'.$domainname;
 }
 else
 {
@@ -288,8 +292,6 @@ else
 
 	$generatedunixlogin = strtolower('osu'.substr(getRandomPassword(true), 0, 9));		// Must be lowercase as it can be used for default email
 	$generatedunixpassword = substr(getRandomPassword(true), 0, 10);
-
-	$domainname = preg_replace('/^\./', '', $tldid);
 
 	$generateddbname = 'dbn'.substr(getRandomPassword(true), 0, 8);
 	$generateddbusername = 'dbu'.substr(getRandomPassword(true), 0, 9);
@@ -506,7 +508,7 @@ else
 
 
 // -----------------------------------------------------------------------------------------------------------------------
-// Create unix user and directories and DNS
+// Create unix user and directories, DNS, virtual host and database
 //
 // With old method:
 // Check the user www-data is allowed to "sudo /usr/bin/create_test_instance.sh"
@@ -576,13 +578,14 @@ if (! $error)
 	$serverdeployement = getRemoveServerDeploymentIp();
 
 	$urltoget='http://'.$serverdeployement.':8080/deployall?'.urlencode($commandurl);
-	include DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+	include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 	$retarray = getURLContent($urltoget);
 
-	if ($retarray['curl_error_no'] != '')
+	if ($retarray['curl_error_no'] != '' || $retarray['http_code'] != 200)
 	{
 		$error++;
-		$errormessages[] = $retarray['curl_error_msg'];
+		if ($retarray['curl_error_no'] != '') $errormessages[] = $retarray['curl_error_msg'];
+		else $errormessages[] = $retarray['content'];
 	}
 }
 
@@ -603,8 +606,12 @@ if (! $error)
 {
 	$sqltoexecute = make_substitutions($tmppackage->sqlafter, $substitarray);
 
-	//var_dump($generateddbhostname);
-	$dbinstance = @getDoliDBInstance('mysqli', $generateddbhostname, $generateddbusername, $generateddbpassword, $generateddbname, 3306);
+	dol_syslog("Try to connect to instance database to execute personalized requests");
+
+	//var_dump($generateddbhostname);	// fqn name dedicated to instance in dns
+	//var_dump($serverdeployement);		// just ip of deployement server
+	//$dbinstance = @getDoliDBInstance('mysqli', $generateddbhostname, $generateddbusername, $generateddbpassword, $generateddbname, 3306);
+	$dbinstance = @getDoliDBInstance('mysqli', $serverdeployement, $generateddbusername, $generateddbpassword, $generateddbname, 3306);
 	if (! $dbinstance || ! $dbinstance->connected)
 	{
 		$error++;
@@ -618,15 +625,15 @@ if (! $error)
 	else
 	{
 		dol_syslog("Execute sql=".$sqltoexecute);
-		$dbinstance->query($sqtoexecute);
+		$resql = $dbinstance->query($sqtoexecute);
 	}
 }
 
-// End of deployment is no OK / Complete
+// End of deployment is now OK / Complete
 if (! $error)
 {
 	$contract->array_options['options_deployment_status'] = 'done';
-	$contract->array_options['options_deployment_date_end'] = dol_now();
+	$contract->array_options['options_deployment_date_end'] = dol_now('tzserver');
 
 	$result = $contract->update($user);
 	if ($result < 0)
@@ -645,7 +652,7 @@ if (! $error)
 if (! $error)
 {
 	$newurl=$_SERVER["PHP_SELF"];
-	$newurl=preg_replace('/register_instance\.php/', 'index\.php?welcomecid='.$contract->id, $newurl);
+	$newurl=preg_replace('/register_instance\.php/', 'index.php?welcomecid='.$contract->id, $newurl);
 
 	$_SESSION['initialapplogin']='admin';
 	$_SESSION['initialapppassword']=$password;
@@ -655,6 +662,17 @@ if (! $error)
 	exit;
 }
 
+
+// Error
+
+dol_syslog("Deployment error");
+
+if ($reusecontractid > 0)
+{
+	setEventMessages('', $errormessages, 'errors');
+	header("Location: ".$newurl);
+	exit();
+}
 
 
 // If we are here, there was an error
