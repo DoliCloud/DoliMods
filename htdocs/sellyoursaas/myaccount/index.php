@@ -859,10 +859,6 @@ if ($mode == 'instances')
 		$statuslabel = $contract->array_options['options_deployment_status'];
 		$instancename = preg_replace('/\..*$/', '', $contract->ref_customer);
 
-		$color = "green";
-		if ($statuslabel == 'processing') $color = 'orange';
-		if ($statuslabel == 'suspended') $color = 'orange';
-
 		$dbprefix = $contract->array_options['options_db_prefix'];
 		if (empty($dbprefix)) $dbprefix = 'llx_';
 
@@ -876,6 +872,11 @@ if ($mode == 'instances')
 		$directaccess = 0;
 		foreach($contract->lines as $keyline => $line)
 		{
+			if ($line->statut == 5)
+			{
+				$statuslabel = 'suspended';
+			}
+
 			$tmpproduct = new Product($db);
 			if ($line->fk_product > 0)
 			{
@@ -891,6 +892,10 @@ if ($mode == 'instances')
 			}
 		}
 
+		$color = "green";
+		if ($statuslabel == 'processing') $color = 'orange';
+		if ($statuslabel == 'suspended') $color = 'orange';
+
 
 		print '
 		    <div class="row" id="contractid'.$contract->id.'" data-contractref="'.$contract->ref.'">
@@ -901,14 +906,19 @@ if ($mode == 'instances')
 			      <div class="portlet-title">
 			        <div class="caption">';
 					  print '<form class="inline-block centpercent" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+
+			          // Instance name
 			          print '<span class="caption-subject font-green-sharp bold uppercase">'.$instancename.'</span>
-			          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->
-			          <span class="caption-helper floatright clearboth">'.$langs->trans("Status").' : <span class="bold uppercase" style="color:'.$color.'">';
+			          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->';
+
+					  // Instance status
+			          print '<span class="caption-helper floatright clearboth">'.$langs->trans("Status").' : <span class="bold uppercase" style="color:'.$color.'">';
 			          if ($statuslabel == 'processing') print $langs->trans("DeploymentInProgress");
 			          elseif ($statuslabel == 'done') print $langs->trans("Running");
 			          elseif ($statuslabel == 'suspended') print $langs->trans("Suspended");
 			          else print $statuslabel;
 			          print '</span></span><br>';
+
 					  print '<p style="padding-top: 8px;" class="clearboth">
 			            <!-- <span class="caption-helper">'.$langs->trans("ID").' : '.$contract->ref.'</span><br> -->
 			            <span class="caption-helper">';
@@ -1130,7 +1140,7 @@ if ($mode == 'instances')
 								print $langs->trans("FlatOrDiscountedPrice").' = ';
 							}
 							print '<span class="bold">'.$pricetoshow.'</span>';
-							if ($foundtemplate == 0)
+							if ($foundtemplate == 0)	// Same than ispaid
 							{
 								print ' <span style="color:'.$color.'">';
 								if ($contract->array_options['options_date_endfreeperiod'] > 0) print $langs->trans("TrialUntil", dol_print_date($contract->array_options['options_date_endfreeperiod'], 'day'));
@@ -1138,9 +1148,11 @@ if ($mode == 'instances')
 								print '</span>';
 								if ($contract->array_options['options_date_endfreeperiod'] < dol_now())
 								{
-									print ' - <span style="color: orange">'.$langs->trans("SuspendWillBeDoneSoon").'</span>';
+									if ($statuslabel == 'suspended') print ' - <span style="color: orange">'.$langs->trans("Suspended").'</span>';
+									else print ' - <span style="color: orange">'.$langs->trans("SuspendWillBeDoneSoon").'</span>';
 								}
-								print ' - <a href="register_paymentmode.php">'.$langs->trans("AddAPaymentMode").'</a>';
+								if ($statuslabel == 'suspended') print ' - <a href="register_paymentmode.php">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>';
+								else print ' - <a href="register_paymentmode.php">'.$langs->trans("AddAPaymentMode").'</a>';
 							}
 							if ($foundtemplate > 1) print ' - <span class="bold">'.$langs->trans("WarningFoundMoreThanOneInvoicingTemplate").'</span>';
 							print '</span>';
