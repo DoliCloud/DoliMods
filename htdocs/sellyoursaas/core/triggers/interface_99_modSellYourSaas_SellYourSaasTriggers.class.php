@@ -150,17 +150,21 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 	    		$contract = new Contrat($this->db);
 				$contract->fetch($object->fk_contrat);
 
+				$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
+
 				$generatedunixlogin=$contract->array_options['options_username_os'];
 				$generatedunixpassword=$contract->array_options['options_password_os'];
 				$tmp=preg_replace('/\./', $contract->ref_customer, 2);
 				$sldAndSubdomain=$tmp[0];
 				$domainname=$tmp[1];
-				$generateddbname=$contract->array_options['options_username_db'];
+				$generateddbname=$contract->array_options['options_database_db'];
+				$generateddbport=$contract->array_options['options_port_db'];
+				$generateddbusername=$contract->array_options['options_username_db'];
 				$generateddbpassword=$contract->array_options['options_password_db'];
 
 				// Remote action : unsuspend
 				$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
-				$commandurl.= '&'.$generateddbname.'&'.$generateddbusername.'&'.$generateddbpassword;
+				$commandurl.= '&'.$generateddbname.'&'.$generateddbport.'&'.$generateddbusername.'&'.$generateddbpassword;
 				$commandurl.= '&'.$tmppackage->srcconffile1.'&'.$tmppackage->targetconffile1.'&'.$tmppackage->datafile1;
 				$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
 				$commandurl.= '&'.$tmppackage->srccronfile.'&'.$targetdir;
@@ -169,7 +173,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 
 				$serverdeployement = getRemoveServerDeploymentIp();
 
-				$urltoget='http://'.$serverdeployement.':8080/'.$remoteaction.'/'.urlencode($commandurl);
+				$urltoget='http://'.$serverdeployement.':8080/'.$remoteaction.'?'.urlencode($commandurl);
 				include DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 				$retarray = getURLContent($urltoget);
 

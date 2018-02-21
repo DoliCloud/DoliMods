@@ -38,6 +38,7 @@ require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
 dol_include_once('/sellyoursaas/class/packages.class.php');
+dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
 
 $conf->global->SYSLOG_FILE_ONEPERSESSION=1;
 
@@ -225,25 +226,54 @@ if ($action == 'updatepassword')
 
 if ($action == 'undeploy')
 {
-	// Remote action : undeploy all
-	$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
-	$commandurl.= '&'.$generateddbname.'&'.$generateddbusername.'&'.$generateddbpassword;
-	$commandurl.= '&'.$tmppackage->srcconffile1.'&'.$tmppackage->targetconffile1.'&'.$tmppackage->datafile1;
-	$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
-	$commandurl.= '&'.$tmppackage->srccronfile.'&'.$targetdir;
+	$contract=new Contrat($db);
+	$contract->fetch(GETPOST('contractid','int'));					// This load also lines
 
-	$outputfile = $conf->sellyoursaas->dir_temp.'/action_deploy_undeploy-undeploy.'.dol_getmypid().'.out';
-
-	$serverdeployement = getRemoveServerDeploymentIp();
-
-	$urltoget='http://'.$serverdeployement.':8080/undeployall/'.urlencode($commandurl);
-	include DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
-	$retarray = getURLContent($urltoget);
-
-	if ($retarray['curl_error_no'] != '')
+	$urlofinstancetodestroy = GETPOST('urlofinstancetodestroy','alpha');
+	if (empty($urlofinstancetodestroy))
 	{
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameOfInstanceToDestroy")), null, 'errors');
 		$error++;
-		$errormessages[] = $retarray['curl_error_msg'];
+	}
+	elseif ($urlofinstancetodestroy != $contract->ref_customer)
+	{
+		setEventMessages($langs->trans("ErrorNameOfInstanceDoesNotMatch", $urlofinstancetodestroy, $contract->ref_customer), null, 'errors');
+		$error++;
+	}
+	else
+	{
+		$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
+
+		$generatedunixlogin = $contract->array_options['options_username_os'];
+		$generatedunixpassword = 'na';
+		$tmparray = explode('.', $contract->ref_customer, 2);
+		$sldAndSubdomain = $tmparray[0];
+		$domainname = $tmparray[1];
+		$generateddbname = $contract->array_options['options_database_db'];
+		$generateddbport = ($contract->array_options['options_port_db']?$contract->array_options['options_port_db']:3306);
+		$generateddbusername = $contract->array_options['options_username_db'];
+		$generateddbpassword = $contract->array_options['options_password_db'];
+
+		// Remote action : undeploy
+		$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
+		$commandurl.= '&'.$generateddbname.'&'.$generateddbport.'&'.$generateddbusername.'&'.$generateddbpassword;
+		$commandurl.= '&'.$tmppackage->srcconffile1.'&'.$tmppackage->targetconffile1.'&'.$tmppackage->datafile1;
+		$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
+		$commandurl.= '&'.$tmppackage->srccronfile.'&'.$targetdir;
+
+		$outputfile = $conf->sellyoursaas->dir_temp.'/action_deploy_undeploy-undeploy-'.dol_getmypid().'.out';
+
+		$serverdeployement = getRemoveServerDeploymentIp();
+
+		$urltoget='http://'.$serverdeployement.':8080/undeploy?'.urlencode($commandurl);
+		include DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+		$retarray = getURLContent($urltoget);
+
+		if ($retarray['curl_error_no'] != '')
+		{
+			$error++;
+			$errormessages[] = $retarray['curl_error_msg'];
+		}
 	}
 }
 
@@ -519,7 +549,7 @@ if (empty($welcomecid))	// Show warning
 				$firstline = reset($contract->lines);
 				print '
 					<div class="note note-warning">
-					<h4 class="block">'.$langs->trans("XDaysAfterEndOfTrial", abs($delayindays), $contract->ref_customer).' !</h4>
+					<h4 class="block">'.$langs->trans("XDaysAfterEndOfTrial", $contract->ref_customer, abs($delayindays)).' !</h4>
 					<p>
 					<a href="register_paymentmode.php" class="btn btn-warning">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>
 					</p>
@@ -1095,6 +1125,7 @@ if ($mode == 'instances')
 								<input type="hidden" name="mode" value="instances"/>
 								<input type="hidden" name="action" value="updateurl" />
 								<input type="hidden" name="contractid" value="'.$contract->id.'" />
+								<input type="hidden" name="tab" value="domain_'.$contract->id.'" />
 								<input type="submit" class="btn btn-warning default change-domain-link" name="changedomain" value="'.$langs->trans("ChangeDomain").'">
 							</div>
 						  	</form>
@@ -1171,13 +1202,23 @@ if ($mode == 'instances')
 			              </div> <!-- END TAB PANE -->
 
 			            <div class="tab-pane" id="tab_danger_'.$contract->id.'">
+						<form class="form-group" action="'.$_SERVER["PHP_SELF"].'" method="POST">
 			              <div class="">
 			                <p class="opacitymedium" style="padding: 15px">
-			                    '.$langs->trans("PleaseBeSure").'
-								<br><br>
+			                    '.$langs->trans("PleaseBeSure", $contract->ref_customer).'
 			                </p>
-			                <p class="center"><a href="'.$_SERVER["PHP_SELF"].'?action=undeploy&contractid='.$contract->id.'" class="btn btn-danger">'.$langs->trans("UndeployInstance").'</a></p>
+							<p class="center" style="padding-bottom: 15px">
+								<input type="text" class="center urlofinstancetodestroy" name="urlofinstancetodestroy" value="'.GETPOST('urlofinstancetodestroy','alpha').'" placeholder="">
+							</p>
+							<p class="center">
+								<input type="hidden" name="mode" value="instances"/>
+								<input type="hidden" name="action" value="undeploy" />
+								<input type="hidden" name="contractid" value="'.$contract->id.'" />
+								<input type="hidden" name="tab" value="danger_'.$contract->id.'" />
+								<input type="submit" class="btn btn-danger" name="changedomain" value="'.$langs->trans("UndeployInstance").'">
+							</p>
 			              </div>
+						</form>
 			            </div> <!-- END TAB PANE -->
 
 			          </div> <!-- END TAB CONTENT -->
@@ -1202,12 +1243,12 @@ if ($mode == 'instances')
 		</div>
 	';
 
-	if (GETPOST('tab','int'))
+	if (GETPOST('tab','alpha'))
 	{
 		print '<script type="text/javascript" language="javascript">
 		jQuery(document).ready(function() {
-			console.log("Click on '.GETPOST('tab','int').'");
-			jQuery("#a_tab_danger_'.GETPOST('tab','int').'").click();
+			console.log("Click on '.GETPOST('tab','alpha').'");
+			jQuery("#a_tab_'.GETPOST('tab','alpha').'").click();
 		});
 		</script>';
 	}

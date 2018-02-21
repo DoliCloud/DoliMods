@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# To use this script:
-# Create a symbolic link to this file .../suspend_unsuspened.sh into /usr/bin
-
+# To use this script with remote ssh (not required when using the remote agent):
+# Create a symbolic link to this file .../action_suspend_unsuspend.sh into /usr/bin
 # Grant adequate permissions (550 mean root and group www-data can read and execute, nobody can write)
-# sudo chown root:www-data /usr/bin/suspend_unsuspened.sh
-# sudo chmod 550 /usr/bin/suspend_unsuspened.sh
+# sudo chown root:www-data /usr/bin/action_suspend_unsuspend.sh
+# sudo chmod 550 /usr/bin/action_suspend_unsuspend.sh
 # And allow apache to sudo on this script by doing visudo to add line:
-#www-data        ALL=(ALL) NOPASSWD: /usr/bin/suspend_unsuspened.sh
+#www-data        ALL=(ALL) NOPASSWD: /usr/bin/action_suspend_unsuspend.sh
+
 
 export now=`date +%Y%m%d%H%M%S`
 
@@ -27,10 +27,12 @@ echo "# realname name --> $(basename $(realpath ${0}))"
 echo "# realname dir ---> $(dirname $(realpath ${0}))"
 
 export PID=${$}
-export scriptdir=$(dirname $(realpath ${0}))
-export vhostfile="$scriptdir/templates/vhostHttps-dolibarr.template"
+export targetdir="/home/jail/home"				
+export archivedir="/home/archives"
 export ZONES_PATH="/etc/bind/zones"
 export ZONE="with.dolicloud.com.hosts" 
+export scriptdir=$(dirname $(realpath ${0}))
+export vhostfile="$scriptdir/templates/vhostHttps-dolibarr.template"
 
 
 if [ "$(id -u)" != "0" ]; then
@@ -82,6 +84,12 @@ echo "targetdir = $targetdir"
 echo "...calculated params..."
 echo "instancedir = $instancedir"
 echo "fqn = $fqn"
+
+if [[ ! -d $archivedir ]]; then
+	echo Failed to find archive directory $archivedir
+	exit 1
+fi
+
 
 
 

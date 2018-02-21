@@ -539,6 +539,7 @@ if (! $error)
 	'__APPDOMAIN__'=>$sldAndSubdomain.$tldid,
 	'__DBHOSTNAME__'=>$generateddbhostname,
 	'__DBNAME__'=>$generateddbname,
+	'__DBPORT__'=>$generateddbport,
 	'__DBUSER__'=>$generateddbusername,
 	'__DBPASSWORD__'=>$generateddbpassword
 	);
@@ -565,16 +566,16 @@ if (! $error)
 
 	// Remote action : deploy all
 	$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
-	$commandurl.= '&'.$generateddbname.'&'.$generateddbusername.'&'.$generateddbpassword;
+	$commandurl.= '&'.$generateddbname.'&'.$generateddbport.'&'.$generateddbusername.'&'.$generateddbpassword;
 	$commandurl.= '&'.$tmppackage->srcconffile1.'&'.$tmppackage->targetconffile1.'&'.$tmppackage->datafile1;
 	$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
 	$commandurl.= '&'.$tmppackage->srccronfile.'&'.$targetdir;
 
-	$outputfile = $conf->sellyoursaas->dir_temp.'/action_deploy_undeploy-deploy.'.dol_getmypid().'.out';
+	$outputfile = $conf->sellyoursaas->dir_temp.'/action_deploy_undeploy-deployall-'.dol_getmypid().'.out';
 
 	$serverdeployement = getRemoveServerDeploymentIp();
 
-	$urltoget='http://'.$serverdeployement.':8080/deployall/'.urlencode($commandurl);
+	$urltoget='http://'.$serverdeployement.':8080/deployall?'.urlencode($commandurl);
 	include DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 	$retarray = getURLContent($urltoget);
 
