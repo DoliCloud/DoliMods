@@ -242,6 +242,9 @@ if ($reusecontractid)
 
 	$tmpthirdparty = $contract->thirdparty;
 
+	$email = $tmpthirdparty->email;
+	$password = substr(getRandomPassword(true), 0, 9);		// Password is no more known (no more in memory) when we make a retry/restart of deply
+
 	$generatedunixhostname = $contract->array_options['options_hostname_os'];
 	$generatedunixlogin = $contract->array_options['options_username_os'];
 	$generatedunixpassword = $contract->array_options['options_password_os'];
@@ -506,7 +509,6 @@ else
 
 
 
-
 // -----------------------------------------------------------------------------------------------------------------------
 // Create unix user and directories, DNS, virtual host and database
 //
@@ -535,15 +537,18 @@ if (! $error)
 	'__OSHOSTNAME__'=>$generatedunixhostname,
 	'__OSUSERNAME__'=>$generatedunixlogin,
 	'__OSPASSWORD__'=>$generatedunixpassword,
-	'__APPUSERNAME__'=>'admin',
-	'__APPPASSWORD__'=>$password,
-	'__APPUNIQUEKEY__'=>$generateduniquekey,
-	'__APPDOMAIN__'=>$sldAndSubdomain.$tldid,
 	'__DBHOSTNAME__'=>$generateddbhostname,
 	'__DBNAME__'=>$generateddbname,
 	'__DBPORT__'=>$generateddbport,
 	'__DBUSER__'=>$generateddbusername,
-	'__DBPASSWORD__'=>$generateddbpassword
+	'__DBPASSWORD__'=>$generateddbpassword,
+	'__PACKAGEREF__'=> $tmppackage->ref;
+	'__PACKAGENAME__'=> $tmppackage->label;
+	'__APPUSERNAME__'=>'admin',
+	'__APPEMAIL__'=>$email,
+	'__APPPASSWORD__'=>$password,
+	'__APPUNIQUEKEY__'=>$generateduniquekey,
+	'__APPDOMAIN__'=>$sldAndSubdomain.$tldid
 	);
 
 	$tmppackage->srcconffile1 = '/tmp/conf.php.'.$sldAndSubdomain.$tldid.'.tmp';
@@ -625,7 +630,7 @@ if (! $error)
 	else
 	{
 		dol_syslog("Execute sql=".$sqltoexecute);
-		$resql = $dbinstance->query($sqtoexecute);
+		$resql = $dbinstance->query($sqltoexecute);
 	}
 }
 
@@ -651,11 +656,38 @@ if (! $error)
 
 if (! $error)
 {
+	// Deployement is complete and finished.
+	// First time we go at end of process, so we send en email.
+
 	$newurl=$_SERVER["PHP_SELF"];
 	$newurl=preg_replace('/register_instance\.php/', 'index.php?welcomecid='.$contract->id, $newurl);
 
 	$_SESSION['initialapplogin']='admin';
 	$_SESSION['initialapppassword']=$password;
+
+
+	// Send deployment email
+	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+	$formmail=new FormMail($db);
+
+	$arraydefaultmessage=$formmail->getEMailTemplate($db, 'InstanceDeployed', $user, $langs, 0);
+
+	$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $contract);
+	complete_substitutions_array($substitutionarray, $langs, $contract);
+
+	$subject = make_substitutions($arraydefaultmessage['topic'], $substitutionarray, $langs);
+	$msg     = make_substitutions($arraydefaultmessage['content'], $substitutionarray, $langs);
+	$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+	$to = $contract->thirdparty->email;
+
+	$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
+	$result = $cmail->sendfile();
+	if (! $result)
+	{
+		$error++;
+		setEventMessages($cmail->error, $cmail->errors, 'warning');
+	}
 
 	dol_syslog("Deployment successful");
 	header("Location: ".$newurl);

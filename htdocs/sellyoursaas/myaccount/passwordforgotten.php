@@ -164,6 +164,7 @@ if ($hashreset)
         }
     }
 }
+
 // Action modif mot de passe
 if ($action == 'buildnewpassword' && $username)
 {
@@ -209,26 +210,31 @@ if ($action == 'buildnewpassword' && $username)
 
                 	$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/passwordforgotten.php?id='.$thirdparty->id.'&hashreset='.$hashreset;
                 	$trackid='thi'.$thirdparty->id;
+
+                	// Send deployment email
+                	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+                	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+                	$formmail=new FormMail($db);
+
+                	$arraydefaultmessage=$formmail->getEMailTemplate($db, 'PasswordAssistance', $user, $langs, 0);
+
                 	$appli = $conf->global->SELLYOURSAAS_NAME;
                 	$subject = $langs->transnoentitiesnoconv("SubjectNewPassword", $appli);
-                	$mesg='';
-                	$mesg.= "\n__(Hello)__,\n";
-                	$mesg.= $langs->transnoentitiesnoconv("RequestToResetPasswordReceived")."\n";
-                	$mesg.= "\n";
-                	$mesg.= $langs->transnoentitiesnoconv("YouMustClickToChange")." :\n";
-                	$mesg.= $url."\n\n";
-                	$mesg.= $langs->transnoentitiesnoconv("ApplicantIpAddress").': __USER_REMOTE_IP__'."\n";
-                	$mesg.= $langs->transnoentitiesnoconv("ForgetIfNothing")."\n\n";
+
+                	//$mesg.='You may find more information on all different user/password reset process onto <a href="https://www.dolicloud.com/en-faq-i-forgot-my-login-or-password">the following page</a>';
 
                 	$substitutionarray = getCommonSubstitutionArray($langs, 0, null, $thirdparty);
                 	complete_substitutions_array($substitutionarray, $langs, $thirdparty);
-                	$mesg = make_substitutions($mesg, $substitutionarray, $langs);
 
-                	$newemail = new CMailFile($subject, $username, $conf->global->SELLYOURSAAS_MAIN_EMAIL, $mesg,array(),array(),array(),'','',0,-1,'','',$trackid,'','standard');
+                	$substitutionarray['__URL_TO_RESET__'] = $url;
+
+                	$subject = make_substitutions($arraydefaultmessage['topic'], $substitutionarray, $langs);
+                	$mesg = make_substitutions($arraydefaultmessage['content'], $substitutionarray, $langs);
+
+                	$newemail = new CMailFile($subject, $username, $conf->global->SELLYOURSAAS_MAIN_EMAIL, $mesg, array(),array(),array(),'','',0,-1,'','',$trackid,'','standard');
 
                 	if ($newemail->sendfile() > 0)
                     {
-
                     	$message = '<div class="ok">'.$langs->trans("PasswordChangeRequestSent", $username, $username).'</div>';
                         $username='';
                     }

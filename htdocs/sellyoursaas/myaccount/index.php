@@ -78,12 +78,12 @@ if ($mode == 'logout')
 
 if ($action == 'updateurl')
 {
-	setEventMessages($langs->trans("FeatureNotYetAvailable"), null, 'warnings');
+	setEventMessages($langs->trans("FeatureNotYetAvailable").'.<br>'.$langs->trans("ContactUsByEmail", $conf->global->SELLYOURSAAS_MAIN_EMAIL), null, 'warnings');
 }
 
 if ($action == 'changeplan')
 {
-	setEventMessages($langs->trans("FeatureNotYetAvailable"), null, 'warnings');
+	setEventMessages($langs->trans("FeatureNotYetAvailable").'.<br>'.$langs->trans("ContactUsByEmail", $conf->global->SELLYOURSAAS_MAIN_EMAIL), null, 'warnings');
 	$action = '';
 }
 
