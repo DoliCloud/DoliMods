@@ -560,7 +560,8 @@ if (empty($reshook))
 			var_dump($dolicloudcustomer->price_user);
 			exit;*/
 			$dateinvoice = $contract->array_options['options_date_endfreeperiod'];
-
+			if (empty($dateinvoice) && $dolicloudcustomer->id > 0) $dateinvoice = $dolicloudcustomer->date_current_period_end;
+			
 			$invoice_draft = new Facture($db);
 
 			// Now create invoice draft
