@@ -58,6 +58,7 @@ function numberwords_completesubstitutionarray(&$substitutionarray,$langs,$objec
 		$numbertext=$langs->getLabelFromNumber($object->multicurrency_total_tva,1);
 		$substitutionarray['__AMOUNT_CURRENCY_VAT_TEXT__']=$numbertext;
 
+		// Use number words for property ->number of object with __NUMBER_WORDS__
 		$numbertext=$langs->getLabelFromNumber((! empty($object->number))?$object->number:'',0);
 		$substitutionarray['__NUMBER_WORDS__']=$numbertext;
 	}
