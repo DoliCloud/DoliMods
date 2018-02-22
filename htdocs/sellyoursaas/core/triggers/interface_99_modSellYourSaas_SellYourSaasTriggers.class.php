@@ -98,6 +98,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         	case 'COMPANY_CREATE':
 
 
+				break;
         	case 'LINECONTRACT_ACTIVATE':
         		$remoteaction = 'unsuspend';
         		break;
@@ -189,10 +190,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 					$errormessages[] = $retarray['curl_error_msg'];
 				}
 
-
-				// TODO Email or not ?
-
-
+				// No email, can be done manually.
     		}
     	}
 
