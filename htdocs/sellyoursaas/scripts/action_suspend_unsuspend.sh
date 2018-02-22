@@ -32,12 +32,13 @@ export archivedir="/home/archives"
 export ZONES_PATH="/etc/bind/zones"
 export ZONE="with.dolicloud.com.hosts" 
 export scriptdir=$(dirname $(realpath ${0}))
-export vhostfile="$scriptdir/templates/vhostHttps-dolibarr.template"
+export vhostfile="$scriptdir/templates/vhostHttps-sellyoursaas.template"
+export vhostfilesuspended="$scriptdir/templates/vhostHttps-sellyoursaas-suspended.template"
 
 
 if [ "$(id -u)" != "0" ]; then
-   echo "This script must be run as root" 1>&2
-   #exit 1
+	echo "This script must be run as root" 1>&2
+	exit 1
 fi
 
 if [ "x$1" == "x" ]; then
@@ -66,9 +67,10 @@ export osusername=$2
 export ospassword=$3
 export instancename=$4
 export domainname=$5
+export port=$6
 
-export targetdirwithsources1=${6}
-export targetdir=${7}
+export targetdirwithsources1=${7}
+export targetdir=${8}
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
@@ -98,18 +100,104 @@ testorconfirm="confirm"
 # Suspend
 
 if [[ "$mode" == "suspend" ]]; then
-echo "***** Suspend instance in /home/jail/home/$osusername"
+	echo "***** Suspend instance in /home/jail/home/$osusername/$dbname"
+
+	export apacheconf="/etc/apache2/sites-available/$fqn.conf"
+	echo "Create a new apache conf $apacheconf from $vhostfile"
+
+	if [[ -s $apacheconf ]]
+	then
+		echo "Apache conf $apacheconf already exists, we delete it since it may be a file from an old instance with same name"
+		rm -f $apacheconf
+	fi
+
+	echo "cat $vhostfilesuspended | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
+			  sed -e 's/__webAppAliases__/$instancename.$domainname/g' | \
+			  sed -e 's/__webAppLogName__/$instancename/g' | \
+			  sed -e 's/__myMainDomain__/dolicloud.com/g' | \
+			  sed -e 's/__osUsername__/$osusername/g' | \
+			  sed -e 's/__osGroupname__/$osusername/g' | \
+			  sed -e 's;__webAppPath__;$instancedir;' > $apacheconf"
+	cat $vhostfilesuspended | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
+			  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
+			  sed -e "s/__webAppLogName__/$instancename/g" | \
+			  sed -e 's/__myMainDomain__/dolicloud.com/g' | \
+			  sed -e "s/__osUsername__/$osusername/g" | \
+			  sed -e "s/__osGroupname__/$osusername/g" | \
+			  sed -e "s;__webAppPath__;$instancedir;" > $apacheconf
 
 
+	echo Enabled conf with a2ensite $fqn.conf
+	a2ensite $fqn.conf
+	
+	echo /usr/sbin/apache2ctl configtest
+	/usr/sbin/apache2ctl configtest
+	if [[ "x$?" != "x0" ]]; then
+		echo Error when running apache2ctl configtest 
+		echo "Failed to suspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -s "[Alert] Pb in suspend" supervision@dolicloud.com 
+		exit 1
+	fi 
+	
+	echo "***** Apache tasks finished. service apache2 reload"
+	service apache2 reload
+	if [[ "x$?" != "x0" ]]; then
+		echo Error when running service apache2 reload
+		echo "Failed to suspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -s "[Alert] Pb in suspend" supervision@dolicloud.com 
+		exit 2
+	fi
+			
 fi
 
 
 # Suspend
 
 if [[ "$mode" == "unsuspend" ]]; then
-echo "***** Unsuspend instance in /home/jail/home/$osusername"
+	echo "***** Unsuspend instance in /home/jail/home/$osusername/$dbname"
+
+	export apacheconf="/etc/apache2/sites-available/$fqn.conf"
+	echo "Create a new apache conf $apacheconf from $vhostfile"
+
+	if [[ -s $apacheconf ]]
+	then
+		echo "Apache conf $apacheconf already exists, we delete it since it may be a file from an old instance with same name"
+		rm -f $apacheconf
+	fi
+
+	echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
+			  sed -e 's/__webAppAliases__/$instancename.$domainname/g' | \
+			  sed -e 's/__webAppLogName__/$instancename/g' | \
+			  sed -e 's/__myMainDomain__/dolicloud.com/g' | \
+			  sed -e 's/__osUsername__/$osusername/g' | \
+			  sed -e 's/__osGroupname__/$osusername/g' | \
+			  sed -e 's;__webAppPath__;$instancedir;' > $apacheconf"
+	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
+			  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
+			  sed -e "s/__webAppLogName__/$instancename/g" | \
+			  sed -e 's/__myMainDomain__/dolicloud.com/g' | \
+			  sed -e "s/__osUsername__/$osusername/g" | \
+			  sed -e "s/__osGroupname__/$osusername/g" | \
+			  sed -e "s;__webAppPath__;$instancedir;" > $apacheconf
 
 
+	echo Enabled conf with a2ensite $fqn.conf
+	a2ensite $fqn.conf
+	
+	echo /usr/sbin/apache2ctl configtest
+	/usr/sbin/apache2ctl configtest
+	if [[ "x$?" != "x0" ]]; then
+		echo Error when running apache2ctl configtest 
+		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -s "[Alert] Pb in suspend" supervision@dolicloud.com 
+		exit 1
+	fi 
+	
+	echo "***** Apache tasks finished. service apache2 reload"
+	service apache2 reload
+	if [[ "x$?" != "x0" ]]; then
+		echo Error when running service apache2 reload
+		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -s "[Alert] Pb in suspend" supervision@dolicloud.com 
+		exit 2
+	fi
+	
 fi
 
 

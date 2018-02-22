@@ -254,6 +254,8 @@ if ($action == 'undeploy')
 		$generateddbusername = $contract->array_options['options_username_db'];
 		$generateddbpassword = $contract->array_options['options_password_db'];
 
+		$tmppackage = new Packages($db);
+
 		// Remote action : undeploy
 		$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
 		$commandurl.= '&'.$generateddbname.'&'.$generateddbport.'&'.$generateddbusername.'&'.$generateddbpassword;

@@ -140,13 +140,14 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
     		$producttmp = new Product($this->db);
     		$producttmp->fetch($object->fk_product);
 
-    		if (empty($object->context['fromdolucloudcustomerv1']) &&
+    		if (empty($object->context['fromdolicloudcustomerv1']) &&
     			($producttmp->array_options['options_app_or_option'] == 'app' || $producttmp->array_options['options_app_or_option'] == 'option'))
     		{
 	    		dol_syslog("Suspend/unsuspend instance remoteaction=".$remoteaction);
 
 	    		include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 	    		dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
+	    		dol_include_once('/sellyoursaas/class/packages.class.php');
 	    		$contract = new Contrat($this->db);
 				$contract->fetch($object->fk_contrat);
 
@@ -154,13 +155,15 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 
 				$generatedunixlogin=$contract->array_options['options_username_os'];
 				$generatedunixpassword=$contract->array_options['options_password_os'];
-				$tmp=preg_replace('/\./', $contract->ref_customer, 2);
+				$tmp=explode('.', $contract->ref_customer, 2);
 				$sldAndSubdomain=$tmp[0];
 				$domainname=$tmp[1];
 				$generateddbname=$contract->array_options['options_database_db'];
 				$generateddbport=$contract->array_options['options_port_db'];
 				$generateddbusername=$contract->array_options['options_username_db'];
 				$generateddbpassword=$contract->array_options['options_password_db'];
+
+				$tmppackage = new Packages($db);
 
 				// Remote action : unsuspend
 				$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;

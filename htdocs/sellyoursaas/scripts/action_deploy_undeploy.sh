@@ -37,12 +37,12 @@ export archivedir="/home/archives"
 export ZONES_PATH="/etc/bind/zones"
 export ZONE="with.dolicloud.com.hosts" 
 export scriptdir=$(dirname $(realpath ${0}))
-export vhostfile="$scriptdir/templates/vhostHttps-dolibarr.template"
+export vhostfile="$scriptdir/templates/vhostHttps-sellyoursaas.template"
 
 
 if [ "$(id -u)" != "0" ]; then
-   echo "This script must be run as root" 1>&2
-   #exit 1
+	echo "This script must be run as root" 1>&2
+	exit 1
 fi
 
 if [ "x$1" == "x" ]; then
@@ -136,6 +136,7 @@ echo "fqn = $fqn"
 
 if [[ ! -d $archivedir ]]; then
 	echo Failed to find archive directory $archivedir
+	echo "Failed to deployall instance $instancename.$domainname with: Failed to find archive directory $archivedir" | mail -s "[Alert] Pb in deployment" supervision@dolicloud.com 
 	exit 1
 fi
 
@@ -161,7 +162,8 @@ if [[ "$mode" == "deployall" ]]; then
 		useradd -m -d $targetdir/$osusername -p $ospassword -s '/bin/secureBash' $osusername 
 		if [[ "$?x" != "0x" ]]; then
 			echo Error failed to create user $osusername 
-			#exit 1
+			echo "Failed to deployall instance $instancename.$domainname with: useradd -m -d $targetdir/$osusername -p $ospassword -s '/bin/secureBash' $osusername" | mail -s "[Alert] Pb in deployment" supervision@dolicloud.com 
+			exit 1
 		fi
 		chmod -R go-rwx /home/jail/home/$osusername
 	fi
@@ -259,6 +261,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		named-checkzone with.dolicloud.com /tmp/${ZONE}.$PID
 		if [[ "$?x" != "0x" ]]; then
 			echo Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid 
+			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid" | mail -s "[Alert] Pb in deployment" supervision@dolicloud.com 
 			exit 1
 		fi
 		
@@ -275,7 +278,8 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		echo "**** nslookup $fqn 127.0.0.1"
 		nslookup $fqn 127.0.0.1
 		if [[ "$?x" != "0x" ]]; then
-			echo Error after reloading DNS. nslookup of $fqn fails. 
+			echo Error after reloading DNS. nslookup of $fqn fails
+			echo "Failed to deployall instance $instancename.$domainname with: Error after reloading DNS. nslookup of $fqn fails" | mail -s "[Alert] Pb in deployment" supervision@dolicloud.com 
 			exit 1
 		fi 
 	fi
@@ -324,6 +328,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		named-checkzone with.dolicloud.com /tmp/${ZONE}.$PID
 		if [[ "$?x" != "0x" ]]; then
 			echo Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid 
+			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid" | mail -s "[Alert] Pb in deployment" supervision@dolicloud.com 
 			exit 1
 		fi
 		
@@ -341,6 +346,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		#nslookup $fqn 127.0.0.1
 		#if [[ "$?x" != "0x" ]]; then
 		#	echo Error after reloading DNS. nslookup of $fqn fails. 
+		#	echo "Failed to deployall instance $instancename.$domainname with: Error after reloading DNS. nslookup of $fqn fails. " | mail -s "[Alert] Pb in deployment" supervision@dolicloud.com 
 		#	exit 1
 		#fi 
 	fi
@@ -460,6 +466,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	/usr/sbin/apache2ctl configtest
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running apache2ctl configtest 
+		echo "Failed to deployall instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -s "[Alert] Pb in deployment" supervision@dolicloud.com 
 		exit 1
 	fi 
 	
@@ -467,6 +474,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	service apache2 reload
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running service apache2 reload 
+		echo "Failed to deployall instance $instancename.$domainname with: Error when running service apache2 reload" | mail -s "[Alert] Pb in deployment" supervision@dolicloud.com 
 		exit 2
 	fi
 
@@ -485,6 +493,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		/usr/sbin/apache2ctl configtest
 		if [[ "x$?" != "x0" ]]; then
 			echo Error when running apache2ctl configtest 
+			echo "Failed to deployall instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -s "[Alert] Pb in deployment" supervision@dolicloud.com 
 			exit 1
 		fi 
 		
@@ -492,6 +501,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		service apache2 reload
 		if [[ "x$?" != "x0" ]]; then
 			echo Error when running service apache2 reload 
+			echo "Failed to deployall instance $instancename.$domainname with: Error when running service apache2 reload" | mail -s "[Alert] Pb in deployment" supervision@dolicloud.com 
 			exit 2
 		fi
 	else
@@ -503,7 +513,7 @@ fi
 
 # Create database (last step, the longer one)
 
-if [[ "$mode" == "deployall" || "$mode" == "deployall" ]]; then
+if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 
 	echo "***** Create database $dbname for user $dbusername"
 	
@@ -515,6 +525,7 @@ if [[ "$mode" == "deployall" || "$mode" == "deployall" ]]; then
 		passsellyoursaas=`cat /tmp/sellyoursaas`
 		if [[ "x$passsellyoursaas" == "x" ]]; then
 			echo Failed to get password for mysql user sellyoursaas 
+			echo "Failed to deployall instance $instancename.$domainname with: Failed to get password for mysql user sellyoursaas" | mail -s "[Alert] Pb in deployment" supervision@dolicloud.com 
 			exit 1
 		fi
 	fi 
