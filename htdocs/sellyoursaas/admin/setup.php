@@ -108,6 +108,9 @@ if ($action == 'set')
 
 		dolibarr_set_const($db,"SELLYOURSAAS_ANONYMOUSUSER",GETPOST("SELLYOURSAAS_ANONYMOUSUSER",'none'),'chaine',0,'',$conf->entity);
 
+		dolibarr_set_const($db,"SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT",GETPOST("SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT",'int'),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT",GETPOST("SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT",'int'),'chaine',0,'',$conf->entity);
+
 		$varforimage='logo'; $dirforimage=$conf->mycompany->dir_output.'/logos/';
 		if ($_FILES[$varforimage]["tmp_name"])
 		{
@@ -371,6 +374,20 @@ print '<td>';
 print $form->select_dolusers($conf->global->SELLYOURSAAS_ANONYMOUSUSER, 'SELLYOURSAAS_ANONYMOUSUSER', 1);
 print '</td>';
 print '<td>User used for all anonymous action (registering, actions from customer dashboard, ...)</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT").'</td>';
+print '<td>';
+print '<input class="maxwidth50" type="text" name="SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT" value="'.$conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT.'">';
+print '</td>';
+print '<td>15</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT").'</td>';
+print '<td>';
+print '<input class="maxwidth50" type="text" name="SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT" value="'.$conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT.'">';
+print '</td>';
+print '<td>120</td>';
 print '</tr>';
 
 // Logo

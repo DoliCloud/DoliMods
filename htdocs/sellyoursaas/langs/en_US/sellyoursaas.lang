@@ -205,3 +205,5 @@ Running=Running
 Undeployed=Undeployed
 Suspended=Suspended
 SuspendWillBeDoneSoon=The suspension will soon be effective
+SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT=Nb of days after expiration date to undeploy automatically test instances
+SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT=Nb of days after expiration date to undeploy automatically paid instances

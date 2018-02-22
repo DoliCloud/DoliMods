@@ -107,3 +107,21 @@ function sellyoursaasGetExpirationDate($contract)
 	return $expirationdate;
 }
 
+
+/**
+ * Undeploy a contract
+ *
+ * @param 	Contrat $contract		Object contract
+ * @return	int						<0 if KO, >0 if OK
+ */
+function sellyoursaasUndeploy($contract)
+{
+	$result = 0;
+
+
+
+	return $result;
+}
+
+
+
