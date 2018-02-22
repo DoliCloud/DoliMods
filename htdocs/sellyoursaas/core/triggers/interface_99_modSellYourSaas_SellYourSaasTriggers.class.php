@@ -163,7 +163,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 				$generateddbusername=$contract->array_options['options_username_db'];
 				$generateddbpassword=$contract->array_options['options_password_db'];
 
-				$tmppackage = new Packages($db);
+				$tmppackage = new Packages($this->db);
 
 				// Remote action : unsuspend
 				$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
