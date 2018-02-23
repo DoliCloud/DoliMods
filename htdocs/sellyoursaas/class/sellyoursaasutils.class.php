@@ -141,7 +141,7 @@ class SellYourSaasUtils
     				$outputlangs = new Translate('', $conf);
     				$outputlangs->setDefaultLang($object->thirdparty->default_lang);
 
-    				$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'GentleTrialExpiringReminder', $user, $outputlangs, 0);
+    				$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'contract', $user, $outputlangs, 0, 1, 'GentleTrialExpiringReminder');
 
     				$ispaid = sellyoursaasIsPaidInstance($object);
     				if ($mode == 'test' && $ispaid) continue;											// Discard if this is a paid instance when we are in test mode

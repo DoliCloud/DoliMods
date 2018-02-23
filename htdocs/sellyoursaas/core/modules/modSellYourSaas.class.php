@@ -640,7 +640,8 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('date_registration',     "RegistrationDate", 'datetime',  3,    '', 'thirdparty', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('firstname',                    "FirstName",  'varchar',  4,  '64', 'thirdparty', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('lastname',                      "LastName",  'varchar',  5,  '64', 'thirdparty', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
-		$resultx=$extrafields->addExtraField('password',     "CustomerDashboardPassword",  'varchar', 90,  '64', 'thirdparty', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$param=array('options'=>array('auto'=>null));
+		$resultx=$extrafields->addExtraField('password',             "DashboardPassword", 'password', 90, '128', 'thirdparty', 0, 0, '', $param, 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('pass_temp',         "HashForPasswordReset",  'varchar', 91, '128', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		//$resultx=$extrafields->addExtraField('cb_info',            "Credit Card info",   'varchar', 91, '255', 'thirdparty', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		//$resultx=$extrafields->addExtraField('paypal_info',             "Paypal info",   'varchar', 92, '255', 'thirdparty', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');

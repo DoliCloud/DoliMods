@@ -45,16 +45,17 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/images.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
 require_once(DOL_DOCUMENT_ROOT."/categories/class/categorie.class.php");
 
-// Security check
-if (!$user->admin)
-accessforbidden();
+// Access control
+if (! $user->admin) accessforbidden();
+
+// Parameters
+$action = GETPOST('action', 'alpha');
+$backtopage = GETPOST('backtopage', 'alpha');
 
 $langs->load("admin");
 $langs->load("errors");
 $langs->load("install");
 $langs->load("sellyoursaas@sellyoursaas");
-
-$action=GETPOST('action','alpha');
 
 //exit;
 
@@ -233,7 +234,7 @@ $form=new Form($db);
 $help_url="";
 llxHeader("",$langs->trans("SellYouSaasSetup"),$help_url);
 
-$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
+$linkback='<a href="'.($backtopage?$backtopage:DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1').'">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans('SellYouSaasSetup'),$linkback,'setup');
 
 //$head=array();

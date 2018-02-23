@@ -211,6 +211,7 @@ function top_htmlhead_sellyoursaas($head, $title='', $disablejs=0, $disablehead=
 		$themeparam='';
 		//print 'themepath='.$themepath.' themeparam='.$themeparam;exit;
 		print '<link rel="stylesheet" type="text/css" href="'.$themepath.$themeparam.'">'."\n";
+		print '<link href="dist/css/bootstrap.css" rel="stylesheet">'."\n";
 		if (! empty($conf->global->MAIN_FIX_FLASH_ON_CHROME)) print '<!-- Includes CSS that does not exists as a workaround of flash bug of chrome -->'."\n".'<link rel="stylesheet" type="text/css" href="filethatdoesnotexiststosolvechromeflashbug">'."\n";
 
 
@@ -499,11 +500,11 @@ if (! function_exists('dol_getprefix'))
 
 		if (isset($_SERVER["SERVER_NAME"]) && isset($_SERVER["DOCUMENT_ROOT"]))
 		{
-			return 'sellyoursaas'.dol_hash($_SERVER["SERVER_NAME"].$_SERVER["DOCUMENT_ROOT"].DOL_DOCUMENT_ROOT.DOL_URL_ROOT);
+			return 'sellyoursaas'.dol_hash($_SERVER["SERVER_NAME"].$_SERVER["DOCUMENT_ROOT"].DOL_DOCUMENT_ROOT.DOL_URL_ROOT, 'md5');
 			// Use this for a "readable" cookie name
 			//return dol_sanitizeFileName($_SERVER["SERVER_NAME"].$_SERVER["DOCUMENT_ROOT"].DOL_DOCUMENT_ROOT.DOL_URL_ROOT);
 		}
-		else return 'sellyoursaas'.dol_hash(DOL_DOCUMENT_ROOT.DOL_URL_ROOT);
+		else return 'sellyoursaas'.dol_hash(DOL_DOCUMENT_ROOT.DOL_URL_ROOT, 'md5');
 	}
 }
 

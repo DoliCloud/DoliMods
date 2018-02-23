@@ -216,7 +216,7 @@ if ($action == 'buildnewpassword' && $username)
                 	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
                 	$formmail=new FormMail($db);
 
-                	$arraydefaultmessage=$formmail->getEMailTemplate($db, 'PasswordAssistance', $user, $langs, 0);
+                	$arraydefaultmessage=$formmail->getEMailTemplate($db, 'thirdparty', $user, $langs, 0, 1, 'PasswordAssistance');
 
                 	$appli = $conf->global->SELLYOURSAAS_NAME;
                 	$subject = $langs->transnoentitiesnoconv("SubjectNewPassword", $appli);

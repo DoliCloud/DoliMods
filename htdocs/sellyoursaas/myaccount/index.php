@@ -202,10 +202,7 @@ if ($action == 'updatepassword')
 
 	$db->begin();	// Start transaction
 
-	$password_encoding = 'sha1md5';
-	$password_crypted = dol_hash($password, 2);
-
-	$mythirdpartyaccount->array_options['options_password'] = $password_crypted;
+	$mythirdpartyaccount->array_options['options_password'] = $password;
 
 	$result = $mythirdpartyaccount->update($mythirdpartyaccount->id, $user);
 

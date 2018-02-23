@@ -307,8 +307,8 @@ else
 
 	$db->begin();	// Start transaction
 
-	$password_encoding = 'sha1md5';
-	$password_crypted = dol_hash($password, 2);
+	$password_encoding = 'password_hash';
+	$password_crypted = dol_hash($password);
 
 	$tmpthirdparty->name = $orgname;
 	$tmpthirdparty->email = $email;
@@ -316,7 +316,7 @@ else
 	$tmpthirdparty->tva_assuj = 1;
 	$tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
 	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
-	$tmpthirdparty->array_options['options_password'] = $password_crypted;
+	$tmpthirdparty->array_options['options_password'] = $password;
 	if ($country_code)
 	{
 		$tmpthirdparty->country_id = getCountry($country_code, 3, $db);
@@ -671,7 +671,7 @@ if (! $error)
 	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 	$formmail=new FormMail($db);
 
-	$arraydefaultmessage=$formmail->getEMailTemplate($db, 'InstanceDeployed', $user, $langs, 0);
+	$arraydefaultmessage=$formmail->getEMailTemplate($db, 'contract', $user, $langs, 0, 1, 'InstanceDeployed');
 
 	$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $contract);
 	complete_substitutions_array($substitutionarray, $langs, $contract);

@@ -48,7 +48,11 @@ function check_user_password_sellyoursaas($usertotest, $passwordtotest, $entityt
 	}
 	else
 	{
-		$passwordtotest_crypted = dol_hash($passwordtotest, 2);
+		$passwordtotest_crypted = dol_hash($passwordtotest);
+
+		/*var_dump($passwordtotest);
+		var_dump(dol_hash($passwordtotest));
+		var_dump($thirdparty->array_options['options_password']);*/
 
 		if ($passwordtotest_crypted == $thirdparty->array_options['options_password'])
 		{

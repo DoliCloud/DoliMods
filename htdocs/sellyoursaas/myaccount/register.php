@@ -174,7 +174,7 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
             <div class="control-group  required">
             	<label class="control-label" for="username" trans="1"><?php echo $langs->trans("Email") ?></label>
             	<div class="controls">
-            		<input type="text" name="username" value="<?php echo GETPOST('username','alpha'); ?>" required="" id="username" />
+            		<input type="text" name="username" autofocus value="<?php echo GETPOST('username','alpha'); ?>" required="" id="username" />
 
             	</div>
             </div>
@@ -209,9 +209,8 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
                 </div>
             </div>
 
-            <hr />
 
-
+            <!-- <hr /> -->
 
 
 			<div class="control-group  ">
@@ -248,14 +247,16 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
 
 			<br>
 
+       </div>
+
           <section id="formActions">
-          <p style="color:#444;margin:10px 0;" trans="1"><?php echo $langs->trans("WhenRegisteringYouAccept", 'https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/en/terms-and-conditions') ?></p>
-          <div class="form-actions center">
-              <input type="submit" name="submit" value="<?php echo $langs->trans("SignMeUp") ?>" class="btn btn-primary" id="submit" />
+          <p class="termandcondition center" style="color:#444;margin:10px 0;" trans="1"><?php echo $langs->trans("WhenRegisteringYouAccept", 'https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/en/terms-and-conditions') ?></p>
+          <div class="form-actions center"">
+              <input type="submit" name="submit" style="margin: 10px;" value="<?php echo $langs->trans("SignMeUp") ?>" class="btn btn-primary" id="submit" />
           </div>
          </section>
-       </div> <!-- end form-content -->
-     </form>
+
+     </form> <!-- end form-content -->
 
 
   </div>

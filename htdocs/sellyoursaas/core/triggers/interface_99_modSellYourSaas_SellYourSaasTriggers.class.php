@@ -95,9 +95,60 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         $remoteaction = '';
 
         switch ($action) {
-        	case 'COMPANY_CREATE':
+        	case 'CATEGORY_LINK':
+				// Test if this is a partner. If yes, send an email
+        		include_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+        		if ($object->type === Categorie::TYPE_SUPPLIER || Categorie::$MAP_ID_TO_CODE[$object->type] == Categorie::TYPE_SUPPLIER)
+        		{
+        			// We link a supplier categorie to a thirdparty
+        			if ($object->id == $conf->global->SELLYOURSAAS_DEFAULT_RESELLER_CATEG)
+        			{
+        				$reseller = $object->context['linkto'];
 
+						// $object->context['linkto'] is Societe object
+        				if (empty($reseller->name_alias))
+        				{
+        					$this->errors[] = $langs->trans("CompanyAliasIsRequiredWhenWeSetResellerTag");
+        					return -1;
+        				}
 
+        				// If password not set yet, we set it
+        				if (empty($reseller->array_options['options_password']))
+        				{
+        					$password = $reseller->name_alias;
+
+        					$reseller->array_options['options_password']=$password;
+
+        					$reseller->update($reseller->id, $user, 0);
+        				}
+
+        				// No email, can be done manually.
+        				/*
+        				// Send deployment email
+        				include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+        				include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+        				$formmail=new FormMail($db);
+
+        				$arraydefaultmessage=$formmail->getEMailTemplate($db, 'thirdparty', $user, $langs, 0, 1, 'ChannelPartnerCreated');
+
+        				$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $contract);
+        				complete_substitutions_array($substitutionarray, $langs, $contract);
+
+        				$subject = make_substitutions($arraydefaultmessage['topic'], $substitutionarray, $langs);
+        				$msg     = make_substitutions($arraydefaultmessage['content'], $substitutionarray, $langs);
+        				$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+        				$to = $contract->thirdparty->email;
+
+        				$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
+        				$result = $cmail->sendfile();
+        				if (! $result)
+        				{
+        					$error++;
+        					$this->errors += $cmail->errors;
+        				}
+						*/
+        			}
+        		}
 				break;
         	case 'LINECONTRACT_ACTIVATE':
         		$remoteaction = 'unsuspend';
