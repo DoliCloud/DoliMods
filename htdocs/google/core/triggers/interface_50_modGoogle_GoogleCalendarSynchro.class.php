@@ -153,7 +153,7 @@ class InterfaceGoogleCalendarSynchro
     		        {
     		            $idusersalerep=$salerep[0]['id'];
         				$fuser = new User($this->db);
-        				$fuser->fetch($idusersalerep);
+        				$fuser->fetch($idusersalerep, '', '', 1);		// 1 to be sure to load personal conf
         				$userlogin = $fuser->conf->GOOGLE_LOGIN;
     		        }
     		        else

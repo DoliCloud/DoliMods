@@ -87,7 +87,7 @@ $dirleft = "../core/menus/standard";
 
 // Charge utilisateur edite
 $object = new User($db);
-$result=$object->fetch($id);
+$result=$object->fetch($id, '', '', 1);
 if ($result < 0) dol_print_error('',$object->error);
 $object->getrights();
 
