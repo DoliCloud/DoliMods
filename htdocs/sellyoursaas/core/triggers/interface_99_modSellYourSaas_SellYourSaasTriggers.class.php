@@ -117,6 +117,8 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         				{
         					$password = $reseller->name_alias;
 
+        					$reseller->oldcopy = dol_clone($reseller);
+
         					$reseller->array_options['options_password']=$password;
 
         					$reseller->update($reseller->id, $user, 0);

@@ -1539,13 +1539,13 @@ if ($mode == 'myaccount')
                   <label>'.$langs->trans("VATIntra").'</label> ';
 				if (! empty($mythirdpartyaccount->tva_assuj) && empty($mythirdpartyaccount->tva_intra))
 					{
-						print img_warning($langs->trans("WarningMandatorySetupNotComplete"));
+						print img_warning($langs->trans("WarningMandatorySetupNotComplete"), 'class="hideifnonassuj"');
 					}
 					print '
 					<br>
-                  <input type="checkbox" style="vertical-align: top" class="inline-block"'.($mythirdpartyaccount->tva_assuj?' checked="checked"':'').'" name="vatassuj"> '.$langs->trans("VATIsUsed").'
+                  <input type="checkbox" style="vertical-align: top" class="inline-block"'.($mythirdpartyaccount->tva_assuj?' checked="checked"':'').'" id="vatassuj" name="vatassuj"> '.$langs->trans("VATIsUsed").'
 					<br>
-                  <input type="text" class="input-small quatrevingtpercent" value="'.$mythirdpartyaccount->tva_intra.'" name="vatnumber">
+                  <input type="text" class="input-small quatrevingtpercent hideifnonassuj" value="'.$mythirdpartyaccount->tva_intra.'" name="vatnumber" placeholder="">
                 </div>
               </div>
               <!-- END FORM BODY -->
@@ -1559,10 +1559,20 @@ if ($mode == 'myaccount')
           </div> <!-- END PORTLET-BODY -->
         </div>
 
+	    </div>
+		';
 
+		print '<script type="text/javascript" language="javascript">
+		jQuery(document).ready(function() {
+			jQuery("#vatassuj").click(function() {
+				console.log("Click on vatassuj "+jQuery("#vatassuj").is(":checked");
+				jQuery(".hideifnonassuj").hide();
+				jQuery(".hideifnonassuj").show();
+			});
+		});
+		</script>';
 
-
-	      </div> <!-- END COL -->
+		print '
 
 	      <div class="col-md-6">
 
