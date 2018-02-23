@@ -39,7 +39,7 @@ if (! empty($tmparray[1]))
 $output='';
 $return_var=0;
 
-if ($DEBUG) fwrite($fh, "\n\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call '.$_SERVER['REQUEST_URI']."\n");
+if ($DEBUG) fwrite($fh, "\n\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call for action '.$tmparray[0].' by '.$_SERVER['REMOTE_ADDR'].' URI='.$_SERVER['REQUEST_URI']."\n");
 else fwrite($fh, "\n\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call for action '.$tmparray[0]." by ".$_SERVER['REMOTE_ADDR']."\n");
 
 if (in_array($tmparray[0], array('deploy', 'undeploy', 'deployall', 'undeployall')))
@@ -89,7 +89,7 @@ if (in_array($tmparray[0], array('suspend', 'unsuspend')))
 	exit();
 }
 
-fwrite($fh, date('Y-m-d H:i:s').' code for action not found'."\n");
+fwrite($fh, date('Y-m-d H:i:s').' action code "'.$tmparray[0].'" not supported'."\n");
 fclose($fh);
 
 http_response_code(404);
