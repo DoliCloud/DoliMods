@@ -12,7 +12,7 @@ if (empty($fh))
 
 if (! in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1','1.2.3.4')))
 {
-	fwrite($fh, "\n\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call done with bad ip '.$_SERVER['REMOTE_ADDR']."\n");
+	fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call done with bad ip '.$_SERVER['REMOTE_ADDR']."\n");
 	http_response_code(503);
 	print 'Forbidden by IP address';
 	exit();
@@ -39,8 +39,8 @@ if (! empty($tmparray[1]))
 $output='';
 $return_var=0;
 
-if ($DEBUG) fwrite($fh, "\n\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call for action '.$tmparray[0].' by '.$_SERVER['REMOTE_ADDR'].' URI='.$_SERVER['REQUEST_URI']."\n");
-else fwrite($fh, "\n\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call for action '.$tmparray[0]." by ".$_SERVER['REMOTE_ADDR']."\n");
+if ($DEBUG) fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call for action '.$tmparray[0].' by '.$_SERVER['REMOTE_ADDR'].' URI='.$_SERVER['REQUEST_URI']."\n");
+else fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call for action '.$tmparray[0]." by ".$_SERVER['REMOTE_ADDR']."\n");
 
 if (in_array($tmparray[0], array('deploy', 'undeploy', 'deployall', 'undeployall')))
 {

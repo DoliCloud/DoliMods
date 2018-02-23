@@ -35,6 +35,7 @@ if (! $res) die("Include of main fails");
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
 dol_include_once('/sellyoursaas/class/packages.class.php');
@@ -512,6 +513,23 @@ if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE))	// Show warning
 	';
 }
 
+
+// Show partner links
+$categorie=new Categorie($db);
+$categorie->fetch($conf->global->SELLYOURSAAS_DEFAULT_RESELLER_CATEG);
+if ($categorie->containsObject('supplier', $mythirdpartyaccount->id))
+{
+	print '
+		<div class="note note-warning">
+		<h4 class="block">'.$langs->trans("YouAreAReseller").'</h4>
+		';
+	print $langs->trans("YourURLToCreateNewInstance").' : ';
+	$urlforpartner = $conf->global->SELLYOURSAAS_ACCOUNT_URL.'/register.php?partner='.$mythirdpartyaccount->id.'&partnerkey='.md5($mythirdpartyaccount->name_alias);
+	print '<a href="'.$urlforpartner.'">'.$urlforpartner.'</a><br>';
+	print '
+		</div>
+	';
+}
 
 if (empty($welcomecid))	// Show warning
 {

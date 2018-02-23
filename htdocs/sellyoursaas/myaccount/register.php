@@ -87,6 +87,18 @@ if (empty($tmppackage->id))
 	exit;
 }
 
+// Check partner exists if provided
+if ($partner)
+{
+	$partnerthirdparty=new Societe($db);
+	$partnerthirdparty->fetch($partner);
+	if (! $partnerthirdparty->id || (md5($partnerthirdparty->name_alias) != GETPOST('partnerkey','alpha') && $partnerthirdparty->name_alias != GETPOST('partnerkey','alpha')))
+	{
+		print 'Bad partner keys.';
+		exit;
+	}
+}
+
 
 /*
  * Action
@@ -125,7 +137,27 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
 
       <div style="text-align: center;">
         <?php
-        $linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL);
+
+        $linklogo = '';
+        if ($partnerthirdparty->id > 0)
+        {
+        	require_once DOL_DOCUMENT_ROOT.'/ecm/class/ecmfiles.class.php';
+        	$ecmfile=new EcmFiles($db);
+        	$relativepath = $conf->societe->multidir_output[$conf->entity]."/".$partnerthirdparty->id."/logos/".$partnerthirdparty->logo;
+        	$relativepath = preg_replace('/^'.preg_quote(DOL_DATA_ROOT,'/').'/', '', $relativepath);
+        	$relativepath = preg_replace('/[\\/]$/', '', $relativepath);
+        	$relativepath = preg_replace('/^[\\/]/', '', $relativepath);
+
+        	$ecmfile->fetch(0, '', $relativepath);
+        	if ($ecmfile->id > 0)
+        	{
+        		$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=societe&hashp='.$ecmfile->share;
+        	}
+        }
+        if (empty($linklogo))
+        {
+        	$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL);
+        }
 
         if (GETPOST('partner','alpha'))
         {

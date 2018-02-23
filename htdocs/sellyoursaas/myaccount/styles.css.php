@@ -138,7 +138,7 @@ print "
 		header.inverse  h1 { padding-top: 5px; }
 		.center { text-align: center; }
 
-	    #logo { text-align: center;margin-bottom:20px;max-width:300px; }
+	    #logo { text-align: center;	margin-bottom:20px; max-width:300px; max-height: 120px; }
 	      .block.small {
 	        width: 500px;
 	        min-width: 500px;
