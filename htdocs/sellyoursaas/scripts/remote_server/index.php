@@ -20,11 +20,15 @@ if (! in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1','1.2.3.4')))
 
 $param = preg_replace('/^\//', '', $_SERVER['REQUEST_URI']);
 $tmparray=explode('?', $param, 2);
-$paramarray = explode('&', urldecode($tmparray[1]));
+
 $paramspace='';
-foreach($paramarray as $val)
+if (! empty($tmparray[1]))
 {
-	$paramspace.=($val!='' ? $val : '-').' ';
+	$paramarray = explode('&', urldecode($tmparray[1]));
+	foreach($paramarray as $val)
+	{
+		$paramspace.=($val!='' ? $val : '-').' ';
+	}
 }
 
 

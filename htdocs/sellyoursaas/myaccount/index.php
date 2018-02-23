@@ -398,12 +398,12 @@ print '
 				if ($langs->getDefaultLang(1) == 'es') $langcode = 'es';
 				if ($langs->getDefaultLang(1) == 'fr') $langcode = 'fr';
 				print '
-	            <li><a class="dropdown-item" href="https://www.dolicloud.com/'.$langcode.'/faq" target="_newfaq">'.$langs->trans("FAQs").'</a></li>
+	            <li><a class="dropdown-item" href="https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/'.$langcode.'/faq" target="_newfaq">'.$langs->trans("FAQs").'</a></li>
             </ul>
           </li>
 
           <li class="nav-item'.($mode == 'myaccount'?' active':'').' dropdown">
-             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user"></i> '.$langs->trans("MyAccount").'</a>
+             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user"></i> '.$langs->trans("MyAccount").' ('.$mythirdpartyaccount->email.')</a>
              <ul class="dropdown-menu">
                  <li><a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=myaccount"><i class="fa fa-user"></i> '.$langs->trans("MyAccount").'</a></li>
                  <li class="dropdown-divider"></li>
