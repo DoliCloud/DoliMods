@@ -138,6 +138,27 @@ class ActionsSellyoursaas
     }
 
 
+    /**
+     * Run substitutions during ODT generation
+     *
+     * @param	array	$parameters		Array of parameters
+     * @return	int						1=Replace standard code, 0=Continue standard code
+     */
+    function ODTSubstitution($parameters)
+    {
+    	global $conf, $langs;
+    	global $object;
+
+    	$langs->load("sellyoursaas@sellyoursaas");
+
+    	$contract = $parameters['object'];
+
+    	$parameters['substitutionarray']['sellyoursaas_version']=7;
+    	$parameters['substitutionarray']['sellyoursaas_signature_logo']=DOL_DATA_ROOT.'/mycompany/signature_owner.jpg';
+
+    	return 0;
+    }
+
 }
 
 
