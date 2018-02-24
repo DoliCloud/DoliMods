@@ -91,6 +91,7 @@ $domainname = preg_replace('/^\./', '', $tldid);
 $remoteip = $_SERVER['REMOTE_ADDRESS'];
 $generateduniquekey=getRandomPassword(true);
 $partner=GETPOST('partner','alpha');
+$partnerkey=GETPOST('partnerkey','alpha');
 $plan=GETPOST('plan','alpha');
 
 $reusecontractid = GETPOST('reusecontractid','int');
@@ -145,8 +146,7 @@ $now = dol_now();
 //print "partner=".$partner." plan=".$plan." orgname = ".$orgname." email=".$email." password=".$password." password2=".$password2." country_code=".$country_code." remoteip=".$remoteip." sldAndSubdomain=".$sldAndSubdomain." tldid=".$tldid;
 
 // Back to url
-$newurl=$_SERVER["PHP_SELF"];
-//exit;
+$newurl=preg_replace('/register_instance\.php/', 'register.php', $_SERVER["PHP_SELF"]);
 //$newurl='myaccount.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/register.php';
 
 if ($reusecontractid)
@@ -166,6 +166,7 @@ else
 	if (! preg_match('/plan/i', $newurl)) $newurl.='&plan='.urlencode($plan);
 	//if (! preg_match('/service/i', $newurl)) $newurl.='&orgName='.urlencode($orgname);
 	if (! preg_match('/partner/i', $newurl)) $newurl.='&partner='.urlencode($partner);
+	if (! preg_match('/partnerkey/i', $newurl)) $newurl.='&partnerkey='.urlencode($partnerkey);
 
 	if (empty($sldAndSubdomain))
 	{
@@ -542,8 +543,8 @@ if (! $error)
 	'__DBPORT__'=>$generateddbport,
 	'__DBUSER__'=>$generateddbusername,
 	'__DBPASSWORD__'=>$generateddbpassword,
-	'__PACKAGEREF__'=> $tmppackage->ref;
-	'__PACKAGENAME__'=> $tmppackage->label;
+	'__PACKAGEREF__'=> $tmppackage->ref,
+	'__PACKAGENAME__'=> $tmppackage->label,
 	'__APPUSERNAME__'=>'admin',
 	'__APPEMAIL__'=>$email,
 	'__APPPASSWORD__'=>$password,
@@ -662,9 +663,13 @@ if (! $error)
 	$newurl=$_SERVER["PHP_SELF"];
 	$newurl=preg_replace('/register_instance\.php/', 'index.php?welcomecid='.$contract->id, $newurl);
 
+	$anonymoususer=new User($db);
+	$anonymoususer->fetch($conf->global->SELLYOURSAAS_ANONYMOUSUSER);
+	$_SESSION['dol_login']=$anonymoususer->login;				// Set dol_login so next page index.php we found we are already logged.
+
+	$_SESSION['dol_loginsellyoursaas']=$contract->thirdparty->id;
 	$_SESSION['initialapplogin']='admin';
 	$_SESSION['initialapppassword']=$password;
-
 
 	// Send deployment email
 	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
@@ -674,6 +679,10 @@ if (! $error)
 	$arraydefaultmessage=$formmail->getEMailTemplate($db, 'contract', $user, $langs, 0, 1, 'InstanceDeployed');
 
 	$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $contract);
+	$substitutionarray['__PACKAGELABEL__']=$tmppackage->label.'eee';
+	$substitutionarray['__APPUSERNAME__']=$_SESSION['initialapplogin'];
+	$substitutionarray['__APPPASSWORD__']=$password;
+
 	complete_substitutions_array($substitutionarray, $langs, $contract);
 
 	$subject = make_substitutions($arraydefaultmessage['topic'], $substitutionarray, $langs);

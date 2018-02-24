@@ -18,6 +18,7 @@ if (! defined("MAIN_AUTHENTICATION_MODE")) define('MAIN_AUTHENTICATION_MODE','se
 // Load Dolibarr environment
 include ('./mainmyaccount.inc.php');
 
+
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
@@ -60,7 +61,7 @@ $socid = $_SESSION['dol_loginsellyoursaas'];
 $result = $mythirdpartyaccount->fetch($socid);
 if ($result <= 0)
 {
-	dol_print_error("Failed to load thirdparty for socid=".$socid);
+	dol_print_error($db, "Failed to load thirdparty for socid=".$socid);
 	exit;
 }
 
@@ -224,6 +225,8 @@ if ($action == 'updatepassword')
 
 if ($action == 'undeploy')
 {
+	$db->begin();
+
 	$contract=new Contrat($db);
 	$contract->fetch(GETPOST('contractid','int'));					// This load also lines
 
@@ -272,8 +275,28 @@ if ($action == 'undeploy')
 		if ($retarray['curl_error_no'] != '')
 		{
 			$error++;
-			$errormessages[] = $retarray['curl_error_msg'];
+			setEventMessages($retarray['curl_error_msg'], null, 'errors');
 		}
+
+		if (! $error)
+		{
+			$result = $contract->closeAll($user);
+			if ($result < 0)
+			{
+				$error++;
+				setEventMessages($contract->error, $contract->errors, 'errors');
+			}
+		}
+	}
+
+	$error++;
+	if (! $error)
+	{
+		$db->commit();
+	}
+	else
+	{
+		$db->rollback();
 	}
 }
 
@@ -485,7 +508,7 @@ if ($welcomecid > 0)
 		<br> '.$langs->trans("Password").' : '.($_SESSION['initialapppassword']?$_SESSION['initialapppassword']:'NA').'
 		</p>
 		<p>
-		<a class="btn btn-primary" target="_blank" href="http://'.$contract->ref_customer.'">
+		<a class="btn btn-primary" target="_blank" href="http://'.$contract->ref_customer.'?username='.$_SESSION['initialapplogin'].'">
 		'.$langs->trans("TakeMeTo", $contract->array_options['options_plan']).'
 		</a>
 		</p>
@@ -1370,6 +1393,7 @@ if ($mode == 'billing')
 			if (empty($dbprefix)) $dbprefix = 'llx_';
 
 			print '
+			<br>
 	        <div class="portlet-body">
 
 	            <div class="row" style="border-bottom: 1px solid #ddd;">

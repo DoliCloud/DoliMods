@@ -57,6 +57,7 @@ $langs->loadLangs(array("main","companies","sellyoursaas@sellyoursaas","errors")
 
 
 $partner=GETPOST('partner','alpha');
+$partnerkey=GETPOST('partnerkey','alpha');
 $plan=GETPOST('plan','alpha');
 
 $productref='DOLICLOUD-PACK-Dolibarr';
@@ -175,12 +176,13 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
         </header>
 
 
-      <form action="register_instance" method="post" id="formregister">
+      <form action="register_instance.php" method="post" id="formregister">
         <div class="form-content">
     	  <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
           <input type="hidden" name="service" value="<?php echo dol_escape_htmltag($tmpproduct->ref); ?>" />
           <input type="hidden" name="package" value="<?php echo dol_escape_htmltag($tmppackage->ref); ?>" />
           <input type="hidden" name="partner" value="<?php echo dol_escape_htmltag($partner); ?>" />
+          <input type="hidden" name="partnerkey" value="<?php echo dol_escape_htmltag($partnerkey); ?>" />
 
           <section id="enterUserAccountDetails">
 
