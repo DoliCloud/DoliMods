@@ -511,6 +511,46 @@ fi
 
 
 
+# Install/Uninstall cron
+
+if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
+
+	echo "***** Install cron file $cronfile"
+	echo cp $cronfile /var/spool/cron/crontabs/$osusername
+	cp $cronfile /var/spool/cron/crontabs/$osusername
+	chown $osusername.$osusername /var/spool/cron/crontabs/$osusername
+	chmod 644 /var/spool/cron/crontabs/$osusername
+
+fi
+
+if [[ "$mode" == "unsuspend" ]]; then
+
+	echo "***** Restore cron file $cronfile"
+	echo mv /var/spool/cron/crontabs.disabled/$osusername /var/spool/cron/crontabs/$osusername
+	mv /var/spool/cron/crontabs.disabled/$osusername /var/spool/cron/crontabs/$osusername
+
+fi
+
+if [[ "$mode" == "suspend" ]]; then
+
+	echo "***** Disable cron file /var/spool/cron/crontabs/$osusername"
+	mkdir -p /var/spool/cron/crontabs.disabled
+	echo mv /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername
+	mv /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername 
+
+fi
+
+if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
+
+	echo "***** Remove cron file $cronfile"
+	echo rm -f /var/spool/cron/crontabs/$osusername
+	rm -f /var/spool/cron/crontabs/$osusername
+	echo rm -f /var/spool/cron/crontabs.disabled/$osusername
+	rm -f /var/spool/cron/crontabs.disabled/$osusername 
+
+fi
+
+
 # Create database (last step, the longer one)
 
 if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
@@ -572,7 +612,7 @@ fi
 #	echo 127.0.0.1 test_$i >> /etc/hosts
 #fi
 
-echo System deployment or undeployment of $instancename.$domainname for user $osusername finished with no error
+echo Process of action $mode of $instancename.$domainname for user $osusername finished with no error
 echo
 
 exit 0

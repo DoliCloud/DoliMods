@@ -44,10 +44,10 @@ else fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call for action '.$tmparr
 
 if (in_array($tmparray[0], array('deploy', 'undeploy', 'deployall', 'undeployall')))
 {
-	if ($DEBUG) fwrite($fh, date('Y-m-d H:i:s').' ../action_deploy_undeploy.sh '.$tmparray[0].' '.$paramspace."\n");
-	else fwrite($fh, date('Y-m-d H:i:s').' ../action_deploy_undeploy.sh '.$tmparray[0].' ...'."\n");
+	if ($DEBUG) fwrite($fh, date('Y-m-d H:i:s').' ./action_deploy_undeploy.sh '.$tmparray[0].' '.$paramspace."\n");
+	else fwrite($fh, date('Y-m-d H:i:s').' ./action_deploy_undeploy.sh '.$tmparray[0].' ...'."\n");
 
-	exec('../action_deploy_undeploy.sh '.$tmparray[0].' '.$paramspace, $output, $return_var);
+	exec('./action_deploy_undeploy.sh '.$tmparray[0].' '.$paramspace.' 2>&1', $output, $return_var);
 
 	fwrite($fh, date('Y-m-d H:i:s').' return = '.$return_var."\n");
 	fwrite($fh, date('Y-m-d H:i:s').' '.join("\n",$output));
@@ -67,10 +67,10 @@ if (in_array($tmparray[0], array('deploy', 'undeploy', 'deployall', 'undeployall
 }
 if (in_array($tmparray[0], array('suspend', 'unsuspend')))
 {
-	if ($DEBUG) fwrite($fh, date('Y-m-d H:i:s').' ../action_deploy_undeploy.sh '.$tmparray[0].' '.$paramspace."\n");
-	else fwrite($fh, date('Y-m-d H:i:s').' ../action_deploy_undeploy.sh '.$tmparray[0].' ...'."\n");
+	if ($DEBUG) fwrite($fh, date('Y-m-d H:i:s').' ./action_deploy_undeploy.sh '.$tmparray[0].' '.$paramspace."\n");
+	else fwrite($fh, date('Y-m-d H:i:s').' ./action_deploy_undeploy.sh '.$tmparray[0].' ...'."\n");
 
-	exec('../action_suspend_unsuspend.sh '.$tmparray[0].' '.$paramspace, $output, $return_var);
+	exec('./action_suspend_unsuspend.sh '.$tmparray[0].' '.$paramspace.' 2>&1', $output, $return_var);
 
 	fwrite($fh, date('Y-m-d H:i:s').' return = '.$return_var."\n");
 	fwrite($fh, date('Y-m-d H:i:s').' '.join("\n",$output));

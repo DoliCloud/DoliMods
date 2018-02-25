@@ -599,7 +599,7 @@ if (! $error)
 // Activate all lines
 if (! $error)
 {
-	$result = $contract->activateAll($user);
+	$result = $contract->activateAll($user, dol_now(), 1);
 	if ($result <= 0)
 	{
 		$error++;
