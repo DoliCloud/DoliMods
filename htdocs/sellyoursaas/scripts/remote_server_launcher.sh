@@ -1,4 +1,15 @@
-#!/usr/bin/env bash
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          remote_server_launcher
+# Required-Start:    $local_fs $remote_fs $network $syslog $named
+# Required-Stop:     $local_fs $remote_fs $network $syslog $named
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start/stop remote_server_launcher
+# Description:       Start/stop remote_server_launcher, a daemon agent for
+#                    sellyoursaas.
+### END INIT INFO
+
 #
 # Script to launch SellyourSaas httpd daemon agent.
 #
@@ -36,12 +47,12 @@ if [ "x$1" == "xstart" ]; then
 	#echo "socat TCP4-LISTEN:8080,fork EXEC:$scriptdir/remote_server.sh > /var/log/remote_server.log"
 	#socat TCP4-LISTEN:8080,fork EXEC:$scriptdir/remote_server.sh & > /var/log/remote_server.log
 
-	pid=`ps a | grep 'php -S 0.0.0.0' | grep -v grep | awk ' { print $1 } '`
+	pid=`ps ax | grep 'php -S 0.0.0.0' | grep -v grep | awk ' { print $1 } '`
 	if [ "x$pid" == "x" ]; then
 		echo Switch on directory $scriptdir
 		cd $scriptdir
 		php -S 0.0.0.0:8080 -t remote_server > /var/log/remote_server_php.log 2>&1 &
-		echo "Server started with php -S 0.0.0.0:8080 -t remote_server > /var/log/remote_server_php.log 2&1"
+		echo "Server started with php -S 0.0.0.0:8080 -t remote_server"
 	else
 		echo Server is already running with PID $pid
 	fi
@@ -50,7 +61,7 @@ fi
 if [ "x$1" == "xstop" ]; then
 	#killall socat
 	
-	pid=`ps a | grep 'php -S 0.0.0.0' | grep -v grep | awk ' { print $1 } '`
+	pid=`ps ax | grep 'php -S 0.0.0.0' | grep -v grep | awk ' { print $1 } '`
 	if [ "x$pid" == "x" ]; then
 		echo Server not started
 	else
@@ -62,7 +73,7 @@ fi
 if [ "x$1" == "xstatus" ]; then
 	#killall socat
 	
-	pid=`ps a | grep 'php -S 0.0.0.0' | grep -v grep | awk ' { print $1 } '`
+	pid=`ps ax | grep 'php -S 0.0.0.0' | grep -v grep | awk ' { print $1 } '`
 	if [ "x$pid" == "x" ]; then
 		echo Server not started
 	else
