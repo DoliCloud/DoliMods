@@ -52,7 +52,6 @@ class modFileManager extends DolibarrModules
 		$this->version = '6.0.0';                        // 'experimental' or 'dolibarr' or version
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->special = 0;
 		$this->picto='filemanager@filemanager';
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
