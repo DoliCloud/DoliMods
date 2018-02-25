@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ### BEGIN INIT INFO
 # Provides:          remote_server_launcher
 # Required-Start:    $local_fs $remote_fs $network $syslog $named
@@ -51,8 +51,8 @@ if [ "x$1" == "xstart" ]; then
 	if [ "x$pid" == "x" ]; then
 		echo Switch on directory $scriptdir
 		cd $scriptdir
-		php -S 0.0.0.0:8080 -t remote_server > /var/log/remote_server_php.log 2>&1 &
-		echo "Server started with php -S 0.0.0.0:8080 -t remote_server"
+		php -S 0.0.0.0:8080 -t remote_server remote_server/index.php > /var/log/remote_server_php.log 2>&1 &
+		echo "Server started with php -S 0.0.0.0:8080 -t remote_server remote_server/index.php"
 	else
 		echo Server is already running with PID $pid
 	fi
