@@ -44,7 +44,7 @@ class ActionsBilledOnOrders
     }
 
 
-    
+
     /**
      * Complete doc forms
      *
@@ -56,16 +56,32 @@ class ActionsBilledOnOrders
     {
         global $conf, $langs;
         global $param, $sortfield, $sortorder;
-        $langs->load("billedonorders@billedonorders");
-        if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLEDWOTAX)) 
-            print_liste_field_titre($langs->trans("AmountBilledHT"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
-        if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLED)) 
-            print_liste_field_titre($langs->trans("AmountBilledTTC"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
-        if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED))
-            print_liste_field_titre($langs->trans("AlreadyPaid"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
-        if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY))
-            print_liste_field_titre($langs->trans("RemainderToPay"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
-    
+
+        if ($parameters['currentcontext'] == 'orderlist')
+        {
+	        $langs->load("billedonorders@billedonorders");
+	        if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLEDWOTAX))
+	            print_liste_field_titre($langs->trans("AmountBilledHT"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
+	        if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLED))
+	            print_liste_field_titre($langs->trans("AmountBilledTTC"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
+	        if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED))
+	            print_liste_field_titre($langs->trans("AlreadyPaid"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
+	        if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY))
+	            print_liste_field_titre($langs->trans("RemainderToPay"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
+        }
+        if ($parameters['currentcontext'] == 'supplierorderlist')
+        {
+        	$langs->load("billedonorders@billedonorders");
+        	if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLEDWOTAX))
+        		print_liste_field_titre($langs->trans("AmountBilledHT"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
+        	if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLED))
+        		print_liste_field_titre($langs->trans("AmountBilledTTC"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
+        	if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED))
+        		print_liste_field_titre($langs->trans("AlreadyPaid"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
+        	if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY))
+        		print_liste_field_titre($langs->trans("RemainderToPay"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
+        }
+
         return 0;
     }
 
@@ -79,28 +95,57 @@ class ActionsBilledOnOrders
     function printFieldListOption($parameters,&$object)
     {
         global $conf, $langs;
-        //global $param, $sortfield, $sortorder;
-        if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLEDWOTAX)) 
+
+        if ($parameters['currentcontext'] == 'orderlist')
         {
-            //print '<td align="right"><input type="text" name="billedonorders_billed" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_billed').'"></td>';
-            print '<td class="liste_titre" align="right"></td>';
+	        //global $param, $sortfield, $sortorder;
+	        if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLEDWOTAX))
+	        {
+	            //print '<td align="right"><input type="text" name="billedonorders_billed" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_billed').'"></td>';
+	            print '<td class="liste_titre" align="right"></td>';
+	        }
+	        if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLED))
+	        {
+	            //print '<td align="right"><input type="text" name="billedonorders_billed" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_billed').'"></td>';
+	            print '<td class="liste_titre" align="right"></td>';
+	        }
+	        if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED))
+	        {
+	            //print '<td align="right"><input type="text" name="billedonorders_payed" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_payed').'"></td>';
+	            print '<td class="liste_titre" align="right"></td>';
+	        }
+	        if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY))
+	        {
+	            //print '<td align="right"><input type="text" name="billedonorders_remaintopay" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_remaintopay').'"></td>';
+	            print '<td class="liste_titre" align="right"></td>';
+	        }
         }
-        if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLED)) 
+
+        if ($parameters['currentcontext'] == 'supplierorderlist')
         {
-            //print '<td align="right"><input type="text" name="billedonorders_billed" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_billed').'"></td>';
-            print '<td class="liste_titre" align="right"></td>';
+        	//global $param, $sortfield, $sortorder;
+        	if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLEDWOTAX))
+        	{
+        		//print '<td align="right"><input type="text" name="billedonorders_billed" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_billed').'"></td>';
+        		print '<td class="liste_titre" align="right"></td>';
+        	}
+        	if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLED))
+        	{
+        		//print '<td align="right"><input type="text" name="billedonorders_billed" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_billed').'"></td>';
+        		print '<td class="liste_titre" align="right"></td>';
+        	}
+        	if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED))
+        	{
+        		//print '<td align="right"><input type="text" name="billedonorders_payed" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_payed').'"></td>';
+        		print '<td class="liste_titre" align="right"></td>';
+        	}
+        	if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY))
+        	{
+        		//print '<td align="right"><input type="text" name="billedonorders_remaintopay" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_remaintopay').'"></td>';
+        		print '<td class="liste_titre" align="right"></td>';
+        	}
         }
-        if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED)) 
-        {
-            //print '<td align="right"><input type="text" name="billedonorders_payed" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_payed').'"></td>';
-            print '<td class="liste_titre" align="right"></td>';
-        }
-        if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY)) 
-        {
-            //print '<td align="right"><input type="text" name="billedonorders_remaintopay" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_remaintopay').'"></td>';
-            print '<td class="liste_titre" align="right"></td>';
-        }
-    
+
         return 0;
     }
 
@@ -117,88 +162,190 @@ class ActionsBilledOnOrders
         global $db;
         //global $param, $sortfield, $sortorder;
 
-        global $ordertmpforloop;
-        if (! is_object($ordertmpforloop))
+        if ($parameters['currentcontext'] == 'orderlist')
         {
-            $ordertmpforloop = new Commande($db);
+	        global $ordertmpforloop;
+	        if (! is_object($ordertmpforloop))
+	        {
+	            $ordertmpforloop = new Commande($db);
+	        }
+	        global $invoicetmpforloop;
+	        if (! is_object($invoicetmpforloop))
+	        {
+	            include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+	            $invoicetmpforloop = new Facture($db);
+	        }
+
+	        $billedht=0;
+	        $billedttc=0;
+	        $payed=0;
+	        $remaintopay=0;
+	        //$warning='';  TODO Check if invoice is used for more than one order
+	        if (is_object($parameters['obj']))
+	        {
+	            $id = $parameters['obj']->rowid ? $parameters['obj']->rowid : $parameters['obj']->id;
+	            if ($id > 0)
+	            {
+	                $ordertmpforloop->fetch($id);
+	                $ordertmpforloop->fetchObjectLinked($id, 'commande', 0, 'facture');
+	                $linkedobj1 = $ordertmpforloop->linkedObjectsIds;
+	                $ordertmpforloop->fetchObjectLinked(0, 'facture', $id, 'commande');
+	                $linkedobj2 = $ordertmpforloop->linkedObjectsIds;
+	                //$linkedobj2 = $ordertmpforloop->fetchObjectLinked($id, 'commande');
+	                $linkedobj = array_merge($linkedobj1, $linkedobj2);
+	                //var_dump($linkedobj);
+	            }
+	        }
+	        foreach($linkedobj as $types)
+	        {
+	            foreach($types as $key => $val)
+	            {
+	                //var_dump($val);
+	                $result = $invoicetmpforloop->fetch($val);
+	                if ($result > 0)
+	                {
+	                    if ($invoicetmpforloop->statut != $invoicetmpforloop::STATUS_DRAFT)
+	                    {
+	                        $billedht += $invoicetmpforloop->total_ht;
+	                        $billedttc += $invoicetmpforloop->total_ttc;
+	                        $paymentarray = $invoicetmpforloop->getListOfPayments();
+	                        foreach($paymentarray as $key2 => $val2)
+	                        {
+	                            //var_dump($val2);
+	                            $payed += $val2['amount'];
+	                        }
+	                    }
+	                }
+	                else
+	                {
+	                    dol_print_error($db);
+	                }
+	            }
+	        }
+	        $remaintopay = $billedttc - $payed;
+
+	        if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLEDWOTAX))
+	        {
+	            print '<td align="right">'.($billedht?price($billedht):'');
+	            if ($billedht && $parameters['obj']->total_ht != $billedht)
+	            {
+	                print img_warning($langs->trans("AmountBilledDiffersFromAmountOnOrder"));
+	            }
+	            print '</td>';
+	        }
+	        if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLED))
+	        {
+	            print '<td align="right">'.($billedttc?price($billedttc):'');
+	            if ($billedttc && $parameters['obj']->total_ttc != $billedttc)
+	            {
+	                print img_warning($langs->trans("AmountBilledDiffersFromAmountOnOrder"));
+	            }
+	            print '</td>';
+	        }
+	        if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED)) print '<td align="right">'.($payed?price($payed):'').'</td>';
+	        if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY)) print '<td align="right">'.($remaintopay?price($remaintopay):'').'</td>';
         }
-        global $invoicetmpforloop;
-        if (! is_object($invoicetmpforloop))
+
+        if ($parameters['currentcontext'] == 'supplierorderlist')
         {
-            include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-            $invoicetmpforloop = new Facture($db);
+        	global $ordertmpforloop;
+        	if (! is_object($ordertmpforloop))
+        	{
+        		$ordertmpforloop = new CommandeFournisseur($db);
+        	}
+        	global $invoicetmpforloop;
+        	if (! is_object($invoicetmpforloop))
+        	{
+        		include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+        		$invoicetmpforloop = new FactureFournisseur($db);
+        	}
+
+        	$billedht=0;
+        	$billedttc=0;
+        	$payed=0;
+        	$remaintopay=0;
+        	//$warning='';  TODO Check if invoice is used for more than one order
+        	if (is_object($parameters['obj']))
+        	{
+        		$id = $parameters['obj']->rowid ? $parameters['obj']->rowid : $parameters['obj']->id;
+        		if ($id > 0)
+        		{
+        			$ordertmpforloop->fetch($id);
+        			$ordertmpforloop->fetchObjectLinked($id, 'order_supplier', 0, 'invoice_supplier');
+        			$linkedobj1 = $ordertmpforloop->linkedObjectsIds;
+        			$ordertmpforloop->fetchObjectLinked(0, 'invoice_supplier', $id, 'order_supplier');
+        			$linkedobj2 = $ordertmpforloop->linkedObjectsIds;
+        			//$linkedobj2 = $ordertmpforloop->fetchObjectLinked($id, 'commande');
+        			$linkedobj = array_merge($linkedobj1, $linkedobj2);
+        			//var_dump($linkedobj);
+        		}
+        	}
+        	foreach($linkedobj as $types)
+        	{
+        		foreach($types as $key => $val)
+        		{
+        			//var_dump($val);
+        			$result = $invoicetmpforloop->fetch($val);
+        			if ($result > 0)
+        			{
+        				if ($invoicetmpforloop->statut != $invoicetmpforloop::STATUS_DRAFT)
+        				{
+        					$billedht += $invoicetmpforloop->total_ht;
+        					$billedttc += $invoicetmpforloop->total_ttc;
+        					if (method_exists($invoicetmpforloop, 'getListOfPayments'))
+        					{
+	        					$paymentarray = $invoicetmpforloop->getListOfPayments();
+    	    					foreach($paymentarray as $key2 => $val2)
+        						{
+        							//var_dump($val2);
+        							$payed += $val2['amount'];
+        						}
+        					}
+        				}
+        			}
+        			else
+        			{
+        				dol_print_error($db);
+        			}
+        		}
+        	}
+        	$remaintopay = $billedttc - $payed;
+
+        	if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLEDWOTAX))
+        	{
+        		print '<td align="right">'.($billedht?price($billedht):'');
+        		if ($billedht && $parameters['obj']->total_ht != $billedht)
+        		{
+        			print img_warning($langs->trans("AmountBilledDiffersFromAmountOnOrder"));
+        		}
+        		print '</td>';
+        	}
+        	if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLED))
+        	{
+        		print '<td align="right">'.($billedttc?price($billedttc):'');
+        		if ($billedttc && $parameters['obj']->total_ttc != $billedttc)
+        		{
+        			print img_warning($langs->trans("AmountBilledDiffersFromAmountOnOrder"));
+        		}
+        		print '</td>';
+        	}
+        	if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED))
+        	{
+        		print '<td align="right">';
+        		if (method_exists($invoicetmpforloop, 'getListOfPayments')) print ($payed?price($payed):'');
+        		else print 'AvailableWithv7.0.1+';
+        		print '</td>';
+        	}
+        	if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY))
+        	{
+        		print '<td align="right">';
+        		if (method_exists($invoicetmpforloop, 'getListOfPayments')) print ($remaintopay?price($remaintopay):'');
+        		else print 'AvailableWithv7.0.1+';
+        		print '</td>';
+        	}
         }
-        
-        $billedht=0;
-        $billedttc=0;
-        $payed=0;
-        $remaintopay=0;
-        //$warning='';  TODO Check if invoice is used for more than one order
-        if (is_object($parameters['obj']))
-        {
-            $id = $parameters['obj']->rowid ? $parameters['obj']->rowid : $parameters['obj']->id;
-            if ($id > 0)
-            {
-                $ordertmpforloop->fetch($id);
-                $ordertmpforloop->fetchObjectLinked($id, 'commande', 0, 'facture');
-                $linkedobj1 = $ordertmpforloop->linkedObjectsIds;
-                $ordertmpforloop->fetchObjectLinked(0, 'facture', $id, 'commande');
-                $linkedobj2 = $ordertmpforloop->linkedObjectsIds;
-                //$linkedobj2 = $ordertmpforloop->fetchObjectLinked($id, 'commande');
-                $linkedobj = array_merge($linkedobj1, $linkedobj2);
-                //var_dump($linkedobj);
-            }
-        }
-        foreach($linkedobj as $types)
-        {
-            foreach($types as $key => $val)
-            {
-                //var_dump($val);
-                $result = $invoicetmpforloop->fetch($val);
-                if ($result > 0)
-                {
-                    if ($invoicetmpforloop->statut != $invoicetmpforloop::STATUS_DRAFT)
-                    {
-                        $billedht += $invoicetmpforloop->total_ht;
-                        $billedttc += $invoicetmpforloop->total_ttc;
-                        $paymentarray = $invoicetmpforloop->getListOfPayments();
-                        foreach($paymentarray as $key2 => $val2)
-                        {
-                            //var_dump($val2);
-                            $payed += $val2['amount'];
-                        }
-                    }
-                }
-                else
-                {
-                    dol_print_error($db);
-                }
-            }
-        }
-        $remaintopay = $billedttc - $payed;
-        
-        if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLEDWOTAX)) 
-        {
-            print '<td align="right">'.($billedht?price($billedht):'');
-            if ($billedht && $parameters['obj']->total_ht != $billedht)
-            {
-                print img_warning($langs->trans("AmountBilledDiffersFromAmountOnOrder"));
-            }
-            print '</td>';
-        }
-        if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLED)) 
-        {
-            print '<td align="right">'.($billedttc?price($billedttc):'');
-            if ($billedttc && $parameters['obj']->total_ttc != $billedttc)
-            {
-                print img_warning($langs->trans("AmountBilledDiffersFromAmountOnOrder"));
-            }
-            print '</td>';
-        }
-        if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED)) print '<td align="right">'.($payed?price($payed):'').'</td>';
-        if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY)) print '<td align="right">'.($remaintopay?price($remaintopay):'').'</td>';
-        
+
         return 0;
-    }    
+    }
 
 }
