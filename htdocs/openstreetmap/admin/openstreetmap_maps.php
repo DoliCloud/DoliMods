@@ -81,7 +81,7 @@ $formother=new FormOther($db);
 $help_url='EN:Module_OpenStreetMap_EN|FR:Module_OpenStreetMap|ES:Modulo_OpenStreetMap';
 llxHeader('',$langs->trans("OpenStreetMapSetup"),$help_url);
 
-$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
+$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("OpenStreetMapSetup"),$linkback,'setup');
 print '<br>';
 

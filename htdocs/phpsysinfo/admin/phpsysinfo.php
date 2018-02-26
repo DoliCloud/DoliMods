@@ -70,7 +70,7 @@ $formfile=new FormFile($db);
 
 llxHeader('','phpsysinfoSetup',$linktohelp);
 
-$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
+$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("phpsysinfoSetup"),$linkback,'setup');
 
 clearstatcache();
