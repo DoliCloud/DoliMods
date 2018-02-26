@@ -158,11 +158,15 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         	case 'LINECONTRACT_CLOSE':
 	    		$remoteaction = 'suspend';
 	    		break;
+        	case 'CONTRACT_DELETE':
+				$remoteaction = 'undeployall';
+        		break;
         	case 'CONTRACT_MODIFY':
         		/*var_dump($object->oldcopy->array_options['options_date_endfreeperiod']);
         		var_dump($object->array_options['options_date_endfreeperiod']);
         		var_dump($object->lines);*/
-        		if ($object->oldcopy->array_options['options_date_endfreeperiod'] != $object->array_options['options_date_endfreeperiod'])
+        		if (isset($object->oldcopy)
+        			&& $object->oldcopy->array_options['options_date_endfreeperiod'] != $object->array_options['options_date_endfreeperiod'])
         		{
         			// Check there is no recurring invoice. If yes, we refuse to change this.
         			$object->fetchObjectLinked();
@@ -189,61 +193,73 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 	        		}
         		}
         		break;
-
         }
 
     	if ($remoteaction)
     	{
-    		$producttmp = new Product($this->db);
-    		$producttmp->fetch($object->fk_product);
-
-    		if (empty($object->context['fromdolicloudcustomerv1']) &&
-    			($producttmp->array_options['options_app_or_option'] == 'app' || $producttmp->array_options['options_app_or_option'] == 'option'))
+    		if (get_class($object) == 'Contrat')
     		{
-	    		dol_syslog("Suspend/unsuspend instance remoteaction=".$remoteaction);
+    			$listoflines = $object->lines;
+    		}
+    		else
+    		{
+    			$listoflines = array($object);
+    		}
 
-	    		include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-	    		dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
-	    		dol_include_once('/sellyoursaas/class/packages.class.php');
-	    		$contract = new Contrat($this->db);
-				$contract->fetch($object->fk_contrat);
+    		foreach($listoflines as $tmpobject)
+    		{
+    			$producttmp = new Product($this->db);
+    			$producttmp->fetch($tmpobject->fk_product);
 
-				$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
+    			if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
+	    			($producttmp->array_options['options_app_or_option'] == 'app' || $producttmp->array_options['options_app_or_option'] == 'option'))
+	    		{
+	    			dol_syslog("Remote action on instance remoteaction=".$remoteaction);
 
-				$generatedunixlogin=$contract->array_options['options_username_os'];
-				$generatedunixpassword=$contract->array_options['options_password_os'];
-				$tmp=explode('.', $contract->ref_customer, 2);
-				$sldAndSubdomain=$tmp[0];
-				$domainname=$tmp[1];
-				$generateddbname=$contract->array_options['options_database_db'];
-				$generateddbport=$contract->array_options['options_port_db'];
-				$generateddbusername=$contract->array_options['options_username_db'];
-				$generateddbpassword=$contract->array_options['options_password_db'];
+		    		include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+		    		dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
+		    		dol_include_once('/sellyoursaas/class/packages.class.php');
 
-				$tmppackage = new Packages($this->db);
+		    		$contract = new Contrat($this->db);
+		    		$contract->fetch($tmpobject->fk_contrat);
 
-				// Remote action : unsuspend
-				$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
-				$commandurl.= '&'.$generateddbname.'&'.$generateddbport.'&'.$generateddbusername.'&'.$generateddbpassword;
-				$commandurl.= '&'.$tmppackage->srcconffile1.'&'.$tmppackage->targetconffile1.'&'.$tmppackage->datafile1;
-				$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
-				$commandurl.= '&'.$tmppackage->srccronfile.'&'.$targetdir;
+					$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
 
-				$outputfile = $conf->sellyoursaas->dir_temp.'/action_deploy_undeploy-'.$remoteaction.'-'.dol_getmypid().'.out';
+					$generatedunixlogin=$contract->array_options['options_username_os'];
+					$generatedunixpassword=$contract->array_options['options_password_os'];
+					$tmp=explode('.', $contract->ref_customer, 2);
+					$sldAndSubdomain=$tmp[0];
+					$domainname=$tmp[1];
+					$generateddbname=$contract->array_options['options_database_db'];
+					$generateddbport=$contract->array_options['options_port_db'];
+					$generateddbusername=$contract->array_options['options_username_db'];
+					$generateddbpassword=$contract->array_options['options_password_db'];
 
-				$serverdeployement = getRemoveServerDeploymentIp();
+					$tmppackage = new Packages($this->db);
 
-				$urltoget='http://'.$serverdeployement.':8080/'.$remoteaction.'?'.urlencode($commandurl);
-				include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
-				$retarray = getURLContent($urltoget);
+					// Remote action : unsuspend
+					$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
+					$commandurl.= '&'.$generateddbname.'&'.$generateddbport.'&'.$generateddbusername.'&'.$generateddbpassword;
+					$commandurl.= '&'.$tmppackage->srcconffile1.'&'.$tmppackage->targetconffile1.'&'.$tmppackage->datafile1;
+					$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
+					$commandurl.= '&'.$tmppackage->srccronfile.'&'.$targetdir;
 
-				if ($retarray['curl_error_no'] != '')
-				{
-					$error++;
-					$errormessages[] = $retarray['curl_error_msg'];
-				}
+					$outputfile = $conf->sellyoursaas->dir_temp.'/action_deploy_undeploy-'.$remoteaction.'-'.dol_getmypid().'.out';
 
-				// No email, can be done manually.
+					$serverdeployement = getRemoveServerDeploymentIp();
+
+					$urltoget='http://'.$serverdeployement.':8080/'.$remoteaction.'?'.urlencode($commandurl);
+					include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+					$retarray = getURLContent($urltoget);
+
+					if ($retarray['curl_error_no'] != '')
+					{
+						$error++;
+						$errormessages[] = $retarray['curl_error_msg'];
+					}
+
+					// No email, can be done manually.
+	    		}
     		}
     	}
 

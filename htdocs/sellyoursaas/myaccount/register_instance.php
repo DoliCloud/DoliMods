@@ -263,7 +263,7 @@ if ($reusecontractid)
 }
 else
 {
-	// Create thirdparty (if it already exist, do nothing and return a warning to user)
+	// Create thirdparty (if it already exists, do nothing and return a warning to user)
 	dol_syslog("Fetch thirdparty from email ".$email);
 	$tmpthirdparty=new Societe($db);
 	$result = $tmpthirdparty->fetch(0, '', '', '', '', '', '', '', '', '', $email);
@@ -308,6 +308,8 @@ else
 
 	$db->begin();	// Start transaction
 
+	$tmpthirdparty->oldcopy = dol_clone($tmpthirdparty);
+
 	$password_encoding = 'password_hash';
 	$password_crypted = dol_hash($password);
 
@@ -325,6 +327,7 @@ else
 
 	if ($tmpthirdparty->id > 0)
 	{
+
 		$result = $tmpthirdparty->update(0, $user);
 		if ($result <= 0)
 		{
@@ -429,6 +432,8 @@ else
 	// Create contract line for INSTANCE
 	if (! $error)
 	{
+		dol_syslog("Add line to contract for INSTANCE");
+
 		if (empty($object->country_code))
 		{
 			$object->country_code = dol_getIdFromCode($db, $object->country_id, 'c_country', 'rowid', 'code');
@@ -445,13 +450,7 @@ else
 		//var_dump($vat);exit;
 
 		$price = $tmpproduct->price;
-		if ($dolicloudcustomer->id > 0)
-		{
-			$price = $dolicloudcustomer->price_instance;
-			if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
-		}
-
-		if ($price == 0) $discount = 0;
+		$discount = 0;
 
 		$productidtocreate = $tmpproduct->id;
 
@@ -467,34 +466,38 @@ else
 	//var_dump('instance:'.$dolicloudcustomer->price_instance);
 	//exit;
 
-	// Create contract line for USERS
+	// Create contract line for other products
 	if (! $error)
 	{
-		$qty = 1;
-		//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
-		$vat = get_default_tva($mysoc, $object, 0);
-		$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
-		$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
+		dol_syslog("Add line to contract for depending products like USERS");
 
-		$price = $tmpproduct->array_options['options_price_per_user'];
-		if ($dolicloudcustomer->id > 0)
-		{
-			$price = $dolicloudcustomer->price_user;
-			if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
-		}
-		/*var_dump($tmpproduct);
-		var_dump('qty:'.$qty.'-price:'.$price);
-		var_dump('instance:'.$dolicloudcustomer->price_instance);
-		exit;*/
+		$prodschild = $tmpproduct->getChildsArbo($tmpproduct->id,1);
 
-		if ($price > 0 && $qty > 0)
+		$j=2;
+		foreach($prodschild as $prodid => $arrayprodid)
 		{
-			$contractlineid = $contract->addline('Users', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, 0, $discount, $date_start, $date_end, 'HT', 0);
-			if ($contractlineid < 0)
+			$tmpproduct->fetch($prodid);
+
+			$qty = 1;
+			//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+			$vat = get_default_tva($mysoc, $object, 0);
+			$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
+			$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
+
+			$price = $tmpproduct->price;
+			$discount = 0;
+
+			if ($price > 0 && $qty > 0)
 			{
-				dol_print_error_email('CREATECONTRACTLINE2', $contract->error, $contract->errors, 'alert alert-error');
-				exit;
+				$contractlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $prodid, $discount, $date_start, $date_end, 'HT', 0);
+				if ($contractlineid < 0)
+				{
+					dol_print_error_email('CREATECONTRACTLINE'.$j, $contract->error, $contract->errors, 'alert alert-error');
+					exit;
+				}
 			}
+
+			$j++;
 		}
 	}
 
@@ -599,7 +602,9 @@ if (! $error)
 // Activate all lines
 if (! $error)
 {
-	$result = $contract->activateAll($user, dol_now(), 1);
+	dol_syslog("Activate all lines");
+
+	$result = $contract->activateAll($user, dol_now(), 1, 'Activation after deployment from online registration');
 	if ($result <= 0)
 	{
 		$error++;
@@ -679,7 +684,7 @@ if (! $error)
 	$arraydefaultmessage=$formmail->getEMailTemplate($db, 'contract', $user, $langs, 0, 1, 'InstanceDeployed');
 
 	$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $contract);
-	$substitutionarray['__PACKAGELABEL__']=$tmppackage->label.'eee';
+	$substitutionarray['__PACKAGELABEL__']=$tmppackage->label;
 	$substitutionarray['__APPUSERNAME__']=$_SESSION['initialapplogin'];
 	$substitutionarray['__APPPASSWORD__']=$password;
 

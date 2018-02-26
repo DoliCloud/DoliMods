@@ -90,6 +90,22 @@ fi
 
 
 
+echo "***** Clean available virtualhost that are not enabled hosts"
+for fic in `ls /etc/apache2/sites-available/*.*.dolicloud.com.conf 2>&1`
+do
+	basfic=`basename $fic` 
+	if [ ! -L /etc/apache2/sites-enabled/$basfic ]; then
+		echo Remove file $basfic
+		if [[ $testorconfirm == "confirm" ]]; then
+			rm /etc/apache2/sites-available/$basfic
+		fi
+	else
+		echo "Site $basfic is enabled, we keep it"
+	fi
+done
+
+
+
 echo "***** Get list of databases of known instances and save into /tmp/instancefound"
 
 echo "#url=ref_customer	username_os	database_db" > /tmp/instancefound
