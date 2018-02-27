@@ -769,9 +769,9 @@ class SellYourSaasUtils
     					$this->error = 'Bad definition of formulat to calculate resource for product '.$producttmp->ref;
     				}
 
-
     				if (! $error && $newqty != $currentqty)
     				{
+    					$tmpobject->qty = $newqty;
     					$tmpobject->update($user);
     				}
     			}
