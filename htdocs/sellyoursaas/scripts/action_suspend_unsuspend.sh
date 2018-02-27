@@ -201,7 +201,7 @@ if [[ "$mode" == "unsuspend" ]]; then
 fi
 
 
-echo System suspend or unsuspend of $instancename.$domainname for user $osusername finished
+echo Process of action $mode of $instancename.$domainname for user $osusername finished
 echo
 
 exit 0

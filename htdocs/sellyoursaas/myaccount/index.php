@@ -245,37 +245,13 @@ if ($action == 'undeploy')
 	{
 		$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
 
-		$generatedunixlogin = $contract->array_options['options_username_os'];
-		$generatedunixpassword = 'na';
-		$tmparray = explode('.', $contract->ref_customer, 2);
-		$sldAndSubdomain = $tmparray[0];
-		$domainname = $tmparray[1];
-		$generateddbname = $contract->array_options['options_database_db'];
-		$generateddbport = ($contract->array_options['options_port_db']?$contract->array_options['options_port_db']:3306);
-		$generateddbusername = $contract->array_options['options_username_db'];
-		$generateddbpassword = $contract->array_options['options_password_db'];
-
-		$tmppackage = new Packages($db);
-
-		// Remote action : undeploy
-		$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
-		$commandurl.= '&'.$generateddbname.'&'.$generateddbport.'&'.$generateddbusername.'&'.$generateddbpassword;
-		$commandurl.= '&'.$tmppackage->srcconffile1.'&'.$tmppackage->targetconffile1.'&'.$tmppackage->datafile1;
-		$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
-		$commandurl.= '&'.$tmppackage->srccronfile.'&'.$targetdir;
-
-		$outputfile = $conf->sellyoursaas->dir_temp.'/action_deploy_undeploy-undeploy-'.dol_getmypid().'.out';
-
-		$serverdeployement = getRemoveServerDeploymentIp();
-
-		$urltoget='http://'.$serverdeployement.':8080/undeploy?'.urlencode($commandurl);
-		include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
-		$retarray = getURLContent($urltoget);
-
-		if ($retarray['curl_error_no'] != '')
+		dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
+		$sellyoursaasutils = new SellYourSaasUtils($this->db);
+		$result = $sellyoursaasutils->sellyoursaasRemoteAction('undeploy', $contract);
+		if ($result < 0)
 		{
 			$error++;
-			setEventMessages($retarray['curl_error_msg'], null, 'errors');
+			setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
 		}
 
 		if (! $error)

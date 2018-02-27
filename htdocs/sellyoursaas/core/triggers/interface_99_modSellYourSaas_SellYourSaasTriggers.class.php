@@ -153,11 +153,19 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         		}
 				break;
         	case 'LINECONTRACT_ACTIVATE':
-        		$remoteaction = 'unsuspend';
+        		$object->fetch_product();
+        		if ($object->product->array_options['options_app_or_option'] == 'app')
+        		{
+        			$remoteaction = 'unsuspend';
+        		}
         		break;
         	case 'LINECONTRACT_CLOSE':
-	    		$remoteaction = 'suspend';
-	    		break;
+        		$object->fetch_product();
+        		if ($object->product->array_options['options_app_or_option'] == 'app')
+        		{
+        			$remoteaction = 'suspend';
+        		}
+        		break;
         	case 'CONTRACT_DELETE':
 				$remoteaction = 'undeployall';
         		break;
@@ -197,13 +205,25 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
     	if ($remoteaction)
     	{
     		dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
-    		$sellyoursaasutils = new SellYourSaasUtils($db);
+    		$sellyoursaasutils = new SellYourSaasUtils($this->db);
     		$result = $sellyoursaasutils->sellyoursaasRemoteAction($remoteaction, $object);
 			if ($result <= 0)
 			{
 				$error++;
 				$this->error=$sellyoursaasutils->error;
 				$this->errors=$sellyoursaasutils->errors;
+			}
+			else
+			{
+				if (! preg_match('/sellyoursaas/', session_name()))	// No popup message from trigger if not into backoffice
+				{
+					if ($remoteaction == 'suspend') setEventMessage('Service was suspended');
+					elseif ($remoteaction == 'unsuspend') setEventMessage('Service was unsuspended');
+					elseif ($remoteaction == 'deploy') setEventMessage('Service was deployed');
+					elseif ($remoteaction == 'undeploy') setEventMessage('Service was undeployed');
+					elseif ($remoteaction == 'deployall') setEventMessage('Service was deployed (all)');
+					elseif ($remoteaction == 'undeployall') setEventMessage('Service was undeployed (all)');
+				}
 			}
     	}
 

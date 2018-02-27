@@ -504,11 +504,18 @@ class SellYourSaasUtils
      *
      * @param	string					$remoteaction	Remote action
      * @param 	Contrat|ContratLigne	$object			Object contract or contract line
+     * @param	string					$appusername	App login
+     * @param	string					$email			Initial email
+     * @param	string					$password		Initial password
      * @return	int										<0 if KO, >0 if OK
      */
-    function sellyoursaasRemoteAction($remoteaction, $object)
+    function sellyoursaasRemoteAction($remoteaction, $object, $appusername='admin', $email='', $password='')
     {
-    	$result = 0;
+    	global $conf, $user;
+
+    	$error = 0;
+
+    	$now = dol_now();
 
     	if (get_class($object) == 'Contrat')
     	{
@@ -519,6 +526,8 @@ class SellYourSaasUtils
     		$listoflines = array($object);
     	}
 
+    	dol_syslog("Remote action on instance remoteaction=".$remoteaction." was called");
+
     	foreach($listoflines as $tmpobject)
     	{
     		$producttmp = new Product($this->db);
@@ -527,8 +536,6 @@ class SellYourSaasUtils
     		if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
     			($producttmp->array_options['options_app_or_option'] == 'app' || $producttmp->array_options['options_app_or_option'] == 'option'))
     		{
-    			dol_syslog("Remote action on instance remoteaction=".$remoteaction);
-
     			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
     			dol_include_once('/sellyoursaas/class/packages.class.php');
 
@@ -543,11 +550,60 @@ class SellYourSaasUtils
     			$sldAndSubdomain=$tmp[0];
     			$domainname=$tmp[1];
     			$generateddbname=$contract->array_options['options_database_db'];
-    			$generateddbport=$contract->array_options['options_port_db'];
+    			$generateddbport = ($contract->array_options['options_port_db']?$contract->array_options['options_port_db']:3306);
     			$generateddbusername=$contract->array_options['options_username_db'];
     			$generateddbpassword=$contract->array_options['options_password_db'];
 
+    			// Is it a product linked to a package ?
     			$tmppackage = new Packages($this->db);
+    			if (! empty($producttmp->array_options['options_package']))
+    			{
+    				$tmppackage->fetch($producttmp->array_options['options_package']);
+    			}
+
+    			// Replace __INSTANCEDIR__, __INSTALLHOURS__, __INSTALLMINUTES__, __OSUSERNAME__, __APPUNIQUEKEY__, __APPDOMAIN__, ...
+    			$substitarray=array(
+    			'__INSTANCEDIR__'=>$targetdir.'/'.$generatedunixlogin.'/'.$generateddbname,
+    			'__DOL_DATA_ROOT__'=>DOL_DATA_ROOT,
+    			'__INSTALLHOURS__'=>dol_print_date($now, '%H'),
+    			'__INSTALLMINUTES__'=>dol_print_date($now, '%M'),
+    			'__OSHOSTNAME__'=>$generatedunixhostname,
+    			'__OSUSERNAME__'=>$generatedunixlogin,
+    			'__OSPASSWORD__'=>$generatedunixpassword,
+    			'__DBHOSTNAME__'=>$generateddbhostname,
+    			'__DBNAME__'=>$generateddbname,
+    			'__DBPORT__'=>$generateddbport,
+    			'__DBUSER__'=>$generateddbusername,
+    			'__DBPASSWORD__'=>$generateddbpassword,
+    			'__PACKAGEREF__'=> $tmppackage->ref,
+    			'__PACKAGENAME__'=> $tmppackage->label,
+    			'__APPUSERNAME__'=>$appusername,
+    			'__APPEMAIL__'=>$email,
+    			'__APPPASSWORD__'=>$password,
+    			'__APPUNIQUEKEY__'=>$generateduniquekey,
+    			'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname
+    			);
+
+    			$tmppackage->srcconffile1 = '/tmp/conf.php.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
+    			$tmppackage->srccronfile = '/tmp/cron.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
+
+    			$conffile = make_substitutions($tmppackage->conffile1, $substitarray);
+    			$cronfile = make_substitutions($tmppackage->crontoadd, $substitarray);
+
+    			$tmppackage->targetconffile1 = make_substitutions($tmppackage->targetconffile1, $substitarray);
+    			$tmppackage->datafile1 = make_substitutions($tmppackage->datafile1, $substitarray);
+    			$tmppackage->srcfile1 = make_substitutions($tmppackage->srcfile1, $substitarray);
+    			$tmppackage->srcfile2 = make_substitutions($tmppackage->srcfile2, $substitarray);
+    			$tmppackage->srcfile3 = make_substitutions($tmppackage->srcfile3, $substitarray);
+    			$tmppackage->targetsrcfile1 = make_substitutions($tmppackage->targetsrcfile1, $substitarray);
+    			$tmppackage->targetsrcfile2 = make_substitutions($tmppackage->targetsrcfile2, $substitarray);
+    			$tmppackage->targetsrcfile3 = make_substitutions($tmppackage->targetsrcfile3, $substitarray);
+
+    			dol_syslog("Create conf file ".$tmppackage->srcconffile1);
+    			file_put_contents($tmppackage->srcconffile1, $conffile);
+
+    			dol_syslog("Create cron file ".$tmppackage->srccronfile1);
+    			file_put_contents($tmppackage->srccronfile, $cronfile);
 
     			// Remote action : unsuspend
     			$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
@@ -556,7 +612,7 @@ class SellYourSaasUtils
     			$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
     			$commandurl.= '&'.$tmppackage->srccronfile.'&'.$targetdir;
 
-    			$outputfile = $conf->sellyoursaas->dir_temp.'/action_deploy_undeploy-'.$remoteaction.'-'.dol_getmypid().'.out';
+    			$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 
     			$serverdeployement = getRemoveServerDeploymentIp();
 
@@ -564,18 +620,43 @@ class SellYourSaasUtils
     			include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
     			$retarray = getURLContent($urltoget);
 
-    			if ($retarray['curl_error_no'] != '')
+    			if ($retarray['curl_error_no'] != '' || $retarray['http_code'] != 200)
     			{
     				$error++;
-    				$this->errors[] = $retarray['curl_error_msg'];
+    				if ($retarray['curl_error_no'] != '') $this->errors[] = $retarray['curl_error_msg'];
+    				else $this->errors[] = $retarray['content'];
     			}
 
-    			// No email, can be done manually.
+		    	// Execute personalized SQL requests
+		    	if (! $error)
+		    	{
+		    		$sqltoexecute = make_substitutions($tmppackage->sqlafter, $substitarray);
+
+		    		dol_syslog("Try to connect to instance database to execute personalized requests");
+
+		    		//var_dump($generateddbhostname);	// fqn name dedicated to instance in dns
+		    		//var_dump($serverdeployement);		// just ip of deployement server
+		    		//$dbinstance = @getDoliDBInstance('mysqli', $generateddbhostname, $generateddbusername, $generateddbpassword, $generateddbname, $generateddbport);
+		    		$dbinstance = @getDoliDBInstance('mysqli', $serverdeployement, $generateddbusername, $generateddbpassword, $generateddbname, $generateddbport);
+		    		if (! $dbinstance || ! $dbinstance->connected)
+		    		{
+		    			$error++;
+		    			$this->error = $dbinstance->error;
+		    			$this->errors = $dbinstance->errors;
+
+		    		}
+		    		else
+		    		{
+		    			dol_syslog("Execute sql=".$sqltoexecute);
+		    			$resql = $dbinstance->query($sqltoexecute);
+		    		}
+		    	}
+
     		}
     	}
 
     	if ($error) return -1;
-    	else return 0;
+    	else return 1;
     }
 
 

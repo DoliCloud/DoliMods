@@ -251,7 +251,7 @@ if ($reusecontractid)
 	$generatedunixpassword = $contract->array_options['options_password_os'];
 	$generateddbhostname = $contract->array_options['options_hostname_db'];
 	$generateddbname = $contract->array_options['options_database_db'];
-	$generateddbport = 3306;
+	$generateddbport = ($contract->array_options['options_port_db']?$contract->array_options['options_port_db']:3306);
 	$generateddbusername = $contract->array_options['options_username_db'];
 	$generateddbpassword = $contract->array_options['options_password_db'];
 
@@ -301,6 +301,7 @@ else
 	$generateddbusername = 'dbu'.substr(getRandomPassword(true), 0, 9);
 	$generateddbpassword = substr(getRandomPassword(true), 0, 10);
 	$generateddbhostname = $sldAndSubdomain.'.'.$domainname;
+	$generateddbport = 3306;
 	$generatedunixhostname = $sldAndSubdomain.'.'.$domainname;
 
 
@@ -377,18 +378,22 @@ else
 		$contract->commercial_signature_id = $user->id;
 		$contract->commercial_suivi_id = $user->id;
 		$contract->date_contrat = $now;
-		$contract->note_private = 'Created from web interface';
+		$contract->note_private = 'Created from instance registration interface';
 
 		$contract->array_options['options_plan'] = $tmppackage->ref;
 		$contract->array_options['options_deployment_status'] = 'processing';
 		$contract->array_options['options_deployment_date_start'] = $now;
+		$contract->array_options['options_deployment_init_email'] = $email;
+		$contract->array_options['options_deployment_init_adminpass'] = $passsword;
 		$contract->array_options['options_date_endfreeperiod'] = dol_time_plus_duree($now, 15, 'd');
+		$contract->array_options['options_undeployment_date'] = '';
+		$contract->array_options['options_undeployment_ip'] = '';
 		$contract->array_options['options_hostname_os'] = $generatedunixhostname;
 		$contract->array_options['options_username_os'] = $generatedunixlogin;
 		$contract->array_options['options_password_os'] = $generatedunixpassword;
 		$contract->array_options['options_hostname_db'] = $generateddbhostname;
 		$contract->array_options['options_database_db'] = $generateddbname;
-		$contract->array_options['options_port_db'] = 3306;
+		$contract->array_options['options_port_db'] = $generateddbport;
 		$contract->array_options['options_username_db'] = $generateddbusername;
 		$contract->array_options['options_password_db'] = $generateddbpassword;
 		//$contract->array_options['options_nb_users'] = 1;
@@ -473,18 +478,19 @@ else
 
 		$prodschild = $tmpproduct->getChildsArbo($tmpproduct->id,1);
 
+		$tmpsubproduct = new Product($db);
 		$j=2;
 		foreach($prodschild as $prodid => $arrayprodid)
 		{
-			$tmpproduct->fetch($prodid);
+			$tmpsubproduct->fetch($prodid);	// To load the price
 
 			$qty = 1;
 			//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
-			$vat = get_default_tva($mysoc, $object, 0);
-			$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
-			$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
+			$vat = get_default_tva($mysoc, $object, $prodid);
+			$localtax1_tx = get_default_localtax($mysoc, $object, 1, $prodid);
+			$localtax2_tx = get_default_localtax($mysoc, $object, 2, $prodid);
 
-			$price = $tmpproduct->price;
+			$price = $tmpsubproduct->price;
 			$discount = 0;
 
 			if ($price > 0 && $qty > 0)
@@ -500,6 +506,9 @@ else
 			$j++;
 		}
 	}
+
+	dol_syslog("Reload all lines after creation to have contract->lines ok");
+	$contract->fetch_lines();
 
 	if (! $error)
 	{
@@ -530,81 +539,29 @@ else
 
 if (! $error)
 {
-	$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
+	dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
+	$sellyoursaasutils = new SellYourSaasUtils($db);
 
-	// Replace __INSTANCEDIR__, __INSTALLHOURS__, __INSTALLMINUTES__, __OSUSERNAME__, __APPUNIQUEKEY__, __APPDOMAIN__, ...
-	$substitarray=array(
-	'__INSTANCEDIR__'=>$targetdir.'/'.$generatedunixlogin.'/'.$generateddbname,
-	'__DOL_DATA_ROOT__'=>DOL_DATA_ROOT,
-	'__INSTALLHOURS__'=>dol_print_date($now, '%H'),
-	'__INSTALLMINUTES__'=>dol_print_date($now, '%M'),
-	'__OSHOSTNAME__'=>$generatedunixhostname,
-	'__OSUSERNAME__'=>$generatedunixlogin,
-	'__OSPASSWORD__'=>$generatedunixpassword,
-	'__DBHOSTNAME__'=>$generateddbhostname,
-	'__DBNAME__'=>$generateddbname,
-	'__DBPORT__'=>$generateddbport,
-	'__DBUSER__'=>$generateddbusername,
-	'__DBPASSWORD__'=>$generateddbpassword,
-	'__PACKAGEREF__'=> $tmppackage->ref,
-	'__PACKAGENAME__'=> $tmppackage->label,
-	'__APPUSERNAME__'=>'admin',
-	'__APPEMAIL__'=>$email,
-	'__APPPASSWORD__'=>$password,
-	'__APPUNIQUEKEY__'=>$generateduniquekey,
-	'__APPDOMAIN__'=>$sldAndSubdomain.$tldid
-	);
-
-	$tmppackage->srcconffile1 = '/tmp/conf.php.'.$sldAndSubdomain.$tldid.'.tmp';
-	$tmppackage->srccronfile = '/tmp/cron.'.$sldAndSubdomain.$tldid.'.tmp';
-
-	$conffile = make_substitutions($tmppackage->conffile1, $substitarray);
-	$cronfile = make_substitutions($tmppackage->crontoadd, $substitarray);
-
-	$tmppackage->targetconffile1 = make_substitutions($tmppackage->targetconffile1, $substitarray);
-	$tmppackage->datafile1 = make_substitutions($tmppackage->datafile1, $substitarray);
-	$tmppackage->srcfile1 = make_substitutions($tmppackage->srcfile1, $substitarray);
-	$tmppackage->srcfile2 = make_substitutions($tmppackage->srcfile2, $substitarray);
-	$tmppackage->srcfile3 = make_substitutions($tmppackage->srcfile3, $substitarray);
-	$tmppackage->targetsrcfile1 = make_substitutions($tmppackage->targetsrcfile1, $substitarray);
-	$tmppackage->targetsrcfile2 = make_substitutions($tmppackage->targetsrcfile2, $substitarray);
-	$tmppackage->targetsrcfile3 = make_substitutions($tmppackage->targetsrcfile3, $substitarray);
-
-	dol_syslog("Create conf file ".$tmppackage->srcconffile1);
-	file_put_contents($tmppackage->srcconffile1, $conffile);
-	dol_syslog("Create cron file ".$tmppackage->srccronfile1);
-	file_put_contents($tmppackage->srccronfile, $cronfile);
-
-	// Remote action : deploy all
-	$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
-	$commandurl.= '&'.$generateddbname.'&'.$generateddbport.'&'.$generateddbusername.'&'.$generateddbpassword;
-	$commandurl.= '&'.$tmppackage->srcconffile1.'&'.$tmppackage->targetconffile1.'&'.$tmppackage->datafile1;
-	$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
-	$commandurl.= '&'.$tmppackage->srccronfile.'&'.$targetdir;
-
-	$outputfile = $conf->sellyoursaas->dir_temp.'/action_deploy_undeploy-deployall-'.dol_getmypid().'.out';
-
-	$serverdeployement = getRemoveServerDeploymentIp();
-
-	$urltoget='http://'.$serverdeployement.':8080/deployall?'.urlencode($commandurl);
-	include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
-	$retarray = getURLContent($urltoget);
-
-	if ($retarray['curl_error_no'] != '' || $retarray['http_code'] != 200)
+	$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $contract, 'admin', $email, $password);
+	if ($result <= 0)
 	{
 		$error++;
-		if ($retarray['curl_error_no'] != '') $errormessages[] = $retarray['curl_error_msg'];
-		else $errormessages[] = $retarray['content'];
+		$errormessages=$sellyoursaasutils->errors;
+		if ($sellyoursaasutils->error) $errormessages[]=$sellyoursaasutils->error;
 	}
 }
 
+
+// Finish deployall
+
+$comment = 'Activation after deployment from online registration';
 
 // Activate all lines
 if (! $error)
 {
 	dol_syslog("Activate all lines");
 
-	$result = $contract->activateAll($user, dol_now(), 1, 'Activation after deployment from online registration');
+	$result = $contract->activateAll($user, dol_now(), 1, $comment);
 	if ($result <= 0)
 	{
 		$error++;
@@ -612,39 +569,13 @@ if (! $error)
 	}
 }
 
-// Execute personalized SQL requests
-if (! $error)
-{
-	$sqltoexecute = make_substitutions($tmppackage->sqlafter, $substitarray);
-
-	dol_syslog("Try to connect to instance database to execute personalized requests");
-
-	//var_dump($generateddbhostname);	// fqn name dedicated to instance in dns
-	//var_dump($serverdeployement);		// just ip of deployement server
-	//$dbinstance = @getDoliDBInstance('mysqli', $generateddbhostname, $generateddbusername, $generateddbpassword, $generateddbname, 3306);
-	$dbinstance = @getDoliDBInstance('mysqli', $serverdeployement, $generateddbusername, $generateddbpassword, $generateddbname, 3306);
-	if (! $dbinstance || ! $dbinstance->connected)
-	{
-		$error++;
-		setEventMessages($dbinstance->error, $dbinstance->errors, 'errors');
-		header("Location: ".$newurl);
-		exit;
-
-		//dol_print_error_email('GETDOLIDBI'.$generateddbhostname, $dbinstance->error, $dbinstance->errors, 'alert alert-error');
-		//exit;
-	}
-	else
-	{
-		dol_syslog("Execute sql=".$sqltoexecute);
-		$resql = $dbinstance->query($sqltoexecute);
-	}
-}
-$error++;
 // End of deployment is now OK / Complete
 if (! $error)
 {
 	$contract->array_options['options_deployment_status'] = 'done';
 	$contract->array_options['options_deployment_date_end'] = dol_now('tzserver');
+	$contract->array_options['options_undeployment_date'] = '';
+	$contract->array_options['options_undeployment_ip'] = '';
 
 	$result = $contract->update($user);
 	if ($result < 0)
@@ -652,8 +583,6 @@ if (! $error)
 		// We ignore errors. This should not happen in real life.
 		//setEventMessages($contract->error, $contract->errors, 'errors');
 	}
-
-	$discount = 0;
 }
 
 

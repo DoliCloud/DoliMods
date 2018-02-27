@@ -93,7 +93,7 @@ export dbport=$7
 export dbusername=$8
 export dbpassword=$9
 
-export dirforconfig1=${10}
+export fileforconfig1=${10}
 export targetfileforconfig1=${11}
 export dirwithdumpfile=${12}
 export dirwithsources1=${13}
@@ -118,7 +118,7 @@ echo "dbname = $dbname"
 echo "dbport = $dbport"
 echo "dbusername = $dbusername"
 echo "dbpassword = $dbpassword"
-echo "dirforconfig1 = $dirforconfig1"
+echo "fileforconfig1 = $fileforconfig1"
 echo "targetfileforconfig1 = $targetfileforconfig1"
 echo "dirwithdumpfile = $dirwithdumpfile"
 echo "dirwithsources1 = $dirwithsources1"
@@ -419,12 +419,13 @@ fi
 if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	
 	echo "***** Deploy config file"
+	mkdir -p `dirname $targetfileforconfig1`
 	
-	echo "mv $dirforconfig1 $targetfileforconfig1"
+	echo "mv $fileforconfig1 $targetfileforconfig1"
 	if [[ -s $targetfileforconfig1 ]]; then
 		echo File $targetfileforconfig1 already exists. We change nothing.
 	else
-		mv $dirforconfig1 $targetfileforconfig1
+		mv $fileforconfig1 $targetfileforconfig1
 	fi
 
 fi

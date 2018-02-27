@@ -34,11 +34,12 @@ fi
 
 if [ "x$1" == "x" ]; then
 	echo "Missing parameter 1 - sellyoursaas admin databasename" 1>&2
-	exit 1
 fi
 if [ "x$2" == "x" ]; then
 	echo "Missing parameter 2 - test|confirm" 1>&2
-	exit 1
+fi
+if [[ "x$1" == "x" || "x$2" == "x" ]]; then
+	exit
 fi
 
 export database=$1

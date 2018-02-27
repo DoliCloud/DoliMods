@@ -62,11 +62,30 @@ class ActionsSellyoursaas
     	dol_syslog(get_class($this).'::executeHooks action='.$action);
     	$langs->load("sellyoursaas@sellyoursaas");
 
-    	if (in_array($parameters['currentcontext'], array('contractcard')))		// do something only for the context 'somecontext1' or 'somecontext2'
+    	if (in_array($parameters['currentcontext'], array('contractcard'))
+    		&& ! empty($object->array_options['options_deployment_status']))		// do something only for the context 'somecontext1' or 'somecontext2'
     	{
 	    	if ($user->rights->sellyoursaas->write)
 	    	{
-				print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=redeploy">' . $langs->trans('Redeploy') . '</a>';
+	    		if (in_array($object->array_options['options_deployment_status'], array('processing', 'undeployed')))
+	    		{
+	    			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=deploy">' . $langs->trans('Redeploy') . '</a>';
+	    		}
+	    		else
+	    		{
+	    			print '<a class="butActionRefused" href="#" title="'.$langs->trans("ContractMustHaveStatusProcessingOrUndeployed").'">' . $langs->trans('Redeploy') . '</a>';
+	    		}
+
+	    		if (in_array($object->array_options['options_deployment_status'], array('done')))
+	    		{
+	    			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=undeploy">' . $langs->trans('Undeploy') . '</a>';
+	    			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=refresh">' . $langs->trans('RefreshRemoteData') . '</a>';
+	    		}
+	    		else
+	    		{
+	    			print '<a class="butActionRefused" href="#" title="'.$langs->trans("ContractMustHaveStatusDone").'">' . $langs->trans('Undeploy') . '</a>';
+	    			print '<a class="butActionrefused" href="#" title="'.$langs->trans("ContractMustHaveStatusDone").'">' . $langs->trans('RefreshRemoteData') . '</a>';
+	    		}
 	    	}
     	}
 
@@ -101,7 +120,7 @@ class ActionsSellyoursaas
 
         if (in_array($parameters['currentcontext'], array('contractcard')))
         {
-			if ($action == 'redeploy')
+			if ($action == 'deploy')
 			{
 				dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
 				$sellyoursaasutils = new SellYourSaasUtils($db);
@@ -111,6 +130,84 @@ class ActionsSellyoursaas
 					$error++;
 					$this->error=$sellyoursaasutils->error;
 					$this->errors=$sellyoursaasutils->errors;
+				}
+
+				// Finish deployall
+
+				$comment = 'Activation after click on redeploy from contract card';
+
+				// Activate all lines
+				if (! $error)
+				{
+					dol_syslog("Activate all lines");
+
+					$result = $object->activateAll($user, dol_now(), 1, $comment);
+					if ($result <= 0)
+					{
+						$error++;
+						setEventMessages($object->error, $object->errors, 'errors');
+					}
+				}
+
+				// End of deployment is now OK / Complete
+				if (! $error)
+				{
+					$object->array_options['options_deployment_status'] = 'done';
+					$object->array_options['options_deployment_date_end'] = dol_now('tzserver');
+					$object->array_options['options_undeployment_date'] = '';
+					$object->array_options['options_undeployment_ip'] = '';
+
+					$result = $object->update($user);
+					if ($result < 0)
+					{
+						// We ignore errors. This should not happen in real life.
+						//setEventMessages($contract->error, $contract->errors, 'errors');
+					}
+				}
+			}
+
+			if ($action == 'undeploy')
+			{
+				dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
+				$sellyoursaasutils = new SellYourSaasUtils($db);
+				$result = $sellyoursaasutils->sellyoursaasRemoteAction('undeploy', $object);
+				if ($result <= 0)
+				{
+					$error++;
+					$this->error=$sellyoursaasutils->error;
+					$this->errors=$sellyoursaasutils->errors;
+				}
+
+				// Finish deployall
+
+				$comment = 'Close after click on undeploy from contract card';
+
+				// Activate all lines
+				if (! $error)
+				{
+					dol_syslog("Activate all lines");
+
+					$result = $object->closeAll($user, 1, $comment);
+					if ($result <= 0)
+					{
+						$error++;
+						setEventMessages($object->error, $object->errors, 'errors');
+					}
+				}
+
+				// End of deployment is now OK / Complete
+				if (! $error)
+				{
+					$object->array_options['options_deployment_status'] = 'undeployed';
+					$object->array_options['options_undeployment_date'] = dol_now('tzserver');
+					$object->array_options['options_undeployment_ip'] = $_SERVER['REMOTE_ADDR'];
+
+					$result = $object->update($user);
+					if ($result < 0)
+					{
+						// We ignore errors. This should not happen in real life.
+						//setEventMessages($contract->error, $contract->errors, 'errors');
+					}
 				}
 			}
         }
