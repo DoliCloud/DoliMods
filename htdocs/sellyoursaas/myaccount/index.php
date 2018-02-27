@@ -1503,16 +1503,16 @@ if ($mode == 'billing')
 	          <div class="portlet-title">
 	            <div class="caption">
 	              <i class="icon-credit-card font-green-sharp"></i>
-	              <span class="caption-subject font-green-sharp bold uppercase">Payment Method</span>
+	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("PaymentMode").'</span>
 	            </div>
 	          </div>
 
 	          <div class="portlet-body">
 	            <p>
 
-	                No payment method on file.
+	                '.$langs->trans("NoPaymentMethodOnFile").'.
 	                <br><br>
-	                <a href="register_paymentmode.php" class="btn default btn-xs green-stripe">Add Payment Method</a>
+	                <a href="register_paymentmode.php" class="btn default btn-xs green-stripe">'.$langs->trans("AddAPaymentMode").'</a>
 
 	            </p>
 	          </div> <!-- END PORTLET-BODY -->

@@ -133,6 +133,7 @@ XDaysBeforeEndOfTrial=Il ne reste que <strong>%s</strong> jours avant la fin de 
 XDaysAfterEndOfTrial=La période d'essai de votre instance <strong>%s</strong> est expirée depuis <strong>%s</strong> jour(s). Votre instance est probablement suspendue
 AddAPaymentMode=Ajouter un mode de paiement
 AddAPaymentModeToRestoreInstance=Ajouter mode de paiement pour débloquer
+NoPaymentMethodOnFile=Pas de mode de paiement enregistré
 PaymentBalance=Solde de paiement
 UpToDate=A jour
 SupportTickets=Tickets assistance

@@ -147,6 +147,7 @@ XDaysBeforeEndOfTrial=<strong>%s</strong> days before end of trial for your inst
 XDaysAfterEndOfTrial=The trial for your instance <strong>%s</strong> has expired since <strong>%s</strong> day(s). Your instance may have been suspended
 AddAPaymentMode=Add a payment mode
 AddAPaymentModeToRestoreInstance=Add a payment mode to restore it
+NoPaymentMethodOnFile=No payment method on file
 PaymentBalance=Balance of payment
 UpToDate=Up to date
 SupportTickets=Support tickets
