@@ -99,6 +99,15 @@ if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC))
 
 	if (! $error)
 	{
+		if (is_array($_FILES['userfile']['name']))
+		{
+			$listoffiles=$_FILES['userfile']['name'];
+		}
+		else
+		{
+			$listoffiles=array($_FILES['userfile']['name']);
+		}
+
 		if (preg_match('/\.pdf$/', $_FILES['userfile']['name']))
 		{
 			$upload_dir = $conf->partipirate->dir_output.'/'.GETPOST('module', 'alpha');

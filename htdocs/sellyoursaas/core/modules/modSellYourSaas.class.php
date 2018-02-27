@@ -627,7 +627,8 @@ class modSellYourSaas extends DolibarrModules
 		// Product
 		$param=array('options'=>array('app'=>'Application','system'=>'System','option'=>'Option'));
 		$resultx=$extrafields->addExtraField('app_or_option',                   "AppOrOption", 'select',  10,     '',  'product', 0, 0,   '', $param, 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
-		//$resultx=$extrafields->addExtraField('price_per_user', 	           "PricePerResource",  'price',  11, '24,8',  'product', 0, 0,  '0',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$param=array('options'=>array('Packages:sellyoursaas/class/packages.class.php'=>null));
+		$resultx=$extrafields->addExtraField('package', 	        	            "Package",   'link',  11,     '',  'product', 0, 0,   '', $param, 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('resource_formula', "QuantityCalculationFormula",   'text',  12, '8192',  'product', 0, 0,   '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('freeperioddays', 	       "Days for free period",    'int',  13,    '6',  'product', 0, 0,   '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('directaccess', 	        "Access to resources",'boolean',  14,     '',  'product', 0, 0,   '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');

@@ -104,6 +104,7 @@ class ActionsSellyoursaas
 			if ($action == 'redeploy')
 			{
 				dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
+				$sellyoursaasutils = new SellYourSaasUtils($db);
 				$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $object);
 				if ($result <= 0)
 				{
