@@ -147,7 +147,7 @@ class SellYourSaasUtils
     						$this->errors = $cmail->errors;
     					}
 
-    					$contractprocessed[$object->id]=$object->id;
+    					$contractprocessed[$object->id]=$object->ref;
     				}
     			}
     			$i++;
@@ -155,7 +155,7 @@ class SellYourSaasUtils
     	}
     	else $this->error = $this->db->lasterror();
 
-    	$this->output = count($contractprocessed).' email(s) sent';
+    	$this->output = count($contractprocessed).' email(s) sent'.(count($contractprocessed)>0 ? ' '.join(',', $contractprocessed) : '');
 
     	return ($error ? 1: 0);
     }
@@ -261,7 +261,7 @@ class SellYourSaasUtils
 							$this->errors = $object->errors;
 						}
 
-						$contractprocessed[$object->id]=$object->id;
+						$contractprocessed[$object->id]=$object->ref;
 					}
 				}
     			$i++;
@@ -269,7 +269,7 @@ class SellYourSaasUtils
     	}
     	else $this->error = $this->db->lasterror();
 
-    	$this->output = count($contractprocessed).' contract(s) suspended';
+    	$this->output = count($contractprocessed).' contract(s) suspended'.(count($contractprocessed)>0 ? ' '.join(',', $contractprocessed) : '');
 
     	return ($error ? 1: 0);
     }
@@ -397,7 +397,7 @@ class SellYourSaasUtils
     	}
     	else $this->error = $this->db->lasterror();
 
-    	$this->output = count($contractprocessed).' contract(s) undeployed';
+    	$this->output = count($contractprocessed).' contract(s) undeployed'.(count($contractprocessed)>0 ? ' '.join(',', $contractprocessed) : '');
 
     	return ($error ? 1: 0);
     }
@@ -766,13 +766,18 @@ class SellYourSaasUtils
     				else
     				{
     					$error++;
-    					$this->error = 'Bad definition of formulat to calculate resource for product '.$producttmp->ref;
+    					$this->error = 'Bad definition of formula to calculate resource for product '.$producttmp->ref;
     				}
 
     				if (! $error && $newqty != $currentqty)
     				{
     					$tmpobject->qty = $newqty;
-    					$tmpobject->update($user);
+    					$result = $tmpobject->update($user);
+    					if ($result <= 0)
+    					{
+    						$error++;
+    						$this->error = 'Failed to update the count for product '.$producttmp->ref;
+    					}
     				}
     			}
     		}
