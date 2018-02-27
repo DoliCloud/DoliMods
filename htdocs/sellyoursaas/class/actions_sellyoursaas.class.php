@@ -267,6 +267,36 @@ class ActionsSellyoursaas
      * @param	array	$parameters		Array of parameters
      * @return	int						1=Replace standard code, 0=Continue standard code
      */
+    function moreHtmlStatus($parameters)
+    {
+    	global $conf, $langs, $user;
+    	global $object;
+
+    	if ($parameters['currentcontext'] == 'contractcard')
+    	{
+    		if (! empty($object->array_options['options_deployment_status']))
+    		{
+    			dol_include_once('sellyoursaas/lib/sellyoursaas.lib.php');
+				$ret = '<br><br><div class="right bold">';
+				$ispaid = sellyoursaasIsPaidInstance($object);
+				if ($ispaid) $ret .= '<span class="badge" style="font-size: 1em; background-color: green">'.$langs->trans("PayedMode").'</span>';
+				else $ret .= '<span class="badge" style="font-size: 1em">'.$langs->trans("TrialMode").'</span>';
+				$ret .= '</div>';
+
+				$this->resprints = $ret;
+    		}
+    	}
+
+    	return 0;
+    }
+
+
+    /**
+     * Complete search forms
+     *
+     * @param	array	$parameters		Array of parameters
+     * @return	int						1=Replace standard code, 0=Continue standard code
+     */
     function getDefaultFromEmail($parameters)
     {
     	global $conf, $langs, $user;

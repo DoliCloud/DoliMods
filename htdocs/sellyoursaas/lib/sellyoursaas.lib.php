@@ -58,6 +58,17 @@ function sellyoursaasIsPaidInstance($contract)
 
 	if ($foundtemplate) return 1;
 
+	if (is_array($contract->linkedObjects['facture']))
+	{
+		foreach($contract->linkedObjects['facture'] as $idtemplateinvoice => $templateinvoice)
+		{
+			$foundinvoice++;
+			break;
+		}
+	}
+
+	if ($foundinvoice) return 1;
+
 	/*
 	$nbinvoicenotpayed = 0;
 	$amountdue = 0;

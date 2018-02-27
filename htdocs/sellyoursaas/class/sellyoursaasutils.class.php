@@ -155,7 +155,7 @@ class SellYourSaasUtils
     	}
     	else $this->error = $this->db->lasterror();
 
-    	$this->output = count($contractprocessed).' email(s) sent'.(count($contractprocessed)>0 ? ' '.join(',', $contractprocessed) : '');
+    	$this->output = count($contractprocessed).' email(s) sent'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
 
     	return ($error ? 1: 0);
     }
@@ -269,7 +269,7 @@ class SellYourSaasUtils
     	}
     	else $this->error = $this->db->lasterror();
 
-    	$this->output = count($contractprocessed).' contract(s) suspended'.(count($contractprocessed)>0 ? ' '.join(',', $contractprocessed) : '');
+    	$this->output = count($contractprocessed).' contract(s) suspended'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
 
     	return ($error ? 1: 0);
     }
@@ -320,7 +320,7 @@ class SellYourSaasUtils
 
     	if ($mode != 'test' && $mode != 'paid')
     	{
-    		$this->error = 'Function doUndeployOldSuspendedInstances called with bad value for parameter $mode';
+    		$this->error = 'Function doUndeployOldSuspendedInstances called with bad value for parameter '.$mode;
     		return -1;
     	}
 
@@ -389,7 +389,7 @@ class SellYourSaasUtils
     					}
     					//$object->array_options['options_deployment_status'] = 'suspended';
 
-    					$contractprocessed[$object->id]=$object->id;	// To avoid to make action twice on same contract
+    					$contractprocessed[$object->id]=$object->ref;	// To avoid to make action twice on same contract
     				}
     			}
     			$i++;
@@ -397,7 +397,7 @@ class SellYourSaasUtils
     	}
     	else $this->error = $this->db->lasterror();
 
-    	$this->output = count($contractprocessed).' contract(s) undeployed'.(count($contractprocessed)>0 ? ' '.join(',', $contractprocessed) : '');
+    	$this->output = count($contractprocessed).' contract(s) undeployed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
 
     	return ($error ? 1: 0);
     }
