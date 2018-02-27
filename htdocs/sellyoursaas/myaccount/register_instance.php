@@ -384,7 +384,7 @@ else
 		$contract->array_options['options_deployment_status'] = 'processing';
 		$contract->array_options['options_deployment_date_start'] = $now;
 		$contract->array_options['options_deployment_init_email'] = $email;
-		$contract->array_options['options_deployment_init_adminpass'] = $passsword;
+		$contract->array_options['options_deployment_init_adminpass'] = $password;
 		$contract->array_options['options_date_endfreeperiod'] = dol_time_plus_duree($now, 15, 'd');
 		$contract->array_options['options_undeployment_date'] = '';
 		$contract->array_options['options_undeployment_ip'] = '';

@@ -163,6 +163,8 @@ class ActionsSellyoursaas
 						// We ignore errors. This should not happen in real life.
 						//setEventMessages($contract->error, $contract->errors, 'errors');
 					}
+
+					// @TODO We can add here the setEventMessages that are into the sellyoursaasRemoteAction
 				}
 			}
 
@@ -208,6 +210,25 @@ class ActionsSellyoursaas
 						// We ignore errors. This should not happen in real life.
 						//setEventMessages($contract->error, $contract->errors, 'errors');
 					}
+
+					// @TODO We can add here the setEventMessages that are into the sellyoursaasRemoteAction
+				}
+			}
+
+			if ($action == 'refresh')
+			{
+				dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
+				$sellyoursaasutils = new SellYourSaasUtils($db);
+				$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $object);
+				if ($result <= 0)
+				{
+					$error++;
+					$this->error=$sellyoursaasutils->error;
+					$this->errors=$sellyoursaasutils->errors;
+				}
+				else
+				{
+					setEventMessages($langs->trans("ResourceComputed"), null, 'mesgs');
 				}
 			}
         }

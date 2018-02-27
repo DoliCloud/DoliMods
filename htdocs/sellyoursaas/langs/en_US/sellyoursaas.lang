@@ -214,6 +214,7 @@ ContactUsByEmail=Contact us to the following email <strong>%s</strong> for this 
 SubjectNewPasswordForYouCustomerDashboard=New password for your customer dashboard
 DeploymentInitPassword=Deployment initial password
 RefreshRemoteData=Refresh remote data
+ResourceComputed=Count of resources is up to date
 SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_SOFT_ALERT=Nb of days before end of trial to send soft alert
 SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_HARD_ALERT=Nb of days before end of trial to send hard alert
 SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT=Nb of days after expiration date to undeploy automatically test instances

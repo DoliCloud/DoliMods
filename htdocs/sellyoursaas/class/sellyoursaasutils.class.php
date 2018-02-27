@@ -534,6 +534,7 @@ class SellYourSaasUtils
     		$producttmp->fetch($tmpobject->fk_product);
 
     		if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
+    			$remoteaction != 'refresh' &&
     			($producttmp->array_options['options_app_or_option'] == 'app' || $producttmp->array_options['options_app_or_option'] == 'option'))
     		{
     			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
@@ -553,6 +554,7 @@ class SellYourSaasUtils
     			$generateddbport = ($contract->array_options['options_port_db']?$contract->array_options['options_port_db']:3306);
     			$generateddbusername=$contract->array_options['options_username_db'];
     			$generateddbpassword=$contract->array_options['options_password_db'];
+    			$generateddbprefix=($contract->array_options['options_prefix_db']?$contract->array_options['options_prefix_db']:'llx_');
 
     			// Is it a product linked to a package ?
     			$tmppackage = new Packages($this->db);
@@ -564,6 +566,7 @@ class SellYourSaasUtils
     			// Replace __INSTANCEDIR__, __INSTALLHOURS__, __INSTALLMINUTES__, __OSUSERNAME__, __APPUNIQUEKEY__, __APPDOMAIN__, ...
     			$substitarray=array(
     			'__INSTANCEDIR__'=>$targetdir.'/'.$generatedunixlogin.'/'.$generateddbname,
+    			'__INSTANCEDBPREFIX__'=>$generateddbprefix,
     			'__DOL_DATA_ROOT__'=>DOL_DATA_ROOT,
     			'__INSTALLHOURS__'=>dol_print_date($now, '%H'),
     			'__INSTALLMINUTES__'=>dol_print_date($now, '%M'),
@@ -651,7 +654,127 @@ class SellYourSaasUtils
 		    			$resql = $dbinstance->query($sqltoexecute);
 		    		}
 		    	}
+    		}
 
+    		if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
+    			$remoteaction == 'refresh')
+    		{
+    			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+    			dol_include_once('/sellyoursaas/class/packages.class.php');
+
+    			if (! empty($producttmp->array_options['options_resource_formula']))
+    			{
+    				include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+    				dol_include_once('/sellyoursaas/class/packages.class.php');
+
+    				$contract = new Contrat($this->db);
+    				$contract->fetch($tmpobject->fk_contrat);
+
+    				$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
+
+    				$generatedunixlogin=$contract->array_options['options_username_os'];
+    				$generatedunixpassword=$contract->array_options['options_password_os'];
+    				$tmp=explode('.', $contract->ref_customer, 2);
+    				$sldAndSubdomain=$tmp[0];
+    				$domainname=$tmp[1];
+    				$generateddbname=$contract->array_options['options_database_db'];
+    				$generateddbport = ($contract->array_options['options_port_db']?$contract->array_options['options_port_db']:3306);
+    				$generateddbusername=$contract->array_options['options_username_db'];
+    				$generateddbpassword=$contract->array_options['options_password_db'];
+    				$generateddbprefix=($contract->array_options['options_prefix_db']?$contract->array_options['options_prefix_db']:'llx_');
+
+    				// Is it a product linked to a package ?
+    				$tmppackage = new Packages($this->db);
+    				if (! empty($producttmp->array_options['options_package']))
+    				{
+    					$tmppackage->fetch($producttmp->array_options['options_package']);
+    				}
+
+    				// Replace __INSTANCEDIR__, __INSTALLHOURS__, __INSTALLMINUTES__, __OSUSERNAME__, __APPUNIQUEKEY__, __APPDOMAIN__, ...
+    				$substitarray=array(
+    				'__INSTANCEDIR__'=>$targetdir.'/'.$generatedunixlogin.'/'.$generateddbname,
+    				'__INSTANCEDBPREFIX__'=>$generateddbprefix,
+    				'__DOL_DATA_ROOT__'=>DOL_DATA_ROOT,
+    				'__INSTALLHOURS__'=>dol_print_date($now, '%H'),
+    				'__INSTALLMINUTES__'=>dol_print_date($now, '%M'),
+    				'__OSHOSTNAME__'=>$generatedunixhostname,
+    				'__OSUSERNAME__'=>$generatedunixlogin,
+    				'__OSPASSWORD__'=>$generatedunixpassword,
+    				'__DBHOSTNAME__'=>$generateddbhostname,
+    				'__DBNAME__'=>$generateddbname,
+    				'__DBPORT__'=>$generateddbport,
+    				'__DBUSER__'=>$generateddbusername,
+    				'__DBPASSWORD__'=>$generateddbpassword,
+    				'__PACKAGEREF__'=> $tmppackage->ref,
+    				'__PACKAGENAME__'=> $tmppackage->label,
+    				'__APPUSERNAME__'=>$appusername,
+    				'__APPEMAIL__'=>$email,
+    				'__APPPASSWORD__'=>$password,
+    				'__APPUNIQUEKEY__'=>$generateduniquekey,
+    				'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname
+    				);
+
+
+					// Now execute the formula
+    				$currentqty = $tmpobject->qty;
+
+    				$tmparray=explode(':', $producttmp->array_options['options_resource_formula'], 2);
+    				if ($tmparray[0] == 'SQL')
+    				{
+    					$sqlformula = make_substitutions($tmparray[1], $substitarray);
+
+    					$serverdeployement = getRemoveServerDeploymentIp();
+
+    					dol_syslog("Try to connect to instance database to execute formula calculation");
+
+    					//var_dump($generateddbhostname);	// fqn name dedicated to instance in dns
+    					//var_dump($serverdeployement);		// just ip of deployement server
+    					//$dbinstance = @getDoliDBInstance('mysqli', $generateddbhostname, $generateddbusername, $generateddbpassword, $generateddbname, $generateddbport);
+    					$dbinstance = @getDoliDBInstance('mysqli', $serverdeployement, $generateddbusername, $generateddbpassword, $generateddbname, $generateddbport);
+    					if (! $dbinstance || ! $dbinstance->connected)
+    					{
+    						$error++;
+    						$this->error = $dbinstance->error;
+    						$this->errors = $dbinstance->errors;
+    					}
+    					else
+    					{
+    						dol_syslog("Execute sql=".$sqlformula);
+    						$resql = $dbinstance->query($sqlformula);
+    						if ($resql)
+    						{
+    							$objsql = $dbinstance->fetch_object($resql);
+    							if ($objsql)
+    							{
+    								$newqty = $objsql->nb;
+    							}
+    							else
+    							{
+    								$error++;
+    								$this->error = 'SQL to get resource return nothing';
+    								$this->errors[] = 'SQL to get resource return nothing';
+    							}
+    						}
+    						else
+    						{
+    							$error++;
+    							$this->error = $dbinstance->lasterror();
+    							$this->errors[] = $dbinstance->lasterror();
+    						}
+    					}
+    				}
+    				else
+    				{
+    					$error++;
+    					$this->error = 'Bad definition of formulat to calculate resource for product '.$producttmp->ref;
+    				}
+
+
+    				if (! $error && $newqty != $currentqty)
+    				{
+    					$tmpobject->update($user);
+    				}
+    			}
     		}
     	}
 

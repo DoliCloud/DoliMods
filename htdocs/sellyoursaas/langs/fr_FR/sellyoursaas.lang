@@ -200,6 +200,7 @@ ContactUsByEmail=Contactez nous à l'adresse email <strong>%s</strong> pour cett
 SubjectNewPasswordForYouCustomerDashboard=Nouveau mot de passe pour votre espace client
 DeploymentInitPassword=Mot de passe initial au déploiement
 RefreshRemoteData=Rafraichir données distantes
+ResourceComputed=Comptage des ressources mis à jour
 SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_SOFT_ALERT=Nb de jours avant la fin de la période d'essai pour envoyer l'email d'alerte doux
 SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_HARD_ALERT=Nb de jours avant la fin de la période d'essai pour envoyer l'email d'alerte dure
 SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT=Nb de jours après expiration avant désinstallation des instances de test
