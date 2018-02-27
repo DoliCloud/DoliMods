@@ -187,7 +187,6 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 	        				$line->date_end = $object->array_options['options_date_endfreeperiod'];
 	        				$line->date_fin_validite = $object->array_options['options_date_endfreeperiod'];
 	        				$line->update($user);
-	        				//exit;
 	        				break;	// No need to loop on all, there is also trigger that update all other when we update one
 	        			}
 	        		}
@@ -197,78 +196,24 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 
     	if ($remoteaction)
     	{
-    		if (get_class($object) == 'Contrat')
-    		{
-    			$listoflines = $object->lines;
-    		}
-    		else
-    		{
-    			$listoflines = array($object);
-    		}
-
-    		foreach($listoflines as $tmpobject)
-    		{
-    			$producttmp = new Product($this->db);
-    			$producttmp->fetch($tmpobject->fk_product);
-
-    			if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
-	    			($producttmp->array_options['options_app_or_option'] == 'app' || $producttmp->array_options['options_app_or_option'] == 'option'))
-	    		{
-	    			dol_syslog("Remote action on instance remoteaction=".$remoteaction);
-
-		    		include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-		    		dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
-		    		dol_include_once('/sellyoursaas/class/packages.class.php');
-
-		    		$contract = new Contrat($this->db);
-		    		$contract->fetch($tmpobject->fk_contrat);
-
-					$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
-
-					$generatedunixlogin=$contract->array_options['options_username_os'];
-					$generatedunixpassword=$contract->array_options['options_password_os'];
-					$tmp=explode('.', $contract->ref_customer, 2);
-					$sldAndSubdomain=$tmp[0];
-					$domainname=$tmp[1];
-					$generateddbname=$contract->array_options['options_database_db'];
-					$generateddbport=$contract->array_options['options_port_db'];
-					$generateddbusername=$contract->array_options['options_username_db'];
-					$generateddbpassword=$contract->array_options['options_password_db'];
-
-					$tmppackage = new Packages($this->db);
-
-					// Remote action : unsuspend
-					$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
-					$commandurl.= '&'.$generateddbname.'&'.$generateddbport.'&'.$generateddbusername.'&'.$generateddbpassword;
-					$commandurl.= '&'.$tmppackage->srcconffile1.'&'.$tmppackage->targetconffile1.'&'.$tmppackage->datafile1;
-					$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
-					$commandurl.= '&'.$tmppackage->srccronfile.'&'.$targetdir;
-
-					$outputfile = $conf->sellyoursaas->dir_temp.'/action_deploy_undeploy-'.$remoteaction.'-'.dol_getmypid().'.out';
-
-					$serverdeployement = getRemoveServerDeploymentIp();
-
-					$urltoget='http://'.$serverdeployement.':8080/'.$remoteaction.'?'.urlencode($commandurl);
-					include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
-					$retarray = getURLContent($urltoget);
-
-					if ($retarray['curl_error_no'] != '')
-					{
-						$error++;
-						$errormessages[] = $retarray['curl_error_msg'];
-					}
-
-					// No email, can be done manually.
-	    		}
-    		}
+    		dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
+    		$sellyoursaasutils = new SellYourSaasUtils($db);
+    		$result = $sellyoursaasutils->sellyoursaasRemoteAction($remoteaction, $object);
+			if ($result <= 0)
+			{
+				$error++;
+				$this->error=$sellyoursaasutils->error;
+				$this->errors=$sellyoursaasutils->errors;
+			}
     	}
 
     	if ($error)
     	{
-    		$this->errors=$errormessages;
     		return -1;
     	}
-
-		return 0;
+		else
+		{
+			return 0;
+		}
 	}
 }

@@ -44,6 +44,37 @@ class ActionsSellyoursaas
     }
 
 
+
+    /**
+     *    Execute action
+     *
+     *    @param	array	$parameters		Array of parameters
+     *    @param    mixed	$object      	Deprecated. This field is not used
+     *    @param    string	$action      	'add', 'update', 'view'
+     *    @return   int         			<0 if KO,
+     *                              		=0 if OK but we want to process standard actions too,
+     *                              		>0 if OK and we want to replace standard actions.
+     */
+    function addMoreActionsButtons($parameters,&$object,&$action)
+    {
+    	global $db,$langs,$conf,$user;
+
+    	dol_syslog(get_class($this).'::executeHooks action='.$action);
+    	$langs->load("sellyoursaas@sellyoursaas");
+
+    	if (in_array($parameters['currentcontext'], array('contractcard')))		// do something only for the context 'somecontext1' or 'somecontext2'
+    	{
+	    	if ($user->rights->sellyoursaas->write)
+	    	{
+				print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=redeploy">' . $langs->trans('Redeploy') . '</a>';
+	    	}
+    	}
+
+    	return 0;
+    }
+
+
+
     /**
      *    Execute action
      *
@@ -56,7 +87,7 @@ class ActionsSellyoursaas
      */
     function doActions($parameters,&$object,&$action)
     {
-        global $db,$langs,$conf;
+        global $db,$langs,$conf,$user;
 
         dol_syslog(get_class($this).'::executeHooks action='.$action);
         $langs->load("sellyoursaas@sellyoursaas");
@@ -66,6 +97,21 @@ class ActionsSellyoursaas
         	global $fieldstosearchall;
 
         	$fieldstosearchall['s.email']="ThirdPartyEmail";
+        }
+
+        if (in_array($parameters['currentcontext'], array('contractcard')))
+        {
+			if ($action == 'redeploy')
+			{
+				dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
+				$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $object);
+				if ($result <= 0)
+				{
+					$error++;
+					$this->error=$sellyoursaasutils->error;
+					$this->errors=$sellyoursaasutils->errors;
+				}
+			}
         }
 
         return 0;
@@ -79,15 +125,18 @@ class ActionsSellyoursaas
      */
     function addSearchEntry($parameters)
     {
-        global $langs;
+        global $langs, $user;
 
-        $langs->load("sellyoursaas@sellyoursaas");
-        $search_boxvalue = $parameters['search_boxvalue'];
+        if ($user->rights->sellyoursaas->read)
+        {
+        	$langs->load("sellyoursaas@sellyoursaas");
+	        $search_boxvalue = $parameters['search_boxvalue'];
 
-        $this->results['searchintocontract']=$parameters['arrayresult']['searchintocontract'];
-        $this->results['searchintocontract']['position']=22;
+	        $this->results['searchintocontract']=$parameters['arrayresult']['searchintocontract'];
+	        $this->results['searchintocontract']['position']=22;
 
-        $this->results['searchintodolicloud']=array('position'=>23, 'img'=>'object_generic', 'label'=>$langs->trans("SearchIntoOldDoliCloudInstances", $search_boxvalue), 'text'=>img_picto('','object_generic').' '.$langs->trans("OldDoliCloudInstances", $search_boxvalue), 'url'=>dol_buildpath('/sellyoursaas/backoffice/dolicloud_list.php',1).'?search_multi='.urlencode($search_boxvalue));
+	        $this->results['searchintodolicloud']=array('position'=>23, 'img'=>'object_generic', 'label'=>$langs->trans("SearchIntoOldDoliCloudInstances", $search_boxvalue), 'text'=>img_picto('','object_generic').' '.$langs->trans("OldDoliCloudInstances", $search_boxvalue), 'url'=>dol_buildpath('/sellyoursaas/backoffice/dolicloud_list.php',1).'?search_multi='.urlencode($search_boxvalue));
+        }
 
         return 0;
     }
@@ -101,38 +150,41 @@ class ActionsSellyoursaas
      */
     function getDefaultFromEmail($parameters)
     {
-    	global $conf, $langs;
+    	global $conf, $langs, $user;
     	global $object;
 
     	$langs->load("sellyoursaas@sellyoursaas");
 
     	$result='';
 
-    	if (is_object($object))
+    	if ($user->rights->sellyoursaas->read)
     	{
-    		$thirdparty = null;
-    		if (is_object($object->thirdparty)) $thirdparty = $object->thirdparty;
-    		elseif ($object->element == 'societe') $thirdparty = $object;
+    		if (is_object($object))
+	    	{
+	    		$thirdparty = null;
+	    		if (is_object($object->thirdparty)) $thirdparty = $object->thirdparty;
+	    		elseif ($object->element == 'societe') $thirdparty = $object;
 
-    		if (is_object($thirdparty))
-    		{
-	    		$categ_customer_sellyoursaas = $conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG;
+	    		if (is_object($thirdparty))
+	    		{
+		    		$categ_customer_sellyoursaas = $conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG;
 
-	    		include_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-	    		$categobj = new Categorie($this->db);
-	    		$categobj->fetch($categ_customer_sellyoursaas);
+		    		include_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		    		$categobj = new Categorie($this->db);
+		    		$categobj->fetch($categ_customer_sellyoursaas);
 
-	    		// Search if customer is a dolicloud customer
-	    		$hascateg = $categobj->containsObject('customer', $thirdparty->id);
-				if ($hascateg) $result='senderprofile_1_1';
-	    		//var_dump($hascateg);
+		    		// Search if customer is a dolicloud customer
+		    		$hascateg = $categobj->containsObject('customer', $thirdparty->id);
+					if ($hascateg) $result='senderprofile_1_1';
+		    		//var_dump($hascateg);
 
-	    		// Search if customer has a premium subscription
-	    		//var_dump($object->thirdparty);
+		    		// Search if customer has a premium subscription
+		    		//var_dump($object->thirdparty);
 
-    		}
+	    		}
+	    	}
+	    	$this->results['defaultfrom']=$result;
     	}
-    	$this->results['defaultfrom']=$result;
 
     	return 0;
     }

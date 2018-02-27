@@ -103,7 +103,7 @@ if [[ "$mode" == "suspend" ]]; then
 	echo "***** Suspend instance in /home/jail/home/$osusername/$dbname"
 
 	export apacheconf="/etc/apache2/sites-available/$fqn.conf"
-	echo "Create a new apache conf $apacheconf from $vhostfilesuspended"
+	echo "Create a suspended apache conf $apacheconf from $vhostfilesuspended"
 
 	if [[ -s $apacheconf ]]
 	then

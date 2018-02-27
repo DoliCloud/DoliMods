@@ -639,7 +639,7 @@ if (! $error)
 		$resql = $dbinstance->query($sqltoexecute);
 	}
 }
-
+$error++;
 // End of deployment is now OK / Complete
 if (! $error)
 {
@@ -768,7 +768,7 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
       <div class="block medium">
 
         <header class="inverse">
-          <h1><?php echo $langs->trans("Registration") ?> <small><?php echo ($tmpproduct->label?'('.$tmpproduct->label.')':''); ?></small></h1>
+          <h1><?php echo $langs->trans("Registration") ?> <small><?php echo ($tmpproduct->label?' - '.$tmpproduct->label:''); ?></small></h1>
         </header>
 
 
