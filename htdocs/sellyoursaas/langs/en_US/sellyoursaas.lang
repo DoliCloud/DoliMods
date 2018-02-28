@@ -222,3 +222,19 @@ SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_SOFT_ALERT=Nb of days before end of tri
 SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_HARD_ALERT=Nb of days before end of trial to send hard alert
 SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT=Nb of days after expiration date to undeploy automatically test instances
 SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT=Nb of days after expiration date to undeploy automatically paid instances
+DaysForFreePeriod=Days for free period
+AccessToResources=Access to server
+TypeOfSupport=Type of support
+PleaseReadFAQFirst=Before submitting any support ticket, please check if answer is not already available here :<br><br><center><a href="%s" target="_faq">FAQs (Foire Aux Questions)</a></center>
+CurrentServiceStatus=The status of our service is visible in real time on <a href="%s" target="_status">this page</a>. If a service appears not active, we are probably already aware of this, and are working on the issue. Thanks for your patience...
+NewTicket=New ticket/issue
+SupportDesc=Send a new support ticket
+SelectYourSupportChannel=Selectionnez votre canal d'assitance
+PremiumSupport=Premium support
+NoPremiumPlan=Pas de souscription active à une telle offre
+Medium=Medium
+Low=Low
+High=High
+YourText=Please enter your text here...
+TicketSent=Your ticket was received
+FailedToSentTicketPleaseTryLater=Failed to submit your ticket. Please try later...

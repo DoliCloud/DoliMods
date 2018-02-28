@@ -212,7 +212,65 @@ div.tab-content {
 .quatrevingtpercent {
     width: 80%;
 }
+.hideobject { display: none; }
+
 .minwidth300 { min-width: 300px; }
+.minwidth400 { min-width: 400px; }
+.minwidth500 { min-width: 500px; }
+.minwidth50  { min-width: 50px; }
+
+.width25  { width: 25px; }
+.width50  { width: 50px; }
+.width100 { width: 100px; }
+.width200 { width: 200px; }
+.maxwidth25  { max-width: 25px; }
+.maxwidth50  { max-width: 50px; }
+.maxwidth75  { max-width: 75px; }
+.maxwidth100 { max-width: 100px; }
+.maxwidth125 { max-width: 125px; }
+.maxwidth150 { max-width: 150px; }
+.maxwidth200 { max-width: 200px; }
+.maxwidth300 { max-width: 300px; }
+.maxwidth400 { max-width: 400px; }
+.maxwidth500 { max-width: 500px; }
+.maxwidth50imp  { max-width: 50px !important; }
+.maxwidth75imp  { max-width: 75px !important; }
+.minheight20 { min-height: 20px; }
+.minheight40 { min-height: 40px; }
+.imgmaxwidth180 { max-width: 180px; }
+.imgmaxheight50 { max-height: 50px; }
+.width20p { width:20%; }
+.width25p { width:25%; }
+.width40p { width:40%; }
+.width50p { width:50%; }
+.width60p { width:60%; }
+.width75p { width:75%; }
+.width80p { width:80%; }
+.width100p { width:100%; }
+
+/* Force values for small screen */
+@media only screen and (max-width: 560px)
+{
+	.minwidth50  { min-width: 50px !important; }
+    .minwidth75  { min-width: 75px !important; }
+    .minwidth100 { min-width: 100px !important; }
+    .minwidth200 { min-width: 200px !important; }
+    .minwidth300 { min-width: 280px !important; }
+    .minwidth400 { min-width: 280px !important; }
+    .minwidth500 { min-width: 280px !important; }
+	.maxwidth25  { max-width: 25px; }
+	.maxwidth50  { max-width: 50px; }
+	.maxwidth75  { max-width: 75px; }
+	.maxwidth100 { max-width: 100px; }
+	.maxwidth125 { max-width: 125px; }
+	.maxwidth150 { max-width: 150px; }
+	.maxwidth200 { max-width: 200px; }
+	.maxwidth300 { max-width: 280px; }
+	.maxwidth400 { max-width: 280px; }
+	.maxwidth500 { max-width: 280px; }
+}
+
+
 
 .boxresource .uppercase {
     text-transform: unset !important;
