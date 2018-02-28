@@ -52,3 +52,9 @@ MoreCloudHosting=Pour une utilisation en ligne de Dolibarr, optez pour l'héberg
 MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Cliquez ici pour plus d'information</a>
 CompatibleWithDoliDroid=Ce module est aussi compatible avec DoliDroid, l'application Android pour Dolibarr.
 Authentication=Authentification
+OvhApplicationName=Application name
+OvhApplicationDescription=Application description
+OvhApplicationKey=Application key
+OvhApplicationSecret=Application secret
+OvhConsumerkey=Consumer key
+GoOnPageToCreateYourAPIKey=D'abord aller sur la page <a href="%s" target="_blank">%s</a> pour créer une entrée d'application OVH et récupérer son API key et secret, ou créez en une nouvelle si vous préférez ou si vous avez perdu l'API key ou secret, ensuite remplissez cette page avec ces informations.
