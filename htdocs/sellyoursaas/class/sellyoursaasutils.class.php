@@ -566,7 +566,9 @@ class SellYourSaasUtils
 	    					$fstatlock=@ssh2_sftp_stat($sftp, $fileinstalllock2);
 
 	    					$datelockfile=(empty($fstatlock['atime'])?'':$fstatlock['atime']);
-	    					var_dump($fileinstalllock2.' - '.$fstatlock);
+
+	    					$object->array_options['options_filelock'] = $datelockfile;
+	    					$object->update($user);
 	    				}
     				}
     			}

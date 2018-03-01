@@ -130,9 +130,10 @@ echo "targetdirwithsources2 = $targetdirwithsources2"
 echo "dirwithsources3 = $dirwithsources3"
 echo "targetdirwithsources3 = $targetdirwithsources3"
 echo "cronfile = $cronfile"
-echo "vhostfile = $vhostfile"
+echo "cliafter = $cliafter"
 echo "targetdir = $targetdir"
 echo "...calculated params..."
+echo "vhostfile = $vhostfile"
 echo "instancedir = $instancedir"
 echo "fqn = $fqn"
 
@@ -610,6 +611,16 @@ fi
 
 
 
+# Execute after CLI
+
+if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
+	if [[ "x$cliafter" != "x" ]]; then
+		if [ -f $cliafter ]; then
+				echo ". $cliafter"
+				. $cliafter
+		fi
+	fi
+fi
 
 
 #if ! grep test_$i /etc/hosts >/dev/null; then
