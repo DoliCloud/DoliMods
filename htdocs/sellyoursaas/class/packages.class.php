@@ -93,8 +93,9 @@ class Packages extends CommonObject
 		'targetconffile1' => array('type'=>'varchar(255)', 'label'=>'Target relative file for config file 1', 'visible'=>-1, 'enabled'=>1, 'position'=>58, 'notnull'=>-1, 'css'=>'minwidth500'),
 		'datafile1' => array('type'=>'varchar(255)', 'label'=>'Dir with dump files', 'visible'=>-1, 'enabled'=>1, 'position'=>59, 'notnull'=>-1, 'css'=>'minwidth500'),
 		//'targetdatafile1' => array('type'=>'varchar(255)', 'label'=>'Target dir for data 1', 'visible'=>-1, 'enabled'=>1, 'position'=>55, 'notnull'=>-1, 'css'=>'minwidth500'),
-		'sqlafter' => array('type'=>'text', 'label'=>'Sql after', 'visible'=>-1, 'enabled'=>1, 'position'=>60, 'notnull'=>-1,),
-		'crontoadd' => array('type'=>'text', 'label'=>'Template of cron file', 'visible'=>-1, 'enabled'=>1, 'position'=>70, 'notnull'=>-1, 'help'=>'Content will be used to add a file into /etc/cron.d'),
+		'crontoadd' => array('type'=>'text', 'label'=>'Template of cron file', 'visible'=>-1, 'enabled'=>1, 'position'=>60, 'notnull'=>-1, 'help'=>'Content will be used to add a file into /etc/cron.d'),
+		'cliafter' => array('type'=>'text', 'label'=>'Shell after', 'visible'=>-1, 'enabled'=>1, 'position'=>65, 'notnull'=>-1, 'help'=>'Cli shell executed after deployment'),
+		'sqlafter' => array('type'=>'text', 'label'=>'Sql after', 'visible'=>-1, 'enabled'=>1, 'position'=>70, 'notnull'=>-1, 'help'=>'Sql  executed after deployment'),
 		'status' => array('type'=>'integer', 'label'=>'Status', 'visible'=>1, 'enabled'=>1, 'position'=>1000, 'notnull'=>1, 'default'=>0, 'index'=>1, 'arrayofkeyval'=>array('0'=>'Disabled', '1'=>'Active')),
 		'note_public'   =>array('type'=>'html',			'label'=>'NotePublic',		 'enabled'=>1, 'visible'=>-2,  'position'=>45),
 		'note_private'  =>array('type'=>'html',			'label'=>'NotePrivate',		 'enabled'=>1, 'visible'=>-2,  'position'=>46),
@@ -120,8 +121,9 @@ class Packages extends CommonObject
 	public $targetconffile1;
 	public $datafile1;
 	public $targetdatafile1;
-	public $sqlafter;
 	public $crontoadd;
+	public $cliafter;
+	public $sqlafter;
 	public $status;
 	// END MODULEBUILDER PROPERTIES
 

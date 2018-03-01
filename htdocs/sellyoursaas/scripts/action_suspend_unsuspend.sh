@@ -79,6 +79,7 @@ export fqn=$instancename.$domainname
 echo "...input params..."
 echo "mode = $mode"
 echo "osusername = $osusername"
+echo "ospassword = XXXXXX"
 echo "instancename = $instancename"
 echo "domainname = $domainname"
 echo "targetdirwithsources1 = $targetdirwithsources1"

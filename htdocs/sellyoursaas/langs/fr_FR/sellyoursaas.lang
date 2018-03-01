@@ -83,6 +83,7 @@ ErrorBadValueForInstance=Bad value for instance name <b>%s</b>
 SellYourSaasMainDomain=Nom de domaine principal
 SellYourSaasAccountUrl=Url des comptes client
 SellYourSaasMainEmail=Email principal
+SellYourSaasSupervisionEmail=Email supervision (pour les anomalies)
 SellYourSaasNoReplyEmail=Email No reply
 DashboardPassword=Dashboard password
 NewService=New service

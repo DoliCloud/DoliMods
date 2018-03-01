@@ -225,6 +225,8 @@ class ActionsSellyoursaas
 					$error++;
 					$this->error=$sellyoursaasutils->error;
 					$this->errors=$sellyoursaasutils->errors;
+					setEventMessages($this->error, $this->errors, 'errors');
+					return -1;
 				}
 				else
 				{

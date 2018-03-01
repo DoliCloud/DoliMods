@@ -75,6 +75,7 @@ if ($action == 'set')
 		dolibarr_set_const($db,"SELLYOURSAAS_MAIN_DOMAIN_NAME",GETPOST("SELLYOURSAAS_MAIN_DOMAIN_NAME"),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_MAIN_EMAIL",GETPOST("SELLYOURSAAS_MAIN_EMAIL"),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"SELLYOURSAAS_SUPERVISION_EMAIL",GETPOST("SELLYOURSAAS_SUPERVISION_EMAIL"),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_NOREPLY_EMAIL",GETPOST("SELLYOURSAAS_NOREPLY_EMAIL"),'chaine',0,'',$conf->entity);
 
 		$dir=GETPOST("DOLICLOUD_SCRIPTS_PATH");
@@ -275,6 +276,13 @@ print '<td>';
 print '<input type="text" name="SELLYOURSAAS_MAIN_EMAIL" value="'.$conf->global->SELLYOURSAAS_MAIN_EMAIL.'">';
 print '</td>';
 print '<td>contact@mysaas.com</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasSupervisionEmail").'</td>';
+print '<td>';
+print '<input type="text" name="SELLYOURSAAS_SUPERVISION_EMAIL" value="'.$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL.'">';
+print '</td>';
+print '<td>supervision@mysaas.com</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasNoReplyEmail").'</td>';

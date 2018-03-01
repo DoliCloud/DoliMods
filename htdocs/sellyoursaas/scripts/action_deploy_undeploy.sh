@@ -112,6 +112,7 @@ export fqn=$instancename.$domainname
 echo "...input params..."
 echo "mode = $mode"
 echo "osusername = $osusername"
+echo "ospassword = XXXXXX"
 echo "instancename = $instancename"
 echo "domainname = $domainname"
 echo "dbname = $dbname"
@@ -158,8 +159,10 @@ if [[ "$mode" == "deployall" ]]; then
 	then
 		echo "$osusername seems to already exists"
 	else
-		echo "useradd -m -d /home/jail/home/$osusername -p XXXXXXXXXX -s '/bin/secureBash' $osusername"
-		useradd -m -d $targetdir/$osusername -p $ospassword -s '/bin/secureBash' $osusername 
+		echo "perl -e'print crypt(\"'XXXXXX'\", "saltsalt")'"
+		export passcrypted=`perl -e'print crypt("'$ospassword'", "saltsalt")'`
+		echo "useradd -m -d /home/jail/home/$osusername -p 'YYYYYY' -s '/bin/secureBash' $osusername"
+		useradd -m -d $targetdir/$osusername -p "$passcrypted" -s '/bin/secureBash' $osusername 
 		if [[ "$?x" != "0x" ]]; then
 			echo Error failed to create user $osusername 
 			echo "Failed to deployall instance $instancename.$domainname with: useradd -m -d $targetdir/$osusername -p $ospassword -s '/bin/secureBash' $osusername" | mail -s "[Alert] Pb in deployment" supervision@dolicloud.com 
@@ -389,7 +392,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		cp -pr  $dirwithsources3/. $targetdirwithsources3
 	fi
 	fi
-	
+
 	chown -R $osusername.$osusername /home/jail/home/$osusername/$dbname
 	chmod -R go-rwx /home/jail/home/$osusername/$dbname
 fi

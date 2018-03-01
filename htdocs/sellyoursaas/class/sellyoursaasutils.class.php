@@ -528,6 +528,60 @@ class SellYourSaasUtils
 
     	dol_syslog("Remote action on instance remoteaction=".$remoteaction." was called");
 
+
+		// Action 'refresh' for contract, check install.lock file
+    	if (empty($object->context['fromdolicloudcustomerv1']) && $remoteaction == 'refresh' && get_class($object) == 'Contrat')
+    	{
+    		// SFTP refresh
+    		if (function_exists("ssh2_connect"))
+    		{
+    			$server=$object->array_options['options_hostname_os'];
+    			$server='127.0.0.1';	// TODO Remove this
+    			$connection = @ssh2_connect($server, 22);
+    			if ($connection)
+    			{
+    				//print $object->instance." ".$object->username_web." ".$object->password_web."<br>\n";
+    				if (! @ssh2_auth_password($connection, $object->array_options['options_username_os'], $object->array_options['options_password_os']))
+    				{
+    					$this->errors[] = "Could not authenticate with username ".$object->array_options['options_username_os']." and password ".$object->array_options['options_password_os'];
+    					dol_syslog($this->errors,LOG_ERR);
+    				}
+    				else
+    				{
+    					$sftp = ssh2_sftp($connection);
+    					if (! $sftp)
+    					{
+    						dol_syslog("Could not execute ssh2_sftp",LOG_ERR);
+    						$this->errors[]='Failed to connect to ssh2_sftp to '.$server;
+    						$error++;
+    					}
+
+	    				if (! $error)
+	    				{
+	    					// Check if install.lock exists
+	    					$dir = $object->array_options['options_database_db'];
+	    					//$fileinstalllock="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock';
+	    					$fileinstalllock="ssh2.sftp://".intval($sftp).$object->array_options['options_hostname_os'].'/'.$object->array_options['options_username_os'].'/'.$dir.'/documents/install.lock';
+	    					$fileinstalllock2=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$object->array_options['options_username_os'].'/'.$dir.'/documents/install.lock';
+	    					$fstatlock=@ssh2_sftp_stat($sftp, $fileinstalllock2);
+
+	    					$datelockfile=(empty($fstatlock['atime'])?'':$fstatlock['atime']);
+	    					var_dump($fileinstalllock2.' - '.$fstatlock);
+	    				}
+    				}
+    			}
+    			else {
+    				$this->errors[]='Failed to connect to ssh2 to '.$server;
+    				$error++;
+    			}
+    		}
+    		else {
+    			$this->errors[]='ssh2_connect not supported by this PHP';
+    			$error++;
+    		}
+    	}
+
+    	// Loop on each line of contract
     	foreach($listoflines as $tmpobject)
     	{
     		$producttmp = new Product($this->db);
@@ -662,14 +716,12 @@ class SellYourSaasUtils
     			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
     			dol_include_once('/sellyoursaas/class/packages.class.php');
 
+    			$contract = new Contrat($this->db);
+    			$contract->fetch($tmpobject->fk_contrat);
+
+    			// Update resource count
     			if (! empty($producttmp->array_options['options_resource_formula']))
     			{
-    				include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-    				dol_include_once('/sellyoursaas/class/packages.class.php');
-
-    				$contract = new Contrat($this->db);
-    				$contract->fetch($tmpobject->fk_contrat);
-
     				$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
 
     				$generatedunixlogin=$contract->array_options['options_username_os'];

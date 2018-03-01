@@ -152,7 +152,7 @@ for osusername in `ls -d $targetdir/osu* 2>/dev/null`
 do
 	export osusername=`basename $osusername`
 	if ! grep "$osusername" /etc/passwd; then
-		echo User $osusername is not inside /etc/passwd
+		echo User $osusername is not inside /etc/passwd, we add it to users to clean
 		echo $osusername >> /tmp/osutoclean
 	else
 		echo $osusername is inside /etc/passwd
@@ -183,6 +183,28 @@ fi
 
 
 echo "***** Search databases without unix users" 
+while read bidon osusername dbname; do 
+	if [[ "x$osusername" != "xusername_os" && "x$osusername" != "xNULL" && "x$dbname" != "xNULL" ]]; then
+    	id $osusername >/dev/null 2>/dev/null
+    	if [[ "x$?" == "x1" ]]; then
+    		echo Line $bidon $osusername $dbname is for a user that does not exists
+    		
+			echo "Do a dump of database $dbname - may fails if already removed"
+			mkdir -p $targetdir/$osusername
+			echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $targetdir/$osusername/dump.$dbname.$now.sql"
+			$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $targetdir/$osusername/dump.$dbname.$now.sql
+
+			echo "Now drop the database"
+			echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname"
+			if [[ $testorconfirm == "confirm" ]]
+			then
+				echo "DROP DATABASE $dbname;" | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname
+			fi	
+    	
+    	fi
+    
+    fi
+done < /tmp/instancefound
 
 
 echo "***** Loop on each user in /tmp/osutoclean to make a clean"
@@ -204,8 +226,15 @@ do
 		if [[ "x$dbname" != "xNULL" ]]; then	
 			echo "Do a dump of database $dbname - may fails if already removed"
 			mkdir -p $targetdir/$osusername
-			echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $targetdir/$osusername/dump.$now.sql"
-			$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $targetdir/$osusername/dump.$now.sql
+			echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $targetdir/$osusername/dump.$dbname.$now.sql"
+			$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $targetdir/$osusername/dump.$dbname.$now.sql
+
+			echo "Now drop the database"
+			echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname"
+			if [[ $testorconfirm == "confirm" ]]
+			then
+				echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname
+			fi	
 		fi
 	fi
 	
@@ -301,7 +330,7 @@ do
 			fi
 			
 
-			apacheconf = /etc/apache2/sites-enabled/$instancename.with.dolicloud.conf
+			apacheconf=/etc/apache2/sites-enabled/$instancename.with.dolicloud.conf
 			
 			if [ -f $apacheconf ]; then
 				# Remove apache virtual host
