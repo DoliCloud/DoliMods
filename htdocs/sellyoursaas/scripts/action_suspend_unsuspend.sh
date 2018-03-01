@@ -67,10 +67,10 @@ export osusername=$2
 export ospassword=$3
 export instancename=$4
 export domainname=$5
-export port=$6
+export dbname=$6
+export port=$7
 
-export targetdirwithsources1=${7}
-export targetdir=${8}
+export targetdir=${21}
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
@@ -82,7 +82,6 @@ echo "osusername = $osusername"
 echo "ospassword = XXXXXX"
 echo "instancename = $instancename"
 echo "domainname = $domainname"
-echo "targetdirwithsources1 = $targetdirwithsources1"
 echo "targetdir = $targetdir"
 echo "...calculated params..."
 echo "instancedir = $instancedir"

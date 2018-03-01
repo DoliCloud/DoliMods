@@ -643,9 +643,11 @@ class SellYourSaasUtils
 
     			$tmppackage->srcconffile1 = '/tmp/conf.php.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
     			$tmppackage->srccronfile = '/tmp/cron.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
+    			$tmppackage->srccliafter = '/tmp/cliafter.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
 
     			$conffile = make_substitutions($tmppackage->conffile1, $substitarray);
     			$cronfile = make_substitutions($tmppackage->crontoadd, $substitarray);
+    			$cliafter = make_substitutions($tmppackage->cliafter, $substitarray);
 
     			$tmppackage->targetconffile1 = make_substitutions($tmppackage->targetconffile1, $substitarray);
     			$tmppackage->datafile1 = make_substitutions($tmppackage->datafile1, $substitarray);
@@ -662,12 +664,15 @@ class SellYourSaasUtils
     			dol_syslog("Create cron file ".$tmppackage->srccronfile1);
     			file_put_contents($tmppackage->srccronfile, $cronfile);
 
+    			dol_syslog("Create cron file ".$tmppackage->srccliafter);
+    			file_put_contents($tmppackage->srccliafter, $cliafter);
+
     			// Remote action : unsuspend
     			$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
     			$commandurl.= '&'.$generateddbname.'&'.$generateddbport.'&'.$generateddbusername.'&'.$generateddbpassword;
     			$commandurl.= '&'.$tmppackage->srcconffile1.'&'.$tmppackage->targetconffile1.'&'.$tmppackage->datafile1;
     			$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
-    			$commandurl.= '&'.$tmppackage->srccronfile.'&'.$targetdir;
+    			$commandurl.= '&'.$tmppackage->srccronfile.'&'.$tmppackage->srccliafter.'&'.$targetdir;
 
     			$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 

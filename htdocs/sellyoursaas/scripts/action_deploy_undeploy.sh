@@ -103,7 +103,8 @@ export targetdirwithsources2=${16}
 export dirwithsources3=${17}
 export targetdirwithsources3=${18}
 export cronfile=${19}
-export targetdir=${20}
+export cliafter=${20}
+export targetdir=${21}
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
