@@ -148,16 +148,19 @@ class ActionsConcatPdf
         else
 		{
         	$out.='<tr class="liste_titre">';
-        	$out.='<td align="left" colspan="4" valign="top" class="formdoc">';
-        	$out.=$langs->trans("ConcatFile").' ';
+        	$out.='<td align="left" colspan="5" class="formdoc">';
+        	$out.='<div class="valignmiddle inline-block hideonsmartphone">'.$langs->trans("ConcatFile").'</div> ';
 
         	if (! empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED))
         	{
         		$arraypreselected = explode(',', $preselected);
 
-        		$out.='</td></tr>';
-        		$out.='<tr><td id="selectconcatpdf" colspan="4" valign="top">';
+        		/*$out.='</td></tr>';
+        		$out.='<tr>'; */
+        		//$out.='<td id="selectconcatpdf" colspan="4" valign="top">';
+        		$out.='<div class="valignmiddle inline-block minwidth300">';
         		$out.= $form->multiselectarray('concatpdffile', $morefiles, (! empty($object->extraparams['concatpdf'])?$object->extraparams['concatpdf']:$arraypreselected), 0, 0, '', 1, '95%');
+        		$out.='</div>';
         	}
         	else
         	{
