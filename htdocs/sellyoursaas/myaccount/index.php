@@ -933,8 +933,24 @@ if ($mode == 'instances')
 	}
 	else
 	{
+		dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
+		$sellyoursaasutils = new SellYourSaasUtils($db);
+
 		foreach ($listofcontractid as $id => $contract)
 		{
+			// Update resources of instance
+			$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
+			/*if ($result <= 0)
+			{
+				$error++;
+				$this->error=$sellyoursaasutils->error;
+				$this->errors=$sellyoursaasutils->errors;
+			}
+			else
+			{
+				setEventMessages($langs->trans("ResourceComputed"), null, 'mesgs');
+			}*/
+
 			$planref = $contract->array_options['options_plan'];
 			$statuslabel = $contract->array_options['options_deployment_status'];
 			$instancename = preg_replace('/\..*$/', '', $contract->ref_customer);

@@ -125,7 +125,7 @@ $head='<link rel="icon" href="img/favicon.ico">
 <link href="dist/css/bootstrap.css" rel="stylesheet">
 <link href="dist/css/myaccount.css" rel="stylesheet">';
 
-llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(), array('../dist/css/myaccount.css'));
+llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(), array('../dist/css/myaccount.css'), '', 'register');
 
 ?>
 
@@ -134,9 +134,8 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
     <img id="waitMaskImg" width="100px" src="<?php echo 'ajax-loader.gif'; ?>" alt="Loading" />
 </div>
 
-<div class="signup">
 
-      <div style="text-align: center;">
+<div class="large">
         <?php
 
         $linklogo = '';
@@ -166,25 +165,43 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
             $result = $tmpthirdparty->fetch(0, GETPOST('partner','alpha'));
             $logo = $tmpthirdparty->logo;
         }
-        print '<img style="center" class="logoheader"  src="'.$linklogo.'" id="logo" />';
         ?>
-      </div>
-      <div class="block medium">
+		<div class="page-header-top">
+		    <div class="container">
+		      <div class="registerheader" style="display:flex;justify-content:space-between;">
 
-        <header class="inverse">
+		          <img style="center" class="logoheader"  src="<?php echo $linklogo; ?>" id="logo" />
+
+		        <div class="paddingtop20" style="text-align: right; float: right;">
+		          <span style="padding: 4px 10px 5px 10px;" class="opacitymedium"><?php echo $langs->trans("AlreadyHaveAnAccount"); ?></span>
+		          <a href="/" class="btn blue btn-sm"><?php echo $langs->trans("LoginAction"); ?></a>
+		        </div>
+		      </div>
+
+		      <!-- BEGIN TOP NAVIGATION MENU -->
+		      <div class="top-menu">
+		      </div> <!-- END TOP NAVIGATION MENU -->
+
+		    </div>
+		  </div>
+
+      <div class="block medium center">
+
+        <header class="invers">
           <h1><?php echo $langs->trans("Registration") ?> <small><?php echo ($tmpproduct->label?'('.$tmpproduct->label.')':''); ?></small></h1>
         </header>
 
+		<div class="signup2">
 
-      <form action="register_instance.php" method="post" id="formregister">
-        <div class="form-content">
-    	  <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
-          <input type="hidden" name="service" value="<?php echo dol_escape_htmltag($tmpproduct->ref); ?>" />
-          <input type="hidden" name="package" value="<?php echo dol_escape_htmltag($tmppackage->ref); ?>" />
-          <input type="hidden" name="partner" value="<?php echo dol_escape_htmltag($partner); ?>" />
-          <input type="hidden" name="partnerkey" value="<?php echo dol_escape_htmltag($partnerkey); ?>" />
+	      <form action="register_instance.php" method="post" id="formregister">
+    	    <div class="form-content">
+	    	  <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
+	          <input type="hidden" name="service" value="<?php echo dol_escape_htmltag($tmpproduct->ref); ?>" />
+	          <input type="hidden" name="package" value="<?php echo dol_escape_htmltag($tmppackage->ref); ?>" />
+	          <input type="hidden" name="partner" value="<?php echo dol_escape_htmltag($partner); ?>" />
+	          <input type="hidden" name="partnerkey" value="<?php echo dol_escape_htmltag($partnerkey); ?>" />
 
-          <section id="enterUserAccountDetails">
+	          <section id="enterUserAccountDetails">
 
 
 			<?php
@@ -269,6 +286,7 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
             <div class="fld select-domain required">
               <label trans="1"><?php echo $langs->trans("ChooseANameForYourApplication") ?></label>
               <div class="linked-flds">
+                <span class="opacitymedium">https://</span>
                 <input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="<?php echo GETPOST('sldAndSubdomain','alpha') ?>" maxlength="29" />
                 <select name="tldid" id="tldid" >
                     <option value=".with.<?php echo $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME; ?>" >.with.<?php echo $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME; ?></option>
@@ -292,6 +310,7 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
 
      </form> <!-- end form-content -->
 
+	</div>
 
   </div>
 </div>
