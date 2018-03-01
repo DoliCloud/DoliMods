@@ -205,6 +205,9 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$username_web = $object->thirdparty->email;
 		$password_web = $object->thirdparty->array_options['options_password'];
 
+		// TODO Remove this
+		$hostname_db = '127.0.0.1';
+
 		$tmp = explode('.', $object->ref_customer, 2);
 		$object->instance = $tmp[0];
 

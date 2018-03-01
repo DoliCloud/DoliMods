@@ -204,6 +204,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$username_db = $object->username_db;
 		$password_db = $object->password_db;
 		$database_db = $object->database_db;
+		$port_db = $object->port_db?$object->port_db:3306;
 
 		$username_web = $object->username_web;
 		$password_web = $object->password_web;
@@ -217,11 +218,15 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$username_db = $object->array_options['options_username_db'];
 		$password_db = $object->array_options['options_password_db'];
 		$database_db = $object->array_options['options_database_db'];
+		$port_db     = $object->array_options['options_port_db'];
 		$username_web = $object->array_options['options_username_os'];
 		$password_web = $object->array_options['options_username_os'];
+
+		// TODO Remove this
+		$hostname_db = '127.0.0.1';
 	}
 
-	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);
+	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 
 	if (is_object($newdb) && $newdb->connected)
 	{
@@ -341,7 +346,7 @@ if (empty($instanceoldid))
 		$username_db = $object->username_db;
 		$password_db = $object->password_db;
 		$database_db = $object->database_db;
-
+		$port_db     = $object->port_db?$object->port_db:3306;
 		$username_web = $object->username_web;
 		$password_web = $object->password_web;
 	}
@@ -354,11 +359,15 @@ if (empty($instanceoldid))
 		$username_db = $object->array_options['options_username_db'];
 		$password_db = $object->array_options['options_password_db'];
 		$database_db = $object->array_options['options_database_db'];
+		$port_db     = $object->array_options['options_port_db'];
 		$username_web = $object->array_options['options_username_os'];
 		$password_web = $object->array_options['options_username_os'];
 	}
 
-	$dbcustomerinstance=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);
+	// TODO Remove this
+	$hostname_db = '127.0.0.1';
+
+	$dbcustomerinstance=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 
 	if (is_object($dbcustomerinstance) && $dbcustomerinstance->connected)
 	{
@@ -397,7 +406,14 @@ if (empty($instanceoldid))
 
 
 // Dolibarr instance login
-$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+if (empty($instanceoldid))
+{
+	$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+}
+else
+{
+	$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+}
 $link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
 print 'Dolibarr link (last logged admin): '.$link.'<br>';
 print '<br>';
