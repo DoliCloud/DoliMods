@@ -228,3 +228,6 @@ TicketSent=Votre ticket a été reçu
 FailedToSentTicketPleaseTryLater=Echec de l'envoi de votre ticket. Merci de réessayer plus tard...
 AlreadyHaveAnAccount=Vous avez déjà un compte?
 LoginAction=Se logguer
+RecreateAuthorizedKey=Créer fichier authorized_keys
+RecreateLock=Créer fichier lock
+SellYourSaasRemoveLock=Supprimer fichier lock
