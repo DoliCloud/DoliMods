@@ -15,6 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * or see http://www.gnu.org/
+ *
+ * BACKUP DATA FROM STRATUS5 TO LOCAL
  */
 
 $sapi_type = php_sapi_name();

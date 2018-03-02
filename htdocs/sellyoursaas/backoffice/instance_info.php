@@ -365,89 +365,20 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 	if (preg_match('/\.with\./', $object->ref_customer))
 	{
-
 		print '<div class="fichecenter">';
 
+		print 'This is a new V2 contract.';
+		/*
 		// ----- SellYourSaas instance -----
 		$DNS_ROOT=(empty($conf->global->NLTECHNO_DNS_ROOT)?'/etc/bind':$conf->global->NLTECHNO_DNS_ROOT);
 		$APACHE_ROOT=(empty($conf->global->NLTECHNO_APACHE_ROOT)?'/etc/apache2':$conf->global->NLTECHNO_APACHE_ROOT);
 
 		print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.'</strong>';
-		/*
-		 print ' - '.$langs->trans("DateLastCheck").': '.($object->lastcheck?dol_print_date($object->lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
-
-		 if (! $object->user_id && $user->rights->sellyoursaas->write)
-		 {
-		 print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
-		 }
-		 */
 		print '<br>';
 
 		print '<div class="underbanner clearboth"></div>';
 		print '<table class="border" width="100%">';
 
-		/*
-		 // Nb of users
-		 print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td colspan="3"><font size="+2">'.$object->nbofusers.'</font></td>';
-		 print '</tr>';
-
-		 // Dates
-		 print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td colspan="3">'.dol_print_date($object->date_registration,'dayhour');
-		 //print ' (<a href="'.dol_buildpath('/sellyoursaas/backoffice/dolicloud_card.php',1).'?id='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
-		 print '</td>';
-		 print '</tr>';
-
-		 // Lastlogin
-		 print '<tr>';
-		 print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
-		 print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.($object->date_lastlogin?dol_print_date($object->date_lastlogin,'dayhour','tzuser'):'').'</td>';
-		 print '</tr>';
-
-		 // Version
-		 print '<tr>';
-		 print '<td>'.$langs->trans("Version").'</td><td colspan="3">'.$object->version.'</td>';
-		 print '</tr>';
-
-		 // Modules
-		 print '<tr>';
-		 print '<td>'.$langs->trans("Modules").'</td><td colspan="3">'.join(', ',explode(',',$object->modulesenabled)).'</td>';
-		 print '</tr>';
-		 */
-
-		/*
-		 $TTL 3d
-		 $ORIGIN on.dolicloud.com.
-		 @               IN     SOA   ns1.on.dolicloud.com. root.on.dolicloud.com. (
-		 130412009         ; serial number
-		 600              ; refresh =  2 hours
-		 300              ; update retry = 15 minutes
-		 604800           ; expiry = 3 weeks + 12 hours
-		 600              ; minimum = 2 hours + 20 minutes
-		 )
-		 NS              ns1.on.dolicloud.com.
-		 NS              ns1.eazybusiness.com.
-		 IN      TXT     "v=spf1 mx ~all".
-
-		 @               IN      A       176.34.178.16
-		 ns1             IN      A       176.34.178.16
-
-		 www             IN      CNAME   @
-		 rm              IN      CNAME   @
-
-		 $ORIGIN staging.on.dolicloud.com.
-
-		 @               IN      NS      ns1.staging.on.dolicloud.com.
-		 ns1   5         IN      A       85.25.151.49 ;'glue' record
-
-		 $ORIGIN on.dolicloud.com.
-
-		 ; other sub-domain records
-
-		 mahema   A   176.34.178.16
-		 testldr9   A   176.34.178.16
-		 testldr1   A   176.34.178.16
-		 testldr2   A   176.34.178.16
-		 */
 		// DNS Entry
 		if (! file_exists($DNS_ROOT.'/mysimplerp.com/mysimpleerp.com.hosts')) print 'Error link to sites-available not found<br>';
 		else $dnsfileavailable=stat($DNS_ROOT.'/mysimplerp.com/mysimpleerp.com.hosts');
@@ -473,7 +404,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 		print "</table>";
 
-		print '<br>';
+		print '<br>'; */
 
 		print '</div>';
 	}
@@ -690,10 +621,12 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
     if (empty($instanceoldid))
     {
-    	// List of actions on element
-    	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formactions.class.php';
-    	$formactions=new FormActions($db);
-    	$somethingshown = $formactions->showactions($object,'contract',0,1);
+    	/*
+	    	// List of actions on element
+	    	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formactions.class.php';
+	    	$formactions=new FormActions($db);
+	    	$somethingshown = $formactions->showactions($object,'contract',0,1);
+    	*/
     }
     else
     {
