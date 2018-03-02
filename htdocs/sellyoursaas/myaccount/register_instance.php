@@ -656,7 +656,7 @@ $errormessages[] = 'Deployement of instance '.$sldAndSubdomain.$tldid.' started 
 $errormessages[] = 'Our team was alerted. You will receive an email as soon as deployment is complete.';
 
 dol_syslog("Error in deployment", LOG_ERR);
-$email = new CMailFile('WARNING: Registration/deployment error', $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL, $conf->global->SELLYOURSAAS_NOREPLY_EMAIL, join("\n",$errormessages)."\n\nParameters of command used:\n".$commandurl);
+$email = new CMailFile('[Alert] Registration/deployment error', $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL, $conf->global->SELLYOURSAAS_NOREPLY_EMAIL, join("\n",$errormessages)."\n\nParameters of command used:\n".$commandurl);
 $email->sendfile();
 
 

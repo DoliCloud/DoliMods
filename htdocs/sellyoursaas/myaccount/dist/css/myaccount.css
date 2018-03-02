@@ -57,7 +57,7 @@ input.form-control::-moz-placeholder { /* Firefox 19+ */
 	height: unset;	
 }
 .portlet {
-    border: 1px solid #222;
+    border: 1px solid #aaa;
     padding: 20px;
 	margin-bottom: 20px;
 }
