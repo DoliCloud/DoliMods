@@ -304,6 +304,12 @@ if (! empty($conf->google->enabled) && ! empty($conf->global->MAIN_GOOGLE_AN_ID)
 </div>
 </div>	<!-- end of center -->
 
+<?php
+if (! empty($conf->global->SELLYOURSAAS_MYACCOUNT_FOOTER))
+{
+	print $conf->global->SELLYOURSAAS_MYACCOUNT_FOOTER;
+}
+?>
 
 </body>
 </html>
