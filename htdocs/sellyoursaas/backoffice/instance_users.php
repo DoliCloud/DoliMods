@@ -81,6 +81,7 @@ $result = restrictedArea($user, 'sellyoursaas', 0, '','');
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
 $hookmanager=new HookManager($db);
+$hookmanager->initHooks(array('contractcard'));
 
 
 if ($id > 0 || $instanceoldid > 0 || $ref || $refold)
@@ -148,7 +149,11 @@ if (empty($reshook))
 
 	    	$sql="INSERT INTO llx_user(login, admin, pass, pass_crypted, entity) VALUES('supportdolicloud', 1, 'supportdolicloud', '".$newdb->escape($password_crypted)."', 0)";
 	        $resql=$newdb->query($sql);
-	        if (! $resql) dol_print_error($newdb);
+	        if (! $resql)
+	        {
+	        	if ($newdb->lasterrno() != 'DB_ERROR_RECORD_ALREADY_EXISTS') dol_print_error($newdb);
+	        	else setEventMessages("ErrorRecordAlreadyExists", null, 'errors');
+	        }
 
 	        // TODO Add permissions admin
 	    }
@@ -508,8 +513,14 @@ function print_user_table($newdb)
 				$obj = $newdb->fetch_object($resql);
 
 				global $object;
-				$url='https://'.$object->instance.'.on.dolicloud.com?username='.$obj->login.'&amp;password='.$obj->pass;
-
+				if (! empty($object->ref_customer))
+				{
+					$url='https://'.$object->ref_customer.'?username='.$obj->login.'&amp;password='.$obj->pass;
+				}
+				else
+				{
+					$url='https://'.$object->instance.'.on.dolicloud.com?username='.$obj->login.'&amp;password='.$obj->pass;
+				}
 				print '<tr class="oddeven">';
 				print '<td>';
 				print $obj->login;
