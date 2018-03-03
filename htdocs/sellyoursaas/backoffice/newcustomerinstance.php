@@ -331,6 +331,10 @@ if (empty($reshook))
 		if (! $error && $thirdpartyidselected > 0)
 		{
 			$contract = new Contrat($db);
+			if ($dolicloudcustomer->id > 0)
+			{
+				$contract->context['fromdolicloudcustomerv1']=1;
+			}
 
 			$contract->ref_customer = $instancetocreate;
 			$contract->date_contrat = dol_now();
@@ -396,6 +400,10 @@ if (empty($reshook))
 			if ($dolicloudcustomer->id > 0)
 			{
 				$contract->note_private = 'Value in V1 when created: plan='.$dolicloudcustomer->plan.', price_instance='.$dolicloudcustomer->price_instance.", price_per_user=".$dolicloudcustomer->price_user.", users=".$dolicloudcustomer->nbofusers;
+			}
+			if ($dolicloudcustomer->id > 0)
+			{
+				$contract->context['fromdolicloudcustomerv1']=1;
 			}
 
 			/*var_dump($contract->array_options);
@@ -561,7 +569,7 @@ if (empty($reshook))
 			exit;*/
 			$dateinvoice = $contract->array_options['options_date_endfreeperiod'];
 			if (empty($dateinvoice) && $dolicloudcustomer->id > 0) $dateinvoice = $dolicloudcustomer->date_current_period_end;
-			
+
 			$invoice_draft = new Facture($db);
 
 			// Now create invoice draft
