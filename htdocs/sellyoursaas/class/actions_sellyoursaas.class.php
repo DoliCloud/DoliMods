@@ -236,7 +236,7 @@ class ActionsSellyoursaas
 				}
 			}
 
-			if (in_array($action, array('refresh','recreateauthorizedkeys','deletelock','recreatelock')))
+			if (empty(GETPOST('instanceoldid','int')) && in_array($action, array('refresh','recreateauthorizedkeys','deletelock','recreatelock')))
 			{
 				dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
 				$sellyoursaasutils = new SellYourSaasUtils($db);

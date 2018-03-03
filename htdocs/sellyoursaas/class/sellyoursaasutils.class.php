@@ -528,6 +528,7 @@ class SellYourSaasUtils
 
     	dol_syslog("Remote action on instance remoteaction=".$remoteaction." was called");
 
+    	include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
 		// Action 'refresh', 'deletelock', 'recreatelock' for contract, check install.lock file
     	if (empty($object->context['fromdolicloudcustomerv1']) && in_array($remoteaction, array('refresh','recreateauthorizedkeys','deletelock','recreatelock')) && get_class($object) == 'Contrat')
