@@ -76,3 +76,5 @@ CreateSnapshot=Create snapshot
 SnapshotRequestSent=Snapshot request under name '%s' was successfully sent.
 NoneLabelOnOvhLineWillBeUsed=None (label of line in OVH invoice will be used)
 OvhDefaultBankAccount=Default bank account on invoices
+OvhValidVatList=List of valid VAT values
+OVHVatKeepEmptyToAcceptAll=Keep this field empty if you want accept all VAT value (auto)

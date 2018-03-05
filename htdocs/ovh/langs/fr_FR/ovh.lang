@@ -58,3 +58,6 @@ OvhApplicationKey=Application key
 OvhApplicationSecret=Application secret
 OvhConsumerkey=Consumer key
 GoOnPageToCreateYourAPIKey=D'abord aller sur la page <a href="%s" target="_blank">%s</a> pour créer une entrée d'application OVH et récupérer son API key et secret, ou créez en une nouvelle si vous préférez ou si vous avez perdu l'API key ou secret, ensuite remplissez cette page avec ces informations.
+OvhDefaultBankAccount=Banque par défaut pour les factures
+OvhValidVatList=Liste des taux de TVA valides
+OVHVatKeepEmptyToAcceptAll=Garder ce champ vide si vous voulez accepter tous les taux de TVA (calcule automatique)
