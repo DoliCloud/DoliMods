@@ -204,27 +204,33 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 
     	if ($remoteaction)
     	{
-    		dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
-    		$sellyoursaasutils = new SellYourSaasUtils($this->db);
-    		$result = $sellyoursaasutils->sellyoursaasRemoteAction($remoteaction, $object);
-			if ($result <= 0)
-			{
-				$error++;
-				$this->error=$sellyoursaasutils->error;
-				$this->errors=$sellyoursaasutils->errors;
-			}
-			else
-			{
-				if (! preg_match('/sellyoursaas/', session_name()))	// No popup message from trigger if not into backoffice
+    		$okforremoteaction = 1;
+    		if (in_array($remoteaction, array('suspend','unsuspend','undeploy','undeployall')) && empty($object->array_options['options_deployment_status'])) $okforremoteaction=0;	// This is a v1 record
+
+    		if ($okforremoteaction)
+    		{
+	    		dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
+	    		$sellyoursaasutils = new SellYourSaasUtils($this->db);
+	    		$result = $sellyoursaasutils->sellyoursaasRemoteAction($remoteaction, $object);
+				if ($result <= 0)
 				{
-					if ($remoteaction == 'suspend') setEventMessage('Service was suspended');
-					elseif ($remoteaction == 'unsuspend') setEventMessage('Service was unsuspended');
-					elseif ($remoteaction == 'deploy') setEventMessage('Service was deployed');
-					elseif ($remoteaction == 'undeploy') setEventMessage('Service was undeployed');
-					elseif ($remoteaction == 'deployall') setEventMessage('Service was deployed (all)');
-					elseif ($remoteaction == 'undeployall') setEventMessage('Service was undeployed (all)');
+					$error++;
+					$this->error=$sellyoursaasutils->error;
+					$this->errors=$sellyoursaasutils->errors;
 				}
-			}
+				else
+				{
+					if (! preg_match('/sellyoursaas/', session_name()))	// No popup message from trigger if not into backoffice
+					{
+						if ($remoteaction == 'suspend') setEventMessage('Service was suspended');
+						elseif ($remoteaction == 'unsuspend') setEventMessage('Service was unsuspended');
+						elseif ($remoteaction == 'deploy') setEventMessage('Service was deployed');
+						elseif ($remoteaction == 'undeploy') setEventMessage('Service was undeployed');
+						elseif ($remoteaction == 'deployall') setEventMessage('Service was deployed (all)');
+						elseif ($remoteaction == 'undeployall') setEventMessage('Service was undeployed (all)');
+					}
+				}
+    		}
     	}
 
     	if ($error)

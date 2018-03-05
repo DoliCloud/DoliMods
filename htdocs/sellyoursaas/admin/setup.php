@@ -108,6 +108,7 @@ if ($action == 'set')
 		dolibarr_set_const($db,"SELLYOURSAAS_REMOTE_SERVER_IP_FOR_INSTANCES",GETPOST("SELLYOURSAAS_REMOTE_SERVER_IP_FOR_INSTANCES"),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_MYACCOUNT_FOOTER",GETPOST("SELLYOURSAAS_MYACCOUNT_FOOTER",'none'),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"SELLYOURSAAS_PUBLIC_KEY",GETPOST("SELLYOURSAAS_PUBLIC_KEY",'none'),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_ANONYMOUSUSER",GETPOST("SELLYOURSAAS_ANONYMOUSUSER",'none'),'chaine',0,'',$conf->entity);
 
@@ -384,9 +385,16 @@ print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("FooterContent").'</td>';
 print '<td>';
-print '<textarea name="SELLYOURSAAS_MYACCOUNT_FOOTER" class="quatrevingtpercent">'.$conf->global->SELLYOURSAAS_MYACCOUNT_FOOTER.'</textarea>';
+print '<textarea name="SELLYOURSAAS_MYACCOUNT_FOOTER" class="quatrevingtpercent" rows="3">'.$conf->global->SELLYOURSAAS_MYACCOUNT_FOOTER.'</textarea>';
 print '</td>';
 print '<td>&lt;script&gt;Your google analytics code&lt;/script&gt;</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SSHPublicKey").'</td>';
+print '<td>';
+print '<textarea name="SELLYOURSAAS_PUBLIC_KEY" class="quatrevingtpercent" rows="3">'.$conf->global->SELLYOURSAAS_PUBLIC_KEY.'</textarea>';
+print '</td>';
+print '<td>Your SSH public key deployed into each new instance</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("AnonymousUser").'</td>';

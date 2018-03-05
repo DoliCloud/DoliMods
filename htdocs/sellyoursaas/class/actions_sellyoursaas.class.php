@@ -78,13 +78,34 @@ class ActionsSellyoursaas
 
 	    		if (in_array($object->array_options['options_deployment_status'], array('done')))
 	    		{
-	    			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=undeploy">' . $langs->trans('Undeploy') . '</a>';
 	    			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=refresh">' . $langs->trans('RefreshRemoteData') . '</a>';
+
+	    			if (empty($object->array_options['options_fileauthorizekey']))
+	    			{
+	    				print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=recreateauthorizedkeys">' . $langs->trans('RecreateAuthorizedKey') . '</a>';
+	    			}
+
+	    			if (empty($object->array_options['options_filelock']))
+	    			{
+		    			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=recreatelock">' . $langs->trans('RecreateLock') . '</a>';
+	    			}
+	    			else
+	    			{
+		    			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=deletelock">' . $langs->trans('SellYourSaasRemoveLock') . '</a>';
+		    		}
+	    		}
+	    		else
+	    		{
+	    			print '<a class="butActionRefused" href="#" title="'.$langs->trans("ContractMustHaveStatusDone").'">' . $langs->trans('RefreshRemoteData') . '</a>';
+	    		}
+
+	    		if (in_array($object->array_options['options_deployment_status'], array('done')))
+	    		{
+	    			print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=undeploy">' . $langs->trans('Undeploy') . '</a>';
 	    		}
 	    		else
 	    		{
 	    			print '<a class="butActionRefused" href="#" title="'.$langs->trans("ContractMustHaveStatusDone").'">' . $langs->trans('Undeploy') . '</a>';
-	    			print '<a class="butActionRefused" href="#" title="'.$langs->trans("ContractMustHaveStatusDone").'">' . $langs->trans('RefreshRemoteData') . '</a>';
 	    		}
 	    	}
     	}
@@ -215,11 +236,11 @@ class ActionsSellyoursaas
 				}
 			}
 
-			if ($action == 'refresh')
+			if (empty(GETPOST('instanceoldid','int')) && in_array($action, array('refresh','recreateauthorizedkeys','deletelock','recreatelock')))
 			{
 				dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
 				$sellyoursaasutils = new SellYourSaasUtils($db);
-				$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $object);
+				$result = $sellyoursaasutils->sellyoursaasRemoteAction($action, $object);
 				if ($result <= 0)
 				{
 					$error++;
@@ -230,9 +251,13 @@ class ActionsSellyoursaas
 				}
 				else
 				{
-					setEventMessages($langs->trans("ResourceComputed"), null, 'mesgs');
+					if ($action == 'refresh') setEventMessages($langs->trans("ResourceComputed"), null, 'mesgs');
+					if ($action == 'recreateauthorizedkeys') setEventMessages($langs->trans("FileCreated"), null, 'mesgs');
+					if ($action == 'recreatelock') setEventMessages($langs->trans("FileCreated"), null, 'mesgs');
+					if ($action == 'deletelock') setEventMessages($langs->trans("FilesDeleted"), null, 'mesgs');
 				}
 			}
+
         }
 
         return 0;

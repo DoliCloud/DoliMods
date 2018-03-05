@@ -46,13 +46,7 @@ dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
 dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 dol_include_once('/sellyoursaas/class/cdolicloudplans.class.php');
 
-$langs->load("admin");
-$langs->load("companies");
-$langs->load("users");
-$langs->load("contracts");
-$langs->load("other");
-$langs->load("commercial");
-$langs->load("sellyoursaas@sellyoursaas");
+$langs->loadLangs(array("admin","companies","users","contracts","other","commercial","sellyoursaas@sellyoursaas"));
 
 $action		= (GETPOST('action','alpha') ? GETPOST('action','alpha') : 'view');
 $confirm	= GETPOST('confirm','alpha');
@@ -87,6 +81,7 @@ $result = restrictedArea($user, 'sellyoursaas', 0, '','');
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
 include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
 $hookmanager=new HookManager($db);
+$hookmanager->initHooks(array('contractcard'));
 
 
 if ($id > 0 || $instanceoldid > 0 || $ref || $refold)
@@ -98,6 +93,34 @@ if ($id > 0 || $instanceoldid > 0 || $ref || $refold)
 
 $backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/backup_instance.php '.$object->instance.' '.$conf->global->DOLICLOUD_INSTANCES_PATH;
 
+
+$instance = 'xxxx';
+$type_db = $conf->db->type;
+if ($instanceoldid)
+{
+	$instance = $object->instance;
+	$hostname_db = $object->hostname_db;
+	$username_db = $object->username_db;
+	$password_db = $object->password_db;
+	$database_db = $object->database_db;
+	$port_db = $object->port_db?$object->port_db:3306;
+	$username_web = $object->username_web;
+	$password_web = $object->password_web;
+}
+else	// $object is a contract (on old or new instance)
+{
+	$instance = $object->ref_customer;
+	$hostname_db = $object->array_options['options_hostname_db'];
+	$username_db = $object->array_options['options_username_db'];
+	$password_db = $object->array_options['options_password_db'];
+	$database_db = $object->array_options['options_database_db'];
+	$port_db     = $object->array_options['options_port_db'];
+	$username_web = $object->array_options['options_username_os'];
+	$password_web = $object->array_options['options_username_os'];
+
+	// TODO Remove this
+	$hostname_db = '127.0.0.1';
+}
 
 
 /*
@@ -118,21 +141,26 @@ if (empty($reshook))
 
 	if ($action == "createsupportdolicloud")
 	{
-	    $newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
+		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 	    if (is_object($newdb))
 	    {
-	        // Get user/pass of last admin user
-	        $password_crypted = dol_hash($password);
-	        $sql="INSERT INTO llx_user(login, admin, pass, pass_crypted) VALUES('supportdolicloud', 1, 'supportdolicloud', '".$newdb->escape($password_crypted)."')";
+	    	// TODO Use the encryption of remote instance
+	    	$password_crypted = dol_hash($password);
+
+	    	$sql="INSERT INTO llx_user(login, admin, pass, pass_crypted, entity) VALUES('supportdolicloud', 1, 'supportdolicloud', '".$newdb->escape($password_crypted)."', 0)";
 	        $resql=$newdb->query($sql);
-	        if (! $resql) dol_print_error($newdb);
+	        if (! $resql)
+	        {
+	        	if ($newdb->lasterrno() != 'DB_ERROR_RECORD_ALREADY_EXISTS') dol_print_error($newdb);
+	        	else setEventMessages("ErrorRecordAlreadyExists", null, 'errors');
+	        }
 
 	        // TODO Add permissions admin
 	    }
 	}
 	if ($action == "deletesupportdolicloud")
 	{
-	    $newdb=getDoliDBInstance($conf->db->type, $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
+		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 	    if (is_object($newdb))
 	    {
 	        $sql="DELETE FROM llx_user_rights where fk_user IN (SELECT rowid FROM llx_user WHERE login = 'supportdolicloud')";
@@ -144,6 +172,23 @@ if (empty($reshook))
 	        $resql=$newdb->query($sql);
 	        if (! $resql) dol_print_error($newdb);
 	    }
+	}
+
+	if ($action == "confirm_resetpassword")
+	{
+		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
+		if (is_object($newdb))
+		{
+			$password=GETPOST('newpassword','alpha');
+
+			// TODO Use the encryption of remote instance
+			$password_crypted = dol_hash($password);
+
+			$sql="UPDATE llx_user set pass='".$newdb->escape($password)."', pass_crypted = '".$newdb->escape($password_crypted)."' where rowid = ".GETPOST('remoteid','int');
+			$resql=$newdb->query($sql);
+			if (! $resql) dol_print_error($newdb);
+			else setEventMessages("PasswordModified", null, 'mesgs');
+		}
 	}
 
 	if (! in_array($action, array('resetpassword', 'confirm_resetpassword', 'createsupportdolicloud', 'deletesupportdolicloud')))
@@ -191,40 +236,6 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	/*
 	 * Fiche en mode visualisation
 	 */
-
-	$prefix = 'with';
-	$instance = 'xxxx';
-	$type_db = $conf->db->type;
-
-	if ($instanceoldid)
-	{
-		$prefix='on';
-		$instance = $object->instance;
-		$hostname_db = $object->hostname_db;
-		$username_db = $object->username_db;
-		$password_db = $object->password_db;
-		$database_db = $object->database_db;
-		$port_db = $object->port_db?$object->port_db:3306;
-
-		$username_web = $object->username_web;
-		$password_web = $object->password_web;
-	}
-	else	// $object is a contract (on old or new instance)
-	{
-		if (preg_match('/\.on\./', $object->ref_customer)) $prefix='on';
-		else $prefix='with';
-
-		$hostname_db = $object->array_options['options_hostname_db'];
-		$username_db = $object->array_options['options_username_db'];
-		$password_db = $object->array_options['options_password_db'];
-		$database_db = $object->array_options['options_database_db'];
-		$port_db     = $object->array_options['options_port_db'];
-		$username_web = $object->array_options['options_username_os'];
-		$password_web = $object->array_options['options_username_os'];
-
-		// TODO Remove this
-		$hostname_db = '127.0.0.1';
-	}
 
 	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 
@@ -334,13 +345,11 @@ print '<br>';
 
 if (empty($instanceoldid))
 {
-	$prefix = 'with';
 	$instance = 'xxxx';
 	$type_db = $conf->db->type;
 
 	if ($instanceoldid)	// $object is old dolicloud_customers
 	{
-		$prefix='on';
 		$instance = $object->instance;
 		$hostname_db = $object->hostname_db;
 		$username_db = $object->username_db;
@@ -352,9 +361,6 @@ if (empty($instanceoldid))
 	}
 	else	// $object is a contract (on old or new instance)
 	{
-		if (preg_match('/\.on\./', $object->ref_customer)) $prefix='on';
-		else $prefix='with';
-
 		$hostname_db = $object->array_options['options_hostname_db'];
 		$username_db = $object->array_options['options_username_db'];
 		$password_db = $object->array_options['options_password_db'];
@@ -507,8 +513,14 @@ function print_user_table($newdb)
 				$obj = $newdb->fetch_object($resql);
 
 				global $object;
-				$url='https://'.$object->instance.'.on.dolicloud.com?username='.$obj->login.'&amp;password='.$obj->pass;
-
+				if (! empty($object->ref_customer))
+				{
+					$url='https://'.$object->ref_customer.'?username='.$obj->login.'&amp;password='.$obj->pass;
+				}
+				else
+				{
+					$url='https://'.$object->instance.'.on.dolicloud.com?username='.$obj->login.'&amp;password='.$obj->pass;
+				}
 				print '<tr class="oddeven">';
 				print '<td>';
 				print $obj->login;
@@ -518,7 +530,7 @@ function print_user_table($newdb)
 				print '<td>'.$obj->firstname.'</td>';
 				print '<td>'.$obj->admin.'</td>';
 				print '<td>'.$obj->email.'</td>';
-				print '<td>'.$obj->pass.' ('.$obj->pass_crypted.')</td>';
+				print '<td>'.$obj->pass.' ('.($obj->pass_crypted?$obj->pass_crypted:'NA').')</td>';
 				print '<td>'.dol_print_date($newdb->jdate($obj->datec),'dayhour').'</td>';
 				print '<td>'.dol_print_date($newdb->jdate($obj->datem),'dayhour').'</td>';
 				print '<td>'.dol_print_date($newdb->jdate($obj->datelastlogin),'dayhour').'</td>';

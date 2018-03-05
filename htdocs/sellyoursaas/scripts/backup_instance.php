@@ -16,7 +16,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * or see http://www.gnu.org/
  *
- * Make a backup of files (rsync) or database (mysqdump) of instance. There is no
+ * FEATURE
+ *
+ * Make a backup of files (rsync) or database (mysqdump) of remote instance. There is no
  * report/tracking done into any database. This must be done by a parent script.
  *
  * ssh keys must be authorized to have testrsync and confirmrsync working
@@ -39,16 +41,22 @@ $error=0;
 $instance=isset($argv[1])?$argv[1]:'';
 $dirroot=isset($argv[2])?$argv[2]:'';
 $mode=isset($argv[3])?$argv[3]:'';
+$v=isset($argv[4])?$argv[4]:'';
 
 @set_time_limit(0);							// No timeout for this script
 define('EVEN_IF_ONLY_LOGIN_ALLOWED',1);		// Set this define to 0 if you want to lock your script when dolibarr setup is "locked to admin user only".
 
-// Include and load Dolibarr environment variables
+// Load Dolibarr environment
 $res=0;
-if (! $res && file_exists($path."master.inc.php")) $res=@include($path."master.inc.php");
-if (! $res && file_exists($path."../master.inc.php")) $res=@include($path."../master.inc.php");
-if (! $res && file_exists($path."../../master.inc.php")) $res=@include($path."../../master.inc.php");
-if (! $res && file_exists($path."../../../master.inc.php")) $res=@include($path."../../../master.inc.php");
+// Try master.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/master.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/master.inc.php");
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/master.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/master.inc.php");
+// Try master.inc.php using relative path
+if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
+if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
+if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
 if (! $res) die("Include of master fails");
 
 dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
@@ -62,9 +70,15 @@ if ($db2->error)
 	exit;
 }
 
-
-$object = new Dolicloud_customers($db, $db2);
-
+if ($v != 'v1')
+{
+	include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+	$object = new Contrat($db);
+}
+else
+{
+	$object = new Dolicloud_customers($db, $db2);
+}
 
 
 /*
@@ -73,20 +87,48 @@ $object = new Dolicloud_customers($db, $db2);
 
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
-	print "Usage:   $script_file instance    backup_dir  (testrsync|testdatabase|confirmrsync|confirmdatabase|confirm)\n";
+	print "Usage:   $script_file instance    backup_dir  [testrsync|testdatabase|confirmrsync|confirmdatabase|confirm] (v1)\n";
 	print "Example: $script_file myinstance  ".$conf->global->DOLICLOUD_BACKUP_PATH."  testrsync\n";
 	print "Note:    ssh keys must be authorized to have testrsync and confirmrsync working\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);
 }
 
-
-$result=$object->fetch('',$instance);
-if ($result < 0)
+if ($v != 'v1')
 {
-	print "Error: instance ".$instance." not found.\n";
-	exit(-2);
+	$result=$object->fetch('','',$instance);
 }
+else
+{
+	$result=$object->fetch('',$instance);
+}
+if ($result <= 0)
+{
+	if ($v != 'v1')
+	{
+		$result=$object->fetch('','',$instance.'.with.dolicloud.com');
+	}
+	else
+	{
+		$result=$object->fetch('',$instance.'.with.dolicloud.com');
+	}
+	if ($result <= 0)
+	{
+		print "Error: instance ".$instance." not found.\n";
+		exit(-2);
+	}
+}
+
+if ($v != 'v1')
+{
+	$object->instance = $object->ref_customer;
+	$object->username_web = $object->array_options['options_username_os'];
+	$object->password_web = $object->array_options['options_password_os'];
+	$object->username_db = $object->array_options['options_username_db'];
+	$object->password_db = $object->array_options['options_password_db'];
+	$object->database_db = $object->array_options['options_database_db'];
+}
+
 if (empty($object->instance) && empty($object->username_web) && empty($object->password_web) && empty($object->database_db))
 {
 	print "Error: properties for instance ".$instance." was not registered into database.\n";
@@ -101,8 +143,19 @@ if (! is_dir($dirroot))
 $dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
 $login=$object->username_web;
 $password=$object->password_web;
-$sourcedir=$conf->global->DOLICLOUD_EXT_HOME.'/'.$login.'/'.$dirdb;
-$server=$object->instance.'.on.dolicloud.com';
+if ($v != 'v1')
+{
+	$sourcedir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$login.'/'.$dirdb;
+	$server=$object->ref_customer;
+
+	// TODO
+	$server='127.0.0.1';
+}
+else
+{
+	$sourcedir=$conf->global->DOLICLOUD_EXT_HOME.'/'.$login.'/'.$dirdb;
+	$server=$object->instance.'.on.dolicloud.com';
+}
 
 if (empty($login) || empty($dirdb))
 {
@@ -119,12 +172,12 @@ if ($mode == 'confirm' || $mode == 'confirmrsync' || $mode == 'confirmdatabase')
 {
 	$listofdir=array();
 	$listofdir[]=$dirroot.'/'.$login;
-	if ($mode == 'confirm' || $mode == 'confirmdatabase')
+	/*if ($mode == 'confirm' || $mode == 'confirmdatabase')
 	{
 		$listofdir[]=$dirroot.'/'.$login.'/documents';
 		$listofdir[]=$dirroot.'/'.$login.'/documents/admin';
 		$listofdir[]=$dirroot.'/'.$login.'/documents/admin/backup';
-	}
+	}*/
 	foreach($listofdir as $dirtocreate)
 	{
 		if (! is_dir($dirtocreate))
@@ -142,6 +195,8 @@ if ($mode == 'confirm' || $mode == 'confirmrsync' || $mode == 'confirmdatabase')
 // Backup files
 if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 {
+	dol_mkdir($dirroot.'/'.$login);
+
 	$command="rsync";
 	$param=array();
 	if ($mode != 'confirm' && $mode != 'confirmrsync') $param[]="-n";
@@ -216,12 +271,12 @@ if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 
 	$fullcommand=$command." ".join(" ",$param);
 	if ($mode == 'testdatabase') $fullcommand.=" | bzip2 > /dev/null";
-	else $fullcommand.=" | bzip2 > ".$dirroot.'/'.$login.'/documents/admin/backup/mysqldump_'.$object->database_db.'_'.gmstrftime('%d').'.sql.bz2';
+	else $fullcommand.=" | bzip2 > ".$dirroot.'/'.$login.'/mysqldump_'.$object->database_db.'_'.gmstrftime('%d').'.sql.bz2';
 	$output=array();
 	$return_varmysql=0;
 	print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
 	exec($fullcommand, $output, $return_varmysql);
-	print strftime("%Y%m%d-%H%M%S").' mysqldump done'."\n";
+	print strftime("%Y%m%d-%H%M%S").' mysqldump done (return='.$return_varmysql.')'."\n";
 
 	// Output result
 	foreach($output as $outputline)

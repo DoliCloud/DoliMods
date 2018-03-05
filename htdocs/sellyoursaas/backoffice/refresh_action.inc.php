@@ -57,9 +57,9 @@ if ($action == 'addauthorizedkey')
 				else
 				{
 					// Add public keys
-					fwrite($stream,"ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEAp6Nj1j5jVgziTIRPiWIdqm95P+yT5wAFYzzyzy5g1/ip+YRz6DT+TJUnpI3+coKPtTGahFkHRUIxCMBBObbgkpw0wJr9aBJrZ4YNSIe+DdmIe0JU4L40eHtOcxDNRFCeS8n9LaQ3/K+UV6JEhplibLYEhPKPn4fTfm7Krj0KDVc= admin@apollon1.nltechno.com\n");
-
 					fwrite($stream,"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCltq3M8hs4Zl9WVxSBS2Pn/d6oc9kaLl4NncZCMMvvgEwz48Llo9bKqpr4698Alj2vYCfynjDo4XkU3H7kd/Rq/VRUEQCptzUOAX+/SjwpQUMOy0UDzovw/tYSyY/2tt17lzylR1CJPIoZJINXz5Gy2Et172MWY383EEvHdpAKgrcCZQp3KP3wv892GC79+/MfjV/uyRg0ZN1+hTiGBWmkNtHVBoABA+MgJTFOjRw7aoOLvI4g/zFvAy+6AgtDR1b9QJZvgHKoM/Pfi82RGxEqMCz6jXEMc1UqsadUU5k57Ck1R/Cc3sG/0ufXPdJxHSqbLh9e2uI8JcI0Zmvl4Cun ldestailleur@PCHOME-LD\n");
+
+					fwrite($stream,"ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEAp6Nj1j5jVgziTIRPiWIdqm95P+yT5wAFYzzyzy5g1/ip+YRz6DT+TJUnpI3+coKPtTGahFkHRUIxCMBBObbgkpw0wJr9aBJrZ4YNSIe+DdmIe0JU4L40eHtOcxDNRFCeS8n9LaQ3/K+UV6JEhplibLYEhPKPn4fTfm7Krj0KDVc= admin@apollon1.nltechno.com\n");
 
 					fwrite($stream,"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/A0b/8wwC8wNmb1h3GmwU93oh8M+WDybZbxdRO5IMXw6RKCaLKrnQjs15t4++Qp5ono0oF5HFBWMCrbj8pf15sP02op59rOzALGxFKO8eGtRzcOenCnKCW2ndjGbQFg76evpg3LiE29tpEMQDUM+WMwrATozCIeJE1Q8SJh6/QKJsQTACETJu1+hHKoRTozsqRM/5NLfZ9kiNYbqN80dfm6wDHT8ApiFZ9xnTSxay3NtZjBojeD57TLMmEo9E/2inX5Vupb/JtVik09e80qXSd48s6vk0ecNU9x2LUmNLvbhsPrWeiY2rwCi0h9qW9Y6kwELqqfMe3/cP999UzWnn admin@apollon\n");
 

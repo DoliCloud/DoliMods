@@ -88,9 +88,8 @@ else
 // Security check
 $result = restrictedArea($user, 'sellyoursaas', 0, '','');
 
-// Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array array
-include_once(DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php');
-$hookmanager=new HookManager($db);
+// Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array of hook context
+$hookmanager->initHooks(array('contractcard','globalcard'));
 
 
 if ($id > 0 || $instanceoldid > 0 || $ref || $refold)
