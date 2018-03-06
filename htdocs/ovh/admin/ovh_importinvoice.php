@@ -1,36 +1,41 @@
 <?php
+/* Copyright (C) 2018 Laurent Destailleur  <eldy@users.sourceforge.net>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * https://www.ovh.com/fr/soapi-to-apiv6-migration/
+ */
+
+/**
+ *   	\file       htdocs/ovh/admin/ovh_importinvoice.php
+ *		\ingroup    ovh
+ *		\brief      Setup of module OVH - Tab to import invoices
+ */
 
 // Load Dolibarr environment
-$res = 0;
+$res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (!$res && !empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) {
-    $res = @include($_SERVER["CONTEXT_DOCUMENT_ROOT"] . "/main.inc.php");
-}
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include($_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php");
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
-$tmp = empty($_SERVER['SCRIPT_FILENAME']) ? '' : $_SERVER['SCRIPT_FILENAME'];
-$tmp2 = realpath(__FILE__);
-$i = strlen($tmp) - 1;
-$j = strlen($tmp2) - 1;
-while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i] == $tmp2[$j]) {
-    $i--;
-    $j--;
-}
-if (!$res && $i > 0 && file_exists(substr($tmp, 0, ($i + 1)) . "/main.inc.php")) {
-    $res = @include(substr($tmp, 0, ($i + 1)) . "/main.inc.php");
-}
-if (!$res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i + 1))) . "/main.inc.php")) {
-    $res = @include(dirname(substr($tmp, 0, ($i + 1))) . "/main.inc.php");
-}
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/main.inc.php");
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/main.inc.php");
 // Try main.inc.php using relative path
-if (!$res && file_exists("../../main.inc.php")) {
-    $res = @include("../../main.inc.php");
-}
-if (!$res && file_exists("../../../main.inc.php")) {
-    $res = @include("../../../main.inc.php");
-}
-if (!$res) {
-    die("Include of main fails");
-}
+if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.php");
+if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
+if (! $res) die("Include of main fails");
 
 dol_include_once('/ovh/class/ovh.class.php');
 dol_include_once("/ovh/lib/ovh.lib.php");
@@ -74,13 +79,9 @@ $endpoint = empty($conf->global->OVH_ENDPOINT) ? 'ovh-eu' : $conf->global->OVH_E
 if ($action == 'setvalue' && $user->admin) {
     $idproduct = (GETPOST("OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID") > 0 ? GETPOST("OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID") : 0);
 
-    $result1 = dolibarr_set_const($db, "OVH_THIRDPARTY_IMPORT", GETPOST("OVH_THIRDPARTY_IMPORT"), 'chaine', 0, '',
-        $conf->entity);
-    $result2 = dolibarr_set_const($db, "OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID", $idproduct, 'chaine', 0, '',
-        $conf->entity);
-    $result3 = dolibarr_set_const($db, "OVH_DEFAULT_BANK_ACCOUNT",
-        (GETPOST("OVH_DEFAULT_BANK_ACCOUNT") > 0 ? GETPOST("OVH_DEFAULT_BANK_ACCOUNT") : 0), 'chaine', 0, '',
-        $conf->entity);
+    $result1 = dolibarr_set_const($db, "OVH_THIRDPARTY_IMPORT", GETPOST("OVH_THIRDPARTY_IMPORT"), 'chaine', 0, '', $conf->entity);
+    $result2 = dolibarr_set_const($db, "OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID", $idproduct, 'chaine', 0, '', $conf->entity);
+    $result3 = dolibarr_set_const($db, "OVH_DEFAULT_BANK_ACCOUNT", (GETPOST("OVH_DEFAULT_BANK_ACCOUNT") > 0 ? GETPOST("OVH_DEFAULT_BANK_ACCOUNT") : 0), 'chaine', 0, '', $conf->entity);
     $result4 = dolibarr_set_const($db, "OVH_VAT_VALID_LIST",
         (count(GETPOST("OVH_VAT_VALID_LIST", 'array')) > 0 ? implode(';',
             GETPOST("OVH_VAT_VALID_LIST", 'array')) : null), 'chaine', 0, '', $conf->entity);
