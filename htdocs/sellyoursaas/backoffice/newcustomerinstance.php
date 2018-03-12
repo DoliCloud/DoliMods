@@ -631,70 +631,70 @@ if (empty($reshook))
 					$desc=(! empty($lines[$i]->desc)?$lines[$i]->desc:$lines[$i]->libelle);
 					if ($invoice_draft->situation_counter == 1) $lines[$i]->situation_percent =  0;
 
-						// Positive line
-						$product_type = ($lines[$i]->product_type ? $lines[$i]->product_type : 0);
+					// Positive line
+					$product_type = ($lines[$i]->product_type ? $lines[$i]->product_type : 0);
 
-						// Date start
-						$date_start = false;
-						if ($lines[$i]->date_debut_prevue)
-							$date_start = $lines[$i]->date_debut_prevue;
-						if ($lines[$i]->date_debut_reel)
-							$date_start = $lines[$i]->date_debut_reel;
-						if ($lines[$i]->date_start)
-							$date_start = $lines[$i]->date_start;
+					// Date start
+					$date_start = false;
+					if ($lines[$i]->date_debut_prevue)
+						$date_start = $lines[$i]->date_debut_prevue;
+					if ($lines[$i]->date_debut_reel)
+						$date_start = $lines[$i]->date_debut_reel;
+					if ($lines[$i]->date_start)
+						$date_start = $lines[$i]->date_start;
 
-						// Date end
-						$date_end = false;
-						if ($lines[$i]->date_fin_prevue)
-							$date_end = $lines[$i]->date_fin_prevue;
-						if ($lines[$i]->date_fin_reel)
-							$date_end = $lines[$i]->date_fin_reel;
-						if ($lines[$i]->date_end)
-							$date_end = $lines[$i]->date_end;
+					// Date end
+					$date_end = false;
+					if ($lines[$i]->date_fin_prevue)
+						$date_end = $lines[$i]->date_fin_prevue;
+					if ($lines[$i]->date_fin_reel)
+						$date_end = $lines[$i]->date_fin_reel;
+					if ($lines[$i]->date_end)
+						$date_end = $lines[$i]->date_end;
 
-						// Reset fk_parent_line for no child products and special product
-						if (($lines[$i]->product_type != 9 && empty($lines[$i]->fk_parent_line)) || $lines[$i]->product_type == 9) {
-							$fk_parent_line = 0;
-						}
+					// Reset fk_parent_line for no child products and special product
+					if (($lines[$i]->product_type != 9 && empty($lines[$i]->fk_parent_line)) || $lines[$i]->product_type == 9) {
+						$fk_parent_line = 0;
+					}
 
-						// Discount
-						$discount = $lines[$i]->remise_percent;
-						if (empty($discount) && GETPOST('discount'))
-						{
-							$discount = GETPOST('discount');
-						}
+					// Discount
+					$discount = $lines[$i]->remise_percent;
+					if (empty($discount) && GETPOST('discount'))
+					{
+						$discount = GETPOST('discount');
+					}
 
-						// Extrafields
-						if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED) && method_exists($lines[$i], 'fetch_optionals')) {
-							$lines[$i]->fetch_optionals($lines[$i]->rowid);
-							$array_options = $lines[$i]->array_options;
-						}
+					// Extrafields
+					if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED) && method_exists($lines[$i], 'fetch_optionals')) {
+						$lines[$i]->fetch_optionals($lines[$i]->rowid);
+						$array_options = $lines[$i]->array_options;
+					}
 
-						$tva_tx = $lines[$i]->tva_tx;
-						if (! empty($lines[$i]->vat_src_code) && ! preg_match('/\(/', $tva_tx)) $tva_tx .= ' ('.$lines[$i]->vat_src_code.')';
+					$tva_tx = $lines[$i]->tva_tx;
+					if (! empty($lines[$i]->vat_src_code) && ! preg_match('/\(/', $tva_tx)) $tva_tx .= ' ('.$lines[$i]->vat_src_code.')';
 
-						// View third's localtaxes for NOW and do not use value from origin.
-						// TODO Is this really what we want ? Yes if source if template invoice but what if proposal or order ?
-						$localtax1_tx = get_localtax($tva_tx, 1, $invoice_draft->thirdparty);
-						$localtax2_tx = get_localtax($tva_tx, 2, $invoice_draft->thirdparty);
+					// View third's localtaxes for NOW and do not use value from origin.
+					// TODO Is this really what we want ? Yes if source if template invoice but what if proposal or order ?
+					$localtax1_tx = get_localtax($tva_tx, 1, $invoice_draft->thirdparty);
+					$localtax2_tx = get_localtax($tva_tx, 2, $invoice_draft->thirdparty);
 
-						//$price_invoice_template_line = $lines[$i]->subprice * GETPOST('frequency_multiple','int');
-						$price_invoice_template_line = $lines[$i]->subprice;
+					//$price_invoice_template_line = $lines[$i]->subprice * GETPOST('frequency_multiple','int');
+					$price_invoice_template_line = $lines[$i]->subprice;
 
-						$result = $invoice_draft->addline($desc, $price_invoice_template_line, $lines[$i]->qty, $tva_tx, $localtax1_tx, $localtax2_tx, $lines[$i]->fk_product, $discount, $date_start, $date_end, 0, $lines[$i]->info_bits, $lines[$i]->fk_remise_except, 'HT', 0, $product_type, $lines[$i]->rang, $lines[$i]->special_code, $invoice_draft->origin, $lines[$i]->rowid, $fk_parent_line, $lines[$i]->fk_fournprice, $lines[$i]->pa_ht, $label, $array_options, $lines[$i]->situation_percent, $lines[$i]->fk_prev_id, $lines[$i]->fk_unit);
+					$result = $invoice_draft->addline($desc, $price_invoice_template_line, $lines[$i]->qty, $tva_tx, $localtax1_tx, $localtax2_tx, $lines[$i]->fk_product, $discount, $date_start, $date_end, 0, $lines[$i]->info_bits, $lines[$i]->fk_remise_except, 'HT', 0, $product_type, $lines[$i]->rang, $lines[$i]->special_code, $invoice_draft->origin, $lines[$i]->rowid, $fk_parent_line, $lines[$i]->fk_fournprice, $lines[$i]->pa_ht, $label, $array_options, $lines[$i]->situation_percent, $lines[$i]->fk_prev_id, $lines[$i]->fk_unit);
 
-						if ($result > 0) {
-							$lineid = $result;
-						} else {
-							$lineid = 0;
-							$error ++;
-							break;
-						}
+					if ($result > 0) {
+						$lineid = $result;
+					} else {
+						$lineid = 0;
+						$error ++;
+						break;
+					}
 
-						// Defined the new fk_parent_line
-						if ($result > 0 && $lines[$i]->product_type == 9) {
-							$fk_parent_line = $result;
-						}
+					// Defined the new fk_parent_line
+					if ($result > 0 && $lines[$i]->product_type == 9) {
+						$fk_parent_line = $result;
+					}
 				}
 
 				//var_dump($invoice_draft->lines);
@@ -755,8 +755,16 @@ if (empty($reshook))
 				$result = $invoice_rec->create($user, $oldinvoice->id);
 				if ($result > 0)
 				{
+					$sql = 'UPDATE '.MAIN_DB_PREFIX.'facturedet_rec SET date_start_fill = 1, date_end_fill = 1 WHERE fk_facture = '.$invoice_rec->id;
+					$result = $db->query($sql);
+					if (! $error && $result < 0)
+					{
+						$error++;
+						setEventMessages($db->lasterror(), null, 'errors');
+					}
+
 					$result=$oldinvoice->delete($user, 1);
-					if ($result < 0)
+					if (! $error && $result < 0)
 					{
 						$error++;
 						setEventMessages($oldinvoice->error, $oldinvoice->errors, 'errors');
