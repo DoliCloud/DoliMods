@@ -39,7 +39,10 @@ require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
+//require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
+require_once DOL_DOCUMENT_ROOT.'/societe/class/societeaccount.class.php';
+require_once DOL_DOCUMENT_ROOT.'/societe/class/companybankaccount.class.php';
+require_once DOL_DOCUMENT_ROOT.'/societe/class/companypaymentmode.class.php';
 dol_include_once('/sellyoursaas/class/packages.class.php');
 dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
 
@@ -610,7 +613,7 @@ if (empty($welcomecid))	// Show warning
 					<div class="note note-warning">
 					<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrial", abs($delayindays), $contract->ref_customer).' !</h4>
 					<p>
-					<a href="register_paymentmode.php" class="btn btn-warning">'.$langs->trans("AddAPaymentMode").'</a>
+					<a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode" class="btn btn-warning">'.$langs->trans("AddAPaymentMode").'</a>
 					</p>
 					</div>
 				';
@@ -622,7 +625,7 @@ if (empty($welcomecid))	// Show warning
 					<div class="note note-warning">
 					<h4 class="block">'.$langs->trans("XDaysAfterEndOfTrial", $contract->ref_customer, abs($delayindays)).' !</h4>
 					<p>
-					<a href="register_paymentmode.php" class="btn btn-warning">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>
+					<a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode" class="btn btn-warning">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>
 					</p>
 					</div>
 				';
@@ -1008,20 +1011,22 @@ if ($mode == 'instances')
 				          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->';
 
 						  // Instance status
-				          print '<span class="caption-helper floatright clearboth">'.$langs->trans("Status").' : <span class="bold uppercase" style="color:'.$color.'">';
+				          print '<span class="caption-helper floatright clearboth">';
+				          //print $langs->trans("Status").' : ';
+				          print '<span class="bold uppercase" style="color:'.$color.'">';
 				          if ($statuslabel == 'processing') print $langs->trans("DeploymentInProgress");
-				          elseif ($statuslabel == 'done') print $langs->trans("Running");
+				          elseif ($statuslabel == 'done') print $langs->trans("Alive");
 				          elseif ($statuslabel == 'suspended') print $langs->trans("Suspended");
 				          elseif ($statuslabel == 'undeployed') print $langs->trans("Undeployed");
 				          else print $statuslabel;
 				          print '</span></span><br>';
 
 						  print '<p style="padding-top: 8px;" class="clearboth">
-				            <!-- <span class="caption-helper">'.$langs->trans("ID").' : '.$contract->ref.'</span><br> -->
+				            <!-- <span class="caption-helper"><span class="opacitymedium">'.$langs->trans("ID").' : '.$contract->ref.'</span></span><br> -->
 				            <span class="caption-helper">';
 								if ($contract->array_options['options_deployment_status'] == 'processing')
 								{
-									print $langs->trans("DateStart").' : <span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_start'], 'dayhour').'</span>';
+									print '<span class="opacitymedium">'.$langs->trans("DateStart").' : </span><span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_start'], 'dayhour').'</span>';
 									if ((dol_now() - $contract->array_options['options_deployment_date_start']) > 120)	// More then 2 minutes ago
 									{
 										print ' - <a href="register_instance.php?reusecontractid='.$contract->id.'">'.$langs->trans("Restart").'</a>';
@@ -1029,13 +1034,13 @@ if ($mode == 'instances')
 								}
 								elseif ($contract->array_options['options_deployment_status'] == 'done')
 								{
-									print $langs->trans("DeploymentDate").' : <span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_end'], 'dayhour').'</span>';
+									print '<span class="opacitymedium">'.$langs->trans("DeploymentDate").' : </span><span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_end'], 'dayhour').'</span>';
 								}
 								else
 								{
-									print $langs->trans("DeploymentDate").' : <span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_end'], 'dayhour').'</span>';
+									print '<span class="opacitymedium">'.$langs->trans("DeploymentDate").' : </span><span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_end'], 'dayhour').'</span>';
 									print '<br>';
-									print $langs->trans("UndeploymentDate").' : <span class="bold">'.dol_print_date($contract->array_options['options_undeployment_date'], 'dayhour').'</span>';
+									print '<span class="opacitymedium">'.$langs->trans("UndeploymentDate").' : </span><span class="bold">'.dol_print_date($contract->array_options['options_undeployment_date'], 'dayhour').'</span>';
 								}
 							print '
 							</span><br>';
@@ -1043,10 +1048,10 @@ if ($mode == 'instances')
 							// URL
 							if ($statuslabel != 'undeployed')
 							{
-								print '<span class="caption-helper">';
+								print '<span class="caption-helper"><span class="opacitymedium">';
 								if ($conf->dol_optimize_smallscreen) print $langs->trans("URL");
 								else print $langs->trans("YourURLToGoOnYourAppInstance");
-								print ' : <a class="font-green-sharp linktoinstance" href="https://'.$contract->ref_customer.'" target="blankinstance">'.$contract->ref_customer.'</a>';
+								print ' : </span><a class="font-green-sharp linktoinstance" href="https://'.$contract->ref_customer.'" target="blankinstance">'.$contract->ref_customer.'</a>';
 								print '</span><br>';
 							}
 
@@ -1194,7 +1199,7 @@ if ($mode == 'instances')
 								print '<br><br>';
 
 								// Plan
-								print '<span class="caption-helper">'.$langs->trans("YourSubscriptionPlan").' : ';
+								print '<span class="caption-helper"><span class="opacitymedium">'.$langs->trans("YourSubscriptionPlan").' : </span>';
 								if ($action == 'changeplan' && $planid > 0 && $id == GETPOST('id','int'))
 								{
 									print '<input type="hidden" name="mode" value="instances"/>';
@@ -1242,7 +1247,7 @@ if ($mode == 'instances')
 								// Billing
 								if ($statuslabel != 'undeployed')
 								{
-									print '<span class="caption-helper spanbilling">'.$langs->trans("Billing").' : ';
+									print '<span class="caption-helper spanbilling"><span class="opacitymedium">'.$langs->trans("Billing").' : </span>';
 									if ($priceinvoicedht != $contrat->total_ht)
 									{
 										print $langs->trans("FlatOrDiscountedPrice").' = ';
@@ -1250,6 +1255,8 @@ if ($mode == 'instances')
 									print '<span class="bold">'.$pricetoshow.'</span>';
 									if ($foundtemplate == 0)	// Same than ispaid
 									{
+										if ($contract->array_options['options_date_endfreeperiod'] < dol_now()) $color='orange';
+
 										print ' <span style="color:'.$color.'">';
 										if ($contract->array_options['options_date_endfreeperiod'] > 0) print $langs->trans("TrialUntil", dol_print_date($contract->array_options['options_date_endfreeperiod'], 'day'));
 										else print $langs->trans("Trial");
@@ -1259,8 +1266,8 @@ if ($mode == 'instances')
 											if ($statuslabel == 'suspended') print ' - <span style="color: orange">'.$langs->trans("Suspended").'</span>';
 											else print ' - <span style="color: orange">'.$langs->trans("SuspendWillBeDoneSoon").'</span>';
 										}
-										if ($statuslabel == 'suspended') print ' - <a href="register_paymentmode.php">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>';
-										else print ' - <a href="register_paymentmode.php">'.$langs->trans("AddAPaymentMode").'</a>';
+										if ($statuslabel == 'suspended') print ' - <a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>';
+										else print ' - <a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode">'.$langs->trans("AddAPaymentMode").'</a>';
 									}
 									if ($foundtemplate > 1) print ' - <span class="bold">'.$langs->trans("WarningFoundMoreThanOneInvoicingTemplate").'</span>';
 									print '</span>';
@@ -1432,7 +1439,6 @@ if ($mode == 'billing')
 	<!-- END PAGE HEAD -->
 	<!-- END PAGE HEADER-->
 
-
 	    <div class="row">
 	      <div class="col-md-9">
 
@@ -1443,7 +1449,6 @@ if ($mode == 'billing')
 	              <span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("MyInvoices").'</span>
 	            </div>
 	          </div>
-
 ';
 
 		foreach ($listofcontractid as $id => $contract)
@@ -1563,11 +1568,49 @@ if ($mode == 'billing')
 	          </div>
 
 	          <div class="portlet-body">
-	            <p>
+	            <p>';
 
-	                '.$langs->trans("NoPaymentMethodOnFile").'.
+				//$societeaccount = new SocieteAccount($db);
+				$companypaymentmodetemp = new CompanyPaymentMode($db);
+
+				$sql='SELECT rowid FROM '.MAIN_DB_PREFIX."societe_rib";
+				$sql.=" WHERE type in ('card', 'paypal')";
+				$sql.=" AND fk_soc = ".$mythirdpartyaccount->id;
+
+				$resql = $db->query($sql);
+				if ($resql)
+				{
+					$num_rows = $db->num_rows($resql);
+					if ($num_rows)
+					{
+						$i=0;
+						while ($i < $num_rows)
+						{
+							$obj = $db->fetch_object($resql);
+							if ($obj)
+							{
+								if ($obj->status != 1) continue;
+
+								$companypaymentmodetemp->fetch($obj->rowid);
+
+								print '<tr>';
+								print '<td>';
+								print $companypaymentmodetemp->ref;
+								print '</td>';
+								print '</tr>';
+							}
+							$i++;
+						}
+					}
+					else
+					{
+						print $langs->trans("NoPaymentMethodOnFile");
+					}
+				}
+
+	            print '
 	                <br><br>
-	                <a href="register_paymentmode.php" class="btn default btn-xs green-stripe">'.$langs->trans("AddAPaymentMode").'</a>
+	                <a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode" class="btn default btn-xs green-stripe">'.$langs->trans("AddAPaymentMode").'</a>
 
 	            </p>
 	          </div> <!-- END PORTLET-BODY -->
@@ -1583,6 +1626,139 @@ if ($mode == 'billing')
 	';
 }
 
+
+
+if ($mode == 'registerpaymentmode')
+{
+	print '
+	<div class="page-content-wrapper">
+			<div class="page-content">
+
+
+	     <!-- BEGIN PAGE HEADER-->
+	<!-- BEGIN PAGE HEAD -->
+	<div class="page-head">
+	  <!-- BEGIN PAGE TITLE -->
+	<div class="page-title">
+	  <h1>'.$langs->trans("PaymentMode").' <small>'.$langs->trans("BillingDesc").'</small></h1>
+	</div>
+	<!-- END PAGE TITLE -->
+
+
+	</div>
+	<!-- END PAGE HEAD -->
+	<!-- END PAGE HEADER-->
+
+
+	    <div class="row">
+
+<div class="col-md-7">
+
+
+                  <div class="form-group">
+										<div class="radio-list">
+											<label class="radio-inline">
+                        <div class="radio"><span class="checked"><input type="radio" name="type" value="card" checked=""></span></div>
+                        <img src="/assets/mastercard_straight_32px-d8c3761d0241b4c285888a45d4ad3955.png">
+                        <img src="/assets/visa_straight_32px-b04c4de823f29374436caed87e733f37.png">
+                        <img src="/assets/american_express_straight_32px-addfa5418ca5716096dea156ba1af5f1.png">
+                      </label>
+											<label class="radio-inline">
+                        <div class="radio"><span class=""><input type="radio" name="type" value="payPal"></span></div>
+                        <img src="/assets/paypal_straight_32px-0f0033d7030f3636951419089f813136.png" alt="Acceptance Mark" width="50" height="31">
+                      </label>
+										</div>
+									</div>
+
+
+                <div id="cardForm" style="display: block;">
+                  <form action="/customerUI/updatePaymentMethodToCard" method="post">
+                    <div class="form-body">
+                      <input type="hidden" name="type" value="card">
+
+
+                      <div class="form-group">
+                        <label>Name on Card</label>
+                        <input name="name" value="" type="text" class="form-control input-large">
+                      </div>
+
+                      <div class="form-group">
+                        <label>Card Number</label>
+                        <input name="number" value="" type="text" class="form-control input-large">
+                      </div>
+
+                      <div class="form-group">
+                        <label>Expiry Date</label>
+                        <div>
+                          <input type="hidden" name="expDate" value="date.struct"><select name="expDate_month" id="expDate_month" style="null" class="form-control input-inline">
+<option value="1">janvier</option>
+<option value="2">février</option>
+<option value="3" selected="selected">mars</option>
+<option value="4">avril</option>
+<option value="5">mai</option>
+<option value="6">juin</option>
+<option value="7">juillet</option>
+<option value="8">août</option>
+<option value="9">septembre</option>
+<option value="10">octobre</option>
+<option value="11">novembre</option>
+<option value="12">décembre</option>
+</select>
+<select name="expDate_year" id="expDate_year" style="width:100px;" class="form-control input-inline">
+<option value="2018" selected="selected">2018</option>
+<option value="2019">2019</option>
+<option value="2020">2020</option>
+<option value="2021">2021</option>
+<option value="2022">2022</option>
+<option value="2023">2023</option>
+<option value="2024">2024</option>
+<option value="2025">2025</option>
+<option value="2026">2026</option>
+<option value="2027">2027</option>
+<option value="2028">2028</option>
+<option value="2029">2029</option>
+<option value="2030">2030</option>
+<option value="2031">2031</option>
+<option value="2032">2032</option>
+<option value="2033">2033</option>
+<option value="2034">2034</option>
+<option value="2035">2035</option>
+<option value="2036">2036</option>
+<option value="2037">2037</option>
+<option value="2038">2038</option>
+</select>
+
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label>CVN</label>
+                        <input name="cvn" value="" type="text" class="form-control input-xsmall">
+                      </div>
+
+                      <div>
+                        <a href="/customerUI/billingOverview" class="btn btn-default btn-circle">Cancel</a>
+                        <input type="submit" name="submit" value="Save Card" class="btn green-haze btn-circle" id="submit">
+                      </div>
+
+                    </div> <!-- END FORM-BODY -->
+                  </form>
+                </div> <!-- END CARD FORM -->
+
+                <div id="payPalForm" style="display: none;">
+                  <a href="/customerUI/billingOverview" class="btn btn-default btn-circle">Cancel</a>
+                  <a href="/customerUI/updatePaymentMethodToPayPal" class="btn green-haze btn-circle">Continue</a>
+                </div>
+
+              </div>
+
+	    </div> <!-- END ROW -->
+
+
+	    </div>
+		</div>
+	';
+}
 
 
 
@@ -1900,11 +2076,16 @@ if ($mode == 'myaccount')
 					{
 						print img_warning($langs->trans("WarningMandatorySetupNotComplete"), 'class="hideifnonassuj"');
 					}
+
+					$placeholderforvat='';
+					if ($mythirdpartyaccount->country_code == 'FR') $placeholderforvat='Exemple: FR12345678';
+					if ($mythirdpartyaccount->country_code == 'BE') $placeholderforvat='Exemple: BE12345678';
+
 					print '
 					<br>
                   <input type="checkbox" style="vertical-align: top" class="inline-block"'.($mythirdpartyaccount->tva_assuj?' checked="checked"':'').'" id="vatassuj" name="vatassuj"> '.$langs->trans("VATIsUsed").'
 					<br>
-                  <input type="text" class="input-small quatrevingtpercent hideifnonassuj" value="'.$mythirdpartyaccount->tva_intra.'" name="vatnumber" placeholder="">
+                  <input type="text" class="input-small quatrevingtpercent hideifnonassuj" value="'.$mythirdpartyaccount->tva_intra.'" name="vatnumber" placeholder="'.$placeholderforvat.'">
                 </div>
               </div>
               <!-- END FORM BODY -->
