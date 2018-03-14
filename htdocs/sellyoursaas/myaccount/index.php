@@ -1655,7 +1655,8 @@ if ($mode == 'billing')
 									print img_picto('paypal');
 									print '</td>';
 									print '<td>';
-									print 'Preaproval key: '.$companypaymentmodetemp->preapproval_key;
+									print $companypaymentmodetemp->email;
+									print '<br>'.'Preaproval key: '.$companypaymentmodetemp->preapproval_key;
 									print '</td>';
 									print '<td>';
 									print dol_print_date($companypaymentmodetemp->starting_date, 'day').'/'.dol_print_date($companypaymentmodetemp->ending_date, 'day');
