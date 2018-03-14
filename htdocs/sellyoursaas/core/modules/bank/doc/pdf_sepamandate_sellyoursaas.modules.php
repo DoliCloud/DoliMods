@@ -17,7 +17,7 @@
  */
 
 /**
- *	\file       htdocs/core/modules/bank/doc/pdf_sepamandate2.modules.php
+ *	\file       htdocs/core/modules/bank/doc/pdf_sepamandate_sellyoursaas.modules.php
  *	\ingroup    project
  *	\brief      File of class to generate document with template sepamandate
  */
@@ -30,10 +30,10 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
 require_once DOL_DOCUMENT_ROOT.'/core/modules/bank/doc/pdf_sepamandate.modules.php';
 
-/**
- *	Classe permettant de generer les projets au modele SEPAMandate
- */
 
+/**
+ *	Classe to generate SEPA mandate for SellyourSaas
+ */
 class pdf_sepamandate_sellyoursaas extends pdf_sepamandate
 {
 	var $emetteur;	// Objet societe qui emet
@@ -531,7 +531,7 @@ class pdf_sepamandate_sellyoursaas extends pdf_sepamandate
 
 		$pdf->SetXY($this->marge_gauche, $posy);
 		$pdf->SetFont('','', $default_font_size);
-		$pdf->MultiCell(100, 3, $outputlangs->transnoentitiesnoconv("PleaseReturnMandate", (empty($conf->global->SELLYOURSAAS_MAIN_EMAIL) ? $mysoc->email : $conf->global->SELLYOURSAAS_MAIN_EMAIL).':'), 0, 'L', 0);
+		$pdf->MultiCell(100, 3, $outputlangs->transnoentitiesnoconv("PleaseReturnMandate", (empty($conf->global->SELLYOURSAAS_MAIN_EMAIL) ? $mysoc->email : $conf->global->SELLYOURSAAS_MAIN_EMAIL)), 0, 'L', 0);
 		$posy=$pdf->GetY()+2;
 
 		$pdf->SetXY($this->marge_gauche, $posy);

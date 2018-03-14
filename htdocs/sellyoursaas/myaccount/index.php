@@ -292,7 +292,7 @@ if ($action == 'undeploy')
 		$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
 
 		dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
-		$sellyoursaasutils = new SellYourSaasUtils($this->db);
+		$sellyoursaasutils = new SellYourSaasUtils($db);
 		$result = $sellyoursaasutils->sellyoursaasRemoteAction('undeploy', $contract);
 		if ($result < 0)
 		{
@@ -591,12 +591,17 @@ if ($categorie->containsObject('supplier', $mythirdpartyaccount->id))
 
 if (empty($welcomecid))	// Show warning
 {
+	$companypaymentmode = new CompanyPaymentMode($db);
+	$result = $companypaymentmode->fetch(0, null, $mythirdpartyaccount->id);
+	$atleastonepaymentmode = 1;
+
 	foreach ($listofcontractid as $contractid => $contract)
 	{
 		if ($contract->array_options['options_deployment_status'] == 'undeployed') continue;
 
 		$isapaidinstance = sellyoursaasIsPaidInstance($contract);
 		$expirationdate = sellyoursaasGetExpirationDate($contract);
+
 
 		if (! $isapaidinstance && $contract->array_options['options_date_endfreeperiod'] > 0)
 		{
@@ -605,30 +610,57 @@ if (empty($welcomecid))	// Show warning
 			$delaybeforeendoftrial = ($dateendfreeperiod - dol_now());
 			$delayindays = round($delaybeforeendoftrial / 3600 / 24);
 
-			if ($delaybeforeendoftrial > 0)
+			if (empty($atleastonepaymentmode))
 			{
+				if ($delaybeforeendoftrial > 0)
+				{
 
-				$firstline = reset($contract->lines);
-				print '
-					<div class="note note-warning">
-					<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrial", abs($delayindays), $contract->ref_customer).' !</h4>
-					<p>
-					<a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode" class="btn btn-warning">'.$langs->trans("AddAPaymentMode").'</a>
-					</p>
-					</div>
-				';
+					$firstline = reset($contract->lines);
+					print '
+						<div class="note note-warning">
+						<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrial", abs($delayindays), $contract->ref_customer).' !</h4>
+						<p>
+						<a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode" class="btn btn-warning">';
+					print $langs->trans("AddAPaymentMode");
+					print '</a>
+						</p>
+						</div>
+					';
+				}
+				else
+				{
+					$firstline = reset($contract->lines);
+					print '
+						<div class="note note-warning">
+						<h4 class="block">'.$langs->trans("XDaysAfterEndOfTrial", $contract->ref_customer, abs($delayindays)).' !</h4>
+						<p>
+						<a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode" class="btn btn-warning">';
+					print $langs->trans("AddAPaymentModeToRestoreInstance");
+					print '</a>
+						</p>
+						</div>
+					';
+				}
 			}
 			else
 			{
-				$firstline = reset($contract->lines);
-				print '
-					<div class="note note-warning">
-					<h4 class="block">'.$langs->trans("XDaysAfterEndOfTrial", $contract->ref_customer, abs($delayindays)).' !</h4>
-					<p>
-					<a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode" class="btn btn-warning">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>
-					</p>
-					</div>
-				';
+				if ($delaybeforeendoftrial > 0)
+				{
+					$firstline = reset($contract->lines);
+					print '
+						<div class="note note-info">
+						<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrialPaymentModeSet", abs($delayindays), $contract->ref_customer).'</h4>
+						</div>
+					';
+				}
+				else
+				{
+					print '
+						<div class="note note-info">
+						<h4 class="block">'.$langs->trans("XDaysAfterEndOfTrialPaymentModeSet", $contract->ref_customer, abs($delayindays)).'</h4>
+						</div>
+					';
+				}
 			}
 		}
 
@@ -1281,12 +1313,14 @@ if ($mode == 'instances')
 				                <p class="opacitymedium" style="padding: 15px">'.$langs->trans("TheURLDomainOfYourInstance").' :</p>
 								<form class="form-group" action="'.$_SERVER["PHP_SELF"].'" method="POST">
 								<div class="col-md-9">
-									<input type="text" class="urlofinstance" value="'.$contract->ref_customer.'">
+									<input type="text" class="urlofinstance" disabled="disabled" value="'.$contract->ref_customer.'">
 									<input type="hidden" name="mode" value="instances"/>
 									<input type="hidden" name="action" value="updateurl" />
 									<input type="hidden" name="contractid" value="'.$contract->id.'" />
 									<input type="hidden" name="tab" value="domain_'.$contract->id.'" />
-									<input type="submit" class="btn btn-warning default change-domain-link" name="changedomain" value="'.$langs->trans("ChangeDomain").'">
+								';
+								//print '<input type="submit" class="btn btn-warning default change-domain-link" name="changedomain" value="'.$langs->trans("ChangeDomain").'">';
+								print '
 								</div>
 							  	</form>
 				            </div>
@@ -1570,11 +1604,13 @@ if ($mode == 'billing')
 	          <div class="portlet-body">
 	            <p>';
 
+				$nbpaymentmodeok = 0;
+
 				//$societeaccount = new SocieteAccount($db);
 				$companypaymentmodetemp = new CompanyPaymentMode($db);
 
-				$sql='SELECT rowid FROM '.MAIN_DB_PREFIX."societe_rib";
-				$sql.=" WHERE type in ('card', 'paypal')";
+				$sql='SELECT rowid, default_rib FROM '.MAIN_DB_PREFIX."societe_rib";
+				$sql.=" WHERE type in ('ban', 'card', 'paypal')";
 				$sql.=" AND fk_soc = ".$mythirdpartyaccount->id;
 
 				$resql = $db->query($sql);
@@ -1583,24 +1619,54 @@ if ($mode == 'billing')
 					$num_rows = $db->num_rows($resql);
 					if ($num_rows)
 					{
+						print '<table class="centpercent">';
+
 						$i=0;
 						while ($i < $num_rows)
 						{
 							$obj = $db->fetch_object($resql);
 							if ($obj)
 							{
-								if ($obj->status != 1) continue;
+								if ($obj->default_rib != 1) continue;
 
+								$nbpaymentmodeok++;
 								$companypaymentmodetemp->fetch($obj->rowid);
 
-								print '<tr>';
-								print '<td>';
-								print $companypaymentmodetemp->ref;
-								print '</td>';
-								print '</tr>';
+								if ($companypaymentmodetemp->type == 'card')
+								{
+									print '<tr>';
+									print '<td>';
+									print '<!-- '.$companypaymentmodetemp->id.' -->';
+									print img_credit_card($companypaymentmodetemp->type_card);
+									print '</td>';
+									print '<td>';
+									print '....'.$companypaymentmodetemp->last_four;
+									print '</td>';
+									print '<td>';
+									print $companypaymentmodetemp->exp_date_month.'/'.$companypaymentmodetemp->exp_date_year;
+									print '</td>';
+									print '</tr>';
+								}
+								if ($companypaymentmodetemp->type == 'paypal')
+								{
+									print '<tr>';
+									print '<td>';
+									print '<!-- '.$companypaymentmodetemp->id.' -->';
+									print img_picto('paypal');
+									print '</td>';
+									print '<td>';
+									print 'Preaproval key: '.$companypaymentmodetemp->preapproval_key;
+									print '</td>';
+									print '<td>';
+									print dol_print_date($companypaymentmodetemp->starting_date, 'day').'/'.dol_print_date($companypaymentmodetemp->ending_date, 'day');
+									print '</td>';
+									print '</tr>';
+								}
 							}
 							$i++;
 						}
+
+						print '</table>';
 					}
 					else
 					{
@@ -1610,7 +1676,10 @@ if ($mode == 'billing')
 
 	            print '
 	                <br><br>
-	                <a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode" class="btn default btn-xs green-stripe">'.$langs->trans("AddAPaymentMode").'</a>
+	                <a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode" class="btn default btn-xs green-stripe">';
+	            	if ($nbpaymentmodeok) print $langs->trans("ModifyPaymentMode");
+	            	else print $langs->trans("AddAPaymentMode");
+	                print '</a>
 
 	            </p>
 	          </div> <!-- END PORTLET-BODY -->
