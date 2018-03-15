@@ -1229,7 +1229,6 @@ if ($mode == 'instances')
 						print '</form>';
 						print '</div>';
 				     print '</div>';
-var_dump($_SESSION);
 
 				     print '
 				      <div class="portlet-body" style="'.$displayforinstance.'">

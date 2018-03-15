@@ -73,7 +73,7 @@ class ActionsSellyoursaas
 		    		$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?dol_login='.$object->id.'&dol_login_hash='.$dol_login_hash;
 		    	}
 
-		    	$this->resprints = ' (<a href="'.$url.'" target="_myaccount" alt="'.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span> '.$conf->global->SELLYOURSAAS_NAME.' '.$langs->trans("Dashboard").'</a>)';
+		    	$this->resprints = ' - <a href="'.$url.'" target="_myaccount" alt="'.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span> '.$conf->global->SELLYOURSAAS_NAME.' '.$langs->trans("Dashboard").'</a>';
 	    	}
     	}
 
@@ -327,8 +327,9 @@ class ActionsSellyoursaas
     /**
      * Complete search forms
      *
-     * @param	array	$parameters		Array of parameters
-     * @return	int						1=Replace standard code, 0=Continue standard code
+     * @param	array			$parameters		Array of parameters
+     * @param	CommonObject    $object         The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
+     * @return	int								1=Replace standard code, 0=Continue standard code
      */
     function moreHtmlStatus($parameters)
     {
@@ -350,8 +351,68 @@ class ActionsSellyoursaas
     		}
     	}
 
+    	/*if ($parameters['currentcontext'] == 'thirdpartycard')
+    	{
+    		if ($object->element == 'societe')
+    		{
+    			// Dashboard
+    			if ($user->admin && ! empty($object->array_options['options_dolicloud']))
+    			{
+    				if ($object->array_options['options_dolicloud'] == 'yesv1')
+    				{
+    					$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email;	// Note that password may have change and not being the one of dolibarr admin user
+    				}
+    				if ($object->array_options['options_dolicloud'] == 'yesv2')
+    				{
+    					$dol_login_hash=dol_hash('sellyoursaas'.$object->id.dol_print_date(dol_now,'dayrfc','gmt'));
+    					$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?dol_login='.$object->id.'&dol_login_hash='.$dol_login_hash;
+    				}
+
+    				$this->resprints = '<br><div class="clearboth floatright"><a href="'.$url.'" target="_myaccount" alt="'.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span> '.$conf->global->SELLYOURSAAS_NAME.' '.$langs->trans("Dashboard").'</a></div>';
+    			}
+    		}
+    	}*/
+
     	return 0;
     }
+
+
+    /**
+     * Complete search forms
+     *
+     * @param	array			$parameters		Array of parameters
+     * @return	int								1=Replace standard code, 0=Continue standard code
+     */
+    function printEmail($parameters)
+    {
+    	global $conf, $langs, $user;
+		global $object;
+
+    	if ($parameters['currentcontext'] == 'thirdpartycard')
+    	{
+    		if ($object->element == 'societe')
+    		{
+    			// Dashboard
+    			if ($user->admin && ! empty($object->array_options['options_dolicloud']))
+    			{
+    				if ($object->array_options['options_dolicloud'] == 'yesv1')
+    				{
+    					$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email;	// Note that password may have change and not being the one of dolibarr admin user
+    				}
+    				if ($object->array_options['options_dolicloud'] == 'yesv2')
+    				{
+    					$dol_login_hash=dol_hash('sellyoursaas'.$object->id.dol_print_date(dol_now,'dayrfc','gmt'));
+    					$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?dol_login='.$object->id.'&dol_login_hash='.$dol_login_hash;
+    				}
+
+    				$this->resprints = '<br><div class="clearboth"><a href="'.$url.'" target="_myaccount" alt="'.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span> '.$conf->global->SELLYOURSAAS_NAME.' '.$langs->trans("Dashboard").'</a></div>';
+    			}
+    		}
+    	}
+
+    	return 0;
+    }
+
 
 
     /**
