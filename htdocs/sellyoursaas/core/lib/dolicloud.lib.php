@@ -94,13 +94,17 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
 	$links.='<br>';
 
 	// Dashboard
-	if ($instanceoldid)
+	if ($user->admin && ! empty($object->array_options['options_dolicloud']))
 	{
-		$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email.'&amp;password='.$object->password_web;	// Note that password may have change and not being the one of dolibarr admin user
-	}
-	else
-	{
-		$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?email='.$object->email.'&amp;password='.$object->password_web;	// Note that password may have change and not being the one of dolibarr admin user
+		if ($object->array_options['options_dolicloud'] == 'yesv1')
+		{
+			$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email.'&amp;password='.$object->password_web;	// Note that password may have change and not being the one of dolibarr admin user
+		}
+		if ($object->array_options['options_dolicloud'] == 'yesv2')
+		{
+			$dol_login_hash=dol_hash('sellyoursaas'.$object->id.dol_print_date(dol_now,'dayrfc','gmt'));
+			$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?dol_login='.$object->id.'&dol_login_hash='.$dol_login_hash;	// Note that password may have change and not being the one of dolibarr admin user
+		}
 	}
 	$link='<a href="'.$url.'" target="_blank" id="dashboardlink">'.$url.'</a>';
 	$links.='Dashboard: ';

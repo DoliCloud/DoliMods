@@ -44,16 +44,52 @@ class ActionsSellyoursaas
     }
 
 
+    /**
+     *    Execute action
+     *
+     *    @param	array			$parameters		Array of parameters
+     *    @param	CommonObject    $object         The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
+     *    @param    string			$action      	'add', 'update', 'view'
+     *    @return   int         					<0 if KO,
+     *                              				=0 if OK but we want to process standard actions too,
+     *                              				>0 if OK and we want to replace standard actions.
+     */
+    function getNomUrl($parameters,&$object,&$action)
+    {
+    	global $db,$langs,$conf,$user;
+
+    	if ($object->element == 'societe')
+    	{
+	    	// Dashboard
+	    	if ($user->admin && ! empty($object->array_options['options_dolicloud']))
+	    	{
+	    		if ($object->array_options['options_dolicloud'] == 'yesv1')
+		    	{
+		    		$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email;	// Note that password may have change and not being the one of dolibarr admin user
+		    	}
+		    	if ($object->array_options['options_dolicloud'] == 'yesv2')
+		    	{
+		    		$dol_login_hash=dol_hash('sellyoursaas'.$object->id.dol_print_date(dol_now,'dayrfc','gmt'));
+		    		$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?dol_login='.$object->id.'&dol_login_hash='.$dol_login_hash;
+		    	}
+
+		    	$this->resprints = ' (<a href="'.$url.'" target="_myaccount" alt="'.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span> '.$conf->global->SELLYOURSAAS_NAME.' '.$langs->trans("Dashboard").'</a>)';
+	    	}
+    	}
+
+    	return 0;
+    }
+
 
     /**
      *    Execute action
      *
-     *    @param	array	$parameters		Array of parameters
-     *    @param    mixed	$object      	Deprecated. This field is not used
-     *    @param    string	$action      	'add', 'update', 'view'
-     *    @return   int         			<0 if KO,
-     *                              		=0 if OK but we want to process standard actions too,
-     *                              		>0 if OK and we want to replace standard actions.
+     *    @param	array	$parameters				Array of parameters
+     *    @param	CommonObject    $object         The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
+     *    @param    string	$action      			'add', 'update', 'view'
+     *    @return   int         					<0 if KO,
+     *                              				=0 if OK but we want to process standard actions too,
+     *                              				>0 if OK and we want to replace standard actions.
      */
     function addMoreActionsButtons($parameters,&$object,&$action)
     {
@@ -118,12 +154,12 @@ class ActionsSellyoursaas
     /**
      *    Execute action
      *
-     *    @param	array	$parameters		Array of parameters
-     *    @param    mixed	$object      	Deprecated. This field is not used
-     *    @param    string	$action      	'add', 'update', 'view'
-     *    @return   int         			<0 if KO,
-     *                              		=0 if OK but we want to process standard actions too,
-     *                              		>0 if OK and we want to replace standard actions.
+     *    @param	array			$parameters		Array of parameters
+     *    @param	CommonObject    $object         The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
+     *    @param    string			$action      	'add', 'update', 'view'
+     *    @return   int         					<0 if KO,
+     *                              				=0 if OK but we want to process standard actions too,
+     *                              				>0 if OK and we want to replace standard actions.
      */
     function doActions($parameters,&$object,&$action)
     {

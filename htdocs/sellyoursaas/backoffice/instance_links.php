@@ -16,7 +16,7 @@
 */
 
 /**
- *       \file       htdocs/sellyoursaas/backoffice/dolicloud_card.php
+ *       \file       htdocs/sellyoursaas/backoffice/instance_links.php
  *       \ingroup    societe
  *       \brief      Card of a contact
  */
@@ -242,7 +242,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		}
 		else
 		{
-			setEventMessages('Success to connect to server, but failed to swith on database.'.$newdb->lasterror(), null, 'errors');
+			setEventMessages('Success to connect to server, but failed to switch on database.'.$newdb->lasterror(), null, 'errors');
 		}
 	}
 
