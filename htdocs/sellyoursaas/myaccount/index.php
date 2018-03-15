@@ -1193,9 +1193,10 @@ if ($mode == 'instances')
 				          <ul class="nav nav-tabs nav-justified">
 				            <li><a id="a_tab_resource_'.$contract->id.'" href="#tab_resource_'.$contract->id.'" data-toggle="tab"'.(! in_array($action, array('updateurlxxx')) ? ' class="active"' : '').'>'.$langs->trans("ResourcesAndOptions").'</a></li>
 				            <li><a id="a_tab_domain_'.$contract->id.'" href="#tab_domain_'.$contract->id.'" data-toggle="tab"'.($action == 'updateurlxxx' ? ' class="active"' : '').'>'.$langs->trans("Domain").'</a></li>';
-				     		if ($directaccess) print '<li><a id="a_tab_ssh_'.$contract->id.'" href="#tab_ssh_'.$contract->id.'" data-toggle="tab">'.$langs->trans("SSH").' / '.$langs->trans("SFTP").'</a></li>';
-				     		if ($directaccess) print '<li><a id="a_tab_db_'.$contract->id.'" href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>';
-				            print '<li><a id="a_tab_danger_'.$contract->id.'" href="#tab_danger_'.$contract->id.'" data-toggle="tab">'.$langs->trans("DangerZone").'</a></li>
+				 		    if (! $statuslabel && $directaccess) print '<li><a id="a_tab_ssh_'.$contract->id.'" href="#tab_ssh_'.$contract->id.'" data-toggle="tab">'.$langs->trans("SSH").' / '.$langs->trans("SFTP").'</a></li>';
+				     		if (! $statuslabel && $directaccess) print '<li><a id="a_tab_db_'.$contract->id.'" href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>';
+				     		if (! $statuslabel) print '<li><a id="a_tab_danger_'.$contract->id.'" href="#tab_danger_'.$contract->id.'" data-toggle="tab">'.$langs->trans("DangerZone").'</a></li>';
+				     	print '
 				          </ul>
 
 				          <div class="tab-content">
@@ -1468,7 +1469,7 @@ if ($mode == 'instances')
 									<input type="hidden" name="action" value="undeploy" />
 									<input type="hidden" name="contractid" value="'.$contract->id.'" />
 									<input type="hidden" name="tab" value="danger_'.$contract->id.'" />
-									<input type="submit" class="btn btn-danger" name="changedomain" value="'.$langs->trans("UndeployInstance").'">
+									<input type="submit" class="btn btn-danger" name="undeploy" value="'.$langs->trans("UndeployInstance").'">
 								</p>
 				              </div>
 							</form>
