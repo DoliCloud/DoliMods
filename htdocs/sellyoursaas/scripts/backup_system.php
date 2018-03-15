@@ -91,7 +91,7 @@ if ($connection)
 {
 	if (! @ssh2_auth_password($connection, $login, $password))
 	{
-		dol_syslog("Could not authenticate with username ".$login." . and password ".$password,LOG_ERR);
+		dol_syslog("Could not authenticate with username ".$login." . and password ".preg_replace('/./', '*', $password), LOG_ERR);
 		exit(-5);
 	}
 	else

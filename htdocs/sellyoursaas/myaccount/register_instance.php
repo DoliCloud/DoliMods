@@ -54,7 +54,6 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/cron/class/cronjob.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
 
@@ -150,6 +149,7 @@ if ($reusecontractid)		// When we use the "Restart deploy" after error from acco
 	$newurl=preg_replace('/register_instance/', 'index', $newurl);
 	if (! preg_match('/\?/', $newurl)) $newurl.='?';
 	$newurl.='&mode=instances';
+	$newurl.='&reusecontractid='.$reusecontractid;
 }
 elseif ($reusesocid)		// When we use the "Add another instance" from account backoffice
 {
@@ -640,8 +640,8 @@ if (! $error)
 
 	complete_substitutions_array($substitutionarray, $langs, $contract);
 
-	$subject = make_substitutions($arraydefaultmessage['topic'], $substitutionarray, $langs);
-	$msg     = make_substitutions($arraydefaultmessage['content'], $substitutionarray, $langs);
+	$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langs);
+	$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langs);
 	$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
 	$to = $contract->thirdparty->email;
 

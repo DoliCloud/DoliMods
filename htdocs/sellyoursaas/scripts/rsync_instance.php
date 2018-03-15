@@ -165,7 +165,7 @@ if ($mode == 'confirmunlock')
 		//print $object->instance." ".$object->username_web." ".$object->password_web."<br>\n";
 		if (! @ssh2_auth_password($connection, $object->username_web, $object->password_web))
 		{
-			dol_syslog("Could not authenticate with username ".$username." . and password ".$password,LOG_ERR);
+			dol_syslog("Could not authenticate with username ".$username." . and password ".preg_replace('/./', '*', $password), LOG_ERR);
 			exit(-5);
 		}
 		else

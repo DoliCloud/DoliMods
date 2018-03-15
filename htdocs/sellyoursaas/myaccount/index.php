@@ -613,14 +613,13 @@ if ($welcomecid > 0)
 	print '
 		</div> <!-- END PORTLET -->
 
-
         </div>
       </div>
 	';
 }
 
-
-if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE))	// Show warning
+// Show global announce
+if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE))
 {
 
 	print '
@@ -648,11 +647,44 @@ if ($categorie->containsObject('supplier', $mythirdpartyaccount->id))
 	';
 }
 
+
+
+// Fill array of company payment modes
+$arrayofcompanypaymentmode = array();
+$sql='SELECT rowid, default_rib FROM '.MAIN_DB_PREFIX."societe_rib";
+$sql.=" WHERE type in ('ban', 'card', 'paypal')";
+$sql.=" AND fk_soc = ".$mythirdpartyaccount->id;
+$resql = $db->query($sql);
+if ($resql)
+{
+	$num_rows = $db->num_rows($resql);
+	if ($num_rows)
+	{
+		$i=0;
+		while ($i < $num_rows)
+		{
+			$obj = $db->fetch_object($resql);
+			if ($obj)
+			{
+				if ($obj->default_rib != 1) continue;	// Keep the default payment mode only
+
+				$companypaymentmodetemp = new CompanyPaymentMode($db);
+				$companypaymentmodetemp->fetch($obj->rowid);
+
+				$arrayofcompanypaymentmode[] = $companypaymentmodetemp;
+			}
+			$i++;
+		}
+	}
+}
+$atleastonepaymentmode = (count($arrayofcompanypaymentmode) > 0 ? 1 : 0);
+
+
+
 if (empty($welcomecid))	// Show warning
 {
 	$companypaymentmode = new CompanyPaymentMode($db);
 	$result = $companypaymentmode->fetch(0, null, $mythirdpartyaccount->id);
-	$atleastonepaymentmode = 1;
 
 	foreach ($listofcontractid as $contractid => $contract)
 	{
@@ -660,7 +692,6 @@ if (empty($welcomecid))	// Show warning
 
 		$isapaidinstance = sellyoursaasIsPaidInstance($contract);
 		$expirationdate = sellyoursaasGetExpirationDate($contract);
-
 
 		if (! $isapaidinstance && $contract->array_options['options_date_endfreeperiod'] > 0)
 		{
@@ -673,7 +704,6 @@ if (empty($welcomecid))	// Show warning
 			{
 				if ($delaybeforeendoftrial > 0)
 				{
-
 					$firstline = reset($contract->lines);
 					print '
 						<div class="note note-warning">
@@ -1030,17 +1060,31 @@ if ($mode == 'instances')
 		dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
 		$sellyoursaasutils = new SellYourSaasUtils($db);
 
+		$arrayforsort = array();
 		foreach ($listofcontractid as $id => $contract)
 		{
+			$position = 20;
+			if ($contract->array_options['options_deployment_status'] == 'processing') $position = 1;
+			if ($contract->array_options['options_deployment_status'] == 'suspended')  $position = 10;
+			if ($contract->array_options['options_deployment_status'] == 'done')       $position = 20;
+			if ($contract->array_options['options_deployment_status'] == 'undeployed') $position = 100;
+			$arrayforsort[$id] = array('position'=>$position, 'id'=>$id, 'contract'=>$contract);
+		}
+		$arrayforsort = dol_sort_array($arrayforsort, 'position');
+
+		foreach ($arrayforsort as $id => $tmparray)
+		{
+			$id = $tmparray['id'];
+			$contract = $tmparray['contract'];
+
 			// Update resources of instance
 			$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
-			/*if ($result <= 0)
+			if ($result <= 0)
 			{
 				$error++;
-				$this->error=$sellyoursaasutils->error;
-				$this->errors=$sellyoursaasutils->errors;
+				setEventMessages($langs->trans("ErrorRefreshOfResourceFailed").' : '.$sellyoursaasutils->error, $sellyoursaasutils->errors, 'warnings');
 			}
-			else
+			/*else
 			{
 				setEventMessages($langs->trans("ResourceComputed"), null, 'mesgs');
 			}*/
@@ -1081,11 +1125,11 @@ if ($mode == 'instances')
 					}
 				}
 			}
+			$color = "green"; $displayforinstance = "";
+			if ($statuslabel == 'processing') { $color = 'orange'; }
+			if ($statuslabel == 'suspended')  { $color = 'orange'; }
+			if ($statuslabel == 'undeployed') { $color = 'grey'; $displayforinstance='display:none;'; }
 
-			$color = "green";
-			if ($statuslabel == 'processing') $color = 'orange';
-			if ($statuslabel == 'suspended') $color = 'orange';
-			if ($statuslabel == 'undeployed') $color = 'grey';
 
 			print '
 			    <div class="row" id="contractid'.$contract->id.'" data-contractref="'.$contract->ref.'">
@@ -1184,18 +1228,19 @@ if ($mode == 'instances')
 				          </p>';
 						print '</form>';
 						print '</div>';
-				     print '</div>
+				     print '</div>';
 
 
-				      <div class="portlet-body" style="">
+				     print '
+				      <div class="portlet-body" style="'.$displayforinstance.'">
 
 				        <div class="tabbable-custom nav-justified">
 				          <ul class="nav nav-tabs nav-justified">
 				            <li><a id="a_tab_resource_'.$contract->id.'" href="#tab_resource_'.$contract->id.'" data-toggle="tab"'.(! in_array($action, array('updateurlxxx')) ? ' class="active"' : '').'>'.$langs->trans("ResourcesAndOptions").'</a></li>
 				            <li><a id="a_tab_domain_'.$contract->id.'" href="#tab_domain_'.$contract->id.'" data-toggle="tab"'.($action == 'updateurlxxx' ? ' class="active"' : '').'>'.$langs->trans("Domain").'</a></li>';
-				 		    if (! $statuslabel && $directaccess) print '<li><a id="a_tab_ssh_'.$contract->id.'" href="#tab_ssh_'.$contract->id.'" data-toggle="tab">'.$langs->trans("SSH").' / '.$langs->trans("SFTP").'</a></li>';
-				     		if (! $statuslabel && $directaccess) print '<li><a id="a_tab_db_'.$contract->id.'" href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>';
-				     		if (! $statuslabel) print '<li><a id="a_tab_danger_'.$contract->id.'" href="#tab_danger_'.$contract->id.'" data-toggle="tab">'.$langs->trans("DangerZone").'</a></li>';
+				 		    if (in_array($statuslabel, array('done','suspended')) && $directaccess) print '<li><a id="a_tab_ssh_'.$contract->id.'" href="#tab_ssh_'.$contract->id.'" data-toggle="tab">'.$langs->trans("SSH").' / '.$langs->trans("SFTP").'</a></li>';
+				 		    if (in_array($statuslabel, array('done','suspended'))  && $directaccess) print '<li><a id="a_tab_db_'.$contract->id.'" href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>';
+				 		    if (in_array($statuslabel, array('done','suspended')) ) print '<li><a id="a_tab_danger_'.$contract->id.'" href="#tab_danger_'.$contract->id.'" data-toggle="tab">'.$langs->trans("DangerZone").'</a></li>';
 				     	print '
 				          </ul>
 
@@ -1358,8 +1403,29 @@ if ($mode == 'instances')
 											if ($statuslabel == 'suspended') print ' - <span style="color: orange">'.$langs->trans("Suspended").'</span>';
 											else print ' - <span style="color: orange">'.$langs->trans("SuspendWillBeDoneSoon").'</span>';
 										}
-										if ($statuslabel == 'suspended') print ' - <a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>';
-										else print ' - <a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode">'.$langs->trans("AddAPaymentMode").'</a>';
+										if ($statuslabel == 'suspended')
+										{
+											if (empty($atleastonepaymentmode))
+											{
+												print ' - <a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>';
+											}
+											else
+											{
+												print ' - <a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode">'.$langs->trans("FixPaymentModeToRestoreInstance").'</a>';
+											}
+										}
+										else
+										{
+											if (empty($atleastonepaymentmode))
+											{
+												print ' - <a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode">'.$langs->trans("AddAPaymentMode").'</a>';
+											}
+											else
+											{
+												// TODO Change message if there is invoice error
+												print ' - '.$langs->trans("APaymentModeWasRecorded");
+											}
+										}
 									}
 									if ($foundtemplate > 1) print ' - <span class="bold">'.$langs->trans("WarningFoundMoreThanOneInvoicingTemplate").'</span>';
 									print '</span>';
@@ -1752,75 +1818,52 @@ if ($mode == 'billing')
 	          <div class="portlet-body">
 	            <p>';
 
-				$nbpaymentmodeok = 0;
+				$nbpaymentmodeok = count($arrayofcompanypaymentmode);
 
-				//$societeaccount = new SocieteAccount($db);
-				$companypaymentmodetemp = new CompanyPaymentMode($db);
-
-				$sql='SELECT rowid, default_rib FROM '.MAIN_DB_PREFIX."societe_rib";
-				$sql.=" WHERE type in ('ban', 'card', 'paypal')";
-				$sql.=" AND fk_soc = ".$mythirdpartyaccount->id;
-
-				$resql = $db->query($sql);
-				if ($resql)
+				if ($nbpaymentmodeok > 0)
 				{
-					$num_rows = $db->num_rows($resql);
-					if ($num_rows)
-					{
-						print '<table class="centpercent">';
+					print '<table class="centpercent">';
 
-						$i=0;
-						while ($i < $num_rows)
+					foreach($arrayofcompanypaymentmode as $companypaymentmodetemp)
+					{
+						if ($companypaymentmodetemp->type == 'card')
 						{
-							$obj = $db->fetch_object($resql);
-							if ($obj)
-							{
-								if ($obj->default_rib != 1) continue;
-
-								$nbpaymentmodeok++;
-								$companypaymentmodetemp->fetch($obj->rowid);
-
-								if ($companypaymentmodetemp->type == 'card')
-								{
-									print '<tr>';
-									print '<td>';
-									print '<!-- '.$companypaymentmodetemp->id.' -->';
-									print img_credit_card($companypaymentmodetemp->type_card);
-									print '</td>';
-									print '<td>';
-									print '....'.$companypaymentmodetemp->last_four;
-									print '</td>';
-									print '<td>';
-									print $companypaymentmodetemp->exp_date_month.'/'.$companypaymentmodetemp->exp_date_year;
-									print '</td>';
-									print '</tr>';
-								}
-								if ($companypaymentmodetemp->type == 'paypal')
-								{
-									print '<tr>';
-									print '<td>';
-									print '<!-- '.$companypaymentmodetemp->id.' -->';
-									print img_picto('paypal');
-									print '</td>';
-									print '<td>';
-									print $companypaymentmodetemp->email;
-									print '<br>'.'Preaproval key: '.$companypaymentmodetemp->preapproval_key;
-									print '</td>';
-									print '<td>';
-									print dol_print_date($companypaymentmodetemp->starting_date, 'day').'/'.dol_print_date($companypaymentmodetemp->ending_date, 'day');
-									print '</td>';
-									print '</tr>';
-								}
-							}
-							$i++;
+							print '<tr>';
+							print '<td>';
+							print '<!-- '.$companypaymentmodetemp->id.' -->';
+							print img_credit_card($companypaymentmodetemp->type_card);
+							print '</td>';
+							print '<td>';
+							print '....'.$companypaymentmodetemp->last_four;
+							print '</td>';
+							print '<td>';
+							print sprintf("%02d",$companypaymentmodetemp->exp_date_month).'/'.$companypaymentmodetemp->exp_date_year;
+							print '</td>';
+							print '</tr>';
 						}
+						if ($companypaymentmodetemp->type == 'paypal')
+						{
+							print '<tr>';
+							print '<td>';
+							print '<!-- '.$companypaymentmodetemp->id.' -->';
+							print img_picto('paypal');
+							print '</td>';
+							print '<td>';
+							print $companypaymentmodetemp->email;
+							print '<br>'.'Preaproval key: '.$companypaymentmodetemp->preapproval_key;
+							print '</td>';
+							print '<td>';
+							print dol_print_date($companypaymentmodetemp->starting_date, 'day').'/'.dol_print_date($companypaymentmodetemp->ending_date, 'day');
+							print '</td>';
+							print '</tr>';
+						}
+					}
 
-						print '</table>';
-					}
-					else
-					{
-						print $langs->trans("NoPaymentMethodOnFile");
-					}
+					print '</table>';
+				}
+				else
+				{
+					print $langs->trans("NoPaymentMethodOnFile");
 				}
 
 	            print '

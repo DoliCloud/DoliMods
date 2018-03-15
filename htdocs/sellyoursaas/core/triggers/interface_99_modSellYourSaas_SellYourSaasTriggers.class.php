@@ -136,8 +136,8 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         				$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $contract);
         				complete_substitutions_array($substitutionarray, $langs, $contract);
 
-        				$subject = make_substitutions($arraydefaultmessage['topic'], $substitutionarray, $langs);
-        				$msg     = make_substitutions($arraydefaultmessage['content'], $substitutionarray, $langs);
+        				$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langs);
+        				$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langs);
         				$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
         				$to = $contract->thirdparty->email;
 

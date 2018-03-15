@@ -133,8 +133,8 @@ class SellYourSaasUtils
     					complete_substitutions_array($substitutionarray, $outputlangs, $object);
 
     					//$object->array_options['options_deployment_status'] = 'suspended';
-    					$subject = make_substitutions($arraydefaultmessage['topic'], $substitutionarray);
-    					$msg     = make_substitutions($arraydefaultmessage['content'], $substitutionarray);
+    					$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray);
+    					$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray);
     					$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
     					$to = $object->thirdparty->email;
 
@@ -546,7 +546,7 @@ class SellYourSaasUtils
     				if (! @ssh2_auth_password($connection, $object->array_options['options_username_os'], $object->array_options['options_password_os']))
     				{
     					dol_syslog("Could not authenticate with username ".$object->array_options['options_username_os'], LOG_WARNING);
-    					$this->errors[] = "Could not authenticate with username ".$object->array_options['options_username_os']." and password ".$object->array_options['options_password_os'];
+    					$this->errors[] = "Could not authenticate with username ".$object->array_options['options_username_os']." and password ".preg_replace('/./', '*', $object->array_options['options_password_os']);
     					$error++;
     				}
     				else

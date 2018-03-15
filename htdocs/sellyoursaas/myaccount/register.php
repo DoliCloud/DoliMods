@@ -48,6 +48,7 @@ if (! $res) die("Include of main fails");
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 
 // Re set variables specific to new environment
 $conf->global->SYSLOG_FILE_ONEPERSESSION=1;
@@ -59,6 +60,11 @@ $langs->loadLangs(array("main","companies","sellyoursaas@sellyoursaas","errors")
 $partner=GETPOST('partner','alpha');
 $partnerkey=GETPOST('partnerkey','alpha');
 $plan=GETPOST('plan','alpha');
+$sldAndSubdomain=GETPOST('sldAndSubdomain','alpha');
+$tldid=GETPOST('tldid','alpha');
+
+$reusecontractid = GETPOST('reusecontractid','int');
+$reusesocid = GETPOST('reusesocid','int');
 $socid=GETPOST('socid','int')?GETPOST('socid','int'):GETPOST('reusesocid','int');
 
 $productid=GETPOST('service','int');
@@ -92,6 +98,17 @@ if ($partner)
 		print 'Bad partner keys.';
 		exit;
 	}
+}
+
+
+if ($reusecontractid)
+{
+	$contract = new Contrat($db);
+	$contract->fetch($reusecontractid);
+	$socid = $contract->fk_soc;
+	$tmparray=explode('.', $contract->ref_customer);
+	$sldAndSubdomain=$tmparray[0];
+	$tldid=$tmparray[1];
 }
 
 $mythirdparty = new Societe($db);
@@ -203,6 +220,8 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
 	          <input type="hidden" name="partner" value="<?php echo dol_escape_htmltag($partner); ?>" />
 	          <input type="hidden" name="partnerkey" value="<?php echo dol_escape_htmltag($partnerkey); ?>" />
 	          <input type="hidden" name="socid" value="<?php echo dol_escape_htmltag($socid); ?>" />
+	          <input type="hidden" name="reusesocid" value="<?php echo dol_escape_htmltag($reusesocid); ?>" />
+	          <input type="hidden" name="reusecontractid" value="<?php echo dol_escape_htmltag($reusecontractid); ?>" />
 
 	          <section id="enterUserAccountDetails">
 
@@ -245,6 +264,8 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
             </div>
 			<?php
 			}
+			if (empty($reusecontractid))
+			{
 			?>
             <div class="group">
                 <div class="horizontal-fld">
@@ -268,9 +289,10 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
                   </div>
                 </div>
             </div>
-
-
 			<?php
+			}
+
+
 			if (empty($mythirdparty->id))
 			{
 			?>
@@ -301,9 +323,9 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
               <label trans="1"><?php echo $langs->trans("ChooseANameForYourApplication") ?></label>
               <div class="linked-flds">
                 <span class="opacitymedium">https://</span>
-                <input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="<?php echo GETPOST('sldAndSubdomain','alpha') ?>" maxlength="29" />
+                <input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="<?php echo $sldAndSubdomain; ?>" maxlength="29" />
                 <select name="tldid" id="tldid" >
-                    <option value=".with.<?php echo $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME; ?>" >.with.<?php echo $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME; ?></option>
+                    <option value=".with.<?php echo $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME; ?>">.with.<?php echo $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME; ?></option>
                 </select>
                 <br class="unfloat" />
               </div>

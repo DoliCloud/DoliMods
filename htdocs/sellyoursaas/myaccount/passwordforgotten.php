@@ -228,8 +228,8 @@ if ($action == 'buildnewpassword' && $username)
 
                 	$substitutionarray['__URL_TO_RESET__'] = $url;
 
-                	$subject = make_substitutions($arraydefaultmessage['topic'], $substitutionarray, $langs);
-                	$mesg = make_substitutions($arraydefaultmessage['content'], $substitutionarray, $langs);
+                	$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langs);
+                	$mesg = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langs);
 
                 	$newemail = new CMailFile($subject, $username, $conf->global->SELLYOURSAAS_MAIN_EMAIL, $mesg, array(),array(),array(),'','',0,-1,'','',$trackid,'','standard');
 
