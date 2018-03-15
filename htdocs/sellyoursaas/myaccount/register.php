@@ -59,6 +59,7 @@ $langs->loadLangs(array("main","companies","sellyoursaas@sellyoursaas","errors")
 $partner=GETPOST('partner','alpha');
 $partnerkey=GETPOST('partnerkey','alpha');
 $plan=GETPOST('plan','alpha');
+$socid=GETPOST('socid','int');
 
 $productref='DOLICLOUD-PACK-Dolibarr';
 if ($plan)	// Plan is a product/service
@@ -99,6 +100,13 @@ if ($partner)
 		exit;
 	}
 }
+
+$mythirdparty = new Societe($db);
+if ($socid > 0)
+{
+	$mythirdparty->fetch($socid);
+}
+
 
 
 /*
@@ -171,11 +179,12 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
 		      <div class="registerheader" style="display:flex;justify-content:space-between;">
 
 		          <img style="center" class="logoheader"  src="<?php echo $linklogo; ?>" id="logo" />
-
-		        <div class="paddingtop20" style="text-align: right; float: right;">
-		          <span style="padding: 4px 10px 5px 10px;" class="opacitymedium"><?php echo $langs->trans("AlreadyHaveAnAccount"); ?></span>
-		          <a href="/" class="btn blue btn-sm"><?php echo $langs->trans("LoginAction"); ?></a>
-		        </div>
+				  <?php if (empty($mythirdparty->id)) { ?>
+		          <div class="paddingtop20" style="text-align: right; float: right;">
+		              <span style="padding: 4px 10px 5px 10px;" class="opacitymedium"><?php echo $langs->trans("AlreadyHaveAnAccount"); ?></span>
+		              <a href="/" class="btn blue btn-sm"><?php echo $langs->trans("LoginAction"); ?></a>
+		          </div>
+		          <?php } ?>
 		      </div>
 
 		      <!-- BEGIN TOP NAVIGATION MENU -->
@@ -200,6 +209,7 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
 	          <input type="hidden" name="package" value="<?php echo dol_escape_htmltag($tmppackage->ref); ?>" />
 	          <input type="hidden" name="partner" value="<?php echo dol_escape_htmltag($partner); ?>" />
 	          <input type="hidden" name="partnerkey" value="<?php echo dol_escape_htmltag($partnerkey); ?>" />
+	          <input type="hidden" name="socid" value="<?php echo dol_escape_htmltag($socid); ?>" />
 
 	          <section id="enterUserAccountDetails">
 
@@ -222,6 +232,10 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
 			}
             ?>
 
+			<?php
+			if (empty($mythirdparty->id))
+			{
+			?>
             <div class="control-group  required">
             	<label class="control-label" for="username" trans="1"><?php echo $langs->trans("Email") ?></label>
             	<div class="controls">
@@ -236,7 +250,9 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
             		<input type="text" name="orgName" value="<?php echo GETPOST('orgName','alpha'); ?>" required="" maxlength="250" id="orgName" />
             	</div>
             </div>
-
+			<?php
+			}
+			?>
             <div class="group">
                 <div class="horizontal-fld">
 
@@ -261,8 +277,10 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
             </div>
 
 
-            <!-- <hr /> -->
-
+			<?php
+			if (empty($mythirdparty->id))
+			{
+			?>
 
 			<div class="control-group  ">
 				<label class="control-label" for="address_country"><?php echo $langs->trans("Country") ?></label>
@@ -277,6 +295,9 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
 				</div>
 			</div>
 
+			<?php
+			}
+			?>
 
           </section>
 

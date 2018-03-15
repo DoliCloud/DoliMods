@@ -61,8 +61,10 @@ $langs->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas","
 
 $mythirdpartyaccount = new Societe($db);
 
+$service=GETPOST('service','int');
+
 // Id of connected thirdparty
-$socid = $_SESSION['dol_loginsellyoursaas'];
+$socid = GETPOST('socid','int')?GETPOST('socid','int'):$_SESSION['dol_loginsellyoursaas'];
 $result = $mythirdpartyaccount->fetch($socid);
 if ($result <= 0)
 {
@@ -315,6 +317,63 @@ if ($action == 'undeploy')
 			$contract->array_options['options_deployment_status'] = 'undeployed';
 			$contract->array_options['options_undeployment_date'] = dol_now('tzserver');
 			$contract->array_options['options_undeployment_ip'] = $_SERVER['REMOTE_ADDR'];
+
+			$result = $contract->update($user);
+			if ($result < 0)
+			{
+				$error++;
+				setEventMessages($contract->error, $contract->errors, 'errors');
+			}
+		}
+	}
+
+	//$error++;
+	if (! $error)
+	{
+		setEventMessages($langs->trans("InstanceWasUndeployed"), null, 'mesgs');
+		$db->commit();
+		header('Location: '.$_SERVER["PHP_SELF"].'?modes=instances&tab=resources_'.$contract->id);
+		exit;
+	}
+	else
+	{
+		$db->rollback();
+	}
+}
+
+if ($action == 'deployall')
+{
+	$db->begin();
+
+	if (empty($service))
+	{
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("ServiceToInstall")), null, 'errors');
+		$error++;
+	}
+	else
+	{
+		// socid is thirdparty to install into
+		// contract is a crontact to create
+		$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
+
+		// TODO create $contract like in register_instance.php
+		$contract = new Contract($db);
+
+
+		dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
+		$sellyoursaasutils = new SellYourSaasUtils($db);
+		$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $contract);
+		if ($result < 0)
+		{
+			$error++;
+			setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
+		}
+
+		if (! $error)
+		{
+			$contract->array_options['options_deployment_status'] = 'deployed';
+			$contract->array_options['options_deployment_date'] = dol_now('tzserver');
+			$contract->array_options['options_deployment_ip'] = $_SERVER['REMOTE_ADDR'];
 
 			$result = $contract->update($user);
 			if ($result < 0)
@@ -1424,6 +1483,48 @@ if ($mode == 'instances')
 					</div> <!-- END PORTLET -->
 
 
+				<!-- Add a new instance -->
+				      <div class="portlet-body" style=""><br><br>
+						';
+
+					//print '<a href="register.php?socid='.$mythirdpartyaccount->id.'">';
+					print $langs->trans("AddAnotherInstance").'...';
+					//print '</a>';
+
+					print '<br>';
+
+					print '<form class="form-group" action="register_instance.php" method="POST">';
+					print '<input type="hidden" name="action" value="deployall" />';
+					print '<input type="hidden" name="reusesocid" value="'.$socid.'" />';
+
+					// List of available plans
+					$arrayofplans=array();
+					$sqlproducts = 'SELECT p.rowid, p.ref, p.label FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
+					$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
+					$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
+					$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";		// TODO Restict on compatible plans...
+					$resqlproducts = $db->query($sqlproducts);
+					if ($resqlproducts)
+					{
+						$num = $db->num_rows($resqlproducts);
+						$i=0;
+						while($i < $num)
+						{
+							$obj = $db->fetch_object($resqlproducts);
+							if ($obj)
+							{
+								$arrayofplans[$obj->rowid]=$obj->label;
+							}
+							$i++;
+						}
+					}
+					print $form->selectarray('service', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth300');
+					print '<input type="submit" class="btn btn-warning default change-plan-link" name="changeplan" value="'.$langs->trans("Create").'">';
+					print '</form>';
+
+					print '
+
+					  </div>
 
 			      </div> <!-- END COL -->
 

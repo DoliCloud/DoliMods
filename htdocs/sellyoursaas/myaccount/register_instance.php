@@ -55,7 +55,6 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/cron/class/cronjob.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
-require_once DOL_DOCUMENT_ROOT.'/website/class/websiteaccount.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
 
@@ -406,30 +405,6 @@ else
 			dol_print_error_email('CREATECONTRACT', $contract->error, $contract->errors, 'alert alert-error');
 			exit;
 		}
-	}
-
-	if (! $error)
-	{
-	/*	$website = new Website($db);
-		$website->fetch(0, 'sellyoursaas');
-		//var_dump($website);
-
-		// Create account to dashboard
-		$websiteaccount = new WebsiteAccount($db);
-		$websiteaccount->fk_website = $website->id;
-		$websiteaccount->fk_soc = $tmpthirdparty->id;
-		$websiteaccount->login = $email;
-		$websiteaccount->pass_encoding = $password_encoding;
-		$websiteaccount->pass_crypted = $password_crypted;
-		$websiteaccount->note_private = 'Initial pass = '.$password;
-		$websiteaccount->status = 1;
-		$result = $websiteaccount->create($user);
-		if ($result < 0)
-		{
-			// We ignore errors. This should not happen in real life.
-			//setEventMessages($websiteaccount->error, $websiteaccount->errors, 'errors');
-		}
-	*/
 	}
 
 	$object = $tmpthirdparty;

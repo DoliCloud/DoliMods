@@ -247,3 +247,4 @@ LoginAction=Login
 RecreateAuthorizedKey=Create file authorized_keys
 RecreateLock=Create lock file
 SellYourSaasRemoveLock=Remove lock file
+AddAnotherInstance=Add another application/instance
