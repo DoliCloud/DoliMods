@@ -59,33 +59,26 @@ $langs->loadLangs(array("main","companies","sellyoursaas@sellyoursaas","errors")
 $partner=GETPOST('partner','alpha');
 $partnerkey=GETPOST('partnerkey','alpha');
 $plan=GETPOST('plan','alpha');
-$socid=GETPOST('socid','int');
+$socid=GETPOST('socid','int')?GETPOST('socid','int'):GETPOST('reusesocid','int');
 
-$productref='DOLICLOUD-PACK-Dolibarr';
-if ($plan)	// Plan is a product/service
-{
-	$productref=$plan;
-}
+$productid=GETPOST('service','int');
+$productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):($plan?$plan:'DOLICLOUD-PACK-Dolibarr'));
+
+// Load main product
 $tmpproduct = new Product($db);
-$result = $tmpproduct->fetch(0, $productref);
+$result = $tmpproduct->fetch($productid, $productref);
 if (empty($tmpproduct->id))
 {
-	print 'Service/Plan (Product ref) '.$productref.' was not found.';
+	print 'Service/Plan (Product id / ref) '.$productid.' / '.$productref.' was not found.';
 	exit;
 }
-if (! preg_match('/^DOLICLOUD-PACK-(.+)$/', $tmpproduct->ref, $reg))
-{
-	print 'Service/Plan name (Product ref) is invalid. Name must be DOLICLOUD-PACK-...';
-	exit;
-}
-$packageref = $reg[1];
 
 dol_include_once('/sellyoursaas/class/packages.class.php');
 $tmppackage = new Packages($db);
-$tmppackage->fetch(0, $packageref);
+$tmppackage->fetch($tmpproduct->array_options['options_package']);
 if (empty($tmppackage->id))
 {
-	print 'Package name '.$packageref.' was not found.';
+	print 'Package with id '.$tmpproduct->array_options['options_package'].' was not found.';
 	exit;
 }
 

@@ -1483,56 +1483,102 @@ if ($mode == 'instances')
 
 					</div> <!-- END PORTLET -->
 
+			      </div> <!-- END COL -->
 
-				<!-- Add a new instance -->
-				      <div class="portlet-body" style=""><br><br>
-						';
+			    </div> <!-- END ROW -->';
 
-					//print '<a href="register.php?socid='.$mythirdpartyaccount->id.'">';
-					print $langs->trans("AddAnotherInstance").'...';
-					//print '</a>';
-
-					print '<br>';
-
-					print '<form class="form-group" action="register_instance.php" method="POST">';
-					print '<input type="hidden" name="action" value="deployall" />';
-					print '<input type="hidden" name="reusesocid" value="'.$socid.'" />';
-
-					// List of available plans
-					$arrayofplans=array();
-					$sqlproducts = 'SELECT p.rowid, p.ref, p.label FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
-					$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
-					$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
-					$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";		// TODO Restict on compatible plans...
-					$resqlproducts = $db->query($sqlproducts);
-					if ($resqlproducts)
-					{
-						$num = $db->num_rows($resqlproducts);
-						$i=0;
-						while($i < $num)
-						{
-							$obj = $db->fetch_object($resqlproducts);
-							if ($obj)
-							{
-								$arrayofplans[$obj->rowid]=$obj->label;
-							}
-							$i++;
-						}
-					}
-					print $form->selectarray('service', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth300');
-					print '<input type="submit" class="btn btn-warning default change-plan-link" name="changeplan" value="'.$langs->trans("Create").'">';
-					print '</form>';
 
 					print '
 
 					  </div>
-
-			      </div> <!-- END COL -->
-
-
-			    </div> <!-- END ROW -->
 			';
 		}
+
+
+		// Link to add new instance
+		print '
+		<!-- Add a new instance -->
+		<div class="portlet-body" style=""><br>
+		';
+
+		print '<a href="#addanotherinstance" id="addanotherinstance">';
+		print $langs->trans("AddAnotherInstance").'...<br>';
+		print '</a>';
+
+		print '<script type="text/javascript" language="javascript">
+		jQuery(document).ready(function() {
+			jQuery("#addanotherinstance").click(function() {
+				console.log("Click on addanotherinstance");
+				jQuery("#formaddanotherinstance").toggle();
+			});
+		});
+			</script>';
+
+		print '<br>';
+
+		print '<form id="formaddanotherinstance" class="form-group reposition" style="display: none;" action="register_instance.php" method="POST">';
+		print '<input type="hidden" name="action" value="deployall" />';
+		print '<input type="hidden" name="reusesocid" value="'.$socid.'" />';
+
+		// List of available plans
+		$arrayofplans=array();
+		$sqlproducts = 'SELECT p.rowid, p.ref, p.label FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
+		$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
+		$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
+		$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";		// TODO Restict on compatible plans...
+		$resqlproducts = $db->query($sqlproducts);
+		if ($resqlproducts)
+		{
+			$num = $db->num_rows($resqlproducts);
+			$i=0;
+			while($i < $num)
+			{
+				$obj = $db->fetch_object($resqlproducts);
+				if ($obj)
+				{
+					$arrayofplans[$obj->rowid]=$obj->label;
+				}
+				$i++;
+			}
+		}
+
+		print '
+			<div class="group">
+			<div class="horizontal-fld">';
+		print $langs->trans("Type").' '.$form->selectarray('service', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth300');
+		print '
+			</div>
+
+			<div class="horizontal-fld clearboth">
+			<div class="control-group required">
+			<label class="control-label" for="password" trans="1">'.$langs->trans("Password").'</label><input name="password" type="password" required />
+			</div>
+			</div>
+			<div class="horizontal-fld ">
+			<div class="control-group required">
+			<label class="control-label" for="password2" trans="1">'.$langs->trans("ConfirmPassword").'</label><input name="password2" type="password" required />
+			</div>
+			</div>
+			</div>
+
+			<section id="selectDomain">
+			<div class="fld select-domain required">
+			<label trans="1">'.$langs->trans("ChooseANameForYourApplication").'</label>
+			<div class="linked-flds">
+			<span class="opacitymedium">https://</span>
+			<input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="" maxlength="29" required />
+			<select name="tldid" id="tldid" >
+			<option value=".with.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'" >.with.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'</option>
+			</select>
+			<br class="unfloat" />
+			</div>
+			</div>
+			</section>';
+
+		print '<br><input type="submit" class="btn btn-warning default change-plan-link" name="changeplan" value="'.$langs->trans("Create").'">';
+
+		print '</form>';
+
 	}
 
 	print '

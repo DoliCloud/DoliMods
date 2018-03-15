@@ -91,26 +91,27 @@ $remoteip = $_SERVER['REMOTE_ADDRESS'];
 $generateduniquekey=getRandomPassword(true);
 $partner=GETPOST('partner','alpha');
 $partnerkey=GETPOST('partnerkey','alpha');
+
 $plan=GETPOST('plan','alpha');
+$service=GETPOST('service','alpha');
 
 $reusecontractid = GETPOST('reusecontractid','int');
+$reusesocid = GETPOST('reusesocid','int');
 
+$productid=GETPOST('service','int');
+$productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):($plan?$plan:'DOLICLOUD-PACK-Dolibarr'));
 
-$productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):'DOLICLOUD-PACK-Dolibarr');
-
-
-
-if ($plan)	// Plan is a product/service
-{
-	$productref=$plan;
-}
+// Load main product
 $tmpproduct = new Product($db);
-$result = $tmpproduct->fetch(0, $productref);
+$result = $tmpproduct->fetch($productid, $productref);
 if (empty($tmpproduct->id))
 {
-	print 'Service/Plan (Product ref) '.$productref.' was not found.';
+	print 'Service/Plan (Product id / ref) '.$productid.' / '.$productref.' was not found.';
 	exit;
 }
+
+// We have the main product, we are searching the package
+
 if (! preg_match('/^DOLICLOUD-PACK-(.+)$/', $tmpproduct->ref, $reg))
 {
 	print 'Service/Plan name (Product ref) is invalid. Name must be DOLICLOUD-PACK-...';
@@ -122,20 +123,16 @@ if (empty($tmpproduct->duration_value) || empty($tmpproduct->duration_unit))
 	exit;
 }
 
-// TODO Use package from a dedicated field
-$packageref = $reg[1];
-
 dol_include_once('/sellyoursaas/class/packages.class.php');
 $tmppackage = new Packages($db);
-$tmppackage->fetch(0, $packageref);
+$tmppackage->fetch($tmpproduct->array_options['options_package']);
 if (empty($tmppackage->id))
 {
-	print 'Package name '.$packageref.' was not found.';
+	print 'Package with id '.$tmpproduct->array_options['options_package'].' was not found.';
 	exit;
 }
 
 $now = dol_now();
-
 
 
 /*
@@ -148,11 +145,48 @@ $now = dol_now();
 $newurl=preg_replace('/register_instance\.php/', 'register.php', $_SERVER["PHP_SELF"]);
 //$newurl='myaccount.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/register.php';
 
-if ($reusecontractid)
+if ($reusecontractid)		// When we use the "Restart deploy" after error from account backoffice
 {
 	$newurl=preg_replace('/register_instance/', 'index', $newurl);
 	if (! preg_match('/\?/', $newurl)) $newurl.='?';
 	$newurl.='&mode=instances';
+}
+elseif ($reusesocid)		// When we use the "Add another instance" from account backoffice
+{
+	$newurl=preg_replace('/register_instance/', 'index', $newurl);
+	if (! preg_match('/\?/', $newurl)) $newurl.='?';
+	$newurl.='&reusesocid='.$reusesocid;
+	$newurl.='&mode=instances';
+	if (! preg_match('/sldAndSubdomain/i', $sldAndSubdomain)) $newurl.='&sldAndSubdomain='.urlencode($sldAndSubdomain);
+	if (! preg_match('/tldid/i', $tldid)) $newurl.='&tldid='.urlencode($tldid);
+	if (! preg_match('/service/i', $newurl)) $newurl.='&service='.urlencode($orgname);
+	if (! preg_match('/partner/i', $newurl)) $newurl.='&partner='.urlencode($partner);
+	if (! preg_match('/partnerkey/i', $newurl)) $newurl.='&partnerkey='.urlencode($partnerkey);
+
+	if (empty($sldAndSubdomain))
+	{
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
+		header("Location: ".$newurl);
+		exit;
+	}
+	if (! preg_match('/^[a-zA-Z0-9\-]+$/', $sldAndSubdomain))
+	{
+		setEventMessages($langs->trans("ErrorOnlyCharAZAllowedFor", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
+		header("Location: ".$newurl);
+		exit;
+	}
+	if (empty($password) || empty($password2))
+	{
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Password")), null, 'errors');
+		header("Location: ".$newurl);
+		exit;
+	}
+	if ($password != $password2)
+	{
+		setEventMessages($langs->trans("ErrorPasswordMismatch"), null, 'errors');
+		header("Location: ".$newurl);
+		exit;
+	}
 }
 else
 {
@@ -262,22 +296,34 @@ if ($reusecontractid)
 }
 else
 {
-	// Create thirdparty (if it already exists, do nothing and return a warning to user)
-	dol_syslog("Fetch thirdparty from email ".$email);
 	$tmpthirdparty=new Societe($db);
-	$result = $tmpthirdparty->fetch(0, '', '', '', '', '', '', '', '', '', $email);
-	if ($result < 0)
+	if ($reusesocid > 0)
 	{
-		dol_print_error_email('FETCHTP'.$email, $tmpthirdparty->error, $tmpthirdparty->errors, 'alert alert-error');
-		exit;
+		$result = $tmpthirdparty->fetch($reusesocid);
+		if ($result < 0)
+		{
+			dol_print_error_email('FETCHTP'.$reusesocid, $tmpthirdparty->error, $tmpthirdparty->errors, 'alert alert-error');
+			exit;
+		}
 	}
-	else if ($result > 0)	// Found one record
+	else
 	{
-		setEventMessages($langs->trans("AccountAlreadyExistsForEmail", $conf->global->SELLYOURSAAS_ACCOUNT_URL), null, 'errors');
-		header("Location: ".$newurl);
-		exit;
+		// Create thirdparty (if it already exists, do nothing and return a warning to user)
+		dol_syslog("Fetch thirdparty from email ".$email);
+		$result = $tmpthirdparty->fetch(0, '', '', '', '', '', '', '', '', '', $email);
+		if ($result < 0)
+		{
+			dol_print_error_email('FETCHTP'.$email, $tmpthirdparty->error, $tmpthirdparty->errors, 'alert alert-error');
+			exit;
+		}
+		else if ($result > 0)	// Found one record
+		{
+			setEventMessages($langs->trans("AccountAlreadyExistsForEmail", $conf->global->SELLYOURSAAS_ACCOUNT_URL), null, 'errors');
+			header("Location: ".$newurl);
+			exit;
+		}
+		else dol_syslog("Not found");
 	}
-	else dol_syslog("Not found");
 
 	$fqdninstance = $sldAndSubdomain.$tldid;
 
