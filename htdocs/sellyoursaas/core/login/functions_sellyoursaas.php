@@ -69,6 +69,12 @@ function check_user_password_sellyoursaas($usertotest, $passwordtotest, $entityt
 			}
 		}
 
+		if (empty($passwordtotest))
+		{
+			$_SESSION["dol_loginmesg"]='<!-- No message -->';		// Set invisible message
+			return '';
+		}
+
 		// Standard test
 
 		$passwordtotest_crypted = dol_hash($passwordtotest);
