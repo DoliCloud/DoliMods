@@ -205,7 +205,7 @@ if ($mode != 'test')
 	$actioncomm->type_code='AC_OTH_AUTO';
 	$actioncomm->userassigned[$user->id]=array('id'=>$user->id);
 	$actioncomm->userownerid=$user->id;
-	$actioncomm->add($user);
+	$actioncomm->create($user);
 }
 
 exit($return_var);
