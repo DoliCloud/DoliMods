@@ -256,3 +256,5 @@ RecreateLock=Create lock file
 SellYourSaasRemoveLock=Remove lock file
 AddAnotherInstance=Add another application/instance
 ErrorRefreshOfResourceFailed=An error occured when refreshing your resources information, so your data may not be up to date. Please, try again later to get up to date information
+AlertCreditCardExpiration=Alert Credit card expiration
+AlertPaypalApprovalExpiration=Alert Paypal approval expiration

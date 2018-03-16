@@ -450,24 +450,121 @@ class SellYourSaasUtils
 
 
     /**
-     * Action executed by scheduler
+     * Action executed by scheduler. To run every day
      * CAN BE A CRON TASK
      *
-     * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
+     * @param	int			$day1	Day1 in month to launch warnings (1st)
+     * @param	int			$day2	Day2 in month to launch warnings (20th)
+     * @return	int					0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
      */
-    public function doAlertCreditCardExpiration()
+    public function doAlertCreditCardExpiration($day1,$day2)
     {
-    	global $conf, $langs;
+    	global $conf, $langs, $user;
 
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertCreditCardExpiration.log';
 
+    	$error = 0;
     	$this->output = '';
     	$this->error='';
 
-    	dol_syslog(__METHOD__, LOG_DEBUG);
+    	dol_syslog(__METHOD__.' - Search card that expire in exactly 1 month or 10 days and send remind', LOG_DEBUG);
 
-    	// ...
+    	$servicestatus = 1;
+    	if (! empty($conf->stripe->enabled))
+    	{
+    		$service = 'StripeTest';
+    		$servicestatus = 0;
+    		if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha'))
+    		{
+    			$service = 'StripeLive';
+    			$servicestatus = 1;
+    		}
+    	}
 
+    	$currentdate = dol_getdate(dol_now());
+    	$currentday = $currentdate['mday'];
+    	$currentmonth = $currentdate['mon'];
+    	$currentyear = $currentdate['year'];
+
+    	if ($currentday != $day1 && $currentday != $day2) {
+    		$this->output = 'Nothing to do. We are not the day '.$day1.', neither the day '.$day2.' of the month';
+    		return 0;
+    	}
+
+    	// Get warning email template
+    	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+    	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+    	$formmail=new FormMail($db);
+
+    	$nextyear = $currentyear;
+    	$nextmonth = $currentmonth + 1;
+    	if ($nextmonth > 12) { $nextmonth = 1; $nextyear++; }
+
+    	$sql = 'SELECT sr.rowid, sr.fk_soc, sr.exp_date_month, sr.exp_date_year, sr.last_four, sr.status FROM '.MAIN_DB_PREFIX.'societe_rib as sr, '.MAIN_DB_PREFIX.'societe as s';
+		$sql.= " WHERE sr.fk_soc = s.rowid AND sr.default_rib = 1 AND sr.type = 'card' AND sr.status = ".$servicestatus;
+		$sql.= " AND sr.exp_date_month = ".$nextmonth." AND sr.exp_date_year = ".$nextyear;
+
+		$resql = $this->db->query($sql);
+		if ($resql)
+		{
+			$num_rows = $this->db->num_rows($resql);
+			$i = 0;
+			while ($i < $num_rows)
+			{
+				$obj = $this->db->fetch_object($resql);
+
+				$thirdparty = new Societe($this->db);
+				$thirdparty->fetch($obj->fk_soc);
+				if ($thirdparty->id)
+				{
+					$langstouse = new Translate('', $conf);
+					$langstouse->setDefaultLang($thirdparty->default_lang ? $thirdparty->default_lang : $langs->defaultlang);
+
+					$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'thirdparty', $user, $langstouse, -2, 1, 'AlertCreditCardExpiration');		// Templates are init into data.sql
+
+					if (is_object($arraydefaultmessage) && ! empty($arraydefaultmessage->topic))
+					{
+						$substitutionarray=getCommonSubstitutionArray($langstouse, 0, null, $thirdparty);
+						$substitutionarray['__CARD_EXP_DATE_MONTH__']=$obj->exp_date_month;
+						$substitutionarray['__CARD_EXP_DATE_YEAR__']=$obj->exp_date_year;
+						$substitutionarray['__CARD_LAST4__']=$obj->last_four;
+
+						complete_substitutions_array($substitutionarray, $langstouse, $contract);
+
+						$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langstouse);
+						$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langstouse);
+						$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+						$to = $thirdparty->email;
+
+						$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
+						$result = $cmail->sendfile();
+						if (! $result)
+						{
+							$error++;
+							$this->error = 'Failed to send email to thirdparty id = '.$thirdparty->id.' : '.$cmail->error;
+							$this->errors[] = 'Failed to send email to thirdparty id = '.$thirdparty->id.' : '.$cmail->error;
+						}
+					}
+					else
+					{
+						$error++;
+						$this->error = 'Failed to get email a valid template AlertCreditCardExpiration';
+						$this->errors[] = 'Failed to get email a valid template AlertCreditCardExpiration';
+					}
+				}
+
+				$i++;
+			}
+		}
+		else
+		{
+			$this->error = $this->db->lasterror();
+			return 1;
+		}
+
+		if ($error) return $error;
+
+		$this->output = 'Found '.$num_rows.' record with credit card that will expire soon';
     	return 0;
     }
 
