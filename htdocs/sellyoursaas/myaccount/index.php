@@ -36,6 +36,7 @@ if (! $res) die("Include of main fails");
 
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
@@ -53,12 +54,13 @@ $welcomecid = GETPOST('welcomecid','alpha');
 $mode = GETPOST('mode', 'alpha');
 $action = GETPOST('action', 'alpha');
 $cancel = GETPOST('cancel', 'alpha');
+$backtourl = GETPOST('backtourl', 'alpha');
 if (empty($mode) && empty($welcomecid)) $mode='dashboard';
 
 $langs=new Translate('', $conf);
 $langs->setDefaultLang(GETPOST('lang','aZ09')?GETPOST('lang','aZ09'):'auto');
 
-$langs->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas","other","errors",'mails'));
+$langs->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas","other","errors",'mails','paypal','paybox','stripe'));
 
 $mythirdpartyaccount = new Societe($db);
 
@@ -88,6 +90,11 @@ $urlstatus='https://status.dolicloud.com';
 if ($cancel)
 {
 	$action = '';
+	if ($backtourl)
+	{
+		header("Location: ".$backtourl);
+		exit;
+	}
 }
 
 if ($mode == 'logout')
@@ -108,6 +115,7 @@ if ($action == 'changeplan')
 	$action = '';
 }
 
+// Send support ticket
 if ($action == 'send')
 {
 	$emailfrom = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
@@ -136,7 +144,6 @@ if ($action == 'send')
 	else setEventMessages($langs->trans("FailedToSentTicketPleaseTryLater").' '.$cmailfile->error, $cmailfile->errors, 'errors');
 	$action = '';
 }
-
 
 if ($action == 'updatemythirdpartyaccount')
 {
@@ -271,59 +278,226 @@ if ($action == 'updatepassword')
 	}
 }
 
-
-if ($action == 'undeploy')
+if ($action == 'createpaymentmode')
 {
-	$db->begin();
+	$label = 'Card '.dol_print_date(dol_now(), 'dayhourrfc');
 
-	$contract=new Contrat($db);
-	$contract->fetch(GETPOST('contractid','int'));					// This load also lines
-
-	$urlofinstancetodestroy = GETPOST('urlofinstancetodestroy','alpha');
-	if (empty($urlofinstancetodestroy))
+	if (! GETPOST('proprio','alpha') || ! GETPOST('cardnumber','alpha') || ! GETPOST('exp_date_month','alpha') || ! GETPOST('exp_date_year','alpha') || ! GETPOST('cvn','alpha'))
 	{
-		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameOfInstanceToDestroy")), null, 'errors');
+		if (! GETPOST('proprio','alpha')) setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameOnCard")), null, 'errors');
+		if (! GETPOST('cardnumber','alpha')) setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("CardNumber")), null, 'errors');
+		if (! (GETPOST('exp_date_month','alpha') > 0) || ! (GETPOST('exp_date_year','alpha') > 0)) setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("ExpiryDate")), null, 'errors');
+		if (! GETPOST('cvn','alpha')) setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("CVN")), null, 'errors');
+		$action='';
+		$mode='registerpaymentmode';
 		$error++;
 	}
-	elseif ($urlofinstancetodestroy != $contract->ref_customer)
-	{
-		setEventMessages($langs->trans("ErrorNameOfInstanceDoesNotMatch", $urlofinstancetodestroy, $contract->ref_customer), null, 'errors');
-		$error++;
-	}
-	else
-	{
-		$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
 
-		dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
-		$sellyoursaasutils = new SellYourSaasUtils($db);
-		$result = $sellyoursaasutils->sellyoursaasRemoteAction('undeploy', $contract);
-		if ($result < 0)
+	if (! $error)
+	{
+		$servicestatus = 1;
+		if (! empty($conf->stripe->enabled))
 		{
-			$error++;
-			setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
+			$service = 'StripeTest';
+			$servicestatus = 0;
+			if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha'))
+			{
+				$service = 'StripeLive';
+				$servicestatus = 1;
+			}
 		}
+
+		// Ajout
+		$companypaymentmode = new CompanyPaymentMode($db);
+
+		$companypaymentmode->fk_soc          = $mythirdpartyaccount->id;
+		$companypaymentmode->bank            = GETPOST('bank','alpha');
+		$companypaymentmode->label           = $label;
+		$companypaymentmode->number          = GETPOST('cardnumber','alpha');
+		$companypaymentmode->last_four       = substr(GETPOST('cardnumber','alpha'), -4);
+		$companypaymentmode->proprio         = GETPOST('proprio','alpha');
+		$companypaymentmode->exp_date_month  = GETPOST('exp_date_month','int');
+		$companypaymentmode->exp_date_year   = GETPOST('exp_date_year','int');
+		$companypaymentmode->cvn             = GETPOST('cvn','alpha');
+		$companypaymentmode->datec           = dol_now();
+		$companypaymentmode->default_rib     = 1;
+		$companypaymentmode->type            = 'card';
+		$companypaymentmode->country_code    = $mythirdpartyaccount->country_code;
+		$companypaymentmode->status          = $servicestatus;
+
+		$db->begin();
 
 		if (! $error)
 		{
-			$result = $contract->closeAll($user, 1, 'Services closed after an undeploy request from Customer dashboard');
+			$result = $companypaymentmode->create($user);
 			if ($result < 0)
 			{
 				$error++;
-				setEventMessages($contract->error, $contract->errors, 'errors');
+				setEventMessages($companypaymentmode->error, $companypaymentmode->errors, 'errors');
+				$action='createcard';     // Force chargement page création
+			}
+
+			if (! empty($conf->stripe->enabled) && class_exists('Stripe'))
+			{
+				$stripe = new Stripe($db);
+				$stripeacc = $stripe->getStripeAccount($service);								// Get Stripe OAuth connect account if it exists (no network access here)
+
+				// Create card on Stripe
+				if (! $error)
+				{
+					// Get the Stripe customer and create if not linked
+					$cu = $stripe->customerStripe($mythirdpartyaccount, $stripeacc, $servicestatus, 1);
+					if (! $cu)
+					{
+						$error++;
+						setEventMessages($stripe->error, $stripe->errors, 'errors');
+					}
+					else
+					{
+						// Creation of Stripe card + update of societe_account
+						$card = $stripe->cardStripe($cu, $companypaymentmode, $stripeacc, $servicestatus, 1);
+						if (! $card)
+						{
+							$error++;
+							setEventMessages($stripe->error, $stripe->errors, 'errors');
+						}
+						else
+						{
+							$stripecard = $card->id;
+						}
+					}
+				}
 			}
 		}
 
 		if (! $error)
 		{
+			$db->commit();
+
+			$url=$_SERVER["PHP_SELF"].'?socid='.$object->id;
+			header('Location: '.$url);
+			exit;
+		}
+		else
+		{
+			$db->rollback();
+
+			$action='';
+			$mode='registerpaymentmode';
+		}
+	}
+}
+
+if ($action == 'undeploy' || $action == 'undeployconfirmed')
+{
+	$db->begin();
+
+	$contract=new Contrat($db);
+	$contract->fetch(GETPOST('contractid','int'));					// This load also lines
+	$contract->fetch_thirdparty();
+
+	if ($action == 'undeploy')
+	{
+		$urlofinstancetodestroy = GETPOST('urlofinstancetodestroy','alpha');
+		if (empty($urlofinstancetodestroy))
+		{
+			setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameOfInstanceToDestroy")), null, 'errors');
+			$error++;
+		}
+		elseif ($urlofinstancetodestroy != $contract->ref_customer)
+		{
+			setEventMessages($langs->trans("ErrorNameOfInstanceDoesNotMatch", $urlofinstancetodestroy, $contract->ref_customer), null, 'errors');
+			$error++;
+		}
+	}
+
+	if (! $error)
+	{
+		$hash = dol_hash('sellyoursaas'.$contract->id.dol_print_date(dol_now(), 'dayrfc'));
+
+		// Send confirmation email
+		if ($action == 'undeploy')
+		{
+			dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
+			$sellyoursaasutils = new SellYourSaasUtils($db);
+			$result = $sellyoursaasutils->sellyoursaasRemoteAction('suspend', $contract);
+			if ($result < 0)
+			{
+				$error++;
+				setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
+			}
+
+			if (! $error)
+			{
+				$result = $contract->closeAll($user, 1, 'Services closed after an undeploy request from Customer dashboard');
+				if ($result < 0)
+				{
+					$error++;
+					setEventMessages($contract->error, $contract->errors, 'errors');
+				}
+			}
+
+			if (! $error)
+			{
+				// Send deployment email
+				include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+				include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+				$formmail=new FormMail($db);
+
+				$arraydefaultmessage=$formmail->getEMailTemplate($db, 'contract', $user, $langs, 0, 1, 'InstanceUndeployed');	// Templates are init into data.sql
+
+				$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $contract);
+				$substitutionarray['__HASH__']=$hash;
+
+				complete_substitutions_array($substitutionarray, $langs, $contract);
+
+				$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langs);
+				$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langs);
+				$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+				$to = $contract->thirdparty->email;
+
+				$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
+				$result = $cmail->sendfile();
+				if (! $result)
+				{
+					$error++;
+					setEventMessages($cmail->error, $cmail->errors, 'warnings');
+				}
+			}
+		}
+
+		// Send confirmation email
+		if ($action == 'undeployconfirmed')
+		{
+			if ($hash != GETPOST('hash','alpha'))
+			{
+				$error++;
+				setEventMessages('InvalidLinkImmediateDestructionCanceled', null, 'warnings');
+			}
+			else
+			{
+				dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
+				$sellyoursaasutils = new SellYourSaasUtils($db);
+				$result = $sellyoursaasutils->sellyoursaasRemoteAction('undeploy', $contract);
+				if ($result < 0)
+				{
+					$error++;
+					setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
+				}
+			}
+
 			$contract->array_options['options_deployment_status'] = 'undeployed';
 			$contract->array_options['options_undeployment_date'] = dol_now('tzserver');
 			$contract->array_options['options_undeployment_ip'] = $_SERVER['REMOTE_ADDR'];
 
-			$result = $contract->update($user);
-			if ($result < 0)
+			if (! $error)
 			{
-				$error++;
-				setEventMessages($contract->error, $contract->errors, 'errors');
+				$result = $contract->update($user);
+				if ($result < 0)
+				{
+					$error++;
+					setEventMessages($contract->error, $contract->errors, 'errors');
+				}
 			}
 		}
 	}
@@ -331,7 +505,8 @@ if ($action == 'undeploy')
 	//$error++;
 	if (! $error)
 	{
-		setEventMessages($langs->trans("InstanceWasUndeployed"), null, 'mesgs');
+		if ($action == 'undeployconfirmed') setEventMessages($langs->trans("InstanceWasUndeployedConfirmed"), null, 'mesgs');
+		else setEventMessages($langs->trans("InstanceWasUndeployed"), null, 'mesgs');
 		$db->commit();
 		header('Location: '.$_SERVER["PHP_SELF"].'?modes=instances&tab=resources_'.$contract->id);
 		exit;
@@ -359,7 +534,6 @@ if ($action == 'deployall')
 
 		// TODO create $contract like in register_instance.php
 		$contract = new Contract($db);
-
 
 		dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 		$sellyoursaasutils = new SellYourSaasUtils($db);
@@ -406,6 +580,7 @@ if ($action == 'deployall')
  */
 
 $form = new Form($db);
+$formother = new FormOther($db);
 
 $listofcontractid = array();
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
@@ -471,9 +646,6 @@ var select2arrayoflanguage = {
 </script>
 ";
 
-
-//$website = new Website($db);
-//$website->fetch(0, 'sellyoursaas');
 
 
 llxHeader($head, $langs->trans("MyAccount"));
@@ -681,6 +853,34 @@ if ($resql)
 $atleastonepaymentmode = (count($arrayofcompanypaymentmode) > 0 ? 1 : 0);
 
 
+// Fill var to count nb of instances
+$nbofinstances = 0;
+$nbofinstancesinprogress = 0;
+$nbofinstancesdone = 0;
+$nbofinstancessuspended = 0;
+foreach ($listofcontractid as $contractid => $contract)
+{
+	if ($contract->array_options['options_deployment_status'] == 'undeployed') { continue; }
+	if ($contract->array_options['options_deployment_status'] == 'processing') { $nbofinstances++; $nbofinstancesinprogress++; continue; }
+
+	$suspended = 0;
+	foreach($contract->lines as $keyline => $line)
+	{
+		if ($line->statut == 5 && $contract->array_options['options_deployment_status'] != 'undeployed')
+		{
+			$suspended = 1;
+			break;
+		}
+	}
+
+	$nbofinstances++;
+	if ($suspended) $nbofinstancessuspended++;
+	else $nbofinstancesdone++;
+}
+$nboftickets = $langs->trans("SoonAvailable");
+
+$atleastonecontractwithtrialended = 0;
+
 
 if (empty($welcomecid))	// Show warning
 {
@@ -710,7 +910,7 @@ if (empty($welcomecid))	// Show warning
 						<div class="note note-warning">
 						<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrial", abs($delayindays), $contract->ref_customer).' !</h4>
 						<p>
-						<a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode" class="btn btn-warning">';
+						<a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'" class="btn btn-warning">';
 					print $langs->trans("AddAPaymentMode");
 					print '</a>
 						</p>
@@ -719,12 +919,14 @@ if (empty($welcomecid))	// Show warning
 				}
 				else
 				{
+					$atleastonecontractwithtrialended++;
+
 					$firstline = reset($contract->lines);
 					print '
 						<div class="note note-warning">
 						<h4 class="block">'.$langs->trans("XDaysAfterEndOfTrial", $contract->ref_customer, abs($delayindays)).' !</h4>
 						<p>
-						<a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode" class="btn btn-warning">';
+						<a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'" class="btn btn-warning">';
 					print $langs->trans("AddAPaymentModeToRestoreInstance");
 					print '</a>
 						</p>
@@ -745,6 +947,8 @@ if (empty($welcomecid))	// Show warning
 				}
 				else
 				{
+					$atleastonecontractwithtrialended++;
+
 					print '
 						<div class="note note-info">
 						<h4 class="block">'.$langs->trans("XDaysAfterEndOfTrialPaymentModeSet", $contract->ref_customer, abs($delayindays)).'</h4>
@@ -778,17 +982,8 @@ if (empty($welcomecid))	// Show warning
 }
 
 
-
 if ($mode == 'dashboard')
 {
-	$nbofinstances = 0;
-	foreach ($listofcontractid as $contractid => $contract)
-	{
-		if ($contract->array_options['options_deployment_status'] == 'undeployed') continue;
-		$nbofinstances++;
-	}
-	$nboftickets = $langs->trans("SoonAvailable");
-
 	print '
 	<div class="page-content-wrapper">
 			<div class="page-content">
@@ -822,15 +1017,30 @@ if ($mode == 'dashboard')
 	          <div class="portlet-body">
 
 	            <div class="row">
-
 	              <div class="col-md-9">
 					'.$langs->trans("NbOfActiveInstances").'
 	              </div>
 	              <div class="col-md-3 right">
-	                <h2>'.$nbofinstances.'</h2>
+	                <h2>'.$nbofinstancesdone.'</h2>
 	              </div>
 	            </div> <!-- END ROW -->
 
+			';
+			if ($nbofinstancessuspended)
+			{
+				print '
+		            <div class="row">
+		              <div class="col-md-9">
+						'.$langs->trans("NbOfSuspendedInstances").'
+		              </div>
+		              <div class="col-md-3 right">
+		                <h2 style="color:orange">'.$nbofinstancessuspended.'</h2>
+		              </div>
+		            </div> <!-- END ROW -->
+				';
+			}
+
+			print '
 				<div class="row">
 				<div class="center col-md-12">
 					<br>
@@ -1038,7 +1248,7 @@ if ($mode == 'instances')
 			<div class="page-content">
 
 
-	     <!-- BEGIN PAGE HEADER-->
+ 	<!-- BEGIN PAGE HEADER-->
 	<!-- BEGIN PAGE HEAD -->
 	<div class="page-head">
 	  <!-- BEGIN PAGE TITLE -->
@@ -1046,11 +1256,10 @@ if ($mode == 'instances')
 	  <h1>'.$langs->trans("MyInstances").'</h1>
 	</div>
 	<!-- END PAGE TITLE -->
-
-
 	</div>
 	<!-- END PAGE HEAD -->
 	<!-- END PAGE HEADER-->';
+
 
 	if (count($listofcontractid) == 0)				// Should not happen
 	{
@@ -1066,7 +1275,7 @@ if ($mode == 'instances')
 		{
 			$position = 20;
 			if ($contract->array_options['options_deployment_status'] == 'processing') $position = 1;
-			if ($contract->array_options['options_deployment_status'] == 'suspended')  $position = 10;
+			if ($contract->array_options['options_deployment_status'] == 'suspended')  $position = 10;	// This is not a status
 			if ($contract->array_options['options_deployment_status'] == 'done')       $position = 20;
 			if ($contract->array_options['options_deployment_status'] == 'undeployed') $position = 100;
 			$arrayforsort[$id] = array('position'=>$position, 'id'=>$id, 'contract'=>$contract);
@@ -1077,18 +1286,6 @@ if ($mode == 'instances')
 		{
 			$id = $tmparray['id'];
 			$contract = $tmparray['contract'];
-
-			// Update resources of instance
-			$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
-			if ($result <= 0)
-			{
-				$error++;
-				setEventMessages($langs->trans("ErrorRefreshOfResourceFailed").' : '.$sellyoursaasutils->error, $sellyoursaasutils->errors, 'warnings');
-			}
-			/*else
-			{
-				setEventMessages($langs->trans("ResourceComputed"), null, 'mesgs');
-			}*/
 
 			$planref = $contract->array_options['options_plan'];
 			$statuslabel = $contract->array_options['options_deployment_status'];
@@ -1132,6 +1329,22 @@ if ($mode == 'instances')
 			if ($statuslabel == 'undeployed') { $color = 'grey'; $displayforinstance='display:none;'; }
 
 
+
+			// Update resources of instance
+			if (in_array($statuslabel, array('suspended', 'done')))
+			{
+				$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
+				if ($result <= 0)
+				{
+					$error++;
+					setEventMessages($langs->trans("ErrorRefreshOfResourceFailed").' : '.$sellyoursaasutils->error, $sellyoursaasutils->errors, 'warnings');
+				}
+				/*else
+				 {
+				 setEventMessages($langs->trans("ResourceComputed"), null, 'mesgs');
+				 }*/
+			}
+
 			print '
 			    <div class="row" id="contractid'.$contract->id.'" data-contractref="'.$contract->ref.'">
 			      <div class="col-md-12">
@@ -1143,7 +1356,7 @@ if ($mode == 'instances')
 						  print '<form class="inline-block centpercent" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 
 				          // Instance name
-				          print '<span class="caption-subject font-green-sharp bold uppercase">'.$instancename.'</span>
+						  print '<span class="caption-subject font-green-sharp bold uppercase" title="'.$langs->trans("Contract").' '.$contract->ref.'">'.$instancename.'</span>
 				          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->';
 
 						  // Instance status
@@ -1402,24 +1615,24 @@ if ($mode == 'instances')
 										if ($contract->array_options['options_date_endfreeperiod'] < dol_now())
 										{
 											if ($statuslabel == 'suspended') print ' - <span style="color: orange">'.$langs->trans("Suspended").'</span>';
-											else print ' - <span style="color: orange">'.$langs->trans("SuspendWillBeDoneSoon").'</span>';
+											//else print ' - <span style="color: orange">'.$langs->trans("SuspendWillBeDoneSoon").'</span>';
 										}
 										if ($statuslabel == 'suspended')
 										{
 											if (empty($atleastonepaymentmode))
 											{
-												print ' - <a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>';
+												print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>';
 											}
 											else
 											{
-												print ' - <a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode">'.$langs->trans("FixPaymentModeToRestoreInstance").'</a>';
+												print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("FixPaymentModeToRestoreInstance").'</a>';
 											}
 										}
 										else
 										{
 											if (empty($atleastonepaymentmode))
 											{
-												print ' - <a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode">'.$langs->trans("AddAPaymentMode").'</a>';
+												print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("AddAPaymentMode").'</a>';
 											}
 											else
 											{
@@ -1554,13 +1767,7 @@ if ($mode == 'instances')
 
 			    </div> <!-- END ROW -->';
 
-
-					print '
-
-					  </div>
-			';
-		}
-
+		}		// End loop contract
 
 		// Link to add new instance
 		print '
@@ -1586,6 +1793,11 @@ if ($mode == 'instances')
 		print '<form id="formaddanotherinstance" class="form-group reposition" style="display: none;" action="register_instance.php" method="POST">';
 		print '<input type="hidden" name="action" value="deployall" />';
 		print '<input type="hidden" name="reusesocid" value="'.$socid.'" />';
+
+		print '<div class="row">
+		<div class="col-md-12">
+
+		<div class="portlet light">';
 
 		// List of available plans
 		$arrayofplans=array();
@@ -1626,7 +1838,7 @@ if ($mode == 'instances')
 			<label class="control-label" for="password2" trans="1">'.$langs->trans("ConfirmPassword").'</label><input name="password2" type="password" required />
 			</div>
 			</div>
-			</div>
+			</div> <!-- end group -->
 
 			<section id="selectDomain">
 			<div class="fld select-domain required">
@@ -1643,6 +1855,8 @@ if ($mode == 'instances')
 			</section>';
 
 		print '<br><input type="submit" class="btn btn-warning default change-plan-link" name="changeplan" value="'.$langs->trans("Create").'">';
+
+		print '</div></div></div>';
 
 		print '</form>';
 
@@ -1723,7 +1937,7 @@ if ($mode == 'billing')
 	            <div class="row" style="border-bottom: 1px solid #ddd;">
 
 	              <div class="col-md-6">
-			          <span class="caption-subject font-green-sharp bold uppercase">'.$instancename.'</span>
+			          <span class="caption-subject font-green-sharp bold uppercase" title="'.$langs->trans("Contract").' '.$contract->ref.'">'.$instancename.'</span>
 			          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->
 	              </div><!-- END COL -->
 	              <div class="col-md-2 hideonsmartphone">
@@ -1865,11 +2079,12 @@ if ($mode == 'billing')
 				else
 				{
 					print $langs->trans("NoPaymentMethodOnFile");
+					if ($nbofinstancessuspended || $ispaid || $atleastonecontractwithtrialended) print ' '.img_warning();
 				}
 
 	            print '
 	                <br><br>
-	                <a href="'.$_SERVER["PHP_SELF"].'?action=registerpaymentmode" class="btn default btn-xs green-stripe">';
+	                <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'" class="btn default btn-xs green-stripe">';
 	            	if ($nbpaymentmodeok) print $langs->trans("ModifyPaymentMode");
 	            	else print $langs->trans("AddAPaymentMode");
 	                print '</a>
@@ -1894,132 +2109,101 @@ if ($mode == 'registerpaymentmode')
 {
 	print '
 	<div class="page-content-wrapper">
-			<div class="page-content">
+		<div class="page-content">
 
 
-	     <!-- BEGIN PAGE HEADER-->
-	<!-- BEGIN PAGE HEAD -->
-	<div class="page-head">
-	  <!-- BEGIN PAGE TITLE -->
-	<div class="page-title">
-	  <h1>'.$langs->trans("PaymentMode").' <small>'.$langs->trans("BillingDesc").'</small></h1>
-	</div>
-	<!-- END PAGE TITLE -->
-
-
-	</div>
-	<!-- END PAGE HEAD -->
-	<!-- END PAGE HEADER-->
+		<!-- BEGIN PAGE HEADER-->
+		<!-- BEGIN PAGE HEAD -->
+		<div class="page-head">
+		  <!-- BEGIN PAGE TITLE -->
+		<div class="page-title">
+		  <h1>'.$langs->trans("PaymentMode").'<br><small>'.$langs->trans("SetANewPaymentMode").'</small></h1>
+		</div>
+		<!-- END PAGE TITLE -->
+		</div>
+		<!-- END PAGE HEAD -->
+		<!-- END PAGE HEADER-->
 
 
 	    <div class="row">
+		<div class="col-md-7">
+		<div class="portlet light">
 
-<div class="col-md-7">
+		<div class="portlet-body">
+		<form action="'.$_SERVER["PHP_SELF"].'" method="POST">
+		<input type="hidden" name="action" value="createpaymentmode">
+		<input type="hidden" name="backtourl" value="'.$backtourl.'">
+
+		<div class="radio-list inline-block">
+		<label class="radio-inline" id="linkcard">
+		<div class="radio inline-block"><span class="checked"><input type="radio" name="type" value="card" checked></span></div>
+		<img src="/img/mastercard.png" width="50" height="31">
+		<img src="/img/visa.png" width="50" height="31">
+		<img src="/img/american_express.png" width="50" height="31">
+		</label>
+		<label class="radio-inline" id="linkpaypal">
+		&nbsp; <div class="radio inline-block"><span><input type="radio" name="type" value="payPal"></span></div>
+		<img src="/img/paypal.png" width="50" height="31">
+		</label>
+		</div>
+
+		<br><br>
+
+		<div class="linkcard">';
+
+			print '<div class="row"><div class="col-md-12"><label>'.$langs->trans("NameOnCard").'</label>';
+			print '<input class="minwidth200" type="text" name="proprio" value="'.GETPOST('proprio','alpha').'"></div></div>';
+
+			print '<div class="row"><div class="col-md-12"><label>'.$langs->trans("CardNumber").'</label>';
+			print '<input class="minwidth200" type="text" name="cardnumber" value="'.GETPOST('cardnumber','alpha').'"></div></div>';
+
+			print '<div class="row"><div class="col-md-12"><label>'.$langs->trans("ExpiryDate").'</label><br>';
+			print $formother->select_month(GETPOST('exp_date_month','int'), 'exp_date_month', 1, 1, 'width100');
+			print $formother->select_year(GETPOST('exp_date_year','int'), 'exp_date_year', 1, 5, 10, 0, 0, '', 'marginleftonly width100');
+			print '</div></div>';
+
+			print '<div class="row"><div class="col-md-12"><label>'.$langs->trans("CVN").'</label>';
+			print '<input size="5" type="text" class="maxwidth100" name="cvn" value="'.GETPOST('cvn','alpha').'"></div></div>';
+			print '<br>';
+			print '<input type="submit" name="submitcard" value="'.$langs->trans("Save").'" class="btn btn-info btn-circle">';
+			print ' ';
+			print '<input type="submit" name="cancel" value="'.$langs->trans("Cancel").'" class="btn green-haze btn-circle">';
+			print '
+		</div>
+		<div class="linkpaypal" style="display: none;">';
+			print '<br>';
+			print '<input type="submit" name="submitpaypal" value="'.$langs->trans("Continue").'" class="btn btn-info btn-circle">';
+			print ' ';
+			print '<input type="submit" name="cancel" value="'.$langs->trans("Cancel").'" class="btn green-haze btn-circle">';
+
+		print '
+		</div>
 
 
-                  <div class="form-group">
-										<div class="radio-list">
-											<label class="radio-inline">
-                        <div class="radio"><span class="checked"><input type="radio" name="type" value="card" checked=""></span></div>
-                        <img src="/assets/mastercard_straight_32px-d8c3761d0241b4c285888a45d4ad3955.png">
-                        <img src="/assets/visa_straight_32px-b04c4de823f29374436caed87e733f37.png">
-                        <img src="/assets/american_express_straight_32px-addfa5418ca5716096dea156ba1af5f1.png">
-                      </label>
-											<label class="radio-inline">
-                        <div class="radio"><span class=""><input type="radio" name="type" value="payPal"></span></div>
-                        <img src="/assets/paypal_straight_32px-0f0033d7030f3636951419089f813136.png" alt="Acceptance Mark" width="50" height="31">
-                      </label>
-										</div>
-									</div>
+		</form>
+		</div>
 
-
-                <div id="cardForm" style="display: block;">
-                  <form action="/customerUI/updatePaymentMethodToCard" method="post">
-                    <div class="form-body">
-                      <input type="hidden" name="type" value="card">
-
-
-                      <div class="form-group">
-                        <label>Name on Card</label>
-                        <input name="name" value="" type="text" class="form-control input-large">
-                      </div>
-
-                      <div class="form-group">
-                        <label>Card Number</label>
-                        <input name="number" value="" type="text" class="form-control input-large">
-                      </div>
-
-                      <div class="form-group">
-                        <label>Expiry Date</label>
-                        <div>
-                          <input type="hidden" name="expDate" value="date.struct"><select name="expDate_month" id="expDate_month" style="null" class="form-control input-inline">
-<option value="1">janvier</option>
-<option value="2">février</option>
-<option value="3" selected="selected">mars</option>
-<option value="4">avril</option>
-<option value="5">mai</option>
-<option value="6">juin</option>
-<option value="7">juillet</option>
-<option value="8">août</option>
-<option value="9">septembre</option>
-<option value="10">octobre</option>
-<option value="11">novembre</option>
-<option value="12">décembre</option>
-</select>
-<select name="expDate_year" id="expDate_year" style="width:100px;" class="form-control input-inline">
-<option value="2018" selected="selected">2018</option>
-<option value="2019">2019</option>
-<option value="2020">2020</option>
-<option value="2021">2021</option>
-<option value="2022">2022</option>
-<option value="2023">2023</option>
-<option value="2024">2024</option>
-<option value="2025">2025</option>
-<option value="2026">2026</option>
-<option value="2027">2027</option>
-<option value="2028">2028</option>
-<option value="2029">2029</option>
-<option value="2030">2030</option>
-<option value="2031">2031</option>
-<option value="2032">2032</option>
-<option value="2033">2033</option>
-<option value="2034">2034</option>
-<option value="2035">2035</option>
-<option value="2036">2036</option>
-<option value="2037">2037</option>
-<option value="2038">2038</option>
-</select>
-
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label>CVN</label>
-                        <input name="cvn" value="" type="text" class="form-control input-xsmall">
-                      </div>
-
-                      <div>
-                        <a href="/customerUI/billingOverview" class="btn btn-default btn-circle">Cancel</a>
-                        <input type="submit" name="submit" value="Save Card" class="btn green-haze btn-circle" id="submit">
-                      </div>
-
-                    </div> <!-- END FORM-BODY -->
-                  </form>
-                </div> <!-- END CARD FORM -->
-
-                <div id="payPalForm" style="display: none;">
-                  <a href="/customerUI/billingOverview" class="btn btn-default btn-circle">Cancel</a>
-                  <a href="/customerUI/updatePaymentMethodToPayPal" class="btn green-haze btn-circle">Continue</a>
-                </div>
-
-              </div>
-
-	    </div> <!-- END ROW -->
-
+		</div></div></div>
 
 	    </div>
 		</div>
 	';
+
+	print '<script type="text/javascript" language="javascript">
+		jQuery(document).ready(function() {
+			jQuery("#linkpaypal").click(function() {
+				console.log("Click on linkpaypal");
+				jQuery(".linkcard").hide();
+				jQuery(".linkpaypal").show();
+			});
+			jQuery("#linkcard").click(function() {
+				console.log("Click on linkcard");
+				jQuery(".linkcard").show();
+				jQuery(".linkpaypal").hide();
+			});
+		});
+		</script>';
+
 }
 
 

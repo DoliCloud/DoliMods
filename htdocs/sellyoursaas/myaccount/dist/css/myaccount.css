@@ -33,6 +33,16 @@ input.form-control::-moz-placeholder { /* Firefox 19+ */
 	border: none;
 	color: #FFF;	
 }
+
+.btn:hover, .btn.hover {
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 2px rgba(50, 117, 116, 0.25);
+    box-shadow: 0 0 0 2px rgba(50, 117, 116, 0.25);
+}
+
+.note.note-info {
+    background: #f6f6f6;
+}
 .note {
     margin: 0 0 30px 0;
     padding: 15px 30px 15px 15px;
@@ -590,11 +600,12 @@ disabled]:focus, .btn-warning[disabled]:active, .btn-warning[disabled
 btn-warning:hover, fieldset[disabled] .btn-warning:focus, fieldset[
 disabled] .btn-warning:active, fieldset[disabled] .btn-warning.active
 {background-color: #dfba49;border-color: #dbb233;}.btn-warning .
-badge {color: #dfba49;background-color: #fff;}.btn-danger {color: 
-#fff;background-color: #F3565D;border-color: #f13e46;}.btn-danger:
-hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active {
-color: #fff;background-color: #f1353d;border-color: #ec111b;}.open .
-btn-danger.dropdown-toggle {color: #fff;background-color: #f1353d;
+badge {color: #dfba49;background-color: #fff;}
+
+.btn-danger {color: #fff;background-color: #f1353d;border-color: #f13e46;}
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active {color: #fff;background-color: #f1353d;border-color: #ec111b;}
+
+.open .btn-danger.dropdown-toggle {color: #fff;background-color: #f1353d;
 border-color: #ec111b;}.btn-danger:active, .btn-danger.active {
 background-image: none;background-color: #ef1d26;}.btn-danger:active:
 hover, .btn-danger.active:hover {background-color: #f0262f;}.open .

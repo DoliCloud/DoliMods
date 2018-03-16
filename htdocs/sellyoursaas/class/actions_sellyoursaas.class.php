@@ -73,7 +73,7 @@ class ActionsSellyoursaas
 		    		$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?username='.$object->email.'&password=&login_hash='.$dol_login_hash;
 		    	}
 
-		    	$this->resprints = ' - <a href="'.$url.'" target="_myaccount" alt="'.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span> '.$conf->global->SELLYOURSAAS_NAME.' '.$langs->trans("Dashboard").'</a>';
+		    	$this->resprints = ' - <!-- Added by getNomUrl hook of SellYourSaas --><a href="'.$url.'" target="_myaccount" alt="'.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span> '.$conf->global->SELLYOURSAAS_NAME.' '.$langs->trans("Dashboard").'</a>';
 	    	}
     	}
 
@@ -366,7 +366,8 @@ class ActionsSellyoursaas
     	global $conf, $langs, $user;
 		global $object;
 
-    	if ($parameters['currentcontext'] == 'thirdpartycard')
+
+		if (in_array($parameters['currentcontext'], array('thirdpartycard','contactthirdparty','projectthirdparty','consumptionthirdparty','thirdpartybancard','thirdpartymargins','ticketsuplist','thirdpartynotification','agendathirdparty')))
     	{
     		if ($object->element == 'societe')
     		{

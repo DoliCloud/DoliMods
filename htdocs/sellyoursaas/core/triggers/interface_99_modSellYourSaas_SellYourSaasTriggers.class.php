@@ -205,7 +205,16 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
     	if ($remoteaction)
     	{
     		$okforremoteaction = 1;
-    		if (in_array($remoteaction, array('suspend','unsuspend','undeploy','undeployall')) && empty($object->array_options['options_deployment_status'])) $okforremoteaction=0;	// This is a v1 record
+    		if (get_class($object) == 'Contrat')	// object is contract
+    		{
+    			if (in_array($remoteaction, array('suspend','unsuspend','undeploy','undeployall')) && empty($object->array_options['options_deployment_status'])) $okforremoteaction=0;	// This is a v1 record
+    		}
+    		else									// object is a line of contract fo type 'app'
+    		{
+    			$parentobject = new Contrat($this->db);
+    			$parentobject->fetch($object->fk_contrat);
+    			if (in_array($remoteaction, array('suspend','unsuspend','undeploy','undeployall')) && empty($parentobject->array_options['options_deployment_status'])) $okforremoteaction=0;	// This is a v1 record
+    		}
 
     		if ($okforremoteaction)
     		{

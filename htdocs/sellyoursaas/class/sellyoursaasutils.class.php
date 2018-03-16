@@ -502,7 +502,7 @@ class SellYourSaasUtils
     /**
      * Make a remote action on a contract (deploy/undeploy/suspend/unsuspend/...)
      *
-     * @param	string					$remoteaction	Remote action
+     * @param	string					$remoteaction	Remote action ('suspend/unsuspend'=change apache virtual file, 'deploy/undeploy'=create/delete database, 'refresh'=read remote data)
      * @param 	Contrat|ContratLigne	$object			Object contract or contract line
      * @param	string					$appusername	App login
      * @param	string					$email			Initial email
@@ -729,7 +729,7 @@ class SellYourSaasUtils
     		$producttmp->fetch($tmpobject->fk_product);
 
     		if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
-    			in_array($remoteaction, array('deploy','deployall','suspend','unsuspend')) &&
+    			in_array($remoteaction, array('deploy','deployall','suspend','unsuspend','undeploy')) &&
     			($producttmp->array_options['options_app_or_option'] == 'app' || $producttmp->array_options['options_app_or_option'] == 'option'))
     		{
     			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';

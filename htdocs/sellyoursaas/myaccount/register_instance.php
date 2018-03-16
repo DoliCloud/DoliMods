@@ -633,7 +633,7 @@ if (! $error)
 	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 	$formmail=new FormMail($db);
 
-	$arraydefaultmessage=$formmail->getEMailTemplate($db, 'contract', $user, $langs, 0, 1, 'InstanceDeployed');
+	$arraydefaultmessage=$formmail->getEMailTemplate($db, 'contract', $user, $langs, 0, 1, 'InstanceDeployed');		// Templates are init into data.sql
 
 	$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $contract);
 	$substitutionarray['__PACKAGELABEL__']=$tmppackage->label;
