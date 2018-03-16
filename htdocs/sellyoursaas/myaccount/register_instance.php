@@ -373,14 +373,16 @@ else
 
 	if ($tmpthirdparty->id > 0)
 	{
-
-		$result = $tmpthirdparty->update(0, $user);
-		if ($result <= 0)
+		if (empty($reusesocid))
 		{
-			$db->rollback();
-			setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
-			header("Location: ".$newurl);
-			exit;
+			$result = $tmpthirdparty->update(0, $user);
+			if ($result <= 0)
+			{
+				$db->rollback();
+				setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+				header("Location: ".$newurl);
+				exit;
+			}
 		}
 	}
 	else

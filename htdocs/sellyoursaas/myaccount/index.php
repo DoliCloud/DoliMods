@@ -1307,7 +1307,8 @@ if ($mode == 'instances')
 										if ($line->price)
 										{
 											print '<span class="opacitymedium small">'.price($line->price, 1, $langs, 0, -1, -1, $conf->currency);
-											if ($line->qty > 1 && $labelprodsing) print ' / '.$labelprodsing;
+											//if ($line->qty > 1 && $labelprodsing) print ' / '.$labelprodsing;
+											if (($line->qty > 1 || preg_match('/users/i', $tmpproduct->label)) && $labelprodsing) print ' / '.$labelprodsing;
 											// TODO
 											print ' / '.$langs->trans("Month");
 											print '</span>';
