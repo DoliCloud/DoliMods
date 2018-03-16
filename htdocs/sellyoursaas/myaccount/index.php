@@ -14,6 +14,7 @@ if (! defined('NOREQUIREMENU'))  define('NOREQUIREMENU','1');			// If there is n
 //if (! defined("NOLOGIN"))        define("NOLOGIN",'1');				    	// If this page is public (can be called outside logged session)
 if (! defined("MAIN_LANG_DEFAULT")) define('MAIN_LANG_DEFAULT','auto');
 if (! defined("MAIN_AUTHENTICATION_MODE")) define('MAIN_AUTHENTICATION_MODE','sellyoursaas');
+if (! defined("MAIN_AUTHENTICATION_POST_METHOD")) define('MAIN_AUTHENTICATION_POST_METHOD','0');
 
 // Load Dolibarr environment
 include ('./mainmyaccount.inc.php');

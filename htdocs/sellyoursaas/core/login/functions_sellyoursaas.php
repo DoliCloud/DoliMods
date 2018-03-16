@@ -48,6 +48,29 @@ function check_user_password_sellyoursaas($usertotest, $passwordtotest, $entityt
 	}
 	else
 	{
+		// Test with hash
+
+		if (GETPOST('login_hash', 'alpha', 1))
+		{
+			$dol_login_hash=dol_hash('sellyoursaas'.$usertotest.dol_print_date(dol_now(),'dayrfc','gmt'));
+			//var_dump(GETPOST('login_hash', 'alpha', 1));
+			//var_dump($dol_login_hash);exit;
+
+			if (GETPOST('login_hash', 'alpha', 1) == $dol_login_hash)
+			{
+				$tmpuser = new User($db);
+				$tmpuser->fetch($conf->global->SELLYOURSAAS_ANONYMOUSUSER);
+				if ($tmpuser->login)
+				{
+					// Login is ok
+					$_SESSION["dol_loginsellyoursaas"] = $thirdparty->id;
+					return $tmpuser->login;
+				}
+			}
+		}
+
+		// Standard test
+
 		$passwordtotest_crypted = dol_hash($passwordtotest);
 
 		/*var_dump($passwordtotest);
