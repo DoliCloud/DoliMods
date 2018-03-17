@@ -60,7 +60,7 @@ if (empty($mode) && empty($welcomecid)) $mode='dashboard';
 $langs=new Translate('', $conf);
 $langs->setDefaultLang(GETPOST('lang','aZ09')?GETPOST('lang','aZ09'):'auto');
 
-$langs->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas","other","errors",'mails','paypal','paybox','stripe'));
+$langs->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas","other","errors",'mails','paypal','paybox','stripe','withdrawals'));
 
 $mythirdpartyaccount = new Societe($db);
 
@@ -1401,7 +1401,7 @@ if ($mode == 'instances')
 						  print '<form class="inline-block centpercent" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 
 				          // Instance name
-						  print '<span class="caption-subject font-green-sharp bold uppercase" title="'.$langs->trans("Contract").' '.$contract->ref.'">'.$instancename.'</span>
+						  print '<a href="https://'.$contract->ref_customer.'" class="caption-subject bold uppercase" title="'.$langs->trans("Contract").' '.$contract->ref.'">'.$instancename.'</a>
 				          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->';
 
 						  // Instance status
@@ -1415,9 +1415,20 @@ if ($mode == 'instances')
 				          else print $statuslabel;
 				          print '</span></span><br>';
 
-						  print '<p style="padding-top: 8px;" class="clearboth">
-				            <!-- <span class="caption-helper"><span class="opacitymedium">'.$langs->trans("ID").' : '.$contract->ref.'</span></span><br> -->
-				            <span class="caption-helper">';
+				          print '<p style="padding-top: 8px;" class="clearboth">';
+
+				          // URL
+				          if ($statuslabel != 'undeployed')
+				          {
+				          	print '<span class="caption-helper"><span class="opacitymedium">';
+				          	if ($conf->dol_optimize_smallscreen) print $langs->trans("URL");
+				          	else print $langs->trans("YourURLToGoOnYourAppInstance");
+				          	print ' : </span><a class="font-green-sharp linktoinstance" href="https://'.$contract->ref_customer.'" target="blankinstance">'.$contract->ref_customer.'</a>';
+				          	print '</span><br>';
+				          }
+
+				          print '<!-- <span class="caption-helper"><span class="opacitymedium">'.$langs->trans("ID").' : '.$contract->ref.'</span></span><br> -->';
+				          print '<span class="caption-helper">';
 								if ($contract->array_options['options_deployment_status'] == 'processing')
 								{
 									print '<span class="opacitymedium">'.$langs->trans("DateStart").' : </span><span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_start'], 'dayhour').'</span>';
@@ -1438,16 +1449,6 @@ if ($mode == 'instances')
 								}
 							print '
 							</span><br>';
-
-							// URL
-							if ($statuslabel != 'undeployed')
-							{
-								print '<span class="caption-helper"><span class="opacitymedium">';
-								if ($conf->dol_optimize_smallscreen) print $langs->trans("URL");
-								else print $langs->trans("YourURLToGoOnYourAppInstance");
-								print ' : </span><a class="font-green-sharp linktoinstance" href="https://'.$contract->ref_customer.'" target="blankinstance">'.$contract->ref_customer.'</a>';
-								print '</span><br>';
-							}
 
 							// Calculate price on invoicing
 							$contract->fetchObjectLinked();
@@ -1982,7 +1983,7 @@ if ($mode == 'billing')
 	            <div class="row" style="border-bottom: 1px solid #ddd;">
 
 	              <div class="col-md-6">
-			          <span class="caption-subject font-green-sharp bold uppercase" title="'.$langs->trans("Contract").' '.$contract->ref.'">'.$instancename.'</span>
+			          <a href="https://'.$contract->ref_customer.'" class="caption-subject bold uppercase" title="'.$langs->trans("Contract").' '.$contract->ref.'">'.$instancename.'</a>
 			          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->
 	              </div><!-- END COL -->
 	              <div class="col-md-2 hideonsmartphone">
@@ -2083,6 +2084,7 @@ if ($mode == 'billing')
 				if ($nbpaymentmodeok > 0)
 				{
 					print '<table class="centpercent">';
+					print '<!-- '.$companypaymentmodetemp->id.' -->';
 
 					foreach($arrayofcompanypaymentmode as $companypaymentmodetemp)
 					{
@@ -2101,12 +2103,12 @@ if ($mode == 'billing')
 							print '</td>';
 							print '</tr>';
 						}
-						if ($companypaymentmodetemp->type == 'paypal')
+						elseif ($companypaymentmodetemp->type == 'paypal')
 						{
 							print '<tr>';
 							print '<td>';
 							print '<!-- '.$companypaymentmodetemp->id.' -->';
-							print img_picto('paypal');
+							print img_picto('', 'paypal');
 							print '</td>';
 							print '<td>';
 							print $companypaymentmodetemp->email;
@@ -2114,6 +2116,38 @@ if ($mode == 'billing')
 							print '</td>';
 							print '<td>';
 							print dol_print_date($companypaymentmodetemp->starting_date, 'day').'/'.dol_print_date($companypaymentmodetemp->ending_date, 'day');
+							print '</td>';
+							print '</tr>';
+						}
+						elseif ($companypaymentmodetemp->type == 'ban')
+						{
+							print '<tr>';
+							print '<td>';
+							print img_picto('', 'object_account');
+							print '</td>';
+							print '<td class="wordbreak" style="word-break: break-word">';
+							print $langs->trans("WithdrawalReceipt").' ';
+							print $companypaymentmodetemp->label;
+							print '</td>';
+							print '<td>';
+							print '</td>';
+							print '</tr>';
+
+							print '<tr><td colspan="3">';
+							print $langs->trans("IBAN").': '.$companypaymentmodetemp->iban_prefix.'<br>';
+							if ($companypaymentmodetemp->rum) print $langs->trans("RUM").': '.$companypaymentmodetemp->rum;
+							print '</td></tr>';
+						}
+						else
+						{
+							print '<tr>';
+							print '<td>';
+							print $companypaymentmodetemp->type;
+							print '</td>';
+							print '<td>';
+							print $companypaymentmodetemp->label;
+							print '</td>';
+							print '<td>';
 							print '</td>';
 							print '</tr>';
 						}
