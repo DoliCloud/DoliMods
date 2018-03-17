@@ -907,8 +907,8 @@ if (empty($welcomecid))	// Show warning
 	{
 		if ($contract->array_options['options_deployment_status'] == 'undeployed') continue;
 
-		$isapaidinstance = sellyoursaasIsPaidInstance($contract);
-		$expirationdate = sellyoursaasGetExpirationDate($contract);
+		$isapaidinstance = sellyoursaasIsPaidInstance($contract);		// At least one template or final invoice
+		$expirationdate = sellyoursaasGetExpirationDate($contract);		// End of date of service
 
 		if (! $isapaidinstance && $contract->array_options['options_date_endfreeperiod'] > 0)
 		{
@@ -919,7 +919,7 @@ if (empty($welcomecid))	// Show warning
 
 			if (empty($atleastonepaymentmode))
 			{
-				if ($delaybeforeendoftrial > 0)
+				if ($delaybeforeendoftrial > 0)		// Trial not yet expired
 				{
 					$firstline = reset($contract->lines);
 					print '
@@ -933,7 +933,7 @@ if (empty($welcomecid))	// Show warning
 						</div>
 					';
 				}
-				else
+				else								// Trial expired
 				{
 					$atleastonecontractwithtrialended++;
 
@@ -952,7 +952,7 @@ if (empty($welcomecid))	// Show warning
 			}
 			else
 			{
-				if ($delaybeforeendoftrial > 0)
+				if ($delaybeforeendoftrial > 0)		// Trial not yet expired
 				{
 					$firstline = reset($contract->lines);
 					print '
@@ -961,7 +961,7 @@ if (empty($welcomecid))	// Show warning
 						</div>
 					';
 				}
-				else
+				else								// Trial expired
 				{
 					$atleastonecontractwithtrialended++;
 
@@ -974,27 +974,56 @@ if (empty($welcomecid))	// Show warning
 			}
 		}
 
-		/*
 		if ($isapaidinstance && $expirationdate > 0)
 		{
 			$delaybeforeexpiration = ($expirationdate - dol_now());
 			$delayindays = round($delaybeforeexpiration / 3600 / 24);
 
-			// TODO
-			if ($delaybeforeexpiration > 0)
+			if ($delayindays < 0)	// Expired
 			{
+				print '
+						<div class="note note-warning">
+						<h4 class="block">'.$langs->trans("XDaysAfterEndOfPeriodPaymentModeSet", $contract->ref_customer, abs($delayindays)).'</h4>
+						</div>
+					';
+			}
+		}
+	}
 
+	// Test if there is a paiment error, if yes, ask to fix payment data
+	$sql = 'SELECT f.rowid, ee.code, ee.extraparams  FROM '.MAIN_DB_PREFIX.'facture as f';
+	$sql.= ' INNER JOIN '.MAIN_DB_PREFIX."actioncomm as ee ON ee.fk_element = f.rowid AND elementtype = 'facture' AND code = 'PAYMENT_ERROR'";
+	$sql.= ' WHERE f.fk_soc = '.$mythirdpartyaccount->id.' AND f.paye = 0';
+	$sql.= ' ORDER BY ee.datep DESC';
+
+	$resql = $db->query($sql);
+	if ($resql)
+	{
+		$num_rows = $db->num_rows($resql);
+		$i=0;
+		if ($num_rows)
+		{
+			$obj = $db->fetch_object($resql);
+			// There is at least one payment error
+			if ($obj->extraparams == 'PAYMENT_ERROR_INSUFICIENT_FUNDS')
+			{
+				print '
+						<div class="note note-error">
+						<h4 class="block">'.$langs->trans("SomeOfYourPaymentFailedINSUFICIENT_FUNDS", $obj->label).'</h4>
+						</div>
+					';
 			}
 			else
 			{
-
+				print '
+						<div class="note note-error">
+						<h4 class="block">'.$langs->trans("SomeOfYourPaymentFailed", $obj->label).'</h4>
+						</div>
+					';
 			}
-		}*/
-
-		// Test if there is a paiment error to ask to fix payment data
-		// @TODO
-
+		}
 	}
+	else dol_print_error($db);
 }
 
 

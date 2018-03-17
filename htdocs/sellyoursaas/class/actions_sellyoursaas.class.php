@@ -73,7 +73,10 @@ class ActionsSellyoursaas
 		    		$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?username='.$object->email.'&password=&mode=logout&login_hash='.$dol_login_hash;
 		    	}
 
-		    	$this->resprints = ' - <!-- Added by getNomUrl hook of SellYourSaas --><a href="'.$url.'" target="_myaccount" alt="'.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span> '.$conf->global->SELLYOURSAAS_NAME.' '.$langs->trans("Dashboard").'</a>';
+		    	$this->resprints = ' - <!-- Added by getNomUrl hook of SellYourSaas -->';
+		    	if ($object->array_options['options_dolicloud'] == 'yesv1') $this->resprints .= 'V1 - ';
+		    	if ($object->array_options['options_dolicloud'] == 'yesv2') $this->resprints .= 'V2 - ';
+		    	$this->resprints .= '<a href="'.$url.'" target="_myaccount" alt="'.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span> '.$conf->global->SELLYOURSAAS_NAME.' '.$langs->trans("Dashboard").'</a>';
 	    	}
     	}
 
