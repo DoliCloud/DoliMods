@@ -2126,8 +2126,7 @@ if ($mode == 'billing')
 							print img_picto('', 'object_account');
 							print '</td>';
 							print '<td class="wordbreak" style="word-break: break-word">';
-							print $langs->trans("WithdrawalReceipt").' ';
-							print $companypaymentmodetemp->label;
+							print $langs->trans("WithdrawalReceipt");
 							print '</td>';
 							print '<td>';
 							print '</td>';
