@@ -638,6 +638,7 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('directaccess', 	          "AccessToResources", 'boolean',   114,     '',  'product', 0, 0,   '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$param=array('options'=>array('basic'=>'Basic','premium'=>'Premium','none'=>'None'));
 		$resultx=$extrafields->addExtraField('typesupport', 	              "TypeOfSupport",  'select',   115,     '',  'product', 0, 0,   '', $param, 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$resultx=$extrafields->addExtraField('separatorproductend',                   "Other",'separate',   199,     '',  'product', 0, 1,   '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 
 		// Thirdparty
 		$resultx=$extrafields->addExtraField('separatorthirdparty',               "SaaS", 'separate',100,    '', 'thirdparty', 0, 1, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
@@ -650,9 +651,7 @@ class modSellYourSaas extends DolibarrModules
 		$param=array('options'=>array('auto'=>null));
 		$resultx=$extrafields->addExtraField('password',             "DashboardPassword", 'password',190, '128', 'thirdparty', 0, 0, '', $param, 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('pass_temp',         "HashForPasswordReset",  'varchar',191, '128', 'thirdparty', 0, 0, '',     '', 1, '', 0, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
-
-		// Invoice
-		//$resultx=$extrafields->addExtraField('manual_collect',    "Manual collection",  'boolean',  1,   '2',      'facture', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$resultx=$extrafields->addExtraField('separatorthirdpartyend',           "Other", 'separate',199,    '', 'thirdparty', 0, 1, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 
 		// Contract
 		$resultx=$extrafields->addExtraField('separatorcontract',                            "SaaS", 'separate', 100,    '',    'contrat', 0, 1,    '',      '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
@@ -677,9 +676,7 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('prefix_db',                 "Special table prefix DB",  'varchar', 128,  '64',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('fileauthorizekey',             "DateFileauthorizekey", 'datetime', 129,    '',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('filelock',                             "DateFilelock", 'datetime', 130,    '',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
-
-		//$resultx=$extrafields->addExtraField('nb_users',            "LastNbEnabledUsers",      'int',  40,   '8',    'contrat', 0, 0, '',      '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
-		//$resultx=$extrafields->addExtraField('nb_gb',                       "LastNbOfGb",   'double',  41,'10,2',    'contrat', 0, 0, '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$resultx=$extrafields->addExtraField('separatorcontratend',                         "Other", 'separate', 199,     '',   'contrat', 0, 1,    '',      '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 
 
 		// Create/import website called 'sellyoursaas'
