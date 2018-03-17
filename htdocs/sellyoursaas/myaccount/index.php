@@ -100,7 +100,12 @@ if ($cancel)
 if ($mode == 'logout')
 {
 	session_destroy();
-	header("Location: /index.php");
+	$param='';
+	if (GETPOSTISSET('username','alpha'))   $param.='&username='.urlencode(GETPOST('username','alpha'));
+	if (GETPOSTISSET('password','alpha'))   $param.='&password='.urlencode(GETPOST('password','alpha'));
+	if (GETPOSTISSET('login_hash','alpha')) $param.='&login_hash='.urlencode(GETPOST('login_hash','alpha'));
+
+	header("Location: /index.php".($param?'?'.$param:''));
 	exit;
 }
 
@@ -369,6 +374,17 @@ if ($action == 'createpaymentmode')
 				}
 			}
 		}
+
+		// Loop on each pending invoice of the thirdparty and try to pay them with payment = invoice amount.
+
+		// After each payment ok, into trigger "invoice classify billed"
+		// - if there is no more pending payment:
+		//   - Launch process to renew contract if no more pending payments on instance: SellYourSaasRenewalContracts (it updates end date)
+		//   - Enable services that were disabled, we launch activate on closed services (it will include the trigger to unsuspend)
+		//
+
+
+
 
 		if (! $error)
 		{
@@ -2107,7 +2123,7 @@ if ($mode == 'billing')
 
 if ($mode == 'registerpaymentmode')
 {
-	print '
+	print '<!-- mode = registerpaymentmode -->
 	<div class="page-content-wrapper">
 		<div class="page-content">
 
@@ -2126,7 +2142,7 @@ if ($mode == 'registerpaymentmode')
 
 
 	    <div class="row">
-		<div class="col-md-7">
+		<div class="col-md-12 center">
 		<div class="portlet light">
 
 		<div class="portlet-body">
@@ -2162,7 +2178,7 @@ if ($mode == 'registerpaymentmode')
 			print $formother->select_year(GETPOST('exp_date_year','int'), 'exp_date_year', 1, 5, 10, 0, 0, '', 'marginleftonly width100');
 			print '</div></div>';
 
-			print '<div class="row"><div class="col-md-12"><label>'.$langs->trans("CVN").'</label>';
+			print '<div class="row"><div class="col-md-12"><label><br>'.$langs->trans("CVN").'</label>';
 			print '<input size="5" type="text" class="maxwidth100" name="cvn" value="'.GETPOST('cvn','alpha').'"></div></div>';
 			print '<br>';
 			print '<input type="submit" name="submitcard" value="'.$langs->trans("Save").'" class="btn btn-info btn-circle">';

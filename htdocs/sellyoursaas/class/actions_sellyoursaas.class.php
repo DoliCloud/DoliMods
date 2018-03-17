@@ -69,8 +69,8 @@ class ActionsSellyoursaas
 		    	}
 		    	if ($object->array_options['options_dolicloud'] == 'yesv2')
 		    	{
-		    		$dol_login_hash=dol_hash('sellyoursaas'.$object->email.dol_print_date(dol_now(),'dayrfc','gmt'));
-		    		$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?username='.$object->email.'&password=&login_hash='.$dol_login_hash;
+		    		$dol_login_hash=dol_hash('sellyoursaas'.$object->email.dol_print_date(dol_now(),'%Y%m%d%H','gmt'));	// hash is valid one hour
+		    		$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?username='.$object->email.'&password=&mode=logout&login_hash='.$dol_login_hash;
 		    	}
 
 		    	$this->resprints = ' - <!-- Added by getNomUrl hook of SellYourSaas --><a href="'.$url.'" target="_myaccount" alt="'.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span> '.$conf->global->SELLYOURSAAS_NAME.' '.$langs->trans("Dashboard").'</a>';
@@ -380,8 +380,8 @@ class ActionsSellyoursaas
     				}
     				if ($object->array_options['options_dolicloud'] == 'yesv2')
     				{
-    					$dol_login_hash=dol_hash('sellyoursaas'.$object->email.dol_print_date(dol_now(),'dayrfc','gmt'));
-    					$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?username='.$object->email.'&password=&login_hash='.$dol_login_hash;
+    					$dol_login_hash=dol_hash('sellyoursaas'.$object->email.dol_print_date(dol_now(),'%Y%m%d%H','gmt'));	// hash is valid one hour
+    					$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?username='.$object->email.'&password=&mode=logout&login_hash='.$dol_login_hash;
     				}
 
     				$this->resprints = '<br><div class="clearboth"><a href="'.$url.'" target="_myaccount" alt="'.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span> '.$conf->global->SELLYOURSAAS_NAME.' '.$langs->trans("Dashboard").'</a></div>';
