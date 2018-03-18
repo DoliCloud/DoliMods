@@ -717,7 +717,8 @@ if (empty($reshook))
 
 				$invoice_rec->titre = 'Template invoice for '.$contract->ref.' '.$contract->ref_customer;
 				$invoice_rec->note_private = $contract->note_private;
-				$invoice_rec->note_public  = dol_concatdesc($contract->note_public, '__(Period)__ : __INVOICE_DATE_NEXT_INVOICE_BEFORE_GEN__ - __INVOICE_DATE_NEXT_INVOICE_AFTER_GEN__');
+				//$invoice_rec->note_public  = dol_concatdesc($contract->note_public, '__(Period)__ : __INVOICE_DATE_NEXT_INVOICE_BEFORE_GEN__ - __INVOICE_DATE_NEXT_INVOICE_AFTER_GEN__');
+				$invoice_rec->note_public  = $contract->note_public;
 				$invoice_rec->mode_reglement_id = $invoice_draft->mode_reglement_id;
 
 				$invoice_rec->usenewprice = 0;
