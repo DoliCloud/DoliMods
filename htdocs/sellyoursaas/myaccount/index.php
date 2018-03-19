@@ -1100,7 +1100,7 @@ if ($mode == 'dashboard')
 
 	      </div> <!-- END COL -->
 
-
+			<!-- My profile -->
 	      <div class="col-md-6">
 	        <div class="portlet light" id="paymentMethodSection">
 
@@ -1157,8 +1157,9 @@ if ($mode == 'dashboard')
 	print '
 	    <div class="row">
 
+			<!-- Box of payment balance -->
 	      <div class="col-md-6">
-	        <div class="portlet light" id="paymentMethodSection">
+	        <div class="portlet light" id="paymentBalance">
 
 	          <div class="portlet-title">
 	            <div class="caption">
@@ -1226,8 +1227,9 @@ if ($mode == 'dashboard')
 	      </div><!-- END COL -->
 
 
+			<!-- Box of tickets -->
 	      <div class="col-md-6">
-	        <div class="portlet light" id="paymentMethodSection">
+	        <div class="portlet light" id="boxOfTickets">
 
 	          <div class="portlet-title">
 	            <div class="caption">
@@ -2066,6 +2068,7 @@ if ($mode == 'billing')
 
 	      </div> <!-- END COL -->
 
+			<!-- Box of payment modes -->
 	      <div class="col-md-3">
 	        <div class="portlet light" id="paymentMethodSection">
 
@@ -2086,8 +2089,10 @@ if ($mode == 'billing')
 					print '<table class="centpercent">';
 					print '<!-- '.$companypaymentmodetemp->id.' -->';
 
+					$i = 0;
 					foreach($arrayofcompanypaymentmode as $companypaymentmodetemp)
 					{
+						if ($i > 0) print '<tr><td colspan="3"><br></td></tr>';
 						if ($companypaymentmodetemp->type == 'card')
 						{
 							print '<tr>';
@@ -2125,10 +2130,8 @@ if ($mode == 'billing')
 							print '<td>';
 							print img_picto('', 'object_account');
 							print '</td>';
-							print '<td class="wordbreak" style="word-break: break-word">';
+							print '<td class="wordbreak" style="word-break: break-word" colspan="2">';
 							print $langs->trans("WithdrawalReceipt");
-							print '</td>';
-							print '<td>';
 							print '</td>';
 							print '</tr>';
 
@@ -2150,6 +2153,8 @@ if ($mode == 'billing')
 							print '</td>';
 							print '</tr>';
 						}
+
+						$i++;
 					}
 
 					print '</table>';
