@@ -216,7 +216,21 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
     			if (in_array($remoteaction, array('suspend','unsuspend','undeploy','undeployall')) && empty($parentobject->array_options['options_deployment_status'])) $okforremoteaction=0;	// This is a v1 record
     		}
 
-    		if ($okforremoteaction)
+    		if (! $error)
+    		{
+    			if ($action == 'deploy' || 'unsuspend')
+    			{
+	    			// TODO If there is some template invoices linked to contract, we make sure template invoice are enabled
+    			}
+
+    			if ($action == 'undeploy')
+    			{
+    				// TODO Disable template invoice
+
+
+    			}
+    		}
+    		if (! $error && $okforremoteaction)
     		{
 	    		dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 	    		$sellyoursaasutils = new SellYourSaasUtils($this->db);

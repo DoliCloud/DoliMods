@@ -108,7 +108,7 @@ function sellyoursaasGetExpirationDate($contract)
 	// Loop on each line to get lowest expiration date
 	foreach($contract->lines as $line)
 	{
-		if ($line->date_end)
+		if ($line->date_end)	// Planned end date of service
 		{
 			if ($expirationdate > 0) $expirationdate = min($expirationdate, $line->date_end);
 			else $expirationdate = $line->date_end;

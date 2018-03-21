@@ -455,6 +455,13 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 
 			if (! $error)
 			{
+				// TODO Disable template invoice
+
+
+			}
+
+			if (! $error)
+			{
 				// Send deployment email
 				include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
 				include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
@@ -549,7 +556,7 @@ if ($action == 'deployall')
 		$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
 
 		// TODO create $contract like in register_instance.php
-		$contract = new Contract($db);
+		$contract = new Contrat($db);
 
 		dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 		$sellyoursaasutils = new SellYourSaasUtils($db);
@@ -898,7 +905,8 @@ $nboftickets = $langs->trans("SoonAvailable");
 $atleastonecontractwithtrialended = 0;
 
 
-if (empty($welcomecid))	// Show warning
+// Show warnings
+if (empty($welcomecid))
 {
 	$companypaymentmode = new CompanyPaymentMode($db);
 	$result = $companypaymentmode->fetch(0, null, $mythirdpartyaccount->id);
