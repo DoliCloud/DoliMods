@@ -390,7 +390,7 @@ if ($action == 'createpaymentmode')
 		{
 			$db->commit();
 
-			$url=$_SERVER["PHP_SELF"].'?socid='.$object->id;
+			$url=$_SERVER["PHP_SELF"];
 			header('Location: '.$url);
 			exit;
 		}
@@ -434,30 +434,66 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 		// Send confirmation email
 		if ($action == 'undeploy')
 		{
-			dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
-			$sellyoursaasutils = new SellYourSaasUtils($db);
-			$result = $sellyoursaasutils->sellyoursaasRemoteAction('suspend', $contract);
-			if ($result < 0)
-			{
-				$error++;
-				setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
-			}
+			$object = $contract;
 
-			if (! $error)
+			// SAME CODE THAN INTO ACTION_SELLYOURSAAS.CLASS.PHP
+
+			// Disable template invoice
+			$object->fetchObjectLinked();
+
+			$foundtemplate=0;
+			$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
+			if (is_array($object->linkedObjects['facturerec']) && count($object->linkedObjects['facturerec']) > 0)
 			{
-				$result = $contract->closeAll($user, 1, 'Services closed after an undeploy request from Customer dashboard');
-				if ($result < 0)
+				function cmp($a, $b)
 				{
-					$error++;
-					setEventMessages($contract->error, $contract->errors, 'errors');
+					return strcmp($a->date, $b->date);
+				}
+				usort($object->linkedObjects['facturerec'], "cmp");
+
+				//var_dump($object->linkedObjects['facture']);
+				//dol_sort_array($object->linkedObjects['facture'], 'date');
+				foreach($object->linkedObjects['facturerec'] as $idinvoice => $invoice)
+				{
+					if ($invoice->suspended == FactureRec::STATUS_NOTSUSPENDED)
+					{
+						$result = $invoice->setStatut(FactureRec::STATUS_SUSPENDED);
+						if ($result <= 0)
+						{
+							$error++;
+							$this->error=$invoice->error;
+							$this->errors=$invoice->errors;
+						}
+					}
 				}
 			}
 
 			if (! $error)
 			{
-				// TODO Disable template invoice
+				dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
+				$sellyoursaasutils = new SellYourSaasUtils($db);
+				$result = $sellyoursaasutils->sellyoursaasRemoteAction('suspend', $contract);
+				if ($result < 0)
+				{
+					$error++;
+					setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
+				}
+			}
 
+			// Finish deploy all
 
+			$comment = 'Services closed after an undeploy request from Customer dashboard';
+
+			if (! $error)
+			{
+				dol_syslog("Unactivate all lines - undeploy process from myaccount");
+
+				$result = $contract->closeAll($user, 1, $comment);
+				if ($result < 0)
+				{
+					$error++;
+					setEventMessages($contract->error, $contract->errors, 'errors');
+				}
 			}
 
 			if (! $error)
@@ -499,27 +535,84 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 			}
 			else
 			{
-				dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
-				$sellyoursaasutils = new SellYourSaasUtils($db);
-				$result = $sellyoursaasutils->sellyoursaasRemoteAction('undeploy', $contract);
-				if ($result < 0)
+				$object = $contract;
+
+				// SAME CODE THAN INTO ACTION_SELLYOURSAAS.CLASS.PHP
+
+				// Disable template invoice
+				$object->fetchObjectLinked();
+
+				$foundtemplate=0;
+				$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
+				if (is_array($object->linkedObjects['facturerec']) && count($object->linkedObjects['facturerec']) > 0)
 				{
-					$error++;
-					setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
+					function cmp($a, $b)
+					{
+						return strcmp($a->date, $b->date);
+					}
+					usort($object->linkedObjects['facturerec'], "cmp");
+
+					//var_dump($object->linkedObjects['facture']);
+					//dol_sort_array($object->linkedObjects['facture'], 'date');
+					foreach($object->linkedObjects['facturerec'] as $idinvoice => $invoice)
+					{
+						if ($invoice->suspended == FactureRec::STATUS_UNSUSPENDED)
+						{
+							$result = $invoice->setStatut(FactureRec::STATUS_SUSPENDED);
+							if ($result <= 0)
+							{
+								$error++;
+								$this->error=$invoice->error;
+								$this->errors=$invoice->errors;
+							}
+						}
+					}
 				}
-			}
 
-			$contract->array_options['options_deployment_status'] = 'undeployed';
-			$contract->array_options['options_undeployment_date'] = dol_now('tzserver');
-			$contract->array_options['options_undeployment_ip'] = $_SERVER['REMOTE_ADDR'];
-
-			if (! $error)
-			{
-				$result = $contract->update($user);
-				if ($result < 0)
+				if (! $error)
 				{
-					$error++;
-					setEventMessages($contract->error, $contract->errors, 'errors');
+					dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
+					$sellyoursaasutils = new SellYourSaasUtils($db);
+					$result = $sellyoursaasutils->sellyoursaasRemoteAction('undeploy', $contract);
+					if ($result < 0)
+					{
+						$error++;
+						setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
+					}
+				}
+
+				// Finish deploy all
+
+				$comment = 'Services closed after click on confirmation request (sent by email from customer dashboard) to undeploy'
+
+				// Unactivate all lines
+				if (! $error)
+				{
+					dol_syslog("Unactivate all lines - undeployconfirmed process from myaccount");
+
+					$result = $object->closeAll($user, 1, $comment);
+					if ($result <= 0)
+					{
+						$error++;
+						setEventMessages($object->error, $object->errors, 'errors');
+					}
+				}
+
+				// End of deployment is now OK / Complete
+				if (! $error)
+				{
+					$contract->array_options['options_deployment_status'] = 'undeployed';
+					$contract->array_options['options_undeployment_date'] = dol_now('tzserver');
+					$contract->array_options['options_undeployment_ip'] = $_SERVER['REMOTE_ADDR'];
+
+					$result = $contract->update($user);
+					if ($result < 0)
+					{
+						$error++;
+						setEventMessages($contract->error, $contract->errors, 'errors');
+					}
+
+					// @TODO We can add here the setEventMessages that are into the sellyoursaasRemoteAction
 				}
 			}
 		}
@@ -558,13 +651,16 @@ if ($action == 'deployall')
 		// TODO create $contract like in register_instance.php
 		$contract = new Contrat($db);
 
-		dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
-		$sellyoursaasutils = new SellYourSaasUtils($db);
-		$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $contract);
-		if ($result < 0)
+		if (! $error)
 		{
-			$error++;
-			setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
+			dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
+			$sellyoursaasutils = new SellYourSaasUtils($db);
+			$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $contract);
+			if ($result < 0)
+			{
+				$error++;
+				setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
+			}
 		}
 
 		if (! $error)
@@ -998,7 +1094,7 @@ if (empty($welcomecid))
 		}
 	}
 
-	// Test if there is a paiment error, if yes, ask to fix payment data
+	// Test if there is a payment error, if yes, ask to fix payment data
 	$sql = 'SELECT f.rowid, ee.code, ee.extraparams  FROM '.MAIN_DB_PREFIX.'facture as f';
 	$sql.= ' INNER JOIN '.MAIN_DB_PREFIX."actioncomm as ee ON ee.fk_element = f.rowid AND elementtype = 'facture' AND code = 'PAYMENT_ERROR'";
 	$sql.= ' WHERE f.fk_soc = '.$mythirdpartyaccount->id.' AND f.paye = 0';
@@ -1857,25 +1953,71 @@ if ($mode == 'instances')
 
 		// List of available plans
 		$arrayofplans=array();
-		$sqlproducts = 'SELECT p.rowid, p.ref, p.label FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
+		$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration';
+		$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
 		$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 		$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
-		$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";		// TODO Restict on compatible plans...
+		//$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";
 		$resqlproducts = $db->query($sqlproducts);
 		if ($resqlproducts)
 		{
 			$num = $db->num_rows($resqlproducts);
+
+			$tmpprod = new Product($db);
+			$tmpprodchild = new Product($db);
 			$i=0;
 			while($i < $num)
 			{
 				$obj = $db->fetch_object($resqlproducts);
 				if ($obj)
 				{
-					$arrayofplans[$obj->rowid]=$obj->label;
+					$tmpprod->fetch($obj->rowid);
+					$tmpprod->get_sousproduits_arbo();
+					$tmparray = $tmpprod->get_arbo_each_prod();
+
+					$label = $obj->label;
+					$pricefix = $obj->price;
+					$pricefix_ttc = $obj->price_ttc;
+					$priceuser = 0;
+					$priceuser_ttc = 0;
+
+					if (count($tmparray) > 0)
+					{
+						foreach($tmparray as $key => $value)
+						{
+							$tmpprodchild->fetch($value['id']);
+							if ($tmpprodchild->array_options['options_app_or_option'] == 'app')
+							{
+								$pricefix .= $obj->price;
+								$pricefix_ttc .= $obj->price_ttc;
+							}
+							if ($tmpprodchild->array_options['options_app_or_option'] == 'system')
+							{
+								$priceuser .= $obj->price;
+								$priceuser_ttc .= $obj->price_ttc;
+							}
+							if ($tmpprodchild->array_options['options_app_or_option'] == 'option')
+							{
+								$priceuser .= $obj->price;
+								$priceuser_ttc .= $obj->price_ttc;
+							}
+						}
+					}
+
+
+					$arrayofplans[$obj->rowid]=$label.' ('.price(price2num($pricefix,'MT'), 1, $langs, 1, -1, -1, $conf->currency);
+					if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
+					if ($priceuser)
+					{
+						$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, -1, -1, $conf->currency).'/'.$langs->trans("User");
+						if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
+					}
+					$arrayofplans[$obj->rowid].=')';
 				}
 				$i++;
 			}
 		}
+		else dol_print_error($db);
 
 		print '
 			<div class="group">

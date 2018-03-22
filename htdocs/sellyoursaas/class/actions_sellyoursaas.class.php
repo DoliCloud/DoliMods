@@ -21,7 +21,8 @@
  *	\ingroup    cabinetmed
  *	\brief      File to control actions
  */
-require_once(DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php");
+require_once DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php";
+require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture-rec.class.php';
 
 
 /**
@@ -182,14 +183,51 @@ class ActionsSellyoursaas
         {
 			if ($action == 'deploy')
 			{
-				dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
-				$sellyoursaasutils = new SellYourSaasUtils($db);
-				$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $object);
-				if ($result <= 0)
+				$db->begin();
+
+				// SAME CODE THAN INTO MYACCOUNT INDEX.PHP
+
+				// Disable template invoice
+				$object->fetchObjectLinked();
+
+				$foundtemplate=0;
+				$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
+				if (is_array($object->linkedObjects['facturerec']) && count($object->linkedObjects['facturerec']) > 0)
 				{
-					$error++;
-					$this->error=$sellyoursaasutils->error;
-					$this->errors=$sellyoursaasutils->errors;
+					function cmp($a, $b)
+					{
+						return strcmp($a->date, $b->date);
+					}
+					usort($object->linkedObjects['facturerec'], "cmp");
+
+					//var_dump($object->linkedObjects['facture']);
+					//dol_sort_array($object->linkedObjects['facture'], 'date');
+					foreach($object->linkedObjects['facturerec'] as $idinvoice => $invoice)
+					{
+						if ($invoice->suspended == FactureRec::STATUS_SUSPENDED)
+						{
+							$result = $invoice->setStatut(FactureRec::STATUS_NOTSUSPENDED);
+							if ($result <= 0)
+							{
+								$error++;
+								$this->error=$invoice->error;
+								$this->errors=$invoice->errors;
+							}
+						}
+					}
+				}
+
+				if (! $error)
+				{
+					dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
+					$sellyoursaasutils = new SellYourSaasUtils($db);
+					$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $object);
+					if ($result <= 0)
+					{
+						$error++;
+						$this->error=$sellyoursaasutils->error;
+						$this->errors=$sellyoursaasutils->errors;
+					}
 				}
 
 				// Finish deployall
@@ -199,7 +237,7 @@ class ActionsSellyoursaas
 				// Activate all lines
 				if (! $error)
 				{
-					dol_syslog("Activate all lines");
+					dol_syslog("Activate all lines - doActions deploy");
 
 					$result = $object->activateAll($user, dol_now(), 1, $comment);
 					if ($result <= 0)
@@ -226,28 +264,74 @@ class ActionsSellyoursaas
 
 					// @TODO We can add here the setEventMessages that are into the sellyoursaasRemoteAction
 				}
+
+				if (! $error)
+				{
+					$db->commit();
+				}
+				else
+				{
+					$db->rollback();
+				}
 			}
 
 			if ($action == 'undeploy')
 			{
-				dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
-				$sellyoursaasutils = new SellYourSaasUtils($db);
-				$result = $sellyoursaasutils->sellyoursaasRemoteAction('undeploy', $object);
-				if ($result <= 0)
+				$db->begin();
+
+				// SAME CODE THAN INTO MYACCOUNT INDEX.PHP
+
+				// Disable template invoice
+				$object->fetchObjectLinked();
+
+				$foundtemplate=0;
+				$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
+				if (is_array($object->linkedObjects['facturerec']) && count($object->linkedObjects['facturerec']) > 0)
 				{
-					$error++;
-					$this->error=$sellyoursaasutils->error;
-					$this->errors=$sellyoursaasutils->errors;
+					function cmp($a, $b)
+					{
+						return strcmp($a->date, $b->date);
+					}
+					usort($object->linkedObjects['facturerec'], "cmp");
+
+					//var_dump($object->linkedObjects['facture']);
+					//dol_sort_array($object->linkedObjects['facture'], 'date');
+					foreach($object->linkedObjects['facturerec'] as $idinvoice => $invoice)
+					{
+						if ($invoice->suspended == FactureRec::STATUS_NOTSUSPENDED)
+						{
+							$result = $invoice->setStatut(FactureRec::STATUS_SUSPENDED);
+							if ($result <= 0)
+							{
+								$error++;
+								$this->error=$invoice->error;
+								$this->errors=$invoice->errors;
+							}
+						}
+					}
+				}
+
+				if (! $error)
+				{
+					dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
+					$sellyoursaasutils = new SellYourSaasUtils($db);
+					$result = $sellyoursaasutils->sellyoursaasRemoteAction('undeploy', $object);
+					if ($result <= 0)
+					{
+						$error++;
+						$this->error=$sellyoursaasutils->error;
+						$this->errors=$sellyoursaasutils->errors;
+					}
 				}
 
 				// Finish deployall
 
 				$comment = 'Close after click on undeploy from contract card';
 
-				// Activate all lines
+				// Unactivate all lines
 				if (! $error)
 				{
-					dol_syslog("Activate all lines");
+					dol_syslog("Unactivate all lines - doActions undeploy");
 
 					$result = $object->closeAll($user, 1, $comment);
 					if ($result <= 0)
@@ -272,6 +356,15 @@ class ActionsSellyoursaas
 					}
 
 					// @TODO We can add here the setEventMessages that are into the sellyoursaasRemoteAction
+				}
+
+				if (! $error)
+				{
+					$db->commit();
+				}
+				else
+				{
+					$db->rollback();
 				}
 			}
 
