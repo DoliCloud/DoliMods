@@ -583,7 +583,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 
 				// Finish deploy all
 
-				$comment = 'Services closed after click on confirmation request (sent by email from customer dashboard) to undeploy'
+				$comment = 'Services closed after click on confirmation request (sent by email from customer dashboard) to undeploy';
 
 				// Unactivate all lines
 				if (! $error)
@@ -1429,6 +1429,7 @@ if ($mode == 'instances')
 			if ($contract->array_options['options_deployment_status'] == 'suspended')  $position = 10;	// This is not a status
 			if ($contract->array_options['options_deployment_status'] == 'done')       $position = 20;
 			if ($contract->array_options['options_deployment_status'] == 'undeployed') $position = 100;
+
 			$arrayforsort[$id] = array('position'=>$position, 'id'=>$id, 'contract'=>$contract);
 		}
 		$arrayforsort = dol_sort_array($arrayforsort, 'position');
@@ -1488,7 +1489,7 @@ if ($mode == 'instances')
 				if ($result <= 0)
 				{
 					$error++;
-					setEventMessages($langs->trans("ErrorRefreshOfResourceFailed").' : '.$sellyoursaasutils->error, $sellyoursaasutils->errors, 'warnings');
+					setEventMessages($langs->trans("ErrorRefreshOfResourceFailed", $contract->ref_customer).' : '.$sellyoursaasutils->error, $sellyoursaasutils->errors, 'warnings');
 				}
 				/*else
 				 {
@@ -1626,7 +1627,8 @@ if ($mode == 'instances')
 				                  	{
 					                  	$tmpproduct->fetch($line->fk_product);
 
-					                  	print $tmpproduct->show_photos($conf->product->dir_output, 1, 1, 1, 0, 0, 40, 40, 1, 1, 1);
+					                  	$htmlforphoto = $tmpproduct->show_photos('product', $conf->product->dir_output, 1, 1, 1, 0, 0, 40, 40, 1, 1, 1);
+					                  	print $htmlforphoto;
 
 					                  	//var_dump($tmpproduct->array_options);
 					                  	/*if ($tmpproduct->array_options['options_app_or_option'] == 'app')
@@ -1751,49 +1753,52 @@ if ($mode == 'instances')
 								if ($statuslabel != 'undeployed')
 								{
 									print '<span class="caption-helper spanbilling"><span class="opacitymedium">'.$langs->trans("Billing").' : </span>';
-									if ($priceinvoicedht != $contrat->total_ht)
+									if ($foundtemplate > 1) print '<span style="color:orange">'.$langs->trans("WarningFoundMoreThanOneInvoicingTemplate", $conf->global->SELLYOURSAAS_MAIN_EMAIL).'</span>';
+									else
 									{
-										print $langs->trans("FlatOrDiscountedPrice").' = ';
-									}
-									print '<span class="bold">'.$pricetoshow.'</span>';
-									if ($foundtemplate == 0)	// Same than ispaid
-									{
-										if ($contract->array_options['options_date_endfreeperiod'] < dol_now()) $color='orange';
+										if ($priceinvoicedht != $contrat->total_ht)
+										{
+											print $langs->trans("FlatOrDiscountedPrice").' = ';
+										}
+										print '<span class="bold">'.$pricetoshow.'</span>';
+										if ($foundtemplate == 0)	// Same than ispaid
+										{
+											if ($contract->array_options['options_date_endfreeperiod'] < dol_now()) $color='orange';
 
-										print ' <span style="color:'.$color.'">';
-										if ($contract->array_options['options_date_endfreeperiod'] > 0) print $langs->trans("TrialUntil", dol_print_date($contract->array_options['options_date_endfreeperiod'], 'day'));
-										else print $langs->trans("Trial");
-										print '</span>';
-										if ($contract->array_options['options_date_endfreeperiod'] < dol_now())
-										{
-											if ($statuslabel == 'suspended') print ' - <span style="color: orange">'.$langs->trans("Suspended").'</span>';
-											//else print ' - <span style="color: orange">'.$langs->trans("SuspendWillBeDoneSoon").'</span>';
-										}
-										if ($statuslabel == 'suspended')
-										{
-											if (empty($atleastonepaymentmode))
+											print ' <span style="color:'.$color.'">';
+											if ($contract->array_options['options_date_endfreeperiod'] > 0) print $langs->trans("TrialUntil", dol_print_date($contract->array_options['options_date_endfreeperiod'], 'day'));
+											else print $langs->trans("Trial");
+											print '</span>';
+											if ($contract->array_options['options_date_endfreeperiod'] < dol_now())
 											{
-												print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>';
+												if ($statuslabel == 'suspended') print ' - <span style="color: orange">'.$langs->trans("Suspended").'</span>';
+												//else print ' - <span style="color: orange">'.$langs->trans("SuspendWillBeDoneSoon").'</span>';
+											}
+											if ($statuslabel == 'suspended')
+											{
+												if (empty($atleastonepaymentmode))
+												{
+													print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>';
+												}
+												else
+												{
+													print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("FixPaymentModeToRestoreInstance").'</a>';
+												}
 											}
 											else
 											{
-												print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("FixPaymentModeToRestoreInstance").'</a>';
-											}
-										}
-										else
-										{
-											if (empty($atleastonepaymentmode))
-											{
-												print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("AddAPaymentMode").'</a>';
-											}
-											else
-											{
-												// TODO Change message if there is invoice error
-												print ' - '.$langs->trans("APaymentModeWasRecorded");
+												if (empty($atleastonepaymentmode))
+												{
+													print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("AddAPaymentMode").'</a>';
+												}
+												else
+												{
+													// TODO Change message if there is invoice error
+													print ' - '.$langs->trans("APaymentModeWasRecorded");
+												}
 											}
 										}
 									}
-									if ($foundtemplate > 1) print ' - <span class="bold">'.$langs->trans("WarningFoundMoreThanOneInvoicingTemplate").'</span>';
 									print '</span>';
 								}
 

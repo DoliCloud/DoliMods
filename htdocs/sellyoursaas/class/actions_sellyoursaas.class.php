@@ -243,7 +243,8 @@ class ActionsSellyoursaas
 					if ($result <= 0)
 					{
 						$error++;
-						setEventMessages($object->error, $object->errors, 'errors');
+						$this->error=$object->error;
+						$this->errors=$object->errors;
 					}
 				}
 
@@ -337,7 +338,8 @@ class ActionsSellyoursaas
 					if ($result <= 0)
 					{
 						$error++;
-						setEventMessages($object->error, $object->errors, 'errors');
+						$this->error=$object->error;
+						$this->errors=$object->errors;
 					}
 				}
 
@@ -378,7 +380,6 @@ class ActionsSellyoursaas
 					$error++;
 					$this->error=$sellyoursaasutils->error;
 					$this->errors=$sellyoursaasutils->errors;
-					setEventMessages($this->error, $this->errors, 'errors');
 					return -1;
 				}
 				else
