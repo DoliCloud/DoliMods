@@ -17,7 +17,8 @@
 export now=`date +%Y%m%d%H%M%S`
 
 echo
-echo "**** ${0}"
+echo
+echo "####################################### ${0} ${1}"
 echo "${0} ${@}"
 echo "# user id --------> $(id -u)"
 echo "# now ------------> $now"
@@ -46,7 +47,7 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 if [ "x$1" == "x" ]; then
-	echo "Missing parameter 1 - mode (all|deploy)" 1>&2
+	echo "Missing parameter 1 - mode (deploy|deployall|undeploy|undeployall)" 1>&2
 	exit 1
 fi
 if [ "x$2" == "x" ]; then
@@ -551,9 +552,14 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 	echo "***** Remove cron file $cronfile"
 	echo rm -f /var/spool/cron/crontabs/$osusername
 	rm -f /var/spool/cron/crontabs/$osusername
+	mkdir -p /var/spool/cron/crontabs.disabled
+	echo mv /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername
+	mv /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername 
+fi
+if [[ "$mode" == "undeployall" ]]; then
+
 	echo rm -f /var/spool/cron/crontabs.disabled/$osusername
 	rm -f /var/spool/cron/crontabs.disabled/$osusername 
-
 fi
 
 

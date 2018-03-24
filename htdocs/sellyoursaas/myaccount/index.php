@@ -1012,7 +1012,8 @@ if (empty($welcomecid))
 		if ($contract->array_options['options_deployment_status'] == 'undeployed') continue;
 
 		$isapaidinstance = sellyoursaasIsPaidInstance($contract);		// At least one template or final invoice
-		$expirationdate = sellyoursaasGetExpirationDate($contract);		// End of date of service
+		$tmparray = sellyoursaasGetExpirationDate($contract);
+		$expirationdate = $tmparray['expirationdate'];					// End of date of service
 
 		if (! $isapaidinstance && $contract->array_options['options_date_endfreeperiod'] > 0)
 		{

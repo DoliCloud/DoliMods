@@ -65,10 +65,10 @@ class SellYourSaasUtils
 
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertSoftEndTrial.log';
 
+    	$error = 0;
     	$this->output = '';
     	$this->error='';
 
-    	$error = 0;
     	$now = dol_now();
 
     	$delayindaysshort = $conf->global->SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_SOFT_ALERT;
@@ -79,6 +79,8 @@ class SellYourSaasUtils
     		return -1;
     	}
     	dol_syslog(__METHOD__." we send email warning ".$delayindays." days before end of trial", LOG_DEBUG);
+
+    	$this->db->begin();
 
     	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid';
     	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce';
@@ -124,7 +126,8 @@ class SellYourSaasUtils
     				//if ($mode == 'paid' && ! $ispaid) continue;											// Discard if this is a test instance when we are in paid mode
 
     				// Suspend instance
-    				$expirationdate = sellyoursaasGetExpirationDate($object);
+    				$tmparray = sellyoursaasGetExpirationDate($object);
+    				$expirationdate = $tmparray['expirationdate'];
 
     				if ($expirationdate && $expirationdate < dol_time_plus_duree($now, abs($delayindaysshort), 'd'))
     				{
@@ -156,6 +159,8 @@ class SellYourSaasUtils
     	else $this->error = $this->db->lasterror();
 
     	$this->output = count($contractprocessed).' email(s) sent'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
+
+    	$this->db->commit();
 
     	return ($error ? 1: 0);
     }
@@ -210,11 +215,13 @@ class SellYourSaasUtils
     		return -1;
     	}
 
+    	$error = 0;
     	$this->output = '';
     	$this->error='';
 
-    	$error = 0;
     	$now = dol_now();
+
+    	$db->begin();
 
     	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid';
     	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce';
@@ -248,7 +255,8 @@ class SellYourSaasUtils
 					if ($mode == 'paid' && ! $ispaid) continue;											// Discard if this is a test instance when we are in paid mode
 
 					// Suspend instance
-					$expirationdate = sellyoursaasGetExpirationDate($object);
+					$tmparray = sellyoursaasGetExpirationDate($object);
+					$expirationdate = $tmparray['expirationdate'];
 
 					if ($expirationdate && $expirationdate < $now)
 					{
@@ -270,6 +278,8 @@ class SellYourSaasUtils
     	else $this->error = $this->db->lasterror();
 
     	$this->output = count($contractprocessed).' contract(s) suspended'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
+
+    	$db->commit();
 
     	return ($error ? 1: 0);
     }
@@ -324,10 +334,10 @@ class SellYourSaasUtils
     		return -1;
     	}
 
+    	$error = 0;
     	$this->output = '';
     	$this->error='';
 
-    	$error = 0;
 		$now = dol_now();
 
     	$delayindays = 9999999;
@@ -340,10 +350,7 @@ class SellYourSaasUtils
 		}
     	dol_syslog(__METHOD__." we undeploy instances mode=".$mode." that are expired since more than ".$delayindays." days", LOG_DEBUG);
 
-    	global $conf, $langs, $user;
-
-    	$this->output = '';
-    	$this->error='';
+    	$this->db->begin();
 
     	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid';
     	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce';
@@ -376,7 +383,8 @@ class SellYourSaasUtils
     				if ($mode == 'paid' && ! $ispaid) continue;										// Discard if this is a test instance when we are in paid mode
 
     				// Undeploy instance
-    				$expirationdate = sellyoursaasGetExpirationDate($object);
+    				$tmparray = sellyoursaasGetExpirationDate($object);
+    				$expirationdate = $tmparray['expirationdate'];
 
     				if ($expirationdate && $expirationdate < ($now - (abs($delayindays)*24*3600)))
     				{
@@ -399,6 +407,8 @@ class SellYourSaasUtils
 
     	$this->output = count($contractprocessed).' contract(s) undeployed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
 
+    	$this->db->commit();
+
     	return ($error ? 1: 0);
     }
 
@@ -415,12 +425,17 @@ class SellYourSaasUtils
 
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doTakePaymentPaypal.log';
 
+    	$error = 0;
     	$this->output = '';
     	$this->error='';
 
     	dol_syslog(__METHOD__, LOG_DEBUG);
 
+    	$this->db->begin();
+
     	// ...
+
+    	$this->db->commit();
 
     	return 0;
     }
@@ -438,12 +453,17 @@ class SellYourSaasUtils
 
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doTakePaymentStripe.log';
 
+    	$error = 0;
     	$this->output = '';
     	$this->error='';
 
     	dol_syslog(__METHOD__, LOG_DEBUG);
 
+    	$this->db->begin();
+
     	// ...
+
+    	$this->db->commit();
 
     	return 0;
     }
@@ -490,6 +510,8 @@ class SellYourSaasUtils
     		$this->output = 'Nothing to do. We are not the day '.$day1.', neither the day '.$day2.' of the month';
     		return 0;
     	}
+
+    	$this->db->begin();
 
     	// Get warning email template
     	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
@@ -558,14 +580,18 @@ class SellYourSaasUtils
 		}
 		else
 		{
+			$error++;
 			$this->error = $this->db->lasterror();
-			return 1;
 		}
 
-		if ($error) return $error;
+		if (! $error)
+		{
+			$this->output = 'Found '.$num_rows.' record with credit card that will expire soon';
+		}
 
-		$this->output = 'Found '.$num_rows.' record with credit card that will expire soon';
-    	return 0;
+		$this->db->commit();
+
+    	return $error;
     }
 
 
@@ -581,21 +607,26 @@ class SellYourSaasUtils
 
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertPaypalExpiration.log';
 
+    	$error = 0;
     	$this->output = '';
     	$this->error='';
 
     	dol_syslog(__METHOD__, LOG_DEBUG);
 
+    	$this->db->begin();
+
     	// ...
 
-    	return 0;
+    	$this->db->commit();
+
+    	return $error;
     }
 
 
     /**
      * Action executed by scheduler
      * CAN BE A CRON TASK
-     * Loop on each contract. If there is no pending payment for contract and end date is tomorrow, we update to contract end date to end of next period.
+     * Loop on each contract. If it is a paid contract and there is no pending payment for contract and end date <= tomorrow, we update to contract service end date to end of next period.
      *
      * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
      */
@@ -604,15 +635,106 @@ class SellYourSaasUtils
     	global $conf, $langs;
 
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doRenewalContracts.log';
+    	$now = dol_now();
 
+    	$mode = 'paid';
+    	$delayindaysshort= 1;
+    	$enddatetoscan = dol_time_plus_duree($now, abs($delayindaysshort), 'd');		// $enddatetoscan = tomorrow
+
+    	$error = 0;
     	$this->output = '';
     	$this->error='';
 
     	dol_syslog(__METHOD__, LOG_DEBUG);
 
-    	// ...
+    	$this->db->begin();
 
-    	return 0;
+    	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid, cd.date_fin_validite';
+    	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce';
+    	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
+    	$sql.= " AND ce.deployment_status = 'done'";
+    	//$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, abs($delayindaysshort), 'd'))."'";
+    	//$sql.= " AND cd.date_fin_validite > '".$this->db->idate(dol_time_plus_duree($now, abs($delayindayshard), 'd'))."'";
+    	$sql.= " AND date_format(cd.date_fin_validite, '%Y-%m-%d') < date_format('".$this->db->idate($enddatetoscan)."', '%Y-%m-%d')";
+    	$sql.= " AND cd.statut = 4";
+    	//print $sql;
+
+    	$resql = $this->db->query($sql);
+    	if ($resql)
+    	{
+    		$num = $this->db->num_rows($resql);
+
+    		$contractprocessed = array();
+
+    		include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+
+    		$i=0;
+    		while ($i < $num)
+    		{
+    			$obj = $this->db->fetch_object($resql);
+    			if ($obj)
+    			{
+    				if (! empty($contractprocessed[$object->id])) continue;
+
+    				// Test if this is a paid or not instance
+    				$object = new Contrat($this->db);
+    				$object->fetch($obj->rowid);		// fetch also lines
+    				$object->fetch_thirdparty();
+
+    				$ispaid = sellyoursaasIsPaidInstance($object);
+    				if ($mode == 'test' && $ispaid) continue;											// Discard if this is a paid instance when we are in test mode
+    				if ($mode == 'paid' && ! $ispaid) continue;											// Discard if this is a test instance when we are in paid mode
+
+    				// Update expiration date of instance
+    				$tmparray = sellyoursaasGetExpirationDate($object);
+    				$expirationdate = $tmparray['expirationdate'];
+    				$duration_value = $tmparray['duration_value'];
+    				$duration_unit = $tmparray['duration_unit'];
+    				//var_dump($expirationdate.' '.$enddatetoscan);
+
+    				if ($expirationdate && $expirationdate < $enddatetoscan)
+    				{
+    					$newdate = $expirationdate;
+    					$protecti=0;	//$protecti is to avoid infinite loop
+    					while ($newdate < $enddatetoscan && $protecti < 1000)
+    					{
+    						$newdate = dol_time_plus_duree($newdate, $duration_value, $duration_unit);
+    						$protecti++;
+    					}
+
+    					if ($protecti < 1000)
+    					{
+							$sqlupdate = 'UPDATE '.MAIN_DB_PREFIX."contratdet SET date_fin_validite = '".$this->db->idate($newdate)."'";
+							$sqlupdate.= ' WHERE fk_contrat = '.$object->id;
+							$resqlupdate = $this->db->query($sqlupdate);
+							if ($resqlupdate)
+							{
+	    						$contractprocessed[$object->id]=$object->ref;
+							}
+							else
+							{
+								$error++;
+								$this->error = $this->db->lasterror();
+							}
+    					}
+    					else
+    					{
+    						$error++;
+    						$this->error = "Bad value for newdate";
+    						dol_syslog("Bad value for newdate", LOG_ERR);
+    					}
+    				}
+    			}
+    			$i++;
+    		}
+    	}
+    	else $this->error = $this->db->lasterror();
+
+    	$this->output = count($contractprocessed).' paying contract(s) with end date before '.dol_print_date($enddatetoscan, 'day').' were renewed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
+
+		$this->db->commit();
+
+    	return ($error ? 1: 0);
     }
 
 
@@ -1104,6 +1226,5 @@ class SellYourSaasUtils
     	if ($error) return -1;
     	else return 1;
     }
-
 
 }

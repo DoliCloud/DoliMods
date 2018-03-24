@@ -265,3 +265,4 @@ SomeOfYourPaymentFailed=Some of your payments failed with the following message:
 SomeOfYourPaymentFailedINSUFICIENT_FUNDS=Some of your payments was refused due to insuficient funds. Please feed your account to solve this and avoid any break of service.
 Domain=Domain name 
 WarningFoundMoreThanOneInvoicingTemplate=Warning, more than one active recurring invoice found for this instance, please contact us at %s
+ContractMustHaveStatusDone=Contract must have 'Deployment status' to 'Done'

@@ -96,14 +96,20 @@ function sellyoursaasIsPaidInstance($contract)
 
 /**
  * Return date of expiration
- * Take lowest end of planed date for services (whatever is service status)
+ * Take lowest planed end date for services (whatever is service status)
  *
  * @param 	Contrat $contract		Object contract
- * @return	int						Timestamp of expiration date, or 0 if error or not found
+ * @return	array					Array of data array('expirationdate'=>Timestamp of expiration date, or 0 if error or not found)
  */
 function sellyoursaasGetExpirationDate($contract)
 {
+	global $db;
+
 	$expirationdate = 0;
+	$duration_value = 0;
+	$duration_unit = '';
+
+	$tmpprod = new Product($db);
 
 	// Loop on each line to get lowest expiration date
 	foreach($contract->lines as $line)
@@ -113,10 +119,16 @@ function sellyoursaasGetExpirationDate($contract)
 			if ($expirationdate > 0) $expirationdate = min($expirationdate, $line->date_end);
 			else $expirationdate = $line->date_end;
 		}
+
+		$tmpprod->fetch($line->fk_product);
+		if ($tmpprod->array_options['options_app_or_option'] == 'app')
+		{
+			$duration_value = $tmpprod->duration_value;
+			$duration_unit = $tmpprod->duration_unit;
+		}
 	}
 
-	return $expirationdate;
+	return array('expirationdate'=>$expirationdate, 'duration_value'=>$duration_value, 'duration_unit'=>$duration_unit);
 }
-
 
 
