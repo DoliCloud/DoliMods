@@ -83,7 +83,7 @@ class InterfaceEcotaxdeee
 
 	/**
 	 *      Fonction appelee lors du declenchement d'un evenement Dolibarr.
-	 *      D'autres fonctions run_trigger peuvent etre presentes dans includes/triggers
+	 *      D'autres fonctions runTrigger peuvent etre presentes dans includes/triggers
 	 *
 	 *      @param	string		$action     Code of event
 	 *      @param 	Action		$object     Objet concerne
@@ -92,7 +92,7 @@ class InterfaceEcotaxdeee
 	 *      @param  Conf		$conf       Objet conf
 	 *      @return int         			<0 if KO, 0 if nothing is done, >0 if OK
 	 */
-	function run_trigger($action, $object, $user, $langs, $conf) {
+	function runTrigger($action, $object, $user, $langs, $conf) {
 
 		// Création / Mise à jour / Suppression d'un évènement dans Google contact
 

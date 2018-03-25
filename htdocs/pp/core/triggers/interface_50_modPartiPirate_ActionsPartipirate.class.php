@@ -89,7 +89,7 @@ class InterfaceActionsPartiPirate
 
     /**
      *      Function called when a Dolibarrr business event is done.
-     *      All functions "run_trigger" are triggered if file is inside directory htdocs/core/triggers
+     *      All functions "runTrigger" are triggered if file is inside directory htdocs/core/triggers
      *
      *      @param	string	$action     Event code (COMPANY_CREATE, PROPAL_VALIDATE, ...)
      *      @param  Object	$object     Object action is done on
@@ -98,7 +98,7 @@ class InterfaceActionsPartiPirate
      *      @param  Conf	$conf       Object conf
      *      @return int         		<0 if KO, 0 if no action are done, >0 if OK
      */
-    function run_trigger($action,$object,$user,$langs,$conf)
+    function runTrigger($action,$object,$user,$langs,$conf)
     {
 		$ok=0;
 
