@@ -99,7 +99,7 @@ $help_url='EN:Module_Google_EN|FR:Module_Google|ES:Modulo_Google';
 llxHeader('',$langs->trans("GoogleSetup"),$help_url);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("GoogleSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("GoogleSetup"), $linkback, 'setup');
 print '<br>';
 
 
@@ -107,7 +107,9 @@ print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post"
 
 $head=googleadmin_prepare_head();
 
-dol_fiche_head($head, 'tabgmaps', $langs->trans("GoogleTools"));
+dol_fiche_head($head, 'tabgmaps', $langs->trans("GoogleTools"), -1);
+
+print '<div class="fichecenter">';
 
 print $langs->trans("GoogleEnableThisToolThirdParties").': ';
 if ($conf->societe->enabled)
@@ -138,23 +140,22 @@ print '<br>';
 print '<br>';
 
 
-$var=false;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print '<td>'.$langs->trans("Parameter")."</td>";
+print '<td class="titlefield">'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
 
 //print '<br>';
-print '<tr '.$bc[$var].'><td>'.$langs->trans("GoogleZoomLevel").'</td><td>';
+print '<tr class="oddeven"><td>'.$langs->trans("GoogleZoomLevel").'</td><td>';
 print '<input class="flat" name="GOOGLE_GMAPS_ZOOM_LEVEL" id="GOOGLE_GMAPS_ZOOM_LEVEL" value="'.(isset($_POST["GOOGLE_GMAPS_ZOOM_LEVEL"])?$_POST["GOOGLE_GMAPS_ZOOM_LEVEL"]:$conf->global->GOOGLE_GMAPS_ZOOM_LEVEL).'" size="2">';
 print '</td></tr>';
 
 //ajout de la gestion des icones de status des Tiers : prospects/clients
 if (! empty($conf->global->GOOGLE_CAN_USE_PROSPECT_ICONS) && ! empty($conf->societe->enabled))
 {
-	print '<tr '.$bc[$var].'><td>'.$langs->trans("IconTiers").'</td><td>';
+	print '<tr class="oddeven"><td>'.$langs->trans("IconTiers").'</td><td>';
 	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_TICON",isset($_POST["GOOGLE_ENABLE_GMAPS_TICON"])?$_POST["GOOGLE_ENABLE_GMAPS_TICON"]:$conf->global->GOOGLE_ENABLE_GMAPS_TICON,1);
 	print '</td></tr>';
 }
@@ -168,12 +169,12 @@ print '<br>';
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print '<td>'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage","Geocoding").')'."</td>";
+print '<td class="titlefield">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage","Geocoding").')'."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "<td>".$langs->trans("Note")."</td>";
 print "</tr>";
 // Google login
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVERKEY")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="64" name="GOOGLE_API_SERVERKEY" value="'.$conf->global->GOOGLE_API_SERVERKEY.'">';
@@ -187,6 +188,8 @@ print "</tr>";
 print '</table>';
 
 print info_admin($langs->trans("EnableAPI","https://console.developers.google.com/apis/library/","https://console.developers.google.com/apis/library/","Google Maps Geocoding API, Google Maps Javascript API"));
+
+print '</div>';
 
 dol_fiche_end();
 

@@ -128,7 +128,9 @@ print '<input type="hidden" name="action" value="save">';
 
 $head=googleadmin_prepare_head();
 
-dol_fiche_head($head, 'tabagenda', $langs->trans("GoogleTools"));
+dol_fiche_head($head, 'tabagenda', $langs->trans("GoogleTools"), -1);
+
+print '<div class="fichecenter">';
 
 if ($conf->use_javascript_ajax)
 {
@@ -157,11 +159,11 @@ $var=false;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print '<td width="180">'.$langs->trans("Parameter")."</td>";
+print '<td class="titlefield">'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
 // Timezone
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("ClientTZ")."</td>";
 print "<td>";
 $tzarray=get_tz_array();
@@ -170,8 +172,7 @@ print $formadmin->select_timezone($selectedtz,'google_agenda_timezone');
 print "</td>";
 print "</tr>";
 // Nb of agenda
-$var=!$var;
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("GoogleNbOfAgenda")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="2" name="GOOGLE_AGENDA_NB" value="'.$conf->global->GOOGLE_AGENDA_NB.'">';
@@ -200,8 +201,8 @@ while ($i <= $MAXAGENDA)
 {
 	$key=$i;
 	$var=!$var;
-	print "<tr ".$bc[$var].">";
-	print '<td width="180" class="nowrap">'.$langs->trans("GoogleAgendaNb",$key)."</td>";
+	print '<tr class="oddeven">';
+	print '<td class="nowrap titlefield">'.$langs->trans("GoogleAgendaNb",$key)."</td>";
 	$name='GOOGLE_AGENDA_NAME'.$key;
 	$src='GOOGLE_AGENDA_SRC'.$key;
 	$color='GOOGLE_AGENDA_COLOR'.$key;
@@ -232,22 +233,21 @@ $redirect_uri=$urlwithouturlroot.dol_buildpath('/google/index.php',1);		// Must 
 $urltocreatekey='https://console.developers.google.com/apis/credentials';
 
 
-print "<table class=\"noborder\" width=\"100%\">";
+print '<table class="noborder" width="100%">';
 
-print "<tr class=\"liste_titre\">";
-print "<td>".$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleOAuth").')'."</td>";
+print '<tr class="liste_titre">';
+print '<td class="titlefield">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleOAuth").')'."</td>";
 print '<td colspan="2">'.$langs->trans("Name").'</td>';
 print "</tr>";
 
 // Setup for Oauth
-print '<tr '.$bc[$var].'><td colspan="3">';
+print '<tr class="oddeven"><td colspan="3">';
 print $langs->trans("DueToGoogleLimitYouNeedToLogin").'<br>';
 print $langs->trans("AllowGoogleToLoginSetupKey").'<br>';
 print '</td></tr>';
 
 // Client ID
-$var=!$var;
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("GOOGLE_API_CLIENT_ID")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="80" name="GOOGLE_AGENDA_CLIENT_ID" value="'.$conf->global->GOOGLE_AGENDA_CLIENT_ID.'">';
@@ -261,7 +261,7 @@ print '</td>';
 
 print "</tr>";
 // Client Secret
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("GOOGLE_API_CLIENT_SECRET")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="60" name="GOOGLE_AGENDA_CLIENT_SECRET" value="'.$conf->global->GOOGLE_AGENDA_CLIENT_SECRET.'">';
@@ -272,6 +272,8 @@ print '</td>';
 print "</tr>";
 
 print '</table>';
+
+print '</div>';
 
 print '</div>';
 

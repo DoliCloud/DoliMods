@@ -85,7 +85,9 @@ print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post"
 
 $head=googleadmin_prepare_head();
 
-dol_fiche_head($head, 'tabanalytics', $langs->trans("GoogleTools"));
+dol_fiche_head($head, 'tabanalytics', $langs->trans("GoogleTools"), -1);
+
+print '<div class="fichecenter">';
 
 print $langs->trans("GoogleAddAnalyticsOnLogonPage").'<br>';
 print '<br>';
@@ -100,7 +102,7 @@ print "<td>".$langs->trans("Value")."</td>";
 print "<td>".$langs->trans("Example")."</td>";
 print "</tr>";
 // GA id
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("MAIN_GOOGLE_AN_ID")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="20" name="MAIN_GOOGLE_AN_ID" value="'.$conf->global->MAIN_GOOGLE_AN_ID.'">';
@@ -109,6 +111,8 @@ print '<td>UA-9049390-3</td>';
 print "</tr>";
 
 print "</table>";
+
+print '</div>';
 
 dol_fiche_end();
 

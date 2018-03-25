@@ -643,7 +643,9 @@ print '<input type="hidden" name="action" value="save">';
 
 $head=googleadmin_prepare_head();
 
-dol_fiche_head($head, 'tabcontactsync', $langs->trans("GoogleTools"));
+dol_fiche_head($head, 'tabcontactsync', $langs->trans("GoogleTools"), -1);
+
+print '<div class="fichecenter">';
 
 if ($conf->use_javascript_ajax)
 {
@@ -884,6 +886,8 @@ print "</table>";
 print info_admin($langs->trans("EnableAPI","https://console.developers.google.com/apis/library/","https://console.developers.google.com/apis/library/","Contact API"));
 
 //print info_admin($langs->trans("ShareContactWithServiceAccount",$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL,$langs->transnoentitiesnoconv("GoogleIDContact")));
+
+print '</div>';
 
 print '</div>';
 

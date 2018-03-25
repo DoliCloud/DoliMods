@@ -458,7 +458,10 @@ print '<input type="hidden" name="action" value="save">';
 
 $head=googleadmin_prepare_head();
 
-dol_fiche_head($head, 'tabagendasync', $langs->trans("GoogleTools"));
+
+dol_fiche_head($head, 'tabagendasync', $langs->trans("GoogleTools"), -1);
+
+print '<div class="fichecenter">';
 
 if ($conf->use_javascript_ajax)
 {
@@ -588,6 +591,8 @@ print "</table>";
 print info_admin($langs->trans("EnableAPI","https://console.developers.google.com/apis/library/","https://console.developers.google.com/apis/library/","Calendar API"));
 
 print info_admin($langs->trans("ShareCalendarWithServiceAccount",$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL,$langs->transnoentitiesnoconv("GoogleIDAgenda")));
+
+print '</div>';
 
 print '</div>';
 
