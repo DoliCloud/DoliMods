@@ -50,6 +50,76 @@ class SellYourSaasUtils
         return 1;
     }
 
+    /**
+     * Action executed by scheduler for job SellYourSaasValidateDraftInvoices
+     * Check account is not closed. Validate draft invoice if not, delete if closed.
+     * CAN BE A CRON TASK
+     *
+     * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
+     */
+    public function doValidateDraftInvoices()
+    {
+    	global $conf, $langs, $user;
+		include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+		$invoice = new Facture($this->db);
+
+    	dol_syslog(__METHOD__." search and validate draft invoices", LOG_DEBUG);
+
+    	$error = 0;
+    	$this->output = '';
+    	$this->error='';
+
+    	$draftinvoiceprocessed = array();
+
+    	$this->db->begin();
+
+		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'facture WHERE fk_statut = '.Facture::STATUS_DRAFT;
+		$resql = $this->db->query($sql);
+		if ($resql)
+		{
+			$num_rows = $this->db->num_rows($resql);
+			$i= 0;
+			while($i < $num_rows)
+			{
+				$obj = $this->db->fetch_object($resql);
+				if ($invoice->fetch($obj->rowid) > 0)
+				{
+					// Search contract linked to invoice
+					$invoice->fetchObjectLinked();
+					$foundcontractopen=0;
+					if (is_array($invoice->linkedObjects['contrat']) && count($invoice->linkedObjects['contrat']) > 0)
+					{
+						//dol_sort_array($object->linkedObjects['facture'], 'date');
+						foreach($invoice->linkedObjects['contrat'] as $idcontract => $contract)
+						{
+							$nbservice = $contract->nbofserviceswait + $contract->nbofservicesopened + $contract->nbofservicesexpired;
+							var_dump($nbservice);exit;
+
+							$foundcontractopen = 1;
+						}
+					}
+				}
+				else
+				{
+					$error++;
+					$this->errors[] = 'Failed to get invoice '.$obj->rowid;
+				}
+
+				$i++;
+			}
+		}
+		else
+		{
+			$error++;
+			$this->error = $this->db->lasterror();
+		}
+
+		$this->output = count($draftinvoiceprocessed).' invoice(s) validated'.(count($draftinvoiceprocessed)>0 ? ' : '.join(',', $draftinvoiceprocessed) : '');
+
+		$this->db->commit();
+
+		return ($error ? 1: 0);
+    }
 
     /**
      * Action executed by scheduler for job SellYourSaasAlertSoftEndTrial
@@ -279,7 +349,7 @@ class SellYourSaasUtils
 
     	$this->output = count($contractprocessed).' contract(s) suspended'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
 
-    	$db->commit();
+    	$this->db->commit();
 
     	return ($error ? 1: 0);
     }
