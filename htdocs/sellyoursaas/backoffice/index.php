@@ -122,29 +122,28 @@ print '<div class="fichecenter"><div class="fichethirdleft">';
 
 
 /*
- * Search area
+ * Announce
  */
-$rowspan=2;
-print '<form method="post" action="'.dol_buildpath('/sellyoursaas/backoffice/dolicloud_list.php',1).'">';
-print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-print '<table class="noborder nohover" width="100%">';
-print '<tr class="liste_titre">';
-print '<td colspan="3">'.$langs->trans("Search").'</td></tr>';
-print '<tr class="oddeven"><td>';
-print $langs->trans("Instance").':</td><td><input class="flat inputsearch" type="text" name="search_instance"></td>';
-print '<td rowspan="'.$rowspan.'"><input type="submit" class="button" value="'.$langs->trans("Search").'"></td></tr>';
-print "</table></form><br>";
 
 print '<form method="post" action="'.dol_buildpath('/sellyoursaas/backoffice/index.php',1).'">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<table class="noborder nohover" width="100%">';
 print '<tr class="liste_titre">';
-print '<td>'.$langs->trans("Announce").'</td></tr>';
+print '<td>'.$langs->trans("AnnounceOnCustomerDashboard").'</td></tr>';
 print '<tr class="oddeven"><td><textarea class="flat inputsearch centpercent" type="text" name="SELLYOURSAAS_ANNOUNCE">';
 print $conf->global->SELLYOURSAAS_ANNOUNCE;
 print '</textarea>';
 print '<br><input type="submit" name="saveannounce" class="button" value="'.$langs->trans("Save").'"></td></tr>';
 print "</table></form><br>";
+
+print '<table class="noborder nohover" width="100%">';
+print '<tr class="liste_titre">';
+print '<td>'.$langs->trans("CommandToManageRemoteDeploymentAgent").'</td></tr>';
+print '<tr class="oddeven"><td><textarea class="flat inputsearch centpercent" type="text" name="SELLYOURSAAS_ANNOUNCE">';
+print 'sudo '.$conf->global->DOLICLOUD_SCRIPTS_PATH.'/remote_server_launcher.sh start|status|stop';
+print '</textarea>';
+print '</td></tr>';
+print "</table><br>";
 
 
 print '</div><div class="fichetwothirdright"><div class="ficheaddleft">';

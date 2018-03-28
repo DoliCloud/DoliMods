@@ -34,6 +34,7 @@ fi
 
 if [ "x$1" == "x" ]; then
 	echo "Missing parameter 1 - sellyoursaas admin databasename" 1>&2
+	echo "Usage: ${0} [databasename] [test|confirm]"
 fi
 if [ "x$2" == "x" ]; then
 	echo "Missing parameter 2 - test|confirm" 1>&2
@@ -107,12 +108,12 @@ done
 
 
 
-echo "***** Get list of databases of known instances and save into /tmp/instancefound"
+echo "***** Get list of databases of known active instances and save into /tmp/instancefound"
 
 echo "#url=ref_customer	username_os	database_db" > /tmp/instancefound
 
 Q1="use $database; "
-Q2="SELECT c.ref_customer, ce.username_os, ce.database_db FROM llx_contrat as c, llx_contrat_extrafields as ce WHERE ce.fk_object = c.rowid";
+Q2="SELECT c.ref_customer, ce.username_os, ce.database_db, ce.deployment_status FROM llx_contrat as c, llx_contrat_extrafields as ce WHERE ce.fk_object = c.rowid AND ce.deployment_status IN ('processing','done')";
 SQL="${Q1}${Q2}"
 
 echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL' | grep -v 'ref_customer'"
@@ -127,7 +128,7 @@ Q2="SHOW DATABASES; ";
 SQL="${Q1}${Q2}"
 
 echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL' | grep 'dbn' "
-$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep 'dbn' | awk ' { print "NULL unknown "$1 } ' >> /tmp/instancefound
+$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep 'dbn' | awk ' { print "NULL unknown "$1" unknown" } ' >> /tmp/instancefound
 if [ "x$?" != "x0" ]; then
 	echo "Failed to make second SQL request to get instances. Exit 1."
 	exit 1
@@ -159,7 +160,7 @@ do
 	fi
 done
 
-echo "***** Search osu unix account with very old undeployed database" 
+echo "***** Save osu unix account with very old undeployed database into /tmp/osutoclean" 
 Q1="use $database; "
 Q2="SELECT ce.username_os FROM llx_contrat as c, llx_contrat_extrafields as ce WHERE c.rowid = ce.fk_object AND c.rowid IN ";
 Q3=" (SELECT fk_contrat FROM llx_contratdet as cd, llx_contrat_extrafields as ce2 WHERE cd.fk_contrat = ce2.fk_object AND cd.STATUT = 5 AND ce2.deployment_status = 'undeployed' AND ce2.undeployment_date < ADDDATE(NOW(), INTERVAL -2 MONTH)); ";
@@ -169,35 +170,33 @@ echo "$MYSQL -usellyoursaas -e $SQL"
 $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" >> /tmp/osutoclean
 
 
-echo "***** Search osu unix account without database" 
+echo "***** Search from /tmp/instancefound: osu unix account without record in /etc/passwd" 
 cat /tmp/instancefound | awk '{ if ($2 != "username_os" && $2 != "NULL") print $2":" }' > /tmp/osusernamefound
-if [ -s /tmp/osusernamefound ]
-then
+if [ -s /tmp/osusernamefound ]; then
 	for osusername in `grep -v /etc/passwd -f /tmp/osusernamefound | grep '^osu'`
 	do
-		tmpvar=`echo $osusername | awk -F ":" ' { print $1 } '`
-		echo User $tmpvar is an ^osu user but has no instance
-		echo $tmpvar >> /tmp/osutoclean
+		tmpvar1=`echo $osusername | awk -F ":" ' { print $1 } '`
+		echo User $tmpvar1 is an ^osu user in /etc/passwd but has no available instance in /tmp/instancefound
+		echo $tmpvar1 >> /tmp/osutoclean
 	done
 fi
 
 
-echo "***** Search databases without unix users" 
-while read bidon osusername dbname; do 
+echo "***** Search from /tmp/instancefound: databases without unix users and archive/drop them" 
+while read bidon osusername dbname deploymentstatus; do 
 	if [[ "x$osusername" != "xusername_os" && "x$osusername" != "xNULL" && "x$dbname" != "xNULL" ]]; then
     	id $osusername >/dev/null 2>/dev/null
     	if [[ "x$?" == "x1" ]]; then
     		echo Line $bidon $osusername $dbname is for a user that does not exists
     		
 			echo "Do a dump of database $dbname - may fails if already removed"
-			mkdir -p $targetdir/$osusername
-			echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $targetdir/$osusername/dump.$dbname.$now.sql"
-			$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $targetdir/$osusername/dump.$dbname.$now.sql
+			mkdir -p $archivedir/$osusername
+			echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $archivedir/$osusername/dump.$dbname.$now.sql"
+			$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $archivedir/$osusername/dump.$dbname.$now.sql
 
 			echo "Now drop the database"
 			echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname"
-			if [[ $testorconfirm == "confirm" ]]
-			then
+			if [[ $testorconfirm == "confirm" ]]; then
 				echo "DROP DATABASE $dbname;" | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname
 			fi	
     	
@@ -211,7 +210,7 @@ echo "***** Loop on each user in /tmp/osutoclean to make a clean"
 cat /tmp/osutoclean | grep '^osu' | sort -u
 for osusername in `grep '^osu' /tmp/osutoclean | sort -u`
 do
-	echo "***** Archive and delete qualified user $osusername"
+	echo "   ** Archive and delete qualified user $osusername found in /tmp/osutoclean"
 	
 	echo Try to find database and instance name from username
 	export instancename=""
@@ -225,42 +224,41 @@ do
 	if [[ "x$dbname" != "x" ]]; then	
 		if [[ "x$dbname" != "xNULL" ]]; then	
 			echo "Do a dump of database $dbname - may fails if already removed"
-			mkdir -p $targetdir/$osusername
-			echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $targetdir/$osusername/dump.$dbname.$now.sql"
-			$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $targetdir/$osusername/dump.$dbname.$now.sql
+			mkdir -p $archivedir/$osusername
+			echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $archivedir/$osusername/dump.$dbname.$now.sql"
+			$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $archivedir/$osusername/dump.$dbname.$now.sql
 
 			echo "Now drop the database"
 			echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname"
-			if [[ $testorconfirm == "confirm" ]]
-			then
+			if [[ $testorconfirm == "confirm" ]]; then
 				echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname
 			fi	
 		fi
 	fi
 	
 	
-	# If osusername is know, remove user and archive dir
+	# If osusername is known, remove user and archive dir
 	if [[ "x$osusername" != "x" ]]; then	
 		if [[ "x$osusername" != "xNULL" ]]; then	
 			echo deluser --remove-home --backup --backup-to $archivedir $osusername
-			if [[ $testorconfirm == "confirm" ]]
-			then
+			if [[ $testorconfirm == "confirm" ]]; then
 				deluser --remove-home --backup --backup-to $archivedir $osusername
 			fi
 			
 			echo deluser --group $osusername
-			if [[ $testorconfirm == "confirm" ]]
-			then
+			if [[ $testorconfirm == "confirm" ]]; then
 				deluser --group $osusername
 			fi
 			
 			# If dir still exists, we move it manually
-			if [ -d $targetdir/$osusername ]; then
+			if [ -d "$targetdir/$osusername" ]; then
 				echo The dir $targetdir/$osusername still exists when user does not exists anymore, we archive it manually
-				echo mv -f $targetdir/$osusername $archivedir/$osusername
-				if [[ $testorconfirm == "confirm" ]]
-				then
-					mv -f $targetdir/$osusername $archivedir/$osusername
+				echo mv -f $targetdir/$osusername $archivedir
+				echo cp -pr $targetdir/$osusername $archivedir
+				if [[ $testorconfirm == "confirm" ]]; then
+					mv -f $targetdir/$osusername $archivedir 2>/dev/null
+					cp -pr $targetdir/$osusername $archivedir
+					rm -fr $targetdir/$osusername
 				fi
 			fi
 		fi
@@ -268,12 +266,10 @@ do
 	
 
 	# If instance name known
-	if [ "x$instancename" != "x" ]
-	then
-		if [ "x$instancename" != "xNULL" ]
-		then
+	if [ "x$instancename" != "x" ]; then
+		if [ "x$instancename" != "xNULL" ]; then
 		
-			echo "***** Remove DNS entry for $instancename in $domainname"
+			echo "   ** Remove DNS entry for $instancename from ${ZONE}"
 			cat /etc/bind/${ZONE} | grep "^$instancename '" > /dev/null 2>&1
 			notfound=$?
 			echo notfound=$notfound
@@ -293,7 +289,7 @@ do
 			      serial="${DATE}00"
 			    else
 			      prefix=${curr::-2}
-			      if [ "$DATE" -eq "$prefix" ]; then # same day
+			      if [ "$DATE" -eq "$prefix" ]; then 	# same day
 			        num=${curr: -2} # last two digits from serial number
 			        num=$((10#$num + 1)) # force decimal representation, increment
 			        serial="${DATE}$(printf '%02d' $num )" # format for 2 digits
@@ -311,63 +307,56 @@ do
 					exit 1
 				fi 
 				
-				echo "**** Archive file with cp /etc/bind/${ZONE} /etc/bind/archives/${ZONE}-$now"
+				echo "   ** Archive file with cp /etc/bind/${ZONE} /etc/bind/archives/${ZONE}-$now"
 				cp /etc/bind/with.dolicloud.com.hosts /etc/bind/archives/${ZONE}-$now
 				
-				echo "**** Move new host file"
+				echo "   ** Move new host file"
 				echo mv -fu /tmp/${ZONE}.$PID /etc/bind/${ZONE}
-				if [[ $testorconfirm == "confirm" ]]
-				then
+				if [[ $testorconfirm == "confirm" ]]; then
 					mv -fu /tmp/${ZONE}.$PID /etc/bind/${ZONE}
 				fi
 				
-				echo "**** Reload dns"
-				if [[ $testorconfirm == "confirm" ]]
-				then
+				echo "   ** Reload dns"
+				if [[ $testorconfirm == "confirm" ]]; then
 					rndc reload with.dolicloud.com
 					#/etc/init.d/bind9 reload
 				fi
 			fi
 			
 
-			apacheconf=/etc/apache2/sites-enabled/$instancename.with.dolicloud.conf
+			apacheconf=/etc/apache2/sites-enabled/$instancename.conf
 			
 			if [ -f $apacheconf ]; then
 				# Remove apache virtual host
-				echo "***** Disable apache conf with a2dissite $instancename.with.dolicloud.conf"
-				echo a2dissite $instancename.with.dolicloud.conf
-				if [[ $testorconfirm == "confirm" ]]
-				then
-					a2dissite $instancename.with.dolicloud.conf
+				echo "   ** Disable apache conf with a2dissite $instancename"
+				echo a2dissite $instancename
+				if [[ $testorconfirm == "confirm" ]]; then
+					a2dissite $instancename
 				fi
 			fi
 				
-			echo "***** Remove apache conf /etc/apache2/sites-available/$instancename.with.dolicloud.conf"
-			if [[ -f /etc/apache2/sites-available/$instancename.with.dolicloud.conf ]]
-			then
-				if [[ $testorconfirm == "confirm" ]]
-				then
-					echo rm /etc/apache2/sites-available/$instancename.with.dolicloud.conf
-					rm /etc/apache2/sites-available/$instancename.with.dolicloud.conf
+			echo "   ** Remove apache conf /etc/apache2/sites-available/$instancename"
+			if [[ -f /etc/apache2/sites-available/$instancename ]]; then
+				if [[ $testorconfirm == "confirm" ]]; then
+					echo rm /etc/apache2/sites-available/$instancename
+					rm /etc/apache2/sites-available/$instancename
 				fi
 			else
-				echo File /etc/apache2/sites-available/$instancename.with.dolicloud.conf already disabled
+				echo File /etc/apache2/sites-available/$instancename already disabled
 			fi
 		
 			/usr/sbin/apache2ctl configtest
 			if [[ "x$?" != "x0" ]]; then
 				echo Error when running apache2ctl configtest 
-				exit 1
-			fi 
-		
-			echo "***** Apache tasks finished."
-			echo service apache2 reload
-			if [[ $testorconfirm == "confirm" ]]
-			then
-				service apache2 reload
-				if [[ "x$?" != "x0" ]]; then
-					echo Error when running service apache2 reload 
-					exit 2
+			else 
+				echo "   ** Apache tasks finished with configtest ok, we reload apache."
+				echo service apache2 reload
+				if [[ $testorconfirm == "confirm" ]]; then
+					service apache2 reload
+					if [[ "x$?" != "x0" ]]; then
+						echo Error when running service apache2 reload 
+						exit 2
+					fi
 				fi 
 			fi
 		fi

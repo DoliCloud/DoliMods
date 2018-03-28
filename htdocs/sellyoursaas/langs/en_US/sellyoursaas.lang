@@ -266,3 +266,5 @@ SomeOfYourPaymentFailedINSUFICIENT_FUNDS=Some of your payments was refused due t
 Domain=Domain name 
 WarningFoundMoreThanOneInvoicingTemplate=Warning, more than one active recurring invoice found for this instance, please contact us at %s
 ContractMustHaveStatusDone=Contract must have 'Deployment status' to 'Done'
+AnnounceOnCustomerDashboard=Announce on customers dashboard
+CommandToManageRemoteDeploymentAgent=Command to start/stop remote deployment agent
