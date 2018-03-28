@@ -587,21 +587,21 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	Q1="CREATE DATABASE IF NOT EXISTS $dbname; "
 	Q2="CREATE USER '$dbusername'@'localhost' IDENTIFIED BY '$dbpassword'; "
 	SQL="${Q1}${Q2}"
-	echo "$MYSQL -usellyoursaas -e $SQL"
-	$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL"
+	echo "$MYSQL -A -usellyoursaas -pXXXXXX -e \"$SQL\""
+	$MYSQL -A -usellyoursaas -p$passsellyoursaas -e "$SQL"
 	
 	Q1="CREATE DATABASE IF NOT EXISTS $dbname; "
 	Q2="CREATE USER '$dbusername'@'%' IDENTIFIED BY '$dbpassword'; "
 	SQL="${Q1}${Q2}"
-	echo "$MYSQL -usellyoursaas -e $SQL"
-	$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL"
+	echo "$MYSQL -A -usellyoursaas -pXXXXXXX -e \"$SQL\""
+	$MYSQL -A -usellyoursaas -p$passsellyoursaas -e "$SQL"
 	
 	Q1="GRANT CREATE,CREATE TEMPORARY TABLES,CREATE VIEW,DROP,DELETE,INSERT,SELECT,UPDATE,ALTER,INDEX,LOCK TABLES,REFERENCES,SHOW VIEW ON $dbname.* TO '$dbusername'@'localhost'; "
 	Q2="GRANT CREATE,CREATE TEMPORARY TABLES,CREATE VIEW,DROP,DELETE,INSERT,SELECT,UPDATE,ALTER,INDEX,LOCK TABLES,REFERENCES,SHOW VIEW ON $dbname.* TO '$dbusername'@'%'; "
 	Q3="FLUSH PRIVILEGES; "
 	SQL="${Q1}${Q2}${Q3}"
-	echo "$MYSQL -usellyoursaas -e $SQL"
-	$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL"
+	echo "$MYSQL -A -usellyoursaas -e \"$SQL\""
+	$MYSQL -A -usellyoursaas -p$passsellyoursaas -e "$SQL"
 	
 	echo "You can test with mysql -h remotehost -u $dbusername -p$dbpassword"
 	
@@ -609,8 +609,8 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	echo Search dumpfile into $dirwithdumpfile
 	for dumpfile in `ls $dirwithdumpfile/*.sql 2>/dev/null`
 	do
-		echo "$MYSQL -usellyoursaas -p$passsellyoursaas -D $dbname < $dumpfile"
-		$MYSQL -usellyoursaas -p$passsellyoursaas -D $dbname < $dumpfile
+		echo "$MYSQL -A -usellyoursaas -p$passsellyoursaas -D $dbname < $dumpfile"
+		$MYSQL -A -usellyoursaas -p$passsellyoursaas -D $dbname < $dumpfile
 	done
 
 fi

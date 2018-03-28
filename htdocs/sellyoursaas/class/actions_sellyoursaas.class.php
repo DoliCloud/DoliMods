@@ -183,6 +183,7 @@ class ActionsSellyoursaas
         {
 			if ($action == 'deploy')
 			{
+
 				$db->begin();
 
 				// SAME CODE THAN INTO MYACCOUNT INDEX.PHP
@@ -262,8 +263,10 @@ class ActionsSellyoursaas
 						// We ignore errors. This should not happen in real life.
 						//setEventMessages($contract->error, $contract->errors, 'errors');
 					}
-
-					// @TODO We can add here the setEventMessages that are into the sellyoursaasRemoteAction
+					else
+					{
+						setEventMessages($langs->trans("InstanceWasDeployed"), null, 'mesgs');
+					}
 				}
 
 				if (! $error)
@@ -343,7 +346,7 @@ class ActionsSellyoursaas
 					}
 				}
 
-				// End of deployment is now OK / Complete
+				// End of undeployment is now OK / Complete
 				if (! $error)
 				{
 					$object->array_options['options_deployment_status'] = 'undeployed';
@@ -356,8 +359,10 @@ class ActionsSellyoursaas
 						// We ignore errors. This should not happen in real life.
 						//setEventMessages($contract->error, $contract->errors, 'errors');
 					}
-
-					// @TODO We can add here the setEventMessages that are into the sellyoursaasRemoteAction
+					else
+					{
+						setEventMessages($langs->trans("InstanceWasUndeployed"), null, 'mesgs');
+					}
 				}
 
 				if (! $error)

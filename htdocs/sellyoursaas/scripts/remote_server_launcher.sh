@@ -51,7 +51,7 @@ if [ "x$1" == "xstart" ]; then
 	if [ "x$pid" == "x" ]; then
 		echo Switch on directory $scriptdir
 		cd $scriptdir
-		php -S 0.0.0.0:8080 -t remote_server remote_server/index.php > /var/log/remote_server_php.log 2>&1 &
+		php -S 0.0.0.0:8080 -t remote_server remote_server/index.php 2>&1 &
 		echo "Server started with php -S 0.0.0.0:8080 -t remote_server remote_server/index.php"
 		echo "Logs of server will be in /var/log/remote_server.log"
 	else

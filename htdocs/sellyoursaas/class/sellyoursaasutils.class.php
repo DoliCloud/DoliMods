@@ -1131,6 +1131,8 @@ class SellYourSaasUtils
 
     			$serverdeployement = getRemoveServerDeploymentIp();
 
+    			$conf->global->MAIN_USE_RESPONSE_TIMEOUT = 60;
+
     			$urltoget='http://'.$serverdeployement.':8080/'.$remoteaction.'?'.urlencode($commandurl);
     			include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
     			$retarray = getURLContent($urltoget);
@@ -1142,30 +1144,33 @@ class SellYourSaasUtils
     				else $this->errors[] = $retarray['content'];
     			}
 
-		    	// Execute personalized SQL requests
-		    	if (! $error)
-		    	{
-		    		$sqltoexecute = make_substitutions($tmppackage->sqlafter, $substitarray);
+    			if (in_array($remoteaction, array('deploy','deployall')))
+    			{
+			    	// Execute personalized SQL requests
+			    	if (! $error)
+			    	{
+			    		$sqltoexecute = make_substitutions($tmppackage->sqlafter, $substitarray);
 
-		    		dol_syslog("Try to connect to instance database to execute personalized requests");
+			    		dol_syslog("Try to connect to instance database to execute personalized requests");
 
-		    		//var_dump($generateddbhostname);	// fqn name dedicated to instance in dns
-		    		//var_dump($serverdeployement);		// just ip of deployement server
-		    		//$dbinstance = @getDoliDBInstance('mysqli', $generateddbhostname, $generateddbusername, $generateddbpassword, $generateddbname, $generateddbport);
-		    		$dbinstance = @getDoliDBInstance('mysqli', $serverdeployement, $generateddbusername, $generateddbpassword, $generateddbname, $generateddbport);
-		    		if (! $dbinstance || ! $dbinstance->connected)
-		    		{
-		    			$error++;
-		    			$this->error = $dbinstance->error;
-		    			$this->errors = $dbinstance->errors;
+			    		//var_dump($generateddbhostname);	// fqn name dedicated to instance in dns
+			    		//var_dump($serverdeployement);		// just ip of deployement server
+			    		//$dbinstance = @getDoliDBInstance('mysqli', $generateddbhostname, $generateddbusername, $generateddbpassword, $generateddbname, $generateddbport);
+			    		$dbinstance = @getDoliDBInstance('mysqli', $serverdeployement, $generateddbusername, $generateddbpassword, $generateddbname, $generateddbport);
+			    		if (! $dbinstance || ! $dbinstance->connected)
+			    		{
+			    			$error++;
+			    			$this->error = $dbinstance->error;
+			    			$this->errors = $dbinstance->errors;
 
-		    		}
-		    		else
-		    		{
-		    			dol_syslog("Execute sql=".$sqltoexecute);
-		    			$resql = $dbinstance->query($sqltoexecute);
-		    		}
-		    	}
+			    		}
+			    		else
+			    		{
+			    			dol_syslog("Execute sql=".$sqltoexecute);
+			    			$resql = $dbinstance->query($sqltoexecute);
+			    		}
+			    	}
+    			}
     		}
 
     		if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
