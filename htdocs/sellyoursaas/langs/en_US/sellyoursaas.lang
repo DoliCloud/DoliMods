@@ -268,3 +268,4 @@ WarningFoundMoreThanOneInvoicingTemplate=Warning, more than one active recurring
 ContractMustHaveStatusDone=Contract must have 'Deployment status' to 'Done'
 AnnounceOnCustomerDashboard=Announce on customers dashboard
 CommandToManageRemoteDeploymentAgent=Command to start/stop remote deployment agent
+InstanceWasDeployed=Instance was deployed
