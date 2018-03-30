@@ -86,16 +86,29 @@ class SellYourSaasUtils
 				{
 					// Search contract linked to invoice
 					$invoice->fetchObjectLinked();
-					$foundcontractopen=0;
+
 					if (is_array($invoice->linkedObjects['contrat']) && count($invoice->linkedObjects['contrat']) > 0)
 					{
 						//dol_sort_array($object->linkedObjects['facture'], 'date');
 						foreach($invoice->linkedObjects['contrat'] as $idcontract => $contract)
 						{
-							$nbservice = $contract->nbofserviceswait + $contract->nbofservicesopened + $contract->nbofservicesexpired;
-							var_dump($nbservice);exit;
-
-							$foundcontractopen = 1;
+							// We ignore $contract->nbofserviceswait +  and $contract->nbofservicesclosed
+							$nbservice = $contract->nbofservicesopened + $contract->nbofservicesexpired;
+							if ($nbservice && empty($draftinvoiceprocessed[$invoice->id]))	// If ok and not yet processed
+							{
+								$result = $invoice->validate($user);
+								if ($result > 0)
+								{
+									$draftinvoiceprocessed[$invoice->id]=$invoice->ref;
+								}
+								else
+								{
+									$error++;
+									$this->error = $invoice->error;
+									$this->errors = $invoice->errors;
+									break;
+								}
+							}
 						}
 					}
 				}
@@ -114,7 +127,7 @@ class SellYourSaasUtils
 			$this->error = $this->db->lasterror();
 		}
 
-		$this->output = count($draftinvoiceprocessed).' invoice(s) validated'.(count($draftinvoiceprocessed)>0 ? ' : '.join(',', $draftinvoiceprocessed) : '');
+		$this->output = count($draftinvoiceprocessed).' invoice(s) validated on '.$num_rows.' draft invoice found'.(count($draftinvoiceprocessed)>0 ? ' : '.join(',', $draftinvoiceprocessed) : '');
 
 		$this->db->commit();
 
@@ -234,6 +247,865 @@ class SellYourSaasUtils
 
     	return ($error ? 1: 0);
     }
+
+
+    /**
+     * Action executed by scheduler. To run every day
+     * CAN BE A CRON TASK
+     *
+     * @param	int			$day1	Day1 in month to launch warnings (1st)
+     * @param	int			$day2	Day2 in month to launch warnings (20th)
+     * @return	int					0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
+     */
+    public function doAlertCreditCardExpiration($day1='',$day2='')
+    {
+    	global $conf, $langs, $user;
+
+    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertCreditCardExpiration.log';
+
+    	$error = 0;
+    	$this->output = '';
+    	$this->error='';
+
+    	dol_syslog(__METHOD__.' - Search card that expire at end of month and send remind. Test is done the day '.$day1.' and '.$day2.' of month', LOG_DEBUG);
+
+    	if (empty($day1) ||empty($day2))
+    	{
+    		$this->error = 'Bad value for parameter day1 and day2. Set param to "1, 20" for example';
+    		$error++;
+    		return 1;
+    	}
+
+    	$servicestatus = 1;
+    	if (! empty($conf->stripe->enabled))
+    	{
+    		$service = 'StripeTest';
+    		$servicestatus = 0;
+    		if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha'))
+    		{
+    			$service = 'StripeLive';
+    			$servicestatus = 1;
+    		}
+    	}
+
+    	$now = dol_now();
+    	$currentdate = dol_getdate($now);
+    	$currentday = $currentdate['mday'];
+    	$currentmonth = $currentdate['mon'];
+    	$currentyear = $currentdate['year'];
+
+    	if ($currentday != $day1 && $currentday != $day2) {
+    		$this->output = 'Nothing to do. We are not the day '.$day1.', neither the day '.$day2.' of the month';
+    		return 0;
+    	}
+
+    	$this->db->begin();
+
+    	// Get warning email template
+    	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+    	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+    	$formmail=new FormMail($db);
+
+    	$nextyear = $currentyear;
+    	$nextmonth = $currentmonth + 1;
+    	if ($nextmonth > 12) { $nextmonth = 1; $nextyear++; }
+
+    	$sql = 'SELECT sr.rowid, sr.fk_soc, sr.exp_date_month, sr.exp_date_year, sr.last_four, sr.status FROM '.MAIN_DB_PREFIX.'societe_rib as sr, '.MAIN_DB_PREFIX.'societe as s';
+    	$sql.= " WHERE sr.fk_soc = s.rowid AND sr.default_rib = 1 AND sr.type = 'card' AND sr.status = ".$servicestatus;
+    	$sql.= " AND sr.exp_date_month = ".$currentmonth." AND sr.exp_date_year = ".$currentyear;
+
+    	$resql = $this->db->query($sql);
+    	if ($resql)
+    	{
+    		$num_rows = $this->db->num_rows($resql);
+    		$i = 0;
+    		while ($i < $num_rows)
+    		{
+    			$obj = $this->db->fetch_object($resql);
+
+    			$thirdparty = new Societe($this->db);
+    			$thirdparty->fetch($obj->fk_soc);
+    			if ($thirdparty->id)
+    			{
+    				$langstouse = new Translate('', $conf);
+    				$langstouse->setDefaultLang($thirdparty->default_lang ? $thirdparty->default_lang : $langs->defaultlang);
+
+    				$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'thirdparty', $user, $langstouse, -2, 1, 'AlertCreditCardExpiration');		// Templates are init into data.sql
+
+    				if (is_object($arraydefaultmessage) && ! empty($arraydefaultmessage->topic))
+    				{
+    					$substitutionarray=getCommonSubstitutionArray($langstouse, 0, null, $thirdparty);
+    					$substitutionarray['__CARD_EXP_DATE_MONTH__']=$obj->exp_date_month;
+    					$substitutionarray['__CARD_EXP_DATE_YEAR__']=$obj->exp_date_year;
+    					$substitutionarray['__CARD_LAST4__']=$obj->last_four;
+
+    					complete_substitutions_array($substitutionarray, $langstouse, $contract);
+
+    					$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langstouse);
+    					$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langstouse);
+    					$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+    					$to = $thirdparty->email;
+
+    					$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
+    					$result = $cmail->sendfile();
+    					if (! $result)
+    					{
+    						$error++;
+    						$this->error = 'Failed to send email to thirdparty id = '.$thirdparty->id.' : '.$cmail->error;
+    						$this->errors[] = 'Failed to send email to thirdparty id = '.$thirdparty->id.' : '.$cmail->error;
+    					}
+    				}
+    				else
+    				{
+    					$error++;
+    					$this->error = 'Failed to get email a valid template AlertCreditCardExpiration';
+    					$this->errors[] = 'Failed to get email a valid template AlertCreditCardExpiration';
+    				}
+    			}
+
+    			$i++;
+    		}
+    	}
+    	else
+    	{
+    		$error++;
+    		$this->error = $this->db->lasterror();
+    	}
+
+    	if (! $error)
+    	{
+    		$this->output = 'Found '.$num_rows.' record with credit card that will expire soon';
+    	}
+
+    	$this->db->commit();
+
+    	return $error;
+    }
+
+
+    /**
+     * Action executed by scheduler
+     * CAN BE A CRON TASK
+     *
+     * @param	int			$day1	Day1 in month to launch warnings (1st)
+     * @param	int			$day2	Day2 in month to launch warnings (20th)
+     * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
+     */
+    public function doAlertPaypalExpiration($day1='', $day2='')
+    {
+    	global $conf, $langs, $user;
+
+    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertPaypalExpiration.log';
+
+    	$error = 0;
+    	$this->output = '';
+    	$this->error='';
+
+    	dol_syslog(__METHOD__.' - Search paypal approval that expire at end of month and send remind. Test is done the day '.$day1.' and '.$day2.' of month', LOG_DEBUG);
+
+    	if (empty($day1) ||empty($day2))
+    	{
+    		$this->error = 'Bad value for parameter day1 and day2. Set param to "1, 20" for example';
+    		$error++;
+    		return 1;
+    	}
+
+    	$servicestatus = 1;
+    	if (! empty($conf->paypal->enabled))
+    	{
+    		//$service = 'StripeTest';
+    		$servicestatus = 0;
+    		if (! empty($conf->global->PAYPAL_LIVE) && ! GETPOST('forcesandbox','alpha'))
+    		{
+    			//$service = 'StripeLive';
+    			$servicestatus = 1;
+    		}
+    	}
+
+    	$now = dol_now();
+    	$currentdate = dol_getdate($now);
+    	$currentday = $currentdate['mday'];
+    	$currentmonth = $currentdate['mon'];
+    	$currentyear = $currentdate['year'];
+
+    	if ($currentday != $day1 && $currentday != $day2) {
+    		$this->output = 'Nothing to do. We are not the day '.$day1.', neither the day '.$day2.' of the month';
+    		return 0;
+    	}
+
+    	$this->db->begin();
+
+    	// Get warning email template
+    	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+    	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+    	$formmail=new FormMail($db);
+
+    	$nextyear = $currentyear;
+    	$nextmonth = $currentmonth + 1;
+    	if ($nextmonth > 12) { $nextmonth = 1; $nextyear++; }
+    	$timelessonemonth = dol_time_plus_duree($now, -1, 'm');
+
+    	if ($timelessonemonth)
+    	{
+	    	$sql = 'SELECT sr.rowid, sr.fk_soc, sr.ending_date, sr.status FROM '.MAIN_DB_PREFIX.'societe_rib as sr, '.MAIN_DB_PREFIX.'societe as s';
+	    	$sql.= " WHERE sr.fk_soc = s.rowid AND sr.default_rib = 1 AND sr.type = 'card' AND sr.status = ".$servicestatus;
+	    	$sql.= " AND sr.ending_date > '".$this->db->idate($timelessonemonth)."'";
+
+	    	$resql = $this->db->query($sql);
+	    	if ($resql)
+	    	{
+	    		$num_rows = $this->db->num_rows($resql);
+	    		$i = 0;
+	    		while ($i < $num_rows)
+	    		{
+	    			$obj = $this->db->fetch_object($resql);
+
+	    			$thirdparty = new Societe($this->db);
+	    			$thirdparty->fetch($obj->fk_soc);
+	    			if ($thirdparty->id)
+	    			{
+	    				$langstouse = new Translate('', $conf);
+	    				$langstouse->setDefaultLang($thirdparty->default_lang ? $thirdparty->default_lang : $langs->defaultlang);
+
+	    				$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'thirdparty', $user, $langstouse, -2, 1, 'AlertPaypalApprovalExpiration');		// Templates are init into data.sql
+
+	    				if (is_object($arraydefaultmessage) && ! empty($arraydefaultmessage->topic))
+	    				{
+	    					$substitutionarray=getCommonSubstitutionArray($langstouse, 0, null, $thirdparty);
+	    					$substitutionarray['__PAYPAL_EXP_DATE__']=dol_print_date($obj->ending_date, 'day', $langstouse);
+
+	    					complete_substitutions_array($substitutionarray, $langstouse, $contract);
+
+	    					$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langstouse);
+	    					$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langstouse);
+	    					$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+	    					$to = $thirdparty->email;
+
+	    					$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
+	    					$result = $cmail->sendfile();
+	    					if (! $result)
+	    					{
+	    						$error++;
+	    						$this->error = 'Failed to send email to thirdparty id = '.$thirdparty->id.' : '.$cmail->error;
+	    						$this->errors[] = 'Failed to send email to thirdparty id = '.$thirdparty->id.' : '.$cmail->error;
+	    					}
+	    				}
+	    				else
+	    				{
+	    					$error++;
+	    					$this->error = 'Failed to get email a valid template AlertPaypalApprovalExpiration';
+	    					$this->errors[] = 'Failed to get email a valid template AlertPaypalApprovalExpiration';
+	    				}
+	    			}
+
+	    			$i++;
+	    		}
+	    	}
+	    	else
+	    	{
+	    		$error++;
+	    		$this->error = $this->db->lasterror();
+	    	}
+    	}
+
+    	if (! $error)
+    	{
+    		$this->output = 'Found '.$num_rows.' record with paypal approval that will expire soon';
+    	}
+
+    	$this->db->commit();
+
+    	return $error;
+    }
+
+
+    /**
+     * Action executed by scheduler
+     * CAN BE A CRON TASK
+     * Loop on each contract. If it is a paid contract and there is no pending payment for contract and end date <= tomorrow, we update to contract service end date to end of next period.
+     *
+     * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
+     */
+    public function doRenewalContracts()
+    {
+    	global $conf, $langs;
+
+    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doRenewalContracts.log';
+    	$now = dol_now();
+
+    	$mode = 'paid';
+    	$delayindaysshort= 1;
+    	$enddatetoscan = dol_time_plus_duree($now, abs($delayindaysshort), 'd');		// $enddatetoscan = tomorrow
+
+    	$error = 0;
+    	$this->output = '';
+    	$this->error='';
+
+    	$contractprocessed = array();
+
+    	dol_syslog(__METHOD__, LOG_DEBUG);
+
+    	$this->db->begin();
+
+    	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid, cd.date_fin_validite';
+    	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce';
+    	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
+    	$sql.= " AND ce.deployment_status = 'done'";
+    	//$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, abs($delayindaysshort), 'd'))."'";
+    	//$sql.= " AND cd.date_fin_validite > '".$this->db->idate(dol_time_plus_duree($now, abs($delayindayshard), 'd'))."'";
+    	$sql.= " AND date_format(cd.date_fin_validite, '%Y-%m-%d') < date_format('".$this->db->idate($enddatetoscan)."', '%Y-%m-%d')";
+    	$sql.= " AND cd.statut = 4";
+    	//print $sql;
+
+    	$resql = $this->db->query($sql);
+    	if ($resql)
+    	{
+    		$num = $this->db->num_rows($resql);
+
+    		include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+
+    		$i=0;
+    		while ($i < $num)
+    		{
+    			$obj = $this->db->fetch_object($resql);
+    			if ($obj)
+    			{
+    				if (! empty($contractprocessed[$object->id])) continue;
+
+    				// Test if this is a paid or not instance
+    				$object = new Contrat($this->db);
+    				$object->fetch($obj->rowid);		// fetch also lines
+    				$object->fetch_thirdparty();
+
+    				$ispaid = sellyoursaasIsPaidInstance($object);
+    				if ($mode == 'test' && $ispaid) continue;											// Discard if this is a paid instance when we are in test mode
+    				if ($mode == 'paid' && ! $ispaid) continue;											// Discard if this is a test instance when we are in paid mode
+
+    				// Update expiration date of instance
+    				$tmparray = sellyoursaasGetExpirationDate($object);
+    				$expirationdate = $tmparray['expirationdate'];
+    				$duration_value = $tmparray['duration_value'];
+    				$duration_unit = $tmparray['duration_unit'];
+    				//var_dump($expirationdate.' '.$enddatetoscan);
+
+    				if ($expirationdate && $expirationdate < $enddatetoscan)
+    				{
+    					$newdate = $expirationdate;
+    					$protecti=0;	//$protecti is to avoid infinite loop
+    					while ($newdate < $enddatetoscan && $protecti < 1000)
+    					{
+    						$newdate = dol_time_plus_duree($newdate, $duration_value, $duration_unit);
+    						$protecti++;
+    					}
+
+    					if ($protecti < 1000)
+    					{
+    						$sqlupdate = 'UPDATE '.MAIN_DB_PREFIX."contratdet SET date_fin_validite = '".$this->db->idate($newdate)."'";
+    						$sqlupdate.= ' WHERE fk_contrat = '.$object->id;
+    						$resqlupdate = $this->db->query($sqlupdate);
+    						if ($resqlupdate)
+    						{
+    							$contractprocessed[$object->id]=$object->ref;
+    						}
+    						else
+    						{
+    							$error++;
+    							$this->error = $this->db->lasterror();
+    						}
+    					}
+    					else
+    					{
+    						$error++;
+    						$this->error = "Bad value for newdate";
+    						dol_syslog("Bad value for newdate", LOG_ERR);
+    					}
+    				}
+    			}
+    			$i++;
+    		}
+    	}
+    	else $this->error = $this->db->lasterror();
+
+    	$this->output = count($contractprocessed).' paying contract(s) with end date before '.dol_print_date($enddatetoscan, 'day').' were renewed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
+
+    	$this->db->commit();
+
+    	return ($error ? 1: 0);
+    }
+
+
+
+    /**
+     * Action executed by scheduler
+     * Loop on invoice for customer with default payment mode Stripe and take payment/send email. Unsuspend if it was suspended.
+     * CAN BE A CRON TASK
+     *
+     * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
+     */
+    public function doTakePaymentStripe()
+    {
+    	global $conf, $langs, $mysoc;
+
+    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doTakePaymentStripe.log';
+
+    	include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+    	include_once DOL_DOCUMENT_ROOT.'/societe/class/companypaymentmode.class.php';
+
+    	$error = 0;
+    	$this->output = '';
+    	$this->error='';
+
+    	$invoiceprocessed = array();
+    	$invoiceprocessedok = array();
+    	$invoiceprocessedko = array();
+
+    	if (empty($conf->stripe->enabled))
+    	{
+    		$this->error='Error, stripe module not enabled';
+    		return 1;
+    	}
+
+   		$service = 'StripeTest';
+   		$servicestatus = 0;
+   		if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha'))
+   		{
+   			$service = 'StripeLive';
+   			$servicestatus = 1;
+    	}
+
+    	dol_syslog(__METHOD__, LOG_DEBUG);
+
+    	$this->db->begin();
+
+    	$sql = 'SELECT f.rowid, s.rowid as socid, sr.rowid as companypaymentmodeid';
+    	$sql.= ' FROM '.MAIN_DB_PREFIX.'facture as f, '.MAIN_DB_PREFIX.'societe as s, '.MAIN_DB_PREFIX.'societe_rib as sr';
+    	$sql.= ' WHERE f.fk_soc = s.rowid AND sr.fk_soc = s.rowid';
+    	$sql.= " AND f.paye = 0 AND f.type = 0 AND f.fk_statut = ".Facture::STATUS_VALIDATED;
+    	$sql.= " AND sr.status = ".$servicestatus;
+    	$sql.= " ORDER BY f.date ASC, sr.default_rib DESC, sr.tms DESC";		// Lines may be duplicated. Never mind, we wil exclude duplicated invoice later.
+    	//print $sql;
+
+    	$resql = $this->db->query($sql);
+    	if ($resql)
+    	{
+    		$num = $this->db->num_rows($resql);
+
+    		$i=0;
+    		while ($i < $num)
+    		{
+    			$obj = $this->db->fetch_object($resql);
+    			if ($obj)
+    			{
+    				if (! empty($invoiceprocessed[$obj->rowid])) continue;		// Invoice already processed
+
+    				$invoice = new Facture($this->db);
+    				$result1 = $invoice->fetch($obj->rowid);
+
+    				$companypaymentmode = new CompanyPaymentMode($this->db);
+    				$result2 = $companypaymentmode->fetch($obj->companypaymentmodeid);
+
+	    			if ($result1 <= 0 || $result2 <= 0)
+	    			{
+	    				$error++;
+	    				dol_syslog('Failed to get invoice id = '.$invoice_id.' or companypaymentmode id ='.$companypaymentmodeid, LOG_ERR);
+	    				$this->errors[] = 'Failed to get invoice id = '.$invoice_id.' or companypaymentmode id ='.$companypaymentmodeid;
+	    			}
+    				else
+    				{
+    					$result = $this->doTakeStripePaymentForThirdparty($service, $servicestatus, $obj->socid, $companypaymentmode, $invoice);
+						if ($result == 0)	// No error
+						{
+							$invoiceprocessedok[$obj->rowid]=$invoice->ref;
+						}
+						else
+						{
+							$invoiceprocessedko[$obj->rowid]=$invoice->ref;
+						}
+    				}
+
+    				$invoiceprocessed[$obj->rowid]=$invoice->ref;
+    			}
+
+    			$i++;
+    		}
+    	}
+    	else $this->error = $this->db->lasterror();
+
+    	$this->output = count($invoiceprocessed).' validated invoice with a valid default payment mode processed'.(count($invoiceprocessed)>0 ? ' : '.join(',', $invoiceprocessed) : '');
+
+    	$this->db->commit();
+
+    	return 0;
+    }
+
+
+    /**
+     * doTakeStripePaymentForInvoice
+     * Take payment/send email. Unsuspend if it was suspended.
+     *
+     * @param	int		$service				'StripeTest' or 'StripeLive'
+     * @param	int		$servicestatus			Service 0 or 1
+     * @param	int		$thirdparty_id			Thirdparty id
+     * @param	int		$companypaymentmodeid	Company payment mode id
+     * @param	int		$invoice				null=All invoices of thirdparty, Invoice=Only this invoice
+     * @return	int								0 if no error, >0 if error
+     */
+    function doTakeStripePaymentForThirdparty($service, $servicestatus, $thirdparty_id, $companypaymentmode, $invoice=null)
+    {
+    	global $conf, $mysoc, $user, $langs;
+
+    	$error = 0;
+
+    	$currency = $mysoc->currency_code;
+    	$cardstripe = $companypaymentmode->stripe_ref_card;
+
+    	$invoices=array();
+    	if (empty($invoice))
+    	{
+    		$sql = 'SELECT f.rowid';
+    		$sql.= ' FROM '.MAIN_DB_PREFIX.'facture as f, '.MAIN_DB_PREFIX.'societe as s';
+    		$sql.= ' WHERE f.fk_soc = s.rowid';
+    		$sql.= " AND f.paye = 0 AND f.type = 0 AND f.fk_statut = ".Facture::STATUS_VALIDATED;
+    		$sql.= " ORDER BY f.date ASC";
+    		//print $sql;
+
+    		$resql = $this->db->query($sql);
+    		if ($resql)
+    		{
+    			$num = $this->db->num_rows($resql);
+
+    			$i=0;
+    			while ($i < $num)
+    			{
+    				$obj = $this->db->fetch_object($resql);
+    				if ($obj)
+    				{
+    					$invoice = new Facture($this->db);
+    					$result = $invoice->fetch($obj->rowid);
+    					if ($result > 0) $invoices[] = $invoice;
+    				}
+    				$i++;
+    			}
+    		}
+    	}
+    	else
+    	{
+    		$invoices[] = $invoice;
+    	}
+		if (count($invoices) == 0)
+		{
+			dol_syslog("No validated invoices found for thirdparty_id = ".$thirdparty_id);
+		}
+
+    	// Loop on each invoice
+		foreach($invoices as $invoice)
+		{
+    		$alreadypayed = $invoice->getSommePaiement();
+    		$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
+    		$amountstripe = $invoice->total_ttc - $alreadypayed - $amount_credit_notes_included;
+
+    		// Correct the amount according to unit of currency
+    		// See https://support.stripe.com/questions/which-zero-decimal-currencies-does-stripe-support
+    		$arrayzerounitcurrency=array('BIF', 'CLP', 'DJF', 'GNF', 'JPY', 'KMF', 'KRW', 'MGA', 'PYG', 'RWF', 'VND', 'VUV', 'XAF', 'XOF', 'XPF');
+    		if (! in_array($currency, $arrayzerounitcurrency)) $amountstripe=$amountstripe * 100;
+
+    		if ($amountstripe > 0)
+    		{
+    			try {
+    				dol_syslog("Search existing Stripe card for companypaymentmodeid=".$companypaymentmode->id, LOG_DEBUG);
+
+    				$thirdparty = new Societe($db);
+    				$thirdparty->fetch($thirdparty_id);
+
+    				include_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';
+    				$stripe = new Stripe($db);
+    				$stripeacc = $stripe->getStripeAccount($service);								// Get Stripe OAuth connect account if it exists (no network access here)
+    				$customer = $stripe->customerStripe($thirdparty, $stripeacc, $servicestatus, 0);
+    				if (! empty($customer))
+    				{
+    					$stripecard = $stripe->cardStripe($customer, $companypaymentmode, $stripeacc, $servicestatus, 0);
+    					if ($stripecard)
+    					{
+    						$FULLTAG='INV='.$invoice->id.'-CUS='.$thirdparty->ref_customer;
+    						$description='Stripe payment from doTakePaymentStripe: '.$FULLTAG;
+
+    						dol_syslog("Create charge on card ".$card->id, LOG_DEBUG, 0, '_stripe');
+    						$charge = \Stripe\Charge::create(array(
+    						'amount'   => price2num($amountstripe, 'MU'),
+    						'currency' => $currency,
+    						'capture'  => true,							// Charge immediatly
+    						'description' => $description,
+    						'metadata' => array("FULLTAG" => $FULLTAG, 'Recipient' => $mysoc->name, 'dol_version'=>DOL_VERSION, 'dol_entity'=>$conf->entity, 'ipaddress'=>(empty($_SERVER['REMOTE_ADDR'])?'':$_SERVER['REMOTE_ADDR'])),
+    						'customer' => $customer->id,
+    						'source' => $stripecard,
+    						'statement_descriptor' => dol_trunc(dol_trunc(dol_string_unaccent($mysoc->name), 6, 'right', 'UTF-8', 1).' '.$FULLTAG, 22, 'right', 'UTF-8', 1)     // 22 chars that appears on bank receipt
+    						));
+    						// Return $charge = array('id'=>'ch_XXXX', 'status'=>'succeeded|pending|failed', 'failure_code'=>, 'failure_message'=>...)
+    						if (empty($charge))
+    						{
+    							$error++;
+    							dol_syslog('Failed to charge card '.$stripecard->id, LOG_WARNING);
+    							$this->errors[]='Failed to charge card '.$stripecard->id;
+
+    							$description='Stripe payment ERROR from doTakePaymentStripe: '.$FULLTAG;
+    							$postactionmessages[]='Failed to charge card '.$stripecard->id;
+    						}
+    						else
+    						{
+    							$description='Stripe payment OK from doTakePaymentStripe: '.$FULLTAG;
+    							$postactionmessages=array();
+
+    							$db=$this->db;
+    							$ipaddress = (empty($_SERVER['REMOTE_ADDR'])?'':$_SERVER['REMOTE_ADDR']);
+    							$TRANSACTIONID = $charge->id;
+    							$FinalPaymentAmt = $amountstripe;
+    							$currency=$conf->currency;
+    							$paymentmethod='stripe';
+
+    							// Same code than into paymentok.php...
+
+    							$paymentTypeId = 0;
+    							if ($paymentmethod == 'paybox') $paymentTypeId = $conf->global->PAYBOX_PAYMENT_MODE_FOR_PAYMENTS;
+    							if ($paymentmethod == 'paypal') $paymentTypeId = $conf->global->PAYPAL_PAYMENT_MODE_FOR_PAYMENTS;
+    							if ($paymentmethod == 'stripe') $paymentTypeId = $conf->global->STRIPE_PAYMENT_MODE_FOR_PAYMENTS;
+    							if (empty($paymentTypeId))
+    							{
+    								$paymentType = $_SESSION["paymentType"];
+    								if (empty($paymentType)) $paymentType = 'CB';
+    								$paymentTypeId = dol_getIdFromCode($db, $paymentType, 'c_paiement', 'code', 'id', 1);
+    							}
+
+    							$currencyCodeType = $currency;
+
+    							// Creation of payment line
+    							include_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
+    							$paiement = new Paiement($db);
+    							$paiement->datepaye     = $now;
+    							if ($currencyCodeType == $conf->currency)
+    							{
+    								$paiement->amounts      = array($invoice->id => $FinalPaymentAmt);   // Array with all payments dispatching with invoice id
+    							}
+    							else
+    							{
+    								$paiement->multicurrency_amounts = array($invoice->id => $FinalPaymentAmt);   // Array with all payments dispatching
+
+    								$postactionmessages[] = 'Payment was done in a different currency that currency expected of company';
+    								$ispostactionok = -1;
+    								$error++;	// Not yet supported
+    							}
+    							$paiement->paiementid   = $paymentTypeId;
+    							$paiement->num_paiement = '';
+    							$paiement->note_public  = 'Online payment '.dol_print_date($now, 'standard').' using '.$paymentmethod.' from '.$ipaddress.' - Transaction ID = '.$TRANSACTIONID;
+
+    							if (! $error)
+    							{
+    								$paiement_id = $paiement->create($user, 1);    // This include closing invoices and regenerating documents
+    								if ($paiement_id < 0)
+    								{
+    									$postactionmessages[] = $paiement->error.' '.join("<br>\n", $paiement->errors);
+    									$ispostactionok = -1;
+    									$error++;
+    								}
+    								else
+    								{
+    									$postactionmessages[] = 'Payment created';
+    									$ispostactionok=1;
+    								}
+    							}
+
+    							if (! $error && ! empty($conf->banque->enabled))
+    							{
+    								$bankaccountid = 0;
+    								if ($paymentmethod == 'paybox') $bankaccountid = $conf->global->PAYBOX_BANK_ACCOUNT_FOR_PAYMENTS;
+    								if ($paymentmethod == 'paypal') $bankaccountid = $conf->global->PAYPAL_BANK_ACCOUNT_FOR_PAYMENTS;
+    								if ($paymentmethod == 'stripe') $bankaccountid = $conf->global->STRIPE_BANK_ACCOUNT_FOR_PAYMENTS;
+
+    								if ($bankaccountid > 0)
+    								{
+    									$label='(CustomerInvoicePayment)';
+    									if ($invoice->type == Facture::TYPE_CREDIT_NOTE) $label='(CustomerInvoicePaymentBack)';  // Refund of a credit note
+    									$result=$paiement->addPaymentToBank($user,'payment',$label, $bankaccountid, '', '');
+    									if ($result < 0)
+    									{
+    										$postactionmessages[] = $paiement->error.' '.joint("<br>\n", $paiement->errors);
+    										$ispostactionok = -1;
+    										$error++;
+    									}
+    									else
+    									{
+    										$postactionmessages[] = 'Bank entry of payment created';
+    										$ispostactionok=1;
+    									}
+    								}
+    								else
+    								{
+    									$postactionmessages[] = 'Setup of bank account to use in module '.$paymentmethod.' was not set. Not way to record the payment.';
+    									$ispostactionok = -1;
+    									$error++;
+    								}
+    							}
+
+    							if (count($postactionmessages) > 0)
+    							{
+    								$description='Stripe payment OK but post action KO from doTakePaymentStripe: '.$FULLTAG;
+    							}
+    						}
+
+    						$object = $invoice;
+
+    						// Send email
+    						include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+    						$formmail=new FormMail($db);
+    						// Set output language
+    						$outputlangs = new Translate('', $conf);
+    						$outputlangs->setDefaultLang(empty($object->thirdparty->default_lang) ? $mysoc->default_lang : $object->thirdparty->default_lang);
+    						$outputlangs->loadLangs(array("main", "members", "bills"));
+    						// Get email content from templae
+    						$arraydefaultmessage=null;
+
+
+    						if (empty($charge))
+    						{
+    							$labeltouse = 'InvoicePaymentSuccess';
+    						}
+    						else
+    						{
+    							$labeltouse = 'InvoicePaymentFailure';
+    						}
+
+    						if (! empty($labeltouse)) $arraydefaultmessage=$formmail->getEMailTemplate($db, 'facture_send', $user, $outputlangs, 0, 1, $labeltouse);
+
+    						if (! empty($labeltouse) && is_object($arraydefaultmessage) && $arraydefaultmessage->id > 0)
+    						{
+    							$subject = $arraydefaultmessage->topic;
+    							$msg     = $arraydefaultmessage->content;
+    						}
+
+    						$substitutionarray=getCommonSubstitutionArray($outputlangs, 0, null, $object);
+    						complete_substitutions_array($substitutionarray, $outputlangs, $object);
+    						$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
+    						$texttosend = make_substitutions($msg, $substitutionarray, $outputlangs);
+
+    						// Attach a file ?
+    						$file='';
+    						$listofpaths=array();
+    						$listofnames=array();
+    						$listofmimes=array();
+    						if (is_object($invoice))
+    						{
+    							$invoicediroutput = $conf->facture->dir_output;
+    							$fileparams = dol_most_recent_file($invoicediroutput . '/' . $invoice->ref, preg_quote($invoice->ref, '/').'[^\-]+');
+    							$file = $fileparams['fullname'];
+
+    							$listofpaths=array($file);
+    							$listofnames=array(basename($file));
+    							$listofmimes=array(dol_mimetype($file));
+    						}
+
+    						$result=$object->send_an_email($texttosend, $subjecttosend, $listofpaths, $listofnames, $listofmimes, "", "", 0, -1);
+
+    						if ($result < 0)
+    						{
+    							$errmsg=$object->error;
+    							$postactionmessages[] = $errmsg;
+    							$ispostactionok = -1;
+    						}
+    						else
+    						{
+    							if ($file) $postactionmessages[] = 'Email sent to member (with invoice document attached)';
+    							else $postactionmessages[] = 'Email sent to member (without any attached document)';
+    						}
+
+    						// Track an event
+    						$action='PAYMENT_STRIPE';
+
+    						// Insert record of payment error
+    						$actioncomm = new ActionComm($this->db);
+
+    						$actioncomm->type_code   = 'AC_OTH_AUTO';		// Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
+    						$actioncomm->code        = 'AC_'.$action;
+    						$actioncomm->label       = $description;
+    						$actioncomm->note        = join(',', $postactionmessages);
+    						$actioncomm->fk_project  = $invoice->fk_project;
+    						$actioncomm->datep       = $now;
+    						$actioncomm->datef       = $now;
+    						$actioncomm->percentage  = -1;   // Not applicable
+    						$actioncomm->socid       = $thirdparty->id;
+    						$actioncomm->contactid   = 0;
+    						$actioncomm->authorid    = $user->id;   // User saving action
+    						$actioncomm->userownerid = $user->id;	// Owner of action
+    						// Fields when action is en email (content should be added into note)
+    						/*$actioncomm->email_msgid = $object->email_msgid;
+    						 $actioncomm->email_from  = $object->email_from;
+    						 $actioncomm->email_sender= $object->email_sender;
+    						 $actioncomm->email_to    = $object->email_to;
+    						 $actioncomm->email_tocc  = $object->email_tocc;
+    						 $actioncomm->email_tobcc = $object->email_tobcc;
+    						 $actioncomm->email_subject = $object->email_subject;
+    						 $actioncomm->errors_to   = $object->errors_to;*/
+    						$actioncomm->fk_element  = $invoice->id;
+    						$actioncomm->elementtype = $invoice->element;
+
+    						$actioncomm->create($user);
+    					}
+    					else
+    					{
+    						//$error++;
+    						dol_syslog("No card found for this stripe customer ".$customer->id, LOG_WARNING);
+    						$this->errors[]='Failed to get card for stripe customer = '.$customer->id;
+    					}
+    				} else {
+    					//$error++;
+    					dol_syslog('Failed to get customer for thirdparty_id = '.$thirdparty->id, LOG_WARNING);
+    					$this->errors[]='Failed to get customer for thirdparty_id = '.$thirdparty->id;
+    				}
+    			}
+    			catch(Exception $e)
+    			{
+    				$error++;
+    				dol_syslog('Error '.$e->getMessage(), LOG_ERR);
+    				$this->errors[]='Error '.$e->getMessage();
+    			}
+    		}
+    		else
+    		{
+    			dol_syslog("Remain to pay is null for this invoice", LOG_WARNING);
+    			$this->errors[]='Remain to pay is null for this invoice = '.$customer->id;
+    		}
+		}
+
+    	return $error;
+    }
+
+
+    /**
+     * Action executed by scheduler
+     * Loop on invoice for customer with default payment mode Paypal and take payment. Unsuspend if it was suspended.
+     * CAN BE A CRON TASK
+     *
+     * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
+     */
+    public function doTakePaymentPaypal()
+    {
+    	global $conf, $langs;
+
+    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doTakePaymentPaypal.log';
+
+    	$error = 0;
+    	$this->output = '';
+    	$this->error='';
+
+    	dol_syslog(__METHOD__, LOG_DEBUG);
+
+    	$this->db->begin();
+
+    	// ...
+
+    	$this->db->commit();
+
+    	return 0;
+    }
+
 
 
     /**
@@ -481,332 +1353,6 @@ class SellYourSaasUtils
 
     	return ($error ? 1: 0);
     }
-
-
-    /**
-     * Action executed by scheduler
-     * CAN BE A CRON TASK
-     *
-     * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
-     */
-    public function doTakePaymentPaypal()
-    {
-    	global $conf, $langs;
-
-    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doTakePaymentPaypal.log';
-
-    	$error = 0;
-    	$this->output = '';
-    	$this->error='';
-
-    	dol_syslog(__METHOD__, LOG_DEBUG);
-
-    	$this->db->begin();
-
-    	// ...
-
-    	$this->db->commit();
-
-    	return 0;
-    }
-
-
-    /**
-     * Action executed by scheduler
-     * CAN BE A CRON TASK
-     *
-     * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
-     */
-    public function doTakePaymentStripe()
-    {
-    	global $conf, $langs;
-
-    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doTakePaymentStripe.log';
-
-    	$error = 0;
-    	$this->output = '';
-    	$this->error='';
-
-    	dol_syslog(__METHOD__, LOG_DEBUG);
-
-    	$this->db->begin();
-
-    	// ...
-
-    	$this->db->commit();
-
-    	return 0;
-    }
-
-
-    /**
-     * Action executed by scheduler. To run every day
-     * CAN BE A CRON TASK
-     *
-     * @param	int			$day1	Day1 in month to launch warnings (1st)
-     * @param	int			$day2	Day2 in month to launch warnings (20th)
-     * @return	int					0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
-     */
-    public function doAlertCreditCardExpiration($day1,$day2)
-    {
-    	global $conf, $langs, $user;
-
-    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertCreditCardExpiration.log';
-
-    	$error = 0;
-    	$this->output = '';
-    	$this->error='';
-
-    	dol_syslog(__METHOD__.' - Search card that expire in exactly 1 month or 10 days and send remind', LOG_DEBUG);
-
-    	$servicestatus = 1;
-    	if (! empty($conf->stripe->enabled))
-    	{
-    		$service = 'StripeTest';
-    		$servicestatus = 0;
-    		if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha'))
-    		{
-    			$service = 'StripeLive';
-    			$servicestatus = 1;
-    		}
-    	}
-
-    	$currentdate = dol_getdate(dol_now());
-    	$currentday = $currentdate['mday'];
-    	$currentmonth = $currentdate['mon'];
-    	$currentyear = $currentdate['year'];
-
-    	if ($currentday != $day1 && $currentday != $day2) {
-    		$this->output = 'Nothing to do. We are not the day '.$day1.', neither the day '.$day2.' of the month';
-    		return 0;
-    	}
-
-    	$this->db->begin();
-
-    	// Get warning email template
-    	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
-    	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-    	$formmail=new FormMail($db);
-
-    	$nextyear = $currentyear;
-    	$nextmonth = $currentmonth + 1;
-    	if ($nextmonth > 12) { $nextmonth = 1; $nextyear++; }
-
-    	$sql = 'SELECT sr.rowid, sr.fk_soc, sr.exp_date_month, sr.exp_date_year, sr.last_four, sr.status FROM '.MAIN_DB_PREFIX.'societe_rib as sr, '.MAIN_DB_PREFIX.'societe as s';
-		$sql.= " WHERE sr.fk_soc = s.rowid AND sr.default_rib = 1 AND sr.type = 'card' AND sr.status = ".$servicestatus;
-		$sql.= " AND sr.exp_date_month = ".$nextmonth." AND sr.exp_date_year = ".$nextyear;
-
-		$resql = $this->db->query($sql);
-		if ($resql)
-		{
-			$num_rows = $this->db->num_rows($resql);
-			$i = 0;
-			while ($i < $num_rows)
-			{
-				$obj = $this->db->fetch_object($resql);
-
-				$thirdparty = new Societe($this->db);
-				$thirdparty->fetch($obj->fk_soc);
-				if ($thirdparty->id)
-				{
-					$langstouse = new Translate('', $conf);
-					$langstouse->setDefaultLang($thirdparty->default_lang ? $thirdparty->default_lang : $langs->defaultlang);
-
-					$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'thirdparty', $user, $langstouse, -2, 1, 'AlertCreditCardExpiration');		// Templates are init into data.sql
-
-					if (is_object($arraydefaultmessage) && ! empty($arraydefaultmessage->topic))
-					{
-						$substitutionarray=getCommonSubstitutionArray($langstouse, 0, null, $thirdparty);
-						$substitutionarray['__CARD_EXP_DATE_MONTH__']=$obj->exp_date_month;
-						$substitutionarray['__CARD_EXP_DATE_YEAR__']=$obj->exp_date_year;
-						$substitutionarray['__CARD_LAST4__']=$obj->last_four;
-
-						complete_substitutions_array($substitutionarray, $langstouse, $contract);
-
-						$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langstouse);
-						$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langstouse);
-						$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
-						$to = $thirdparty->email;
-
-						$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
-						$result = $cmail->sendfile();
-						if (! $result)
-						{
-							$error++;
-							$this->error = 'Failed to send email to thirdparty id = '.$thirdparty->id.' : '.$cmail->error;
-							$this->errors[] = 'Failed to send email to thirdparty id = '.$thirdparty->id.' : '.$cmail->error;
-						}
-					}
-					else
-					{
-						$error++;
-						$this->error = 'Failed to get email a valid template AlertCreditCardExpiration';
-						$this->errors[] = 'Failed to get email a valid template AlertCreditCardExpiration';
-					}
-				}
-
-				$i++;
-			}
-		}
-		else
-		{
-			$error++;
-			$this->error = $this->db->lasterror();
-		}
-
-		if (! $error)
-		{
-			$this->output = 'Found '.$num_rows.' record with credit card that will expire soon';
-		}
-
-		$this->db->commit();
-
-    	return $error;
-    }
-
-
-    /**
-     * Action executed by scheduler
-     * CAN BE A CRON TASK
-     *
-     * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
-     */
-    public function doAlertPaypalExpiration()
-    {
-    	global $conf, $langs;
-
-    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertPaypalExpiration.log';
-
-    	$error = 0;
-    	$this->output = '';
-    	$this->error='';
-
-    	dol_syslog(__METHOD__, LOG_DEBUG);
-
-    	$this->db->begin();
-
-    	// ...
-
-    	$this->db->commit();
-
-    	return $error;
-    }
-
-
-    /**
-     * Action executed by scheduler
-     * CAN BE A CRON TASK
-     * Loop on each contract. If it is a paid contract and there is no pending payment for contract and end date <= tomorrow, we update to contract service end date to end of next period.
-     *
-     * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
-     */
-    public function doRenewalContracts()
-    {
-    	global $conf, $langs;
-
-    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doRenewalContracts.log';
-    	$now = dol_now();
-
-    	$mode = 'paid';
-    	$delayindaysshort= 1;
-    	$enddatetoscan = dol_time_plus_duree($now, abs($delayindaysshort), 'd');		// $enddatetoscan = tomorrow
-
-    	$error = 0;
-    	$this->output = '';
-    	$this->error='';
-
-    	dol_syslog(__METHOD__, LOG_DEBUG);
-
-    	$this->db->begin();
-
-    	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid, cd.date_fin_validite';
-    	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce';
-    	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
-    	$sql.= " AND ce.deployment_status = 'done'";
-    	//$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, abs($delayindaysshort), 'd'))."'";
-    	//$sql.= " AND cd.date_fin_validite > '".$this->db->idate(dol_time_plus_duree($now, abs($delayindayshard), 'd'))."'";
-    	$sql.= " AND date_format(cd.date_fin_validite, '%Y-%m-%d') < date_format('".$this->db->idate($enddatetoscan)."', '%Y-%m-%d')";
-    	$sql.= " AND cd.statut = 4";
-    	//print $sql;
-
-    	$resql = $this->db->query($sql);
-    	if ($resql)
-    	{
-    		$num = $this->db->num_rows($resql);
-
-    		$contractprocessed = array();
-
-    		include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
-
-    		$i=0;
-    		while ($i < $num)
-    		{
-    			$obj = $this->db->fetch_object($resql);
-    			if ($obj)
-    			{
-    				if (! empty($contractprocessed[$object->id])) continue;
-
-    				// Test if this is a paid or not instance
-    				$object = new Contrat($this->db);
-    				$object->fetch($obj->rowid);		// fetch also lines
-    				$object->fetch_thirdparty();
-
-    				$ispaid = sellyoursaasIsPaidInstance($object);
-    				if ($mode == 'test' && $ispaid) continue;											// Discard if this is a paid instance when we are in test mode
-    				if ($mode == 'paid' && ! $ispaid) continue;											// Discard if this is a test instance when we are in paid mode
-
-    				// Update expiration date of instance
-    				$tmparray = sellyoursaasGetExpirationDate($object);
-    				$expirationdate = $tmparray['expirationdate'];
-    				$duration_value = $tmparray['duration_value'];
-    				$duration_unit = $tmparray['duration_unit'];
-    				//var_dump($expirationdate.' '.$enddatetoscan);
-
-    				if ($expirationdate && $expirationdate < $enddatetoscan)
-    				{
-    					$newdate = $expirationdate;
-    					$protecti=0;	//$protecti is to avoid infinite loop
-    					while ($newdate < $enddatetoscan && $protecti < 1000)
-    					{
-    						$newdate = dol_time_plus_duree($newdate, $duration_value, $duration_unit);
-    						$protecti++;
-    					}
-
-    					if ($protecti < 1000)
-    					{
-							$sqlupdate = 'UPDATE '.MAIN_DB_PREFIX."contratdet SET date_fin_validite = '".$this->db->idate($newdate)."'";
-							$sqlupdate.= ' WHERE fk_contrat = '.$object->id;
-							$resqlupdate = $this->db->query($sqlupdate);
-							if ($resqlupdate)
-							{
-	    						$contractprocessed[$object->id]=$object->ref;
-							}
-							else
-							{
-								$error++;
-								$this->error = $this->db->lasterror();
-							}
-    					}
-    					else
-    					{
-    						$error++;
-    						$this->error = "Bad value for newdate";
-    						dol_syslog("Bad value for newdate", LOG_ERR);
-    					}
-    				}
-    			}
-    			$i++;
-    		}
-    	}
-    	else $this->error = $this->db->lasterror();
-
-    	$this->output = count($contractprocessed).' paying contract(s) with end date before '.dol_print_date($enddatetoscan, 'day').' were renewed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
-
-		$this->db->commit();
-
-    	return ($error ? 1: 0);
-    }
-
 
 
 

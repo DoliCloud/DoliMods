@@ -567,17 +567,16 @@ if (empty($reshook))
 			/*var_dump($dolicloudcustomer->price_instance);
 			var_dump($dolicloudcustomer->price_user);
 			exit;*/
+
+			// Now create invoice draft
 			$dateinvoice = $contract->array_options['options_date_endfreeperiod'];
 			if (empty($dateinvoice) && $dolicloudcustomer->id > 0) $dateinvoice = $dolicloudcustomer->date_current_period_end;
 
 			$invoice_draft = new Facture($db);
 
-			// Now create invoice draft
+			// Create empty invoice
 			if (! $error)
 			{
-				//$invoice_template=new FactureRec($db);
-				//$invoice_template->fk_soc = $thirdpartyidselected;
-
 				$invoice_draft->socid				= $thirdpartyidselected;
 				$invoice_draft->type				= Facture::TYPE_STANDARD;
 				$invoice_draft->number				= '';
@@ -589,8 +588,8 @@ if (empty($reshook))
 				$invoice_draft->cond_reglement_id	= dol_getIdFromCode($db, 'RECEP', 'c_payment_term', 'code', 'rowid');
 
 	            $invoice_draft->fk_account          = 5;												// fiducial
-	            if ($invoice_draft->mode_reglement_id == 100) $invoice_draft->fk_account          = 8;	// stripe
-	            if ($invoice_draft->mode_reglement_id == 101) $invoice_draft->fk_account          = 7;	// paypal
+	            if ($invoice_draft->mode_reglement_id == 100) $invoice_draft->fk_account          = $conf->global->STRIPE_BANK_ACCOUNT_FOR_PAYMENTS;	// stripe
+	            if ($invoice_draft->mode_reglement_id == 101) $invoice_draft->fk_account          = $conf->global->PAYPAL_BANK_ACCOUNT_FOR_PAYMENTS;	// paypal
 
 				$invoice_draft->fetch_thirdparty();
 
@@ -610,7 +609,7 @@ if (empty($reshook))
 					$error++;
 				}
 			}
-
+			// Add line on invoice
 			if (! $error)
 			{
 				// Add lines of invoice
@@ -623,6 +622,7 @@ if (empty($reshook))
 					$lines = $srcobject->lines;
 				}
 
+				$date_start = false;
 				$fk_parent_line=0;
 				$num=count($lines);
 				for ($i=0;$i<$num;$i++)
@@ -674,7 +674,7 @@ if (empty($reshook))
 					if (! empty($lines[$i]->vat_src_code) && ! preg_match('/\(/', $tva_tx)) $tva_tx .= ' ('.$lines[$i]->vat_src_code.')';
 
 					// View third's localtaxes for NOW and do not use value from origin.
-					// TODO Is this really what we want ? Yes if source if template invoice but what if proposal or order ?
+					// TODO Is this really what we want ? Yes if source is template invoice but what if proposal or order ?
 					$localtax1_tx = get_localtax($tva_tx, 1, $invoice_draft->thirdparty);
 					$localtax2_tx = get_localtax($tva_tx, 2, $invoice_draft->thirdparty);
 
@@ -696,14 +696,17 @@ if (empty($reshook))
 						$fk_parent_line = $result;
 					}
 				}
+			}
 
+			// Now we convert invoice into a template
+			if (! $error)
+			{
 				//var_dump($invoice_draft->lines);
 				//var_dump(dol_print_date($date_start,'dayhour'));
 				//exit;
 
-				// Now we convert invoice into a template
 				$frequency=1;
-				$tmp=dol_getdate($date_start);
+				$tmp=dol_getdate($date_start?$date_start:$now);
 				$reyear=$tmp['year'];
 				$remonth=$tmp['mon'];
 				$reday=$tmp['mday'];
@@ -776,8 +779,6 @@ if (empty($reshook))
 					$error++;
 					setEventMessages($invoice_rec->error, $invoice_rec->errors, 'errors');
 				}
-//var_dump($error);
-//				exit;
 			}
 		}
 

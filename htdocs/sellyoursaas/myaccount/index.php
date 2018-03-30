@@ -81,6 +81,39 @@ if ($langs->getDefaultLang(1) == 'fr') $langcode = 'fr';
 $urlfaq='https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/'.$langcode.'/faq';
 
 $urlstatus='https://status.dolicloud.com';
+$now =dol_now();
+$tmp=dol_getdate($now);
+$nowmonth = $tmp['mon'];
+$nowyear = $tmp['year'];
+
+$listofcontractid = array();
+require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+$documentstatic=new Contrat($db);
+$documentstaticline=new ContratLigne($db);
+$sql = 'SELECT c.rowid as rowid';
+$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c LEFT JOIN '.MAIN_DB_PREFIX.'contrat_extrafields as ce ON ce.fk_object = c.rowid, '.MAIN_DB_PREFIX.'contratdet as d, '.MAIN_DB_PREFIX.'societe as s';
+$sql.= " WHERE c.fk_soc = s.rowid AND s.rowid = ".$mythirdpartyaccount->id;
+$sql.= " AND d.fk_contrat = c.rowid";
+$sql.= " AND c.entity = ".$conf->entity;
+$sql.= " AND ce.deployment_status IN ('processing', 'done', 'undeployed')";
+
+$resql=$db->query($sql);
+if ($resql)
+{
+	$num_rows = $db->num_rows($resql);
+	$i = 0;
+	while ($i < $num_rows)
+	{
+		$obj = $db->fetch_object($resql);
+		if ($obj)
+		{
+			$contract=new Contrat($db);
+			$contract->fetch($obj->rowid);					// This load also lines
+			$listofcontractid[$obj->rowid]=$contract;
+		}
+		$i++;
+	}
+}
 
 
 /*
@@ -131,14 +164,13 @@ if ($action == 'send')
 
 	$channel = GETPOST('supportchannel','alpha');
 	$contractid = GETPOST('contractid','int');
-	$tmpcontract = new Contrat($db);
 	if ($contractid > 0)
 	{
-		$tmpcontract->fetch($contractid);
+		$tmpcontract = $listofcontractid[$contractid];
 		$topic = '[Ticket for '.$tmpcontract->ref_customer.'] '.$topic;
 		$content .= "\n";
 		$content .= 'Ref contract: '.$tmpcontract->ref."\n";
-		$content .= 'Date: '.dol_print_date(dol_now(), 'dayhour')."\n";
+		$content .= 'Date: '.dol_print_date($now, 'dayhour')."\n";
 	}
 	$trackid = 'sellyoursaas'.$contractid;
 
@@ -283,9 +315,9 @@ if ($action == 'updatepassword')
 	}
 }
 
-if ($action == 'createpaymentmode')
+if ($action == 'createpaymentmode')		// Create credit card stripe
 {
-	$label = 'Card '.dol_print_date(dol_now(), 'dayhourrfc');
+	$label = 'Card '.dol_print_date($now, 'dayhourrfc');
 
 	if (! GETPOST('proprio','alpha') || ! GETPOST('cardnumber','alpha') || ! GETPOST('exp_date_month','alpha') || ! GETPOST('exp_date_year','alpha') || ! GETPOST('cvn','alpha'))
 	{
@@ -324,7 +356,7 @@ if ($action == 'createpaymentmode')
 		$companypaymentmode->exp_date_month  = GETPOST('exp_date_month','int');
 		$companypaymentmode->exp_date_year   = GETPOST('exp_date_year','int');
 		$companypaymentmode->cvn             = GETPOST('cvn','alpha');
-		$companypaymentmode->datec           = dol_now();
+		$companypaymentmode->datec           = $now;
 		$companypaymentmode->default_rib     = 1;
 		$companypaymentmode->type            = 'card';
 		$companypaymentmode->country_code    = $mythirdpartyaccount->country_code;
@@ -375,16 +407,250 @@ if ($action == 'createpaymentmode')
 			}
 		}
 
-		// Loop on each pending invoice of the thirdparty and try to pay them with payment = invoice amount.
+		if (! $error)
+		{
+			$sellyoursaasutils = new SellYourSaasUtils($db);
 
-		// After each payment ok, into trigger "invoice classify billed"
-		// - if there is no more pending payment:
-		//   - Launch process to renew contract if no more pending payments on instance: SellYourSaasRenewalContracts (it updates end date)
-		//   - Enable services that were disabled, we launch activate on closed services (it will include the trigger to unsuspend)
-		//
+			// Loop on each pending invoices of the thirdparty and try to pay them with payment = invoice amount.
+			$result = $sellyoursaasutils->doTakeStripePaymentForThirdparty($service, $servicestatus, $thirdparty_id, $companypaymentmode, null);
+			if ($result != 0)
+			{
+				$error++;
+				setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
+			}
+		}
 
+		// Create a recurring invoice if there is no reccuring invoice yet
+		if (! $error)
+		{
+			foreach ($listofcontractid as $contract)
+			{
+				$result = $contract->fetchObjectLinked();
+				if ($result < 0)
+				{
+					continue;							// There is an error, so we discard this contract to avoid to create template twice
+				}
+				if (! empty($contract->linkedObjectsIds['facturerec']))
+				{
+					$templateinvoice = reset($contract->linkedObjectsIds['facturerec']);
+					if (is_object($templateinvoice))	// There is already a template invoice, so we discard this contract to avoid to create template twice
+					{
+						continue;
+					}
+				}
 
+				dol_syslog("No recurring invoice found for this contract contract_id = ".$contract->id.", so we create one.");
 
+				// Now create invoice draft
+				$dateinvoice = $contract->array_options['options_date_endfreeperiod'];
+				if ($dateinvoice < $now) $dateinvoice = $now;
+
+				$invoice_draft = new Facture($db);
+
+				// Create empty invoice
+				if (! $error)
+				{
+					$invoice_draft->socid				= $contract->thirdparty->id;
+					$invoice_draft->type				= Facture::TYPE_STANDARD;
+					$invoice_draft->number				= '';
+					$invoice_draft->date				= $dateinvoice;
+
+					$invoice_draft->note_private		= 'Created after adding a payment mode for card/stripe';
+					$invoice_draft->mode_reglement_id	= dol_getIdFromCode($db, 'CB', 'c_paiement', 'rowid', 'code');
+					$invoice_draft->cond_reglement_id	= dol_getIdFromCode($db, 'RECEP', 'c_payment_term', 'code', 'rowid');
+					$invoice_draft->fk_account          = $conf->global->STRIPE_BANK_ACCOUNT_FOR_PAYMENTS;	// stripe
+
+					$invoice_draft->fetch_thirdparty();
+
+					$origin='contrat';
+					$originid=$contract->id;
+
+					$invoice_draft->origin = $origin;
+					$invoice_draft->origin_id = $originid;
+
+					// Possibility to add external linked objects with hooks
+					$invoice_draft->linked_objects[$invoice_draft->origin] = $invoice_draft->origin_id;
+
+					$idinvoice = $invoice_draft->create($user);      // This include class to add_object_linked() and add add_contact()
+					if (! ($idinvoice > 0))
+					{
+						setEventMessages($invoice_draft->error, $invoice_draft->errors, 'errors');
+						$error++;
+					}
+				}
+				// Add lines on invoice
+				if (! $error)
+				{
+					// Add lines of invoice
+					$srcobject = $contract;
+
+					$lines = $srcobject->lines;
+					if (empty($lines) && method_exists($srcobject, 'fetch_lines'))
+					{
+						$srcobject->fetch_lines();
+						$lines = $srcobject->lines;
+					}
+
+					$date_start = false;
+					$fk_parent_line=0;
+					$num=count($lines);
+					for ($i=0;$i<$num;$i++)
+					{
+						$label=(! empty($lines[$i]->label)?$lines[$i]->label:'');
+						$desc=(! empty($lines[$i]->desc)?$lines[$i]->desc:$lines[$i]->libelle);
+						if ($invoice_draft->situation_counter == 1) $lines[$i]->situation_percent =  0;
+
+						// Positive line
+						$product_type = ($lines[$i]->product_type ? $lines[$i]->product_type : 0);
+
+						// Date start
+						$date_start = false;
+						if ($lines[$i]->date_debut_prevue)
+							$date_start = $lines[$i]->date_debut_prevue;
+						if ($lines[$i]->date_debut_reel)
+							$date_start = $lines[$i]->date_debut_reel;
+						if ($lines[$i]->date_start)
+							$date_start = $lines[$i]->date_start;
+
+						// Date end
+						$date_end = false;
+						if ($lines[$i]->date_fin_prevue)
+							$date_end = $lines[$i]->date_fin_prevue;
+						if ($lines[$i]->date_fin_reel)
+							$date_end = $lines[$i]->date_fin_reel;
+						if ($lines[$i]->date_end)
+							$date_end = $lines[$i]->date_end;
+
+						// Reset fk_parent_line for no child products and special product
+						if (($lines[$i]->product_type != 9 && empty($lines[$i]->fk_parent_line)) || $lines[$i]->product_type == 9) {
+							$fk_parent_line = 0;
+						}
+
+						// Discount
+						$discount = $lines[$i]->remise_percent;
+						if (empty($discount) && GETPOST('discount'))
+						{
+							$discount = GETPOST('discount');
+						}
+
+						// Extrafields
+						if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED) && method_exists($lines[$i], 'fetch_optionals')) {
+							$lines[$i]->fetch_optionals($lines[$i]->rowid);
+							$array_options = $lines[$i]->array_options;
+						}
+
+						$tva_tx = $lines[$i]->tva_tx;
+						if (! empty($lines[$i]->vat_src_code) && ! preg_match('/\(/', $tva_tx)) $tva_tx .= ' ('.$lines[$i]->vat_src_code.')';
+
+						// View third's localtaxes for NOW and do not use value from origin.
+						// TODO Is this really what we want ? Yes if source is template invoice but what if proposal or order ?
+						$localtax1_tx = get_localtax($tva_tx, 1, $invoice_draft->thirdparty);
+						$localtax2_tx = get_localtax($tva_tx, 2, $invoice_draft->thirdparty);
+
+						//$price_invoice_template_line = $lines[$i]->subprice * GETPOST('frequency_multiple','int');
+						$price_invoice_template_line = $lines[$i]->subprice;
+
+						$result = $invoice_draft->addline($desc, $price_invoice_template_line, $lines[$i]->qty, $tva_tx, $localtax1_tx, $localtax2_tx, $lines[$i]->fk_product, $discount, $date_start, $date_end, 0, $lines[$i]->info_bits, $lines[$i]->fk_remise_except, 'HT', 0, $product_type, $lines[$i]->rang, $lines[$i]->special_code, $invoice_draft->origin, $lines[$i]->rowid, $fk_parent_line, $lines[$i]->fk_fournprice, $lines[$i]->pa_ht, $label, $array_options, $lines[$i]->situation_percent, $lines[$i]->fk_prev_id, $lines[$i]->fk_unit);
+
+						if ($result > 0) {
+							$lineid = $result;
+						} else {
+							$lineid = 0;
+							$error ++;
+							break;
+						}
+
+						// Defined the new fk_parent_line
+						if ($result > 0 && $lines[$i]->product_type == 9) {
+							$fk_parent_line = $result;
+						}
+					}
+				}
+
+				// Now we convert invoice into a template
+				if (! $error)
+				{
+					//var_dump($invoice_draft->lines);
+					//var_dump(dol_print_date($date_start,'dayhour'));
+					//exit;
+
+					$frequency=1;
+					$tmp=dol_getdate($date_start?$date_start:$now);
+					$reyear=$tmp['year'];
+					$remonth=$tmp['mon'];
+					$reday=$tmp['mday'];
+					$rehour=$tmp['hours'];
+					$remin=$tmp['minutes'];
+					$nb_gen_max=0;
+					//print dol_print_date($date_start,'dayhour');
+					//var_dump($remonth);
+
+					$invoice_rec = new FactureRec($db);
+
+					$invoice_rec->titre = 'Template invoice for '.$contract->ref.' '.$contract->ref_customer;
+					$invoice_rec->note_private = $contract->note_private;
+					//$invoice_rec->note_public  = dol_concatdesc($contract->note_public, '__(Period)__ : __INVOICE_DATE_NEXT_INVOICE_BEFORE_GEN__ - __INVOICE_DATE_NEXT_INVOICE_AFTER_GEN__');
+					$invoice_rec->note_public  = $contract->note_public;
+					$invoice_rec->mode_reglement_id = $invoice_draft->mode_reglement_id;
+
+					$invoice_rec->usenewprice = 0;
+
+					$invoice_rec->frequency = GETPOST('frequency_multiple','int');
+					$invoice_rec->unit_frequency = 'm';
+					$invoice_rec->nb_gen_max = $nb_gen_max;
+					$invoice_rec->auto_validate = 0;
+
+					$invoice_rec->fk_project = 0;
+
+					$date_next_execution = dol_mktime($rehour, $remin, 0, $remonth, $reday, $reyear);
+					$invoice_rec->date_when = $date_next_execution;
+
+					// Get first contract linked to invoice used to generate template
+					if ($invoice_draft->id > 0)
+					{
+						$srcObject = $invoice_draft;
+
+						$srcObject->fetchObjectLinked();
+
+						if (! empty($srcObject->linkedObjectsIds['contrat']))
+						{
+							$contractidid = reset($srcObject->linkedObjectsIds['contrat']);
+
+							$invoice_rec->origin = 'contrat';
+							$invoice_rec->origin_id = $contractidid;
+							$invoice_rec->linked_objects[$invoice_draft->origin] = $invoice_draft->origin_id;
+						}
+					}
+
+					$oldinvoice = new Facture($db);
+					$oldinvoice->fetch($invoice_draft->id);
+
+					$result = $invoice_rec->create($user, $oldinvoice->id);
+					if ($result > 0)
+					{
+						$sql = 'UPDATE '.MAIN_DB_PREFIX.'facturedet_rec SET date_start_fill = 1, date_end_fill = 1 WHERE fk_facture = '.$invoice_rec->id;
+						$result = $db->query($sql);
+						if (! $error && $result < 0)
+						{
+							$error++;
+							setEventMessages($db->lasterror(), null, 'errors');
+						}
+
+						$result=$oldinvoice->delete($user, 1);
+						if (! $error && $result < 0)
+						{
+							$error++;
+							setEventMessages($oldinvoice->error, $oldinvoice->errors, 'errors');
+						}
+					}
+					else
+					{
+						$error++;
+						setEventMessages($invoice_rec->error, $invoice_rec->errors, 'errors');
+					}
+				}
+			}
+		}
 
 		if (! $error)
 		{
@@ -429,7 +695,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 
 	if (! $error)
 	{
-		$hash = dol_hash('sellyoursaas'.$contract->id.dol_print_date(dol_now(), 'dayrfc'));
+		$hash = dol_hash('sellyoursaas'.$contract->id.dol_print_date($now, 'dayrfc'));
 
 		// Send confirmation email
 		if ($action == 'undeploy')
@@ -701,38 +967,6 @@ if ($action == 'deployall')
 $form = new Form($db);
 $formother = new FormOther($db);
 
-$listofcontractid = array();
-require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-$documentstatic=new Contrat($db);
-$documentstaticline=new ContratLigne($db);
-$sql = 'SELECT c.rowid as rowid';
-$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c LEFT JOIN '.MAIN_DB_PREFIX.'contrat_extrafields as ce ON ce.fk_object = c.rowid, '.MAIN_DB_PREFIX.'contratdet as d, '.MAIN_DB_PREFIX.'societe as s';
-$sql.= " WHERE c.fk_soc = s.rowid AND s.rowid = ".$socid;
-$sql.= " AND d.fk_contrat = c.rowid";
-$sql.= " AND c.entity = ".$conf->entity;
-$sql.= " AND ce.deployment_status IN ('processing', 'done', 'undeployed')";
-
-$resql=$db->query($sql);
-if ($resql)
-{
-	$num_rows = $db->num_rows($resql);
-	$i = 0;
-	while ($i < $num_rows)
-	{
-		$obj = $db->fetch_object($resql);
-		if ($obj)
-		{
-			$contract=new Contrat($db);
-			$contract->fetch($obj->rowid);					// This load also lines
-			$listofcontractid[$obj->rowid]=$contract;
-		}
-		$i++;
-	}
-}
-else
-{
-	setEventMessages($db->lasterror(), null, 'errors');
-}
 if ($welcomecid > 0)
 {
 	$contract=new Contrat($db);
@@ -813,7 +1047,7 @@ print '
           </li>
 
           <li class="nav-item'.($mode == 'myaccount'?' active':'').' dropdown">
-             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user"></i> '.$langs->trans("MyAccount").' ('.$mythirdpartyaccount->email.')</a>
+             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#socid='.$mythirdpartyaccount->id.'"><i class="fa fa-user"></i> '.$langs->trans("MyAccount").' ('.$mythirdpartyaccount->email.')</a>
              <ul class="dropdown-menu">
                  <li><a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=myaccount"><i class="fa fa-user"></i> '.$langs->trans("MyAccount").'</a></li>
                  <li class="dropdown-divider"></li>
@@ -940,12 +1174,37 @@ if ($categorie->containsObject('supplier', $mythirdpartyaccount->id))
 }
 
 
+$servicestatusstripe = 0;
+if (! empty($conf->stripe->enabled))
+{
+	$service = 'StripeTest';
+	$servicestatusstripe = 0;
+	if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha'))
+	{
+		$service = 'StripeLive';
+		$servicestatusstripe = 1;
+	}
+}
+$servicestatuspaypal = 0;
+if (! empty($conf->paypal->enabled))
+{
+	$servicestatuspaypal = 0;
+	if (! empty($conf->global->PAYPAL_LIVE) && ! GETPOST('forcesandbox','alpha'))
+	{
+		$servicestatuspaypal = 1;
+	}
+}
+
+
 
 // Fill array of company payment modes
 $arrayofcompanypaymentmode = array();
-$sql='SELECT rowid, default_rib FROM '.MAIN_DB_PREFIX."societe_rib";
-$sql.=" WHERE type in ('ban', 'card', 'paypal')";
-$sql.=" AND fk_soc = ".$mythirdpartyaccount->id;
+$sql = 'SELECT rowid, default_rib FROM '.MAIN_DB_PREFIX."societe_rib";
+$sql.= " WHERE type in ('ban', 'card', 'paypal')";
+$sql.= " AND fk_soc = ".$mythirdpartyaccount->id;
+$sql.= " AND (type = 'ban' OR (type='card' AND status = ".$servicestatusstripe.") OR (type='paypal' AND status = ".$servicestatuspaypal."))";
+$sql.= " ORDER BY default_rib DESC, tms DESC";
+
 $resql = $db->query($sql);
 if ($resql)
 {
@@ -1019,7 +1278,7 @@ if (empty($welcomecid))
 		{
 			$dateendfreeperiod = $contract->array_options['options_date_endfreeperiod'];
 			if (! is_numeric($dateendfreeperiod)) $dateendfreeperiod = dol_stringtotime($dateendfreeperiod);
-			$delaybeforeendoftrial = ($dateendfreeperiod - dol_now());
+			$delaybeforeendoftrial = ($dateendfreeperiod - $now);
 			$delayindays = round($delaybeforeendoftrial / 3600 / 24);
 
 			if (empty($atleastonepaymentmode))
@@ -1081,7 +1340,7 @@ if (empty($welcomecid))
 
 		if ($isapaidinstance && $expirationdate > 0)
 		{
-			$delaybeforeexpiration = ($expirationdate - dol_now());
+			$delaybeforeexpiration = ($expirationdate - $now);
 			$delayindays = round($delaybeforeexpiration / 3600 / 24);
 
 			if ($delayindays < 0)	// Expired
@@ -1540,7 +1799,7 @@ if ($mode == 'instances')
 								if ($contract->array_options['options_deployment_status'] == 'processing')
 								{
 									print '<span class="opacitymedium">'.$langs->trans("DateStart").' : </span><span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_start'], 'dayhour').'</span>';
-									if ((dol_now() - $contract->array_options['options_deployment_date_start']) > 120)	// More then 2 minutes ago
+									if (($now - $contract->array_options['options_deployment_date_start']) > 120)	// More then 2 minutes ago
 									{
 										print ' - <a href="register_instance.php?reusecontractid='.$contract->id.'">'.$langs->trans("Restart").'</a>';
 									}
@@ -1764,13 +2023,13 @@ if ($mode == 'instances')
 										print '<span class="bold">'.$pricetoshow.'</span>';
 										if ($foundtemplate == 0)	// Same than ispaid
 										{
-											if ($contract->array_options['options_date_endfreeperiod'] < dol_now()) $color='orange';
+											if ($contract->array_options['options_date_endfreeperiod'] < $now) $color='orange';
 
 											print ' <span style="color:'.$color.'">';
 											if ($contract->array_options['options_date_endfreeperiod'] > 0) print $langs->trans("TrialUntil", dol_print_date($contract->array_options['options_date_endfreeperiod'], 'day'));
 											else print $langs->trans("Trial");
 											print '</span>';
-											if ($contract->array_options['options_date_endfreeperiod'] < dol_now())
+											if ($contract->array_options['options_date_endfreeperiod'] < $now)
 											{
 												if ($statuslabel == 'suspended') print ' - <span style="color: orange">'.$langs->trans("Suspended").'</span>';
 												//else print ' - <span style="color: orange">'.$langs->trans("SuspendWillBeDoneSoon").'</span>';
@@ -2239,6 +2498,7 @@ if ($mode == 'billing')
 	            <p>';
 
 				$nbpaymentmodeok = count($arrayofcompanypaymentmode);
+				$urltoenterpaymentmode = $_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode);
 
 				if ($nbpaymentmodeok > 0)
 				{
@@ -2256,13 +2516,41 @@ if ($mode == 'billing')
 							print '<!-- '.$companypaymentmodetemp->id.' -->';
 							print img_credit_card($companypaymentmodetemp->type_card);
 							print '</td>';
+							print '<td class="wordbreak" style="word-break: break-word" colspan="2">';
+							print $langs->trans("CreditCard");
+							print '</td>';
+							print '</tr>';
+							print '<tr>';
 							print '<td>';
 							print '....'.$companypaymentmodetemp->last_four;
 							print '</td>';
+							print '<td></td>';
 							print '<td>';
 							print sprintf("%02d",$companypaymentmodetemp->exp_date_month).'/'.$companypaymentmodetemp->exp_date_year;
 							print '</td>';
 							print '</tr>';
+							// Warning if expiring
+							if ($companypaymentmodetemp->exp_date_year < $nowyear ||
+								($companypaymentmodetemp->exp_date_year == $nowyear && $companypaymentmodetemp->exp_date_month <= $nowmonth))
+							{
+								print '<tr><td colspan="3" style="color: orange">';
+								print img_warning().' '.$langs->trans("YourPaymentModeWillExpireFixItSoon", $urltoenterpaymentmode);
+								print '</td></tr>';
+							}
+							if (GETPOST('debug','int'))
+							{
+								include_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';
+								$stripe = new Stripe($db);
+								$stripeacc = $stripe->getStripeAccount($service);								// Get Stripe OAuth connect account if it exists (no network access here)
+								$customer = $stripe->customerStripe($mythirdpartyaccount, $stripeacc, $servicestatusstripe, 0);
+
+								print '<tr><td>';
+								print 'Stripe customer: '.$customer->id;
+								print '</td><td colspan="2">';
+								print 'Stripe card: '.$companypaymentmodetemp->stripe_card_ref;
+								print '</td></tr>';
+							}
+
 						}
 						elseif ($companypaymentmodetemp->type == 'paypal')
 						{
@@ -2271,6 +2559,11 @@ if ($mode == 'billing')
 							print '<!-- '.$companypaymentmodetemp->id.' -->';
 							print img_picto('', 'paypal');
 							print '</td>';
+							print '<td class="wordbreak" style="word-break: break-word" colspan="2">';
+							print $langs->trans("Paypal");
+							print '</td>';
+							print '</tr>';
+							print '<tr>';
 							print '<td>';
 							print $companypaymentmodetemp->email;
 							print '<br>'.'Preaproval key: '.$companypaymentmodetemp->preapproval_key;
@@ -2279,12 +2572,19 @@ if ($mode == 'billing')
 							print dol_print_date($companypaymentmodetemp->starting_date, 'day').'/'.dol_print_date($companypaymentmodetemp->ending_date, 'day');
 							print '</td>';
 							print '</tr>';
+							// Warning if expiring
+							if (dol_time_plus_duree($companypaymentmodetemp->ending_date, -1, 'm') < $nowyear)
+							{
+								print '<tr><td colspan="3" style="color: orange">';
+								print img_warning().' '.$langs->trans("YourPaymentModeWillExpireFixItSoon", $urltoenterpaymentmode);
+								print '</td></tr>';
+							}
 						}
 						elseif ($companypaymentmodetemp->type == 'ban')
 						{
 							print '<tr>';
 							print '<td>';
-							print img_picto('', 'object_account');
+							print img_picto('', 'bank', '',  false, 0, 0, '', 'fa-2x');
 							print '</td>';
 							print '<td class="wordbreak" style="word-break: break-word" colspan="2">';
 							print $langs->trans("WithdrawalReceipt");
@@ -2323,7 +2623,7 @@ if ($mode == 'billing')
 
 	            print '
 	                <br><br>
-	                <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'" class="btn default btn-xs green-stripe">';
+	                <a href="'.$urltoenterpaymentmode.'" class="btn default btn-xs green-stripe">';
 	            	if ($nbpaymentmodeok) print $langs->trans("ModifyPaymentMode");
 	            	else print $langs->trans("AddAPaymentMode");
 	                print '</a>

@@ -13,14 +13,6 @@ class ActionsTawkto
 
 		$out='';
 
-		/*$form=new Form($this->db);
-
-		$text = img_picto('', 'object_multicompany@multicompany','id="switchentity" class="entity linkobject"');
-
-		$htmltext ='aaa';
-
-		$out.= $form->textwithtooltip('',$htmltext,2,1,$text,'login_block_elem',2);*/
-
 		if (GETPOST('tawktotoggle','int'))
 		{
 			if (empty($_SESSION['tawktoonoff'])) $_SESSION['tawktoonoff']='on';

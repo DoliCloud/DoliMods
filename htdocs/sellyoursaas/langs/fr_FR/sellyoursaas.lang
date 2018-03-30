@@ -241,3 +241,10 @@ RecreateAuthorizedKey=Créer fichier authorized_keys
 RecreateLock=Créer fichier lock
 SellYourSaasRemoveLock=Supprimer fichier lock
 Domain=Nom de domaine
+WarningFoundMoreThanOneInvoicingTemplate=Attention, il y a plus d'une facture récurrente trouvée pour votre instance, merci de nous contacter à %s
+ContractMustHaveStatusDone=Le contrat doit avoir le 'Statut de déploiement' à 'Déployé'
+ContractMustHaveStatusProcessingOrUndeployed=Le contrat doit avoir le 'Statut de déploiement' à 'En cours' or 'Désinstallé'
+AnnounceOnCustomerDashboard=Annonce sur l'interface Espace client
+CommandToManageRemoteDeploymentAgent=Commande d'arrêt/relance de l'agent de déploiement
+InstanceWasDeployed=L'instance a été déployé
+YourPaymentModeWillExpireFixItSoon=Votre mode de paiement est sur le point d'expirer. Merci de <a href="%s">mettre à jour votre mode de paiement</a> afin d'éviter toute interruption de service.
