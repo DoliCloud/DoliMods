@@ -637,7 +637,7 @@ class SellYourSaasUtils
 
     /**
      * Action executed by scheduler
-     * Loop on invoice for customer with default payment mode Stripe and take payment/send email. Unsuspend if it was suspended.
+     * Loop on invoice for customer with default payment mode Stripe and take payment/send email. Unsuspend if it was suspended (done by trigger BILL_CANCEL or BILL_PAID).
      * CAN BE A CRON TASK
      *
      * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
@@ -741,7 +741,7 @@ class SellYourSaasUtils
 
     /**
      * doTakeStripePaymentForInvoice
-     * Take payment/send email. Unsuspend if it was suspended.
+     * Take payment/send email. Unsuspend if it was suspended (done by trigger BILL_CANCEL or BILL_PAID).
      *
      * @param	int		$service				'StripeTest' or 'StripeLive'
      * @param	int		$servicestatus			Service 0 or 1
@@ -797,10 +797,12 @@ class SellYourSaasUtils
 			dol_syslog("No validated invoices found for thirdparty_id = ".$thirdparty_id);
 		}
 
-    	// Loop on each invoice
+		// Loop on each invoice
 		foreach($invoices as $invoice)
 		{
-    		$alreadypayed = $invoice->getSommePaiement();
+			dol_syslog("Process invoice id=".$invoice->id." ref=".$invoice->ref, LOG_DEBUG);
+
+			$alreadypayed = $invoice->getSommePaiement();
     		$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
     		$amountstripe = $invoice->total_ttc - $alreadypayed - $amount_credit_notes_included;
 
@@ -831,14 +833,14 @@ class SellYourSaasUtils
 
     						dol_syslog("Create charge on card ".$card->id, LOG_DEBUG, 0, '_stripe');
     						$charge = \Stripe\Charge::create(array(
-    						'amount'   => price2num($amountstripe, 'MU'),
-    						'currency' => $currency,
-    						'capture'  => true,							// Charge immediatly
-    						'description' => $description,
-    						'metadata' => array("FULLTAG" => $FULLTAG, 'Recipient' => $mysoc->name, 'dol_version'=>DOL_VERSION, 'dol_entity'=>$conf->entity, 'ipaddress'=>(empty($_SERVER['REMOTE_ADDR'])?'':$_SERVER['REMOTE_ADDR'])),
-    						'customer' => $customer->id,
-    						'source' => $stripecard,
-    						'statement_descriptor' => dol_trunc(dol_trunc(dol_string_unaccent($mysoc->name), 6, 'right', 'UTF-8', 1).' '.$FULLTAG, 22, 'right', 'UTF-8', 1)     // 22 chars that appears on bank receipt
+	    						'amount'   => price2num($amountstripe, 'MU'),
+	    						'currency' => $currency,
+	    						'capture'  => true,							// Charge immediatly
+	    						'description' => $description,
+	    						'metadata' => array("FULLTAG" => $FULLTAG, 'Recipient' => $mysoc->name, 'dol_version'=>DOL_VERSION, 'dol_entity'=>$conf->entity, 'ipaddress'=>(empty($_SERVER['REMOTE_ADDR'])?'':$_SERVER['REMOTE_ADDR'])),
+	    						'customer' => $customer->id,
+	    						'source' => $stripecard,
+	    						'statement_descriptor' => dol_trunc(dol_trunc(dol_string_unaccent($mysoc->name), 6, 'right', 'UTF-8', 1).' '.$FULLTAG, 22, 'right', 'UTF-8', 1)     // 22 chars that appears on bank receipt
     						));
     						// Return $charge = array('id'=>'ch_XXXX', 'status'=>'succeeded|pending|failed', 'failure_code'=>, 'failure_message'=>...)
     						if (empty($charge))

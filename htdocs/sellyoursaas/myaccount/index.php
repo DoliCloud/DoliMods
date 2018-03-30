@@ -407,11 +407,11 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			}
 		}
 
+		// Loop on each pending invoices of the thirdparty and try to pay them with payment = invoice remain amount.
 		if (! $error)
 		{
 			$sellyoursaasutils = new SellYourSaasUtils($db);
 
-			// Loop on each pending invoices of the thirdparty and try to pay them with payment = invoice amount.
 			$result = $sellyoursaasutils->doTakeStripePaymentForThirdparty($service, $servicestatus, $thirdparty_id, $companypaymentmode, null);
 			if ($result != 0)
 			{
