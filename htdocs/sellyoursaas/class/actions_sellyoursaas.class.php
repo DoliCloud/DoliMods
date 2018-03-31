@@ -72,7 +72,7 @@ class ActionsSellyoursaas
 		    	if ($object->array_options['options_dolicloud'] == 'yesv2')
 		    	{
 		    		$dol_login_hash=dol_hash('sellyoursaas'.$object->email.dol_print_date(dol_now(),'%Y%m%d%H','gmt'));	// hash is valid one hour
-		    		$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?username='.$object->email.'&password=&mode=logout&login_hash='.$dol_login_hash;
+		    		$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?mode=dashboard&username='.$object->email.'&password=&mode=logout&login_hash='.$dol_login_hash;
 		    	}
 
 		    	if ($url)
@@ -472,8 +472,7 @@ class ActionsSellyoursaas
     	global $conf, $langs, $user;
 		global $object;
 
-
-		if (in_array($parameters['currentcontext'], array('thirdpartycard','contactthirdparty','projectthirdparty','consumptionthirdparty','thirdpartybancard','thirdpartymargins','ticketsuplist','thirdpartynotification','agendathirdparty')))
+		if (in_array($parameters['currentcontext'], array('thirdpartycard','thirdpartycontact','thirdpartycomm','thirdpartyticket','thirdpartynote','thirdpartydocument','contactthirdparty','projectthirdparty','consumptionthirdparty','thirdpartybancard','thirdpartymargins','ticketsuplist','thirdpartynotification','agendathirdparty')))
     	{
     		if ($object->element == 'societe')
     		{
@@ -488,7 +487,7 @@ class ActionsSellyoursaas
     				if ($object->array_options['options_dolicloud'] == 'yesv2')
     				{
     					$dol_login_hash=dol_hash('sellyoursaas'.$object->email.dol_print_date(dol_now(),'%Y%m%d%H','gmt'));	// hash is valid one hour
-    					$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?username='.$object->email.'&password=&mode=logout&login_hash='.$dol_login_hash;
+    					$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?mode=dashboard&username='.$object->email.'&password=&mode=logout&login_hash='.$dol_login_hash;
     				}
 
 					if ($url)

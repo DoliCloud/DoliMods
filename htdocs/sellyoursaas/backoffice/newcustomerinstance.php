@@ -288,7 +288,6 @@ if (empty($reshook))
 					$object->default_lang=$localearray[0].'_'.strtoupper($localearray[1]?$localearray[1]:$localearray[0]);
 				}
 				$object->array_options['options_date_registration']=$dolicloudcustomer->date_registration;
-				$object->array_options['options_partner']=$dolicloudcustomer->partner;
 				if ($dolicloudcustomer->status == 'ACTIVE') $object->status = 1;
 				else $object->status = 0;
 

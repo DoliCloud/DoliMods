@@ -103,7 +103,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
 		if ($object->array_options['options_dolicloud'] == 'yesv2')
 		{
 			$dol_login_hash=dol_hash('sellyoursaas'.$object->id.dol_print_date(dol_now,'%Y%m%d%H','gmt'));	// hash is valid one hour
-			$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?dol_login='.$object->id.'&mode=logout&dol_login_hash='.$dol_login_hash;	// Note that password may have change and not being the one of dolibarr admin user
+			$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?mode=dashboard&dol_login='.$object->id.'&mode=logout&dol_login_hash='.$dol_login_hash;	// Note that password may have change and not being the one of dolibarr admin user
 		}
 	}
 	$link='<a href="'.$url.'" target="_blank" id="dashboardlink">'.$url.'</a>';

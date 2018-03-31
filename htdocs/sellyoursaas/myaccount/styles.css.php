@@ -44,7 +44,7 @@ print "
 		.floatright { float: right; }
 		.navbar-brand { margin-left: 15px; }
 		.opacitymedium { opacity: 0.5; }
-		input[type='text'],input[type='password'] { width: 250px; }
+		/* input[type='text'],input[type='password'] { width: 250px; } */
 		input[name='firstName'], input[name='lastName'] { width: 200px; }
 		#securitycode { width: 150px; }
 		label {

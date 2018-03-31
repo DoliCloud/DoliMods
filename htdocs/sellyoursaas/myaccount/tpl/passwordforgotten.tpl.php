@@ -106,6 +106,7 @@ if (empty($asknewpass))
 {
 ?>
 	<input type="text" id="username" placeholder="<?php echo $langs->trans("LoginEmail"); ?>" <?php echo $disabled; ?> name="username" class="flat input-icon-user" size="20" value="<?php echo dol_escape_htmltag($username); ?>" tabindex="1"  autofocus="autofocus" />
+	<br><br>
 <?php
 }
 else
@@ -127,6 +128,7 @@ else
 </tr>
 
 <?php
+/*
 if (! empty($morelogincontent)) {
 	if (is_array($morelogincontent)) {
 		foreach ($morelogincontent as $format => $option)
@@ -142,8 +144,9 @@ if (! empty($morelogincontent)) {
 		echo $morelogincontent;
 	}
 }
+*/
 
-if (empty($asknewpass) && $captcha) {
+if (empty($asknewpass) && 0) {
 	// Add a variable param to force not using cache (jmobile)
 	$php_self = preg_replace('/[&\?]time=(\d+)/','',$php_self);	// Remove param time
 	if (preg_match('/\?/',$php_self)) $php_self.='&time='.dol_print_date(dol_now(),'dayhourlog');

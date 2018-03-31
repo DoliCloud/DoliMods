@@ -94,6 +94,7 @@ $partnerkey=GETPOST('partnerkey','alpha');
 $plan=GETPOST('plan','alpha');
 $service=GETPOST('service','alpha');
 
+$fromsocid=GETPOST('fromsocid','int');
 $reusecontractid = GETPOST('reusecontractid','int');
 $reusesocid = GETPOST('reusesocid','int');
 
@@ -350,7 +351,7 @@ else
 	$generatedunixhostname = $sldAndSubdomain.'.'.$domainname;
 
 
-	// Create contract
+	// Create thirdparty
 
 	$db->begin();	// Start transaction
 
@@ -366,6 +367,7 @@ else
 	$tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
 	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
 	$tmpthirdparty->array_options['options_password'] = $password;
+	if (is_object($partnerthirdparty)) $tmpthirdparty->parent = $partnerthirdparty->id;		// Add link to parent/reseller
 	if ($country_code)
 	{
 		$tmpthirdparty->country_id = getCountry($country_code, 3, $db);
@@ -576,8 +578,8 @@ if (! $error)
 
 
 // Finish deployall
-
-$comment = 'Activation after deployment from online registration';
+if ($fromsocid) $comment = 'Activation after deployment from instance creation by reseller id='.$fromsocid;
+else $comment = 'Activation after deployment from online registration or dashboard';
 
 // Activate all lines
 if (! $error)
@@ -618,13 +620,15 @@ if (! $error)
 	// First time we go at end of process, so we send en email.
 
 	$newurl=$_SERVER["PHP_SELF"];
-	$newurl=preg_replace('/register_instance\.php/', 'index.php?welcomecid='.$contract->id, $newurl);
+	$newurl=preg_replace('/register_instance\.php/', 'index.php?welcomecid='.$contract->id.(($fromsocid > 0)?'&fromsocid='.$fromsocid:''), $newurl);
 
 	$anonymoususer=new User($db);
 	$anonymoususer->fetch($conf->global->SELLYOURSAAS_ANONYMOUSUSER);
 	$_SESSION['dol_login']=$anonymoususer->login;				// Set dol_login so next page index.php we found we are already logged.
 
-	$_SESSION['dol_loginsellyoursaas']=$contract->thirdparty->id;
+	if ($fromsocid > 0) $_SESSION['dol_loginsellyoursaas']=$fromsocid;
+	else $_SESSION['dol_loginsellyoursaas']=$contract->thirdparty->id;
+
 	$_SESSION['initialapplogin']='admin';
 	$_SESSION['initialapppassword']=$password;
 
@@ -711,7 +715,7 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
         if (GETPOST('partner','alpha'))
         {
             $tmpthirdparty = new Societe($db);
-            $result = $tmpthirdparty->fetch(0, GETPOST('partner','alpha'));
+            $result = $tmpthirdparty->fetch(GETPOST('partner','alpha'));
             $logo = $tmpthirdparty->logo;
         }
         print '<img style="center" class="logoheader"  src="'.$linklogo.'" id="logo" />';

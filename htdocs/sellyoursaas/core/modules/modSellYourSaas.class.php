@@ -77,7 +77,8 @@ class modSellYourSaas extends DolibarrModules
 									'models' => 1,
 									'login' => 1,
 									'css' => array(),
-									'hooks' => array('thirdpartycard','contactthirdparty','projectthirdparty','consumptionthirdparty','thirdpartybancard','thirdpartymargins','ticketsuplist','thirdpartynotification','agendathirdparty',
+									'hooks' => array('thirdpartycard','thirdpartycomm','thirdpartycontact','contactthirdparty','thirdpartyticket','thirdpartynote','thirdpartydocument',
+													'projectthirdparty','consumptionthirdparty','thirdpartybancard','thirdpartymargins','ticketsuplist','thirdpartynotification','agendathirdparty',
 													'thirdpartydao','formmail','searchform','thirdpartylist','customerlist','prospectlist','contractcard','contractlist','odtgeneration'));
 
 		// Constants
@@ -644,7 +645,6 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('separatorthirdparty',               "SaaS", 'separate',100,    '', 'thirdparty', 0, 1, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$param=array('options'=>array('no'=>'No','yesv1'=>'V1','yesv2'=>'V2'));
 		$resultx=$extrafields->addExtraField('dolicloud',                 "SaasCustomer",   'select',102,   '3', 'thirdparty', 0, 1, '', $param, 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
-		$resultx=$extrafields->addExtraField('partner',                       "Reseller",  'varchar',103,  '32', 'thirdparty', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('date_registration',     "RegistrationDate", 'datetime',104,    '', 'thirdparty', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('firstname',                    "FirstName",  'varchar',105,  '64', 'thirdparty', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('lastname',                      "LastName",  'varchar',106,  '64', 'thirdparty', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');

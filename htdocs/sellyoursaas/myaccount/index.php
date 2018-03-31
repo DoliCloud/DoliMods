@@ -37,6 +37,8 @@ if (! $res) die("Include of main fails");
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture-rec.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
@@ -66,12 +68,14 @@ $mythirdpartyaccount = new Societe($db);
 
 $service=GETPOST('service','int');
 
+$fromsocid=GETPOST('fromsocid','int');
+
 // Id of connected thirdparty
 $socid = GETPOST('socid','int')?GETPOST('socid','int'):$_SESSION['dol_loginsellyoursaas'];
-$result = $mythirdpartyaccount->fetch($socid);
+$result = $mythirdpartyaccount->fetch($fromsocid > 0 ? $fromsocid : $socid);					// fromid set if creation from reseller dashboard else we use socid
 if ($result <= 0)
 {
-	dol_print_error($db, "Failed to load thirdparty for socid=".$socid);
+	dol_print_error($db, "Failed to load thirdparty for id=".($fromsocid > 0 ? $fromsocid : $socid));
 	exit;
 }
 
@@ -80,23 +84,24 @@ if ($langs->getDefaultLang(1) == 'es') $langcode = 'es';
 if ($langs->getDefaultLang(1) == 'fr') $langcode = 'fr';
 $urlfaq='https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/'.$langcode.'/faq';
 
+$urlstatus=$conf->global->SELLYOURSAAS_STATUSPAGE;
 $urlstatus='https://status.dolicloud.com';
 $now =dol_now();
 $tmp=dol_getdate($now);
 $nowmonth = $tmp['mon'];
 $nowyear = $tmp['year'];
 
-$listofcontractid = array();
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 $documentstatic=new Contrat($db);
 $documentstaticline=new ContratLigne($db);
+
+$listofcontractid = array();
 $sql = 'SELECT c.rowid as rowid';
 $sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c LEFT JOIN '.MAIN_DB_PREFIX.'contrat_extrafields as ce ON ce.fk_object = c.rowid, '.MAIN_DB_PREFIX.'contratdet as d, '.MAIN_DB_PREFIX.'societe as s';
 $sql.= " WHERE c.fk_soc = s.rowid AND s.rowid = ".$mythirdpartyaccount->id;
 $sql.= " AND d.fk_contrat = c.rowid";
 $sql.= " AND c.entity = ".$conf->entity;
 $sql.= " AND ce.deployment_status IN ('processing', 'done', 'undeployed')";
-
 $resql=$db->query($sql);
 if ($resql)
 {
@@ -114,6 +119,43 @@ if ($resql)
 		$i++;
 	}
 }
+
+$categorie=new Categorie($db);
+$categorie->fetch($conf->global->SELLYOURSAAS_DEFAULT_RESELLER_CATEG);
+$mythirdpartyaccount->isareseller = 0;
+if ($categorie->containsObject('supplier', $mythirdpartyaccount->id))
+{
+	$mythirdpartyaccount->isareseller = 1;
+}
+
+if ($mythirdpartyaccount->isareseller)
+{
+	$listofcontractidreseller = array();
+	$sql = 'SELECT c.rowid as rowid';
+	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c LEFT JOIN '.MAIN_DB_PREFIX.'contrat_extrafields as ce ON ce.fk_object = c.rowid, '.MAIN_DB_PREFIX.'contratdet as d, '.MAIN_DB_PREFIX.'societe as s';
+	$sql.= " WHERE c.fk_soc = s.rowid AND s.parent = ".$mythirdpartyaccount->id;
+	$sql.= " AND d.fk_contrat = c.rowid";
+	$sql.= " AND c.entity = ".$conf->entity;
+	$sql.= " AND ce.deployment_status IN ('processing', 'done', 'undeployed')";
+	$resql=$db->query($sql);
+	if ($resql)
+	{
+		$num_rows = $db->num_rows($resql);
+		$i = 0;
+		while ($i < $num_rows)
+		{
+			$obj = $db->fetch_object($resql);
+			if ($obj)
+			{
+				$contract=new Contrat($db);
+				$contract->fetch($obj->rowid);					// This load also lines
+				$listofcontractidreseller[$obj->rowid]=$contract;
+			}
+			$i++;
+		}
+	}
+}
+
 
 
 /*
@@ -405,14 +447,21 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					}
 				}
 			}
+
+			if (! $error)
+			{
+				$companypaymentmode->setAsDefault($idpayment, 1);
+			}
 		}
 
 		// Loop on each pending invoices of the thirdparty and try to pay them with payment = invoice remain amount.
 		if (! $error)
 		{
+			dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
+
 			$sellyoursaasutils = new SellYourSaasUtils($db);
 
-			$result = $sellyoursaasutils->doTakeStripePaymentForThirdparty($service, $servicestatus, $thirdparty_id, $companypaymentmode, null);
+			$result = $sellyoursaasutils->doTakeStripePaymentForThirdparty($service, $servicestatus, $mythirdpartyaccount->id, $companypaymentmode, null);
 			if ($result != 0)
 			{
 				$error++;
@@ -450,13 +499,13 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 				// Create empty invoice
 				if (! $error)
 				{
-					$invoice_draft->socid				= $contract->thirdparty->id;
+					$invoice_draft->socid				= $contract->socid;
 					$invoice_draft->type				= Facture::TYPE_STANDARD;
 					$invoice_draft->number				= '';
 					$invoice_draft->date				= $dateinvoice;
 
 					$invoice_draft->note_private		= 'Created after adding a payment mode for card/stripe';
-					$invoice_draft->mode_reglement_id	= dol_getIdFromCode($db, 'CB', 'c_paiement', 'rowid', 'code');
+					$invoice_draft->mode_reglement_id	= dol_getIdFromCode($db, 'CB', 'c_paiement', 'id', 'code');
 					$invoice_draft->cond_reglement_id	= dol_getIdFromCode($db, 'RECEP', 'c_payment_term', 'code', 'rowid');
 					$invoice_draft->fk_account          = $conf->global->STRIPE_BANK_ACCOUNT_FOR_PAYMENTS;	// stripe
 
@@ -491,10 +540,13 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 						$lines = $srcobject->lines;
 					}
 
+					$frequency=1;
+					$frequency_unit='m';
+
 					$date_start = false;
 					$fk_parent_line=0;
 					$num=count($lines);
-					for ($i=0;$i<$num;$i++)
+					for ($i=0; $i<$num; $i++)
 					{
 						$label=(! empty($lines[$i]->label)?$lines[$i]->label:'');
 						$desc=(! empty($lines[$i]->desc)?$lines[$i]->desc:$lines[$i]->libelle);
@@ -528,10 +580,6 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 						// Discount
 						$discount = $lines[$i]->remise_percent;
-						if (empty($discount) && GETPOST('discount'))
-						{
-							$discount = GETPOST('discount');
-						}
 
 						// Extrafields
 						if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED) && method_exists($lines[$i], 'fetch_optionals')) {
@@ -564,6 +612,14 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 						if ($result > 0 && $lines[$i]->product_type == 9) {
 							$fk_parent_line = $result;
 						}
+
+						$tmpproduct->fetch($lines[$i]->fk_product);
+						dol_syslog("Get frequency for product id=".$tmpproduct->id);
+						if ($tmpproduct->array_options['options_app_or_option'] == 'app')
+						{
+							$frequency = $tmpproduct->duration_value;
+							$frequency_unit = $tmpproduct->duration_unit;
+						}
 					}
 				}
 
@@ -575,6 +631,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					//exit;
 
 					$frequency=1;
+					$frequency_unit='m';
 					$tmp=dol_getdate($date_start?$date_start:$now);
 					$reyear=$tmp['year'];
 					$remonth=$tmp['mon'];
@@ -595,8 +652,8 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 					$invoice_rec->usenewprice = 0;
 
-					$invoice_rec->frequency = GETPOST('frequency_multiple','int');
-					$invoice_rec->unit_frequency = 'm';
+					$invoice_rec->frequency = $frequency;
+					$invoice_rec->unit_frequency = $frequency_unit;
 					$invoice_rec->nb_gen_max = $nb_gen_max;
 					$invoice_rec->auto_validate = 0;
 
@@ -657,6 +714,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			$db->commit();
 
 			$url=$_SERVER["PHP_SELF"];
+			if ($backurl) $url=$backurl;
 			header('Location: '.$url);
 			exit;
 		}
@@ -947,7 +1005,7 @@ if ($action == 'deployall')
 	//$error++;
 	if (! $error)
 	{
-		setEventMessages($langs->trans("InstanceWasUndeployed"), null, 'mesgs');
+		setEventMessages($langs->trans("InstanceWasDeployed"), null, 'mesgs');
 		$db->commit();
 		header('Location: '.$_SERVER["PHP_SELF"].'?modes=instances&tab=resources_'.$contract->id);
 		exit;
@@ -1034,10 +1092,21 @@ print '
             <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=instances"><i class="fa fa-server"></i> '.$langs->trans("MyInstances").'</a>
           </li>
           <li class="nav-item'.($mode == 'billing'?' active':'').'">
-            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=billing"><i class="fa fa-usd"></i> '.$langs->trans("Billing").'</a>
-          </li>
+            <a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=billing"><i class="fa fa-usd"></i> '.$langs->trans("MyBilling").'</a>
+          </li>';
 
-          <li class="nav-item'.($mode == 'support'?' active':'').' dropdown">
+		if ($mythirdpartyaccount->isareseller)
+		{
+			print '
+			<li class="nav-item'.($mode == 'mycustomerinstances'?' active':'').'">
+			<a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=mycustomerinstances"><i class="fa fa-server"></i> '.$langs->trans("MyCustomersInstances").'</a>
+			</li>
+			<li class="nav-item'.($mode == 'mycustomerbilling'?' active':'').'">
+			<a class="nav-link" href="'.$_SERVER["PHP_SELF"].'?mode=mycustomerbilling"><i class="fa fa-usd"></i> '.$langs->trans("MyCustomersBilling").'</a>
+			</li>';
+		}
+
+          print '<li class="nav-item'.($mode == 'support'?' active':'').' dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-gear"></i> '.$langs->trans("Other").'</a>
             <ul class="dropdown-menu">
 	            <li><a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=support">'.$langs->trans("Support").'</a></li>
@@ -1157,17 +1226,18 @@ if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE))
 
 
 // Show partner links
-$categorie=new Categorie($db);
-$categorie->fetch($conf->global->SELLYOURSAAS_DEFAULT_RESELLER_CATEG);
-if ($categorie->containsObject('supplier', $mythirdpartyaccount->id))
+if ($mythirdpartyaccount->isareseller)
 {
 	print '
-		<div class="note note-warning">
+		<!-- Info reseller -->
+		<div class="note note-info">
 		<h4 class="block">'.$langs->trans("YouAreAReseller").'</h4>
 		';
 	print $langs->trans("YourURLToCreateNewInstance").' : ';
 	$urlforpartner = $conf->global->SELLYOURSAAS_ACCOUNT_URL.'/register.php?partner='.$mythirdpartyaccount->id.'&partnerkey='.md5($mythirdpartyaccount->name_alias);
-	print '<a href="'.$urlforpartner.'">'.$urlforpartner.'</a><br>';
+	print '<a href="'.$urlforpartner.'" target="_blankinstance">'.$urlforpartner.'</a><br>';
+	$urformycustomerinstances = '<strong>'.$langs->transnoentitiesnoconv("MyCustomersBilling").'</strong>';
+	print $langs->trans("YourCommissionsAppearsInMenu", $urformycustomerinstances);
 	print '
 		</div>
 	';
@@ -1256,6 +1326,34 @@ foreach ($listofcontractid as $contractid => $contract)
 	else $nbofinstancesdone++;
 }
 $nboftickets = $langs->trans("SoonAvailable");
+if ($mythirdpartyaccount->isareseller)
+{
+	// Fill var to count nb of instances
+	$nbofinstancesreseller = 0;
+	$nbofinstancesinprogressreseller = 0;
+	$nbofinstancesdonereseller = 0;
+	$nbofinstancessuspendedreseller = 0;
+	foreach ($listofcontractidreseller as $contractid => $contract)
+	{
+		if ($contract->array_options['options_deployment_status'] == 'undeployed') { continue; }
+		if ($contract->array_options['options_deployment_status'] == 'processing') { $nbofinstancesreseller++; $nbofinstancesinprogressreseller++; continue; }
+
+		$suspended = 0;
+		foreach($contract->lines as $keyline => $line)
+		{
+			if ($line->statut == 5 && $contract->array_options['options_deployment_status'] != 'undeployed')
+			{
+				$suspended = 1;
+				break;
+			}
+		}
+
+		$nbofinstancesreseller++;
+		if ($suspended) $nbofinstancessuspendedreseller++;
+		else $nbofinstancesdonereseller++;
+	}
+}
+
 
 $atleastonecontractwithtrialended = 0;
 
@@ -1434,31 +1532,81 @@ if ($mode == 'dashboard')
 	              </div>
 	            </div> <!-- END ROW -->
 
-			';
-			if ($nbofinstancessuspended)
+				';
+				if ($nbofinstancessuspended)
+				{
+					print '
+			            <div class="row">
+			              <div class="col-md-9">
+							'.$langs->trans("NbOfSuspendedInstances").'
+			              </div>
+			              <div class="col-md-3 right">
+			                <h2 style="color:orange">'.$nbofinstancessuspended.'</h2>
+			              </div>
+			            </div> <!-- END ROW -->
+					';
+				}
+
+				print '
+					<div class="row">
+					<div class="center col-md-12">
+						<br>
+						<a href="'.$_SERVER["PHP_SELF"].'?mode=instances" class="btn default btn-xs green-stripe">
+		            	'.$langs->trans("SeeDetailsAndOptions").'
+		                </a>
+					</div></div>';
+
+			print '
+				</div>';		// end protlet-body
+
+			if ($mythirdpartyaccount->isareseller)
 			{
 				print '
-		            <div class="row">
-		              <div class="col-md-9">
-						'.$langs->trans("NbOfSuspendedInstances").'
-		              </div>
-		              <div class="col-md-3 right">
-		                <h2 style="color:orange">'.$nbofinstancessuspended.'</h2>
-		              </div>
-		            </div> <!-- END ROW -->
+				<div class="portlet-title">
+				<div class="caption"><br><br>
+				<span class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("InstancesOfMyCustomers").'</span>
+				</div>
+				</div>
+
+				<div class="portlet-body">
+
+				<div class="row">
+				<div class="col-md-9">
+				'.$langs->trans("NbOfActiveInstances").'
+				</div>
+				<div class="col-md-3 right">
+				<h2>'.$nbofinstancesdonereseller.'</h2>
+				</div>
+				</div> <!-- END ROW -->
+
 				';
+				if ($nbofinstancessuspendedreseller)
+				{
+					print '
+					<div class="row">
+					<div class="col-md-9">
+					'.$langs->trans("NbOfSuspendedInstances").'
+					</div>
+					<div class="col-md-3 right">
+					<h2 style="color:orange">'.$nbofinstancessuspendedreseller.'</h2>
+					</div>
+					</div> <!-- END ROW -->
+					';
+				}
+
+				print '
+					<div class="row">
+					<div class="center col-md-12">
+						<br>
+						<a href="'.$_SERVER["PHP_SELF"].'?mode=mycustomerinstances" class="btn default btn-xs green-stripe">
+		            	'.$langs->trans("SeeDetailsAndOptionsOfMyCustomers").'
+		                </a>
+					</div></div>';
+
+				print '</div>';		// end protlet-body
 			}
 
 			print '
-				<div class="row">
-				<div class="center col-md-12">
-					<br>
-					<a href="'.$_SERVER["PHP_SELF"].'?mode=instances" class="btn default btn-xs green-stripe">
-	            	'.$langs->trans("SeeDetailsAndOptions").'
-	                </a>
-				</div></div>
-
-	          </div> <!-- END PORTLET-BODY -->
 
 	        </div> <!-- END PORTLET -->
 
@@ -1768,7 +1916,7 @@ if ($mode == 'instances')
 						  print '<form class="inline-block centpercent" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 
 				          // Instance name
-						  print '<a href="https://'.$contract->ref_customer.'" class="caption-subject bold uppercase" title="'.$langs->trans("Contract").' '.$contract->ref.'">'.$instancename.'</a>
+						  print '<a href="https://'.$contract->ref_customer.'" class="caption-subject bold uppercase font-green-sharp" title="'.$langs->trans("Contract").' '.$contract->ref.'" target="_blankinstance">'.$instancename.'</a>
 				          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->';
 
 						  // Instance status
@@ -1862,8 +2010,8 @@ if ($mode == 'instances')
 
 				        <div class="tabbable-custom nav-justified">
 				          <ul class="nav nav-tabs nav-justified">
-				            <li><a id="a_tab_resource_'.$contract->id.'" href="#tab_resource_'.$contract->id.'" data-toggle="tab"'.(! in_array($action, array('updateurlxxx')) ? ' class="active"' : '').'>'.$langs->trans("ResourcesAndOptions").'</a></li>
-				            <li><a id="a_tab_domain_'.$contract->id.'" href="#tab_domain_'.$contract->id.'" data-toggle="tab"'.($action == 'updateurlxxx' ? ' class="active"' : '').'>'.$langs->trans("Domain").'</a></li>';
+				            <li><a id="a_tab_resource_'.$contract->id.'" href="#tab_resource_'.$contract->id.'" data-toggle="tab"'.(! in_array($action, array('updateurlxxx')) ? ' class="active"' : '').'>'.$langs->trans("ResourcesAndOptions").'</a></li>';
+				            print '<li><a id="a_tab_domain_'.$contract->id.'" href="#tab_domain_'.$contract->id.'" data-toggle="tab"'.($action == 'updateurlxxx' ? ' class="active"' : '').'>'.$langs->trans("Domain").'</a></li>';
 				 		    if (in_array($statuslabel, array('done','suspended')) && $directaccess) print '<li><a id="a_tab_ssh_'.$contract->id.'" href="#tab_ssh_'.$contract->id.'" data-toggle="tab">'.$langs->trans("SSH").' / '.$langs->trans("SFTP").'</a></li>';
 				 		    if (in_array($statuslabel, array('done','suspended'))  && $directaccess) print '<li><a id="a_tab_db_'.$contract->id.'" href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>';
 				 		    if (in_array($statuslabel, array('done','suspended')) ) print '<li><a id="a_tab_danger_'.$contract->id.'" href="#tab_danger_'.$contract->id.'" data-toggle="tab">'.$langs->trans("DangerZone").'</a></li>';
@@ -1873,7 +2021,7 @@ if ($mode == 'instances')
 				          <div class="tab-content">
 
 				            <div class="tab-pane active" id="tab_resource_'.$contract->id.'">
-								<p class="opacitymedium" style="padding: 15px; margin-bottom: 5px;">'.$langs->trans("YourResourceAndOptionsDesc").' :</p>
+								<!-- <p class="opacitymedium" style="padding: 15px; margin-bottom: 5px;">'.$langs->trans("YourResourceAndOptionsDesc").' :</p> -->
 					            <div style="padding-left: 12px; padding-bottom: 12px; padding-right: 12px">';
 								foreach($contract->lines as $keyline => $line)
 								{
@@ -2066,8 +2214,9 @@ if ($mode == 'instances')
 								  </div>
 				              </div>
 
+							<!-- tab domain -->
 				            <div class="tab-pane" id="tab_domain_'.$contract->id.'">
-				                <p class="opacitymedium" style="padding: 15px">'.$langs->trans("TheURLDomainOfYourInstance").' :</p>
+				                <div class="opacitymedium" style="padding: 15px">'.$langs->trans("TheURLDomainOfYourInstance").' :</div>
 								<form class="form-group" action="'.$_SERVER["PHP_SELF"].'" method="POST">
 								<div class="col-md-9">
 									<input type="text" class="urlofinstance" disabled="disabled" value="'.$contract->ref_customer.'">
@@ -2086,27 +2235,23 @@ if ($mode == 'instances')
 				                <p class="opacitymedium" style="padding: 15px">'.$langs->trans("SSHFTPDesc").' :</p>
 				                <form class="form-horizontal" role="form">
 				                <div class="form-body">
-				                  <div class="form-group">
+				                  <div class="form-group col-md-12 row">
 				                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
-				                    <div class="col-md-9">
+				                    <div class="col-md-3">
 				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_hostname_os'].'">
 				                    </div>
-				                  </div>
-				                  <div class="form-group">
 				                    <label class="col-md-3 control-label">'.$langs->trans("Port").'</label>
-				                    <div class="col-md-9">
+				                    <div class="col-md-3">
 				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.($contract->array_options['options_port_os']?$contract->array_options['options_port_os']:22).'">
 				                    </div>
 				                  </div>
-				                  <div class="form-group">
+				                  <div class="form-group col-md-12 row">
 				                    <label class="col-md-3 control-label">'.$langs->trans("SFTP Username").'</label>
-				                    <div class="col-md-9">
+				                    <div class="col-md-3">
 				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_username_os'].'">
 				                    </div>
-				                  </div>
-				                  <div class="form-group">
 				                    <label class="col-md-3 control-label">'.$langs->trans("Password").'</label>
-				                    <div class="col-md-9">
+				                    <div class="col-md-3">
 				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_password_os'].'">
 				                    </div>
 				                  </div>
@@ -2118,33 +2263,29 @@ if ($mode == 'instances')
 				                <p class="opacitymedium" style="padding: 15px">'.$langs->trans("DBDesc").' :</p>
 				                <form class="form-horizontal" role="form">
 				                <div class="form-body">
-				                  <div class="form-group">
+				                  <div class="form-group col-md-12 row">
 				                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
-				                    <div class="col-md-9">
+				                    <div class="col-md-3">
 				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_hostname_db'].'">
 				                    </div>
-				                  </div>
-				                  <div class="form-group">
 				                    <label class="col-md-3 control-label">'.$langs->trans("Port").'</label>
-				                    <div class="col-md-9">
+				                    <div class="col-md-3">
 				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_port_db'].'">
 				                    </div>
 				                  </div>
-				                  <div class="form-group">
+				                  <div class="form-group col-md-12 row">
 				                    <label class="col-md-3 control-label">'.$langs->trans("DatabaseName").'</label>
-				                    <div class="col-md-9">
+				                    <div class="col-md-3">
 				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_database_db'].'">
 				                    </div>
-				                  </div>
-				                  <div class="form-group">
 				                    <label class="col-md-3 control-label">'.$langs->trans("DatabaseLogin").'</label>
-				                    <div class="col-md-9">
+				                    <div class="col-md-3">
 				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_username_db'].'">
 				                    </div>
 				                  </div>
-				                  <div class="form-group">
+				                  <div class="form-group col-md-12 row">
 				                    <label class="col-md-3 control-label">'.$langs->trans("Password").'</label>
-				                    <div class="col-md-9">
+				                    <div class="col-md-3">
 				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_password_db'].'">
 				                    </div>
 				                  </div>
@@ -2209,6 +2350,7 @@ if ($mode == 'instances')
 
 		print '<form id="formaddanotherinstance" class="form-group reposition" style="display: none;" action="register_instance.php" method="POST">';
 		print '<input type="hidden" name="action" value="deployall" />';
+		print '<input type="hidden" name="fromsocid" value="0" />';
 		print '<input type="hidden" name="reusesocid" value="'.$socid.'" />';
 
 		print '<div class="row">
@@ -2286,10 +2428,11 @@ if ($mode == 'instances')
 
 		print '
 			<div class="group">
-			<div class="horizontal-fld">';
-		print $langs->trans("Type").' '.$form->selectarray('service', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth300');
+			<div class="horizontal-fld centpercent">';
+		print '<strong>'.$langs->trans("Type").'</strong> '.$form->selectarray('service', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth500');
+		//print ajax_combobox('service');
 		print '
-			</div>
+			<br></div>
 
 			<div class="horizontal-fld clearboth">
 			<div class="control-group required">
@@ -2342,7 +2485,712 @@ if ($mode == 'instances')
 }
 
 
+if ($mode == 'mycustomerinstances')
+{
+	print '
+	<div class="page-content-wrapper">
+			<div class="page-content">
 
+
+ 	<!-- BEGIN PAGE HEADER-->
+	<!-- BEGIN PAGE HEAD -->
+	<div class="page-head">
+	  <!-- BEGIN PAGE TITLE -->
+	<div class="page-title">
+	  <h1>'.$langs->trans("MyCustomersInstances").'</h1>
+	</div>
+	<!-- END PAGE TITLE -->
+	</div>
+	<!-- END PAGE HEAD -->
+	<!-- END PAGE HEADER-->';
+
+
+	if (count($listofcontractidreseller) == 0)				// Should not happen
+	{
+		print '<span class="opacitymedium">'.$langs->trans("None").'</span>';
+	}
+	else
+	{
+		dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
+		$sellyoursaasutils = new SellYourSaasUtils($db);
+
+		$arrayforsort = array();
+		foreach ($listofcontractidreseller as $id => $contract)
+		{
+			$position = 20;
+			if ($contract->array_options['options_deployment_status'] == 'processing') $position = 1;
+			if ($contract->array_options['options_deployment_status'] == 'suspended')  $position = 10;	// This is not a status
+			if ($contract->array_options['options_deployment_status'] == 'done')       $position = 20;
+			if ($contract->array_options['options_deployment_status'] == 'undeployed') $position = 100;
+
+			$arrayforsort[$id] = array('position'=>$position, 'id'=>$id, 'contract'=>$contract);
+		}
+		$arrayforsort = dol_sort_array($arrayforsort, 'position');
+
+		foreach ($arrayforsort as $id => $tmparray)
+		{
+			$id = $tmparray['id'];
+			$contract = $tmparray['contract'];
+
+			$planref = $contract->array_options['options_plan'];
+			$statuslabel = $contract->array_options['options_deployment_status'];
+			$instancename = preg_replace('/\..*$/', '', $contract->ref_customer);
+
+			$dbprefix = $contract->array_options['options_db_prefix'];
+			if (empty($dbprefix)) $dbprefix = 'llx_';
+
+
+			// Get info about PLAN of Contract
+			$package = new Packages($db);
+			$package->fetch(0, $planref);
+			$planlabel = ($package->label?$package->label:$planref);
+			$planid = 0;
+			$freeperioddays = 0;
+			$directaccess = 0;
+			foreach($contract->lines as $keyline => $line)
+			{
+				if ($line->statut == 5 && $contract->array_options['options_deployment_status'] != 'undeployed')
+				{
+					$statuslabel = 'suspended';
+				}
+
+				$tmpproduct = new Product($db);
+				if ($line->fk_product > 0)
+				{
+					$tmpproduct->fetch($line->fk_product);
+					if ($tmpproduct->array_options['options_app_or_option'] == 'app')
+					{
+						$planlabel = $tmpproduct->label;		// Warning, label is in language of user
+						$planid = $tmpproduct->id;
+						$freeperioddays = $tmpproduct->array_options['options_freeperioddays'];
+						$directaccess = $tmpproduct->array_options['options_directaccess'];
+						break;
+					}
+				}
+			}
+			$color = "green"; $displayforinstance = "";
+			if ($statuslabel == 'processing') { $color = 'orange'; }
+			if ($statuslabel == 'suspended')  { $color = 'orange'; }
+			if ($statuslabel == 'undeployed') { $color = 'grey'; $displayforinstance='display:none;'; }
+
+
+
+			// Update resources of instance
+			/*
+			if (in_array($statuslabel, array('suspended', 'done')))
+			{
+				$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
+				if ($result <= 0)
+				{
+					$error++;
+					setEventMessages($langs->trans("ErrorRefreshOfResourceFailed", $contract->ref_customer).' : '.$sellyoursaasutils->error, $sellyoursaasutils->errors, 'warnings');
+				}
+			}*/
+
+			print '
+			    <div class="row" id="contractid'.$contract->id.'" data-contractref="'.$contract->ref.'">
+			      <div class="col-md-12">
+
+					<div class="portlet light">
+
+				      <div class="portlet-title">
+				        <div class="caption">';
+			print '<form class="inline-block centpercent" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+
+			// Customer
+			$tmpcustomer = new Societe($db);
+			$tmpcustomer->fetch($contract->socid);
+
+			// Instance name
+			print '<a href="https://'.$contract->ref_customer.'" class="caption-subject bold uppercase font-green-sharp" title="'.$langs->trans("Contract").' '.$contract->ref.'">'.$instancename.'</a>
+				          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->';
+
+			// Instance status
+			print '<span class="caption-helper floatright clearboth">';
+			//print $langs->trans("Status").' : ';
+			print '<span class="bold uppercase" style="color:'.$color.'">';
+			if ($statuslabel == 'processing') print $langs->trans("DeploymentInProgress");
+			elseif ($statuslabel == 'done') print $langs->trans("Alive");
+			elseif ($statuslabel == 'suspended') print $langs->trans("Suspended");
+			elseif ($statuslabel == 'undeployed') print $langs->trans("Undeployed");
+			else print $statuslabel;
+			print '</span></span><br>';
+
+			print '<p style="padding-top: 8px;" class="clearboth">';
+
+			// Customer (link to login on customer dashboard)
+			print '<span class="opacitymedium">'.$langs->trans("Customer").' : </span>'.$tmpcustomer->name;
+			$dol_login_hash=dol_hash('sellyoursaas'.$tmpcustomer->email.dol_print_date(dol_now(),'%Y%m%d%H','gmt'));	// hash is valid one hour
+			print ' &nbsp;-&nbsp;  <a target="_blankcustomer" href="'.$_SERVER["PHP_SELF"].'?mode=dashboard&username='.$tmpcustomer->email.'&password=&mode=logout&login_hash='.$dol_login_hash.'"><span class="fa fa-desktop"></span> '.$langs->trans("LoginWithCustomerAccount").'</a>';
+			print '<br>';
+
+			// URL
+			if ($statuslabel != 'undeployed')
+			{
+				print '<span class="caption-helper"><span class="opacitymedium">';
+				if ($conf->dol_optimize_smallscreen) print $langs->trans("URL");
+				else print $langs->trans("YourURLToGoOnYourAppInstance");
+				print ' : </span><a class="font-green-sharp linktoinstance" href="https://'.$contract->ref_customer.'" target="blankinstance">'.$contract->ref_customer.'</a>';
+				print '</span><br>';
+			}
+
+			print '<!-- <span class="caption-helper"><span class="opacitymedium">'.$langs->trans("ID").' : '.$contract->ref.'</span></span><br> -->';
+			print '<span class="caption-helper">';
+			if ($contract->array_options['options_deployment_status'] == 'processing')
+			{
+				print '<span class="opacitymedium">'.$langs->trans("DateStart").' : </span><span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_start'], 'dayhour').'</span>';
+				if (($now - $contract->array_options['options_deployment_date_start']) > 120)	// More then 2 minutes ago
+				{
+					print ' - <a href="register_instance.php?reusecontractid='.$contract->id.'">'.$langs->trans("Restart").'</a>';
+				}
+			}
+			elseif ($contract->array_options['options_deployment_status'] == 'done')
+			{
+				print '<span class="opacitymedium">'.$langs->trans("DeploymentDate").' : </span><span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_end'], 'dayhour').'</span>';
+			}
+			else
+			{
+				print '<span class="opacitymedium">'.$langs->trans("DeploymentDate").' : </span><span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_end'], 'dayhour').'</span>';
+				print '<br>';
+				print '<span class="opacitymedium">'.$langs->trans("UndeploymentDate").' : </span><span class="bold">'.dol_print_date($contract->array_options['options_undeployment_date'], 'dayhour').'</span>';
+			}
+			print '
+							</span><br>';
+
+			// Calculate price on invoicing
+			$contract->fetchObjectLinked();
+			$foundtemplate=0;
+			$pricetoshow = ''; $priceinvoicedht = 0;
+			$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
+			if (is_array($contract->linkedObjects['facturerec']))
+			{
+				foreach($contract->linkedObjects['facturerec'] as $idtemplateinvoice => $templateinvoice)
+				{
+					$foundtemplate++;
+					if ($templateinvoice->suspended) print $langs->trans("InvoicingSuspended");
+					else
+					{
+						if ($templateinvoice->unit_frequency == 'm' && $templateinvoice->frequency == 1)
+						{
+							$pricetoshow = price($templateinvoice->total_ht, 1, $langs, 0, -1, -1, $conf->currency).' '.$langs->trans("HT").' / '.$langs->trans("Month");
+							$priceinvoicedht = $templateinvoice->total_ht;
+						}
+						elseif ($templateinvoice->unit_frequency == 'y' && $templateinvoice->frequency == 1)
+						{
+							$pricetoshow = price($templateinvoice->total_ht, 1, $langs, 0, -1, -1, $conf->currency).' '.$langs->trans("HT").' / '.$langs->trans("Year");
+							$priceinvoicedht = $templateinvoice->total_ht;
+						}
+						else
+						{
+							$pricetoshow  = $templateinvoice->frequency.' '.$freqlabel[$templateinvoice->unit_frequency];
+							$pricetoshow .= ', ';
+							$pricetoshow .= price($templateinvoice->total_ht, 1, $langs, 0, -1, -1, $conf->currency).' '.$langs->trans("HT");
+							$priceinvoicedht = $templateinvoice->total_ht;
+						}
+					}
+				}
+			}
+
+			print '
+				          </p>';
+			print '</form>';
+			print '</div>';
+			print '</div>';
+
+			print '
+				      <div class="portlet-body" style="'.$displayforinstance.'">
+
+				        <div class="tabbable-custom nav-justified">
+				          <ul class="nav nav-tabs nav-justified">
+				            <li><a id="a_tab_resource_'.$contract->id.'" href="#tab_resource_'.$contract->id.'" data-toggle="tab"'.(! in_array($action, array('updateurlxxx')) ? ' class="active"' : '').'>'.$langs->trans("ResourcesAndOptions").'</a></li>';
+				            //print '<li><a id="a_tab_domain_'.$contract->id.'" href="#tab_domain_'.$contract->id.'" data-toggle="tab"'.($action == 'updateurlxxx' ? ' class="active"' : '').'>'.$langs->trans("Domain").'</a></li>';
+			if (in_array($statuslabel, array('done','suspended')) && $directaccess) print '<li><a id="a_tab_ssh_'.$contract->id.'" href="#tab_ssh_'.$contract->id.'" data-toggle="tab">'.$langs->trans("SSH").' / '.$langs->trans("SFTP").'</a></li>';
+			if (in_array($statuslabel, array('done','suspended'))  && $directaccess) print '<li><a id="a_tab_db_'.$contract->id.'" href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>';
+			//if (in_array($statuslabel, array('done','suspended')) ) print '<li><a id="a_tab_danger_'.$contract->id.'" href="#tab_danger_'.$contract->id.'" data-toggle="tab">'.$langs->trans("DangerZone").'</a></li>';
+			print '
+				          </ul>
+
+				          <div class="tab-content">
+
+				            <div class="tab-pane active" id="tab_resource_'.$contract->id.'">
+								<!-- <p class="opacitymedium" style="padding: 15px; margin-bottom: 5px;">'.$langs->trans("YourCustomersResourceAndOptionsDesc").' :</p> -->
+					            <div style="padding-left: 12px; padding-bottom: 12px; padding-right: 12px">';
+			foreach($contract->lines as $keyline => $line)
+			{
+				//var_dump($line);
+				print '<div class="resource inline-block boxresource">';
+				print '<div class="">';
+
+				$resourceformula='';
+				$tmpproduct = new Product($db);
+				if ($line->fk_product > 0)
+				{
+					$tmpproduct->fetch($line->fk_product);
+
+					$htmlforphoto = $tmpproduct->show_photos('product', $conf->product->dir_output, 1, 1, 1, 0, 0, 40, 40, 1, 1, 1);
+					print $htmlforphoto;
+
+					//var_dump($tmpproduct->array_options);
+					/*if ($tmpproduct->array_options['options_app_or_option'] == 'app')
+					 {
+					 print '<span class="opacitymedium small">'.'&nbsp;'.'</span><br>';
+					 }
+					 if ($tmpproduct->array_options['options_app_or_option'] == 'system')
+					 {
+					 print '<span class="opacitymedium small">'.'&nbsp;'.'</span><br>';
+					 }
+					 if ($tmpproduct->array_options['options_app_or_option'] == 'option')
+					 {
+					 print '<span class="opacitymedium small">'.$langs->trans("Option").'</span><br>';
+					 }*/
+
+					$labelprod = $tmpproduct->label;
+					$labelprodsing = '';
+					if (preg_match('/instance/i', $tmpproduct->label))
+					{
+						$labelprod = $langs->trans("Application");
+						$labelprodsing = $langs->trans("Application");
+					}
+					elseif (preg_match('/users/i', $tmpproduct->label))
+					{
+						$labelprod = $langs->trans("Users");
+						$labelprodsing = $langs->trans("User");
+					}
+					// Label
+					print '<span class="opacitymedium small">'.$labelprod.'</span><br>';
+					// Qty
+					$resourceformula = $tmpproduct->array_options['options_resource_formula'];
+					if (preg_match('/SQL:/', $resourceformula))
+					{
+						$resourceformula = preg_match('/__d__/', $dbprefix, $resourceformula);
+					}
+					if (preg_match('/DISK:/', $resourceformula))
+					{
+						$resourceformula = $resourceformula;
+					}
+
+					print '<span class="font-green-sharp counternumber">'.$line->qty.'</span>';
+					print '<br>';
+					if ($line->price)
+					{
+						print '<span class="opacitymedium small">'.price($line->price, 1, $langs, 0, -1, -1, $conf->currency);
+						//if ($line->qty > 1 && $labelprodsing) print ' / '.$labelprodsing;
+						if (($line->qty > 1 || preg_match('/users/i', $tmpproduct->label)) && $labelprodsing) print ' / '.$labelprodsing;
+						// TODO
+						print ' / '.$langs->trans("Month");
+						print '</span>';
+					}
+					else
+					{
+						print '<span class="opacitymedium small">'.price($line->price, 1, $langs, 0, -1, -1, $conf->currency);
+						// TODO
+						print ' / '.$langs->trans("Month");
+						print '</span>';
+					}
+				}
+				else	// If there is no product, this is users
+				{
+					print '<span class="opacitymedium small">';
+					print ($line->label ? $line->label : $line->libelle);
+					// TODO
+					print ' / '.$langs->trans("Month");
+					print '</span>';
+				}
+
+				print '</div>';
+				print '</div>';
+			}
+
+			print '<br><br>';
+
+			// Plan
+			print '<span class="caption-helper"><span class="opacitymedium">'.$langs->trans("YourSubscriptionPlan").' : </span>';
+			if ($action == 'changeplan' && $planid > 0 && $id == GETPOST('id','int'))
+			{
+				print '<input type="hidden" name="mode" value="instances"/>';
+				print '<input type="hidden" name="action" value="updateplan" />';
+				print '<input type="hidden" name="contractid" value="'.$contract->id.'" />';
+
+				// List of available plans
+				$arrayofplans=array();
+				$sqlproducts = 'SELECT p.rowid, p.ref, p.label FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
+				$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
+				$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
+				$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";		// TODO Restict on compatible plans...
+				$resqlproducts = $db->query($sqlproducts);
+				if ($resqlproducts)
+				{
+					$num = $db->num_rows($resqlproducts);
+					$i=0;
+					while($i < $num)
+					{
+						$obj = $db->fetch_object($resqlproducts);
+						if ($obj)
+						{
+							$arrayofplans[$obj->rowid]=$obj->label;
+						}
+						$i++;
+					}
+				}
+				print $form->selectarray('planid', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth300');
+				print '<input type="submit" class="btn btn-warning default change-plan-link" name="changeplan" value="'.$langs->trans("ChangePlan").'">';
+			}
+			else
+			{
+				print '<span class="bold">'.$planlabel.'</span>';
+				if ($statuslabel != 'undeployed')
+				{
+					if ($priceinvoicedht == $contrat->total_ht)
+					{
+						print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=mycustomerinstances&action=changeplan&id='.$contract->id.'#contractid'.$contract->id.'">'.$langs->trans("ChangePlan").'</a>';
+					}
+				}
+			}
+			print '</span>';
+			print '<br>';
+
+			// Billing
+			if ($statuslabel != 'undeployed')
+			{
+				print '<span class="caption-helper spanbilling"><span class="opacitymedium">'.$langs->trans("Billing").' : </span>';
+				if ($foundtemplate > 1) print '<span style="color:orange">'.$langs->trans("WarningFoundMoreThanOneInvoicingTemplate", $conf->global->SELLYOURSAAS_MAIN_EMAIL).'</span>';
+				else
+				{
+					if ($priceinvoicedht != $contrat->total_ht)
+					{
+						print $langs->trans("FlatOrDiscountedPrice").' = ';
+					}
+					print '<span class="bold">'.$pricetoshow.'</span>';
+					if ($foundtemplate == 0)	// Same than ispaid
+					{
+						if ($contract->array_options['options_date_endfreeperiod'] < $now) $color='orange';
+
+						print ' <span style="color:'.$color.'">';
+						if ($contract->array_options['options_date_endfreeperiod'] > 0) print $langs->trans("TrialUntil", dol_print_date($contract->array_options['options_date_endfreeperiod'], 'day'));
+						else print $langs->trans("Trial");
+						print '</span>';
+						if ($contract->array_options['options_date_endfreeperiod'] < $now)
+						{
+							if ($statuslabel == 'suspended') print ' - <span style="color: orange">'.$langs->trans("Suspended").'</span>';
+							//else print ' - <span style="color: orange">'.$langs->trans("SuspendWillBeDoneSoon").'</span>';
+						}
+						if ($statuslabel == 'suspended')
+						{
+							/*if (empty($atleastonepaymentmode))
+							{
+								print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>';
+							}
+							else
+							{
+								print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("FixPaymentModeToRestoreInstance").'</a>';
+							}*/
+						}
+						else
+						{
+							if (empty($atleastonepaymentmode))
+							{
+								//print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("AddAPaymentMode").'</a>';
+							}
+							else
+							{
+								// TODO Change message if there is invoice error
+								print ' - '.$langs->trans("APaymentModeWasRecorded");
+							}
+						}
+					}
+				}
+				print '</span>';
+			}
+
+			print '
+								  </div>
+				              </div>';
+
+			/*
+			print '				<!-- tab domain -->
+				            <div class="tab-pane" id="tab_domain_'.$contract->id.'">
+				                <div class="opacitymedium" style="padding: 15px">'.$langs->trans("TheURLDomainOfYourInstance").' :</div>
+								<form class="form-group" action="'.$_SERVER["PHP_SELF"].'" method="POST">
+								<div class="col-md-9">
+									<input type="text" class="urlofinstance" disabled="disabled" value="'.$contract->ref_customer.'">
+									<input type="hidden" name="mode" value="instances"/>
+									<input type="hidden" name="action" value="updateurl" />
+									<input type="hidden" name="contractid" value="'.$contract->id.'" />
+									<input type="hidden" name="tab" value="domain_'.$contract->id.'" />
+								';
+			//print '<input type="submit" class="btn btn-warning default change-domain-link" name="changedomain" value="'.$langs->trans("ChangeDomain").'">';
+			print '
+								</div>
+							  	</form>
+				            </div>';
+			*/
+
+			// SSH
+			print '
+
+				            <div class="tab-pane" id="tab_ssh_'.$contract->id.'">
+				                <p class="opacitymedium" style="padding: 15px">'.$langs->trans("SSHFTPDesc").' :</p>
+				                <form class="form-horizontal" role="form">
+				                <div class="form-body">
+				                  <div class="form-group col-md-12 row">
+				                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
+				                    <div class="col-md-3">
+				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_hostname_os'].'">
+				                    </div>
+				                    <label class="col-md-3 control-label">'.$langs->trans("Port").'</label>
+				                    <div class="col-md-3">
+				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.($contract->array_options['options_port_os']?$contract->array_options['options_port_os']:22).'">
+				                    </div>
+				                  </div>
+				                  <div class="form-group col-md-12 row">
+				                    <label class="col-md-3 control-label">'.$langs->trans("SFTP Username").'</label>
+				                    <div class="col-md-3">
+				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_username_os'].'">
+				                    </div>
+				                    <label class="col-md-3 control-label">'.$langs->trans("Password").'</label>
+				                    <div class="col-md-3">
+				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_password_os'].'">
+				                    </div>
+				                  </div>
+				                </div>
+				                </form>
+				              </div> <!-- END TAB PANE -->
+
+				              <div class="tab-pane" id="tab_db_'.$contract->id.'">
+				                <p class="opacitymedium" style="padding: 15px">'.$langs->trans("DBDesc").' :</p>
+				                <form class="form-horizontal" role="form">
+				                <div class="form-body">
+				                  <div class="form-group col-md-12 row">
+				                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
+				                    <div class="col-md-3">
+				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_hostname_db'].'">
+				                    </div>
+				                    <label class="col-md-3 control-label">'.$langs->trans("Port").'</label>
+				                    <div class="col-md-3">
+				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_port_db'].'">
+				                    </div>
+				                  </div>
+				                  <div class="form-group col-md-12 row">
+				                    <label class="col-md-3 control-label">'.$langs->trans("DatabaseName").'</label>
+				                    <div class="col-md-3">
+				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_database_db'].'">
+				                    </div>
+				                    <label class="col-md-3 control-label">'.$langs->trans("DatabaseLogin").'</label>
+				                    <div class="col-md-3">
+				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_username_db'].'">
+				                    </div>
+				                  </div>
+				                  <div class="form-group col-md-12 row">
+				                    <label class="col-md-3 control-label">'.$langs->trans("Password").'</label>
+				                    <div class="col-md-3">
+				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_password_db'].'">
+				                    </div>
+				                  </div>
+				                </div>
+				                </form>
+				              </div> <!-- END TAB PANE -->
+					';
+
+				/*
+				print '
+				            <div class="tab-pane" id="tab_danger_'.$contract->id.'">
+							<form class="form-group" action="'.$_SERVER["PHP_SELF"].'" method="POST">
+				              <div class="">
+				                <p class="opacitymedium" style="padding: 15px">
+				                    '.$langs->trans("PleaseBeSure", $contract->ref_customer).'
+				                </p>
+								<p class="center" style="padding-bottom: 15px">
+									<input type="text" class="center urlofinstancetodestroy" name="urlofinstancetodestroy" value="'.GETPOST('urlofinstancetodestroy','alpha').'" placeholder="">
+								</p>
+								<p class="center">
+									<input type="hidden" name="mode" value="instances"/>
+									<input type="hidden" name="action" value="undeploy" />
+									<input type="hidden" name="contractid" value="'.$contract->id.'" />
+									<input type="hidden" name="tab" value="danger_'.$contract->id.'" />
+									<input type="submit" class="btn btn-danger" name="undeploy" value="'.$langs->trans("UndeployInstance").'">
+								</p>
+				              </div>
+							</form>
+				            </div> <!-- END TAB PANE -->
+				'; */
+
+				print '
+				          </div> <!-- END TAB CONTENT -->
+				        </div> <!-- END TABABLE CUSTOM-->
+
+				      </div><!-- END PORTLET-BODY -->
+
+
+					</div> <!-- END PORTLET -->
+
+			      </div> <!-- END COL -->
+
+			    </div> <!-- END ROW -->';
+
+		}		// End loop contract
+
+		// Link to add new instance
+		print '
+		<!-- Add a new instance -->
+		<div class="portlet-body" style=""><br>
+		';
+
+		print '<a href="#addanotherinstance" id="addanotherinstance">';
+		print $langs->trans("AddAnotherInstance").'...<br>';
+		print '</a>';
+
+		print '<script type="text/javascript" language="javascript">
+		jQuery(document).ready(function() {
+			jQuery("#addanotherinstance").click(function() {
+				console.log("Click on addanotherinstance");
+				jQuery("#formaddanotherinstance").toggle();
+			});
+		});
+			</script>';
+
+		print '<br>';
+
+		print '<form id="formaddanotherinstance" class="form-group reposition" style="display: none;" action="register_instance.php" method="POST">';
+		print '<input type="hidden" name="action" value="deployall" />';
+		print '<input type="hidden" name="fromsocid" value="'.$mythirdpartyaccount->id.'" />';
+		//print '<input type="hidden" name="reusesocid" value="'.$socid.'" />';
+
+		print '<div class="row">
+		<div class="col-md-12">
+
+		<div class="portlet light">';
+
+		// List of available plans
+		$arrayofplans=array();
+		$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration';
+		$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
+		$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
+		$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
+		//$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";
+		$resqlproducts = $db->query($sqlproducts);
+		if ($resqlproducts)
+		{
+			$num = $db->num_rows($resqlproducts);
+
+			$tmpprod = new Product($db);
+			$tmpprodchild = new Product($db);
+			$i=0;
+			while($i < $num)
+			{
+				$obj = $db->fetch_object($resqlproducts);
+				if ($obj)
+				{
+					$tmpprod->fetch($obj->rowid);
+					$tmpprod->get_sousproduits_arbo();
+					$tmparray = $tmpprod->get_arbo_each_prod();
+
+					$label = $obj->label;
+					$pricefix = $obj->price;
+					$pricefix_ttc = $obj->price_ttc;
+					$priceuser = 0;
+					$priceuser_ttc = 0;
+
+					if (count($tmparray) > 0)
+					{
+						foreach($tmparray as $key => $value)
+						{
+							$tmpprodchild->fetch($value['id']);
+							if ($tmpprodchild->array_options['options_app_or_option'] == 'app')
+							{
+								$pricefix .= $obj->price;
+								$pricefix_ttc .= $obj->price_ttc;
+							}
+							if ($tmpprodchild->array_options['options_app_or_option'] == 'system')
+							{
+								$priceuser .= $obj->price;
+								$priceuser_ttc .= $obj->price_ttc;
+							}
+							if ($tmpprodchild->array_options['options_app_or_option'] == 'option')
+							{
+								$priceuser .= $obj->price;
+								$priceuser_ttc .= $obj->price_ttc;
+							}
+						}
+					}
+
+
+					$arrayofplans[$obj->rowid]=$label.' ('.price(price2num($pricefix,'MT'), 1, $langs, 1, -1, -1, $conf->currency);
+					if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
+					if ($priceuser)
+					{
+						$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, -1, -1, $conf->currency).'/'.$langs->trans("User");
+						if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
+					}
+					$arrayofplans[$obj->rowid].=')';
+				}
+				$i++;
+			}
+		}
+		else dol_print_error($db);
+
+		print '
+			<div class="group">
+			<div class="horizontal-fld">';
+
+		$savsocid = $user->socid;	// Save socid of user
+		$user->socid = 0;
+		print $langs->trans("Customer").' '.$form->select_company('', 'reusesocid', 'parent = '.$mythirdpartyaccount->id, '1', 0, 1, array(), 0, 'centpercent').'<br><br>';
+		$user->socid = $savsocid;	// Restore socid of user
+
+		print $langs->trans("Type").' '.$form->selectarray('service', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'centpercent').'<br><br>';
+		print '
+			</div>
+
+			<div class="horizontal-fld clearboth">
+			<div class="control-group required">
+			<label class="control-label" for="password" trans="1">'.$langs->trans("Password").'</label><input name="password" type="password" required />
+			</div>
+			</div>
+			<div class="horizontal-fld ">
+			<div class="control-group required">
+			<label class="control-label" for="password2" trans="1">'.$langs->trans("ConfirmPassword").'</label><input name="password2" type="password" required />
+			</div>
+			</div>
+			</div> <!-- end group -->
+
+			<section id="selectDomain">
+			<br>
+			<div class="fld select-domain required">
+			<label trans="1">'.$langs->trans("ChooseANameForYourApplication").'</label>
+			<div class="linked-flds">
+			<span class="opacitymedium">https://</span>
+			<input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="" maxlength="29" required />
+			<select name="tldid" id="tldid" >
+			<option value=".with.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'" >.with.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'</option>
+			</select>
+			<br class="unfloat" />
+			</div>
+			</div>
+			</section>';
+
+		print '<br><input type="submit" class="btn btn-warning default change-plan-link" name="changeplan" value="'.$langs->trans("Create").'">';
+
+		print '</div></div></div>';
+
+		print '</form>';
+
+	}
+
+	print '
+	    </div>
+		</div>
+	';
+
+	if (GETPOST('tab','alpha'))
+	{
+		print '<script type="text/javascript" language="javascript">
+		jQuery(document).ready(function() {
+			console.log("Click on '.GETPOST('tab','alpha').'");
+			jQuery("#a_tab_'.GETPOST('tab','alpha').'").click();
+		});
+		</script>';
+	}
+}
 
 if ($mode == 'billing')
 {
@@ -2400,7 +3248,7 @@ if ($mode == 'billing')
 	            <div class="row" style="border-bottom: 1px solid #ddd;">
 
 	              <div class="col-md-6">
-			          <a href="https://'.$contract->ref_customer.'" class="caption-subject bold uppercase" title="'.$langs->trans("Contract").' '.$contract->ref.'">'.$instancename.'</a>
+			          <a href="https://'.$contract->ref_customer.'" class="caption-subject bold uppercase font-green-sharp" title="'.$langs->trans("Contract").' '.$contract->ref.'" target="_blankinstance">'.$instancename.'</a>
 			          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->
 	              </div><!-- END COL -->
 	              <div class="col-md-2 hideonsmartphone">

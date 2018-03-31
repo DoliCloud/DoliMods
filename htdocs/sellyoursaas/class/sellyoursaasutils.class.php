@@ -756,6 +756,15 @@ class SellYourSaasUtils
 
     	$error = 0;
 
+    	dol_syslog("doTakeStripePaymentForThirdparty thirdparty_id=".$thirdparty_id);
+
+    	// Check parameters
+    	if (empty($thirdparty_id))
+    	{
+    		$this->errors[]='Empty parameter thirdparty_id when calling doTakeStripePaymentForThirdparty';
+    		return 1;
+    	}
+
     	$currency = $mysoc->currency_code;
     	$cardstripe = $companypaymentmode->stripe_ref_card;
 
@@ -766,7 +775,8 @@ class SellYourSaasUtils
     		$sql.= ' FROM '.MAIN_DB_PREFIX.'facture as f, '.MAIN_DB_PREFIX.'societe as s';
     		$sql.= ' WHERE f.fk_soc = s.rowid';
     		$sql.= " AND f.paye = 0 AND f.type = 0 AND f.fk_statut = ".Facture::STATUS_VALIDATED;
-    		$sql.= " ORDER BY f.date ASC";
+    		$sql.= " AND s.rowid = ".$thirdparty_id;
+    		$sql.= " ORDER BY f.datef ASC";
     		//print $sql;
 
     		$resql = $this->db->query($sql);
@@ -800,7 +810,7 @@ class SellYourSaasUtils
 		// Loop on each invoice
 		foreach($invoices as $invoice)
 		{
-			dol_syslog("Process invoice id=".$invoice->id." ref=".$invoice->ref, LOG_DEBUG);
+			dol_syslog("Process invoice thirdparty_id = ".thirdparty_id." id=".$invoice->id." ref=".$invoice->ref, LOG_DEBUG);
 
 			$alreadypayed = $invoice->getSommePaiement();
     		$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
@@ -816,14 +826,14 @@ class SellYourSaasUtils
     			try {
     				dol_syslog("Search existing Stripe card for companypaymentmodeid=".$companypaymentmode->id, LOG_DEBUG);
 
-    				$thirdparty = new Societe($db);
-    				$thirdparty->fetch($thirdparty_id);
+    				$thirdparty = new Societe($this->db);
+    				$resultthirdparty = $thirdparty->fetch($thirdparty_id);
 
     				include_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';
-    				$stripe = new Stripe($db);
+    				$stripe = new Stripe($this->db);
     				$stripeacc = $stripe->getStripeAccount($service);								// Get Stripe OAuth connect account if it exists (no network access here)
     				$customer = $stripe->customerStripe($thirdparty, $stripeacc, $servicestatus, 0);
-    				if (! empty($customer))
+    				if ($resultthirdparty > 0 && ! empty($customer))
     				{
     					$stripecard = $stripe->cardStripe($customer, $companypaymentmode, $stripeacc, $servicestatus, 0);
     					if ($stripecard)

@@ -63,9 +63,10 @@ $plan=GETPOST('plan','alpha');
 $sldAndSubdomain=GETPOST('sldAndSubdomain','alpha');
 $tldid=GETPOST('tldid','alpha');
 
+$socid=GETPOST('socid','int')?GETPOST('socid','int'):GETPOST('reusesocid','int');
 $reusecontractid = GETPOST('reusecontractid','int');
 $reusesocid = GETPOST('reusesocid','int');
-$socid=GETPOST('socid','int')?GETPOST('socid','int'):GETPOST('reusesocid','int');
+$fromsocid = GETPOST('fromsocid','int');
 
 $productid=GETPOST('service','int');
 $productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):($plan?$plan:'DOLICLOUD-PACK-Dolibarr'));
@@ -210,7 +211,7 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
           <h1><?php echo $langs->trans("Registration") ?> <small><?php echo ($tmpproduct->label?'('.$tmpproduct->label.')':''); ?></small></h1>
         </header>
 
-		<div class="signup2">
+		<div class="signup2 centpercent">
 
 	      <form action="register_instance.php" method="post" id="formregister">
     	    <div class="form-content">
@@ -222,6 +223,7 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
 	          <input type="hidden" name="socid" value="<?php echo dol_escape_htmltag($socid); ?>" />
 	          <input type="hidden" name="reusesocid" value="<?php echo dol_escape_htmltag($reusesocid); ?>" />
 	          <input type="hidden" name="reusecontractid" value="<?php echo dol_escape_htmltag($reusecontractid); ?>" />
+	          <input type="hidden" name="fromsocid" value="<?php echo dol_escape_htmltag($fromsocid); ?>" />
 
 	          <section id="enterUserAccountDetails">
 
@@ -240,7 +242,7 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
 				{
 					print '<ul><li>'.$_SESSION['dol_events']['errors'].'</li></ul>';
 				}
-				print '</div>'."\n";
+				print '</div><br>'."\n";
 			}
             ?>
 
@@ -316,7 +318,10 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
 
           </section>
 
-          <hr/>
+          <?php
+          if (empty($reusecontractid)) print '<br>';
+          else print '<hr/>';
+          ?>
 
           <section id="selectDomain">
             <div class="fld select-domain required">

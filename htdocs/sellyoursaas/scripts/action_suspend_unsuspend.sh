@@ -76,14 +76,14 @@ export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
 
 # For debug
-echo "...input params..."
+echo `date +%Y%m%d%H%M%S`" input params for $0:"
 echo "mode = $mode"
 echo "osusername = $osusername"
 echo "ospassword = XXXXXX"
 echo "instancename = $instancename"
 echo "domainname = $domainname"
 echo "targetdir = $targetdir"
-echo "...calculated params..."
+echo `date +%Y%m%d%H%M%S`" calculated params:"
 echo "instancedir = $instancedir"
 echo "fqn = $fqn"
 
@@ -100,7 +100,7 @@ testorconfirm="confirm"
 # Suspend
 
 if [[ "$mode" == "suspend" ]]; then
-	echo "***** Suspend instance in /home/jail/home/$osusername/$dbname"
+	echo `date +%Y%m%d%H%M%S`" ***** Suspend instance in /home/jail/home/$osusername/$dbname"
 
 	export apacheconf="/etc/apache2/sites-available/$fqn.conf"
 	echo "Create a suspended apache conf $apacheconf from $vhostfilesuspended"
@@ -138,7 +138,7 @@ if [[ "$mode" == "suspend" ]]; then
 		exit 1
 	fi 
 	
-	echo "***** Apache tasks finished. service apache2 reload"
+	echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. service apache2 reload"
 	service apache2 reload
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running service apache2 reload
@@ -152,7 +152,7 @@ fi
 # Suspend
 
 if [[ "$mode" == "unsuspend" ]]; then
-	echo "***** Unsuspend instance in /home/jail/home/$osusername/$dbname"
+	echo `date +%Y%m%d%H%M%S`" ***** Unsuspend instance in /home/jail/home/$osusername/$dbname"
 
 	export apacheconf="/etc/apache2/sites-available/$fqn.conf"
 	echo "Create a new apache conf $apacheconf from $vhostfile"
@@ -189,19 +189,19 @@ if [[ "$mode" == "unsuspend" ]]; then
 		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -s "[Alert] Pb in suspend" supervision@dolicloud.com 
 		exit 1
 	fi 
-	
-	echo "***** Apache tasks finished. service apache2 reload"
+
+	echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. service apache2 reload"
 	service apache2 reload
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running service apache2 reload
 		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -s "[Alert] Pb in suspend" supervision@dolicloud.com 
 		exit 2
 	fi
-	
+
 fi
 
 
-echo Process of action $mode of $instancename.$domainname for user $osusername finished
+echo `date +%Y%m%d%H%M%S`" Process of action $mode of $instancename.$domainname for user $osusername finished"
 echo
 
 exit 0
