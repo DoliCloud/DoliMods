@@ -736,7 +736,13 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 	$contract->fetch(GETPOST('contractid','int'));					// This load also lines
 	$contract->fetch_thirdparty();
 
-	if ($action == 'undeploy')
+	if ($contract->socid != $mythirdpartyaccount->id)
+	{
+		setEventMessages($langs->trans("ErrorYouDontOwnTheInstanceYouTryToDelete", $contract->ref_customer), null, 'errors');
+		$error++;
+	}
+
+	if (! $error && $action == 'undeploy')
 	{
 		$urlofinstancetodestroy = GETPOST('urlofinstancetodestroy','alpha');
 		if (empty($urlofinstancetodestroy))
@@ -850,7 +856,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 		}
 
 		// Send confirmation email
-		if ($action == 'undeployconfirmed')
+		if (! $error && $action == 'undeployconfirmed')
 		{
 			if ($hash != GETPOST('hash','alpha'))
 			{

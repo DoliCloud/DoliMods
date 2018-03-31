@@ -281,3 +281,4 @@ YourURLToCreateNewInstance=To have new users being linked to your account and ap
 YourCommissionsAppearsInMenu=Your commissions are visible into menu %s
 InvoicingSuspended=Billing suspended
 LoginWithCustomerAccount=Login with customer account
+ErrorYouDontOwnTheInstanceYouTryToDelete=Error, you don't own the instance <strong>%s</strong> that you try to delete.
