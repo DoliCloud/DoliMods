@@ -303,7 +303,7 @@ do
 			    echo Test temporary file /tmp/${ZONE}.$PID
 				named-checkzone with.dolicloud.com /tmp/${ZONE}.$PID
 				if [[ "$?x" != "0x" ]]; then
-					echo Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid 
+					echo Error when editing the DNS file during clean.sh. File /tmp/${ZONE}.$PID is not valid 
 					exit 1
 				fi 
 				

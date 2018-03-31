@@ -61,6 +61,18 @@ if [ "x$5" == "x" ]; then
 	echo "Missing parameter 5 - domainname" 1>&2
 	exit 1
 fi
+if [ "x$6" == "x" ]; then
+	echo "Missing parameter 6 - dbname" 1>&2
+	exit 1
+fi
+if [ "x$7" == "x" ]; then
+	echo "Missing parameter 7 - dbport" 1>&2
+	exit 1
+fi
+if [ "x${22}" == "x" ]; then
+	echo "Missing parameter 22 - EMAILFROM" 1>&2
+	exit 1
+fi
 
 export mode=$1
 export osusername=$2
@@ -71,6 +83,7 @@ export dbname=$6
 export port=$7
 
 export targetdir=${21}
+export EMAILFROM=${22}
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
@@ -134,7 +147,7 @@ if [[ "$mode" == "suspend" ]]; then
 	/usr/sbin/apache2ctl configtest
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running apache2ctl configtest 
-		echo "Failed to suspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -s "[Alert] Pb in suspend" supervision@dolicloud.com 
+		echo "Failed to suspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" supervision@dolicloud.com 
 		exit 1
 	fi 
 	
@@ -142,7 +155,7 @@ if [[ "$mode" == "suspend" ]]; then
 	service apache2 reload
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running service apache2 reload
-		echo "Failed to suspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -s "[Alert] Pb in suspend" supervision@dolicloud.com 
+		echo "Failed to suspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" supervision@dolicloud.com 
 		exit 2
 	fi
 			
@@ -186,7 +199,7 @@ if [[ "$mode" == "unsuspend" ]]; then
 	/usr/sbin/apache2ctl configtest
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running apache2ctl configtest 
-		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -s "[Alert] Pb in suspend" supervision@dolicloud.com 
+		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" supervision@dolicloud.com 
 		exit 1
 	fi 
 
@@ -194,7 +207,7 @@ if [[ "$mode" == "unsuspend" ]]; then
 	service apache2 reload
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running service apache2 reload
-		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -s "[Alert] Pb in suspend" supervision@dolicloud.com 
+		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" supervision@dolicloud.com 
 		exit 2
 	fi
 
