@@ -49,6 +49,7 @@ $id			= GETPOST('id','int');
 $action		= GETPOST('action','alpha');
 $myparam	= GETPOST('myparam','alpha');
 
+$search_all = GETPOST('sall','alpha');
 $search_dolicloud = GETPOST("search_dolicloud");	// Search from index page
 $search_multi = GETPOST("search_multi");
 $search_instance = GETPOST("search_instance");
@@ -227,6 +228,7 @@ $sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,
 $sql.= " app_package as p";
 $sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id AND s.plan_id = pl.id AND pl.app_package_id = p.id";
 if ($search_dolicloud) $sql.='';
+if ($search_all) $sql.=natural_search(array("i.name","c.org_name","per.username"), $search_all);
 if ($search_multi) $sql.= natural_search(array_keys($fieldstosearchall), $search_multi);
 if ($search_instance) $sql.= natural_search("i.name", $search_instance);
 if ($search_organization) $sql.= natural_search("c.org_name", $search_organization);
