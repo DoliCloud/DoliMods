@@ -2493,6 +2493,11 @@ if ($mode == 'instances')
 
 if ($mode == 'mycustomerinstances')
 {
+	$limit = 2;
+	$page = GETPOST('page','int')?GETPOST('page','int'):0;
+	$firstrecord = GETPOSTISSET('firstrecord')?GETPOST('firstrecord','int'):($page * $limit) + 1;
+	$lastrecord = GETPOSTISSET('lastrecord')?GETPOST('lastrecord','int'):min(count($listofcontractidreseller), (($page+1)*$limit));
+
 	print '
 	<div class="page-content-wrapper">
 			<div class="page-content">
@@ -2517,6 +2522,25 @@ if ($mode == 'mycustomerinstances')
 	}
 	else
 	{
+		//print $langs->trans("Filters").' : ';
+		print '<div class="row"><div class="col-md-12"><div class="portlet light">';
+		print '<form name="refresh" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+		print $langs->trans("FirstRecord").' <input type="text" name="firstrecord" class="maxwidth50 right" value="'.$firstrecord.'"> - '.$langs->trans("LastRecord").' <input type="text" name="lastrecord" class="maxwidth50" value="'.$lastrecord.'"> / <span style="font-size: 14px;">'. count($listofcontractidreseller) .'</span><br>';
+		print $langs->trans("InstanceName").' : <input type="text" name="search_instance_name" value="'.GETPOST('search_instance_name','alpha').'"><br>';
+
+		//$savsocid = $user->socid;	// Save socid of user
+		//$user->socid = 0;
+		print $langs->trans("Customer").'/'.$langs->trans("Email").' : <input type="text" name="search_customer_name" value="'.GETPOST('search_customer_name','alpha').'"><br>';
+		//.$form->select_company(GETPOST('search_customer_name', 'search_customer_name'), 'search_customer_name', 'parent = '.$mythirdpartyaccount->id, '1', 0, 1, array(), 0, 'inline-block').'</div><br>';
+		//$user->socid = $savsocid;	// Restore socid of user
+
+		print '<input type="hidden" name="mode" value="'.$mode.'">';
+		print '<input type="submit" name="submit" value="'.$langs->trans("Refresh").'">';
+		print '</form>';
+		print '</div></div></div>';
+
+		print '<br>';
+
 		dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
 		$sellyoursaasutils = new SellYourSaasUtils($db);
 
@@ -2533,8 +2557,14 @@ if ($mode == 'mycustomerinstances')
 		}
 		$arrayforsort = dol_sort_array($arrayforsort, 'position');
 
+		$i=0;
 		foreach ($arrayforsort as $id => $tmparray)
 		{
+			$i++;
+
+			if ($i < $firstrecord) continue;
+			if ($i > $lastrecord) break;
+
 			$id = $tmparray['id'];
 			$contract = $tmparray['contract'];
 

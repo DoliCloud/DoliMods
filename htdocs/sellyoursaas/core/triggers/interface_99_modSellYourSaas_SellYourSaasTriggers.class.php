@@ -111,6 +111,11 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         					$this->errors[] = $langs->trans("CompanyAliasIsRequiredWhenWeSetResellerTag");
         					return -1;
         				}
+        				if (empty($reseller->array_options['options_commission']) && $reseller->array_options['options_commission'] != '0')
+        				{
+        					$this->errors[] = $langs->trans("CommissionIsRequiredWhenWeSetResellerTag");
+        					return -1;
+        				}
 
         				// If password not set yet, we set it
         				if (empty($reseller->array_options['options_password']))
