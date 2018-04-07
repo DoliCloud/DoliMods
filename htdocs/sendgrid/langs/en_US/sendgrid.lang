@@ -1,17 +1,16 @@
 # Dolibarr language file - en_US - sendgrid
 CHARSET=UTF-8
-SendgridSmsSetup=Setup of module Sendgrid
+SendgridSetup=Setup of module Sendgrid
 SendgridSmsRecap=Summary main account
 SendgridSmsNick=Nick Handle for main account
 SendgridBillingAccount=Nick handle for main account
-SendgridServiceName=SENDGRID service account
+SendgridServiceName=SendGrid service account
 SendgridSmsPass=Password
 SendgridSmsLabelAccount=SMS account to use
 SendgridSmsLoginSuccessFull=Connection successfull!
 SendgridSmsNotConfigured=Module not configured
-SendgridAuthenticationPartNotConfigured=Authentication data not configured. Go onto setup of module SENDGRID, tab "Authentication" first. 
+SendgridAuthenticationPartNotConfigured=Authentication data not configured. Go onto setup of module SendGrid, tab "Authentication" first. 
 NbSmsLeft=Number of remaining SMS
-SendgridSmsSoapUrl=URL of SENDGRID SOAP service
 SendgridSmsSend=Send SMS
 SendgridSmsAccountInfos=Information on SMS account
 SendgridSmsDestinataire=Target
@@ -27,15 +26,12 @@ ListOfSmsAccountsForNH=List of SMS accounts for account defined into "Authentica
 ClickToDialLink=This is link to copy-paste into ClickToDial module setup to use the %s Click2Dial:<br>%s
 TestSendSMS=SMS Sending test
 TestLoginToApi=Test connection to API
-SendersAllowed=Senders allowed from SENDGRID manager
-ListOfDedicatedServers=List of your dedicated SENDGRID servers
-ListOfPublicCloudServers=List of your Public Cloud SENDGRID servers
-SendgridServers=SENDGRID servers
-SendgridDedicated=Dedicated servers
-SendgridPublicCloud=Public cloud servers
-SendgridGetInvoices=SENDGRID invoices import
-SendgridInvoiceImportShort=SENDGRID invoices import
-SendgridInvoiceImportDesc=This page list all SENDGRID invoices and suggest a way to import them. Click first onto button "Get invoice list". Then for each invoice not already present, check box and click onto "Import button".
+SendersAllowed=Senders allowed from SendGrid manager
+ListOfDedicatedServers=List of your dedicated SendGrid servers
+ListOfPublicCloudServers=List of your Public Cloud SendGrid servers
+SendgridGetInvoices=SendGrid invoices import
+SendgridInvoiceImportShort=SendGrid invoices import
+SendgridInvoiceImportDesc=This page list all SendGrid invoices and suggest a way to import them. Click first onto button "Get invoice list". Then for each invoice not already present, check box and click onto "Import button".
 SupplierToUseForImport=Supplier to create imported invoices on
 ProductGenericToUseForImport=Product/Service to use for imported lines of invoices
 KeepEmptyToSaveLinesAsFreeLines=Keep this field empty if you don't want to see imported lines using a generic predefined product/service 
@@ -61,7 +57,7 @@ SendgridApplicationDescription=Application description
 SendgridApplicationKey=Application key
 SendgridApplicationSecret=Application secret
 SendgridConsumerkey=Consumer key
-SendgridGoOnPageToCreateYourAPIKey=First go on page <a href="%s" target="_blank">%s</a> to create your SENDGRID application entry and get its API key and secret, or create a new one if you prefer and lost it, then fill this page.
+SendgridGoOnPageToCreateYourAPIKey=First go on page <a href="%s" target="_blank">%s</a> to create your SendGrid application entry and get its API key and secret, or create a new one if you prefer and lost it, then fill this page.
 ListOfExistingAPIApp=Note: You can find list of already created application on page <a href="%s" target="_blank">%s</a>.
 ClickHereToLoginAndGetYourConsumerKey=Click <a href="%s"> here to login and get a new consumer key</a> (You must choose <strong>UNLIMITED</strong> validity)
 Authentication=Authentication
@@ -73,4 +69,6 @@ SendgridServiceNameHelp=Put here the SIP line number. Note, if you have several 
 SENDGRIDURLMustNotBeLocal=Warning, URL you use for the application must NOT be a local URL but an URL you can access from internet to have this working.
 CreateSnapshot=Create snapshot
 SnapshotRequestSent=Snapshot request under name '%s' was successfully sent.
-NoneLabelOnSendgridLineWillBeUsed=None (label of line in SENDGRID invoice will be used)
+NoneLabelOnSendgridLineWillBeUsed=None (label of line in SendGrid invoice will be used)
+SendGridDefaultBankAccount=Default bank account
+GetInvoices=Import invoices

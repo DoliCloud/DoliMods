@@ -179,11 +179,11 @@ if ($action == 'backfromauth' && ! empty($_SESSION["sendgrid_consumer_key"]))
  * View
  */
 
-llxHeader('',$langs->trans('SendgridSmsSetup'),'','');
+llxHeader('',$langs->trans('SendgridSetup'),'','');
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
 
-print_fiche_titre($langs->trans("SendgridSmsSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("SendgridSetup"),$linkback,'setup');
 
 $head=sendgridadmin_prepare_head();
 

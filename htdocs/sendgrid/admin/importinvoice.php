@@ -1,4 +1,25 @@
 <?php
+/* Copyright (C) 2018 Laurent Destailleur  <eldy@users.sourceforge.net>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ *   	\file       htdocs/sendgrid/admin/importinvoice.php
+ *		\ingroup    sendgrid
+ *		\brief      Setup of module Sendgrid - Tab to import invoices
+ */
 
 // Load Dolibarr environment
 $res=0;
@@ -51,7 +72,8 @@ if ($action == 'setvalue' && $user->admin)
 {
     $result1=dolibarr_set_const($db, "SENDGRID_THIRDPARTY_IMPORT",GETPOST("SENDGRID_THIRDPARTY_IMPORT"),'chaine',0,'',$conf->entity);
     $result2=dolibarr_set_const($db, "SENDGRID_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID",GETPOST("SENDGRID_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID"),'chaine',0,'',$conf->entity);
-    if ($result1 >= 0 && $result2 >= 0)
+    $result3 = dolibarr_set_const($db, "SENDGRID_DEFAULT_BANK_ACCOUNT", (GETPOST("SENDGRID_DEFAULT_BANK_ACCOUNT") > 0 ? GETPOST("SENDGRID_DEFAULT_BANK_ACCOUNT") : 0), 'chaine', 0, '', $conf->entity);
+    if ($result1 >= 0 && $result2 >= 0 && $result3 >= 0)
     {
         $mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
     }
@@ -81,11 +103,11 @@ $logindol=$user->login;
 
 
 $morejs = '';
-llxHeader('', $langs->trans('SendgridSmsSetup'), '', '', '', '', $morejs, '', 0, 0);
+llxHeader('', $langs->trans('SendgridSetup'), '', '', '', '', $morejs, '', 0, 0);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
 
-print_fiche_titre($langs->trans('SendgridSmsSetup'),$linkback,'setup');
+print_fiche_titre($langs->trans('SendgridSetup'),$linkback,'setup');
 
 $head=sendgridadmin_prepare_head();
 
@@ -142,181 +164,24 @@ print '<input type="hidden" name="action" value="setvalue">';
         print '</td></tr>';
     }
 
+    if ($conf->banque->enabled) {
+    	$var = !$var;
+    	print '<tr ' . $bc[$var] . '><td>';
+    	print $langs->trans("SendGridDefaultBankAccount") . '</td><td>';
+    	$form->select_comptes($conf->global->SENDGRID_DEFAULT_BANK_ACCOUNT, 'SENDGRID_DEFAULT_BANK_ACCOUNT', 0, '', 1);
+    	print '<td>';
+    	//print $langs->trans("KeepEmptyToSaveLinesAsFreeLines");
+    	print '</td></tr>';
+    }
+
     print '</table>';
 
     dol_fiche_end();
 
-    print '<div class="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></div>';
+    print '<div class="center"><input type="submit" class="button" value="' . $langs->trans("Modify") . '"></div>';
 
 
 print '</form>';
-
-
-/*
-if ($action == 'preimport')
-{
-    $fuser = new User($db);
-    $result=$fuser->fetch('',$logindol);
-    if ($result <= 0)
-    {
-        print "Bad login user to use\n";
-        exit;
-    }
-
-    try {
-        require_once(DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php');
-        $params=getSoapParams();
-        ini_set('default_socket_timeout', $params['response_timeout']);
-
-        $soap = new SoapClient($WS_DOL_URL,$params);
-        try {
-            $language="en";
-            $multisession=false;
-
-            //login
-            $session = $soap->login($conf->global->SENDGRIDSMS_NICK, $conf->global->SENDGRIDSMS_PASS, $language, $multisession);
-            //if ($session) print '<div class="ok">'.$langs->trans("SendgridSmsLoginSuccessFull").'</div><br>';
-            if (! $session) print '<div class="error">Error login did not return a session id</div><br>';
-
-            //logout
-            //$soap->logout($session);
-            //  echo "logout successfull\n";
-
-        }
-        catch(Exception $e)
-        {
-            print '<div class="error">';
-            print 'Error '.$e->getMessage().'<br>';
-            print 'If this is an error to connect to SENDGRID host, check your firewall does not block port required to reach SENDGRID manager (for example port 1664).<br>';
-            print '</div>';
-        }
-
-
-        $result = $soap->billingGetAccessByNic($session);
-        echo "billingGetAccessByNic successfull\n";
-        print_r($result); // your code here ...
-        //billingInvoiceList
-        $result = $soap->billingInvoiceList($session);
-        echo "billingInvoiceList successfull\n";
-        foreach ($result as $i=> $r)
-        {
-            $sql="SELECT rowid ";
-            $sql.=' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
-            $sql.=" WHERE facnumber like '".$r->billnum."'";
-            $resql = $db->query($sql);
-            $num=0;
-            if ($resql)
-            {
-                $num=$db->num_rows($resql);
-            }
-            if ($num ==0)
-            {
-                //facture n'existe pas
-                $db->begin();
-                $result[$i]->info=$soap->billingInvoiceInfo($session, $r->billnum, null, $r->billingCountry); //on recupere les details
-                $r=$result[$i];
-                $facfou = new FactureFournisseur($db);
-
-                $facfou->ref           = $r->billnum;
-                $facfou->socid         = $id_sendgrid;
-                $facfou->libelle       = "";
-                $facfou->date          = strtotime($r->date);
-                $facfou->date_echeance = strtotime($r->date);
-                $facfou->note_public   = '';
-
-                $facid = $facfou->create($fuser);
-                if ($facid > 0)
-                {
-                    foreach($r->info->details as $d)
-                    {
-                        $label='<strong>ref :'.$d->service.'</strong><br>'.$d->description.'<br
-    > >';
-                        if($d->start)
-                        $label.='<i>du '.date('d/m/Y',strtotime($d->start));
-                        if($d->end)
-                        $label.=' au '.date('d/m/Y',strtotime($d->end));
-                        $amount=$d->baseprice;
-                        $qty=$d->quantity;
-                        $price_base='HT';
-                        $tauxtva=19.6;
-                        $remise_percent=0;
-                        $fk_product=null;
-                        $ret=$facfou->addline($label, $amount, $tauxtva, $qty, $fk_product,
-                        $remise_percent, '', '', '', 0, $price_base);
-                        if ($ret < 0) $nberror++;
-                        if ($nberror)
-                        {
-                            $db->rollback();
-                            echo "ERROR: ".$facfou->error."\n";
-                        }
-                        else
-                        {
-                            $db->commit();
-                        }
-                    }
-                }
-                else
-                {
-                    $db->rollback();
-                    echo "ERROR: ".$facfou->error."\n";
-                }
-            }
-            else
-            {
-                $row=$db->fetch_array($resql);
-                $facid=$row['rowid'];
-                $facfou = new FactureFournisseur($db);
-                echo "fetching fact $facid ...\n";
-                if($facfou->fetch($facid))
-                {
-                    if($facfou->fk_statut == 0)
-                    {
-                        $ref=dol_sanitizeFileName($facfou->ref);
-                        $upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facfou->id,2,0,0,$facfou,'invoice_supplier').$ref;
-
-                        if (! is_dir($upload_dir)) dol_mkdir($upload_dir);
-
-                        if (is_dir($upload_dir))
-                        {
-                            $result[$i]->info=$soap->billingInvoiceInfo($session, $r->billnum, null,
-                            $r->billingCountry); //on recupere les details
-                            $r=$result[$i];
-                            $url=$url_pdf."?reference=".$r->billnum."&passwd=".$r->info->password;
-                            $file_name=($upload_dir."/".$facfou->ref_supplier.".pdf");
-                            echo "$url \n";
-                            if(file_exists($file_name))
-                            {
-                                echo "file $file_name exists !!\n";
-                            }
-                            else{
-
-                                file_put_contents($file_name,file_get_contents($url));
-                            }
-                            //print_r($r->info);
-                        }
-                    }
-                    $facfou->set_valid($fuser);
-                }
-                else{
-                    echo "Imposible d'obtenir la facture $facid \n";
-                }
-                //print_r($facfou);
-            }
-        }
-
-
-
-        //logout
-        if (! empty($conf->global->SENDGRID_OLDAPI)) $soap->logout($session);
-        echo "logout successfull\n";
-
-    } catch(SoapFault $fault) {
-        echo $fault;
-    }
-}
-
-dol_fiche_end();
-*/
 
 llxFooter();
 

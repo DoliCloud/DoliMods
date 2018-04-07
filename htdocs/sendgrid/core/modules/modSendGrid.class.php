@@ -171,7 +171,7 @@ class modSendgrid extends DolibarrModules
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools',		    // Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 									'type'=>'left',			                // This is a Left menu entry
 									'titre'=>'SendgridInvoiceImportShort',
-									'url'=>'/sendgrid/importsendgridinvoice.php',
+									'url'=>'/sendgrid/importinvoice.php',
 									'langs'=>'sendgrid@sendgrid',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>500,
 									'enabled'=>'$conf->sendgrid->enabled',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.

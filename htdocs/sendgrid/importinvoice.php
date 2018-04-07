@@ -18,9 +18,9 @@
  */
 
 /**
- *   \file       htdocs/sendgrid/importinvoice.php
+ *   \file       htdocs/sendgrid/importsendgridinvoice.php
  *	 \ingroup    sendgrid
- *	 \brief		 Page to import SENDGRID invoices
+ *	 \brief		 Page to import SendGrid invoices
  */
 
 // Load Dolibarr environment
