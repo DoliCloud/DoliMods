@@ -673,11 +673,12 @@ if ($action == 'refresh') {
                                 $facfou, 'invoice_supplier') . $ref;
                         //var_dump($upload_dir);
                         $file_name = ($upload_dir . "/" . $facfou->ref_supplier . ".pdf");
-                        $file_name_bis = ($upload_dir . "/" . $facfou->ref . '_' . $facfou->ref_supplier . ".pdf");
+                        $file_name_bis = ($upload_dir . "/" . $facfou->ref . '-' . $facfou->ref_supplier . ".pdf");
+                        $file_name_ter = ($upload_dir . "/" . $facfou->ref . '_' . $facfou->ref_supplier . ".pdf");		// Old version made import with this name
 
                         $file_name_to_use = (empty($conf->global->MAIN_DISABLE_SUGGEST_REF_AS_PREFIX) ? $file_name_bis : $file_name);
 
-                        if (file_exists($file_name) || file_exists($file_name_bis)) {
+                        if (file_exists($file_name) || file_exists($file_name_bis) || file_exists($file_name_ter)) {
                             print $langs->trans("InvoicePDFFoundIntoDolibarr") . " " . $facfou->getNomUrl(1) . "\n";
                             //echo "<br>File ".dol_basename($file_name)." also already exists\n";
                         } else {
@@ -697,8 +698,7 @@ if ($action == 'refresh') {
 
                                 //print "<br>Get ".$url."\n";
                                 file_put_contents($file_name_to_use, file_get_contents($url));
-                                print "<br>" . $langs->trans("FileDownloadedAndAttached",
-                                        basename($file_name_to_use)) . "\n";
+                                print "<br>" . $langs->trans("FileDownloadedAndAttached", basename($file_name_to_use)) . "\n";
                             }
                         }
                         //$facfou->set_valid($fuser);
