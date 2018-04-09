@@ -142,7 +142,7 @@ $param[]="--exclude htdocs/memcached/";
 $param[]="--exclude htdocs/cabinetmed/";
 if (! in_array($mode,array('diff','diffadd','diffchange'))) $param[]="--stats";
 if (in_array($mode,array('clean','confirmclean'))) $param[]="--delete";
-$param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'";
+$param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o PasswordAuthentication=no'";
 
 $param[]=$dirroot.'/';
 $param[]=$login.'@'.$server.":".$targetdir;
