@@ -413,3 +413,99 @@ function dolicloud_calculate_stats($db, $datelim)
 				   'totalcustomerspaying'=>(int) count($listofcustomerspaying), 'totalcustomers'=>(int) count($listofcustomers)
 		);
 }
+
+
+
+/**
+ * Calculate stats ('total', 'totalcommissions', 'totalinstancespaying' (nbclients 'ACTIVE' not at trial), 'totalinstances' (nb clients not at trial, include suspended), 'totalusers')
+ * at date datelim (or realtime if date is empty)
+ *
+ * Rem: Comptage des users par status
+ * SELECT sum(im.value), c.status as customer_status, i.status as instance_status, s.payment_status
+ * FROM app_instance as i LEFT JOIN app_instance_meter as im ON i.id = im.app_instance_id AND im.meter_id = 1, customer as c
+ * LEFT JOIN channel_partner_customer as cc ON cc.customer_id = c.id LEFT JOIN channel_partner as cp ON cc.channel_partner_id = cp.id LEFT JOIN person as per ON c.primary_contact_id = per.id, subscription as s, plan as pl
+ * LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1, app_package as p
+ * WHERE i.customer_id = c.id AND c.id = s.customer_id AND s.plan_id = pl.id AND pl.app_package_id = p.id AND s.payment_status NOT IN ('TRIAL', 'TRIALING', 'TRIAL_EXPIRED') AND i.deployed_date <= '20141201005959'
+ * group by c.status,  i.status, s.payment_status
+ * order by sum(im.value) desc
+ *
+ * @param	Database	$db			Database handler
+ * @param	date		$datelim	Date limit
+ * @return	array					Array of data
+ */
+function sellyoursaas_calculate_stats($db, $datelim)
+{
+	$total = $totalcommissions = $totalinstancespaying = $totalinstances = $totalusers = 0;
+	$listofcustomers=array(); $listofcustomerspaying=array();
+
+	// Get list of instance
+	$sql = "SELECT c.rowid as id, c.ref_customer as instance,";
+	$sql.= " ce.deployment_status as instance_status";
+	$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
+	$sql.= " WHERE c.ref_customer <> '' AND c.ref_customer IS NOT NULL";
+	$sql.= " AND ce.deployment_status IS NOT NULL";
+
+	$sql.= " AND s.payment_status NOT IN ('TRIAL', 'TRIALING', 'TRIAL_EXPIRED')";	// We keep OK, FAILURE, PAST_DUE
+
+	if ($datelim) $sql.= " AND ce.deployement_date_end <= '".$db->idate($datelim)."'";
+
+	dol_syslog($script_file." sellyoursaas_calculate_stats sql=".$sql, LOG_DEBUG);
+	$resql=$db->query($sql);
+	if ($resql)
+	{
+		$num = $db->num_rows($resql);
+		$i = 0;
+		if ($num)
+		{
+			while ($i < $num)
+			{
+				$obj = $db->fetch_object($resql);
+				if ($obj)
+				{
+					// Get resource for instance
+
+					$price=($obj->price_instance * ($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)) + (max(0,($obj->nbofusers - ($obj->min_threshold ? $obj->min_threshold : 0))) * $obj->price_user);
+					if ($obj->interval_unit == 'Year') $price = $price / 12;
+
+					$totalinstances++;
+					$totalusers+=$obj->nbofusers;
+
+					$activepaying=1;
+					if (in_array($obj->status,array('SUSPENDED'))) $activepaying=0;
+					if (in_array($obj->status,array('CLOSED','CLOSE_QUEUED','CLOSURE_REQUESTED')) || in_array($obj->instance_status,array('UNDEPLOYED'))) $activepaying=0;
+					if (in_array($obj->payment_status,array('TRIAL','TRIALING','TRIAL_EXPIRED','FAILURE','PAST_DUE')) || in_array($obj->status,array('CLOSED','CLOSE_QUEUED','CLOSURE_REQUESTED')) || in_array($obj->instance_status,array('UNDEPLOYED'))) $activepaying=0;
+
+					if (! $activepaying)
+					{
+						$listofcustomers[$obj->customer_id]++;
+						//print "cpt=".$totalinstances." customer_id=".$obj->customer_id." instance=".$obj->instance." status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status." => Price = ".$obj->price_instance.' * '.($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)." + ".max(0,($obj->nbofusers - $obj->min_threshold))." * ".$obj->price_user." = ".$price." -> 0<br>\n";
+					}
+					else
+					{
+						$listofcustomerspaying[$obj->customer_id]++;
+
+						$totalinstancespaying++;
+						$total+=$price;
+
+						//print "cpt=".$totalinstancespaying." customer_id=".$obj->customer_id." instance=".$obj->instance." status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status." => Price = ".$obj->price_instance.' * '.($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)." + ".max(0,($obj->nbofusers - $obj->min_threshold))." * ".$obj->price_user." = ".$price."<br>\n";
+						if (! empty($obj->partner))
+						{
+							$totalcommissions+=price2num($price * 0.2);
+						}
+					}
+				}
+				$i++;
+			}
+		}
+	}
+	else
+	{
+		$error++;
+		dol_print_error($db);
+	}
+
+	return array('total'=>(double) $total, 'totalcommissions'=>(double) $totalcommissions,
+	'totalinstancespaying'=>(int) $totalinstancespaying,'totalinstances'=>(int) $totalinstances, 'totalusers'=>(int) $totalusers,
+	'totalcustomerspaying'=>(int) count($listofcustomerspaying), 'totalcustomers'=>(int) count($listofcustomers)
+	);
+}

@@ -995,7 +995,7 @@ if ($action == 'deployall')
 
 		if (! $error)
 		{
-			$contract->array_options['options_deployment_status'] = 'deployed';
+			$contract->array_options['options_deployment_status'] = 'done';
 			$contract->array_options['options_deployment_date'] = dol_now('tzserver');
 			$contract->array_options['options_deployment_ip'] = $_SERVER['REMOTE_ADDR'];
 

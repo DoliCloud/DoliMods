@@ -18,6 +18,7 @@
 CREATE TABLE llx_dolicloud_stats
 (
 	rowid integer AUTO_INCREMENT PRIMARY KEY,
+	service varchar(24),								-- old or xxx
 	name varchar(24),
 	x varchar(16),
 	y double,

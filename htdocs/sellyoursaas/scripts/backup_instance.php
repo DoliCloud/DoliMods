@@ -36,6 +36,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
+$version='1.0';
 $error=0;
 
 $instance=isset($argv[1])?$argv[1]:'';

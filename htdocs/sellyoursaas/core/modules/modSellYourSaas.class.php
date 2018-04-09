@@ -677,6 +677,8 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('prefix_db',                 "Special table prefix DB",  'varchar', 128,  '64',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('fileauthorizekey',             "DateFileauthorizekey", 'datetime', 129,    '',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('filelock',                             "DateFilelock", 'datetime', 130,    '',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$resultx=$extrafields->addExtraField('latestbackup_date',                "LatestBackupDate", 'datetime', 140,    '',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$resultx=$extrafields->addExtraField('latestbackup_status',            "LatestBakcupStatus",  'varchar', 141,   '2',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 
 
 		// Create/import website called 'sellyoursaas'

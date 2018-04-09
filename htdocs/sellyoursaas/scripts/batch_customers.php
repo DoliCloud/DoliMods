@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-/* Copyright (C) 2007-2011 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2007-2018 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 /**
  *      \file       sellyoursaas/scripts/batch_customers.php
  *		\ingroup    sellyoursaas
- *      \brief      Main master Dolicloud batch
+ *      \brief      Main master SellYouSaas batch
  *      			backup_instance.php (payed customers rsync + databases backup)
  *      			update database info for customer
  *      			update stats
@@ -37,6 +37,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Global variables
+$version='1.0';
 $error=0;
 
 
@@ -44,14 +45,20 @@ $error=0;
 @set_time_limit(0);							// No timeout for this script
 define('EVEN_IF_ONLY_LOGIN_ALLOWED',1);		// Set this define to 0 if you want to lock your script when dolibarr setup is "locked to admin user only".
 
-// Include and load Dolibarr environment variables
+// Load Dolibarr environment
 $res=0;
-if (! $res && file_exists($path."master.inc.php")) $res=@include($path."master.inc.php");
-if (! $res && file_exists($path."../master.inc.php")) $res=@include($path."../master.inc.php");
-if (! $res && file_exists($path."../../master.inc.php")) $res=@include($path."../../master.inc.php");
-if (! $res && file_exists($path."../../../master.inc.php")) $res=@include($path."../../../master.inc.php");
+// Try master.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/master.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/master.inc.php");
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/master.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/master.inc.php");
+// Try master.inc.php using relative path
+if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
+if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
+if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
 if (! $res) die("Include of master fails");
-// After this $db, $mysoc, $langs and $conf->entity are defined. Opened handler to database will be closed at end of file.
+// After this $db, $mysoc, $langs, $conf and $hookmanager are defined (Opened $db handler to database will be closed at end of file).
+// $user is created but empty.
 
 dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 include_once dol_buildpath("/sellyoursaas/backoffice/lib/refresh.lib.php");		// do not use dol_buildpth to keep global declaration working
@@ -77,14 +84,14 @@ $langs->load("main");				// To load language file for default language
 
 print "***** ".$script_file." (".$version.") - ".strftime("%Y%m%d-%H%M%S")." *****\n";
 if (! isset($argv[1])) {	// Check parameters
-    print "Usage: ".$script_file." (backuptestrsync|backuptestdatabase|backup|updatedatabase|updatestatsonly) [instancefilter]\n";
+    print "Usage: ".$script_file." (backuptestrsync|backuptestdatabase|backup|updatedatabase|updatestatsonly) [old|instancefilter]\n";
     print "\n";
-    print "- backuptestrsync  	  test rsync backup\n";
+    print "- backuptestrsync     test rsync backup\n";
     print "- backuptestdatabase  test mysqldump backup\n";
-    print "- backup           creates backup (rsync + mysqldump)\n";
-    print "- updatedatabase   (=updatecountsonly+updatestatsonly) updates list and nb of users, modules and version and stats\n";
-    print "- updatecountsonly updates counters of instances only (only nb of user for instances)\n";
-    print "- updatestatsonly  updates stats only (only table dolicloud_stats)\n";
+    print "- backup              creates backup (rsync + mysqldump)\n";
+    print "- updatedatabase      (=updatecountsonly+updatestatsonly) updates list and nb of users, modules and version and stats\n";
+    print "- updatecountsonly    updates counters of instances only (only nb of user for instances)\n";
+    print "- updatestatsonly     updates stats only (only table dolicloud_stats)\n";
     exit;
 }
 print '--- start'."\n";
@@ -97,6 +104,8 @@ print '--- start'."\n";
  * Main
  */
 
+$now = dol_now();
+
 $action=$argv[1];
 $nbofko=0;
 $nbofok=0;
@@ -108,58 +117,138 @@ $nbofalltime=0;
 $nboferrors=0;
 $instancefilter=(isset($argv[2])?$argv[2]:'');
 $instancefiltercomplete=$instancefilter;
-// Add on.dolicloud.com to have a complete instance id
-if (! empty($instancefiltercomplete) && ! preg_match('/\.on\.dolicloud\.com$/',$instancefiltercomplete)) $instancefiltercomplete=$instancefiltercomplete.'.on.dolicloud.com';
 
-
-$object=new Dolicloud_customers($db,$db2);
-
+// Use instancefilter to detect if v1 or v2 or instance
+$v=2;
+if ($instancefilter == 'old')
+{
+	$instancefilter='';
+	$instancefiltercomplete='';
+	$v=1;
+}
+else
+{
+	// Add on.dolicloud.com to have a complete instance id
+	if (! empty($instancefiltercomplete) && ! preg_match('/(\.on|\.with)\.dolicloud\.com$/',$instancefiltercomplete))
+	{
+		$instancefiltercomplete=$instancefiltercomplete.'.on.dolicloud.com';
+	}
+	if (! empty($instancefiltercomplete) && preg_match('/\.on\.dolicloud\.com$/',$instancefiltercomplete)) {
+		$v=1;
+	}
+	if (! empty($instancefiltercomplete) && preg_match('/\.with\.dolicloud\.com$/',$instancefiltercomplete)) {
+		$v=2;
+	}
+}
 
 $instances=array();
 $instancesbackuperror=array();
 $instancesupdateerror=array();
 
-// Get list of instance
-//$sql = "SELECT c.rowid, c.instance, c.status, c.lastrsync";
-//$sql.= " FROM ".MAIN_DB_PREFIX."dolicloud_customers as c";
-$sql = "SELECT i.id, i.name as instance, i.status as instance_status,";
-$sql.= " c.status as status,";
-$sql.= " s.payment_status,";
-$sql.= " s.status as subscription_status";
-$sql.= " FROM app_instance as i, subscription as s, customer as c";
-$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id";
-if ($instancefiltercomplete) $sql.= " AND i.name = '".$instancefiltercomplete."'";
+
+if ($v==1)
+{
+	$object=new Dolicloud_customers($db,$db2);
+
+	// Get list of instance
+	$sql = "SELECT i.id, i.name as instance, i.status as instance_status,";
+	$sql.= " c.status as status,";
+	$sql.= " s.payment_status,";
+	$sql.= " s.status as subscription_status";
+	$sql.= " FROM app_instance as i, subscription as s, customer as c";
+	$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id";
+	if ($instancefiltercomplete) $sql.= " AND i.name = '".$instancefiltercomplete."'";
+
+	$dbtousetosearch = $db2;
+}
+else
+{
+	include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+	$object=new Contrat($db);
+
+	// Get list of instance
+	$sql = "SELECT c.rowid as id, c.ref_customer as instance,";
+	$sql.= " ce.deployment_status as instance_status";
+	$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
+	$sql.= " WHERE c.ref_customer <> '' AND c.ref_customer IS NOT NULL";
+	if ($instancefiltercomplete) $sql.= " AND c.ref_customer = '".$instancefiltercomplete."'";
+	$sql.= " AND ce.deployment_status IS NOT NULL";
+
+	$dbtousetosearch = $db;
+}
+
 
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
-$resql=$db2->query($sql);
+$resql=$dbtousetosearch->query($sql);
 if ($resql)
 {
-	$num = $db2->num_rows($resql);
+	$num = $dbtousetosearch->num_rows($resql);
 	$i = 0;
 	if ($num)
 	{
 		while ($i < $num)
 		{
-			$obj = $db2->fetch_object($resql);
+			$obj = $dbtousetosearch->fetch_object($resql);
 			if ($obj)
 			{
-				//print "status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status."\n";
+				$instance = $obj->instance;
+				$payment_status='PAID';
+				$found = true;
+				if ($v == 1)
+				{
+					$instance_status = $obj->status;
+					$instance_status_bis = $obj->instance_status;
+					$payment_status = $obj->payment_status;
+				}
+				else
+				{
+					dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
+
+					$instance_status_bis = '';
+					$result = $object->fetch($obj->id);
+					if ($result <= 0) $found=false;
+					else
+					{
+						if ($object->array_options['options_deployment_status'] == 'processing') { $instance_status = 'PROCESSING'; }
+						elseif ($object->array_options['options_deployment_status'] == 'undeployed') { $instance_status = 'CLOSED'; $instance_status_bis = 'UNDEPLOYED'; }
+						elseif ($object->array_options['options_deployment_status'] == 'done')       { $instance_status = 'DEPLOYED'; }
+						else { $instance_status = 'UNKNOWN'; }
+					}
+
+					$ispaid = sellyoursaasIsPaidInstance($object);
+					if (! $ispaid) $payment_status='TRIAL';
+					else
+					{
+						$ispaymentko = sellyoursaasIsPaymentKo($object);
+						if ($ispaymentko) $payment_status='FAILURE';
+					}
+				}
+				print "status=".$instance_status." instance_status=".$instance_status_bis." payment_status=".$payment_status."\n";
+
 				// Count
-				if (! in_array($obj->payment_status,array('TRIAL','TRIALING','TRIAL_EXPIRED')))
+				if (! in_array($payment_status,array('TRIAL','TRIALING','TRIAL_EXPIRED')))
 				{
 					$nbofalltime++;
-					if (! in_array($obj->status,array('CLOSED')) && ! in_array($obj->instance_status,array('UNDEPLOYED')))		// Nb of active
+					if (! in_array($instance_status,array('PROCESSING')) && ! in_array($instance_status,array('CLOSED')) && ! in_array($instance_status_bis,array('UNDEPLOYED')))		// Nb of active
 					{
 						$nbofactive++;
-						if (in_array($obj->status,array('SUSPENDED'))) $nbofactivesusp++;
-						else if (in_array($obj->status,array('CLOSE_QUEUED','CLOSURE_REQUESTED')) ) $nbofactiveclosurerequest++;
-						else if (in_array($obj->payment_status,array('FAILURE','PAST_DUE'))) $nbofactivepaymentko++;
+
+						if (in_array($instance_status,array('SUSPENDED'))) $nbofactivesusp++;
+						else if (in_array($instance_status,array('CLOSE_QUEUED','CLOSURE_REQUESTED')) ) $nbofactiveclosurerequest++;
+						else if (in_array($payment_status,array('FAILURE','PAST_DUE'))) $nbofactivepaymentko++;
 						else $nbofactiveok++; // not suspended, not close request
 
-						$instance=preg_replace('/\.on\.dolicloud\.com$/', '', $obj->instance);
-						$instances[]=$instance;
-						print "Found instance ".$obj->instance." with status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status." subscription_status(not used)=".$obj->subscription_status."\n";
+						$instances[$obj->id]=$instance;
+						print "Found instance ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$obj->subscription_status."\n";
 					}
+					else
+					{
+						//print "Found instance ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$obj->subscription_status."\n";
+					}
+				}
+				else
+				{
+					//print "Found instance ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$obj->subscription_status."\n";
 				}
 			}
 			$i++;
@@ -170,9 +259,9 @@ else
 {
 	$error++;
 	$nboferrors++;
-	dol_print_error($db2);
+	dol_print_error($dbtousetosearch);
 }
-print "Found ".count($instances)." actives instances.\n";
+print "Found ".count($instances)." not trial instances including ".$nbofactivesusp." suspended + ".$nbofactiveclosurerequest." active with closure request + ".$nbofactivepaymentko." active with payment ko\n";
 
 
 //print "----- Start loop for backup_instance\n";
@@ -218,13 +307,22 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 			{
 				$db->begin();
 
-				$result=$object->fetch('',$instance);
-
 				if ($action == 'backup')
 				{
-					$object->date_lastrsync=$now;	// date last files and database rsync backup
-					$object->backup_status='OK';
-					$object->update();
+					if ($v == 1)
+					{
+						$result=$object->fetch('',$instance);
+						$object->date_lastrsync=$now;	// date last files and database rsync backup
+						$object->backup_status='OK';
+						$object->update($user);
+					}
+					else
+					{
+						$result=$object->fetch('','',$instance);
+						$object->array_options['latestbackup_date']=$now;	// date last files and database rsync backup
+						$object->array_options['latestbackup_status']='OK';
+						$object->update($user);
+					}
 				}
 
 				$db->commit();
@@ -233,13 +331,22 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 			{
 				$db->begin();
 
-				$result=$object->fetch('',$instance);
-
 				if ($action == 'backup')
 				{
-					//$object->date_lastrsync=$now;	// date last files and database rsync backup
-					$object->backup_status='KO '.strftime("%Y%m%d-%H%M%S");
-					$object->update();
+					if ($v == 1)
+					{
+						$result=$object->fetch('',$instance);
+						//$object->date_lastrsync=$now;	// date last files and database rsync backup
+						$object->backup_status='KO '.strftime("%Y%m%d-%H%M%S");
+						$object->update($user);
+					}
+					else
+					{
+						$result=$object->fetch('','',$instance);
+						$object->array_options['options_latestbackup_date']=$now;	// date last files and database rsync backup
+						$object->array_options['options_latestbackup_status']='KO';
+						$object->update($user);
+					}
 				}
 
 				$db->commit();
@@ -266,10 +373,15 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 $today=dol_now();
 
 $error=''; $errors=array();
+$servicetouse='old';
+if ($v != 1) $servicetouse=strtolower($conf->global->SELLYOURSAAS_NAME);
 
 if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'updatecountsonly')
 {
 	print "----- Start updatedatabase\n";
+
+	dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
+	$sellyoursaasutils = new SellYourSaasUtils($db);
 
 	// Loop on each instance
 	if (! $error && $action != 'updatestatsonly')
@@ -283,20 +395,39 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 
 			$db->begin();
 
-			$result=$object->fetch('',$instance);
-			if ($result < 0) dol_print_error('',$object->error);
+			if ($v == 1)	// $object is DolicloudCustomer
+			{
+				$result=$object->fetch('',$instance);
+				if ($result < 0) dol_print_error('',$object->error);
 
-			$object->oldcopy=dol_clone($object, 1);
+				$object->oldcopy=dol_clone($object, 1);
 
-			// Files refresh (does not update lastcheck field)
-			//$ret=dolicloud_files_refresh($conf,$db,$object,$errors);
+				// Files refresh (does not update lastcheck field)
+				//$ret=dolicloud_files_refresh($conf,$db,$object,$errors);
 
-			// Database refresh (also update lastcheck field)
-			$ret=dolicloud_database_refresh($conf,$db,$object,$errors);		// Update database (or not if error)
+				// Database refresh (also update lastcheck field)
+				$ret=dolicloud_database_refresh($conf,$db,$object,$errors);		// Update database (or not if error)
+			}
+			else			// $object is Contrat
+			{
+				$result=$object->fetch('','',$instance);
+				if ($result < 0) dol_print_error('',$object->error);
+
+				$object->oldcopy=dol_clone($object, 1);
+
+				$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $object);
+				if ($result < 0)
+				{
+					$errors[] = 'Failed to do sellyoursaasRemoteAction(refresh) '.$sellyoursaasutils->error.(is_array($sellyoursaasutils->errors)?' '.join(',',$sellyoursaasutils->errors):'');
+				}
+			}
 
 			if (count($errors) == 0)
 			{
-				print "OK nbofusers=".$object->nbofusers."\n";
+				if ($v == 1)	// $object is DolicloudCustomer
+					print "OK nbofusers=".$object->nbofusers."\n";
+				else
+					print "OK";
 
 				$nbofok++;
 				$db->commit();
@@ -319,6 +450,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 		// Get list of existing stats
 		$sql ="SELECT name, x, y";
 		$sql.=" FROM ".MAIN_DB_PREFIX."dolicloud_stats";
+		$sql.=" WHERE service = '".$servicetouse."'";
 
 		dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
 		$resql=$db->query($sql);
@@ -350,6 +482,11 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 
 		$tmp=dol_getdate(dol_now('tzserver'));
 		$endyear=$tmp['year'];
+		if (empty($serverlocation))
+		{
+			print 'ERROR Value of variable $serverlocation is not defined.';
+			exit;
+		}
 
 		// Update all missing stats
 		for($year = 2012; $year <= $endyear; $year++)
@@ -370,43 +507,56 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 						// Calculate stats fro this key
 						print "Calculate and update stats for ".$statkey." x=".$x.' datelastday='.dol_print_date($datelastday, 'dayhour', 'gmt');
 
-						$rep=dolicloud_calculate_stats($db2,$datelastday);
+						$rep = null;
 
-						$total=$rep['total'];
-						$totalcommissions=$rep['totalcommissions'];
-						$totalinstancespaying=$rep['totalinstancespaying'];
-						$totalinstances=$rep['totalinstances'];
-						$totalusers=$rep['totalusers'];
-						$totalcustomerspaying=$rep['totalcustomerspaying'];
-						$totalcustomers=$rep['totalcustomers'];
-						$benefit=($total * (1 - $part) - $serverprice - $totalcommissions);
-
-						$y=0;
-						if ($statkey == 'total') $y=$total;
-						if ($statkey == 'totalcommissions') $y=$totalcommissions;
-						if ($statkey == 'totalinstancespaying') $y=$totalinstancespaying;
-						if ($statkey == 'totalinstances') $y=$totalinstances;
-						if ($statkey == 'totalusers') $y=$totalusers;
-						if ($statkey == 'benefit') $y=$benefit;
-						if ($statkey == 'totalcustomerspaying') $y=$totalcustomerspaying;
-						if ($statkey == 'totalcustomers') $y=$totalcustomers;
-
-						print " -> ".$y."\n";
-
-						if ($today <= $datelastday)	// Remove if current month
+						if ($v == 1)
 						{
-							$sql ="DELETE FROM ".MAIN_DB_PREFIX."dolicloud_stats";
-							$sql.=" WHERE name = '".$statkey."' AND x='".$x."'";
+							$rep=dolicloud_calculate_stats($db2,$datelastday);
+						}
+						else
+						{
+							$rep=sellyoursaas_calculate_stats($db,$datelastday);
+						}
+
+						if ($rep)
+						{
+							$total=$rep['total'];
+							$totalcommissions=$rep['totalcommissions'];
+							$totalinstancespaying=$rep['totalinstancespaying'];
+							$totalinstances=$rep['totalinstances'];
+							$totalusers=$rep['totalusers'];
+							$totalcustomerspaying=$rep['totalcustomerspaying'];
+							$totalcustomers=$rep['totalcustomers'];
+							$benefit=($total * (1 - $part) - $serverlocation - $totalcommissions);
+
+							$y=0;
+							if ($statkey == 'total') $y=$total;
+							if ($statkey == 'totalcommissions') $y=$totalcommissions;
+							if ($statkey == 'totalinstancespaying') $y=$totalinstancespaying;
+							if ($statkey == 'totalinstances') $y=$totalinstances;
+							if ($statkey == 'totalusers') $y=$totalusers;
+							if ($statkey == 'benefit') $y=$benefit;
+							if ($statkey == 'totalcustomerspaying') $y=$totalcustomerspaying;
+							if ($statkey == 'totalcustomers') $y=$totalcustomers;
+
+							print " -> ".$y."\n";
+
+							if ($today <= $datelastday)	// Remove if current month
+							{
+								$sql ="DELETE FROM ".MAIN_DB_PREFIX."dolicloud_stats";
+								$sql.=" WHERE name = '".$statkey."' AND x='".$x."'";
+								$sql.=" AND service = '".$servicetouse."'";
+								dol_syslog("sql=".$sql);
+								$resql=$db->query($sql);
+								if (! $resql) dol_print_error($db,'');
+							}
+
+							$sql ="INSERT INTO ".MAIN_DB_PREFIX."dolicloud_stats(service, name, x, y)";
+							$sql.=" VALUES('".$servicetouse."', '".$statkey."', '".$x."', ".$y.")";
 							dol_syslog("sql=".$sql);
 							$resql=$db->query($sql);
 							if (! $resql) dol_print_error($db,'');
 						}
-
-						$sql ="INSERT INTO ".MAIN_DB_PREFIX."dolicloud_stats(name, x, y)";
-						$sql.=" VALUES('".$statkey."', '".$x."', ".$y.")";
-						dol_syslog("sql=".$sql);
-						$resql=$db->query($sql);
-						if (! $resql) dol_print_error($db,'');
 					}
 				}
 			}

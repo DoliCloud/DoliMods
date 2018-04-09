@@ -60,7 +60,7 @@ function sellyoursaasIsPaidInstance($contract)
 
 	if (is_array($contract->linkedObjects['facture']))
 	{
-		foreach($contract->linkedObjects['facture'] as $idtemplateinvoice => $templateinvoice)
+		foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
 		{
 			$foundinvoice++;
 			break;
@@ -91,6 +91,41 @@ function sellyoursaasIsPaidInstance($contract)
 	}*/
 
 	return 0;
+}
+
+
+/**
+ * Return if instance has a last payment in error or not
+ *
+ * @param 	Contrat $contract		Object contract
+ * @return	int						>0 if this is a contract with current payment error
+ */
+function sellyoursaasIsPaymentKo($contract)
+{
+	global $db;
+
+	$contract->fetchObjectLinked();
+	$paymenterror=0;
+
+	if (is_array($contract->linkedObjects['facture']))
+	{
+		foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
+		{
+			if ($invoice->fk_statut == Facture::STATUS_CLOSED) continue;
+			// The invoice is not paid, we check if there is at least one payment issue
+			$sql=' SELECT id FROM '.MAIN_DB_PREFIX."actioncomm WHERE elementtype = 'invoice' AND fk_element = ".$invoice->id." AND code='INVOICE_PAYMENT_ERROR'";
+			$resql=$db->query($sql);
+			if ($resql)
+			{
+				$num=$db->num_rows($resql);
+				$db->free($resql);
+				return $num;
+			}
+			else dol_print_error($db);
+		}
+	}
+
+	return $paymenterror;
 }
 
 
