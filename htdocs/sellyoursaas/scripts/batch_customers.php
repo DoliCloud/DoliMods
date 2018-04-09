@@ -488,8 +488,11 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 			exit;
 		}
 
+		$YEARSTART = 2012;
+		if ($v != 1) $YEARSTART = 2018;
+
 		// Update all missing stats
-		for($year = 2012; $year <= $endyear; $year++)
+		for($year = $YEARSTART; $year <= $endyear; $year++)
 		{
 			for($m = 1; $m <= 12; $m++)
 			{

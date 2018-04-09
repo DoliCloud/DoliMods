@@ -1953,7 +1953,7 @@ if ($mode == 'instances')
 								if ($contract->array_options['options_deployment_status'] == 'processing')
 								{
 									print '<span class="opacitymedium">'.$langs->trans("DateStart").' : </span><span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_start'], 'dayhour').'</span>';
-									if (($now - $contract->array_options['options_deployment_date_start']) > 120)	// More then 2 minutes ago
+									if (($now - $contract->array_options['options_deployment_date_start']) > 120)	// More than 2 minutes ago
 									{
 										print ' - <a href="register_instance.php?reusecontractid='.$contract->id.'">'.$langs->trans("Restart").'</a>';
 									}
