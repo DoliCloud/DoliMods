@@ -67,7 +67,29 @@ $langs->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas","
 $mythirdpartyaccount = new Societe($db);
 
 $service=GETPOST('service','int');
+$firstrecord=GETPOST('firstrecord','int');
+$lastrecord=GETPOST('lastrecord','int');
+$search_instance_name=GETPOST('search_instance_name','alphanohtml');
+$search_customer_name=GETPOST('search_customer_name','alphanohtml');
 
+$MAXINSTANCEVIGNETTE = 4;
+
+// Load variable for pagination
+$limit = GETPOST('limit','int')?GETPOST('limit','int'):$MAXINSTANCEVIGNETTE;
+$sortfield = GETPOST('sortfield','alpha');
+$sortorder = GETPOST('sortorder','alpha');
+$page = GETPOST('page','int');
+if (empty($page) || $page == -1) { $page = 0; }     // If $page is not defined, or '' or -1
+$offset = $limit * $page;
+$pageprev = $page - 1;
+$pagenext = $page + 1;
+//if (! $sortfield) $sortfield="p.date_fin";
+//if (! $sortorder) $sortorder="DESC";
+
+$firstrecord = GETPOSTISSET('firstrecord')?GETPOST('firstrecord','int'):($page * $limit) + 1;
+$lastrecord = GETPOSTISSET('lastrecord')?GETPOST('lastrecord','int'):(($page+1)*$limit);
+if ($firstrecord < 1) $firstrecord=1;
+if (GETPOSTISSET('reset')) { $search_instance_name = ''; $search_customer_name = ''; }
 $fromsocid=GETPOST('fromsocid','int');
 
 // Id of connected thirdparty
@@ -128,15 +150,47 @@ if ($categorie->containsObject('supplier', $mythirdpartyaccount->id))
 	$mythirdpartyaccount->isareseller = 1;
 }
 
+$listofcontractidresellerall = array();
+$listofcontractidreseller = array();
+$listofcustomeridreseller = array();
+
 if ($mythirdpartyaccount->isareseller)
 {
-	$listofcontractidreseller = array();
-	$sql = 'SELECT c.rowid as rowid';
-	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c LEFT JOIN '.MAIN_DB_PREFIX.'contrat_extrafields as ce ON ce.fk_object = c.rowid, '.MAIN_DB_PREFIX.'contratdet as d, '.MAIN_DB_PREFIX.'societe as s';
+	$sql = 'SELECT DISTINCT c.rowid, c.fk_soc';
+	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c';
+	$sql.= ' LEFT JOIN '.MAIN_DB_PREFIX.'contrat_extrafields as ce ON ce.fk_object = c.rowid,';
+	$sql.= ' '.MAIN_DB_PREFIX.'contratdet as d, '.MAIN_DB_PREFIX.'societe as s';
 	$sql.= " WHERE c.fk_soc = s.rowid AND s.parent = ".$mythirdpartyaccount->id;
 	$sql.= " AND d.fk_contrat = c.rowid";
 	$sql.= " AND c.entity = ".$conf->entity;
 	$sql.= " AND ce.deployment_status IN ('processing', 'done', 'undeployed')";
+	if ($search_instance_name) $sql.=natural_search(array('c.ref_customer'), $search_instance_name);
+	if ($search_customer_name) $sql.=natural_search(array('s.nom','s.email'), $search_customer_name);
+	$resql=$db->query($sql);
+	$num_rows = $db->num_rows($resql);
+	$i=0;
+	while($i < $num_rows)
+	{
+		$nbtotalofrecords++;
+		$listofcontractidresellerall[$obj->rowid]=$obj->fk_soc;
+		$listofcustomeridreseller[$obj->fk_soc]=1;
+		$i++;
+	}
+
+	if (empty($lastrecord) || $lastrecord > $nbtotalofrecords) $lastrecord = $nbtotalofrecords;
+
+	if ($lastrecord > 0) $sql.= " LIMIT ".($firstrecord?$firstrecord:1).", ".(($lastrecord >= $firstrecord) ? ($lastrecord - $firstrecord + 1) : 5);
+
+	$sql = 'SELECT c.rowid as rowid, c.fk_soc';
+	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c';
+	$sql.= ' LEFT JOIN '.MAIN_DB_PREFIX.'contrat_extrafields as ce ON ce.fk_object = c.rowid,';
+	$sql.= ' '.MAIN_DB_PREFIX.'contratdet as d, '.MAIN_DB_PREFIX.'societe as s';
+	$sql.= " WHERE c.fk_soc = s.rowid AND s.parent = ".$mythirdpartyaccount->id;
+	$sql.= " AND d.fk_contrat = c.rowid";
+	$sql.= " AND c.entity = ".$conf->entity;
+	$sql.= " AND ce.deployment_status IN ('processing', 'done', 'undeployed')";
+	if ($search_instance_name) $sql.=" AND c.ref_customer REGEXP '^[^\.]*".$db->escape($search_instance_name)."'";
+	if ($search_customer_name) $sql.=natural_search(array('s.nom','s.email'), $search_customer_name);
 	$resql=$db->query($sql);
 	if ($resql)
 	{
@@ -147,16 +201,19 @@ if ($mythirdpartyaccount->isareseller)
 			$obj = $db->fetch_object($resql);
 			if ($obj)
 			{
-				$contract=new Contrat($db);
-				$contract->fetch($obj->rowid);					// This load also lines
-				$listofcontractidreseller[$obj->rowid]=$contract;
+				if (empty($listofcontractidreseller[$obj->rowid]))
+				{
+					$contract=new Contrat($db);
+					$contract->fetch($obj->rowid);					// This load also lines
+					$listofcontractidreseller[$obj->rowid]=$contract;
+				}
 			}
 			$i++;
 		}
 	}
+	else dol_print_error($db);
 }
-
-
+//var_dump(array_keys($listofcontractidreseller));
 
 /*
  * Action
@@ -1241,7 +1298,7 @@ if ($mythirdpartyaccount->isareseller)
 		';
 	print $langs->trans("YourURLToCreateNewInstance").' : ';
 	$urlforpartner = $conf->global->SELLYOURSAAS_ACCOUNT_URL.'/register.php?partner='.$mythirdpartyaccount->id.'&partnerkey='.md5($mythirdpartyaccount->name_alias);
-	print '<a href="'.$urlforpartner.'" target="_blankinstance">'.$urlforpartner.'</a><br>';
+	print '<a class="wordbreak" href="'.$urlforpartner.'" target="_blankinstance">'.$urlforpartner.'</a><br>';
 	$urformycustomerinstances = '<strong>'.$langs->transnoentitiesnoconv("MyCustomersBilling").'</strong>';
 	print $langs->trans("YourCommissionsAppearsInMenu", $urformycustomerinstances);
 	print '
@@ -1557,7 +1614,7 @@ if ($mode == 'dashboard')
 					<div class="row">
 					<div class="center col-md-12">
 						<br>
-						<a href="'.$_SERVER["PHP_SELF"].'?mode=instances" class="btn default btn-xs green-stripe">
+						<a class="wordbreak" href="'.$_SERVER["PHP_SELF"].'?mode=instances" class="btn default btn-xs green-stripe">
 		            	'.$langs->trans("SeeDetailsAndOptions").'
 		                </a>
 					</div></div>';
@@ -1604,7 +1661,7 @@ if ($mode == 'dashboard')
 					<div class="row">
 					<div class="center col-md-12">
 						<br>
-						<a href="'.$_SERVER["PHP_SELF"].'?mode=mycustomerinstances" class="btn default btn-xs green-stripe">
+						<a class="wordbreak" href="'.$_SERVER["PHP_SELF"].'?mode=mycustomerinstances" class="btn default btn-xs green-stripe">
 		            	'.$langs->trans("SeeDetailsAndOptionsOfMyCustomers").'
 		                </a>
 					</div></div>';
@@ -1656,7 +1713,7 @@ if ($mode == 'dashboard')
 				<div class="row">
 				<div class="center col-md-12">
 					<br>
-					<a href="'.$_SERVER["PHP_SELF"].'?mode=myaccount" class="btn default btn-xs green-stripe">
+					<a class="wordbreak" href="'.$_SERVER["PHP_SELF"].'?mode=myaccount" class="btn default btn-xs green-stripe">
 	            	'.$langs->trans("SeeOrEditProfile").'
 	                </a>
 				</div>
@@ -1733,7 +1790,7 @@ if ($mode == 'dashboard')
 				<div class="row">
 				<div class="center col-md-12">
 					<br>
-					<a href="'.$_SERVER["PHP_SELF"].'?mode=billing" class="btn default btn-xs green-stripe">
+					<a class="wordbreak" href="'.$_SERVER["PHP_SELF"].'?mode=billing" class="btn default btn-xs green-stripe">
 	            	'.$langs->trans("SeeDetailsOfPayments").'
 	                </a>
 				</div>
@@ -1785,7 +1842,7 @@ if ($mode == 'dashboard')
 				<div class="row">
 				<div class="center col-md-12">
 					<br>
-					<a href="'.$_SERVER["PHP_SELF"].'?mode=support" class="btn default btn-xs green-stripe">
+					<a class="wordbreak" href="'.$_SERVER["PHP_SELF"].'?mode=support" class="btn default btn-xs green-stripe">
 	            	'.$langs->trans("SeeDetailsOfTickets").'
 	                </a>
 				</div></div>
@@ -2493,11 +2550,6 @@ if ($mode == 'instances')
 
 if ($mode == 'mycustomerinstances')
 {
-	$limit = 2;
-	$page = GETPOST('page','int')?GETPOST('page','int'):0;
-	$firstrecord = GETPOSTISSET('firstrecord')?GETPOST('firstrecord','int'):($page * $limit) + 1;
-	$lastrecord = GETPOSTISSET('lastrecord')?GETPOST('lastrecord','int'):min(count($listofcontractidreseller), (($page+1)*$limit));
-
 	print '
 	<div class="page-content-wrapper">
 			<div class="page-content">
@@ -2516,31 +2568,41 @@ if ($mode == 'mycustomerinstances')
 	<!-- END PAGE HEADER-->';
 
 
+	//print $langs->trans("Filters").' : ';
+	print '<div class="row"><div class="col-md-12"><div class="portlet light">';
+	print '<form name="refresh" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+	print $langs->trans("InstanceName").' : <input type="text" name="search_instance_name" value="'.$search_instance_name.'"><br>';
+	//$savsocid = $user->socid;	// Save socid of user
+	//$user->socid = 0;
+	print $langs->trans("Customer").'/'.$langs->trans("Email").' : <input type="text" name="search_customer_name" value="'.$search_customer_name.'"><br>';
+	//.$form->select_company(GETPOST('search_customer_name', 'search_customer_name'), 'search_customer_name', 'parent = '.$mythirdpartyaccount->id, '1', 0, 1, array(), 0, 'inline-block').'</div><br>';
+	//$user->socid = $savsocid;	// Restore socid of user
+
+	print '<input type="hidden" name="mode" value="'.$mode.'">';
+	print '<div style="padding-top: 10px; padding-bottom: 10px">';
+	print '<input type="submit" name="submit" value="'.$langs->trans("Refresh").'">';
+	print ' &nbsp; ';
+	print '<input type="submit" name="reset" value="'.$langs->trans("Reset").'"><br>';
+	print '</div>';
+
+	if (count($listofcontractidreseller) > 0)
+	{
+		print $langs->trans("FirstRecord").' <input type="text" name="firstrecord" class="maxwidth50 right" value="'.$firstrecord.'"> - '.$langs->trans("LastRecord");
+		print ' <input type="text" name="lastrecord" class="maxwidth50" value="'.$lastrecord.'"> / ';
+		print '<span style="font-size: 14px;">'. count($listofcontractidreseller) .'</span><br>';
+	}
+
+	print '</form>';
+	print '</div></div></div>';
+
+	print '<br>';
+
 	if (count($listofcontractidreseller) == 0)				// Should not happen
 	{
-		print '<span class="opacitymedium">'.$langs->trans("None").'</span>';
+		print '<span class="opacitymedium">'.$langs->trans("NoneF").'</span>';
 	}
 	else
 	{
-		//print $langs->trans("Filters").' : ';
-		print '<div class="row"><div class="col-md-12"><div class="portlet light">';
-		print '<form name="refresh" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
-		print $langs->trans("FirstRecord").' <input type="text" name="firstrecord" class="maxwidth50 right" value="'.$firstrecord.'"> - '.$langs->trans("LastRecord").' <input type="text" name="lastrecord" class="maxwidth50" value="'.$lastrecord.'"> / <span style="font-size: 14px;">'. count($listofcontractidreseller) .'</span><br>';
-		print $langs->trans("InstanceName").' : <input type="text" name="search_instance_name" value="'.GETPOST('search_instance_name','alpha').'"><br>';
-
-		//$savsocid = $user->socid;	// Save socid of user
-		//$user->socid = 0;
-		print $langs->trans("Customer").'/'.$langs->trans("Email").' : <input type="text" name="search_customer_name" value="'.GETPOST('search_customer_name','alpha').'"><br>';
-		//.$form->select_company(GETPOST('search_customer_name', 'search_customer_name'), 'search_customer_name', 'parent = '.$mythirdpartyaccount->id, '1', 0, 1, array(), 0, 'inline-block').'</div><br>';
-		//$user->socid = $savsocid;	// Restore socid of user
-
-		print '<input type="hidden" name="mode" value="'.$mode.'">';
-		print '<input type="submit" name="submit" value="'.$langs->trans("Refresh").'">';
-		print '</form>';
-		print '</div></div></div>';
-
-		print '<br>';
-
 		dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
 		$sellyoursaasutils = new SellYourSaasUtils($db);
 
@@ -3235,7 +3297,7 @@ if ($mode == 'billing')
 			<div class="page-content">
 
 
-	     <!-- BEGIN PAGE HEADER-->
+    <!-- BEGIN PAGE HEADER-->
 	<!-- BEGIN PAGE HEAD -->
 	<div class="page-head">
 	  <!-- BEGIN PAGE TITLE -->
@@ -3243,8 +3305,6 @@ if ($mode == 'billing')
 	  <h1>'.$langs->trans("Billing").' <small>'.$langs->trans("BillingDesc").'</small></h1>
 	</div>
 	<!-- END PAGE TITLE -->
-
-
 	</div>
 	<!-- END PAGE HEAD -->
 	<!-- END PAGE HEADER-->
@@ -3631,11 +3691,180 @@ if ($mode == 'registerpaymentmode')
 
 
 
+
+if ($mode == 'mycustomerbilling')
+{
+	print '
+	<div class="page-content-wrapper">
+			<div class="page-content">
+
+
+
+	     <!-- BEGIN PAGE HEADER-->
+	<!-- BEGIN PAGE HEAD -->
+	<div class="page-head">
+	  <!-- BEGIN PAGE TITLE -->
+	<div class="page-title">
+	  <h1>'.$langs->trans("MyCustomersBilling").'</h1>
+	</div>
+	<!-- END PAGE TITLE -->
+	</div>
+	<!-- END PAGE HEAD -->
+	<!-- END PAGE HEADER-->
+
+
+
+	    <div class="row">
+	      <div class="col-md-12">
+
+			<div class="portlet light">
+	          <div class="portlet-title">
+	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("MyCommissionsReceived").'</div>
+	          </div>
+							'.$langs->trans("SoonAvailable").'
+	        </div>
+		  </div>
+	    </div> <!-- END ROW -->
+
+
+	    <div class="row">
+	      <div class="col-md-12">
+
+	        <div class="portlet light">
+	          <div class="portlet-title">
+	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("MyCommissionsEarned").'</div>
+
+
+';
+
+	print '
+				<div class="row" style="border-bottom: 1px solid #ddd;">
+	              <div class="col-md-3">
+			         '.$langs->trans("Customer").'
+	              </div><!-- END COL -->
+	              <div class="col-md-2">
+	                '.$langs->trans("Date").'
+	              </div>
+	              <div class="col-md-2 right">
+	                '.$langs->trans("Amount").'
+	              </div>
+	              <div class="col-md-1 center">
+	                '.$langs->trans("Status").'
+	              </div>
+	              <div class="col-md-2 right">
+	                '.$langs->trans("Commission").' (%)
+	              </div>
+	              <div class="col-md-2 right">
+	                '.$langs->trans("Commission").' ('.$langs->trans("Amount").')
+	              </div>
+			</div>
+		';
+
+
+		$sql ='SELECT f.rowid, f.fk_soc, f.datef, total as total_ht, total_ttc, f.paye, f.fk_statut FROM '.MAIN_DB_PREFIX.'facture as f';
+		$sql.=' WHERE f.fk_soc IN ('.join(',', $listofcustomeridreseller).')';
+
+		$sql.=$db->order($sortfield,$sortorder);
+
+		// Count total nb of records
+		$nbtotalofrecords = '';
+		$resql = $db->query($sql);
+		$nbtotalofrecords = $db->num_rows($resql);
+
+		// if total resultset is smaller then paging size (filtering), goto and load page 0
+		if (($page * $limit) > $nbtotalofrecords)
+		{
+			$page = 0;
+			$offset = 0;
+		}
+		// if total resultset is smaller the limit, no need to do paging.
+		if (is_numeric($nbtotalofrecords) && $limit > $nbtotalofrecords)
+		{
+			$resql = $result;
+			$num = $nbtotalofrecords;
+		}
+		else
+		{
+			$sql.= $db->plimit($limit+1, $offset);
+
+			$resql=$db->query($sql);
+			if (! $resql)
+			{
+				dol_print_error($db);
+				exit;
+			}
+
+			$num = $db->num_rows($resql);
+
+			$tmpthirdparty = new Societe($db);
+
+			// Loop on record
+			// --------------------------------------------------------------------
+			$i=0;
+			$totalarray=array();
+			while ($i < min($num, $limit))
+			{
+				$obj = $db->fetch_object($resql);
+				if (empty($obj)) break;		// Should not happen
+
+				$tmpthirdparty->fetch($obj->fk_soc);
+
+				$commissionpercent = $tmpthirdparty->array_options['options_commission'];
+				$commission = price2num($obj->total_ttc * $commissionpercent, 'MT');
+
+				print '
+				<div class="row">
+	              <div class="col-md-3">
+			         '.$tmpthirdparty->nom.'
+	              </div><!-- END COL -->
+	              <div class="col-md-2">
+	                '.dol_print_date($obj->datef, 'dayrfc', $langs).'
+	              </div>
+	              <div class="col-md-2 right">
+	                '.price($obj->total_ttc).'
+	              </div>
+	              <div class="col-md-1 center">
+	                '.Facture::LibStatut($obj->paye, $obj->fk_statut).'
+	              </div>
+	              <div class="col-md-2 right">
+	                '.($commissionpercent?$commissionpercent:0).'
+	              </div>
+	              <div class="col-md-2 right">
+	                '.price($commission).'
+	              </div>
+			</div>
+		';
+
+
+
+
+				$i++;
+			}
+		}
+
+
+	print '
+</div></div>
+            </div>
+          </div>
+		';
+
+	print '
+
+
+
+	    </div>
+		</div>
+	';
+}
+
+
+
 if ($mode == 'support')
 {
 	// Print warning to read FAQ before
 	print '
-		<div class="alert alert-success note note-info">
+		<div class="alert alert-success note note-success">
 		<h4 class="block">'.$langs->trans("PleaseReadFAQFirst", $urlfaq).'</h4>
 	<br>
 	'.$langs->trans("CurrentServiceStatus" ,$urlstatus).'<br>

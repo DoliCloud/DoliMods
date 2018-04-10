@@ -58,6 +58,10 @@ input.form-control::-moz-placeholder { /* Firefox 19+ */
 	color: #055;
 }
 
+.wordbreak {
+    word-break: break-word;
+}
+
 .center {
 	text-align: center;
 }
@@ -69,7 +73,7 @@ input.form-control::-moz-placeholder { /* Firefox 19+ */
 .portlet {
     border: 1px solid #aaa;
     padding: 20px;
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 }
 .portletnoborder {
 	margin-bottom: 20px;

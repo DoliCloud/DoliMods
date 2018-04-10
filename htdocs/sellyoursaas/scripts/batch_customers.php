@@ -558,7 +558,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 							$sql.=" VALUES('".$servicetouse."', '".$statkey."', '".$x."', ".$y.")";
 							dol_syslog("sql=".$sql);
 							$resql=$db->query($sql);
-							if (! $resql) dol_print_error($db,'');
+							//if (! $resql) dol_print_error($db,'');		// Ignore error, we may have duplicate record here if record already exists and not deleted
 						}
 					}
 				}
