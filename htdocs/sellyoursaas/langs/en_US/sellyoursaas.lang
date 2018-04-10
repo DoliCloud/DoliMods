@@ -287,3 +287,7 @@ FirstRecord=First record
 LastRecord=Last record
 InstanceName=Instance name
 PartnerCommission=Reseller commission (%%)
+PasswordAssistance=Password assistance
+AlertCreditCardExpiration=Alert Credit Card Expiration
+AlertPaypalApprovalExpiration=Alerte Paypal PreApproval Expiration
+ChannelPartnerCreated=Channel partner created

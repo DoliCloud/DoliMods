@@ -136,7 +136,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         				include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
         				$formmail=new FormMail($db);
 
-        				$arraydefaultmessage=$formmail->getEMailTemplate($db, 'thirdparty', $user, $langs, 0, 1, 'ChannelPartnerCreated');
+        				$arraydefaultmessage=$formmail->getEMailTemplate($db, 'thirdparty', $user, $langs, 0, 1, '(ChannelPartnerCreated)');
 
         				$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $contract);
         				complete_substitutions_array($substitutionarray, $langs, $contract);

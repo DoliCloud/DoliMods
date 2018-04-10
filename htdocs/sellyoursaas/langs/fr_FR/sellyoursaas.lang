@@ -264,3 +264,7 @@ FirstRecord=Premier enregistrement
 LastRecord=Dernier enregistrement
 InstanceName=Nom de l'instance
 PartnerCommission=Commission revendeur (%%)
+PasswordAssistance=Assistance mot de passe
+AlertCreditCardExpiration=Alerte Carte de crédit expiré
+AlertPaypalApprovalExpiration=Alerte expiration Préapproval Paypal
+ChannelPartnerCreated=Compte Revendeur Créé

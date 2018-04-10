@@ -330,7 +330,7 @@ class SellYourSaasUtils
     				$langstouse = new Translate('', $conf);
     				$langstouse->setDefaultLang($thirdparty->default_lang ? $thirdparty->default_lang : $langs->defaultlang);
 
-    				$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'thirdparty', $user, $langstouse, -2, 1, 'AlertCreditCardExpiration');		// Templates are init into data.sql
+    				$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'thirdparty', $user, $langstouse, -2, 1, '(AlertCreditCardExpiration)');		// Templates are init into data.sql
 
     				if (is_object($arraydefaultmessage) && ! empty($arraydefaultmessage->topic))
     				{
@@ -358,8 +358,8 @@ class SellYourSaasUtils
     				else
     				{
     					$error++;
-    					$this->error = 'Failed to get email a valid template AlertCreditCardExpiration';
-    					$this->errors[] = 'Failed to get email a valid template AlertCreditCardExpiration';
+    					$this->error = 'Failed to get email a valid template (AlertCreditCardExpiration)';
+    					$this->errors[] = 'Failed to get email a valid template (AlertCreditCardExpiration)';
     				}
     			}
 

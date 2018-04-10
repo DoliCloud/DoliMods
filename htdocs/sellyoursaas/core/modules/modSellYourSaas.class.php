@@ -72,7 +72,7 @@ class modSellYourSaas extends DolibarrModules
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		$this->module_parts = array('triggers' => 1,
-									'substitutions' => 0,
+									'substitutions' => 1,
 									'menus' => 0,
 									'models' => 1,
 									'login' => 1,
