@@ -224,11 +224,9 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	$param[]="--stats";
 	$param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o PasswordAuthentication=no'";
 
-
-
 	//var_dump($param);
 	//print "- Backup documents dir ".$dirroot."/".$instance."\n";
-	$param[]=$login.'@'.$server.":".$sourcedir;
+	$param[]=(in_array($server, array('127.0.0.1','localhost')) ? '' : $login.'@'.$server.":") . $sourcedir;
 	$param[]=$dirroot.'/'.$login;
 	$fullcommand=$command." ".join(" ",$param);
 	$output=array();
