@@ -88,6 +88,7 @@ ThirdPartyFound=Third party found
 AddContractInstance=Add contract/instance
 ErrorBadValueForInstance=Bad value for instance name <b>%s</b>
 SellYourSaasMainDomain=Main domain name
+SellYourSaasSubDomains=List of Sub-domain of instances
 SellYourSaasAccountUrl=Url of customers account
 SellYourSaasMainEmail=Main email
 SellYourSaasSupervisionEmail=Supervision email (for issue alerts)

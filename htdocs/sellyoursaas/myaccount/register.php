@@ -330,7 +330,13 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
                 <span class="opacitymedium">https://</span>
                 <input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="<?php echo $sldAndSubdomain; ?>" maxlength="29" />
                 <select name="tldid" id="tldid" >
-                    <option value=".with.<?php echo $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME; ?>">.with.<?php echo $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME; ?></option>
+                	<?php
+                	$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+                	foreach($listofdomain as $val)
+                	{
+                		print '<option value="'.$val.'">'.$val.'</option>';
+                	}
+                    ?>
                 </select>
                 <br class="unfloat" />
               </div>
