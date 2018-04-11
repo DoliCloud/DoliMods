@@ -39,7 +39,8 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
 dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
-include_once dol_buildpath("/sellyoursaas/backoffice/lib/refresh.lib.php");		// do not use dol_buildpath to keep global of var into refresh.lib.php working
+dol_include_once('/sellyoursaas/lib/refresh.lib.php');
+dol_include_once("/sellyoursaas/backoffice/lib/refresh.lib.php");		// do not use dol_buildpath to keep global of var into refresh.lib.php working
 
 
 
@@ -155,7 +156,7 @@ $totalinstances=0;
 $totalinstancespaying=0;
 $totalcommissions=0;
 
-$rep=dolicloud_calculate_stats($db2,'');	// $datelastday is last day of current month
+$rep=sellyoursaas_calculate_stats($db,'');	// $datelastday is last day of current month
 
 $total=$rep['total'];
 $totalcommissions=$rep['totalcommissions'];
@@ -222,7 +223,7 @@ print '</div></div></div>';
 // array(array(0=>'labelxA',1=>yA1,...,n=>yAn), array('labelxB',yB1,...yBn))
 $data1 = array();
 $sql ='SELECT name, x, y FROM '.MAIN_DB_PREFIX.'dolicloud_stats';
-$sql.=" WHERE name IN ('total', 'totalcommissions')";
+$sql.=" WHERE service = '".strtolower($conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)."' AND name IN ('total', 'totalcommissions')";
 $sql.=" ORDER BY x, name";
 $resql=$db->query($sql);
 if ($resql)
@@ -271,7 +272,7 @@ else dol_print_error($db);
 
 $data2 = array();
 $sql ='SELECT name, x, y FROM '.MAIN_DB_PREFIX.'dolicloud_stats';
-$sql.=" WHERE name IN ('totalinstancespaying', 'totalusers')";
+$sql.=" WHERE service = '".strtolower($conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)."' AND name IN ('totalinstancespaying', 'totalusers')";
 $sql.=" ORDER BY x, name";
 $resql=$db->query($sql);
 if ($resql)
