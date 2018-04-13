@@ -206,6 +206,16 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         		}
         		break;
 
+        	case 'BILL_VALIDATE':
+        		$reseller = new Societe($this->db);
+        		$reseller->fetch($object->thirdparty->parent);
+        		if ($reseller->id > 0)
+        		{
+	        		$object->array_options['options_commission']=$reseller->array_options['options_commission'];
+	        		$object->array_options['options_reseller']=$reseller->id;
+	        		$object->insertExtraFields('', $user);
+        		}
+				break;
         	case 'BILL_CANCEL':
         	case 'BILL_PAID':
         		// Loop on contract of invoice

@@ -3761,8 +3761,10 @@ if ($mode == 'mycustomerbilling')
 		';
 
 
-		$sql ='SELECT f.rowid, f.fk_soc, f.datef, total as total_ht, total_ttc, f.paye, f.fk_statut FROM '.MAIN_DB_PREFIX.'facture as f';
-		$sql.=' WHERE f.fk_soc IN ('.join(',', $listofcustomeridreseller).')';
+		$sql ='SELECT f.rowid, f.fk_soc, f.datef, total as total_ht, total_ttc, f.paye, f.fk_statut, fe.commission';
+		$sql.= ' FROM '.MAIN_DB_PREFIX.'facture as f LEFT JOIN '.MAIN_DB_PREFIX.'facture_extrafields as fe ON fe.fk_object = f.rowid';
+		//$sql.=' WHERE fe.reseller IN ('.join(',', $listofcustomeridreseller).')';
+		$sql.=' WHERE fe.reseller = '.$mythirdpartyaccount->id;
 
 		$sql.=$db->order($sortfield,$sortorder);
 
@@ -3795,51 +3797,52 @@ if ($mode == 'mycustomerbilling')
 			}
 
 			$num = $db->num_rows($resql);
+		}
 
-			$tmpthirdparty = new Societe($db);
+		$tmpthirdparty = new Societe($db);
 
-			// Loop on record
-			// --------------------------------------------------------------------
-			$i=0;
-			$totalarray=array();
-			while ($i < min($num, $limit))
-			{
-				$obj = $db->fetch_object($resql);
-				if (empty($obj)) break;		// Should not happen
+		// Loop on record
+		// --------------------------------------------------------------------
+		$i=0;
+		$totalarray=array();
+		while ($i < min($num, $limit))
+		{
+			$obj = $db->fetch_object($resql);
+			if (empty($obj)) break;		// Should not happen
 
-				$tmpthirdparty->fetch($obj->fk_soc);
+			$tmpthirdparty->fetch($obj->fk_soc);
 
-				$commissionpercent = $tmpthirdparty->array_options['options_commission'];
-				$commission = price2num($obj->total_ttc * $commissionpercent, 'MT');
+			$currentcommissionpercent = $tmpthirdparty->array_options['options_commission'];
+			$commissionpercent = $obj->commission;
+			$commission = price2num($obj->total_ttc * $commissionpercent / 100, 'MT');
 
-				print '
-				<div class="row">
-	              <div class="col-md-3">
-			         '.$tmpthirdparty->nom.'
-	              </div><!-- END COL -->
-	              <div class="col-md-2">
-	                '.dol_print_date($obj->datef, 'dayrfc', $langs).'
-	              </div>
-	              <div class="col-md-2 right">
-	                '.price($obj->total_ttc).'
-	              </div>
-	              <div class="col-md-1 center">
-	                '.Facture::LibStatut($obj->paye, $obj->fk_statut).'
-	              </div>
-	              <div class="col-md-2 right">
-	                '.($commissionpercent?$commissionpercent:0).'
-	              </div>
-	              <div class="col-md-2 right">
-	                '.price($commission).'
-	              </div>
-			</div>
-		';
+			print '
+			<div class="row">
+              <div class="col-md-3">
+		         '.$tmpthirdparty->name.' '.$form->textwithpicto('', $langs->trans("CurrentCommission").': '.($commissionpercent?$commissionpercent:0).'%', 1).'
+              </div><!-- END COL -->
+              <div class="col-md-2">
+                '.dol_print_date($obj->datef, 'dayrfc', $langs).'
+              </div>
+              <div class="col-md-2 right">
+                '.price($obj->total_ttc).'
+              </div>
+              <div class="col-md-1 center">
+                '.Facture::LibStatut($obj->paye, $obj->fk_statut).'
+              </div>
+              <div class="col-md-2 right">
+                '.($commissionpercent?$commissionpercent:0).'
+              </div>
+              <div class="col-md-2 right">
+                '.price($commission).'
+              </div>
+		</div>
+	';
 
 
 
 
-				$i++;
-			}
+			$i++;
 		}
 
 
