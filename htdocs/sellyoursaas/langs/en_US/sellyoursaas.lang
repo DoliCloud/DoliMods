@@ -295,3 +295,5 @@ ChannelPartnerCreated=Channel partner created
 MyCommissionsReceived=My commissions received
 MyCommissionsEarned=My commissions earned
 CurrentCommission=Current commission rate
+PaypalPaymentModeNotYetAvailable=Paypal payment mode should be available in few month...
+PaypalPaymentModeAvailableForYealySubscriptionOnly=Dues to PayPal restrictions, payment using Paypal is available on a yearly basis only.<br>If you continue the process, you will be requested to make a yearly payment for your current number of users and options for each of your instance. If you add new users or subscribe to more options during the year, you may receive a complementary invoice with a link to make another dedicated Paypal payment.    

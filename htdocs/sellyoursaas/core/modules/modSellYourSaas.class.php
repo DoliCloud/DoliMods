@@ -140,18 +140,8 @@ class modSellYourSaas extends DolibarrModules
 
 
 		// Dictionaries
-        /*$this->dictionaries=array(
-		'langs'=>'sellyoursaas@sellyoursaaschno',
-		'tabname'=>array(MAIN_DB_PREFIX."c_dolicloud_plans"),
-		'tablib'=>array("DoliCloud plans"),
-		'tabsql'=>array('SELECT f.rowid as rowid, f.code, f.label, f.price_instance, f.price_user, f.price_gb, f.active FROM '.MAIN_DB_PREFIX.'c_dolicloud_plans as f'),
-		'tabsqlsort'=>array("label ASC"),
-		'tabfield'=>array("code,label,price_instance,price_user,price_gb"), // Nom des champs en resultat de select pour affichage du dictionnaire
-		'tabfieldvalue'=>array("code,label,price_instance,price_user,price_gb"),  // Nom des champs d'edition pour modification d'un enregistrement
-		'tabfieldinsert'=>array("code,label,price_instance,price_user,price_gb"),
-		'tabrowid'=>array("rowid"),
-		'tabcond'=>array($conf->sellyoursaas->enabled)
-		);*/
+        $this->dictionaries=array();
+
 
 		// Boxes
 		$this->boxes = array();			// List of boxes

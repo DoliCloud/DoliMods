@@ -3624,8 +3624,8 @@ if ($mode == 'registerpaymentmode')
 		<img src="/img/visa.png" width="50" height="31">
 		<img src="/img/american_express.png" width="50" height="31">
 		</label>
-		<label class="radio-inline" id="linkpaypal">
-		&nbsp; <div class="radio inline-block"><span><input type="radio" name="type" value="payPal"></span></div>
+		<label class="radio-inline" id="linkpaypal" style="margin-left: 20px;">
+		<div class="radio inline-block"><span><input type="radio" name="type" value="payPal"></span></div>
 		<img src="/img/paypal.png" width="50" height="31">
 		</label>
 		</div>
@@ -3655,7 +3655,10 @@ if ($mode == 'registerpaymentmode')
 		</div>
 		<div class="linkpaypal" style="display: none;">';
 			print '<br>';
-			print '<input type="submit" name="submitpaypal" value="'.$langs->trans("Continue").'" class="btn btn-info btn-circle">';
+			//print $langs->trans("PaypalPaymentModeAvailableForYealySubscriptionOnly");
+			print $langs->trans("PaypalPaymentModeNotYetAvailable");
+			print '<br><br>';
+			//print '<input type="submit" name="submitpaypal" value="'.$langs->trans("Continue").'" class="btn btn-info btn-circle">';
 			print ' ';
 			print '<input type="submit" name="cancel" value="'.$langs->trans("Cancel").'" class="btn green-haze btn-circle">';
 
@@ -3739,11 +3742,14 @@ if ($mode == 'mycustomerbilling')
 
 	print '
 				<div class="row" style="border-bottom: 1px solid #ddd;">
-	              <div class="col-md-3">
+	              <div class="col-md-2">
 			         '.$langs->trans("Customer").'
 	              </div><!-- END COL -->
-	              <div class="col-md-2">
+	              <div class="col-md-1">
 	                '.$langs->trans("Date").'
+	              </div>
+	              <div class="col-md-2 center">
+	                '.$langs->trans("Invoice").'
 	              </div>
 	              <div class="col-md-2 right">
 	                '.$langs->trans("Amount").'
@@ -3761,7 +3767,7 @@ if ($mode == 'mycustomerbilling')
 		';
 
 
-		$sql ='SELECT f.rowid, f.fk_soc, f.datef, total as total_ht, total_ttc, f.paye, f.fk_statut, fe.commission';
+		$sql ='SELECT f.rowid, f.facnumber as ref, f.fk_soc, f.datef, total as total_ht, total_ttc, f.paye, f.fk_statut, fe.commission';
 		$sql.= ' FROM '.MAIN_DB_PREFIX.'facture as f LEFT JOIN '.MAIN_DB_PREFIX.'facture_extrafields as fe ON fe.fk_object = f.rowid';
 		//$sql.=' WHERE fe.reseller IN ('.join(',', $listofcustomeridreseller).')';
 		$sql.=' WHERE fe.reseller = '.$mythirdpartyaccount->id;
@@ -3804,7 +3810,7 @@ if ($mode == 'mycustomerbilling')
 		// Loop on record
 		// --------------------------------------------------------------------
 		$i=0;
-		$totalarray=array();
+		$totalamountcommission = 0;
 		while ($i < min($num, $limit))
 		{
 			$obj = $db->fetch_object($resql);
@@ -3814,15 +3820,20 @@ if ($mode == 'mycustomerbilling')
 
 			$currentcommissionpercent = $tmpthirdparty->array_options['options_commission'];
 			$commissionpercent = $obj->commission;
-			$commission = price2num($obj->total_ttc * $commissionpercent / 100, 'MT');
+			if ($obj->paye) $commission = price2num($obj->total_ttc * $commissionpercent / 100, 'MT');
+			else $commission = 0;
+			$totalamountcommission += $commissions;
 
 			print '
 			<div class="row">
-              <div class="col-md-3">
+              <div class="col-md-2">
 		         '.$tmpthirdparty->name.' '.$form->textwithpicto('', $langs->trans("CurrentCommission").': '.($commissionpercent?$commissionpercent:0).'%', 1).'
               </div><!-- END COL -->
-              <div class="col-md-2">
+              <div class="col-md-1">
                 '.dol_print_date($obj->datef, 'dayrfc', $langs).'
+              </div>
+              <div class="col-md-2 center">
+                '.$obj->ref.'
               </div>
               <div class="col-md-2 right">
                 '.price($obj->total_ttc).'
@@ -3836,15 +3847,18 @@ if ($mode == 'mycustomerbilling')
               <div class="col-md-2 right">
                 '.price($commission).'
               </div>
-		</div>
-	';
-
-
-
+		    </div>
+	        ';
 
 			$i++;
 		}
 
+		print '<div class="row liste_title"><div class="col-md-12">&nbsp;</div>';
+		print '</div>';
+
+		print '<div class="row liste_title"><div class="col-md-6">'.$langs->trans("Total").'</div>';
+		print '<div class="col-md-6 right">'.price($totalamountcommission).'</div>';
+		print '</div>';
 
 	print '
 </div></div>
