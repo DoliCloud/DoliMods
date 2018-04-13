@@ -539,7 +539,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 				if (! empty($contract->linkedObjectsIds['facturerec']))
 				{
 					$templateinvoice = reset($contract->linkedObjectsIds['facturerec']);
-					if (is_object($templateinvoice))	// There is already a template invoice, so we discard this contract to avoid to create template twice
+					if ($templateinvoice > 0)	// There is already a template invoice, so we discard this contract to avoid to create template twice
 					{
 						continue;
 					}
@@ -552,6 +552,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 				if ($dateinvoice < $now) $dateinvoice = $now;
 
 				$invoice_draft = new Facture($db);
+				$tmpproduct = new Product($db);
 
 				// Create empty invoice
 				if (! $error)
@@ -661,7 +662,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 							$lineid = $result;
 						} else {
 							$lineid = 0;
-							$error ++;
+							$error++;
 							break;
 						}
 
@@ -671,7 +672,8 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 						}
 
 						$tmpproduct->fetch($lines[$i]->fk_product);
-						dol_syslog("Get frequency for product id=".$tmpproduct->id);
+
+						dol_syslog("Read frequency for product id=".$tmpproduct->id);
 						if ($tmpproduct->array_options['options_app_or_option'] == 'app')
 						{
 							$frequency = $tmpproduct->duration_value;
