@@ -237,6 +237,18 @@ if (!empty($this->tpl['extrafields']->attribute_label)) {
 </tr>
 <?php } ?>
 
+<?php if (! empty($conf->global->MULTICOMPANY_HOLIDAY_SHARING_ENABLED)) { ?>
+<tr class="liste_titre">
+	<td colspan="2"><?php echo $langs->trans("HolidaySharing"); ?></td>
+</tr>
+
+<?php $var=!$var; ?>
+<tr <?php echo $bc[$var]; ?>>
+	<td class="tdtop"><?php echo $langs->trans("HolidaySharingDescription"); ?></td>
+	<td><?php echo $this->tpl['multiselect_shared_holiday']; ?></td>
+</tr>
+<?php } ?>
+
 </table>
 </div>
 

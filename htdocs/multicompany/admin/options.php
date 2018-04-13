@@ -146,7 +146,8 @@ if (! empty($conf->societe->enabled) || ! empty($conf->product->enabled) || ! em
 					'#sharethirdparty',
 					'#sharecategory',
 			        '#sharebank',
-			        '#shareexpensereport'
+			        '#shareexpensereport',
+					'#shareholiday'
 			),
 			'hide' => array(
 					'#shareinvoice',
@@ -158,7 +159,8 @@ if (! empty($conf->societe->enabled) || ! empty($conf->product->enabled) || ! em
 					'#shareagenda',
 					'#sharecategory',
 			        '#sharebank',
-			        '#shareexpensereport'
+			        '#shareexpensereport',
+					'#shareholiday'
 			),
 			'del' => array(
 					'MULTICOMPANY_INVOICE_SHARING_ENABLED',
@@ -170,7 +172,8 @@ if (! empty($conf->societe->enabled) || ! empty($conf->product->enabled) || ! em
 					'MULTICOMPANY_AGENDA_SHARING_ENABLED',
 					'MULTICOMPANY_CATEGORY_SHARING_ENABLED',
 					'MULTICOMPANY_BANK_ACCOUNT_SHARING_ENABLED',
-			        'MULTICOMPANY_EXPENSEREPORT_SHARING_ENABLED'
+					'MULTICOMPANY_EXPENSEREPORT_SHARING_ENABLED',
+					'MULTICOMPANY_HOLIDAY_SHARING_ENABLED'
 			)
 	);
 	print ajax_constantonoff('MULTICOMPANY_SHARINGS_ENABLED', $input, 0);
@@ -319,7 +322,7 @@ if (! empty($conf->banque->enabled))
 	print '</td></tr>';
 }
 
-// Share bank
+// Share expense
 if (! empty($conf->expensereport->enabled))
 {
     $var=!$var;
@@ -332,6 +335,18 @@ if (! empty($conf->expensereport->enabled))
     print '</td></tr>';
 }
 
+// Share holiday
+if (! empty($conf->holiday->enabled))
+{
+	$var=!$var;
+	print '<tr id="sharebank" '.$bc[$var].(empty($conf->global->MULTICOMPANY_SHARINGS_ENABLED) ? ' style="display:none;"' : '').'>';
+	print '<td>'.$langs->trans("ShareHolidays").'</td>';
+	print '<td align="center" width="20">&nbsp;</td>';
+
+	print '<td align="center" width="100">';
+	print ajax_constantonoff('MULTICOMPANY_HOLIDAY_SHARING_ENABLED', '', 0);
+	print '</td></tr>';
+}
 
 /* Mode de gestion des droits :
  * Mode Off : mode Off : pyramidale. Les droits et les groupes sont gérés dans chaque entité : les utilisateurs appartiennent au groupe de l'entity pour obtenir leurs droits
