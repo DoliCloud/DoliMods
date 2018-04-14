@@ -532,24 +532,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	echo cp $cronfile /var/spool/cron/crontabs/$osusername
 	cp $cronfile /var/spool/cron/crontabs/$osusername
 	chown $osusername.$osusername /var/spool/cron/crontabs/$osusername
-	chmod 644 /var/spool/cron/crontabs/$osusername
-
-fi
-
-if [[ "$mode" == "unsuspend" ]]; then
-
-	echo `date +%Y%m%d%H%M%S`" ***** Restore cron file $cronfile"
-	echo mv /var/spool/cron/crontabs.disabled/$osusername /var/spool/cron/crontabs/$osusername
-	mv /var/spool/cron/crontabs.disabled/$osusername /var/spool/cron/crontabs/$osusername
-
-fi
-
-if [[ "$mode" == "suspend" ]]; then
-
-	echo `date +%Y%m%d%H%M%S`" ***** Disable cron file /var/spool/cron/crontabs/$osusername"
-	mkdir -p /var/spool/cron/crontabs.disabled
-	echo mv /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername
-	mv /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername 
+	chmod 600 /var/spool/cron/crontabs/$osusername
 
 fi
 

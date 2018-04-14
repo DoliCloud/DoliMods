@@ -162,7 +162,7 @@ if [[ "$mode" == "suspend" ]]; then
 fi
 
 
-# Suspend
+# Unsuspend
 
 if [[ "$mode" == "unsuspend" ]]; then
 	echo `date +%Y%m%d%H%M%S`" ***** Unsuspend instance in /home/jail/home/$osusername/$dbname"
@@ -210,6 +210,26 @@ if [[ "$mode" == "unsuspend" ]]; then
 		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" supervision@dolicloud.com 
 		exit 2
 	fi
+
+fi
+
+
+# Cron
+
+if [[ "$mode" == "unsuspend" ]]; then
+
+	echo `date +%Y%m%d%H%M%S`" ***** Restore cron file $cronfile"
+	echo mv /var/spool/cron/crontabs.disabled/$osusername /var/spool/cron/crontabs/$osusername
+	mv /var/spool/cron/crontabs.disabled/$osusername /var/spool/cron/crontabs/$osusername
+	chmod 600 /var/spool/cron/crontabs/$osusername
+fi
+
+if [[ "$mode" == "suspend" ]]; then
+
+	echo `date +%Y%m%d%H%M%S`" ***** Disable cron file /var/spool/cron/crontabs/$osusername"
+	mkdir -p /var/spool/cron/crontabs.disabled
+	echo mv /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername
+	mv /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername 
 
 fi
 
