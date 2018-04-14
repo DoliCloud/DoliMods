@@ -35,8 +35,6 @@ echo "# realname dir ---> $(dirname $(realpath ${0}))"
 export PID=${$}
 export targetdir="/home/jail/home"				
 export archivedir="/home/archives"
-export ZONES_PATH="/etc/bind/zones"
-export ZONE="with.dolicloud.com.hosts" 
 export scriptdir=$(dirname $(realpath ${0}))
 export vhostfile="$scriptdir/templates/vhostHttps-sellyoursaas.template"
 
@@ -213,6 +211,9 @@ fi
 
 if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 
+	export ZONE="$domainname.hosts" 
+	export REMOTEIP=79.137.96.15
+	
 	#$ttl 1d
 	#$ORIGIN with.dolicloud.com.
 	#@               IN     SOA   ns1with.dolicloud.com. admin.dolicloud.com. (
@@ -245,15 +246,20 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		echo "cat /etc/bind/${ZONE} | grep -v '^$instancename ' > /tmp/${ZONE}.$PID"
 		cat /etc/bind/${ZONE} | grep -v "^$instancename " > /tmp/${ZONE}.$PID
 
-		echo `date +%Y%m%d%H%M%S`" ***** Add $instancename A 79.137.96.15 into tmp host file"
-		echo $instancename A 79.137.96.15 >> /tmp/${ZONE}.$PID  
+		echo `date +%Y%m%d%H%M%S`" ***** Add $instancename A $REMOTEIP into tmp host file"
+		echo $instancename A $REMOTEIP >> /tmp/${ZONE}.$PID  
 
 		# we're looking line containing this comment
 		export DATE=`date +%y%m%d%H`
-		export NEEDLE="serial number"
+		export NEEDLE="serial"
 		curr=$(/bin/grep -e "${NEEDLE}$" /tmp/${ZONE}.$PID | /bin/sed -n "s/^\s*\([0-9]*\)\s*;\s*${NEEDLE}\s*/\1/p")
 		# replace if current date is shorter (possibly using different format)
 		echo "Current bind counter is $curr"
+		if [ "x$curr" == "x" ]; then
+			echo Error when editing the DNS file during a deployment. Failed to find bind counter in file /tmp/${ZONE}.$PID. Sending email to $EMAILFROM
+			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. Failed to find bind counter in file /tmp/${ZONE}.$PID" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
+			exit 1
+		fi
 		if [ ${#curr} -lt ${#DATE} ]; then
 		  serial="${DATE}00"
 		else
@@ -269,11 +275,11 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		echo Replace serial in /tmp/${ZONE}.$PID with ${serial}
 		/bin/sed -i -e "s/^\(\s*\)[0-9]\{0,\}\(\s*;\s*${NEEDLE}\)$/\1${serial}\2/" /tmp/${ZONE}.$PID
 		
-		echo Test temporary file /tmp/${ZONE}.$PID
-		named-checkzone with.dolicloud.com /tmp/${ZONE}.$PID
+		echo Test temporary file with named-checkzone $domainname /tmp/${ZONE}.$PID
+		named-checkzone $domainname /tmp/${ZONE}.$PID
 		if [[ "$?x" != "0x" ]]; then
-			echo Error when editing the DNS file during a deployment. File /tmp/${ZONE}.$PID is not valid 
-			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid" | mail -aFrom:$EMAILFROM "[Alert] Pb in deployment" supervision@dolicloud.com 
+			echo Error when editing the DNS file during a deployment. File /tmp/${ZONE}.$PID is not valid. Sending email to $EMAILFROM
+			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
 			exit 1
 		fi
 		
@@ -283,8 +289,8 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		echo `date +%Y%m%d%H%M%S`" **** Move new host file"
 		mv -fu /tmp/${ZONE}.$PID /etc/bind/${ZONE}
 		
-		echo `date +%Y%m%d%H%M%S`" **** Reload dns"
-		rndc reload with.dolicloud.com
+		echo `date +%Y%m%d%H%M%S`" **** Reload dns with rndc reload $domainname"
+		rndc reload $domainname
 		#/etc/init.d/bind9 reload
 		
 		echo `date +%Y%m%d%H%M%S`" **** nslookup $fqn 127.0.0.1"
@@ -299,6 +305,9 @@ fi
 
 if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 
+	export ZONE="$domainname.hosts" 
+	export REMOTEIP=79.137.96.15
+
 	echo `date +%Y%m%d%H%M%S`" ***** Remove DNS entry for $instancename in $domainname - Test with cat /etc/bind/${ZONE} | grep '^$instancename '"
 
 	cat /etc/bind/${ZONE} | grep "^$instancename " 2>&1
@@ -311,12 +320,12 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		echo "cat /etc/bind/${ZONE} | grep -v '^$instancename ' > /tmp/${ZONE}.$PID"
 		cat /etc/bind/${ZONE} | grep -v "^$instancename " > /tmp/${ZONE}.$PID
 
-		#echo `date +%Y%m%d%H%M%S`" ***** Add $instancename A 79.137.96.15 into tmp host file"
-		#echo $instancename A 79.137.96.15 >> /tmp/${ZONE}.$PID  
+		#echo `date +%Y%m%d%H%M%S`" ***** Add $instancename A $REMOTEIP into tmp host file"
+		#echo $instancename A $REMOTEIP >> /tmp/${ZONE}.$PID  
 
 		# we're looking line containing this comment
 		export DATE=`date +%y%m%d%H`
-		export NEEDLE="serial number"
+		export NEEDLE="serial"
 		curr=$(/bin/grep -e "${NEEDLE}$" /tmp/${ZONE}.$PID | /bin/sed -n "s/^\s*\([0-9]*\)\s*;\s*${NEEDLE}\s*/\1/p")
 		# replace if current date is shorter (possibly using different format)
 		echo "Current bind counter is $curr"
@@ -337,7 +346,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		
 		echo `date +%Y%m%d%H%M%S`" Test temporary file /tmp/${ZONE}.$PID"
 		
-		named-checkzone with.dolicloud.com /tmp/${ZONE}.$PID
+		named-checkzone $domainname /tmp/${ZONE}.$PID
 		if [[ "$?x" != "0x" ]]; then
 			echo Error when editing the DNS file un undeployment. File /tmp/${ZONE}.$PID is not valid 
 			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
@@ -350,8 +359,8 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		echo `date +%Y%m%d%H%M%S`" **** Move new host file with mv -fu /tmp/${ZONE}.$PID /etc/bind/${ZONE}"
 		mv -fu /tmp/${ZONE}.$PID /etc/bind/${ZONE}
 		
-		echo `date +%Y%m%d%H%M%S`" **** Reload dns"
-		rndc reload with.dolicloud.com
+		echo `date +%Y%m%d%H%M%S`" **** Reload dns with rndc reload $domainname"
+		rndc reload $domainname
 		#/etc/init.d/bind9 reload
 		
 		#echo `date +%Y%m%d%H%M%S`" **** nslookup $fqn 127.0.0.1"

@@ -158,10 +158,18 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         		}
 				break;
         	case 'LINECONTRACT_ACTIVATE':
-        		$object->fetch_product();
-        		if ($object->product->array_options['options_app_or_option'] == 'app')
+        		if (empty($object->context['deployallwasjustdone']))
         		{
-        			$remoteaction = 'unsuspend';
+        			dol_syslog("Trigger LINECONTRACT_ACTIVATE is ran and context 'deployallwasjustdone' is not 1, so we launch the unsuspend remote actions");
+        			$object->fetch_product();
+        			if ($object->product->array_options['options_app_or_option'] == 'app')
+        			{
+        				$remoteaction = 'unsuspend';
+        			}
+        		}
+        		else
+        		{
+        			dol_syslog("Trigger LINECONTRACT_ACTIVATE is ran but context 'deployallwasjustdone' is 1, so we do not launch the unsuspend remote actions");
         		}
         		break;
         	case 'LINECONTRACT_CLOSE':
@@ -275,14 +283,14 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 				}
 				else
 				{
-					if (! preg_match('/sellyoursaas/', session_name()))	// No popup message from trigger if not into backoffice
+					if (! preg_match('/sellyoursaas/', session_name()))	// No popup message after trigger if we are not into the backoffice
 					{
-						if ($remoteaction == 'suspend') setEventMessage('Service was suspended');
-						elseif ($remoteaction == 'unsuspend') setEventMessage('Service was unsuspended');
-						elseif ($remoteaction == 'deploy') setEventMessage('Service was deployed');
-						elseif ($remoteaction == 'undeploy') setEventMessage('Service was undeployed');
-						elseif ($remoteaction == 'deployall') setEventMessage('Service was deployed (all)');
-						elseif ($remoteaction == 'undeployall') setEventMessage('Service was undeployed (all)');
+						if ($remoteaction == 'suspend') setEventMessage($langs->trans("InstanceWasSuspended"));
+						elseif ($remoteaction == 'unsuspend') setEventMessage($langs->trans("InstanceWasUnsuspended"));
+						elseif ($remoteaction == 'deploy') setEventMessage($langs->trans("InstanceWasDeployed"));
+						elseif ($remoteaction == 'undeploy') setEventMessage($langs->trans("InstanceWasUndeployed"));
+						elseif ($remoteaction == 'deployall') setEventMessage($langs->trans("InstanceWasDeployed").' (all)');
+						elseif ($remoteaction == 'undeployall') setEventMessage($langs->trans("InstanceWasUndeployed").' (all)');
 					}
 				}
     		}

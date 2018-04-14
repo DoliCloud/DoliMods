@@ -1011,7 +1011,11 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 	if (! $error)
 	{
 		if ($action == 'undeployconfirmed') setEventMessages($langs->trans("InstanceWasUndeployedConfirmed"), null, 'mesgs');
-		else setEventMessages($langs->trans("InstanceWasUndeployed"), null, 'mesgs');
+		else
+		{
+			setEventMessages($langs->trans("InstanceWasUndeployed"), null, 'mesgs');
+			setEventMessages($langs->trans("InstanceWasUndeployedToConfirm"), null, 'mesgs');
+		}
 		$db->commit();
 		header('Location: '.$_SERVER["PHP_SELF"].'?modes=instances&tab=resources_'.$contract->id);
 		exit;

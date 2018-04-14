@@ -1396,7 +1396,7 @@ class SellYourSaasUtils
     		$listoflines = array($object);
     	}
 
-    	dol_syslog("Remote action on instance remoteaction=".$remoteaction." was called");
+    	dol_syslog("Remote action on instance was called (remoteaction=".$remoteaction." email=".$email." password=".$password);
 
     	include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
@@ -1710,7 +1710,7 @@ class SellYourSaasUtils
 			    	{
 			    		$sqltoexecute = make_substitutions($tmppackage->sqlafter, $substitarray);
 
-			    		dol_syslog("Try to connect to instance database to execute personalized requests");
+			    		dol_syslog("Try to connect to instance database to execute personalized requests substitarray=".join(',', $substitarray));
 
 			    		//var_dump($generateddbhostname);	// fqn name dedicated to instance in dns
 			    		//var_dump($serverdeployement);		// just ip of deployement server

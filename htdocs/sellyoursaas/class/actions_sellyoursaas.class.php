@@ -244,6 +244,8 @@ class ActionsSellyoursaas
 				{
 					dol_syslog("Activate all lines - doActions deploy");
 
+					$object->context['deployallwasjustdone']=1;		// Add a key so trigger into activateAll will know we have just made a "deployall"
+
 					$result = $object->activateAll($user, dol_now(), 1, $comment);
 					if ($result <= 0)
 					{
@@ -366,6 +368,7 @@ class ActionsSellyoursaas
 					else
 					{
 						setEventMessages($langs->trans("InstanceWasUndeployed"), null, 'mesgs');
+						//setEventMessages($langs->trans("InstanceWasUndeployedToConfirm"), null, 'mesgs');
 					}
 				}
 
