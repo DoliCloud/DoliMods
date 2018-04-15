@@ -149,8 +149,7 @@ if ($v != 'v1')
 	$sourcedir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$login.'/'.$dirdb;
 	$server=$object->ref_customer;
 
-	// TODO
-	$server='127.0.0.1';
+	$server=$object->array_options['options_hostname_os'];
 }
 else
 {
@@ -196,7 +195,12 @@ if ($mode == 'confirm' || $mode == 'confirmrsync' || $mode == 'confirmdatabase')
 // Backup files
 if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 {
-	dol_mkdir($dirroot.'/'.$login);
+	$result = dol_mkdir($dirroot.'/'.$login);
+	if ($result < 0)
+	{
+		print "ERROR failed to create target dir ".$dirroot.'/'.$login."\n";
+		exit(1);
+	}
 
 	$command="rsync";
 	$param=array();
@@ -243,7 +247,7 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 
 	// Add file tag
 	$handle=fopen($dirroot.'/'.$login.'/last_rsync_'.$instance.'.txt','w');
-	fwrite($handle,'File created after rsync of '.$instance."\n");
+	fwrite($handle,'File created after rsync of '.$instance.". return_var=".$return_var."\n");
 	fclose($handle);
 }
 
@@ -287,7 +291,7 @@ if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 	if ($mode == 'confirm' || $mode == 'confirmdatabase')
 	{
 		$handle=fopen($dirroot.'/'.$login.'/last_mysqldump_'.$instance.'.txt','w');
-		fwrite($handle,'File created after mysqldump of '.$instance."\n");
+		fwrite($handle,'File created after mysqldump of '.$instance.". return_varmysql=".$return_varmysql."\n");
 		fclose($handle);
 	}
 }

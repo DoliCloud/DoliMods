@@ -98,13 +98,19 @@ if ($id > 0 || $instanceoldid > 0 || $ref || $refold)
 	if ($object->element != 'contrat') $instanceoldid=$object->id;
 }
 
-$backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/backup_instance.php '.$object->instance.' '.$conf->global->DOLICLOUD_INSTANCES_PATH;
-
+if (! empty($instanceoldid))
+{
+	$backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/backup_instance.php '.$object->instance.' '.$conf->global->DOLICLOUD_BACKUP_PATH;
+}
+else
+{
+	$backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/backup_instance.php '.$object->ref_customer.' '.$conf->global->DOLICLOUD_BACKUP_PATH;
+}
 
 
 /*
  *	Actions
-*/
+ */
 
 $parameters=array('id'=>$id, 'objcanvas'=>$objcanvas);
 $reshook=$hookmanager->executeHooks('doActions',$parameters,$object,$action);    // Note that $action and $object may have been modified by some hooks
@@ -274,7 +280,15 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	$dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
 	$login=$object->username_web;
 	$password=$object->password_web;
-	$server=$object->instance.'.on.dolicloud.com';
+
+	if (! empty($instanceoldid))
+	{
+		$server=$object->instance.'.on.dolicloud.com';
+	}
+	else
+	{
+		$server=$object->ref_customer;
+	}
 
 	// ----- Backup instance -----
 	print '<strong>INSTANCE BACKUP</strong><br>';
@@ -282,20 +296,33 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	print '<div class="underbanner clearboth"></div>';
 	print '<table class="border" width="100%">';
 
-	// Last backup date
-	print '<tr>';
-	print '<td width="20%">'.$langs->trans("DateLastBackup").'</td>';
-	print '<td width="30%">'.($object->date_lastrsync?dol_print_date($object->date_lastrsync,'dayhour','tzuser'):'').'</td>';
+	// Backup dir
+	print '<tr class="oddeven">';
 	print '<td width="20%">'.$langs->trans("BackupDir").'</td>';
 	print '<td>'.$backupdir.'/'.$login.'/'.$dirdb.'</td>';
 	print '</tr>';
 
+	// Last backup date
+	print '<tr class="oddeven">';
+	print '<td class="titlefield">'.$langs->trans("DateLastBackup").'</td>';
+	print '<td>';
+	if (! empty($instanceoldid)) print ($object->date_lastrsync?dol_print_date($object->date_lastrsync,'dayhour','tzuser'):'');
+	else
+	{
+		if ($object->array_options['options_latestbackup_date']) print dol_print_date($object->array_options['options_latestbackup_date'], 'dayhour');
+	}
+	print '</td>';
+	print '</tr>';
+
 	// Current backup status
-	print '<tr>';
-	print '<td width="20%">'.$langs->trans("CurrentBackupStatus").'</td>';
-	print '<td width="30%">'.$object->backup_status.'</td>';
-	print '<td></td>';
-	print '<td></td>';
+	print '<tr class="oddeven">';
+	print '<td>'.$langs->trans("CurrentBackupStatus").'</td>';
+	print '<td>';
+	if (! empty($instanceoldid)) print $object->backup_status;
+	else {
+		print $object->array_options['options_latestbackup_status'];
+	}
+	print '</td>';
 	print '</tr>';
 
 	print "</table><br>";
@@ -325,7 +352,7 @@ if ($id > 0 || $instanceoldid > 0)
 
 
 // Upgrade link
-$backupstringtoshow=$backupstring.' testrsync|testdatabase';
+$backupstringtoshow=$backupstring.' testrsync|testdatabase|confirmrsync|confirmdatabase|confirm';
 print 'Backup command line string<br>';
 print '<input type="text" name="backupstring" id="backupstring" value="'.$backupstringtoshow.'" size="160"><br>';
 print ajax_autoselect('backupstring');
