@@ -106,6 +106,7 @@ if ($instanceoldid)
 	$port_db = $object->port_db?$object->port_db:3306;
 	$username_web = $object->username_web;
 	$password_web = $object->password_web;
+	$hostname_os = $object->instance.'on.dolicloud.com';
 }
 else	// $object is a contract (on old or new instance)
 {
@@ -117,9 +118,7 @@ else	// $object is a contract (on old or new instance)
 	$port_db     = $object->array_options['options_port_db'];
 	$username_web = $object->array_options['options_username_os'];
 	$password_web = $object->array_options['options_username_os'];
-
-	// TODO Remove this
-	$hostname_db = '127.0.0.1';
+	$hostname_os = $object->array_options['options_hostname_os'];
 }
 
 
@@ -358,6 +357,7 @@ if (empty($instanceoldid))
 		$port_db     = $object->port_db?$object->port_db:3306;
 		$username_web = $object->username_web;
 		$password_web = $object->password_web;
+		$hostname_os = $object->instance.'on.dolicloud.com';
 	}
 	else	// $object is a contract (on old or new instance)
 	{
@@ -368,10 +368,8 @@ if (empty($instanceoldid))
 		$port_db     = $object->array_options['options_port_db'];
 		$username_web = $object->array_options['options_username_os'];
 		$password_web = $object->array_options['options_username_os'];
+		$hostname_os = $object->array_options['options_hostname_os'];
 	}
-
-	// TODO Remove this
-	$hostname_db = '127.0.0.1';
 
 	$dbcustomerinstance=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 

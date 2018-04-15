@@ -74,6 +74,7 @@ if ($action == 'set')
 
 		dolibarr_set_const($db,"SELLYOURSAAS_MAIN_DOMAIN_NAME",GETPOST("SELLYOURSAAS_MAIN_DOMAIN_NAME"),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_SUB_DOMAIN_NAMES",GETPOST("SELLYOURSAAS_SUB_DOMAIN_NAMES"),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"SELLYOURSAAS_SUB_DOMAIN_IP",GETPOST("SELLYOURSAAS_SUB_DOMAIN_IP"),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_MAIN_EMAIL",GETPOST("SELLYOURSAAS_MAIN_EMAIL"),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_SUPERVISION_EMAIL",GETPOST("SELLYOURSAAS_SUPERVISION_EMAIL"),'chaine',0,'',$conf->entity);
@@ -278,6 +279,13 @@ print '<td>';
 print '<input type="text" name="SELLYOURSAAS_SUB_DOMAIN_NAMES" value="'.$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES.'">';
 print '</td>';
 print '<td>with.mydomain.com,on.myotherdomain.com...</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasSubDomainsIP").'</td>';
+print '<td>';
+print '<input type="text" name="SELLYOURSAAS_SUB_DOMAIN_IP" value="'.$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP.'">';
+print '</td>';
+print '<td>192.168.0.1,123.456.789.012...</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasMainEmail").'</td>';

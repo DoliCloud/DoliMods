@@ -162,14 +162,11 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	 * Fiche en mode visualisation
 	*/
 
-	$prefix = 'with';
 	$instance = 'xxxx';
 	$type_db = $conf->db->type;
 
 	if ($instanceoldid)
 	{
-		$prefix='on';
-
 		$hostname_db  = $object->hostname_db;
 		$username_db  = $object->username_db;
 		$password_db  = $object->password_db;
@@ -184,28 +181,23 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 		$object->username_os  = $username_os;
 		$object->password_os  = $password_os;
-		$object->hostname_os  = $object->instance.'.'.$prefix.'.dolicloud.com';
+		$object->hostname_os  = $object->instance.'.on.dolicloud.com';
 
 	}
 	else	// $object is a contract (on old or new instance)
 	{
 		$object->fetch_thirdparty();
 
-		if (preg_match('/\.on\./', $object->ref_customer)) $prefix='on';
-		else $prefix='with';
-
 		$hostname_db  = $object->array_options['options_hostname_db'];
 		$username_db  = $object->array_options['options_username_db'];
 		$password_db  = $object->array_options['options_password_db'];
 		$database_db  = $object->array_options['options_database_db'];
 		$port_db      = $object->array_options['options_port_db'];
+		$hostname_os  = $object->array_options['options_hostname_os'];
 		$username_os  = $object->array_options['options_username_os'];
 		$password_os  = $object->array_options['options_password_os'];
 		$username_web = $object->thirdparty->email;
 		$password_web = $object->thirdparty->array_options['options_password'];
-
-		// TODO Remove this
-		$hostname_db = '127.0.0.1';
 
 		$tmp = explode('.', $object->ref_customer, 2);
 		$object->instance = $tmp[0];
@@ -219,10 +211,10 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$object->port_db      = $port_db;
 		$object->username_os  = $username_os;
 		$object->password_os  = $password_os;
-		$object->hostname_os  = $object->instance.'.'.$prefix.'.dolicloud.com';
+		$object->hostname_os  = $hostname_os;
 		$object->username_web = $username_web;
 		$object->password_web = $password_web;
-		$object->hostname_web = $object->instance.'.'.$prefix.'.dolicloud.com';
+		$object->hostname_web = $hostname_os;
 	}
 
 	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db?$port_db:3306);
@@ -326,7 +318,15 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	$dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
 	$login=$object->username_web;
 	$password=$object->password_web;
-	$server=$object->instance.'.on.dolicloud.com';
+
+	if (! empty($instanceoldid))
+	{
+		$server=$object->instance.'.on.dolicloud.com';
+	}
+	else
+	{
+		$server=$object->ref_customer;
+	}
 
 	// Barre d'actions
 /*	if (! $user->societe_id)
