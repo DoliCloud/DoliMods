@@ -468,7 +468,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		}
 	}
 
-	if (! preg_match('/\.on\./', $object->ref_customer))
+	if ($object->ref_customer && ! preg_match('/\.on\./', $object->ref_customer))
 	{
 		print '<div class="fichecenter">';
 
@@ -487,7 +487,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 		if (! $object->user_id && $user->rights->sellyoursaas->write)
 		{
-			print ' <a href="'.$_SERVER["PHP_SELF"].'?instanceoldid='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
+			print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
 		}
 		print '<br>';
 
@@ -627,17 +627,17 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 		// Authorized key file
 		print '<tr>';
-		print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td>'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
-		print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?instanceoldid='.$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
+		print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td>'.($object->array_options['options_fileauthorizekey']?$langs->trans("Yes").' - '.dol_print_date($object->array_options['options_fileauthorizekey'],'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+		print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
 		print '</td>';
 		print '<td></td><td></td>';
 		print '</tr>';
 
 		// Install.lock file
 		print '<tr>';
-		print '<td>'.$langs->trans("LockfileInstalled").'</td><td>'.($object->filelock?$langs->trans("Yes").' - '.dol_print_date($object->filelock,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
-		print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?instanceoldid='.$object->id.'&action=addinstalllock">'.$langs->trans("Create").'</a>)';
-		print ($object->filelock?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?instanceoldid='.$object->id.'&action=delinstalllock">'.$langs->trans("Delete").'</a>)':'');
+		print '<td>'.$langs->trans("LockfileInstalled").'</td><td>'.($object->array_options['options_filelock']?$langs->trans("Yes").' - '.dol_print_date($object->array_options['options_filelock'],'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+		print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addinstalllock">'.$langs->trans("Create").'</a>)';
+		print ($object->array_options['options_filelock']?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delinstalllock">'.$langs->trans("Delete").'</a>)':'');
 		print '</td>';
 		print '<td></td><td></td>';
 		print '</tr>';
@@ -673,14 +673,6 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		//var_dump($object);
 
 		print '<div class="fichecenter">';
-
-		if (is_object($object->db2))
-		{
-			$savdb=$object->db;
-			$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function.  $db = stratus5 database
-		}
-
-		dol_banner_tab($object,($instanceoldid?'refold':'ref'),'',1,($instanceoldid?'name':'ref'),'ref','','',1);
 
 		if (is_object($object->db2))
 		{

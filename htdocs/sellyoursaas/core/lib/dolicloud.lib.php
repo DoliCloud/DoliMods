@@ -83,6 +83,8 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
     $links='';
 
     //if (empty($conf->global->DOLICLOUD_EXT_HOME)) $links='Error: DOLICLOUD_EXT_HOME not defined<br>';
+    $domainforapp=$object->hostname_os;
+    if (preg_match('/^[0-9\.]$/',$domainforapp)) $domainforapp=$object->ref_customer;	// If this is an ip, we use the ref_customer.
 
 	// Dolibarr instance login
 	$url='https://'.$object->hostname_os.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
@@ -94,10 +96,10 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
 	$links.='<br>';
 
 	// Dashboard
+	$url='';
 	$thirdparty = null;
 	if (get_class($object) == 'Societe') $thirdparty = $object;
 	elseif (is_object($object->thirdparty)) $thirdparty = $object->thirdparty;
-
 	if ($user->admin && is_object($thirdparty) && (! empty($thirdparty->array_options['options_dolicloud'])))
 	{
 		if ($thirdparty->array_options['options_dolicloud'] == 'yesv1')
@@ -110,6 +112,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
 			$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?mode=dashboard&password=&mode=logout&username='.$thirdparty->email.'&login_hash='.$dol_login_hash;	// Note that password may have change and not being the one of dolibarr admin user
 		}
 	}
+	if (get_class($object) == 'Dolicloud_customers') $url='https://www.on.dolicloud.com/signIn/index?email='.$object->email.'&amp;password='.$object->password_web;	// Note that password may have change and not being the one of dolibarr admin user
 	$link='<a href="'.$url.'" target="_blank" id="dashboardlink">'.$url.'</a>';
 	$links.='Dashboard: ';
 	$links.=$link.'<br>';
