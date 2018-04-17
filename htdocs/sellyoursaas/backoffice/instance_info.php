@@ -72,6 +72,33 @@ if (empty($date_endfreeperiod) && ! empty($date_registration)) $date_endfreeperi
 $error = 0; $errors = array();
 
 
+$instance = 'xxxx';
+$type_db = $conf->db->type;
+if ($instanceoldid)
+{
+	$instance = $object->instance;
+	$hostname_db = $object->hostname_db;
+	$username_db = $object->username_db;
+	$password_db = $object->password_db;
+	$database_db = $object->database_db;
+	$port_db = $object->port_db?$object->port_db:3306;
+	$username_web = $object->username_web;
+	$password_web = $object->password_web;
+	$hostname_os = $object->instance.'on.dolicloud.com';
+}
+else	// $object is a contract (on old or new instance)
+{
+	$instance = $object->ref_customer;
+	$hostname_db = $object->array_options['options_hostname_db'];
+	$username_db = $object->array_options['options_username_db'];
+	$password_db = $object->array_options['options_password_db'];
+	$database_db = $object->array_options['options_database_db'];
+	$port_db     = $object->array_options['options_port_db'];
+	$username_web = $object->array_options['options_username_os'];
+	$password_web = $object->array_options['options_username_os'];
+	$hostname_os = $object->array_options['options_hostname_os'];
+}
+
 
 if (empty($instanceoldid) && empty($refold) && $action != 'create')
 {
@@ -276,25 +303,24 @@ if (empty($reshook))
  *	View
  */
 
+
 $help_url='';
-llxHeader('',$langs->trans("SellYourSaasInstance"),$help_url);
+llxHeader('',$langs->trans("Users"),$help_url);
 
 $form = new Form($db);
 $form2 = new Form($db2);
-$formother = new FormOther($db);
 $formcompany = new FormCompany($db);
 
 $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
+$arraystatus=Dolicloud_customers::$listOfStatus;
 
-
-// Tabs
 if (empty($instanceoldid) && $action != 'create')
 {
 	// Show tabs
 	$head = contract_prepare_head($object);
 
 	$title = $langs->trans("Contract");
-	dol_fiche_head($head, 'infoinstance', $title, -1, 'contract');
+	dol_fiche_head($head, 'infoinstance', $title, 0, 'contract');
 }
 else
 {
@@ -302,9 +328,8 @@ else
 	$head = dolicloud_prepare_head($object);
 
 	$title = $langs->trans("Contract");
-	dol_fiche_head($head, 'infoinstance', $title, -1, 'contract');
+	dol_fiche_head($head, 'infoinstance', $title, 0, 'contract');
 }
-
 
 if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 {
@@ -312,35 +337,117 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	 * Fiche en mode visualisation
 	 */
 
-	$prefix = 'with';
-	$instance = 'xxxx';
-	$type_db = $conf->db->type;
+	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 
-	if ($instanceoldid)	// $object is old dolicloud_customers
+	if (is_object($newdb) && $newdb->connected)
 	{
-		$prefix='on';
-		$instance = $object->instance;
-		$hostname_db = $object->hostname_db;
-		$username_db = $object->username_db;
-		$password_db = $object->password_db;
-		$database_db = $object->database_db;
-
-		$username_web = $object->username_web;
-		$password_web = $object->password_web;
+		// Get user/pass of last admin user
+		$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
+		$resql=$newdb->query($sql);
+		if ($resql)
+		{
+			$obj = $newdb->fetch_object($resql);
+			$object->lastlogin_admin=$obj->login;
+			$object->lastpass_admin=$obj->pass;
+			$lastloginadmin=$object->lastlogin_admin;
+			$lastpassadmin=$object->lastpass_admin;
+		}
+		else
+		{
+			setEventMessages('Failed to read remote customer instance: '.$newdb->lasterror(),'','warnings');
+		}
 	}
-	else	// $object is a contract (on old or new instance)
+	//	else print 'Error, failed to connect';
+
+
+
+	if (is_object($object->db2))
 	{
-		if (preg_match('/\.on\./', $object->ref_customer)) $prefix='on';
-		else $prefix='with';
-
-		$hostname_db = $object->array_options['options_hostname_db'];
-		$username_db = $object->array_options['options_username_db'];
-		$password_db = $object->array_options['options_password_db'];
-		$database_db = $object->array_options['options_database_db'];
-		$username_web = $object->array_options['options_username_os'];
-		$password_web = $object->array_options['options_username_os'];
+		$savdb=$object->db;
+		$object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function.  $db = stratus5 database
 	}
 
+	$object->fetch_thirdparty();
+
+	//$object->email = $object->thirdparty->email;
+
+	// Contract card
+
+	$linkback = '<a href="'.DOL_URL_ROOT.'/contrat/list.php?restore_lastsearch_values=1'.(! empty($socid)?'&socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
+
+	$morehtmlref='';
+
+	if (empty($instanceoldid))
+	{
+		$morehtmlref.='<div class="refidno">';
+		// Ref customer
+		$morehtmlref.=$form->editfieldkey("RefCustomer", 'ref_customer', $object->ref_customer, $object, 0, 'string', '', 0, 1);
+		$morehtmlref.=$form->editfieldval("RefCustomer", 'ref_customer', $object->ref_customer, $object, 0, 'string', '', null, null, '', 1);
+		// Ref supplier
+		$morehtmlref.='<br>';
+		$morehtmlref.=$form->editfieldkey("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, 0, 'string', '', 0, 1);
+		$morehtmlref.=$form->editfieldval("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, 0, 'string', '', null, null, '', 1);
+		// Thirdparty
+		$morehtmlref.='<br>'.$langs->trans('ThirdParty') . ' : ' . $object->thirdparty->getNomUrl(1);
+		// Project
+		if (! empty($conf->projet->enabled))
+		{
+			$langs->load("projects");
+			$morehtmlref.='<br>'.$langs->trans('Project') . ' : ';
+			if (0)
+			{
+				if ($action != 'classify')
+					$morehtmlref.='<a href="' . $_SERVER['PHP_SELF'] . '?action=classify&amp;id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
+					if ($action == 'classify') {
+						//$morehtmlref.=$form->form_project($_SERVER['PHP_SELF'] . '?id=' . $object->id, $object->socid, $object->fk_project, 'projectid', 0, 0, 1, 1);
+						$morehtmlref.='<form method="post" action="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'">';
+						$morehtmlref.='<input type="hidden" name="action" value="classin">';
+						$morehtmlref.='<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+						$morehtmlref.=$formproject->select_projects($object->thirdparty->id, $object->fk_project, 'projectid', $maxlength, 0, 1, 0, 1, 0, 0, '', 1);
+						$morehtmlref.='<input type="submit" class="button valignmiddle" value="'.$langs->trans("Modify").'">';
+						$morehtmlref.='</form>';
+					} else {
+						$morehtmlref.=$form->form_project($_SERVER['PHP_SELF'] . '?id=' . $object->id, $object->thirdparty->id, $object->fk_project, 'none', 0, 0, 0, 1);
+					}
+			} else {
+				if (! empty($object->fk_project)) {
+					$proj = new Project($db);
+					$proj->fetch($object->fk_project);
+					$morehtmlref.='<a href="'.DOL_URL_ROOT.'/projet/card.php?id=' . $object->fk_project . '" title="' . $langs->trans('ShowProject') . '">';
+					$morehtmlref.=$proj->ref;
+					$morehtmlref.='</a>';
+				} else {
+					$morehtmlref.='';
+				}
+			}
+		}
+		$morehtmlref.='</div>';
+	}
+
+	//dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'none', $morehtmlref);
+
+	dol_banner_tab($object, ($instanceoldid?'refold':'ref'), $linkback, 1, ($instanceoldid?'name':'ref'), 'ref', $morehtmlref, '', 1, '', '', 1);
+
+	if (is_object($object->db2))
+	{
+		$object->db=$savdb;
+	}
+
+	print '<div class="fichecenter">';
+	print '</div>';
+}
+
+if ($id > 0 || $instanceoldid > 0)
+{
+	dol_fiche_end();
+}
+
+print '<br>';
+
+
+
+if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
+{
 	$dbcustomerinstance=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);
 
 	if (is_object($dbcustomerinstance) && $dbcustomerinstance->connected)
@@ -362,49 +469,174 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		}
 	}
 
-	if (preg_match('/\.with\./', $object->ref_customer))
+	if (! preg_match('/\.on\./', $object->ref_customer))
 	{
 		print '<div class="fichecenter">';
 
-		print 'This is a new V2 contract.';
-		/*
 		// ----- SellYourSaas instance -----
-		$DNS_ROOT=(empty($conf->global->NLTECHNO_DNS_ROOT)?'/etc/bind':$conf->global->NLTECHNO_DNS_ROOT);
-		$APACHE_ROOT=(empty($conf->global->NLTECHNO_APACHE_ROOT)?'/etc/apache2':$conf->global->NLTECHNO_APACHE_ROOT);
+		print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.' (Customer instance '.$dbcustomerinstance->database_host.')</strong><br>';
 
-		print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.'</strong>';
+		// Last refresh
+		print ' - '.$langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
+
+		if (! $object->user_id && $user->rights->sellyoursaas->write)
+		{
+			print ' <a href="'.$_SERVER["PHP_SELF"].'?instanceoldid='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
+		}
 		print '<br>';
 
 		print '<div class="underbanner clearboth"></div>';
 		print '<table class="border" width="100%">';
 
-		// DNS Entry
-		if (! file_exists($DNS_ROOT.'/mysimplerp.com/mysimpleerp.com.hosts')) print 'Error link to sites-available not found<br>';
-		else $dnsfileavailable=stat($DNS_ROOT.'/mysimplerp.com/mysimpleerp.com.hosts');
+		// Instance / Organization
+		/*
+		 print '<tr><td width="20%">'.$langs->trans("Instance").'</td><td colspan="3">';
+		 $savdb=$object->db;
+		 $object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
+		 print $form2->showrefnav($object,'instance','',1,'name','instance','','',1);
+		 $object->db=$savdb;
+		 print '</td></tr>';
+		 print '<tr><td>'.$langs->trans("Organization").'</td><td colspan="3">';
+		 print $object->organization;
+		 print '</td></tr>';
+		 */
 
-		print '<tr>';
-		print '<td width="20%">'.$langs->trans("DNSFileFile").' ('.$DNS_ROOT.')</td><td colspan="3">'.($dnsfileavailable['size']?$langs->trans("Yes").' - '.dol_print_date($dnsfileavailable['mtime'],'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
-		print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?instanceoldid='.$object->id.'&action=adddnsfile">'.$langs->trans("Create").'</a>)';
+		// Email
+		print '<tr><td>'.$langs->trans("EMail").'</td><td colspan="3">'.dol_print_email($object->email,$object->id,0,'AC_EMAIL').'</td>';
+		print '</tr>';
+
+		// Plan
+		print '<tr><td width="20%">'.$langs->trans("Plan").'</td><td colspan="3">'.$object->plan.' - ';
+		$plan=new Cdolicloudplans($db);
+		$result=$plan->fetch('',$object->plan);
+		if ($plan->price_instance) print ' '.$plan->price_instance.' '.currency_name('EUR').'/instance';
+		if ($plan->price_user) print ' '.$plan->price_user.' '.currency_name('EUR').'/user';
+		if ($plan->price_gb) print ' '.$plan->price_gb.' '.currency_name('EUR').'/GB';
+		print ' <a href="https://www.dolicloud.com/fr/component/content/article/134-pricing" target="_blank">('.$langs->trans("Prices").')';
 		print '</td>';
 		print '</tr>';
 
-		// Instance Apache (fichier vhost)
-		if (! file_exists($APACHE_ROOT.'/sites-available')) print 'Error link to sites-available not found<br>';
-		else $vhostfileavailable=stat($APACHE_ROOT.'/sites-available/vhost_instance');
-		if (! file_exists($APACHE_ROOT.'/sites-enabled')) print 'Error link to sites-enabled not found<br>';
-		else $vhostfileenabled=stat($APACHE_ROOT.'/sites-enabled/vhost_instance');
+		// Partner
+		print '<tr><td width="20%">'.$langs->trans("Partner").'</td><td width="30%">'.$object->partner.'</td><td width="20%">'.$langs->trans("Source").'</td><td>'.($object->source?$object->source:'').'</td></tr>';
 
+		// Lastname / Firstname
+		print '<tr><td width="20%">'.$langs->trans("Lastname").'</td><td width="30%">'.$object->lastname.'</td>';
+		print '<td width="20%">'.$langs->trans("Firstname").'</td><td width="30%">'.$object->firstname.'</td></tr>';
+
+		// Address
+		print '<tr><td>'.$langs->trans("Address").'</td><td colspan="3">';
+		dol_print_address($object->address,'gmap','dolicloud',$object->id);
+		print '</td></tr>';
+
+		// Zip Town
+		print '<tr><td>'.$langs->trans("Zip").' / '.$langs->trans("Town").'</td><td colspan="3">';
+		print $object->zip;
+		if ($object->zip) print '&nbsp;';
+		print $object->town.'</td></tr>';
+
+		// Country
+		print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3">';
+		$img=picto_from_langcode($object->country_code);
+		if ($object->country_code) print $img.' ';
+		print getCountry($object->country_code,0);
+		print '</td></tr>';
+
+		// State
+		if (empty($conf->global->SOCIETE_DISABLE_STATE))
+		{
+			print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">'.$object->state.'</td>';
+		}
+
+		// VAT number
+		print '<tr><td>'.$langs->trans("VATIntra").'</td><td colspan="3">'.$object->vat_number.'</td>';
+		print '</tr>';
+
+		// Phone
+		print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3">'.dol_print_phone($object->phone,$object->country_code,$object->id,0,'AC_TEL').'</td>';
+		print '</tr>';
+
+		// Note
+		print '<tr><td class="tdtop">'.$langs->trans("Note").'</td><td colspan="3">';
+		print nl2br($object->note);
+		print '</td></tr>';
+
+		// SFTP
+		print '<tr><td width="20%">'.$langs->trans("SFTP Server").'</td><td>'.$object->hostname_web.'</td>';
+		print '<td>'.$langs->trans("FsPath").'</td><td>'.$object->fs_path.'</td>';
+		print '</tr>';
+		// Login/Pass
 		print '<tr>';
-		print '<td width="20%">'.$langs->trans("VHostFile").' ('.$APACHE_ROOT.')</td><td colspan="3">'.($vhostfileavailable['size']?$langs->trans("Yes").' - '.dol_print_date($vhostfileavailable['mtime'],'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
-		print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?instanceoldid='.$object->id.'&action=addvhostfile">'.$langs->trans("Create").'</a>)';
-		if ($object->status == 'ACTIVE' && ! $vhostfileenabled['ctime']) print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?instanceoldid='.$object->id.'&action=enablevhostfile">'.$langs->trans("Enable").'</a>)';
+		print '<td width="20%">'.$langs->trans("SFTPLogin").'</td><td width="30%">'.$object->username_web.'</td>';
+		print '<td width="20%">'.$langs->trans("Password").'</td><td width="30%">'.$object->password_web.'</td>';
+		print '</tr>';
+
+		// Database
+		print '<tr><td>'.$langs->trans("DatabaseServer").'</td><td>'.$object->hostname_db.'</td>';
+		print '<td>'.$langs->trans("DatabaseName").'</td><td>'.$object->database_db.'</td>';
+		print '</tr>';
+		// Login/Pass
+		print '<tr>';
+		print '<td>'.$langs->trans("DatabaseLogin").'</td><td>'.$object->username_db.'</td>';
+		print '<td>'.$langs->trans("Password").'</td><td>'.$object->password_db.'</td>';
+		print '</tr>';
+
+		// Status
+		print '<tr><td>'.$langs->trans("Status").'</td><td colspan="3">';
+		print $object->getLibStatut(4,$form);
 		print '</td>';
 		print '</tr>';
 
-		print "</table>";
+		// Nb of users
+		print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td><font size="+2">'.round($object->nbofusers).'</font></td>';
+		print '<td></td><td></td>';
+		print '</tr>';
 
-		print '<br>'; */
+		// Dates
+		print '<tr><td width="20%">'.$langs->trans("DateDeployment").'</td><td width="30%">'.dol_print_date($object->date_registration,'dayhour');
+		//print ' (<a href="'.dol_buildpath('/sellyoursaas/backoffice/dolicloud_card.php',1).'?instanceoldid='.$object->id.'&amp;action=setdate&amp;date=">'.$langs->trans("SetDate").'</a>)';
+		print '</td>';
+		print '<td></td><td></td>';
+		print '</tr>';
 
+		/*
+		 // Lastlogin
+		 print '<tr>';
+		 print '<td>'.$langs->trans("LastLogin").' / '.$langs->trans("Password").'</td><td>'.$object->lastlogin.' / '.$object->lastpass.'</td>';
+		 print '<td>'.$langs->trans("DateLastLogin").'</td><td>'.($object->date_lastlogin?dol_print_date($object->date_lastlogin,'dayhour','tzuser'):'').'</td>';
+		 print '</tr>';
+		 */
+		// Version
+		print '<tr>';
+		print '<td>'.$langs->trans("Version").'</td><td>'.$object->version.'</td>';
+		print '<td></td><td></td>';
+		print '</tr>';
+
+		// Modules
+		print '<tr>';
+		print '<td>'.$langs->trans("Modules").'</td><td>'.join(', ',explode(',',$object->modulesenabled)).'</td>';
+		print '<td></td><td></td>';
+		print '</tr>';
+
+		// Authorized key file
+		print '<tr>';
+		print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td>'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+		print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?instanceoldid='.$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
+		print '</td>';
+		print '<td></td><td></td>';
+		print '</tr>';
+
+		// Install.lock file
+		print '<tr>';
+		print '<td>'.$langs->trans("LockfileInstalled").'</td><td>'.($object->filelock?$langs->trans("Yes").' - '.dol_print_date($object->filelock,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+		print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?instanceoldid='.$object->id.'&action=addinstalllock">'.$langs->trans("Create").'</a>)';
+		print ($object->filelock?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?instanceoldid='.$object->id.'&action=delinstalllock">'.$langs->trans("Delete").'</a>)':'');
+		print '</td>';
+		print '<td></td><td></td>';
+		print '</tr>';
+
+		print '</table>';
+
+		print '</div>';
 		print '</div>';
 	}
 
@@ -620,12 +852,10 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
     if (empty($instanceoldid))
     {
-    	/*
-	    	// List of actions on element
-	    	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formactions.class.php';
-	    	$formactions=new FormActions($db);
-	    	$somethingshown = $formactions->showactions($object,'contract',0,1);
-    	*/
+    	// List of actions on element
+    	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formactions.class.php';
+    	$formactions=new FormActions($db);
+    	$somethingshown = $formactions->showactions($object,'contract',0,1);
     }
     else
     {

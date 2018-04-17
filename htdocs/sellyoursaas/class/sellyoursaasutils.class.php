@@ -1407,7 +1407,6 @@ class SellYourSaasUtils
     		if (function_exists("ssh2_connect"))
     		{
     			$server=$object->array_options['options_hostname_os'];
-    			$server='127.0.0.1';	// TODO Remove this
 
     			$connection = @ssh2_connect($server, 22);
     			if ($connection)
@@ -1608,48 +1607,25 @@ class SellYourSaasUtils
     			$contract = new Contrat($this->db);
     			$contract->fetch($tmpobject->fk_contrat);
 
+    			$tmp=explode('.', $contract->ref_customer, 2);
+    			$sldAndSubdomain=$tmp[0];
+    			$domainname=$tmp[1];
+    			$serverdeployement = $this->getRemoveServerDeploymentIp($domainname);
+    			if (empty($serverdeployement))	// Failed to get remote ip
+    			{
+    				$error++;
+    				break;
+    			}
+
     			$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
 
     			$generatedunixlogin=$contract->array_options['options_username_os'];
     			$generatedunixpassword=$contract->array_options['options_password_os'];
-    			$tmp=explode('.', $contract->ref_customer, 2);
-    			$sldAndSubdomain=$tmp[0];
-    			$domainname=$tmp[1];
     			$generateddbname=$contract->array_options['options_database_db'];
     			$generateddbport = ($contract->array_options['options_port_db']?$contract->array_options['options_port_db']:3306);
     			$generateddbusername=$contract->array_options['options_username_db'];
     			$generateddbpassword=$contract->array_options['options_password_db'];
     			$generateddbprefix=($contract->array_options['options_prefix_db']?$contract->array_options['options_prefix_db']:'llx_');
-
-    			$REMOTEIPTODEPLOYTO='';
-    			$tmparray=explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
-    			$found=0;
-    			foreach($tmparray as $key => $val)
-    			{
-    				if ($val == $domainname)
-    				{
-    					$found = $key+1;
-    					break;
-    				}
-    			}
-    			//print 'Found domain at position '.$found;
-    			if (! $found)
-    			{
-    				$this->error="Failed to found position of server domain '".$domainname."' to deploy to into SELLYOURSAAS_SUB_DOMAIN_NAMES=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
-    				$this->errors[]="Failed to found position of server domain '".$domainname."' to deploy to into SELLYOURSAAS_SUB_DOMAIN_NAMES=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
-    				$error++;
-    			}
-    			else
-    			{
-    				$tmparray=explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_IP);
-    				$REMOTEIPTODEPLOYTO=$tmparray[($found-1)];
-    			}
-    			if (! $REMOTEIPTODEPLOYTO)
-    			{
-    				$this->error="Failed to found ip of server domain '".$domainname."' to deploy to at position '".$found."' into SELLYOURSAAS_SUB_DOMAIN_IPS=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP;
-    				$this->errors[]="Failed to found ip of server domain '".$domainname."' to deploy to at position '".$found."' into SELLYOURSAAS_SUB_DOMAIN_IPS=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP;
-    				$error++;
-    			}
 
     			// Is it a product linked to a package ?
     			$tmppackage = new Packages($this->db);
@@ -1715,11 +1691,11 @@ class SellYourSaasUtils
     			$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
     			$commandurl.= '&'.$tmppackage->srccronfile.'&'.$tmppackage->srccliafter.'&'.$targetdir;
     			$commandurl.= '&'.$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;
-    			$commandurl.= '&'.$REMOTEIPTODEPLOYTO;
+    			$commandurl.= '&'.$serverdeployement;
+    			$commandurl.= '&'.$conf->global->SELLYOURSAAS_ACCOUNT_URL;
 
     			$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 
-    			$serverdeployement = getRemoveServerDeploymentIp();
 
     			$conf->global->MAIN_USE_RESPONSE_TIMEOUT = 60;
 
@@ -1831,7 +1807,7 @@ class SellYourSaasUtils
     				{
     					$sqlformula = make_substitutions($tmparray[1], $substitarray);
 
-    					$serverdeployement = getRemoveServerDeploymentIp();
+    					$serverdeployement = $this->getRemoveServerDeploymentIp($domainname);
 
     					dol_syslog("Try to connect to instance database to execute formula calculation");
 
@@ -1893,6 +1869,55 @@ class SellYourSaasUtils
 
     	if ($error) return -1;
     	else return 1;
+    }
+
+
+
+
+    /**
+     * Return IP of server to deploy to
+     *
+     * @param	string		$domainname		Domain name to select remote ip to deploy to
+     * @return	string						'' if KO, ip if OK
+     */
+    function getRemoveServerDeploymentIp($domainname)
+    {
+    	global $conf;
+
+    	$error = 0;
+
+    	$REMOTEIPTODEPLOYTO='';
+    	$tmparray=explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+    	$found=0;
+    	foreach($tmparray as $key => $val)
+    	{
+    		if ($val == $domainname)
+    		{
+    			$found = $key+1;
+    			break;
+    		}
+    	}
+    	//print 'Found domain at position '.$found;
+    	if (! $found)
+    	{
+    		$this->error="Failed to found position of server domain '".$domainname."' to deploy to into SELLYOURSAAS_SUB_DOMAIN_NAMES=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
+    		$this->errors[]="Failed to found position of server domain '".$domainname."' to deploy to into SELLYOURSAAS_SUB_DOMAIN_NAMES=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
+    		$error++;
+    	}
+    	else
+    	{
+    		$tmparray=explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_IP);
+    		$REMOTEIPTODEPLOYTO=$tmparray[($found-1)];
+    	}
+    	if (! $REMOTEIPTODEPLOYTO)
+    	{
+    		$this->error="Failed to found ip of server domain '".$domainname."' to deploy to at position '".$found."' into SELLYOURSAAS_SUB_DOMAIN_IPS=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP;
+    		$this->errors[]="Failed to found ip of server domain '".$domainname."' to deploy to at position '".$found."' into SELLYOURSAAS_SUB_DOMAIN_IPS=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP;
+    		$error++;
+    	}
+
+    	if ($error) return '';
+    	return $REMOTEIPTODEPLOYTO;
     }
 
 }

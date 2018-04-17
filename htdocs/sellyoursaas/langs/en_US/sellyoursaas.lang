@@ -308,3 +308,4 @@ SEPAPaymentModeAvailableForYealyAndCeeSubscriptionOnly=Payment with SEPA mandate
 SEPAPaymentModeAvailableNotYetAvailable=SEPA Direct Debit payment should be available soon...
 LatestBackupDate=Latest backup date
 LatestBackupStatus=Latest backup status
+FailedToConnectMayBeOldInstance=Failed to connect to user database instance

@@ -71,7 +71,7 @@ class ActionsSellyoursaas
 		    	}
 		    	if ($object->array_options['options_dolicloud'] == 'yesv2')
 		    	{
-		    		$dol_login_hash=dol_hash('sellyoursaas'.$object->email.dol_print_date(dol_now(),'%Y%m%d%H','gmt'));	// hash is valid one hour
+		    		$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$object->email.dol_print_date(dol_now(),'dayrfc'));	// hash is valid one hour
 		    		$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?mode=dashboard&username='.$object->email.'&password=&mode=logout&login_hash='.$dol_login_hash;
 		    	}
 
@@ -178,6 +178,13 @@ class ActionsSellyoursaas
 
         dol_syslog(get_class($this).'::executeHooks action='.$action);
         $langs->load("sellyoursaas@sellyoursaas");
+
+		/*
+        if (is_object($object) && (get_class($object) == 'Contrat') && is_object($object->thirdparty))
+        {
+        	$object->email = $object->thirdparty->email;
+        }*/
+
 
         if (in_array($parameters['currentcontext'], array('contractlist')))
         {
@@ -477,6 +484,7 @@ class ActionsSellyoursaas
     {
     	global $conf, $langs, $user;
 		global $object;
+		//var_dump($parameters['currentcontext']);
 
 		if (in_array($parameters['currentcontext'], array('thirdpartycard','thirdpartycontact','thirdpartycomm','thirdpartyticket','thirdpartynote','thirdpartydocument','contactthirdparty','projectthirdparty','consumptionthirdparty','thirdpartybancard','thirdpartymargins','ticketsuplist','thirdpartynotification','agendathirdparty')))
     	{
@@ -492,7 +500,7 @@ class ActionsSellyoursaas
     				}
     				if ($object->array_options['options_dolicloud'] == 'yesv2')
     				{
-    					$dol_login_hash=dol_hash('sellyoursaas'.$object->email.dol_print_date(dol_now(),'%Y%m%d%H','gmt'));	// hash is valid one hour
+    					$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$object->email.dol_print_date(dol_now(),'dayrfc'));	// hash is valid one hour
     					$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?mode=dashboard&username='.$object->email.'&password=&mode=logout&login_hash='.$dol_login_hash;
     				}
 

@@ -278,3 +278,4 @@ ChannelPartnerCreated=Compte Revendeur Créé
 CurrentCommission=Taux de commission actuel
 LatestBackupDate=Date dernier backup
 LatestBackupStatus=Statut dernier backup
+FailedToConnectMayBeOldInstance=Echec de la connection à la base de l'instance de l'utilisateur

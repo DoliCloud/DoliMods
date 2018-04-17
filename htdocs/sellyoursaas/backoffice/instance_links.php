@@ -202,8 +202,6 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$tmp = explode('.', $object->ref_customer, 2);
 		$object->instance = $tmp[0];
 
-		$object->email = $object->thirdparty->email;
-
 		$object->hostname_db  = $hostname_db;
 		$object->username_db  = $username_db;
 		$object->password_db  = $password_db;
@@ -248,6 +246,8 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 	$object->fetch_thirdparty();
 
+	//$object->email = $object->thirdparty->email;
+
 	// Contract card
 
 	$linkback = '<a href="'.DOL_URL_ROOT.'/contrat/list.php?restore_lastsearch_values=1'.(! empty($socid)?'&socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
@@ -270,7 +270,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		if (! empty($conf->projet->enabled))
 		{
 			$langs->load("projects");
-			$morehtmlref.='<br>'.$langs->trans('Project') . ' ';
+			$morehtmlref.='<br>'.$langs->trans('Project') . ' : ';
 			if (0)
 			{
 				if ($action != 'classify')
