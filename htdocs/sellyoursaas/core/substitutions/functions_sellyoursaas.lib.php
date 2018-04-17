@@ -63,6 +63,13 @@ function sellyoursaas_completesubstitutionarray(&$substitutionarray,$langs,$obje
         	}
         	else dol_print_error($db);
         }
+
+        if (is_object($object) && get_class($object) == 'Contrat')
+        {
+        	$hash = dol_hash('sellyoursaas'.$contract->id.dol_print_date($now, 'dayrfc'));
+        	$substitutionarray['__HASH__'] = $hash;
+        }
+
     }
 
 }

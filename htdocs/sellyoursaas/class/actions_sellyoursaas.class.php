@@ -113,7 +113,10 @@ class ActionsSellyoursaas
 	    	{
 	    		if (in_array($object->array_options['options_deployment_status'], array('processing', 'undeployed')))
 	    		{
-	    			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=deploy">' . $langs->trans('Redeploy') . '</a>';
+	    			$alt = $langs->trans("SellYourSaasSubDomains").' '.$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
+	    			$alt.= '<br>'.$langs->trans("SellYourSaasSubDomainsIP").' '.$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP;
+
+	    			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=deploy" title="'.dol_escape_htmltag($alt).'">' . $langs->trans('Redeploy') . '</a>';
 	    		}
 	    		else
 	    		{
@@ -259,7 +262,7 @@ class ActionsSellyoursaas
 				if (! $error)
 				{
 					$object->array_options['options_deployment_status'] = 'done';
-					$object->array_options['options_deployment_date_end'] = dol_now('tzserver');
+					$object->array_options['options_deployment_date_end'] = dol_now();
 					$object->array_options['options_undeployment_date'] = '';
 					$object->array_options['options_undeployment_ip'] = '';
 
@@ -356,7 +359,7 @@ class ActionsSellyoursaas
 				if (! $error)
 				{
 					$object->array_options['options_deployment_status'] = 'undeployed';
-					$object->array_options['options_undeployment_date'] = dol_now('tzserver');
+					$object->array_options['options_undeployment_date'] = dol_now();
 					$object->array_options['options_undeployment_ip'] = $_SERVER['REMOTE_ADDR'];
 
 					$result = $object->update($user);

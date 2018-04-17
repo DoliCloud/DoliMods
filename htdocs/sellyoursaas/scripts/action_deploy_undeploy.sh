@@ -84,6 +84,10 @@ if [ "x${22}" == "x" ]; then
 	echo "Missing parameter 22 - EMAILFROM" 1>&2
 	exit 1
 fi
+if [ "x${23}" == "x" ]; then
+	echo "Missing parameter 23 - REMOTEIP" 1>&2
+	exit 1
+fi
 
 
 export mode=$1
@@ -110,6 +114,7 @@ export cronfile=${19}
 export cliafter=${20}
 export targetdir=${21}
 export EMAILFROM=${22}
+export REMOTEIP=${23}
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
@@ -212,7 +217,6 @@ fi
 if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 
 	export ZONE="$domainname.hosts" 
-	export REMOTEIP=79.137.96.15
 	
 	#$ttl 1d
 	#$ORIGIN with.dolicloud.com.
@@ -306,7 +310,6 @@ fi
 if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 
 	export ZONE="$domainname.hosts" 
-	export REMOTEIP=79.137.96.15
 
 	echo `date +%Y%m%d%H%M%S`" ***** Remove DNS entry for $instancename in $domainname - Test with cat /etc/bind/${ZONE} | grep '^$instancename '"
 

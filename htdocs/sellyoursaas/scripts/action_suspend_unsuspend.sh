@@ -30,7 +30,6 @@ export PID=${$}
 export targetdir="/home/jail/home"				
 export archivedir="/home/archives"
 export ZONES_PATH="/etc/bind/zones"
-export ZONE="with.dolicloud.com.hosts" 
 export scriptdir=$(dirname $(realpath ${0}))
 export vhostfile="$scriptdir/templates/vhostHttps-sellyoursaas.template"
 export vhostfilesuspended="$scriptdir/templates/vhostHttps-sellyoursaas-suspended.template"
@@ -71,6 +70,10 @@ if [ "x$7" == "x" ]; then
 fi
 if [ "x${22}" == "x" ]; then
 	echo "Missing parameter 22 - EMAILFROM" 1>&2
+	exit 1
+fi
+if [ "x${23}" == "x" ]; then
+	echo "Missing parameter 23 - REMOTEIP" 1>&2
 	exit 1
 fi
 

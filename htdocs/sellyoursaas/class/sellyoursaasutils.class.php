@@ -1621,6 +1621,36 @@ class SellYourSaasUtils
     			$generateddbpassword=$contract->array_options['options_password_db'];
     			$generateddbprefix=($contract->array_options['options_prefix_db']?$contract->array_options['options_prefix_db']:'llx_');
 
+    			$REMOTEIPTODEPLOYTO='';
+    			$tmparray=explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+    			$found=0;
+    			foreach($tmparray as $key => $val)
+    			{
+    				if ($val == $domainname)
+    				{
+    					$found = $key+1;
+    					break;
+    				}
+    			}
+    			//print 'Found domain at position '.$found;
+    			if (! $found)
+    			{
+    				$this->error="Failed to found position of server domain '".$domainname."' to deploy to into SELLYOURSAAS_SUB_DOMAIN_NAMES=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
+    				$this->errors[]="Failed to found position of server domain '".$domainname."' to deploy to into SELLYOURSAAS_SUB_DOMAIN_NAMES=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
+    				$error++;
+    			}
+    			else
+    			{
+    				$tmparray=explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_IP);
+    				$REMOTEIPTODEPLOYTO=$tmparray[($found-1)];
+    			}
+    			if (! $REMOTEIPTODEPLOYTO)
+    			{
+    				$this->error="Failed to found ip of server domain '".$domainname."' to deploy to at position '".$found."' into SELLYOURSAAS_SUB_DOMAIN_IPS=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP;
+    				$this->errors[]="Failed to found ip of server domain '".$domainname."' to deploy to at position '".$found."' into SELLYOURSAAS_SUB_DOMAIN_IPS=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP;
+    				$error++;
+    			}
+
     			// Is it a product linked to a package ?
     			$tmppackage = new Packages($this->db);
     			if (! empty($producttmp->array_options['options_package']))
@@ -1675,7 +1705,7 @@ class SellYourSaasUtils
     			dol_syslog("Create cron file ".$tmppackage->srccronfile1);
     			file_put_contents($tmppackage->srccronfile, $cronfile);
 
-    			dol_syslog("Create cron file ".$tmppackage->srccliafter);
+    			dol_syslog("Create cli file ".$tmppackage->srccliafter);
     			file_put_contents($tmppackage->srccliafter, $cliafter);
 
     			// Remote action : unsuspend
@@ -1685,6 +1715,7 @@ class SellYourSaasUtils
     			$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
     			$commandurl.= '&'.$tmppackage->srccronfile.'&'.$tmppackage->srccliafter.'&'.$targetdir;
     			$commandurl.= '&'.$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;
+    			$commandurl.= '&'.$REMOTEIPTODEPLOYTO;
 
     			$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 
@@ -1692,18 +1723,21 @@ class SellYourSaasUtils
 
     			$conf->global->MAIN_USE_RESPONSE_TIMEOUT = 60;
 
-    			$urltoget='http://'.$serverdeployement.':8080/'.$remoteaction.'?'.urlencode($commandurl);
-    			include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
-    			$retarray = getURLContent($urltoget);
-
-    			if ($retarray['curl_error_no'] != '' || $retarray['http_code'] != 200)
+    			if (! $error)
     			{
-    				$error++;
-    				if ($retarray['curl_error_no'] != '') $this->errors[] = $retarray['curl_error_msg'];
-    				else $this->errors[] = $retarray['content'];
+	    			$urltoget='http://'.$serverdeployement.':8080/'.$remoteaction.'?'.urlencode($commandurl);
+	    			include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+	    			$retarray = getURLContent($urltoget);
+
+	    			if ($retarray['curl_error_no'] != '' || $retarray['http_code'] != 200)
+	    			{
+	    				$error++;
+	    				if ($retarray['curl_error_no'] != '') $this->errors[] = $retarray['curl_error_msg'];
+	    				else $this->errors[] = $retarray['content'];
+	    			}
     			}
 
-    			if (in_array($remoteaction, array('deploy','deployall')))
+    			if (! $error && in_array($remoteaction, array('deploy','deployall')))
     			{
 			    	// Execute personalized SQL requests
 			    	if (! $error)
