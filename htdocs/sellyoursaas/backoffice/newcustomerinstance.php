@@ -246,7 +246,7 @@ if (empty($reshook))
 
 			$checkinstance=0;
 			if (preg_match('/\.on\./', $instancetocreate))   { $checkinstance=1; $object->array_options['options_dolicloud']='yesv1'; }
-			if (preg_match('/\.with\./', $instancetocreate)) { $checkinstance=1; $object->array_options['options_dolicloud']='yesv1'; }
+			if (preg_match('/\.with\./', $instancetocreate)) { $checkinstance=1; $object->array_options['options_dolicloud']='yesv2'; }
 
 			if (! $checkinstance)
 			{
@@ -288,6 +288,7 @@ if (empty($reshook))
 					$object->default_lang=$localearray[0].'_'.strtoupper($localearray[1]?$localearray[1]:$localearray[0]);
 				}
 				$object->array_options['options_date_registration']=$dolicloudcustomer->date_registration;
+				$object->array_options['options_source']='BACKOFFICE';
 				if ($dolicloudcustomer->status == 'ACTIVE') $object->status = 1;
 				else $object->status = 0;
 

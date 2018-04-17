@@ -72,34 +72,6 @@ if (empty($date_endfreeperiod) && ! empty($date_registration)) $date_endfreeperi
 $error = 0; $errors = array();
 
 
-$instance = 'xxxx';
-$type_db = $conf->db->type;
-if ($instanceoldid)
-{
-	$instance = $object->instance;
-	$hostname_db = $object->hostname_db;
-	$username_db = $object->username_db;
-	$password_db = $object->password_db;
-	$database_db = $object->database_db;
-	$port_db = $object->port_db?$object->port_db:3306;
-	$username_web = $object->username_web;
-	$password_web = $object->password_web;
-	$hostname_os = $object->instance.'on.dolicloud.com';
-}
-else	// $object is a contract (on old or new instance)
-{
-	$instance = $object->ref_customer;
-	$hostname_db = $object->array_options['options_hostname_db'];
-	$username_db = $object->array_options['options_username_db'];
-	$password_db = $object->array_options['options_password_db'];
-	$database_db = $object->array_options['options_database_db'];
-	$port_db     = $object->array_options['options_port_db'];
-	$username_web = $object->array_options['options_username_os'];
-	$password_web = $object->array_options['options_username_os'];
-	$hostname_os = $object->array_options['options_hostname_os'];
-}
-
-
 if (empty($instanceoldid) && empty($refold) && $action != 'create')
 {
 	$object = new Contrat($db);
@@ -128,6 +100,33 @@ if ($id > 0 || $instanceoldid > 0 || $ref || $refold)
 	$result=$object->fetch($id?$id:$instanceoldid, $ref?$ref:$refold);
 	if ($result < 0) dol_print_error($db,$object->error);
 	if ($object->element != 'contrat') $instanceoldid=$object->id;
+}
+
+$instance = 'xxxx';
+$type_db = $conf->db->type;
+if ($instanceoldid)
+{
+	$instance = $object->instance;
+	$hostname_db = $object->hostname_db;
+	$username_db = $object->username_db;
+	$password_db = $object->password_db;
+	$database_db = $object->database_db;
+	$port_db = $object->port_db?$object->port_db:3306;
+	$username_web = $object->username_web;
+	$password_web = $object->password_web;
+	$hostname_os = $object->instance.'on.dolicloud.com';
+}
+else	// $object is a contract (on old or new instance)
+{
+	$instance = $object->ref_customer;
+	$hostname_db = $object->array_options['options_hostname_db'];
+	$username_db = $object->array_options['options_username_db'];
+	$password_db = $object->array_options['options_password_db'];
+	$database_db = $object->array_options['options_database_db'];
+	$port_db     = $object->array_options['options_port_db'];
+	$username_web = $object->array_options['options_username_os'];
+	$password_web = $object->array_options['options_username_os'];
+	$hostname_os = $object->array_options['options_hostname_os'];
 }
 
 
@@ -473,8 +472,15 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	{
 		print '<div class="fichecenter">';
 
+		$confinstance = new Conf();
+
+		if ($dbcustomerinstance->connected)
+		{
+			$confinstance->setValues($dbcustomerinstance);
+		}
+
 		// ----- SellYourSaas instance -----
-		print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.' (Customer instance '.$dbcustomerinstance->database_host.')</strong><br>';
+		print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.' (Customer instance '.$dbcustomerinstance->database_host.')</strong>';
 
 		// Last refresh
 		print ' - '.$langs->trans("DateLastCheck").': '.($object->date_lastcheck?dol_print_date($object->date_lastcheck,'dayhour','tzuser'):$langs->trans("Never"));
@@ -488,76 +494,68 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		print '<div class="underbanner clearboth"></div>';
 		print '<table class="border" width="100%">';
 
-		// Instance / Organization
-		/*
-		 print '<tr><td width="20%">'.$langs->trans("Instance").'</td><td colspan="3">';
-		 $savdb=$object->db;
-		 $object->db=$object->db2;	// To have ->db to point to db2 for showrefnav function
-		 print $form2->showrefnav($object,'instance','',1,'name','instance','','',1);
-		 $object->db=$savdb;
-		 print '</td></tr>';
-		 print '<tr><td>'.$langs->trans("Organization").'</td><td colspan="3">';
-		 print $object->organization;
-		 print '</td></tr>';
-		 */
-
 		// Email
-		print '<tr><td>'.$langs->trans("EMail").'</td><td colspan="3">'.dol_print_email($object->email,$object->id,0,'AC_EMAIL').'</td>';
+		print '<tr><td>'.$langs->trans("EMail").'</td><td colspan="3">'.dol_print_email($object->thirdparty->email,$object->thirdparty->id,0,'AC_EMAIL').'</td>';
 		print '</tr>';
 
 		// Plan
-		print '<tr><td width="20%">'.$langs->trans("Plan").'</td><td colspan="3">'.$object->plan.' - ';
-		$plan=new Cdolicloudplans($db);
-		$result=$plan->fetch('',$object->plan);
-		if ($plan->price_instance) print ' '.$plan->price_instance.' '.currency_name('EUR').'/instance';
-		if ($plan->price_user) print ' '.$plan->price_user.' '.currency_name('EUR').'/user';
-		if ($plan->price_gb) print ' '.$plan->price_gb.' '.currency_name('EUR').'/GB';
-		print ' <a href="https://www.dolicloud.com/fr/component/content/article/134-pricing" target="_blank">('.$langs->trans("Prices").')';
+		print '<tr><td width="20%">'.$langs->trans("Plan").'</td><td colspan="3">'.$object->array_options['options_plan'].' - ';
+		$urlforprices = $conf->global->SELLYOURSAAS_PRICES_URL;
+		if ($urlforprices) print ' <a href="'.$urlforprices.'" target="_blank">('.$langs->trans("Prices").')';
 		print '</td>';
 		print '</tr>';
 
 		// Partner
-		print '<tr><td width="20%">'.$langs->trans("Partner").'</td><td width="30%">'.$object->partner.'</td><td width="20%">'.$langs->trans("Source").'</td><td>'.($object->source?$object->source:'').'</td></tr>';
+		print '<tr><td width="20%">'.$langs->trans("Reseller").'</td><td width="30%">';
+		if ($object->thirdparty->parent > 0)
+		{
+			$reseller=new Societe($db);
+			$reseller->fetch($object->thirdparty->parent);
+			print $reseller->getNomUrl(1);
+		}
+		print '</td>';
+		print '<td width="20%">'.$langs->trans("Source").'</td><td>'.($object->thirdparty->array_options['options_source']?$object->thirdparty->array_options['options_source']:'').'</td></tr>';
 
 		// Lastname / Firstname
-		print '<tr><td width="20%">'.$langs->trans("Lastname").'</td><td width="30%">'.$object->lastname.'</td>';
-		print '<td width="20%">'.$langs->trans("Firstname").'</td><td width="30%">'.$object->firstname.'</td></tr>';
+		print '<tr><td width="20%">'.$langs->trans("Lastname").'</td><td width="30%">'.$object->thirdparty->array_options['options_lastname'].'</td>';
+		print '<td width="20%">'.$langs->trans("Firstname").'</td><td width="30%">'.$object->thirdparty->array_options['options_firstname'].'</td></tr>';
 
 		// Address
 		print '<tr><td>'.$langs->trans("Address").'</td><td colspan="3">';
-		dol_print_address($object->address,'gmap','dolicloud',$object->id);
+		dol_print_address($object->thirdparty->address,'gmap','dolicloud',$object->id);
 		print '</td></tr>';
 
 		// Zip Town
 		print '<tr><td>'.$langs->trans("Zip").' / '.$langs->trans("Town").'</td><td colspan="3">';
-		print $object->zip;
-		if ($object->zip) print '&nbsp;';
-		print $object->town.'</td></tr>';
+		print $object->thirdparty->zip;
+		if ($object->thirdparty->zip) print '&nbsp;';
+		print $object->thirdparty->town.'</td></tr>';
 
 		// Country
 		print '<tr><td>'.$langs->trans("Country").'</td><td colspan="3">';
-		$img=picto_from_langcode($object->country_code);
-		if ($object->country_code) print $img.' ';
-		print getCountry($object->country_code,0);
+		$img=picto_from_langcode($object->thirdparty->country_code);
+		if ($object->thirdparty->country_code) print $img.' ';
+		print getCountry($object->thirdparty->country_code,0);
 		print '</td></tr>';
 
 		// State
 		if (empty($conf->global->SOCIETE_DISABLE_STATE))
 		{
-			print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">'.$object->state.'</td>';
+			print '<tr><td>'.$langs->trans('State').'</td><td colspan="3">'.$object->thirdparty->state.'</td>';
 		}
 
 		// VAT number
-		print '<tr><td>'.$langs->trans("VATIntra").'</td><td colspan="3">'.$object->vat_number.'</td>';
+		print '<tr><td>'.$langs->trans("VATIntra").'</td><td colspan="3">'.$object->thirdparty->vat_number.'</td>';
 		print '</tr>';
 
 		// Phone
-		print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3">'.dol_print_phone($object->phone,$object->country_code,$object->id,0,'AC_TEL').'</td>';
+		print '<tr><td>'.$langs->trans("PhonePro").'</td><td colspan="3">'.dol_print_phone($object->thirdparty->phone,$object->thirdparty->country_code,$object->thirdparty->id,0,'AC_TEL').'</td>';
 		print '</tr>';
 
 		// Note
+		/*
 		print '<tr><td class="tdtop">'.$langs->trans("Note").'</td><td colspan="3">';
-		print nl2br($object->note);
+		print nl2br($object->thirdparty->note);
 		print '</td></tr>';
 
 		// SFTP
@@ -597,7 +595,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		print '</td>';
 		print '<td></td><td></td>';
 		print '</tr>';
-
+		*/
 		/*
 		 // Lastlogin
 		 print '<tr>';
@@ -607,14 +605,24 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		 */
 		// Version
 		print '<tr>';
-		print '<td>'.$langs->trans("Version").'</td><td>'.$object->version.'</td>';
-		print '<td></td><td></td>';
+		print '<td>'.$langs->trans("Version").'</td><td colspan="3">MAIN_VERSION_LAST_INSTALL='.$confinstance->global->MAIN_VERSION_LAST_INSTALL.' / MAIN_VERSION_LAST_UPGRADE='.$confinstance->global->MAIN_VERSION_LAST_UPGRADE.'</td>';
+		print '</td>';
 		print '</tr>';
 
 		// Modules
 		print '<tr>';
-		print '<td>'.$langs->trans("Modules").'</td><td>'.join(', ',explode(',',$object->modulesenabled)).'</td>';
-		print '<td></td><td></td>';
+		print '<td>'.$langs->trans("Modules").'</td><td colspan="3">';
+		$i=0;
+		foreach($conf->global as $key => $val)
+		{
+			if (preg_match('/^MAIN_MODULE_[^_]+$/',$key) && ! empty($val))
+			{
+				if ($i > 0) print ', ';
+				print preg_replace('/^MAIN_MODULE_/','',$key);
+				$i++;
+			}
+		}
+		print '</td>';
 		print '</tr>';
 
 		// Authorized key file
@@ -638,6 +646,8 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 		print '</div>';
 		print '</div>';
+
+		print '<br>';
 	}
 
 	if (preg_match('/\.on\./', $object->ref_customer) || get_class($object) == 'Dolicloud_customers')
@@ -716,7 +726,8 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		if ($plan->price_instance) print ' '.$plan->price_instance.' '.currency_name('EUR').'/instance';
 		if ($plan->price_user) print ' '.$plan->price_user.' '.currency_name('EUR').'/user';
 		if ($plan->price_gb) print ' '.$plan->price_gb.' '.currency_name('EUR').'/GB';
-		print ' <a href="https://www.dolicloud.com/fr/component/content/article/134-pricing" target="_blank">('.$langs->trans("Prices").')';
+		$urlforprices = $conf->global->SELLYOURSAAS_PRICES_URL;
+		if ($urlforprices) print ' <a href="'.$urlforprices.'" target="_blank">('.$langs->trans("Prices").')';
 		print '</td>';
 		print '</tr>';
 

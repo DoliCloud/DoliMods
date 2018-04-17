@@ -366,6 +366,7 @@ else
 	$tmpthirdparty->tva_assuj = 1;
 	$tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
 	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
+	$tmpthirdparty->array_options['options_source']='REGISTERFORM-UNKNOWN';
 	$tmpthirdparty->array_options['options_password'] = $password;
 	if (is_object($partnerthirdparty)) $tmpthirdparty->parent = $partnerthirdparty->id;		// Add link to parent/reseller
 	if ($country_code)
