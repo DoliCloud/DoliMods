@@ -238,7 +238,7 @@ $help_url="";
 llxHeader("",$langs->trans("SellYouSaasSetup"),$help_url);
 
 $linkback='<a href="'.($backtopage?$backtopage:DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1').'">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans('SellYouSaasSetup'),$linkback,'setup');
+print_fiche_titre($langs->trans('SellYouSaasSetup'), $linkback, 'setup');
 
 //$head=array();
 //dol_fiche_head($head, 'serversetup', $langs->trans("SellYourSaas"), -1);

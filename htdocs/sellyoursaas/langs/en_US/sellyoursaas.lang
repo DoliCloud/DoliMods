@@ -294,6 +294,7 @@ ErrorYouDontOwnTheInstanceYouTryToDelete=Error, you don't own the instance <stro
 FirstRecord=First record
 LastRecord=Last record
 InstanceName=Instance name
+Reseller=Reseller
 PartnerCommission=Reseller commission (%%)
 PasswordAssistance=Password assistance
 AlertCreditCardExpiration=Alert Credit Card Expiration

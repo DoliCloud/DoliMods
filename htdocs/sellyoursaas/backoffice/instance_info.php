@@ -491,8 +491,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		}
 		print '<br>';
 
-		print '<div class="underbanner clearboth"></div>';
-		print '<table class="border" width="100%">';
+		print '<table class="noborder" width="100%">';
 
 		// Email
 		print '<tr><td>'.$langs->trans("EMail").'</td><td colspan="3">'.dol_print_email($object->thirdparty->email,$object->thirdparty->id,0,'AC_EMAIL').'</td>';
@@ -691,8 +690,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		}
 		print '<br>';
 
-		print '<div class="underbanner clearboth"></div>';
-		print '<table class="border" width="100%">';
+		print '<table class="noborder" width="100%">';
 
 		// Instance / Organization
 		/*

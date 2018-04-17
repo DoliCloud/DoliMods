@@ -262,6 +262,7 @@ AnnounceOnCustomerDashboard=Annonce sur l'interface Espace client
 CommandToManageRemoteDeploymentAgent=Commande d'arrêt/relance de l'agent de déploiement
 InstanceWasDeployed=L'instance a été déployé
 YourPaymentModeWillExpireFixItSoon=Votre mode de paiement est sur le point d'expirer. Merci de <a href="%s">mettre à jour votre mode de paiement</a> afin d'éviter toute interruption de service.
+Reseller=Revendeur
 YouAreAReseller=Vous êtes un revendeur
 YourURLToCreateNewInstance=Pour avoir de nouveaux utilisateurs liés à votre compte revendeur, il faut utiliser l'URL suivante lors de l'inscription
 YourCommissionsAppearsInMenu=Vos commissions sont visibles dans le menu %s
