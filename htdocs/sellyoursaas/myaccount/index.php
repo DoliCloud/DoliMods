@@ -839,7 +839,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 
 	if (! $error)
 	{
-		$hash = dol_hash('sellyoursaas'.$contract->id.dol_print_date($now, 'dayrfc'));
+		$hash = dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$contract->thirdparty->email.dol_print_date($now, 'dayrfc'));
 
 		// Send confirmation email
 		if ($action == 'undeploy')
@@ -2745,7 +2745,7 @@ if ($mode == 'mycustomerinstances')
 
 			// Customer (link to login on customer dashboard)
 			print '<span class="opacitymedium">'.$langs->trans("Customer").' : </span>'.$tmpcustomer->name;
-			$dol_login_hash=dol_hash('sellyoursaas'.$tmpcustomer->email.dol_print_date(dol_now(),'%Y%m%d%H','gmt'));	// hash is valid one hour
+			$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$contract->thirdparty->email.dol_print_date(dol_now(),'dayrfc'));	// hash is valid one hour
 			print ' &nbsp;-&nbsp;  <a target="_blankcustomer" href="'.$_SERVER["PHP_SELF"].'?mode=dashboard&username='.$tmpcustomer->email.'&password=&mode=logout&login_hash='.$dol_login_hash.'"><span class="fa fa-desktop"></span> '.$langs->trans("LoginWithCustomerAccount").'</a>';
 			print '<br>';
 

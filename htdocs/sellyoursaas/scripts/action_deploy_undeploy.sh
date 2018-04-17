@@ -115,6 +115,7 @@ export cliafter=${20}
 export targetdir=${21}
 export EMAILFROM=${22}
 export REMOTEIP=${23}
+export SELLYOURSAAS_ACCOUNT_URL=${24}
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
@@ -394,7 +395,6 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		mkdir -p $targetdirwithsources1
 		echo "cp -pr  $dirwithsources1/ $targetdirwithsources1"
 		cp -pr  $dirwithsources1/. $targetdirwithsources1
-		cp -pr $scriptdir/templates/suspended.php $targetdirwithsources1/suspended.php
 	fi
 	fi
 	echo "Check dirwithsources2=$dirwithsources2 targetdirwithsources2=$targetdirwithsources2"
@@ -451,7 +451,22 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	else
 		mv $fileforconfig1 $targetfileforconfig1
 	fi
+	chown -R $osusername.$osusername $targetfileforconfig1
+	chmod -R go-rwx $targetfileforconfig1
+	chmod -R a-wx $targetfileforconfig1
+fi
 
+# Undeploy config file
+
+if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
+
+	echo rm -f $targetfileforconfig1.undeployed 2>/dev/null
+	echo mv $targetfileforconfig1 $targetfileforconfig1.undeployed
+	if [[ $testorconfirm == "confirm" ]]
+	then
+		rm -f $targetfileforconfig1.undeployed 2>/dev/null
+		mv $targetfileforconfig1 $targetfileforconfig1.undeployed
+	fi	
 fi
 
 
@@ -471,16 +486,20 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
 			  sed -e 's/__webAppAliases__/$instancename.$domainname/g' | \
 			  sed -e 's/__webAppLogName__/$instancename/g' | \
-			  sed -e 's/__myMainDomain__/dolicloud.com/g' | \
+			  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
 			  sed -e 's/__osUsername__/$osusername/g' | \
 			  sed -e 's/__osGroupname__/$osusername/g' | \
+			  sed -e 's;__osUserPath__;/home/jail/home/$osusername/$dbname;' | \
+			  sed -e 's;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;' |\
 			  sed -e 's;__webAppPath__;$instancedir;' > $apacheconf"
 	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
 			  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
 			  sed -e "s/__webAppLogName__/$instancename/g" | \
-			  sed -e 's/__myMainDomain__/dolicloud.com/g' | \
+			  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
 			  sed -e "s/__osUsername__/$osusername/g" | \
 			  sed -e "s/__osGroupname__/$osusername/g" | \
+			  sed -e "s;__osUserPath__;/home/jail/home/$osusername/$dbname;" | \
+			  sed -e "s;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;" |\
 			  sed -e "s;__webAppPath__;$instancedir;" > $apacheconf
 
 

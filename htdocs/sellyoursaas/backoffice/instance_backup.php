@@ -168,33 +168,31 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	 * Fiche en mode visualisation
 	*/
 
-	$prefix = 'with';
 	$instance = 'xxxx';
 	$type_db = $conf->db->type;
-
 	if ($instanceoldid)
 	{
-		$prefix='on';
 		$instance = $object->instance;
 		$hostname_db = $object->hostname_db;
 		$username_db = $object->username_db;
 		$password_db = $object->password_db;
 		$database_db = $object->database_db;
-
+		$port_db = $object->port_db?$object->port_db:3306;
 		$username_web = $object->username_web;
 		$password_web = $object->password_web;
+		$hostname_os = $object->instance.'on.dolicloud.com';
 	}
 	else	// $object is a contract (on old or new instance)
 	{
-		if (preg_match('/\.on\./', $object->ref_customer)) $prefix='on';
-		else $prefix='with';
-
+		$instance = $object->ref_customer;
 		$hostname_db = $object->array_options['options_hostname_db'];
 		$username_db = $object->array_options['options_username_db'];
 		$password_db = $object->array_options['options_password_db'];
 		$database_db = $object->array_options['options_database_db'];
+		$port_db     = $object->array_options['options_port_db'];
 		$username_web = $object->array_options['options_username_os'];
 		$password_web = $object->array_options['options_username_os'];
+		$hostname_os = $object->array_options['options_hostname_os'];
 	}
 
 	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);
@@ -208,6 +206,8 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 
 	$object->fetch_thirdparty();
+
+	//$object->email = $object->thirdparty->email;
 
 	// Contract card
 
@@ -277,9 +277,8 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 	$backupdir=$conf->global->DOLICLOUD_BACKUP_PATH;
 
-	$dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
-	$login=$object->username_web;
-	$password=$object->password_web;
+	$login=$username_web;
+	$password=$password_web;
 
 	if (! empty($instanceoldid))
 	{
@@ -299,7 +298,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	// Backup dir
 	print '<tr class="oddeven">';
 	print '<td width="20%">'.$langs->trans("BackupDir").'</td>';
-	print '<td>'.$backupdir.'/'.$login.'/'.$dirdb.'</td>';
+	print '<td>'.$backupdir.'/'.$login.'</td>';
 	print '</tr>';
 
 	// Last backup date

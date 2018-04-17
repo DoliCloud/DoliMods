@@ -23,19 +23,6 @@
 
 
 /**
- * Return IP of server to deploy to
- */
-function getRemoveServerDeploymentIp()
-{
-	global $conf;
-
-	if (empty($conf->global->SELLYOURSAAS_REMOTE_SERVER_IP_FOR_INSTANCES)) $ip='localhost';
-	else $ip = $conf->global->SELLYOURSAAS_REMOTE_SERVER_IP_FOR_INSTANCES;
-
-	return $ip;
-}
-
-/**
  * Return if instance is a paid instance or not
  * Check if there is a template invoice
  *

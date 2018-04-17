@@ -1,7 +1,7 @@
 <VirtualHost *:443 *:80>
         
         ServerName __webAppDomain__
-        ServerAdmin admin@__myMainDomain__
+        ServerAdmin __webAdminEmail__
         ServerAlias __webAppAliases__
         DocumentRoot __webAppPath__/htdocs
 
@@ -19,9 +19,9 @@
         </Directory>
 
         # Possible values include: debug, info, notice, warn, error, crit, alert, emerg.
-        LogLevel debug
+        LogLevel info
 
-        #ErrorLog /var/log/apache2/__webAppLogName___error.log
+        ErrorLog __osUserPath__/__webAppLogName___error.log
         #TransferLog /var/log/apache2/__webAppLogName___access_log
 
         ServerSignature On
@@ -53,7 +53,7 @@
         SSLEngine on
 
         RewriteEngine   on
-        RewriteRule     ^(.*)$ https://myaccount.dolicloud.com/suspended.php?instance=%{SERVER_NAME} [L,R]
+        RewriteRule     ^(.*)$ https://__webMyAccount__/suspended.php?instance=%{SERVER_NAME} [L,R]
 
 
         <FilesMatch "\.(cgi|shtml|phtml|php)$">

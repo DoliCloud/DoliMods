@@ -107,8 +107,6 @@ if ($action == 'set')
 
 		dolibarr_set_const($db,"SELLYOURSAAS_ACCOUNT_URL",GETPOST("SELLYOURSAAS_ACCOUNT_URL"),'chaine',0,'',$conf->entity);
 
-		dolibarr_set_const($db,"SELLYOURSAAS_REMOTE_SERVER_IP_FOR_INSTANCES",GETPOST("SELLYOURSAAS_REMOTE_SERVER_IP_FOR_INSTANCES"),'chaine',0,'',$conf->entity);
-
 		dolibarr_set_const($db,"SELLYOURSAAS_MYACCOUNT_FOOTER",GETPOST("SELLYOURSAAS_MYACCOUNT_FOOTER",'none'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_PUBLIC_KEY",GETPOST("SELLYOURSAAS_PUBLIC_KEY",'none'),'chaine',0,'',$conf->entity);
 
@@ -390,13 +388,6 @@ print '<td>';
 print '<input class="minwidth300" type="text" name="SELLYOURSAAS_ACCOUNT_URL" value="'.$conf->global->SELLYOURSAAS_ACCOUNT_URL.'">';
 print '</td>';
 print '<td>https://myaccount.mysaas.com (the virtual host must link to <strong>'.dol_buildpath('sellyoursaas/myaccount').'</strong>)</td>';
-print '</tr>';
-
-print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasRemoteServerIpForDeployement").'</td>';
-print '<td>';
-print '<input class="minwidth300" type="text" name="SELLYOURSAAS_REMOTE_SERVER_IP_FOR_INSTANCES" value="'.$conf->global->SELLYOURSAAS_REMOTE_SERVER_IP_FOR_INSTANCES.'">';
-print '</td>';
-print '<td>127.0.0.1</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("FooterContent").'</td>';
