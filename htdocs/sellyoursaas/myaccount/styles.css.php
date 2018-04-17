@@ -155,6 +155,7 @@ print "
 		.signUpAlert {width: 90%;margin: 0 auto;}
 		header.inverse  h1 { padding-top: 5px; }
 		.center { text-align: center; }
+		.valignmiddle { vertical-align: middle; }
 
 	    #logo { text-align: center;	max-width:120px; max-height: 60px; }
 	      .block.small {

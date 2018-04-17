@@ -267,13 +267,34 @@ if ($action == 'send')
 	{
 		$tmpcontract = $listofcontractid[$contractid];
 		$topic = '[Ticket for '.$tmpcontract->ref_customer.'] '.$topic;
-		$content .= "\n";
-		$content .= 'Ref contract: '.$tmpcontract->ref."\n";
-		$content .= 'Date: '.dol_print_date($now, 'dayhour')."\n";
+		$content .= "<br><br>\n";
+		$content .= 'Date: '.dol_print_date($now, 'dayhour')."<br>\n";
+		$content .= 'Instance: <a href="https://'.$tmpcontract->ref_customer.'">'.$tmpcontract->ref_customer."</a><br>\n";
+		$content .= 'Ref contract: '.$tmpcontract->ref."<br>\n";
+		// TODO Add the support type
+		foreach($tmpcontract->lines as $key => $val)
+		{
+			if ($val->fk_product > 0)
+			{
+				$product = new Product($db);
+				$product->fetch($val->fk_product);
+				$content .= '- '.$langs->trans("Service").' '.$product->ref.' - '.$langs->trans("Qty")." ".$val->qty;
+				$content.=' ('.$product->array_options['options_app_or_option'].')';
+				if ($product->array_options['options_app_or_option'] == 'app')
+				{
+					$content .= ' - Support type = '.$product->array_options['options_typesupport'];
+				}
+			}
+			else
+			{
+				$content .= '- Service '.$val->label;
+			}
+			$content .= "<br>\n";;
+		}
 	}
 	$trackid = 'sellyoursaas'.$contractid;
 
-	$cmailfile = new CMailFile($topic, $emailto, $emailfrom, $content, array(), array(), array(), '', '', 0, 0, '', '', $trackid, '', 'standard', $replyto);
+	$cmailfile = new CMailFile($topic, $emailto, $emailfrom, $content, array(), array(), array(), '', '', 0, 1, '', '', $trackid, '', 'standard', $replyto);
 	$result = $cmailfile->sendfile();
 
 	if ($result) setEventMessages($langs->trans("TicketSent"), null, 'mesgs');
@@ -3623,16 +3644,21 @@ if ($mode == 'registerpaymentmode')
 		<input type="hidden" name="action" value="createpaymentmode">
 		<input type="hidden" name="backtourl" value="'.$backtourl.'">
 
-		<div class="radio-list inline-block">
-		<label class="radio-inline" id="linkcard">
-		<div class="radio inline-block"><span class="checked"><input type="radio" name="type" value="card" checked></span></div>
+
+		<div class="radio-list">
+		<label class="radio-inline" style="margin-right: 0px" id="linkcard">
+		<div class="radio inline-block"><span class="checked">'.$langs->trans("CreditOrDebitCard").'<input type="radio" name="type" value="card" checked></span></div><br>
 		<img src="/img/mastercard.png" width="50" height="31">
 		<img src="/img/visa.png" width="50" height="31">
 		<img src="/img/american_express.png" width="50" height="31">
 		</label>
-		<label class="radio-inline" id="linkpaypal" style="margin-left: 20px;">
-		<div class="radio inline-block"><span><input type="radio" name="type" value="payPal"></span></div>
+		<label class="radio-inline" id="linkpaypal" style="margin-left: 40px;">
+		<div class="radio inline-block"><span>'.$langs->trans("PayPal").'<input type="radio" name="type" value="PayPal"></span></div><br>
 		<img src="/img/paypal.png" width="50" height="31">
+		</label>
+		<label class="radio-inline" id="linksepa" style="margin-left: 30px;">
+		<div class="radio inline-block"><span>'.$langs->trans("SEPAMandate").'<input type="radio" name="type" value="SepaMandate"></span></div><br>
+		<img src="/img/sepa.png" width="50" height="31">
 		</label>
 		</div>
 
@@ -3670,7 +3696,27 @@ if ($mode == 'registerpaymentmode')
 
 		print '
 		</div>
-
+		<div class="linksepa" style="display: none;">';
+		if ($mythirdpartyaccount->isInEEC())
+		{
+			print '<br>';
+			//print $langs->trans("SEPAPaymentModeAvailableForYealyAndCeeSubscriptionOnly");
+			print $langs->trans("SEPAPaymentModeAvailableNotYetAvailable");
+			print '<br><br>';
+			//print '<input type="submit" name="submitpaypal" value="'.$langs->trans("Continue").'" class="btn btn-info btn-circle">';
+			print ' ';
+			print '<input type="submit" name="cancel" value="'.$langs->trans("Cancel").'" class="btn green-haze btn-circle">';
+		}
+		else
+		{
+			print '<br>';
+			print $langs->trans("SEPAPaymentModeAvailableForCeeOnly", $mythirdpartyaccount->country);
+			print '<br><br>';
+			print ' ';
+			print '<input type="submit" name="cancel" value="'.$langs->trans("Cancel").'" class="btn green-haze btn-circle">';
+		}
+		print '
+		</div>
 
 		</form>
 		</div>
@@ -3683,15 +3729,23 @@ if ($mode == 'registerpaymentmode')
 
 	print '<script type="text/javascript" language="javascript">
 		jQuery(document).ready(function() {
-			jQuery("#linkpaypal").click(function() {
-				console.log("Click on linkpaypal");
-				jQuery(".linkcard").hide();
-				jQuery(".linkpaypal").show();
-			});
 			jQuery("#linkcard").click(function() {
 				console.log("Click on linkcard");
 				jQuery(".linkcard").show();
 				jQuery(".linkpaypal").hide();
+				jQuery(".linksepa").hide();
+			});
+			jQuery("#linkpaypal").click(function() {
+				console.log("Click on linkpaypal");
+				jQuery(".linkcard").hide();
+				jQuery(".linkpaypal").show();
+				jQuery(".linksepa").hide();
+			});
+			jQuery("#linksepa").click(function() {
+				console.log("Click on linksepa");
+				jQuery(".linkcard").hide();
+				jQuery(".linkpaypal").hide();
+				jQuery(".linksepa").show();
 			});
 		});
 		</script>';
@@ -4053,9 +4107,11 @@ if ($mode == 'support')
 							$email = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
 							if (preg_match('/high/', GETPOST('supportchannel','alpha'))) $email = preg_replace('/@/', '+premium@', $email);
 
+							$subject = (GETPOST('subject','none')?GETPOST('subject','none'):'');
+
 							print '<input type="hidden" name="to" value="'.$email.'">';
 							print $langs->trans("MailFrom").' : <input type="text" required name="from" value="'.(GETPOST('from','none')?GETPOST('from','none'):$mythirdpartyaccount->email).'"><br><br>';
-							print $langs->trans("MailTopic").' : <input type="text" required class="minwidth500" name="subject" value="'.(GETPOST('subject','none')?GETPOST('subject','none'):'').'"><br><br>';
+							print $langs->trans("MailTopic").' : <input type="text" required class="minwidth500" name="subject" value="'.$subject.'"><br><br>';
 							print '<textarea rows="6" required placeholder="'.$langs->trans("YourText").'" style="border: 1px solid #888" name="content" class="centpercent">'.GETPOST('content','none').'</textarea><br><br>';
 
 							print '<center><input type="submit" name="submit" value="'.$langs->trans("SendMail").'" class="btn green-haze btn-circle">';
