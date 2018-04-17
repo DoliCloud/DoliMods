@@ -232,7 +232,7 @@ SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_HARD_ALERT=Nb de jours avant la fin de 
 SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT=Nb de jours après expiration avant désinstallation des instances de test
 SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT=Nb de jours après expiration avant désinstallation des instances payantes
 DaysForFreePeriod=Nb de jours période gratuite
-AccessToResources=Access au serveur (SSH/DB)
+AccessToResources=Accès au serveur (SSH/DB)
 TypeOfSupport=Type de support
 PleaseReadFAQFirst=Avant de soumettre un ticket au support, merci de vérifier si la réponse n'est pas disponible ici :<br><br><center><a href="%s" target="_faq">FAQs (Frequently Asked Questions)</a></center>
 CurrentServiceStatus=L'état de nos services peut être consulté en temps réel sur <a href="%s" target="_status">cette page</a>. Si un service apparaît inactif, alors nous sommes probablement déjà au courant et en train d'intervenir. Merci de patienter...
