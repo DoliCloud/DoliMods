@@ -114,7 +114,7 @@ if ($instanceoldid)
 	$port_db = $object->port_db?$object->port_db:3306;
 	$username_web = $object->username_web;
 	$password_web = $object->password_web;
-	$hostname_os = $object->instance.'on.dolicloud.com';
+	$hostname_os = $object->instance.'.on.dolicloud.com';
 }
 else	// $object is a contract (on old or new instance)
 {
