@@ -50,7 +50,6 @@ if ($action == 'addauthorizedkey')
 	{
 		if (! @ssh2_auth_password($connection, $username_web, $password_web))
 		{
-			var_dump($password_web);
 			dol_syslog("Could not authenticate with username ".$username_web." . and password ".preg_replace('/./', '*', $password_web), LOG_ERR);
 		}
 		else
@@ -99,6 +98,7 @@ if ($action == 'addauthorizedkey')
 			else setEventMessage($langs->transnoentitiesnoconv("ErrorFileAlreadyExists"),'warnings');
 
 			$object->fileauthorizedkey=(empty($fstat['atime'])?'':$fstat['atime']);
+			$object->array_options['options_fileauthorizekey']=(empty($fstat['atime'])?'':$fstat['atime']);
 
 			if (! empty($fstat['atime']))
 			{
@@ -309,6 +309,7 @@ if ($action == 'addinstalllock')
 			else setEventMessage($langs->transnoentitiesnoconv("ErrorFileAlreadyExists"),'warnings');
 
 			$object->filelock=(empty($fstat['atime'])?'':$fstat['atime']);
+			$object->array_options['options_filelock']=(empty($fstat['atime'])?'':$fstat['atime']);
 
 			if (! empty($fstat['atime']))
 			{
@@ -377,6 +378,7 @@ if ($action == 'delinstalllock')
 			else setEventMessage($langs->transnoentitiesnoconv("DeleteFails"),'warnings');
 
 			$object->filelock='';
+			$object->array_options['options_filelock']='';
 
 			if ($result)
 			{
