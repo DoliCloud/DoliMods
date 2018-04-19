@@ -60,7 +60,7 @@ if (in_array($tmparray[0], array('deploy', 'undeploy', 'deployall', 'undeployall
 	}
 	http_response_code($httpresponse);
 
-	print 'action_deploy_undeploy.sh return '.$return_var.", \n";
+	print 'action_deploy_undeploy.sh for action '.$tmparray[0].' return '.$return_var.", \n";
 	print "so remote agent returns http code ".$httpresponse."\n";
 
 	exit();
@@ -83,7 +83,7 @@ if (in_array($tmparray[0], array('suspend', 'unsuspend')))
 	}
 	http_response_code($httpresponse);
 
-	print 'action_deploy_undeploy.sh return '.$return_var.", \n";
+	print 'action_deploy_undeploy.sh for action '.$tmparray[0].' return '.$return_var.", \n";
 	print "so remote agent returns http code ".$httpresponse."\n";
 
 	exit();

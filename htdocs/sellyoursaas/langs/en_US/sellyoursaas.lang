@@ -312,3 +312,6 @@ LatestBackupDate=Latest backup date
 LatestBackupStatus=Latest backup status
 FailedToConnectMayBeOldInstance=Failed to connect to user database instance
 BackupDir=Backup directory
+PaymentModeRecorded=Payment mode saved
+RegistrationCounter=Registration counter from cookie
+RegistrationPreviousInstance=Previous registered instance from cookie

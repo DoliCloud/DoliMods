@@ -450,6 +450,19 @@ else
 		//$contract->array_options['options_nb_gb'] = 0.01;
 		$contract->array_options['options_deployment_ip'] = $_SERVER["REMOTE_ADDR"];
 
+		$prefix=dol_getprefix('');
+		$cookieregistrationa='DOLREGISTERA_'.$prefix;
+		$cookieregistrationb='DOLREGISTERB_'.$prefix;
+		$nbregistration = (int) $_COOKIE[$cookieregistrationa];
+		if (! empty($_COOKIE[$cookieregistrationa]))
+		{
+			$contract->array_options['options_cookieregister_counter'] = ($nbregistration ? $nbregistration : 1);
+		}
+		if (! empty($_COOKIE[$cookieregistrationb]))
+		{
+			$contract->array_options['options_cookieregister_previous_instance'] = dol_decode($_COOKIE[$cookieregistrationb]);
+		}
+
 		$result = $contract->create($user);
 		if ($result <= 0)
 		{
@@ -591,7 +604,8 @@ if (! $error)
 	if ($result <= 0)
 	{
 		$error++;
-		setEventMessages($contract->error, $contract->errors, 'errors');
+		$errormessages[]=$contract->error;
+		$errormessages[]=array_merge($contract->errors, $errormessages);
 	}
 }
 
@@ -602,6 +616,14 @@ if (! $error)
 	$contract->array_options['options_deployment_date_end'] = dol_now('tzserver');
 	$contract->array_options['options_undeployment_date'] = '';
 	$contract->array_options['options_undeployment_ip'] = '';
+
+	// Set cookie to store last registered instance
+	$prefix=dol_getprefix('');
+	$cookieregistrationa='DOLREGISTERA_'.$prefix;
+	$cookieregistrationb='DOLREGISTERB_'.$prefix;
+	$nbregistration = ((int) $_COOKIE[$cookieregistrationa] + 1);
+	setcookie($cookieregistrationa, $nbregistration, 0, "/", null, false, true);	// Cookie to count nb of registration from this computer
+	setcookie($cookieregistrationb, dol_encode($contract->ref_customer), 0, "/", null, false, true);					// Cookie to save previous registered instance
 
 	$result = $contract->update($user);
 	if ($result < 0)

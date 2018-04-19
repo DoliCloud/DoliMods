@@ -146,6 +146,11 @@ $head='<link rel="icon" href="img/favicon.ico">
 
 llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(), array('../dist/css/myaccount.css'), '', 'register');
 
+
+$prefix=dol_getprefix('');
+$cookieregistrationa='DOLREGISTERA_'.$prefix;
+if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0, "/", null, false, true);	// Cookie to count nb of registration from this computer
+
 ?>
 
 <div id="waitMask" style="display:none;">
@@ -334,7 +339,9 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
                 	$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
                 	foreach($listofdomain as $val)
                 	{
-                		print '<option value="'.$val.'">'.$val.'</option>';
+                		$newval=$val;
+                		if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
+                		print '<option value="'.$newval.'">'.$newval.'</option>';
                 	}
                     ?>
                 </select>

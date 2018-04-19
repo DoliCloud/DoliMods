@@ -135,18 +135,18 @@ if [[ "$mode" == "suspend" ]]; then
 			  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
 			  sed -e 's/__osUsername__/$osusername/g' | \
 			  sed -e 's/__osGroupname__/$osusername/g' | \
-			  sed -e 's;__osUserPath__;/home/jail/home/$osusername/$dbname;' | \
-			  sed -e 's;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;' |\
-			  sed -e 's;__webAppPath__;$instancedir;' > $apacheconf"
+			  sed -e 's;__osUserPath__;/home/jail/home/$osusername/$dbname;g' | \
+			  sed -e 's;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g' | \
+			  sed -e 's;__webAppPath__;$instancedir;g' > $apacheconf"
 	cat $vhostfilesuspended | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
 			  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
 			  sed -e "s/__webAppLogName__/$instancename/g" | \
 			  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
 			  sed -e "s/__osUsername__/$osusername/g" | \
 			  sed -e "s/__osGroupname__/$osusername/g" | \
-			  sed -e "s;__osUserPath__;/home/jail/home/$osusername/$dbname;" | \
-			  sed -e "s;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;" |\
-			  sed -e "s;__webAppPath__;$instancedir;" > $apacheconf
+			  sed -e "s;__osUserPath__;/home/jail/home/$osusername/$dbname;g" | \
+			  sed -e "s;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g" | \
+			  sed -e "s;__webAppPath__;$instancedir;g" > $apacheconf
 
 
 	echo Enabled conf with a2ensite $fqn.conf
@@ -188,17 +188,21 @@ if [[ "$mode" == "unsuspend" ]]; then
 	echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
 			  sed -e 's/__webAppAliases__/$instancename.$domainname/g' | \
 			  sed -e 's/__webAppLogName__/$instancename/g' | \
-			  sed -e 's/__myMainDomain__/dolicloud.com/g' | \
+			  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
 			  sed -e 's/__osUsername__/$osusername/g' | \
 			  sed -e 's/__osGroupname__/$osusername/g' | \
-			  sed -e 's;__webAppPath__;$instancedir;' > $apacheconf"
+			  sed -e 's;__osUserPath__;/home/jail/home/$osusername/$dbname;g' | \
+			  sed -e 's;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g' | \
+			  sed -e 's;__webAppPath__;$instancedir;g' > $apacheconf"
 	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
 			  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
 			  sed -e "s/__webAppLogName__/$instancename/g" | \
-			  sed -e 's/__myMainDomain__/dolicloud.com/g' | \
+			  sed -e "s/__myMainDomain__/dolicloud.com/g" | \
 			  sed -e "s/__osUsername__/$osusername/g" | \
 			  sed -e "s/__osGroupname__/$osusername/g" | \
-			  sed -e "s;__webAppPath__;$instancedir;" > $apacheconf
+			  sed -e "s;__osUserPath__;/home/jail/home/$osusername/$dbname;g" | \
+			  sed -e "s;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g" | \
+			  sed -e "s;__webAppPath__;$instancedir;g" > $apacheconf
 
 
 	echo Enabled conf with a2ensite $fqn.conf

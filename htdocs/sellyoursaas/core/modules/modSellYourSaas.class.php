@@ -323,7 +323,7 @@ class modSellYourSaas extends DolibarrModules
 		'titre'=>'LiveRefsInstances',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_live',
-		'url'=>'https://dolibarr.nltechno.com/refs',
+		'url'=>'__[SELLYOURSAAS_REFS_URL]__',
 		'langs'=>'sellyoursaas@sellyoursaas',
 		'position'=>212,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -670,6 +670,8 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('filelock',                             "DateFilelock", 'datetime', 130,    '',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('latestbackup_date',                "LatestBackupDate", 'datetime', 140,    '',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('latestbackup_status',            "LatestBackupStatus",  'varchar', 141,   '2',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$resultx=$extrafields->addExtraField('cookieregister_counter',                    "RegistrationCounter",     'int', 150,   '',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$resultx=$extrafields->addExtraField('cookieregister_previous_instance', "RegistrationPreviousInstance", 'varchar', 151,'128',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 
 		// Invoice
 		$resultx=$extrafields->addExtraField('separatorinvoice',        "SELLYOURSAAS_NAME", 'separate', 10,    '', 'facture', 0, 1, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');

@@ -791,6 +791,8 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 		if (! $error)
 		{
+			setEventMessages($langs->trans("PaymentModeRecorded"), null, 'mesgs');
+
 			$db->commit();
 
 			$url=$_SERVER["PHP_SELF"];
