@@ -283,3 +283,5 @@ LatestBackupStatus=Statut dernier backup
 FailedToConnectMayBeOldInstance=Echec de la connection à la base de l'instance de l'utilisateur
 BackupDir=Répertoire de sauvegarde
 PaymentModeRecorded=Mode de paiement enregistré
+RegistrationCounter=Compteur enregistrement pour le même cookie
+RegistrationPreviousInstance=Instance précédente pour le même cookie
