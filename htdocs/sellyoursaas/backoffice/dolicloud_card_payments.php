@@ -186,7 +186,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$password_db = $object->array_options['options_password_db'];
 		$database_db = $object->array_options['options_database_db'];
 		$username_web = $object->array_options['options_username_os'];
-		$password_web = $object->array_options['options_username_os'];
+		$password_web = $object->array_options['options_password_os'];
 	}
 
 	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);

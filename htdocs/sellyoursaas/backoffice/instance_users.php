@@ -117,7 +117,7 @@ else	// $object is a contract (on old or new instance)
 	$database_db = $object->array_options['options_database_db'];
 	$port_db     = $object->array_options['options_port_db'];
 	$username_web = $object->array_options['options_username_os'];
-	$password_web = $object->array_options['options_username_os'];
+	$password_web = $object->array_options['options_password_os'];
 	$hostname_os = $object->array_options['options_hostname_os'];
 }
 
@@ -369,7 +369,7 @@ if (empty($instanceoldid))
 		$database_db = $object->array_options['options_database_db'];
 		$port_db     = $object->array_options['options_port_db'];
 		$username_web = $object->array_options['options_username_os'];
-		$password_web = $object->array_options['options_username_os'];
+		$password_web = $object->array_options['options_password_os'];
 		$hostname_os = $object->array_options['options_hostname_os'];
 	}
 

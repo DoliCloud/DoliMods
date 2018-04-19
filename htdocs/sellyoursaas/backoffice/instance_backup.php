@@ -191,7 +191,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		$database_db = $object->array_options['options_database_db'];
 		$port_db     = $object->array_options['options_port_db'];
 		$username_web = $object->array_options['options_username_os'];
-		$password_web = $object->array_options['options_username_os'];
+		$password_web = $object->array_options['options_password_os'];
 		$hostname_os = $object->array_options['options_hostname_os'];
 	}
 

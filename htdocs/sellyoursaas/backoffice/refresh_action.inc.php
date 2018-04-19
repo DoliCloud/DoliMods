@@ -16,14 +16,42 @@ if ($action == 'addauthorizedkey')
 		dol_print_error('','ssh2_connect function does not exists'); exit;
 	}
 
-	$server=$object->instance.'.on.dolicloud.com';
+	$instance = 'xxxx';
+	$type_db = $conf->db->type;
+	if ($instanceoldid)
+	{
+		$instance = $object->instance;
+		$hostname_db = $object->hostname_db;
+		$username_db = $object->username_db;
+		$password_db = $object->password_db;
+		$database_db = $object->database_db;
+		$port_db = $object->port_db?$object->port_db:3306;
+		$username_web = $object->username_web;
+		$password_web = $object->password_web;
+		$hostname_os = $object->instance.'on.dolicloud.com';
+	}
+	else	// $object is a contract (on old or new instance)
+	{
+		$instance = $object->ref_customer;
+		$hostname_db = $object->array_options['options_hostname_db'];
+		$username_db = $object->array_options['options_username_db'];
+		$password_db = $object->array_options['options_password_db'];
+		$database_db = $object->array_options['options_database_db'];
+		$port_db     = $object->array_options['options_port_db'];
+		$username_web = $object->array_options['options_username_os'];
+		$password_web = $object->array_options['options_password_os'];
+		$hostname_os = $object->array_options['options_hostname_os'];
+	}
+
+	$server=$hostname_os;
+
 	$connection = ssh2_connect($server, 22);
 	if ($connection)
 	{
-		//print $object->instance." ".$object->username_web." ".$object->password_web."<br>\n";
-		if (! @ssh2_auth_password($connection, $object->username_web, $object->password_web))
+		if (! @ssh2_auth_password($connection, $username_web, $password_web))
 		{
-			dol_syslog("Could not authenticate with username ".$username." . and password ".preg_replace('/./', '*', $password), LOG_ERR);
+			var_dump($password_web);
+			dol_syslog("Could not authenticate with username ".$username_web." . and password ".preg_replace('/./', '*', $password_web), LOG_ERR);
 		}
 		else
 		{
@@ -33,7 +61,7 @@ if ($action == 'addauthorizedkey')
 			// Dir .ssh must have rwx------ permissions
 			// File authorized_keys must have rw------- permissions
 			$dircreated=0;
-			$result=ssh2_sftp_mkdir($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/.ssh');
+			$result=ssh2_sftp_mkdir($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/.ssh');
 			if ($result) {
 				$dircreated=1;
 			}	// Created
@@ -42,9 +70,9 @@ if ($action == 'addauthorizedkey')
 			}	// Creation fails or already exists
 
 			// Check if authorized_key exists
-			//$filecert="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/.ssh/authorized_keys';
-			$filecert="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/.ssh/authorized_keys';  // With PHP 5.6.27+
-			$fstat=ssh2_sftp_stat($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/.ssh/authorized_keys');
+			//$filecert="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/.ssh/authorized_keys';
+			$filecert="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/.ssh/authorized_keys';  // With PHP 5.6.27+
+			$fstat=ssh2_sftp_stat($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/.ssh/authorized_keys');
 
 			// Create authorized_keys file
 			if (empty($fstat['atime']))		// Failed to connect or file does not exists
@@ -64,7 +92,7 @@ if ($action == 'addauthorizedkey')
 					fwrite($stream,"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/A0b/8wwC8wNmb1h3GmwU93oh8M+WDybZbxdRO5IMXw6RKCaLKrnQjs15t4++Qp5ono0oF5HFBWMCrbj8pf15sP02op59rOzALGxFKO8eGtRzcOenCnKCW2ndjGbQFg76evpg3LiE29tpEMQDUM+WMwrATozCIeJE1Q8SJh6/QKJsQTACETJu1+hHKoRTozsqRM/5NLfZ9kiNYbqN80dfm6wDHT8ApiFZ9xnTSxay3NtZjBojeD57TLMmEo9E/2inX5Vupb/JtVik09e80qXSd48s6vk0ecNU9x2LUmNLvbhsPrWeiY2rwCi0h9qW9Y6kwELqqfMe3/cP999UzWnn admin@apollon\n");
 
 					fclose($stream);
-        			$fstat=ssh2_sftp_stat($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/.ssh/authorized_keys');
+        			$fstat=ssh2_sftp_stat($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/.ssh/authorized_keys');
 					setEventMessage($langs->transnoentitiesnoconv("FileCreated"),'mesgs');
 				}
 			}
@@ -72,7 +100,10 @@ if ($action == 'addauthorizedkey')
 
 			$object->fileauthorizedkey=(empty($fstat['atime'])?'':$fstat['atime']);
 
-			if (! empty($fstat['atime'])) $result = $object->update($user);
+			if (! empty($fstat['atime']))
+			{
+				$result = $object->update($user);
+			}
 		}
 	}
 	else setEventMessage($langs->transnoentitiesnoconv("FailedToConnectToSftp"),'errors');
@@ -88,34 +119,62 @@ if ($action == 'disable_instance')
 		dol_print_error('','ssh2_connect function does not exists'); exit;
 	}
 
-	$server=$object->instance.'.on.dolicloud.com';
+	$instance = 'xxxx';
+	$type_db = $conf->db->type;
+	if ($instanceoldid)
+	{
+		$instance = $object->instance;
+		$hostname_db = $object->hostname_db;
+		$username_db = $object->username_db;
+		$password_db = $object->password_db;
+		$database_db = $object->database_db;
+		$port_db = $object->port_db?$object->port_db:3306;
+		$username_web = $object->username_web;
+		$password_web = $object->password_web;
+		$hostname_os = $object->instance.'on.dolicloud.com';
+	}
+	else	// $object is a contract (on old or new instance)
+	{
+		$instance = $object->ref_customer;
+		$hostname_db = $object->array_options['options_hostname_db'];
+		$username_db = $object->array_options['options_username_db'];
+		$password_db = $object->array_options['options_password_db'];
+		$database_db = $object->array_options['options_database_db'];
+		$port_db     = $object->array_options['options_port_db'];
+		$username_web = $object->array_options['options_username_os'];
+		$password_web = $object->array_options['options_password_os'];
+		$hostname_os = $object->array_options['options_hostname_os'];
+	}
+
+	$server=$hostname_os;
+
 	$connection = ssh2_connect($server, 22);
 	if ($connection)
 	{
-		//print $object->instance." ".$object->username_web." ".$object->password_web."<br>\n";
-		if (! @ssh2_auth_password($connection, $object->username_web, $object->password_web))
+		//print $object->instance." ".$username_web." ".$password_web."<br>\n";
+		if (! @ssh2_auth_password($connection, $username_web, $password_web))
 		{
-			dol_syslog("Could not authenticate with username ".$username." . and password ".preg_replace('/./', '*', $password), LOG_ERR);
+			dol_syslog("Could not authenticate with username ".$username_web." . and password ".preg_replace('/./', '*', $password_web), LOG_ERR);
 		}
 		else
 		{
 			$sftp = ssh2_sftp($connection);
 
 			// Check if install.lock exists
-			$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
-			//$filedisabled="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/index.html';
-			$filedisabled="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/index.html';
-			$fstat=ssh2_sftp_stat($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/index.html');
+			$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$database_db);
+			//$filedisabled="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/'.$dir.'/htdocs/index.html';
+			$filedisabled="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/'.$dir.'/htdocs/index.html';
+			$fstat=ssh2_sftp_stat($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/'.$dir.'/htdocs/index.html');
 			if (empty($fstat['atime']))
 			{
 				$stream = fopen($filedisabled, 'w');
 				//var_dump($stream);exit;
 				$filesource=file_get_contents('index_disabled_en_US.html');
-				$filesource=preg_replace('/__instance__/', $object->instance, $filesource);
+				$filesource=preg_replace('/__instance__/', $instance, $filesource);
 				fwrite($stream,$filesource);
 				fclose($stream);
-    			$fstat=ssh2_sftp_stat($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/index.html');
-				setEventMessage($langs->transnoentitiesnoconv("FileToDisableInstanceCreated",$object->instance),'warnings');
+    			$fstat=ssh2_sftp_stat($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/'.$dir.'/htdocs/index.html');
+				setEventMessage($langs->transnoentitiesnoconv("FileToDisableInstanceCreated",$instance),'warnings');
 			}
 			else setEventMessage($langs->transnoentitiesnoconv("ErrorFileAlreadyExists"),'warnings');
 		}
@@ -130,25 +189,53 @@ if ($action == 'enable_instance')
 		dol_print_error('','ssh2_connect function does not exists'); exit;
 	}
 
-	$server=$object->instance.'.on.dolicloud.com';
+	$instance = 'xxxx';
+	$type_db = $conf->db->type;
+	if ($instanceoldid)
+	{
+		$instance = $object->instance;
+		$hostname_db = $object->hostname_db;
+		$username_db = $object->username_db;
+		$password_db = $object->password_db;
+		$database_db = $object->database_db;
+		$port_db = $object->port_db?$object->port_db:3306;
+		$username_web = $object->username_web;
+		$password_web = $object->password_web;
+		$hostname_os = $object->instance.'on.dolicloud.com';
+	}
+	else	// $object is a contract (on old or new instance)
+	{
+		$instance = $object->ref_customer;
+		$hostname_db = $object->array_options['options_hostname_db'];
+		$username_db = $object->array_options['options_username_db'];
+		$password_db = $object->array_options['options_password_db'];
+		$database_db = $object->array_options['options_database_db'];
+		$port_db     = $object->array_options['options_port_db'];
+		$username_web = $object->array_options['options_username_os'];
+		$password_web = $object->array_options['options_password_os'];
+		$hostname_os = $object->array_options['options_hostname_os'];
+	}
+
+	$server=$hostname_os;
+
 	$connection = ssh2_connect($server, 22);
 	if ($connection)
 	{
-		//print $object->instance." ".$object->username_web." ".$object->password_web."<br>\n";
-		if (! @ssh2_auth_password($connection, $object->username_web, $object->password_web))
+		//print $object->instance." ".$username_web." ".$password_web."<br>\n";
+		if (! @ssh2_auth_password($connection, $username_web, $password_web))
 		{
-			dol_syslog("Could not authenticate with username ".$username." . and password ".preg_replace('/./', '*', $password), LOG_ERR);
+			dol_syslog("Could not authenticate with username ".$username_web." . and password ".preg_replace('/./', '*', $password_web), LOG_ERR);
 		}
 		else
 		{
 			$sftp = ssh2_sftp($connection);
 
 			// Check if install.lock exists
-			$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
-			$filetodelete=$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/index.html';
+			$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$database_db);
+			$filetodelete=$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/'.$dir.'/htdocs/index.html';
 			$result=ssh2_sftp_unlink($sftp, $filetodelete);
 
-			if ($result) setEventMessage($langs->transnoentitiesnoconv("FileToDisableInstanceRemoved",$object->instance),'mesgs');
+			if ($result) setEventMessage($langs->transnoentitiesnoconv("FileToDisableInstanceRemoved",$instance),'mesgs');
 			else setEventMessage($langs->transnoentitiesnoconv("DeleteFails"),'warnings');
 		}
 	}
@@ -164,38 +251,69 @@ if ($action == 'addinstalllock')
 		dol_print_error('','ssh2_connect function does not exists'); exit;
 	}
 
-	$server=$object->instance.'.on.dolicloud.com';
+	$instance = 'xxxx';
+	$type_db = $conf->db->type;
+	if ($instanceoldid)
+	{
+		$instance = $object->instance;
+		$hostname_db = $object->hostname_db;
+		$username_db = $object->username_db;
+		$password_db = $object->password_db;
+		$database_db = $object->database_db;
+		$port_db = $object->port_db?$object->port_db:3306;
+		$username_web = $object->username_web;
+		$password_web = $object->password_web;
+		$hostname_os = $object->instance.'on.dolicloud.com';
+	}
+	else	// $object is a contract (on old or new instance)
+	{
+		$instance = $object->ref_customer;
+		$hostname_db = $object->array_options['options_hostname_db'];
+		$username_db = $object->array_options['options_username_db'];
+		$password_db = $object->array_options['options_password_db'];
+		$database_db = $object->array_options['options_database_db'];
+		$port_db     = $object->array_options['options_port_db'];
+		$username_web = $object->array_options['options_username_os'];
+		$password_web = $object->array_options['options_password_os'];
+		$hostname_os = $object->array_options['options_hostname_os'];
+	}
+
+	$server=$hostname_os;
+
 	$connection = ssh2_connect($server, 22);
 	if ($connection)
 	{
-		//print $object->instance." ".$object->username_web." ".$object->password_web."<br>\n";
-		if (! @ssh2_auth_password($connection, $object->username_web, $object->password_web))
+		//print $object->instance." ".$username_web." ".$password_web."<br>\n";
+		if (! @ssh2_auth_password($connection, $username_web, $password_web))
 		{
-			dol_syslog("Could not authenticate with username ".$username." . and password ".preg_replace('/./', '*', $password), LOG_ERR);
+			dol_syslog("Could not authenticate with username ".$username_web." . and password ".preg_replace('/./', '*', $password_web), LOG_ERR);
 		}
 		else
 		{
 			$sftp = ssh2_sftp($connection);
 
 			// Check if install.lock exists
-			$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
-			//$fileinstalllock="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock';
-			$fileinstalllock="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock';
-			$fstat=ssh2_sftp_stat($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock');
+			$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$database_db);
+			//$fileinstalllock="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/'.$dir.'/documents/install.lock';
+			$fileinstalllock="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/'.$dir.'/documents/install.lock';
+			$fstat=ssh2_sftp_stat($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/'.$dir.'/documents/install.lock');
 			if (empty($fstat['atime']))
 			{
 				$stream = fopen($fileinstalllock, 'w');
 				//var_dump($stream);exit;
 				fwrite($stream,"// File to protect from install/upgrade.\n");
 				fclose($stream);
-    			$fstat=ssh2_sftp_stat($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock');
+    			$fstat=ssh2_sftp_stat($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/'.$dir.'/documents/install.lock');
 				setEventMessage($langs->transnoentitiesnoconv("FileCreated"),'mesgs');
 			}
 			else setEventMessage($langs->transnoentitiesnoconv("ErrorFileAlreadyExists"),'warnings');
 
 			$object->filelock=(empty($fstat['atime'])?'':$fstat['atime']);
 
-			if (! empty($fstat['atime'])) $result = $object->update($user);
+			if (! empty($fstat['atime']))
+			{
+				$result = $object->update($user);
+			}
 		}
 	}
 	else setEventMessage($langs->transnoentitiesnoconv("FailedToConnectToSftp"),'errors');
@@ -209,22 +327,50 @@ if ($action == 'delinstalllock')
 		dol_print_error('','ssh2_connect function does not exists'); exit;
 	}
 
-	$server=$object->instance.'.on.dolicloud.com';
+	$instance = 'xxxx';
+	$type_db = $conf->db->type;
+	if ($instanceoldid)
+	{
+		$instance = $object->instance;
+		$hostname_db = $object->hostname_db;
+		$username_db = $object->username_db;
+		$password_db = $object->password_db;
+		$database_db = $object->database_db;
+		$port_db = $object->port_db?$object->port_db:3306;
+		$username_web = $object->username_web;
+		$password_web = $object->password_web;
+		$hostname_os = $object->instance.'on.dolicloud.com';
+	}
+	else	// $object is a contract (on old or new instance)
+	{
+		$instance = $object->ref_customer;
+		$hostname_db = $object->array_options['options_hostname_db'];
+		$username_db = $object->array_options['options_username_db'];
+		$password_db = $object->array_options['options_password_db'];
+		$database_db = $object->array_options['options_database_db'];
+		$port_db     = $object->array_options['options_port_db'];
+		$username_web = $object->array_options['options_username_os'];
+		$password_web = $object->array_options['options_password_os'];
+		$hostname_os = $object->array_options['options_hostname_os'];
+	}
+
+	$server=$hostname_os;
+
 	$connection = ssh2_connect($server, 22);
 	if ($connection)
 	{
-		//print $object->instance." ".$object->username_web." ".$object->password_web."<br>\n";
-		if (! @ssh2_auth_password($connection, $object->username_web, $object->password_web))
+		//print $object->instance." ".$username_web." ".$password_web."<br>\n";
+		if (! @ssh2_auth_password($connection, $username_web, $password_web))
 		{
-			dol_syslog("Could not authenticate with username ".$username." . and password ".preg_replace('/./', '*', $password), LOG_ERR);
+			dol_syslog("Could not authenticate with username ".$username_web." . and password ".preg_replace('/./', '*', $password_web), LOG_ERR);
 		}
 		else
 		{
 			$sftp = ssh2_sftp($connection);
 
 			// Check if install.lock exists
-			$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
-			$filetodelete=$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock';
+			$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$database_db);
+			$filetodelete=$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/'.$dir.'/documents/install.lock';
 			$result=ssh2_sftp_unlink($sftp, $filetodelete);
 
 			if ($result) setEventMessage($langs->transnoentitiesnoconv("FileDeleted"),'mesgs');
@@ -232,7 +378,10 @@ if ($action == 'delinstalllock')
 
 			$object->filelock='';
 
-			if ($result) $result = $object->update($user);
+			if ($result)
+			{
+				$result = $object->update($user);
+			}
 		}
 	}
 	else setEventMessage($langs->transnoentitiesnoconv("FailedToConnectToSftp"),'errors');
