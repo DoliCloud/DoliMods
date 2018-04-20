@@ -2425,8 +2425,8 @@ if ($mode == 'instances')
 		<div class="portlet-body" style=""><br>
 		';
 
-		print '<a href="#addanotherinstance" id="addanotherinstance">';
-		print $langs->trans("AddAnotherInstance").'...<br>';
+		print '<a href="#addanotherinstance" id="addanotherinstance" class="valignmiddle">';
+		print '<span class="fa fa-plus-circle valignmiddle" style="font-size: 1.5em; padding-right: 4px;"></span><span class="valignmiddle">'.$langs->trans("AddAnotherInstance").'...</span><br>';
 		print '</a>';
 
 		print '<script type="text/javascript" language="javascript">
