@@ -1706,7 +1706,7 @@ if ($mode == 'dashboard')
 
 			<!-- My profile -->
 	      <div class="col-md-6">
-	        <div class="portlet light" id="paymentMethodSection">
+	        <div class="portlet light" id="myProfile">
 
 	          <div class="portlet-title">
 	            <div class="caption">
@@ -2067,7 +2067,8 @@ if ($mode == 'instances')
 								foreach($contract->linkedObjects['facturerec'] as $idtemplateinvoice => $templateinvoice)
 								{
 									$foundtemplate++;
-									if ($templateinvoice->suspended) print $langs->trans("InvoicingSuspended");
+									if ($templateinvoice->suspended && $contract->array_options['options_deployment_status'] == 'undeployed') print '';
+									elseif ($templateinvoice->suspended && $contract->array_options['options_deployment_status'] != 'deployed') print $langs->trans("InvoicingSuspended");
 									else
 									{
 										if ($templateinvoice->unit_frequency == 'm' && $templateinvoice->frequency == 1)
@@ -2794,7 +2795,8 @@ if ($mode == 'mycustomerinstances')
 				foreach($contract->linkedObjects['facturerec'] as $idtemplateinvoice => $templateinvoice)
 				{
 					$foundtemplate++;
-					if ($templateinvoice->suspended) print $langs->trans("InvoicingSuspended");
+					if ($templateinvoice->suspended && $contract->array_options['options_deployment_status'] == 'undeployed') print '';
+					elseif ($templateinvoice->suspended && $contract->array_options['options_deployment_status'] != 'deployed') print $langs->trans("InvoicingSuspended");
 					else
 					{
 						if ($templateinvoice->unit_frequency == 'm' && $templateinvoice->frequency == 1)
@@ -3701,9 +3703,53 @@ if ($mode == 'registerpaymentmode')
 		<div class="linksepa" style="display: none;">';
 		if ($mythirdpartyaccount->isInEEC())
 		{
-			print '<br>';
-			//print $langs->trans("SEPAPaymentModeAvailableForYealyAndCeeSubscriptionOnly");
-			print $langs->trans("SEPAPaymentModeAvailableNotYetAvailable");
+			$foundban=0;
+			// Check if there is already a payment
+			foreach($arrayofcompanypaymentmode as $companypaymentmodetemp)
+			{
+				if ($i > 0) print '<tr><td colspan="3"><br></td></tr>';
+				if ($companypaymentmodetemp->type == 'ban')
+				{
+					/*print img_picto('', 'bank', '',  false, 0, 0, '', 'fa-2x');
+					print '<span class="wordbreak" style="word-break: break-word" colspan="2">';
+					print $langs->trans("WithdrawalReceipt");
+					print '</span>';
+					print '<br>';*/
+					print $langs->trans("IBAN").': '.$companypaymentmodetemp->iban_prefix.'<br>';
+					if ($companypaymentmodetemp->rum) print $langs->trans("RUM").': '.$companypaymentmodetemp->rum;
+					$foundban++;
+					print '<br>';
+
+					$companybankaccounttemp = new CompanyBankAccount($db);
+
+					include_once DOL_DOCUMENT_ROOT.'/ecm/class/ecmfiles.class.php';
+					$ecmfile = new EcmFiles($db);
+					$result = $ecmfile->fetch(0, '', '', '', '', $companybankaccounttemp->table_element, $companypaymentmodetemp->id);
+					if ($result > 0)
+					{
+						$companybankaccounttemp->last_main_doc = $ecmfile->filepath.'/'.$ecmfile->filename;
+						print '<br><!-- Link to download main doc -->'."\n";
+						$publicurltodownload = $companybankaccounttemp->getLastMainDocLink($object->element, 0, 1);
+						// Define $urlwithroot
+						//$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+						//$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+						//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
+						/*var_dump($conf->global->SELLYOURSAAS_ACCOUNT_URL);
+						var_dump(DOL_URL_ROOT);
+						var_dump($publicurltodownload);*/
+						$urltouse=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/'.(DOL_URL_ROOT?DOL_URL_ROOT.'/':'').$publicurltodownload;
+						//print img_mime('sepa.pdf').'  <a href="'.$urltouse.'" target="_download">'.$langs->trans("DownloadTheSEPAMandate").'</a><br>';
+					}
+				}
+			}
+
+			if (! $foundban)
+			{
+				print '<br>';
+				//print $langs->trans("SEPAPaymentModeAvailableForYealyAndCeeSubscriptionOnly");
+				print $langs->trans("SEPAPaymentModeAvailableNotYetAvailable");
+			}
+
 			print '<br><br>';
 			//print '<input type="submit" name="submitpaypal" value="'.$langs->trans("Continue").'" class="btn btn-info btn-circle">';
 			print ' ';
@@ -3803,29 +3849,33 @@ if ($mode == 'mycustomerbilling')
 ';
 
 	print '
-				<div class="row" style="border-bottom: 1px solid #ddd;">
-	              <div class="col-md-2">
+			<div class="div-table-responsive-no-min">
+				<table class="noborder centpercent tablecommission">
+				<tr class="liste_titre">
+
+	              <td style="min-width: 150px">
 			         '.$langs->trans("Customer").'
-	              </div><!-- END COL -->
-	              <div class="col-md-1">
+	              </td>
+	              <td style="min-width: 100px">
 	                '.$langs->trans("Date").'
-	              </div>
-	              <div class="col-md-2 center">
+	              </td>
+	              <td>
 	                '.$langs->trans("Invoice").'
-	              </div>
-	              <div class="col-md-2 right">
+	              </td>
+	              <td>
 	                '.$langs->trans("Amount").'
-	              </div>
-	              <div class="col-md-1 center">
+	              </td>
+	              <td>
 	                '.$langs->trans("Status").'
-	              </div>
-	              <div class="col-md-2 right">
+	              </td>
+	              <td align="right">
 	                '.$langs->trans("Commission").' (%)
-	              </div>
-	              <div class="col-md-2 right">
+	              </td>
+	              <td align="right">
 	                '.$langs->trans("Commission").' ('.$langs->trans("Amount").')
-	              </div>
-			</div>
+	              </td>
+
+				</tr>
 		';
 
 
@@ -3867,7 +3917,11 @@ if ($mode == 'mycustomerbilling')
 			$num = $db->num_rows($resql);
 		}
 
+		include_once DOL_DOCUMENT_ROOT.'/ecm/class/ecmfiles.class.php';
+
 		$tmpthirdparty = new Societe($db);
+		$tmpinvoice = new Facture($db);
+		$ecmfile = new EcmFiles($db);
 
 		// Loop on record
 		// --------------------------------------------------------------------
@@ -3879,6 +3933,7 @@ if ($mode == 'mycustomerbilling')
 			if (empty($obj)) break;		// Should not happen
 
 			$tmpthirdparty->fetch($obj->fk_soc);
+			$tmpinvoice->fetch($obj->rowid);
 
 			$currentcommissionpercent = $tmpthirdparty->array_options['options_commission'];
 			$commissionpercent = $obj->commission;
@@ -3887,40 +3942,53 @@ if ($mode == 'mycustomerbilling')
 			$totalamountcommission += $commissions;
 
 			print '
-			<div class="row">
-              <div class="col-md-2">
+				<tr>
+              <td>
 		         '.$tmpthirdparty->name.' '.$form->textwithpicto('', $langs->trans("CurrentCommission").': '.($commissionpercent?$commissionpercent:0).'%', 1).'
-              </div><!-- END COL -->
-              <div class="col-md-1">
+              </td>
+              <td>
                 '.dol_print_date($obj->datef, 'dayrfc', $langs).'
-              </div>
-              <div class="col-md-2 center">
-                '.$obj->ref.'
-              </div>
-              <div class="col-md-2 right">
+              </td>
+              <td>
+                '.img_mime('pdf.pdf').' '.$obj->ref;
+                	$publicurltodownload = $tmpinvoice->getLastMainDocLink($tmpinvoice->element, 0, 1);
+                	// Define $urlwithroot
+                	//$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+                	//$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+                	//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
+                	/*var_dump($conf->global->SELLYOURSAAS_ACCOUNT_URL);
+                	 var_dump(DOL_URL_ROOT);
+                	 var_dump($publicurltodownload);*/
+                	$urltouse=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/'.(DOL_URL_ROOT?DOL_URL_ROOT.'/':'').$publicurltodownload;
+                	print '<br><a href="'.$urltouse.'" target="_download">'.$langs->trans("Download").'</a>';
+
+             print '
+              </td>
+              <td>
                 '.price($obj->total_ttc).'
-              </div>
-              <div class="col-md-1 center">
+              </td>
+              <td>
                 '.Facture::LibStatut($obj->paye, $obj->fk_statut).'
-              </div>
-              <div class="col-md-2 right">
+              </td>
+              <td align="right">
                 '.($commissionpercent?$commissionpercent:0).'
-              </div>
-              <div class="col-md-2 right">
+              </td>
+              <td align="right">
                 '.price($commission).'
-              </div>
-		    </div>
+              </td>
+		    </tr>
 	        ';
 
 			$i++;
 		}
 
-		print '<div class="row liste_title"><div class="col-md-12">&nbsp;</div>';
-		print '</div>';
 
-		print '<div class="row liste_title"><div class="col-md-6">'.$langs->trans("Total").'</div>';
-		print '<div class="col-md-6 right">'.price($totalamountcommission).'</div>';
-		print '</div>';
+		print '<tr class="liste_title"><td colspan="6">'.$langs->trans("Total").'</td>';
+		print '<td align="right">'.price($totalamountcommission).'</td>';
+		print '</tr>';
+
+		print '</table>
+		</div>';
 
 	print '
 </div></div>

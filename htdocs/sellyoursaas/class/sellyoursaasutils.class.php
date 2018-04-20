@@ -1233,14 +1233,14 @@ class SellYourSaasUtils
     	}
     	else $this->error = $this->db->lasterror();
 
-    	$this->output = count($contractprocessed).' contract(s) suspended'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
-
    		if (! $error)
    		{
+   			$this->output = count($contractprocessed).' contract(s) suspended'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
    			$this->db->commit();
    		}
    		else
    		{
+   			$this->output = count($contractprocessed).' contract(s) to suspend'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
    			$this->db->rollback();
    		}
 

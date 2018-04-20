@@ -315,3 +315,4 @@ BackupDir=Backup directory
 PaymentModeRecorded=Payment mode saved
 RegistrationCounter=Registration counter for same cookie
 RegistrationPreviousInstance=Previous registered instance for same cookie
+DownloadTheSEPAMandate=Download the SEPA mandate

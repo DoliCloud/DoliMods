@@ -119,6 +119,14 @@ print "
 			}
 		}
 
+		.div-table-responsive, .div-table-responsive-no-min {
+		    overflow-x: auto;
+		    min-height: 0.01%;
+		}
+		.liste_titre {
+			background-color: #ddd;
+		}
+		.tablecommission tr td { padding: 4px; }
         .group:before,.group:after {content: '';display: table;}.group:after {clear: both;}.group {zoom: 1;}ol,ul {list-style: none;}
         body {
         	padding-top: 60px; padding-bottom: 40px;
