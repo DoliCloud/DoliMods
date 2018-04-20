@@ -853,7 +853,6 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 			// Disable template invoice
 			$object->fetchObjectLinked();
 
-			$foundtemplate=0;
 			$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
 			if (is_array($object->linkedObjects['facturerec']) && count($object->linkedObjects['facturerec']) > 0)
 			{
@@ -954,7 +953,6 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 				// Disable template invoice
 				$object->fetchObjectLinked();
 
-				$foundtemplate=0;
 				$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
 				if (is_array($object->linkedObjects['facturerec']) && count($object->linkedObjects['facturerec']) > 0)
 				{
@@ -1460,11 +1458,12 @@ if (empty($welcomecid))
 	{
 		if ($contract->array_options['options_deployment_status'] == 'undeployed') continue;
 
-		$isapaidinstance = sellyoursaasIsPaidInstance($contract);		// At least one template or final invoice
+		$isAPayingContract = sellyoursaasIsPaidInstance($contract);		// At least one template or final invoice
+		$isASuspendedContract = sellyoursaasIsSuspended($contract);		// Is suspended or not ?
 		$tmparray = sellyoursaasGetExpirationDate($contract);
 		$expirationdate = $tmparray['expirationdate'];					// End of date of service
 
-		if (! $isapaidinstance && $contract->array_options['options_date_endfreeperiod'] > 0)
+		if (! $isAPayingContract && $contract->array_options['options_date_endfreeperiod'] > 0)
 		{
 			$dateendfreeperiod = $contract->array_options['options_date_endfreeperiod'];
 			if (! is_numeric($dateendfreeperiod)) $dateendfreeperiod = dol_stringtotime($dateendfreeperiod);
@@ -1528,7 +1527,23 @@ if (empty($welcomecid))
 			}
 		}
 
-		if ($isapaidinstance && $expirationdate > 0)
+		if ($isASuspendedContract)
+		{
+			print '<div class="note note-warning">
+						<h4 class="block">'.$langs->trans("XDaysAfterEndOfPeriodExpiredPaymentModeSet", $contract->ref_customer, abs($delayindays));
+			if (empty($isAPayingContract))
+			{
+				print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>';
+			}
+			else
+			{
+				print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("FixPaymentModeToRestoreInstance").'</a>';
+			}
+			print '</h4>
+						</div>
+					';
+		}
+		else if ($isAPayingContract && $expirationdate > 0)
 		{
 			$delaybeforeexpiration = ($expirationdate - $now);
 			$delayindays = round($delaybeforeexpiration / 3600 / 24);
@@ -2059,6 +2074,7 @@ if ($mode == 'instances')
 
 							// Calculate price on invoicing
 							$contract->fetchObjectLinked();
+
 							$foundtemplate=0;
 							$pricetoshow = ''; $priceinvoicedht = 0;
 							$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
@@ -2787,6 +2803,7 @@ if ($mode == 'mycustomerinstances')
 
 			// Calculate price on invoicing
 			$contract->fetchObjectLinked();
+
 			$foundtemplate=0;
 			$pricetoshow = ''; $priceinvoicedht = 0;
 			$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
@@ -3391,7 +3408,6 @@ if ($mode == 'billing')
 			';
 
 			$contract->fetchObjectLinked();
-			$foundtemplate=0;
 			$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
 			if (is_array($contract->linkedObjects['facture']) && count($contract->linkedObjects['facture']) > 0)
 			{

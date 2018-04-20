@@ -155,3 +155,20 @@ function sellyoursaasGetExpirationDate($contract)
 }
 
 
+
+/**
+ * Return if contract is suspenced/close
+ * Take lowest planed end date for services (whatever is service status)
+ *
+ * @param 	Contrat $contract		Object contract
+ * @return	boolean					Return if a contract is suspended or not
+ */
+function sellyoursaasIsSuspended($contract)
+{
+	global $db;
+
+	if ($contract->nbofserviceswait > 0 || $contract->nbofservicesopened > 0 || $contract->nbofservicesexpired > 0) return false;
+	if ($contract->nbofservicesclosed > 0) return true;
+
+	return false;
+}

@@ -204,9 +204,9 @@ class SellYourSaasUtils
 
     				$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'contract', $user, $outputlangs, 0, 1, 'GentleTrialExpiringReminder');
 
-    				$ispaid = sellyoursaasIsPaidInstance($object);
-    				if ($mode == 'test' && $ispaid) continue;											// Discard if this is a paid instance when we are in test mode
-    				//if ($mode == 'paid' && ! $ispaid) continue;											// Discard if this is a test instance when we are in paid mode
+    				$isAPayingContract = sellyoursaasIsPaidInstance($object);
+    				if ($mode == 'test' && $isAPayingContract) continue;											// Discard if this is a paid instance when we are in test mode
+    				//if ($mode == 'paid' && ! $isAPayingContract) continue;											// Discard if this is a test instance when we are in paid mode
 
     				// Suspend instance
     				$tmparray = sellyoursaasGetExpirationDate($object);
@@ -522,7 +522,7 @@ class SellYourSaasUtils
     /**
      * Action executed by scheduler
      * CAN BE A CRON TASK
-     * Loop on each contract. If it is a paid contract and there is no pending payment for contract and end date <= tomorrow, we update to contract service end date to end of next period.
+     * Loop on each contract. If it is a paid contract, and there is no unpayed invoice for contract, and end date < in 2 days (so expired or soon expired), we update to contract service end date to end of next period.
      *
      * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
      */
@@ -534,14 +534,15 @@ class SellYourSaasUtils
     	$now = dol_now();
 
     	$mode = 'paid';
-    	$delayindaysshort= 1;
-    	$enddatetoscan = dol_time_plus_duree($now, abs($delayindaysshort), 'd');		// $enddatetoscan = tomorrow
+    	$delayindaysshort= 2;
+    	$enddatetoscan = dol_time_plus_duree($now, abs($delayindaysshort), 'd');		// $enddatetoscan = yesterday
 
     	$error = 0;
     	$this->output = '';
     	$this->error='';
 
     	$contractprocessed = array();
+    	$contractignored = array();
 
     	dol_syslog(__METHOD__, LOG_DEBUG);
 
@@ -557,6 +558,11 @@ class SellYourSaasUtils
     	$sql.= " AND cd.statut = 4";
     	//print $sql;
 
+    	function cmp($a, $b)
+    	{
+    		return strcmp($a->date, $b->date);
+    	}
+
     	$resql = $this->db->query($sql);
     	if ($resql)
     	{
@@ -570,16 +576,25 @@ class SellYourSaasUtils
     			$obj = $this->db->fetch_object($resql);
     			if ($obj)
     			{
-    				if (! empty($contractprocessed[$object->id])) continue;
+    				if (! empty($contractprocessed[$object->id]) || ! empty($contractignored[$object->id])) continue;
 
     				// Test if this is a paid or not instance
     				$object = new Contrat($this->db);
     				$object->fetch($obj->rowid);		// fetch also lines
     				$object->fetch_thirdparty();
 
-    				$ispaid = sellyoursaasIsPaidInstance($object);
-    				if ($mode == 'test' && $ispaid) continue;											// Discard if this is a paid instance when we are in test mode
-    				if ($mode == 'paid' && ! $ispaid) continue;											// Discard if this is a test instance when we are in paid mode
+    				$isAPayingContract = sellyoursaasIsPaidInstance($object);
+    				//var_dump($mode.' '.$isAPayingContract);
+    				if ($mode == 'test' && $isAPayingContract)
+    				{
+    					$contractignored[$object->id]=$object->ref;
+    					continue;											// Discard if this is a paid instance when we are in test mode
+    				}
+    				if ($mode == 'paid' && ! $isAPayingContract)
+    				{
+    					$contractignored[$object->id]=$object->ref;
+    					continue;											// Discard if this is a test instance when we are in paid mode
+    				}
 
     				// Update expiration date of instance
     				$tmparray = sellyoursaasGetExpirationDate($object);
@@ -587,6 +602,30 @@ class SellYourSaasUtils
     				$duration_value = $tmparray['duration_value'];
     				$duration_unit = $tmparray['duration_unit'];
     				//var_dump($expirationdate.' '.$enddatetoscan);
+
+    				// Test if there is pending invoice
+    				$object->fetchObjectLinked();
+
+    				if (is_array($object->linkedObjects['facture']) && count($object->linkedObjects['facture']) > 0)
+    				{
+    					usort($object->linkedObjects['facture'], "cmp");
+
+    					//dol_sort_array($contract->linkedObjects['facture'], 'date');
+    					$someinvoicenotpaid=0;
+    					foreach($object->linkedObjects['facture'] as $idinvoice => $invoice)
+    					{
+    						if (empty($invoice->paye))
+    						{
+    							$someinvoicenotpaid++;
+    						}
+    					}
+    					if ($someinvoicenotpaid)
+    					{
+    						$this->output .= 'Contract '.$object->ref.' is qualified for renewal but there is '.$someinvoicenotpaid.' invoice(s) unpayed so we cancel renewal'."\n";
+    						$contractignored[$object->id]=$object->ref;
+							continue;
+    					}
+    				}
 
     				if ($expirationdate && $expirationdate < $enddatetoscan)
     				{
@@ -626,7 +665,7 @@ class SellYourSaasUtils
     	}
     	else $this->error = $this->db->lasterror();
 
-    	$this->output = count($contractprocessed).' paying contract(s) with end date before '.dol_print_date($enddatetoscan, 'day').' were renewed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
+    	$this->output .= count($contractprocessed).' paying contract(s) with end date before '.dol_print_date($enddatetoscan, 'day').' were renewed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
 
     	$this->db->commit();
 
@@ -1206,9 +1245,9 @@ class SellYourSaasUtils
 					$object = new Contrat($this->db);
 					$object->fetch($obj->rowid);
 
-					$ispaid = sellyoursaasIsPaidInstance($object);
-					if ($mode == 'test' && $ispaid) continue;											// Discard if this is a paid instance when we are in test mode
-					if ($mode == 'paid' && ! $ispaid) continue;											// Discard if this is a test instance when we are in paid mode
+					$isAPayingContract = sellyoursaasIsPaidInstance($object);
+					if ($mode == 'test' && $isAPayingContract) continue;											// Discard if this is a paid instance when we are in test mode
+					if ($mode == 'paid' && ! $isAPayingContract) continue;											// Discard if this is a test instance when we are in paid mode
 
 					// Suspend instance
 					$tmparray = sellyoursaasGetExpirationDate($object);
@@ -1341,9 +1380,9 @@ class SellYourSaasUtils
     				$object = new Contrat($this->db);
     				$object->fetch($obj->rowid);
 
-    				$ispaid = sellyoursaasIsPaidInstance($object);
-    				if ($mode == 'test' && $ispaid) continue;										// Discard if this is a paid instance when we are in test mode
-    				if ($mode == 'paid' && ! $ispaid) continue;										// Discard if this is a test instance when we are in paid mode
+    				$isAPayingContract = sellyoursaasIsPaidInstance($object);
+    				if ($mode == 'test' && $isAPayingContract) continue;										// Discard if this is a paid instance when we are in test mode
+    				if ($mode == 'paid' && ! $isAPayingContract) continue;										// Discard if this is a test instance when we are in paid mode
 
     				// Undeploy instance
     				$tmparray = sellyoursaasGetExpirationDate($object);
