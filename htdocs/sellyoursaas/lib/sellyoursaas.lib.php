@@ -131,6 +131,7 @@ function sellyoursaasGetExpirationDate($contract)
 	$duration_value = 0;
 	$duration_unit = '';
 
+	include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 	$tmpprod = new Product($db);
 
 	// Loop on each line to get lowest expiration date

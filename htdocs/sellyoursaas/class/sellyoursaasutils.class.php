@@ -1169,13 +1169,15 @@ class SellYourSaasUtils
     		return -1;
     	}
 
+    	$langs->load("sellyoursaas");
+
     	$error = 0;
     	$this->output = '';
     	$this->error='';
 
     	$now = dol_now();
 
-    	$db->begin();
+    	$this->db->begin();
 
     	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid';
     	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce';
@@ -1215,7 +1217,7 @@ class SellYourSaasUtils
 					if ($expirationdate && $expirationdate < $now)
 					{
 						//$object->array_options['options_deployment_status'] = 'suspended';
-						$result = $object->closeAll($user);			// This may execute trigger that make remote actions to suspend instance
+						$result = $object->closeAll($user, 0, 'Closed by batch doSuspendInstances the '.dol_print_date($now, 'dayrfc'));			// This may execute trigger that make remote actions to suspend instance
 						if ($result < 0)
 						{
 							$error++;
@@ -1233,7 +1235,14 @@ class SellYourSaasUtils
 
     	$this->output = count($contractprocessed).' contract(s) suspended'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
 
-    	$this->db->commit();
+   		if (! $error)
+   		{
+   			$this->db->commit();
+   		}
+   		else
+   		{
+   			$this->db->rollback();
+   		}
 
     	return ($error ? 1: 0);
     }
@@ -1908,12 +1917,12 @@ class SellYourSaasUtils
     	{
     		$tmparray=explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_IP);
     		$REMOTEIPTODEPLOYTO=$tmparray[($found-1)];
-    	}
-    	if (! $REMOTEIPTODEPLOYTO)
-    	{
-    		$this->error="Failed to found ip of server domain '".$domainname."' to deploy to at position '".$found."' into SELLYOURSAAS_SUB_DOMAIN_IPS=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP;
-    		$this->errors[]="Failed to found ip of server domain '".$domainname."' to deploy to at position '".$found."' into SELLYOURSAAS_SUB_DOMAIN_IPS=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP;
-    		$error++;
+	    	if (! $REMOTEIPTODEPLOYTO)
+	    	{
+	    		$this->error="Failed to found ip of server domain '".$domainname."' to deploy to at position '".$found."' into SELLYOURSAAS_SUB_DOMAIN_IPS=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP;
+	    		$this->errors[]="Failed to found ip of server domain '".$domainname."' to deploy to at position '".$found."' into SELLYOURSAAS_SUB_DOMAIN_IPS=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP;
+	    		$error++;
+	    	}
     	}
 
     	if ($error) return '';
