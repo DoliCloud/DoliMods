@@ -231,12 +231,18 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 
         		if (! empty($object->linkedObjectsIds['contrat']))
         		{
-        			$contractidid = reset($object->linkedObjectsIds['contrat']);
+        			$contractid = reset($object->linkedObjectsIds['contrat']);
         			dol_syslog("The cancel/paid invoice ".$object->ref." is linked to contract id ".$contractid.", we check if we have to unsuspend it.");
         			$contract = new Contrat($this->db);
-        			$contract->fetch($contractidid);
+        			$contract->fetch($contractid);
 
-        			$contract->activateAll($user);
+        			$result = $contract->activateAll($user);
+        			if ($result < 0)
+        			{
+        				$error++;
+        				$this->error = $contract->error;
+        				$this->errors = $contract->errors;
+        			}
         		}
 
         		break;

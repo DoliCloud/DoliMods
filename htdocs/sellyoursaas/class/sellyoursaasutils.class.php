@@ -50,9 +50,10 @@ class SellYourSaasUtils
         return 1;
     }
 
+
     /**
      * Action executed by scheduler for job SellYourSaasValidateDraftInvoices
-     * Check account is not closed. Validate draft invoice if not, delete if closed.
+     * Check account is not closed. Validate draft invoice if not, do nothing if closed.
      * CAN BE A CRON TASK
      *
      * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
@@ -63,7 +64,10 @@ class SellYourSaasUtils
 		include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 		$invoice = new Facture($this->db);
 
-    	dol_syslog(__METHOD__." search and validate draft invoices", LOG_DEBUG);
+		$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doValidateDraftInvoices.log';
+		$now = dol_now();
+
+		dol_syslog(__METHOD__." search and validate draft invoices", LOG_DEBUG);
 
     	$error = 0;
     	$this->output = '';
@@ -92,9 +96,14 @@ class SellYourSaasUtils
 						//dol_sort_array($object->linkedObjects['facture'], 'date');
 						foreach($invoice->linkedObjects['contrat'] as $idcontract => $contract)
 						{
+							if (! empty($draftinvoiceprocessed[$invoice->id])) continue;	// If already processed, no nothing more
+
 							// We ignore $contract->nbofserviceswait +  and $contract->nbofservicesclosed
 							$nbservice = $contract->nbofservicesopened + $contract->nbofservicesexpired;
-							if ($nbservice && empty($draftinvoiceprocessed[$invoice->id]))	// If ok and not yet processed
+							// If contract not undeployed and not suspended ?
+							// Note: If suspended, when unsuspened, the remaining draft invoice will be generated
+							// Note: if undeployed, this should not happen, because templates invoice should be disabled when an instance is undeployed
+							if ($nbservice && $contract->array_options['options_deployment_status'] != 'undeployed')
 							{
 								$result = $invoice->validate($user);
 								if ($result > 0)
@@ -108,6 +117,10 @@ class SellYourSaasUtils
 									$this->errors = $invoice->errors;
 									break;
 								}
+							}
+							else
+							{
+								// Do nothing
 							}
 						}
 					}
@@ -147,12 +160,11 @@ class SellYourSaasUtils
     	$mode = 'test';
 
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertSoftEndTrial.log';
+    	$now = dol_now();
 
     	$error = 0;
     	$this->output = '';
     	$this->error='';
-
-    	$now = dol_now();
 
     	$delayindaysshort = $conf->global->SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_SOFT_ALERT;
     	$delayindayshard = $conf->global->SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_HARD_ALERT;
@@ -262,6 +274,7 @@ class SellYourSaasUtils
     	global $conf, $langs, $user;
 
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertCreditCardExpiration.log';
+    	$now = dol_now();
 
     	$error = 0;
     	$this->output = '';
@@ -288,7 +301,6 @@ class SellYourSaasUtils
     		}
     	}
 
-    	$now = dol_now();
     	$currentdate = dol_getdate($now);
     	$currentday = $currentdate['mday'];
     	$currentmonth = $currentdate['mon'];
@@ -396,6 +408,7 @@ class SellYourSaasUtils
     	global $conf, $langs, $user;
 
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertPaypalExpiration.log';
+    	$now = dol_now();
 
     	$error = 0;
     	$this->output = '';
@@ -422,7 +435,6 @@ class SellYourSaasUtils
     		}
     	}
 
-    	$now = dol_now();
     	$currentdate = dol_getdate($now);
     	$currentday = $currentdate['mday'];
     	$currentmonth = $currentdate['mon'];
@@ -1533,7 +1545,7 @@ class SellYourSaasUtils
     		$listoflines = array($object);
     	}
 
-    	dol_syslog("Remote action on instance was called (remoteaction=".$remoteaction." email=".$email." password=".$password);
+    	dol_syslog("* Remote action on instance was called (remoteaction=".$remoteaction." email=".$email." password=".$password.")");
 
     	include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
@@ -1750,6 +1762,7 @@ class SellYourSaasUtils
     			$serverdeployement = $this->getRemoveServerDeploymentIp($domainname);
     			if (empty($serverdeployement))	// Failed to get remote ip
     			{
+    				dol_syslog($this->error, LOG_WARNING);
     				$error++;
     				break;
     			}
