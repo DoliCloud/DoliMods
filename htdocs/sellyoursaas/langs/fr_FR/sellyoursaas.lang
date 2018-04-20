@@ -288,3 +288,6 @@ BackupDir=Répertoire de sauvegarde
 PaymentModeRecorded=Mode de paiement enregistré
 RegistrationCounter=Compteur enregistrement pour le même cookie
 RegistrationPreviousInstance=Instance précédente pour le même cookie
+DownloadTheSEPAMandate=Télécharger le mandat SEPA
+CurrentCreditOrDebitCard=Carte de crédit ou débit actuelle
+NewCreditOrDebitCard=Nouvelle carte de credit or debit

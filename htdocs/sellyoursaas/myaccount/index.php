@@ -531,7 +531,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 				$companypaymentmode->setAsDefault($idpayment, 1);
 			}
 		}
-
+		var_dump($error);
 		// Loop on each pending invoices of the thirdparty and try to pay them with payment = invoice remain amount.
 		if (! $error)
 		{
@@ -539,14 +539,15 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 			$sellyoursaasutils = new SellYourSaasUtils($db);
 
-			$result = $sellyoursaasutils->doTakeStripePaymentForThirdparty($service, $servicestatus, $mythirdpartyaccount->id, $companypaymentmode, null);
+			$result = $sellyoursaasutils->doTakeStripePaymentForThirdparty($service, $servicestatus, $mythirdpartyaccount->id, $companypaymentmode, null, 1);
 			if ($result != 0)
 			{
 				$error++;
 				setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
 			}
 		}
-
+		var_dump($error);
+exit;
 		// Create a recurring invoice if there is no reccuring invoice yet
 		if (! $error)
 		{
@@ -3682,9 +3683,37 @@ if ($mode == 'registerpaymentmode')
 		</label>
 		</div>
 
-		<br><br>
+		<br>
 
 		<div class="linkcard">';
+
+			$foundcard=0;
+			// Check if there is already a payment
+			foreach($arrayofcompanypaymentmode as $companypaymentmodetemp)
+			{
+				if ($companypaymentmodetemp->type == 'card')
+				{
+					$foundcard++;
+					print '<hr>';
+					print img_credit_card($companypaymentmodetemp->type_card);
+					print $langs->trans("CurrentCreditOrDebitCard").':<br>';
+					print '<!-- '.$companypaymentmodetemp->id.' -->';
+					print '....'.$companypaymentmodetemp->last_four;
+					print ' - ';
+					print sprintf("%02d",$companypaymentmodetemp->exp_date_month).'/'.$companypaymentmodetemp->exp_date_year;
+					// Warning if expiring
+					if ($companypaymentmodetemp->exp_date_year < $nowyear ||
+						($companypaymentmodetemp->exp_date_year == $nowyear && $companypaymentmodetemp->exp_date_month <= $nowmonth))
+					{
+						print '<br>';
+						print img_warning().' '.$langs->trans("YourPaymentModeWillExpireFixItSoon", $urltoenterpaymentmode);
+					}
+				}
+			}
+			if ($foundcard) print '<hr>';
+
+			print img_credit_card($companypaymentmodetemp->type_card);
+			print $langs->trans("NewCreditOrDebitCard").':<br>';
 
 			print '<div class="row"><div class="col-md-12"><label>'.$langs->trans("NameOnCard").'</label>';
 			print '<input class="minwidth200" type="text" name="proprio" value="'.GETPOST('proprio','alpha').'"></div></div>';
@@ -3706,7 +3735,7 @@ if ($mode == 'registerpaymentmode')
 			print '
 		</div>
 		<div class="linkpaypal" style="display: none;">';
-			print '<br>';
+			print '<br><br>';
 			//print $langs->trans("PaypalPaymentModeAvailableForYealySubscriptionOnly");
 			print $langs->trans("PaypalPaymentModeNotYetAvailable");
 			print '<br><br>';
@@ -3720,10 +3749,10 @@ if ($mode == 'registerpaymentmode')
 		if ($mythirdpartyaccount->isInEEC())
 		{
 			$foundban=0;
+
 			// Check if there is already a payment
 			foreach($arrayofcompanypaymentmode as $companypaymentmodetemp)
 			{
-				if ($i > 0) print '<tr><td colspan="3"><br></td></tr>';
 				if ($companypaymentmodetemp->type == 'ban')
 				{
 					/*print img_picto('', 'bank', '',  false, 0, 0, '', 'fa-2x');

@@ -317,3 +317,5 @@ PaymentModeRecorded=Payment mode saved
 RegistrationCounter=Registration counter for same cookie
 RegistrationPreviousInstance=Previous registered instance for same cookie
 DownloadTheSEPAMandate=Download the SEPA mandate
+CurrentCreditOrDebitCard=Current credit or debit card
+NewCreditOrDebitCard=New credit or debit card

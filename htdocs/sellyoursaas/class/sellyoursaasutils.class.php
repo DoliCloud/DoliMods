@@ -751,7 +751,7 @@ class SellYourSaasUtils
 	    			}
     				else
     				{
-    					$result = $this->doTakeStripePaymentForThirdparty($service, $servicestatus, $obj->socid, $companypaymentmode, $invoice);
+    					$result = $this->doTakeStripePaymentForThirdparty($service, $servicestatus, $obj->socid, $companypaymentmode, $invoice, 0);
 						if ($result == 0)	// No error
 						{
 							$invoiceprocessedok[$obj->rowid]=$invoice->ref;
@@ -779,7 +779,7 @@ class SellYourSaasUtils
 
 
     /**
-     * doTakeStripePaymentForInvoice
+     * doTakeStripePaymentForThirdparty
      * Take payment/send email. Unsuspend if it was suspended (done by trigger BILL_CANCEL or BILL_PAID).
      *
      * @param	int		$service				'StripeTest' or 'StripeLive'
@@ -787,9 +787,10 @@ class SellYourSaasUtils
      * @param	int		$thirdparty_id			Thirdparty id
      * @param	int		$companypaymentmodeid	Company payment mode id
      * @param	int		$invoice				null=All invoices of thirdparty, Invoice=Only this invoice
+     * @param	int		$includedraft			Include draft invoices
      * @return	int								0 if no error, >0 if error
      */
-    function doTakeStripePaymentForThirdparty($service, $servicestatus, $thirdparty_id, $companypaymentmode, $invoice=null)
+    function doTakeStripePaymentForThirdparty($service, $servicestatus, $thirdparty_id, $companypaymentmode, $invoice=null, $includedraft=0)
     {
     	global $conf, $mysoc, $user, $langs;
 
@@ -810,10 +811,18 @@ class SellYourSaasUtils
     	$invoices=array();
     	if (empty($invoice))
     	{
-    		$sql = 'SELECT f.rowid';
+    		$sql = 'SELECT f.rowid, f.fk_statut';
     		$sql.= ' FROM '.MAIN_DB_PREFIX.'facture as f, '.MAIN_DB_PREFIX.'societe as s';
     		$sql.= ' WHERE f.fk_soc = s.rowid';
-    		$sql.= " AND f.paye = 0 AND f.type = 0 AND f.fk_statut = ".Facture::STATUS_VALIDATED;
+    		$sql.= " AND f.paye = 0 AND f.type = 0";
+    		if ($includedraft)
+    		{
+    			$sql.= " AND f.fk_statut in (".Facture::STATUS_DRAFT.", ".Facture::STATUS_VALIDATED.")";
+    		}
+    		else
+    		{
+    			$sql.= " AND f.fk_statut = ".Facture::STATUS_VALIDATED;
+    		}
     		$sql.= " AND s.rowid = ".$thirdparty_id;
     		$sql.= " ORDER BY f.datef ASC";
     		//print $sql;
@@ -831,7 +840,17 @@ class SellYourSaasUtils
     				{
     					$invoice = new Facture($this->db);
     					$result = $invoice->fetch($obj->rowid);
-    					if ($result > 0) $invoices[] = $invoice;
+    					if ($result > 0 && $invoice->fk_statut == Facture::STATUS_DRAFT)
+    					{
+    						$user->rights->facture->creer = 1;		// Force permission to user to validate invoices
+    						$user->rights->facture->invoice_advance->validate = 1;
+
+    						$result = $invoice->validate($user);
+    					}
+    					if ($result > 0)
+    					{
+    						$invoices[] = $invoice;
+    					}
     				}
     				$i++;
     			}
@@ -846,10 +865,12 @@ class SellYourSaasUtils
 			dol_syslog("No validated invoices found for thirdparty_id = ".$thirdparty_id);
 		}
 
+		dol_syslog("We found ".count($invoices)." to process payment on...");
+
 		// Loop on each invoice
 		foreach($invoices as $invoice)
 		{
-			dol_syslog("Process invoice thirdparty_id = ".thirdparty_id." id=".$invoice->id." ref=".$invoice->ref, LOG_DEBUG);
+			dol_syslog("Process invoice thirdparty_id = ".$thirdparty_id.", id=".$invoice->id.", ref=".$invoice->ref, LOG_DEBUG);
 
 			$alreadypayed = $invoice->getSommePaiement();
     		$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
