@@ -157,7 +157,7 @@ NbOfTickets=Nb de tickets
 SeeDetailsAndOptions=Voir le détail et options de mes instances
 SeeDetailsAndOptionsOfMyCustomers=Voir le détail et options des instances de mes clients
 SeeOrEditProfile=Voir ou éditer mon profil
-SeeDetailsOfPayments=Voir détail de mes paiements
+SeeDetailsOfPayments=Voir détail de mes paiements et du mode de règlement
 SeeDetailsOfTickets=Voir détail de mes tickets
 ProfileIsComplete=Votre profil est complet
 ProfileIsNotComplete=Votre profil est incomplet, %s information(s) manquante(s). <a href="%s">cliquez ici pour corriger</a>

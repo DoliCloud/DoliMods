@@ -215,6 +215,13 @@ if ($mythirdpartyaccount->isareseller)
 }
 //var_dump(array_keys($listofcontractidreseller));
 
+function cmp($a, $b)
+{
+	return strcmp($a->date, $b->date);
+}
+
+
+
 /*
  * Action
  */
@@ -531,7 +538,9 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 				$companypaymentmode->setAsDefault($idpayment, 1);
 			}
 		}
-		var_dump($error);
+
+		$erroronstripecharge = 0;
+
 		// Loop on each pending invoices of the thirdparty and try to pay them with payment = invoice remain amount.
 		if (! $error)
 		{
@@ -545,9 +554,33 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 				$error++;
 				setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
 			}
+
+			// If some payment war really done, we force commit to be sure to validate invoices payment done by stripe, whatever is global result of doTakeStripePaymentForThirdparty
+			if ($sellyoursaasutils->stripechargedone > 0)
+			{
+				dol_syslog("Force commit to validate payments recorded after real Stripe charges");
+
+				$db->commit();
+
+				$db->begin();
+			}
 		}
-		var_dump($error);
-exit;
+
+		// Make renewals on contracts of customer
+		if (! $error)
+		{
+			dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
+
+			$sellyoursaasutils = new SellYourSaasUtils($db);
+
+			$result = $sellyoursaasutils->doRenewalContracts($mythirdpartyaccount->id);
+			if ($result != 0)
+			{
+				$error++;
+				setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
+			}
+		}
+
 		// Create a recurring invoice if there is no reccuring invoice yet
 		if (! $error)
 		{
@@ -857,10 +890,6 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 			$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
 			if (is_array($object->linkedObjects['facturerec']) && count($object->linkedObjects['facturerec']) > 0)
 			{
-				function cmp($a, $b)
-				{
-					return strcmp($a->date, $b->date);
-				}
 				usort($object->linkedObjects['facturerec'], "cmp");
 
 				//var_dump($object->linkedObjects['facture']);
@@ -957,10 +986,6 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 				$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
 				if (is_array($object->linkedObjects['facturerec']) && count($object->linkedObjects['facturerec']) > 0)
 				{
-					function cmp($a, $b)
-					{
-						return strcmp($a->date, $b->date);
-					}
 					usort($object->linkedObjects['facturerec'], "cmp");
 
 					//var_dump($object->linkedObjects['facture']);
@@ -3412,10 +3437,6 @@ if ($mode == 'billing')
 			$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
 			if (is_array($contract->linkedObjects['facture']) && count($contract->linkedObjects['facture']) > 0)
 			{
-				function cmp($a, $b)
-				{
-					return strcmp($a->date, $b->date);
-				}
 				usort($contract->linkedObjects['facture'], "cmp");
 
 				//var_dump($contract->linkedObjects['facture']);

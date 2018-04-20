@@ -225,7 +225,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         		}
 				break;
         	case 'BILL_CANCEL':
-        	case 'BILL_PAID':
+        	case 'BILL_PAYED':
         		// Loop on contract of invoice
         		$object->fetchObjectLinked();
 

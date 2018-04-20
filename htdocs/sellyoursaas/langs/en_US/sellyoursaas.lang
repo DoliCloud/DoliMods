@@ -176,7 +176,7 @@ NbOfTickets=Nb of tickets
 SeeDetailsAndOptions=See details and options of my instances
 SeeDetailsAndOptionsOfMyCustomers=See details and options of my customers instances
 SeeOrEditProfile=See or edit profile
-SeeDetailsOfPayments=See details of my payments
+SeeDetailsOfPayments=See details of my payments and my payment mode
 SeeDetailsOfTickets=See details of my tickets
 ProfileIsComplete=Your profile is complete
 ProfileIsNotComplete=Your profile is not complete, %s data missing. <a href="%s">click here to correct</a>
