@@ -40,7 +40,8 @@ do
 			  sed -e "s/@osUsername@/test_$i/g" | \
 			  sed -e "s/@osGroupname@/test_$i/g" | \
 			  sed -e "s/@webAppPath@/\/home\/test\/test_$i/" > $apacheconf
-		a2ensite test_$i.conf
+		#a2ensite test_$i.conf
+		ln -fs /etc/apache2/sellyoursaas-available/test_$i.conf /etc/apache2/sellyoursaas-enabled
 	fi
 	
 	if ! grep test_$i /etc/hosts >/dev/null; then

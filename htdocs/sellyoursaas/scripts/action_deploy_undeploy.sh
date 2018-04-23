@@ -504,7 +504,8 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 
 
 	echo Enabled conf with a2ensite $fqn.conf
-	a2ensite $fqn.conf
+	#a2ensite $fqn.conf
+	ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-enabled
 	
 	echo /usr/sbin/apache2ctl configtest
 	/usr/sbin/apache2ctl configtest
@@ -532,7 +533,8 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 	if [ -f $apacheconf ]; then
 	
 		echo Disable conf with a2dissite $fqn.conf
-		a2dissite $fqn.conf
+		#a2dissite $fqn.conf
+		rm /etc/apache2/sellyoursaas-enabled/$fqn.conf
 		
 		/usr/sbin/apache2ctl configtest
 		if [[ "x$?" != "x0" ]]; then

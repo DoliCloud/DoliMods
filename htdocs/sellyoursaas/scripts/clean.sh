@@ -328,13 +328,16 @@ do
 			
 			if [ -f $apacheconf ]; then
 				# Remove apache virtual host
-				echo "   ** Disable apache conf with a2dissite $instancename"
-				echo a2dissite $instancename
+				#echo "   ** Disable apache conf with a2dissite $instancename"
+				#a2dissite $instancename
+				echo "   ** Disable apache conf with rm /etc/apache2/sellyoursaas-enabled/$instancename.conf"
+				echo rm /etc/apache2/sellyoursaas-enabled/$instancename.conf
 				if [[ $testorconfirm == "confirm" ]]; then
-					a2dissite $instancename
+					#a2dissite $instancename
+					rm /etc/apache2/sellyoursaas-enabled/$instancename.conf
 				fi
 			fi
-				
+
 			echo "   ** Remove apache conf /etc/apache2/sellyoursaas-available/$instancename"
 			if [[ -f /etc/apache2/sellyoursaas-available/$instancename ]]; then
 				if [[ $testorconfirm == "confirm" ]]; then

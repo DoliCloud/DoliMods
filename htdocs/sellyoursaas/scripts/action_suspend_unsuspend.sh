@@ -150,7 +150,8 @@ if [[ "$mode" == "suspend" ]]; then
 
 
 	echo Enabled conf with a2ensite $fqn.conf
-	a2ensite $fqn.conf
+	#a2ensite $fqn.conf
+	ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-enabled
 	
 	echo /usr/sbin/apache2ctl configtest
 	/usr/sbin/apache2ctl configtest
@@ -206,7 +207,8 @@ if [[ "$mode" == "unsuspend" ]]; then
 
 
 	echo Enabled conf with a2ensite $fqn.conf
-	a2ensite $fqn.conf
+	#a2ensite $fqn.conf
+	ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-enabled
 	
 	echo /usr/sbin/apache2ctl configtest
 	/usr/sbin/apache2ctl configtest
