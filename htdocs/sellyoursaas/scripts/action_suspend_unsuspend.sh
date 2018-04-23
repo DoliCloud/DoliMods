@@ -199,7 +199,7 @@ if [[ "$mode" == "unsuspend" ]]; then
 	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
 			  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
 			  sed -e "s/__webAppLogName__/$instancename/g" | \
-			  sed -e "s/__myMainDomain__/dolicloud.com/g" | \
+			  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
 			  sed -e "s/__osUsername__/$osusername/g" | \
 			  sed -e "s/__osGroupname__/$osusername/g" | \
 			  sed -e "s;__osUserPath__;/home/jail/home/$osusername/$dbname;g" | \
@@ -216,7 +216,7 @@ if [[ "$mode" == "unsuspend" ]]; then
 	/usr/sbin/apache2ctl configtest
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running apache2ctl configtest 
-		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" supervision@dolicloud.com 
+		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" $EMAILFROM 
 		exit 1
 	fi 
 
@@ -224,7 +224,7 @@ if [[ "$mode" == "unsuspend" ]]; then
 	service apache2 reload
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running service apache2 reload
-		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" supervision@dolicloud.com 
+		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" $EMAILFROM 
 		exit 2
 	fi
 

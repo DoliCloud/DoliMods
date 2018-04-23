@@ -146,7 +146,7 @@ if ($action == 'set')
 						if ($isimage > 0)
 						{
 							// Create thumbs
-							//$object->addThumbs($newfile);    // We can't use addThumbs here yet because we need name of generated thumbs to add them into constants. TODO Check if need such constants. We should be able to retreive value with get...
+							//$object->addThumbs($newfile);    // We can't use addThumbs here yet because we need name of generated thumbs to add them into constants.
 
 							// Create small thumb, Used on logon for example
 							$imgThumbSmall = vignette($dirforimage.$original_file, $maxwidthsmall, $maxheightsmall, '_small', $quality);

@@ -130,6 +130,7 @@ function sellyoursaasGetExpirationDate($contract)
 	$expirationdate = 0;
 	$duration_value = 0;
 	$duration_unit = '';
+	$nbofusers = 0;
 
 	include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 	$tmpprod = new Product($db);
@@ -143,15 +144,22 @@ function sellyoursaasGetExpirationDate($contract)
 			else $expirationdate = $line->date_end;
 		}
 
-		$tmpprod->fetch($line->fk_product);
-		if ($tmpprod->array_options['options_app_or_option'] == 'app')
+		if ($line->fk_product > 0)
 		{
-			$duration_value = $tmpprod->duration_value;
-			$duration_unit = $tmpprod->duration_unit;
+			$tmpprod->fetch($line->fk_product);
+			if ($tmpprod->array_options['options_app_or_option'] == 'app')
+			{
+				$duration_value = $tmpprod->duration_value;
+				$duration_unit = $tmpprod->duration_unit;
+			}
+			if ($tmpprod->array_options['options_app_or_option'] == 'system' && preg_match('/user/i', $tmpprod->label))
+			{
+				$nbofusers = $line->qty;
+			}
 		}
 	}
 
-	return array('expirationdate'=>$expirationdate, 'duration_value'=>$duration_value, 'duration_unit'=>$duration_unit);
+	return array('expirationdate'=>$expirationdate, 'duration_value'=>$duration_value, 'duration_unit'=>$duration_unit, 'nbusers'=>$nbofusers);
 }
 
 

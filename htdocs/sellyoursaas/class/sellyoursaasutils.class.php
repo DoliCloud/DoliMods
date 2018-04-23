@@ -1969,8 +1969,16 @@ class SellYourSaasUtils
 			    		}
 			    		else
 			    		{
-			    			dol_syslog("Execute sql=".$sqltoexecute);
-			    			$resql = $dbinstance->query($sqltoexecute);
+			    			$arrayofsql=explode(';', $sqltoexecute);
+			    			foreach($arrayofsql as $sqltoexecuteline)
+			    			{
+			    				$sqltoexecuteline = trim($sqltoexecuteline);
+			    				if ($sqltoexecuteline)
+			    				{
+			    					dol_syslog("Execute sql=".$sqltoexecuteline);
+			    					$resql = $dbinstance->query($sqltoexecuteline);
+			    				}
+			    			}
 			    		}
 			    	}
     			}

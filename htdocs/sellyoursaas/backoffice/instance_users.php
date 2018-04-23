@@ -524,7 +524,7 @@ function print_user_table($newdb)
 				print '<tr class="oddeven">';
 				print '<td>';
 				print $obj->login;
-				print ' <a href="'.$url.'">'.img_object('', 'globe').'</a>';
+				print ' <a target="_customerinstance" href="'.$url.'">'.img_object('', 'globe').'</a>';
 				print '</td>';
 				print '<td>'.$obj->lastname.'</td>';
 				print '<td>'.$obj->firstname.'</td>';

@@ -250,9 +250,6 @@ if ($object->id > 0)
         // List of all actions
 		$filters=array();
         $filters['search_agenda_label']=$search_agenda_label;
-
-        // TODO Replace this with same code than into listactions.php
-        //show_actions_done($conf,$langs,$db,$object,null,0,$actioncode, '', $filters, $sortfield, $sortorder);
     }
 }
 

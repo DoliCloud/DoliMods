@@ -460,7 +460,6 @@ function sellyoursaas_calculate_stats($db, $datelim)
 				{
 					// Get resource for instance
 					$object->fetch($obj->rowid);
-					$nbofuser = 0;	// TODO Set this ot value in next loop
 
 					$contract = $object;
 					// Calculate price on invoicing
@@ -486,6 +485,8 @@ function sellyoursaas_calculate_stats($db, $datelim)
 							}
 						}
 					}
+					$tmpdata = sellyoursaasGetExpirationDate($object);
+					$nbofuser = $tmpdata['nbusers'];
 
 					$totalinstances++;
 					$totalusers+=$nbofuser;

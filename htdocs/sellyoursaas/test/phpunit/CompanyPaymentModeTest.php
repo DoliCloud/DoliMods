@@ -60,7 +60,7 @@ class CompanyPaymentModeTest extends \PHPUnit_Framework_TestCase
 	public function testSomething()
 	{
 		fwrite(STDOUT, __METHOD__ . "\n");
-		// TODO: test something
+
 		$this->assertTrue(true);
 	}
 

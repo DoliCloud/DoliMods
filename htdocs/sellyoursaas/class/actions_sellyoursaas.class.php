@@ -197,7 +197,6 @@ class ActionsSellyoursaas
         {
 			if ($action == 'deploy')
 			{
-
 				$db->begin();
 
 				// SAME CODE THAN INTO MYACCOUNT INDEX.PHP
@@ -292,6 +291,15 @@ class ActionsSellyoursaas
 				else
 				{
 					$db->rollback();
+				}
+
+
+				$urlto=preg_replace('/action=[a-z]+/', '', $_SERVER['REQUEST_URI']);
+				if ($urlto)
+				{
+					dol_syslog("Redirect to page urlto=".$urlto." to avoid to do action twice if we do back");
+					header("Location: ".$urlto);
+					exit;
 				}
 			}
 
@@ -389,6 +397,14 @@ class ActionsSellyoursaas
 				else
 				{
 					$db->rollback();
+				}
+
+				$urlto=preg_replace('/action=[a-z]+/', '', $_SERVER['REQUEST_URI']);
+				if ($urlto)
+				{
+					dol_syslog("Redirect to page urlto=".$urlto." to avoid to do action twice if we do back");
+					header("Location: ".$urlto);
+					exit;
 				}
 			}
 

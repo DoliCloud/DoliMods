@@ -568,9 +568,6 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 }
 
 
-//print "----- Start calculate amount\n";
-// TODO Add more batch here
-
 
 
 // Result

@@ -280,7 +280,7 @@ if ($action == 'send')
 		$content .= 'Date: '.dol_print_date($now, 'dayhour')."<br>\n";
 		$content .= 'Instance: <a href="https://'.$tmpcontract->ref_customer.'">'.$tmpcontract->ref_customer."</a><br>\n";
 		$content .= 'Ref contract: '.$tmpcontract->ref."<br>\n";
-		// TODO Add the support type
+		// Add the support type
 		foreach($tmpcontract->lines as $key => $val)
 		{
 			if ($val->fk_product > 0)
@@ -706,7 +706,6 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 						if (! empty($lines[$i]->vat_src_code) && ! preg_match('/\(/', $tva_tx)) $tva_tx .= ' ('.$lines[$i]->vat_src_code.')';
 
 						// View third's localtaxes for NOW and do not use value from origin.
-						// TODO Is this really what we want ? Yes if source is template invoice but what if proposal or order ?
 						$localtax1_tx = get_localtax($tva_tx, 1, $invoice_draft->thirdparty);
 						$localtax2_tx = get_localtax($tva_tx, 2, $invoice_draft->thirdparty);
 
@@ -1049,8 +1048,6 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 						$error++;
 						setEventMessages($contract->error, $contract->errors, 'errors');
 					}
-
-					// @TODO We can add here the setEventMessages that are into the sellyoursaasRemoteAction
 				}
 			}
 		}
@@ -1065,65 +1062,6 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 			setEventMessages($langs->trans("InstanceWasUndeployed"), null, 'mesgs');
 			setEventMessages($langs->trans("InstanceWasUndeployedToConfirm"), null, 'mesgs');
 		}
-		$db->commit();
-		header('Location: '.$_SERVER["PHP_SELF"].'?modes=instances&tab=resources_'.$contract->id);
-		exit;
-	}
-	else
-	{
-		$db->rollback();
-	}
-}
-
-if ($action == 'deployall')
-{
-	$db->begin();
-
-	if (empty($service))
-	{
-		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("ServiceToInstall")), null, 'errors');
-		$error++;
-	}
-	else
-	{
-		// socid is thirdparty to install into
-		// contract is a crontact to create
-		$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
-
-		// TODO create $contract like in register_instance.php
-		$contract = new Contrat($db);
-
-		if (! $error)
-		{
-			dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
-			$sellyoursaasutils = new SellYourSaasUtils($db);
-			$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $contract);
-			if ($result < 0)
-			{
-				$error++;
-				setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
-			}
-		}
-
-		if (! $error)
-		{
-			$contract->array_options['options_deployment_status'] = 'done';
-			$contract->array_options['options_deployment_date'] = dol_now('tzserver');
-			$contract->array_options['options_deployment_ip'] = $_SERVER['REMOTE_ADDR'];
-
-			$result = $contract->update($user);
-			if ($result < 0)
-			{
-				$error++;
-				setEventMessages($contract->error, $contract->errors, 'errors');
-			}
-		}
-	}
-
-	//$error++;
-	if (! $error)
-	{
-		setEventMessages($langs->trans("InstanceWasDeployed"), null, 'mesgs');
 		$db->commit();
 		header('Location: '.$_SERVER["PHP_SELF"].'?modes=instances&tab=resources_'.$contract->id);
 		exit;
@@ -2084,7 +2022,7 @@ if ($mode == 'instances')
 									print '<span class="opacitymedium">'.$langs->trans("DateStart").' : </span><span class="bold">'.dol_print_date($contract->array_options['options_deployment_date_start'], 'dayhour').'</span>';
 									if (($now - $contract->array_options['options_deployment_date_start']) > 120)	// More than 2 minutes ago
 									{
-										print ' - <a href="register_instance.php?reusecontractid='.$contract->id.'">'.$langs->trans("Restart").'</a>';
+										print ' - <a href="register_instance.php?reusecontractid='.$contract->id.'">'.$langs->trans("Restart").'</a>'; // Link to redeploy / restart deployment
 									}
 								}
 								elseif ($contract->array_options['options_deployment_status'] == 'done')
@@ -2256,7 +2194,7 @@ if ($mode == 'instances')
 									print '<input type="hidden" name="action" value="updateplan" />';
 									print '<input type="hidden" name="contractid" value="'.$contract->id.'" />';
 
-									// List of available plans
+									// List of available plans/products
 									$arrayofplans=array();
 									$sqlproducts = 'SELECT p.rowid, p.ref, p.label FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
 									$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
@@ -2338,8 +2276,15 @@ if ($mode == 'instances')
 												}
 												else
 												{
-													// TODO Change message if there is invoice error
-													print ' - '.$langs->trans("APaymentModeWasRecorded");
+													// If at least one payment mode already recorded
+													if (sellyoursaasIsPaymentKo($contract))
+													{
+														print ' - '.$langs->trans("ActivePaymentError");
+													}
+													else
+													{
+														print ' - '.$langs->trans("APaymentModeWasRecorded");
+													}
 												}
 											}
 										}
@@ -2589,9 +2534,15 @@ if ($mode == 'instances')
 			<div class="linked-flds">
 			<span class="opacitymedium">https://</span>
 			<input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="" maxlength="29" required />
-			<select name="tldid" id="tldid" >
-			<option value=".with.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'" >.with.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'</option>
-			</select>
+			<select name="tldid" id="tldid" >';
+				$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+				foreach($listofdomain as $val)
+				{
+					$newval=$val;
+					if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
+					print '<option value="'.$newval.'">'.$newval.'</option>';
+				}
+			print '</select>
 			<br class="unfloat" />
 			</div>
 			</div>
@@ -3016,7 +2967,8 @@ if ($mode == 'mycustomerinstances')
 				{
 					if ($priceinvoicedht == $contrat->total_ht)
 					{
-						print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=mycustomerinstances&action=changeplan&id='.$contract->id.'#contractid'.$contract->id.'">'.$langs->trans("ChangePlan").'</a>';
+						// Disabled on "My customer invoices" view
+						//print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=mycustomerinstances&action=changeplan&id='.$contract->id.'#contractid'.$contract->id.'">'.$langs->trans("ChangePlan").'</a>';
 					}
 				}
 			}
@@ -3067,8 +3019,15 @@ if ($mode == 'mycustomerinstances')
 							}
 							else
 							{
-								// TODO Change message if there is invoice error
-								print ' - '.$langs->trans("APaymentModeWasRecorded");
+								// If at least one payment mode already recorded
+								if (sellyoursaasIsPaymentKo($contract))
+								{
+									print ' - '.$langs->trans("ActivePaymentError");
+								}
+								else
+								{
+									print ' - '.$langs->trans("APaymentModeWasRecorded");
+								}
 							}
 						}
 					}

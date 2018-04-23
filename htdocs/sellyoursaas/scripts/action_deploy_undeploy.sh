@@ -573,11 +573,22 @@ fi
 if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 
 	echo `date +%Y%m%d%H%M%S`" ***** Install cron file $cronfile"
-	echo cp $cronfile /var/spool/cron/crontabs/$osusername
-	cp $cronfile /var/spool/cron/crontabs/$osusername
+	if [[ -f /var/spool/cron/crontabs/$osusername ]]; then
+		echo merge existing $cronfile with existing /var/spool/cron/crontabs/$osusername
+		echo "cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp"
+		cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp
+		echo "cat $cronfile >> /tmp/$dbname.tmp"
+		cat $cronfile >> /tmp/$dbname.tmp
+		echo cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
+		cat /tmp/$dbname.tmp cp $cronfile /var/spool/cron/crontabs/$osusername
+	else
+		echo cron file /var/spool/cron/crontabs/$osusername does not exists yet
+		echo cp $cronfile /var/spool/cron/crontabs/$osusername
+		cp $cronfile /var/spool/cron/crontabs/$osusername
+	fi
+
 	chown $osusername.$osusername /var/spool/cron/crontabs/$osusername
 	chmod 600 /var/spool/cron/crontabs/$osusername
-
 fi
 
 if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
@@ -586,17 +597,20 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 	if [ -s /var/spool/cron/crontabs/$osusername ]; then
 		mkdir -p /var/spool/cron/crontabs.disabled
 		rm -f /var/spool/cron/crontabs.disabled/$osusername
-		echo mv /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername
-		mv /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername
-		echo rm -f /var/spool/cron/crontabs/$osusername
+		echo cp /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername
+		cp /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername
+		cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp
+		#echo rm -f /var/spool/cron/crontabs/$osusername
+		echo cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
 	else
-		echo cron file /var/spool/cron/crontabs/$osusername already removed 
+		echo cron file /var/spool/cron/crontabs/$osusername already removed or empty
 	fi 
 fi
 if [[ "$mode" == "undeployall" ]]; then
 
 	echo rm -f /var/spool/cron/crontabs.disabled/$osusername
 	rm -f /var/spool/cron/crontabs.disabled/$osusername 
+
 fi
 
 

@@ -153,7 +153,6 @@ if (0) {
 	$php_self = preg_replace('/[&\?]time=(\d+)/','',$php_self);	// Remove param time
 	if (preg_match('/\?/',$php_self)) $php_self.='&time='.dol_print_date(dol_now(),'dayhourlog');
 	else $php_self.='?time='.dol_print_date(dol_now(),'dayhourlog');
-	// TODO: provide accessible captcha variants
 ?>
 	<!-- Captcha -->
 	<tr>
