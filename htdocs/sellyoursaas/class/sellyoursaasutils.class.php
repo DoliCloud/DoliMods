@@ -534,7 +534,7 @@ class SellYourSaasUtils
     /**
      * Action executed by scheduler
      * CAN BE A CRON TASK
-     * Loop on each contract. If it is a paid contract, and there is no unpayed invoice for contract, and end date < in 2 days (so expired or soon expired), we update to contract service end date to end of next period.
+     * Loop on each contract. If it is a paid contract, and there is no unpayed invoice for contract, and end date < in 2 days (so expired or soon expired), we update to contract service end date to end at next period.
      *
      * @param	int		$thirdparty_id			Thirdparty id
      * @return	int								0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
@@ -547,7 +547,7 @@ class SellYourSaasUtils
     	$now = dol_now();
 
     	$mode = 'paid';
-    	$delayindaysshort= 2;
+    	$delayindaysshort= 2;	// So we let 2 chance to generate and validate invoice before
     	$enddatetoscan = dol_time_plus_duree($now, abs($delayindaysshort), 'd');		// $enddatetoscan = yesterday
 
     	$error = 0;
@@ -628,6 +628,8 @@ class SellYourSaasUtils
     					$someinvoicenotpaid=0;
     					foreach($object->linkedObjects['facture'] as $idinvoice => $invoice)
     					{
+    						if ($invoice->status == Facture::STATUS_DRAFT) continue;	// Draft invoice are not invoice not paid
+
     						if (empty($invoice->paye))
     						{
     							$someinvoicenotpaid++;
@@ -1225,6 +1227,8 @@ class SellYourSaasUtils
     			$this->errors[]="Remain to pay is null for this invoice = ".$customer->id.". Why is the invoice not classified 'Paid' ?";
     		}
 		}
+
+		// Payments are processed, and next batch will be to make renewal
 
     	return $error;
     }

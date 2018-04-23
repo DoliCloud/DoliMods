@@ -1,0 +1,6 @@
+
+
+* A contract is not renewed if there is one pending payment.
+
+* A contract is suspend if end of service + grace delay is expired (grace delay depends if test or paid contract)
+
