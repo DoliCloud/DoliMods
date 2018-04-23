@@ -28,7 +28,7 @@ do
 		ln -fs /home/ldestailleur/git/dolibarr/htdocs "$targetdir/test_$i/htdocs/dolibarrtest"
 	fi
 		
-	export apacheconf="/etc/apache2/sites-available/test_$i.conf"
+	export apacheconf="/etc/apache2/sellyoursaas-available/test_$i.conf"
 	if [[ -f $apacheconf ]]
 	then
 		echo "Apache conf $apacheconf already exists"

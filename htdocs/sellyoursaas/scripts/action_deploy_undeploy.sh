@@ -475,7 +475,7 @@ fi
 
 if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 
-	export apacheconf="/etc/apache2/sites-available/$fqn.conf"
+	export apacheconf="/etc/apache2/sellyoursaas-available/$fqn.conf"
 	echo `date +%Y%m%d%H%M%S`" ***** Create apache conf $apacheconf from $vhostfile"
 	if [[ -s $apacheconf ]]
 	then
@@ -526,7 +526,7 @@ fi
 
 if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 
-	export apacheconf="/etc/apache2/sites-enabled/$fqn.conf"
+	export apacheconf="/etc/apache2/sellyoursaas-enabled/$fqn.conf"
 	echo `date +%Y%m%d%H%M%S`" ***** Remove apache conf $apacheconf"
 
 	if [ -f $apacheconf ]; then

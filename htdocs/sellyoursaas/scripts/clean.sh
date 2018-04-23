@@ -93,13 +93,13 @@ fi
 
 
 echo "***** Clean available virtualhost that are not enabled hosts"
-for fic in `ls /etc/apache2/sites-available/*.*.dolicloud.com.conf 2>&1`
+for fic in `ls /etc/apache2/sellyoursaas-available/*.*.dolicloud.com.conf 2>&1`
 do
 	basfic=`basename $fic` 
-	if [ ! -L /etc/apache2/sites-enabled/$basfic ]; then
+	if [ ! -L /etc/apache2/sellyoursaas-enabled/$basfic ]; then
 		echo Remove file $basfic
 		if [[ $testorconfirm == "confirm" ]]; then
-			rm /etc/apache2/sites-available/$basfic
+			rm /etc/apache2/sellyoursaas-available/$basfic
 		fi
 	else
 		echo "Site $basfic is enabled, we keep it"
@@ -324,7 +324,7 @@ do
 			fi
 			
 
-			apacheconf=/etc/apache2/sites-enabled/$instancename.conf
+			apacheconf=/etc/apache2/sellyoursaas-enabled/$instancename.conf
 			
 			if [ -f $apacheconf ]; then
 				# Remove apache virtual host
@@ -335,14 +335,14 @@ do
 				fi
 			fi
 				
-			echo "   ** Remove apache conf /etc/apache2/sites-available/$instancename"
-			if [[ -f /etc/apache2/sites-available/$instancename ]]; then
+			echo "   ** Remove apache conf /etc/apache2/sellyoursaas-available/$instancename"
+			if [[ -f /etc/apache2/sellyoursaas-available/$instancename ]]; then
 				if [[ $testorconfirm == "confirm" ]]; then
-					echo rm /etc/apache2/sites-available/$instancename
-					rm /etc/apache2/sites-available/$instancename
+					echo rm /etc/apache2/sellyoursaas-available/$instancename
+					rm /etc/apache2/sellyoursaas-available/$instancename
 				fi
 			else
-				echo File /etc/apache2/sites-available/$instancename already disabled
+				echo File /etc/apache2/sellyoursaas-available/$instancename already disabled
 			fi
 		
 			/usr/sbin/apache2ctl configtest

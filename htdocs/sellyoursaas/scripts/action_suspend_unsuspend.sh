@@ -120,7 +120,7 @@ testorconfirm="confirm"
 if [[ "$mode" == "suspend" ]]; then
 	echo `date +%Y%m%d%H%M%S`" ***** Suspend instance in /home/jail/home/$osusername/$dbname"
 
-	export apacheconf="/etc/apache2/sites-available/$fqn.conf"
+	export apacheconf="/etc/apache2/sellyoursaas-available/$fqn.conf"
 	echo "Create a suspended apache conf $apacheconf from $vhostfilesuspended"
 
 	if [[ -s $apacheconf ]]
@@ -176,7 +176,7 @@ fi
 if [[ "$mode" == "unsuspend" ]]; then
 	echo `date +%Y%m%d%H%M%S`" ***** Unsuspend instance in /home/jail/home/$osusername/$dbname"
 
-	export apacheconf="/etc/apache2/sites-available/$fqn.conf"
+	export apacheconf="/etc/apache2/sellyoursaas-available/$fqn.conf"
 	echo "Create a new apache conf $apacheconf from $vhostfile"
 
 	if [[ -s $apacheconf ]]

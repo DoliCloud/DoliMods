@@ -14,7 +14,7 @@ do
 		echo "Dir $targetdir/test_$i does not exists."
 	fi
 
-	export apacheconf="/etc/apache2/sites-available/test_$i.conf"
+	export apacheconf="/etc/apache2/sellyoursaas-available/test_$i.conf"
 	if [[ -f $apacheconf ]]
 	then
 		echo "Apache conf for $apacheconf exists. We delete it."
