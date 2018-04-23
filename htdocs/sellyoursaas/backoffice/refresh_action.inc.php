@@ -50,7 +50,8 @@ if ($action == 'addauthorizedkey')
 	{
 		if (! @ssh2_auth_password($connection, $username_web, $password_web))
 		{
-			dol_syslog("Could not authenticate with username ".$username_web." . and password ".preg_replace('/./', '*', $password_web), LOG_ERR);
+			dol_syslog("Could not authenticate with username ".$username_web." and password ".preg_replace('/./', '*', $password_web), LOG_WARNING);
+			setEventMessages("Could not authenticate with username ".$username_web." and password ".preg_replace('/./', '*', $password_web), null, 'warnings');
 		}
 		else
 		{

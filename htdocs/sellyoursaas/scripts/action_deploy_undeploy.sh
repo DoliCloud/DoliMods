@@ -513,8 +513,9 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 			  sed -e "s;__webAppPath__;$instancedir;g" > $apacheconf
 
 
-	echo Enabled conf with a2ensite $fqn.conf
+	#echo Enable conf with a2ensite $fqn.conf
 	#a2ensite $fqn.conf
+	echo Enable conf with ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-enabled 
 	ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-enabled
 	
 	echo /usr/sbin/apache2ctl configtest
