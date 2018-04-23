@@ -59,7 +59,7 @@ if (empty($page) || $page == -1) { $page = 0; }     // If $page is not defined, 
 $offset = $conf->liste_limit * $page;
 if (! $sortorder) $sortorder='ASC';
 if (! $sortfield) $sortfield='t.date_registration';
-$limit = GETPOST('limit')?GETPOST('limit','int'):$conf->liste_limit;
+$limit = GETPOST('limit','int')?GETPOST('limit','int'):$conf->liste_limit;
 
 $pageprev = $page - 1;
 $pagenext = $page + 1;

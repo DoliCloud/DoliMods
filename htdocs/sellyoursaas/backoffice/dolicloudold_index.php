@@ -61,7 +61,7 @@ if ($page == -1) {
 $offset = $conf->liste_limit * $page;
 if (! $sortorder) $sortorder='ASC';
 if (! $sortfield) $sortfield='t.date_registration';
-$limit = GETPOST('limit')?GETPOST('limit','int'):$conf->liste_limit;
+$limit = GETPOST('limit','int')?GETPOST('limit','int'):$conf->liste_limit;
 
 $pageprev = $page - 1;
 $pagenext = $page + 1;
