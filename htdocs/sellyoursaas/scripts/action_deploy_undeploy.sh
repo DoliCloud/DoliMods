@@ -380,7 +380,7 @@ fi
 
 
 
-# Deploy/Archive files
+# Deploy files
 
 if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 
@@ -418,6 +418,29 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	chmod -R go-rwx /home/jail/home/$osusername/$dbname
 fi
 
+
+# Undeploy config file
+
+if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
+
+	echo `date +%Y%m%d%H%M%S`" ***** Undeploy config file $targetfileforconfig1"
+
+	if [[ -s $targetfileforconfig1 ]]; then
+		echo rm -f $targetfileforconfig1.undeployed 2>/dev/null
+		echo mv $targetfileforconfig1 $targetfileforconfig1.undeployed
+		if [[ $testorconfirm == "confirm" ]]
+		then
+			rm -f $targetfileforconfig1.undeployed 2>/dev/null
+			mv $targetfileforconfig1 $targetfileforconfig1.undeployed
+		fi
+	else
+		echo File $targetfileforconfig1 was already removed/archived
+	fi		
+fi
+
+
+# Indeploy/Archive files
+
 if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 
 	echo `date +%Y%m%d%H%M%S`" ***** Undeploy files into $targetdir/$osusername/$dbname"
@@ -454,19 +477,6 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	chown -R $osusername.$osusername $targetfileforconfig1
 	chmod -R go-rwx $targetfileforconfig1
 	chmod -R a-wx $targetfileforconfig1
-fi
-
-# Undeploy config file
-
-if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
-
-	echo rm -f $targetfileforconfig1.undeployed 2>/dev/null
-	echo mv $targetfileforconfig1 $targetfileforconfig1.undeployed
-	if [[ $testorconfirm == "confirm" ]]
-	then
-		rm -f $targetfileforconfig1.undeployed 2>/dev/null
-		mv $targetfileforconfig1 $targetfileforconfig1.undeployed
-	fi	
 fi
 
 

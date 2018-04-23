@@ -178,14 +178,16 @@ class SellYourSaasUtils
     	$this->db->begin();
 
     	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid';
-    	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce';
+    	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce,';
+    	$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafiels as se';
     	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
     	$sql.= " AND ce.deployment_status = 'done'";
     	//$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, abs($delayindaysshort), 'd'))."'";
     	//$sql.= " AND cd.date_fin_validite > '".$this->db->idate(dol_time_plus_duree($now, abs($delayindayshard), 'd'))."'";
     	$sql.= " AND date_format(cd.date_fin_validite, '%Y-%m-%d') = date_format('".$this->db->idate(dol_time_plus_duree($now, abs($delayindaysshort), 'd'))."', '%Y-%m-%d')";
     	$sql.= " AND cd.statut = 4";
-		//print $sql;
+    	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
+    	//print $sql;
 
     	$resql = $this->db->query($sql);
     	if ($resql)
@@ -316,15 +318,22 @@ class SellYourSaasUtils
     	// Get warning email template
     	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
     	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+    	include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture-rec.class.php';
     	$formmail=new FormMail($db);
 
     	$nextyear = $currentyear;
     	$nextmonth = $currentmonth + 1;
     	if ($nextmonth > 12) { $nextmonth = 1; $nextyear++; }
 
-    	$sql = 'SELECT sr.rowid, sr.fk_soc, sr.exp_date_month, sr.exp_date_year, sr.last_four, sr.status FROM '.MAIN_DB_PREFIX.'societe_rib as sr, '.MAIN_DB_PREFIX.'societe as s';
-    	$sql.= " WHERE sr.fk_soc = s.rowid AND sr.default_rib = 1 AND sr.type = 'card' AND sr.status = ".$servicestatus;
+    	// Search payment modes on companies that has an active invoice template
+    	$sql = 'SELECT DISTINCT sr.rowid, sr.fk_soc, sr.exp_date_month, sr.exp_date_year, sr.last_four, sr.status';
+    	$sql.= ' FROM '.MAIN_DB_PREFIX.'societe_rib as sr, '.MAIN_DB_PREFIX.'societe_extrafields as se,';
+    	$sql.= ' '.MAIN_DB_PREFIX.'facture_rec as fr';
+    	$sql.= " WHERE sr.fk_soc = fr.fk_soc AND sr.default_rib = 1 AND sr.type = 'card' AND sr.status = ".$servicestatus;
+    	$sql.= " AND se.fk_object = fr.fk_soc AND se.dolicloud = 'yesv2'";
     	$sql.= " AND sr.exp_date_month = ".$currentmonth." AND sr.exp_date_year = ".$currentyear;
+    	$sql.= " AND fr.suspended = ".FactureRec::STATUS_NOTSUSPENDED;
+    	$sql.= " AND fr.frequency > 0";
 
     	$resql = $this->db->query($sql);
     	if ($resql)
@@ -386,7 +395,7 @@ class SellYourSaasUtils
 
     	if (! $error)
     	{
-    		$this->output = 'Found '.$num_rows.' record with credit card that will expire soon';
+    		$this->output = 'Found '.$num_rows.' payment mode (on customer with active template invoice) for credit card that will expire soon';
     	}
 
     	$this->db->commit();
@@ -459,9 +468,15 @@ class SellYourSaasUtils
 
     	if ($timelessonemonth)
     	{
-	    	$sql = 'SELECT sr.rowid, sr.fk_soc, sr.ending_date, sr.status FROM '.MAIN_DB_PREFIX.'societe_rib as sr, '.MAIN_DB_PREFIX.'societe as s';
-	    	$sql.= " WHERE sr.fk_soc = s.rowid AND sr.default_rib = 1 AND sr.type = 'card' AND sr.status = ".$servicestatus;
-	    	$sql.= " AND sr.ending_date > '".$this->db->idate($timelessonemonth)."'";
+    		// Search payment modes on companies that has an active invoice template
+    		$sql = 'SELECT DISTINCT sr.rowid, sr.fk_soc, sr.exp_date_month, sr.exp_date_year, sr.last_four, sr.status';
+    		$sql.= ' FROM '.MAIN_DB_PREFIX.'societe_rib as sr, '.MAIN_DB_PREFIX.'societe_extrafields as se,';
+    		$sql.= ' '.MAIN_DB_PREFIX.'facture_rec as fr';
+    		$sql.= " WHERE sr.fk_soc = fr.fk_soc AND sr.default_rib = 1 AND sr.type = 'paypal' AND sr.status = ".$servicestatus;
+    		$sql.= " AND sr.exp_date_month = ".$currentmonth." AND sr.exp_date_year = ".$currentyear;
+    		$sql.= " AND se.fk_object = fr.fk_soc AND se.dolicloud = 'yesv2'";
+    		$sql.= " AND fr.suspended = ".FactureRec::STATUS_NOTSUSPENDED;
+    		$sql.= " AND fr.frequency > 0";
 
 	    	$resql = $this->db->query($sql);
 	    	if ($resql)
@@ -562,13 +577,15 @@ class SellYourSaasUtils
     	$this->db->begin();
 
     	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid, cd.date_fin_validite';
-    	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce';
+    	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce,';
+    	$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafields as se';
     	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
     	$sql.= " AND ce.deployment_status = 'done'";
     	//$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, abs($delayindaysshort), 'd'))."'";
     	//$sql.= " AND cd.date_fin_validite > '".$this->db->idate(dol_time_plus_duree($now, abs($delayindayshard), 'd'))."'";
     	$sql.= " AND date_format(cd.date_fin_validite, '%Y-%m-%d') < date_format('".$this->db->idate($enddatetoscan)."', '%Y-%m-%d')";
     	$sql.= " AND cd.statut = 4";
+    	$sql.= " AND c.fk_soc = se.fk_object AND se.dolicloud = 'yesv2'";
     	if ($thirdparty_id > 0) $sql.=" AND c.fk_soc = ".$thirdparty_id;
     	//print $sql;
 
@@ -732,11 +749,12 @@ class SellYourSaasUtils
 
     	$this->db->begin();
 
-    	$sql = 'SELECT f.rowid, s.rowid as socid, sr.rowid as companypaymentmodeid';
-    	$sql.= ' FROM '.MAIN_DB_PREFIX.'facture as f, '.MAIN_DB_PREFIX.'societe as s, '.MAIN_DB_PREFIX.'societe_rib as sr';
-    	$sql.= ' WHERE f.fk_soc = s.rowid AND sr.fk_soc = s.rowid';
+    	$sql = 'SELECT f.rowid, se.fk_object as socid, sr.rowid as companypaymentmodeid';
+    	$sql.= ' FROM '.MAIN_DB_PREFIX.'facture as f, '.MAIN_DB_PREFIX.'societe_extrafields as se, '.MAIN_DB_PREFIX.'societe_rib as sr, ';
+    	$sql.= ' WHERE sr.fk_soc = f.fk_soc';
     	$sql.= " AND f.paye = 0 AND f.type = 0 AND f.fk_statut = ".Facture::STATUS_VALIDATED;
     	$sql.= " AND sr.status = ".$servicestatus;
+    	$sql.= " AND f.fk_soc = se.fk_object AND se.dolicloud == 'yesv2'";
     	$sql.= " ORDER BY f.date ASC, sr.default_rib DESC, sr.tms DESC";		// Lines may be duplicated. Never mind, we wil exclude duplicated invoice later.
     	//print $sql;
 
@@ -801,7 +819,7 @@ class SellYourSaasUtils
      * @param	int		$service				'StripeTest' or 'StripeLive'
      * @param	int		$servicestatus			Service 0 or 1
      * @param	int		$thirdparty_id			Thirdparty id
-     * @param	int		$companypaymentmodeid	Company payment mode id
+     * @param	int		$companypaymentmode		Company payment mode id
      * @param	int		$invoice				null=All invoices of thirdparty, Invoice=Only this invoice
      * @param	int		$includedraft			Include draft invoices
      * @return	int								0 if no error, >0 if error
@@ -1257,10 +1275,18 @@ class SellYourSaasUtils
 
     	// ...
 
+    	//$this->output = count($invoiceprocessed).' validated invoice with a valid default payment mode processed'.(count($invoiceprocessed)>0 ? ' : '.join(',', $invoiceprocessed) : '');
+    	$this->output = 'Not implemented yet';
+
     	$this->db->commit();
+
+    	// Payments are processed, and next batch will be to make renewal
 
     	return 0;
     }
+
+
+
 
 
 
@@ -1319,24 +1345,31 @@ class SellYourSaasUtils
     	$this->output = '';
     	$this->error='';
 
-    	$gracedelay=0;
+    	$gracedelay=9999999;
     	if ($mode == 'test') $gracedelay=$conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_SUSPEND;
     	if ($mode == 'paid') $gracedelay=$conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_SUSPEND;
+    	if ($gracedelay < 1)
+    	{
+    		$this->error='BadValueForDelayBeforeSuspensionCheckSetup';
+    		return -1;
+    	}
 
     	dol_syslog(get_class($this)."::doSuspendInstances suspend expired instance in mode ".$mode." with grace delay of ".$gracedelay);
 
     	$now = dol_now();
-    	$datetotest = dol_time_plus_duree($now, -1 * $gracedelay, 'd');
+    	$datetotest = dol_time_plus_duree($now, -1 * abs($gracedelay), 'd');
 
     	$this->db->begin();
 
     	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid';
-    	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce';
+    	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce,';
+    	$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafields as se';
     	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
     	$sql.= " AND ce.deployment_status = 'done'";
     	//$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, 1, 'd'))."'";
     	$sql.= " AND cd.date_fin_validite < '".$this->db->idate($datetotest)."'";
     	$sql.= " AND cd.statut = 4";
+    	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud == 'yesv2'";
 
     	$resql = $this->db->query($sql);
     	if ($resql)
@@ -1467,11 +1500,13 @@ class SellYourSaasUtils
     	$this->db->begin();
 
     	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid';
-    	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce';
+    	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce, ';
+    	$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafields as se';
     	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
     	$sql.= " AND ce.deployment_status = 'done'";
     	$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, -1 * abs($delayindays), 'd'))."'";
     	$sql.= " AND cd.statut = 5";
+    	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
 
     	$resql = $this->db->query($sql);
     	if ($resql)
@@ -1506,12 +1541,50 @@ class SellYourSaasUtils
     					if ($result <= 0)
     					{
     						$error++;
-    						$this->error=$sellyoursaasutils->error;
-    						$this->errors=$sellyoursaasutils->errors;
+    						$this->error=$this->error;
+    						$this->errors=$this->errors;
     					}
     					//$object->array_options['options_deployment_status'] = 'suspended';
 
     					$contractprocessed[$object->id]=$object->ref;	// To avoid to make action twice on same contract
+    				}
+
+    				// Finish deployall
+
+    				$comment = 'Close after click on undeploy from contract card';
+
+    				// Unactivate all lines
+    				if (! $error)
+    				{
+    					dol_syslog("Unactivate all lines - doUndeployOldSuspendedInstances undeploy");
+
+    					$result = $object->closeAll($user, 1, $comment);
+    					if ($result <= 0)
+    					{
+    						$error++;
+    						$this->error=$object->error;
+    						$this->errors=$object->errors;
+    					}
+    				}
+
+    				// End of undeployment is now OK / Complete
+    				if (! $error)
+    				{
+    					$object->array_options['options_deployment_status'] = 'undeployed';
+    					$object->array_options['options_undeployment_date'] = dol_now();
+    					$object->array_options['options_undeployment_ip'] = $_SERVER['REMOTE_ADDR'];
+
+    					$result = $object->update($user);
+    					if ($result < 0)
+    					{
+    						// We ignore errors. This should not happen in real life.
+    						//setEventMessages($contract->error, $contract->errors, 'errors');
+    					}
+    					else
+    					{
+    						//setEventMessages($langs->trans("InstanceWasUndeployed"), null, 'mesgs');
+    						//setEventMessages($langs->trans("InstanceWasUndeployedToConfirm"), null, 'mesgs');
+    					}
     				}
     			}
     			$i++;
@@ -2061,8 +2134,8 @@ class SellYourSaasUtils
     	//print 'Found domain at position '.$found;
     	if (! $found)
     	{
-    		$this->error="Failed to found position of server domain '".$domainname."' to deploy to into SELLYOURSAAS_SUB_DOMAIN_NAMES=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
-    		$this->errors[]="Failed to found position of server domain '".$domainname."' to deploy to into SELLYOURSAAS_SUB_DOMAIN_NAMES=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
+    		$this->error="Failed to found position of server domain '".$domainname."' into SELLYOURSAAS_SUB_DOMAIN_NAMES=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
+    		$this->errors[]="Failed to found position of server domain '".$domainname."' into SELLYOURSAAS_SUB_DOMAIN_NAMES=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
     		$error++;
     	}
     	else
@@ -2071,8 +2144,8 @@ class SellYourSaasUtils
     		$REMOTEIPTODEPLOYTO=$tmparray[($found-1)];
 	    	if (! $REMOTEIPTODEPLOYTO)
 	    	{
-	    		$this->error="Failed to found ip of server domain '".$domainname."' to deploy to at position '".$found."' into SELLYOURSAAS_SUB_DOMAIN_IPS=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP;
-	    		$this->errors[]="Failed to found ip of server domain '".$domainname."' to deploy to at position '".$found."' into SELLYOURSAAS_SUB_DOMAIN_IPS=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP;
+	    		$this->error="Failed to found ip of server domain '".$domainname."' at position '".$found."' into SELLYOURSAAS_SUB_DOMAIN_IPS=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP;
+	    		$this->errors[]="Failed to found ip of server domain '".$domainname."' at position '".$found."' into SELLYOURSAAS_SUB_DOMAIN_IPS=".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP;
 	    		$error++;
 	    	}
     	}
