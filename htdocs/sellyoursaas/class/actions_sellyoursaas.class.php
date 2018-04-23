@@ -72,7 +72,7 @@ class ActionsSellyoursaas
 		    	if ($object->array_options['options_dolicloud'] == 'yesv2')
 		    	{
 		    		$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$object->email.dol_print_date(dol_now(),'dayrfc'));	// hash is valid one hour
-		    		$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?mode=dashboard&username='.$object->email.'&password=&mode=logout&login_hash='.$dol_login_hash;
+		    		$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?mode=logout_dashboard&username='.$object->email.'&password=&login_hash='.$dol_login_hash;
 		    	}
 
 		    	if ($url)
@@ -103,7 +103,7 @@ class ActionsSellyoursaas
     {
     	global $db,$langs,$conf,$user;
 
-    	dol_syslog(get_class($this).'::executeHooks action='.$action);
+    	dol_syslog(get_class($this).'::addMoreActionsButtons action='.$action);
     	$langs->load("sellyoursaas@sellyoursaas");
 
     	if (in_array($parameters['currentcontext'], array('contractcard'))
@@ -176,7 +176,7 @@ class ActionsSellyoursaas
     {
         global $db,$langs,$conf,$user;
 
-        dol_syslog(get_class($this).'::executeHooks action='.$action);
+        dol_syslog(get_class($this).'::doActions action='.$action);
         $langs->load("sellyoursaas@sellyoursaas");
 
 		/*
@@ -402,7 +402,6 @@ class ActionsSellyoursaas
 					$error++;
 					$this->error=$sellyoursaasutils->error;
 					$this->errors=$sellyoursaasutils->errors;
-					return -1;
 				}
 				else
 				{
@@ -415,6 +414,7 @@ class ActionsSellyoursaas
 
         }
 
+        dol_syslog(get_class($this).'::doActions end');
         return 0;
     }
 
@@ -501,7 +501,7 @@ class ActionsSellyoursaas
     				if ($object->array_options['options_dolicloud'] == 'yesv2')
     				{
     					$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$object->email.dol_print_date(dol_now(),'dayrfc'));	// hash is valid one hour
-    					$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?mode=dashboard&username='.$object->email.'&password=&mode=logout&login_hash='.$dol_login_hash;
+    					$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?mode=logout_dashboard&username='.$object->email.'&password=&login_hash='.$dol_login_hash;
     				}
 
 					if ($url)

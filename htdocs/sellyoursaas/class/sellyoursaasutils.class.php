@@ -1315,7 +1315,14 @@ class SellYourSaasUtils
     	$this->output = '';
     	$this->error='';
 
+    	$gracedelay=0;
+    	if ($mode == 'test') $gracedelay=$conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_SUSPEND;
+    	if ($mode == 'paid') $gracedelay=$conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_SUSPEND;
+
+    	dol_syslog(get_class($this)."::doSuspendInstances suspend expired instance in mode ".$mode." with grace delay of ".$gracedelay);
+
     	$now = dol_now();
+    	$datetotest = dol_time_plus_duree($now, -1 * $gracedelay, 'd');
 
     	$this->db->begin();
 
@@ -1324,7 +1331,7 @@ class SellYourSaasUtils
     	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
     	$sql.= " AND ce.deployment_status = 'done'";
     	//$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, 1, 'd'))."'";
-    	$sql.= " AND cd.date_fin_validite < '".$this->db->idate($now)."'";
+    	$sql.= " AND cd.date_fin_validite < '".$this->db->idate($datetotest)."'";
     	$sql.= " AND cd.statut = 4";
 
     	$resql = $this->db->query($sql);
@@ -1545,7 +1552,7 @@ class SellYourSaasUtils
     		$listoflines = array($object);
     	}
 
-    	dol_syslog("* Remote action on instance was called (remoteaction=".$remoteaction." email=".$email." password=".$password.")");
+    	dol_syslog("* sellyoursaasRemoteAction is called (remoteaction=".$remoteaction." email=".$email." password=".$password.")");
 
     	include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 

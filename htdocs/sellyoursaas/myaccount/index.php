@@ -236,14 +236,16 @@ if ($cancel)
 	}
 }
 
-if ($mode == 'logout')
+if (preg_match('/logout/', $mode))
 {
+	$mode = preg_replace('/logout_?/', '', $mode);
+
 	session_destroy();
 	$param='';
 	if (GETPOSTISSET('username','alpha'))   $param.='&username='.urlencode(GETPOST('username','alpha'));
 	if (GETPOSTISSET('password','alpha'))   $param.='&password='.urlencode(GETPOST('password','alpha'));
 	if (GETPOSTISSET('login_hash','alpha')) $param.='&login_hash='.urlencode(GETPOST('login_hash','alpha'));
-
+	if ($mode) $param.='&mode='.urlencode($mode);
 	header("Location: /index.php".($param?'?'.$param:''));
 	exit;
 }
@@ -2790,8 +2792,8 @@ if ($mode == 'mycustomerinstances')
 
 			// Customer (link to login on customer dashboard)
 			print '<span class="opacitymedium">'.$langs->trans("Customer").' : </span>'.$tmpcustomer->name;
-			$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$contract->thirdparty->email.dol_print_date(dol_now(),'dayrfc'));	// hash is valid one hour
-			print ' &nbsp;-&nbsp;  <a target="_blankcustomer" href="'.$_SERVER["PHP_SELF"].'?mode=dashboard&username='.$tmpcustomer->email.'&password=&mode=logout&login_hash='.$dol_login_hash.'"><span class="fa fa-desktop"></span> '.$langs->trans("LoginWithCustomerAccount").'</a>';
+			$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$tmpcustomer->email.dol_print_date(dol_now(),'dayrfc'));	// hash is valid one hour
+			print ' &nbsp;-&nbsp;  <a target="_blankcustomer" href="'.$_SERVER["PHP_SELF"].'?mode=logout_dashboard&username='.$tmpcustomer->email.'&password=&login_hash='.$dol_login_hash.'"><span class="fa fa-desktop"></span> '.$langs->trans("LoginWithCustomerAccount").'</a>';
 			print '<br>';
 
 			// URL
@@ -3443,7 +3445,9 @@ if ($mode == 'billing')
 				//dol_sort_array($contract->linkedObjects['facture'], 'date');
 				foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
 				{
-						print '
+					if ($invoice->statut == Facture::STATUS_DRAFT) continue;
+
+					print '
 				            <div class="row" style="margin-top:20px">
 
 				              <div class="col-md-6">
