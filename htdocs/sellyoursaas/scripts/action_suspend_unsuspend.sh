@@ -235,18 +235,39 @@ fi
 
 if [[ "$mode" == "unsuspend" ]]; then
 
-	echo `date +%Y%m%d%H%M%S`" ***** Restore cron file $cronfile"
-	echo mv /var/spool/cron/crontabs.disabled/$osusername /var/spool/cron/crontabs/$osusername
-	mv /var/spool/cron/crontabs.disabled/$osusername /var/spool/cron/crontabs/$osusername
+	echo `date +%Y%m%d%H%M%S`" ***** Reinstall cron file $cronfile"
+	if [[ -f /var/spool/cron/crontabs/$osusername ]]; then
+		echo merge existing $cronfile with existing /var/spool/cron/crontabs/$osusername
+		echo "cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp"
+		cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp
+		echo "cat $cronfile >> /tmp/$dbname.tmp"
+		cat $cronfile >> /tmp/$dbname.tmp
+		echo cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
+		cat /tmp/$dbname.tmp cp $cronfile /var/spool/cron/crontabs/$osusername
+	else
+		echo cron file /var/spool/cron/crontabs/$osusername does not exists yet
+		echo cp $cronfile /var/spool/cron/crontabs/$osusername
+		cp $cronfile /var/spool/cron/crontabs/$osusername
+	fi
+
+	chown $osusername.$osusername /var/spool/cron/crontabs/$osusername
 	chmod 600 /var/spool/cron/crontabs/$osusername
 fi
 
 if [[ "$mode" == "suspend" ]]; then
 
-	echo `date +%Y%m%d%H%M%S`" ***** Disable cron file /var/spool/cron/crontabs/$osusername"
-	mkdir -p /var/spool/cron/crontabs.disabled
-	echo mv /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername
-	mv /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername 
+	echo `date +%Y%m%d%H%M%S`" ***** Remove cron file /var/spool/cron/crontabs/$osusername"
+	if [ -s /var/spool/cron/crontabs/$osusername ]; then
+		mkdir -p /var/spool/cron/crontabs.disabled
+		rm -f /var/spool/cron/crontabs.disabled/$osusername
+		echo cp /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername
+		cp /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername
+		cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp
+		#echo rm -f /var/spool/cron/crontabs/$osusername
+		echo cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
+	else
+		echo cron file /var/spool/cron/crontabs/$osusername already removed or empty
+	fi 
 
 fi
 
