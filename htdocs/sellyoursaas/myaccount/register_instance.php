@@ -598,9 +598,11 @@ else $comment = 'Activation after deployment from online registration or dashboa
 // Activate all lines
 if (! $error)
 {
-	dol_syslog("Activate all lines");
+	dol_syslog("Activate all lines - by register_instance");
 
-	$result = $contract->activateAll($user, dol_now(), 1, $comment);
+	$contract->context['deployallwasjustdone']=1;		// Add a key so trigger into activateAll will know we have just made a "deployall"
+
+	$result = $contract->activateAll($user, dol_now(), 1, $comment);			// This may execute the triggers
 	if ($result <= 0)
 	{
 		$error++;

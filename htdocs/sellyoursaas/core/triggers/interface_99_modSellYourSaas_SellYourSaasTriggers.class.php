@@ -164,7 +164,16 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         			$object->fetch_product();
         			if ($object->product->array_options['options_app_or_option'] == 'app')
         			{
-        				$remoteaction = 'unsuspend';
+        				$contract = new Contrat($this->db);
+        				$contract->fetch($object->fk_contrat);
+        				if ($contract->array_options['options_deployment_status'] == 'undeployed')
+        				{
+        					setEventMessages("CantActivateContractWhenUndeployed", null, 'errors');
+        				}
+        				else
+        				{
+        					$remoteaction = 'unsuspend';
+        				}
         			}
         		}
         		else
@@ -247,33 +256,55 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 
         		break;
         }
-
     	if ($remoteaction)
     	{
     		$okforremoteaction = 1;
+    		$contract = null;
     		if (get_class($object) == 'Contrat')	// object is contract
     		{
-    			if (in_array($remoteaction, array('suspend','unsuspend','undeploy','undeployall')) && empty($object->array_options['options_deployment_status'])) $okforremoteaction=0;	// This is a v1 record
+    			$contract = $object;
     		}
     		else									// object is a line of contract fo type 'app'
     		{
-    			$parentobject = new Contrat($this->db);
-    			$parentobject->fetch($object->fk_contrat);
-    			if (in_array($remoteaction, array('suspend','unsuspend','undeploy','undeployall')) && empty($parentobject->array_options['options_deployment_status'])) $okforremoteaction=0;	// This is a v1 record
+    			$contract = new Contrat($this->db);
+    			$contract->fetch($object->fk_contrat);
     		}
+    		if (in_array($remoteaction, array('suspend','unsuspend','undeploy','undeployall')) && empty($contract->array_options['options_deployment_status'])) $okforremoteaction=0;	// This is a v1 record
 
-    		if (! $error)
+    		if (! $error && $okforremoteaction && $contract)
     		{
-    			if ($action == 'deploy' || 'unsuspend')
+    			if ($remoteaction == 'deploy' || $remoteaction == 'unsuspend')		// when remoteaction = 'deploy' or 'unsuspend'
     			{
-	    			// TODO If there is some template invoices linked to contract, we make sure template invoice are enabled
+    				// If there is some template invoices linked to contract, we make sure template invoice are enabled
+    				$contract->fetchObjectLinked();
+    				//var_dump($contract->linkedObjects);
+    				if (is_array($contract->linkedObjects['facturerec']))
+    				{
+    					foreach ($contract->linkedObjects['facturerec'] as $templateinvoice)
+    					{
+    						if ($templateinvoice->suspended == FactureRec::STATUS_SUSPENDED)
+    						{
+    							$templateinvoice->setValueFrom('suspended', FactureRec::STATUS_NOTSUSPENDED);
+    						}
+    					}
+    				}
     			}
 
-    			if ($action == 'undeploy')
+    			if ($remoteaction == 'undeploy')
     			{
-    				// TODO Disable template invoice
-
-
+    				// If there is some template invoices linked to contract, we make sure template invoice are disabled
+    				$contract->fetchObjectLinked();
+    				//var_dump($contract->linkedObjects);
+    				if (is_array($contract->linkedObjects['facturerec']))
+    				{
+    					foreach ($contract->linkedObjects['facturerec'] as $templateinvoice)
+    					{
+    						if ($templateinvoice->suspended == FactureRec::STATUS_NOTSUSPENDED)
+    						{
+    							$templateinvoice->setValueFrom('suspended', FactureRec::STATUS_SUSPENDED);
+    						}
+    					}
+    				}
     			}
     		}
     		if (! $error && $okforremoteaction)

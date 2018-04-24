@@ -401,7 +401,7 @@ class modSellYourSaas extends DolibarrModules
 		    'type'=>'left',
 		    'titre'=>'Customers',
 		    'mainmenu'=>'sellyoursaas',
-		    'leftmenu'=>'mysaas_customerlist',
+		    'leftmenu'=>'mysaas_customers',
 			//'url'=>'/societe/list.php?search_options_dolicloud=v',
 			'url'=>'/societe/list.php?search_categ_cus=__[SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG]__',
 			'langs'=>'',
@@ -412,7 +412,7 @@ class modSellYourSaas extends DolibarrModules
 		    'user'=>0);
 		$r++;
 
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_customerlist',
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_customers',
 			'type'=>'left',
 			'titre'=>'NewCustomer',
 			'mainmenu'=>'sellyoursaas',
@@ -425,6 +425,38 @@ class modSellYourSaas extends DolibarrModules
 			'target'=>'',
 			'user'=>0);
 		$r++;
+
+		$this->menu[$r]=array(
+		'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_customers',
+		'type'=>'left',
+		'titre'=>'Customers V1',
+		'mainmenu'=>'sellyoursaas',
+		'leftmenu'=>'mysaas_customersold',
+		'url'=>'/societe/list.php?search_options_dolicloud=v1',
+		'langs'=>'',
+		'position'=>232,
+		'enabled'=>'$conf->sellyoursaas->enabled && $conf->global->SELLYOURSAAS_DOLICLOUD_ON',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		'perms'=>'$user->rights->sellyoursaas->write',
+		'target'=>'',
+		'user'=>0);
+		$r++;
+
+		$this->menu[$r]=array(
+		'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_customers',
+		'type'=>'left',
+		'titre'=>'Customers __[SELLYOURSAAS_DOLICLOUD_ON]__',
+		'mainmenu'=>'sellyoursaas',
+		'leftmenu'=>'mysaas_customers',
+		'url'=>'/societe/list.php?&search_options_dolicloud=v2',
+		'langs'=>'',
+		'position'=>233,
+		'enabled'=>'$conf->sellyoursaas->enabled && $conf->global->SELLYOURSAAS_DOLICLOUD_ON',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		'perms'=>'$user->rights->sellyoursaas->write',
+		'target'=>'',
+		'user'=>0);
+		$r++;
+
+
 
 		// Reseller
 		$this->menu[$r]=array(

@@ -3694,10 +3694,12 @@ if ($mode == 'registerpaymentmode')
 					}
 				}
 			}
-			if ($foundcard) print '<hr>';
-
-			print img_credit_card($companypaymentmodetemp->type_card);
-			print $langs->trans("NewCreditOrDebitCard").':<br>';
+			if ($foundcard)
+			{
+				print '<hr>';
+				print img_credit_card($companypaymentmodetemp->type_card);
+				print $langs->trans("NewCreditOrDebitCard").':<br>';
+			}
 
 			print '<div class="row"><div class="col-md-12"><label>'.$langs->trans("NameOnCard").'</label>';
 			print '<input class="minwidth200" type="text" name="proprio" value="'.GETPOST('proprio','alpha').'"></div></div>';

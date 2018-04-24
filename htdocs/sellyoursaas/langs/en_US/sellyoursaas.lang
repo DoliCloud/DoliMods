@@ -322,3 +322,4 @@ RegistrationPreviousInstance=Previous registered instance for same cookie
 DownloadTheSEPAMandate=Download the SEPA mandate
 CurrentCreditOrDebitCard=Current credit or debit card
 NewCreditOrDebitCard=New credit or debit card
+CantActivateContractWhenUndeployed=Can't activate an instance when a contract is undeployed

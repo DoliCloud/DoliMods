@@ -77,14 +77,29 @@ if [ "x${23}" == "x" ]; then
 	exit 1
 fi
 
+
 export mode=$1
 export osusername=$2
 export ospassword=$3
 export instancename=$4
 export domainname=$5
-export dbname=$6
-export port=$7
 
+export dbname=$6
+export dbport=$7
+export dbusername=$8
+export dbpassword=$9
+
+export fileforconfig1=${10}
+export targetfileforconfig1=${11}
+export dirwithdumpfile=${12}
+export dirwithsources1=${13}
+export targetdirwithsources1=${14}
+export dirwithsources2=${15}
+export targetdirwithsources2=${16}
+export dirwithsources3=${17}
+export targetdirwithsources3=${18}
+export cronfile=${19}
+export cliafter=${20}
 export targetdir=${21}
 export EMAILFROM=${22}
 export REMOTEIP=${23}
