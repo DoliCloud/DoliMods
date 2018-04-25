@@ -323,3 +323,4 @@ DownloadTheSEPAMandate=Download the SEPA mandate
 CurrentCreditOrDebitCard=Current credit or debit card
 NewCreditOrDebitCard=New credit or debit card
 CantActivateContractWhenUndeployed=Can't activate an instance when a contract is undeployed
+SELLYOURSAAS_FORCE_STRIPE_TEST=Force Test mode of Stripe (whatever is setup of Stripe module) 

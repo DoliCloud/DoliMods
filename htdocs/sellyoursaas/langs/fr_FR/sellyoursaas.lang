@@ -292,3 +292,4 @@ RegistrationPreviousInstance=Instance précédente pour le même cookie
 DownloadTheSEPAMandate=Télécharger le mandat SEPA
 CurrentCreditOrDebitCard=Carte de crédit ou débit actuelle
 NewCreditOrDebitCard=Nouvelle carte de credit ou debit
+SELLYOURSAAS_FORCE_STRIPE_TEST=Forcer le mode Test de Stripe (quelquesoit le paramétrage du module Stripe)

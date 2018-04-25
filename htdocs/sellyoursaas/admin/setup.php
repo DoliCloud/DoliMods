@@ -121,6 +121,8 @@ if ($action == 'set')
 		dolibarr_set_const($db,"SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT",GETPOST("SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT",'int'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT",GETPOST("SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT",'int'),'chaine',0,'',$conf->entity);
 
+		dolibarr_set_const($db,'SELLYOURSAAS_FORCE_STRIPE_TEST',GETPOST("SELLYOURSAAS_FORCE_STRIPE_TEST",'int'),'chaine',0,'',$conf->entity);
+
 
 		$varforimage='logo'; $dirforimage=$conf->mycompany->dir_output.'/logos/';
 		if ($_FILES[$varforimage]["tmp_name"])
@@ -261,6 +263,13 @@ print '<tr class="liste_titre">';
 print '<td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td>';
 print '<td>'.$langs->trans("Examples").'<div class="floatright"><input type="submit" class="button" value="'.$langs->trans("Save").'"></div></td>';
 print "</tr>\n";
+
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_FORCE_STRIPE_TEST").'</td>';
+print '<td>';
+print '<input class="maxwidth50" type="text" name="SELLYOURSAAS_FORCE_STRIPE_TEST" value="'.$conf->global->SELLYOURSAAS_FORCE_STRIPE_TEST.'">';
+print '</td>';
+print '<td>1</td>';
+print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasName").'</td>';
 print '<td>';
