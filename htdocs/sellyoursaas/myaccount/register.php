@@ -312,7 +312,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 			print '<!-- Autodetected IP/Country: '.$_SERVER["REMOTE_ADDR"].'/'.$countryselected.' -->'."\n";
 			if (empty($countryselected)) $countryselected='US';
 			if (GETPOST('address_country','alpha')) $countryselected=GETPOST('address_country','alpha');
-			print $form->select_country($countryselected, 'address_country', 'optionsValue="name"', 0, 'minwidth300', 'code2');
+			print $form->select_country($countryselected, 'address_country', 'optionsValue="name"', 0, 'minwidth300', 'code2', 1, 1);
 			?>
 				</div>
 			</div>
