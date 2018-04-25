@@ -308,7 +308,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 				<label class="control-label" for="address_country"><?php echo $langs->trans("Country") ?></label>
 				<div class="controls">
 			<?php
-			$countryselected=dolGetCountryCodeFromIp($_SERVER["REMOTE_ADDR"]);
+			$countryselected=strtoupper(dolGetCountryCodeFromIp($_SERVER["REMOTE_ADDR"]));
 			print '<!-- Autodetected IP/Country: '.$_SERVER["REMOTE_ADDR"].'/'.$countryselected.' -->'."\n";
 			if (empty($countryselected)) $countryselected='US';
 			if (GETPOST('address_country','alpha')) $countryselected=GETPOST('address_country','alpha');
