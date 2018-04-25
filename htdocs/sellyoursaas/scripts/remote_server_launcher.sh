@@ -51,8 +51,16 @@ if [ "x$1" == "xstart" ]; then
 	if [ "x$pid" == "x" ]; then
 		echo Switch on directory $scriptdir
 		cd $scriptdir
-		php -S 0.0.0.0:8080 -t remote_server remote_server/index.php 2>&1 &
-		echo "Server started with php -S 0.0.0.0:8080 -t remote_server remote_server/index.php"
+		
+		export phpversion=`php -v | head -n 1 | cut -c 5-7`
+		export abc="remote_server/index.php"
+		if [[ "x$phpversion" == "x7.0" ]]; then 
+			export abc="index.php"
+		fi
+		
+		php -S 0.0.0.0:8080 -t remote_server $abc 2>&1 &
+		echo "Server started with php -S 0.0.0.0:8080 -t remote_server $abc"
+		
 		echo "Logs of server will be in /var/log/remote_server.log"
 	else
 		echo Server is already running with PID $pid
