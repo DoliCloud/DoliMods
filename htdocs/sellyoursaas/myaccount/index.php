@@ -220,6 +220,28 @@ function cmp($a, $b)
 	return strcmp($a->date, $b->date);
 }
 
+// Define environment of payment modes
+$servicestatusstripe = 0;
+if (! empty($conf->stripe->enabled))
+{
+	$service = 'StripeTest';
+	$servicestatusstripe = 0;
+	if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha') && empty($conf->global->SELLYOURSAAS_FORCE_STRIPE_TEST))
+	{
+		$service = 'StripeLive';
+		$servicestatusstripe = 1;
+	}
+}
+$servicestatuspaypal = 0;
+if (! empty($conf->paypal->enabled))
+{
+	$servicestatuspaypal = 0;
+	if (! empty($conf->global->PAYPAL_LIVE) && ! GETPOST('forcesandbox','alpha') && empty($conf->global->SELLYOURSAAS_FORCE_PAYPAL_TEST))
+	{
+		$servicestatuspaypal = 1;
+	}
+}
+
 
 
 /*
@@ -461,18 +483,6 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 	if (! $error)
 	{
-		$servicestatus = 1;
-		if (! empty($conf->stripe->enabled))
-		{
-			$service = 'StripeTest';
-			$servicestatus = 0;
-			if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha'))
-			{
-				$service = 'StripeLive';
-				$servicestatus = 1;
-			}
-		}
-
 		// Ajout
 		$companypaymentmode = new CompanyPaymentMode($db);
 
@@ -489,7 +499,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 		$companypaymentmode->default_rib     = 1;
 		$companypaymentmode->type            = 'card';
 		$companypaymentmode->country_code    = $mythirdpartyaccount->country_code;
-		$companypaymentmode->status          = $servicestatus;
+		$companypaymentmode->status          = $servicestatusstripe;
 
 		$db->begin();
 
@@ -512,7 +522,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 				if (! $error)
 				{
 					// Get the Stripe customer and create if not linked
-					$cu = $stripe->customerStripe($mythirdpartyaccount, $stripeacc, $servicestatus, 1);
+					$cu = $stripe->customerStripe($mythirdpartyaccount, $stripeacc, $servicestatusstripe, 1);
 					if (! $cu)
 					{
 						$error++;
@@ -521,7 +531,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					else
 					{
 						// Creation of Stripe card + update of societe_account
-						$card = $stripe->cardStripe($cu, $companypaymentmode, $stripeacc, $servicestatus, 1);
+						$card = $stripe->cardStripe($cu, $companypaymentmode, $stripeacc, $servicestatusstripe, 1);
 						if (! $card)
 						{
 							$error++;
@@ -550,7 +560,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 			$sellyoursaasutils = new SellYourSaasUtils($db);
 
-			$result = $sellyoursaasutils->doTakeStripePaymentForThirdparty($service, $servicestatus, $mythirdpartyaccount->id, $companypaymentmode, null, 1);
+			$result = $sellyoursaasutils->doTakeStripePaymentForThirdparty($service, $servicestatusstripe, $mythirdpartyaccount->id, $companypaymentmode, null, 1);
 			if ($result != 0)
 			{
 				$error++;
@@ -1297,28 +1307,6 @@ if ($mythirdpartyaccount->isareseller)
 	print '
 		</div>
 	';
-}
-
-
-$servicestatusstripe = 0;
-if (! empty($conf->stripe->enabled))
-{
-	$service = 'StripeTest';
-	$servicestatusstripe = 0;
-	if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha'))
-	{
-		$service = 'StripeLive';
-		$servicestatusstripe = 1;
-	}
-}
-$servicestatuspaypal = 0;
-if (! empty($conf->paypal->enabled))
-{
-	$servicestatuspaypal = 0;
-	if (! empty($conf->global->PAYPAL_LIVE) && ! GETPOST('forcesandbox','alpha'))
-	{
-		$servicestatuspaypal = 1;
-	}
 }
 
 

@@ -291,12 +291,12 @@ class SellYourSaasUtils
     		return 1;
     	}
 
-    	$servicestatus = 1;
+    	$servicestatus = 0;
     	if (! empty($conf->stripe->enabled))
     	{
     		$service = 'StripeTest';
     		$servicestatus = 0;
-    		if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha'))
+    		if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha') && empty($conf->global->SELLYOURSAAS_FORCE_STRIPE_TEST))
     		{
     			$service = 'StripeLive';
     			$servicestatus = 1;
@@ -435,11 +435,11 @@ class SellYourSaasUtils
     	$servicestatus = 1;
     	if (! empty($conf->paypal->enabled))
     	{
-    		//$service = 'StripeTest';
+    		//$service = 'PaypalTest';
     		$servicestatus = 0;
-    		if (! empty($conf->global->PAYPAL_LIVE) && ! GETPOST('forcesandbox','alpha'))
+    		if (! empty($conf->global->PAYPAL_LIVE) && ! GETPOST('forcesandbox','alpha') && empty($conf->global->SELLYOURSAAS_FORCE_PAYPAL_TEST))
     		{
-    			//$service = 'StripeLive';
+    			//$service = 'PaypalLive';
     			$servicestatus = 1;
     		}
     	}
@@ -739,7 +739,7 @@ class SellYourSaasUtils
 
    		$service = 'StripeTest';
    		$servicestatus = 0;
-   		if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha'))
+   		if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha') && empty($conf->global->SELLYOURSAAS_FORCE_STRIPE_TEST))
    		{
    			$service = 'StripeLive';
    			$servicestatus = 1;
