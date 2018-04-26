@@ -1291,6 +1291,76 @@ if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE))
 }
 
 
+// List of available plans
+$arrayofplans=array();
+$arrayofplanscode=array();
+$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration';
+$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
+$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
+$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
+//$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";
+$resqlproducts = $db->query($sqlproducts);
+if ($resqlproducts)
+{
+	$num = $db->num_rows($resqlproducts);
+
+	$tmpprod = new Product($db);
+	$tmpprodchild = new Product($db);
+	$i=0;
+	while($i < $num)
+	{
+		$obj = $db->fetch_object($resqlproducts);
+		if ($obj)
+		{
+			$tmpprod->fetch($obj->rowid);
+			$tmpprod->get_sousproduits_arbo();
+			$tmparray = $tmpprod->get_arbo_each_prod();
+
+			$label = $obj->label;
+			$pricefix = $obj->price;
+			$pricefix_ttc = $obj->price_ttc;
+			$priceuser = 0;
+			$priceuser_ttc = 0;
+
+			if (count($tmparray) > 0)
+			{
+				foreach($tmparray as $key => $value)
+				{
+					$tmpprodchild->fetch($value['id']);
+					if ($tmpprodchild->array_options['options_app_or_option'] == 'app')
+					{
+						$pricefix .= $obj->price;
+						$pricefix_ttc .= $obj->price_ttc;
+					}
+					if ($tmpprodchild->array_options['options_app_or_option'] == 'system')
+					{
+						$priceuser .= $obj->price;
+						$priceuser_ttc .= $obj->price_ttc;
+					}
+					if ($tmpprodchild->array_options['options_app_or_option'] == 'option')
+					{
+						$priceuser .= $obj->price;
+						$priceuser_ttc .= $obj->price_ttc;
+					}
+				}
+			}
+
+			$arrayofplans[$obj->rowid]=$label.' ('.price(price2num($pricefix,'MT'), 1, $langs, 1, -1, -1, $conf->currency);
+			if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
+			if ($priceuser)
+			{
+				$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, -1, -1, $conf->currency).'/'.$langs->trans("User");
+				if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
+			}
+			$arrayofplans[$obj->rowid].=')';
+			$arrayofplanscode[$obj->rowid] = $obj->ref;
+		}
+		$i++;
+	}
+}
+else dol_print_error($db);
+
+
 // Show partner links
 if ($mythirdpartyaccount->isareseller)
 {
@@ -1301,7 +1371,8 @@ if ($mythirdpartyaccount->isareseller)
 		';
 	print $langs->trans("YourURLToCreateNewInstance").' : ';
 	$urlforpartner = $conf->global->SELLYOURSAAS_ACCOUNT_URL.'/register.php?partner='.$mythirdpartyaccount->id.'&partnerkey='.md5($mythirdpartyaccount->name_alias);
-	print '<a class="wordbreak" href="'.$urlforpartner.'" target="_blankinstance">'.$urlforpartner.'</a><br>';
+	print '<a class="wordbreak" href="'.$urlforpartner.'" target="_blankinstance">'.$urlforpartner.'&plan=XXX</a><br>';
+	print '<div class="opacitymedium">('.$langs->trans("whereXXXcanbe").' '.join(', ', $arrayofplanscode).')</div><br>';
 	$urformycustomerinstances = '<strong>'.$langs->transnoentitiesnoconv("MyCustomersBilling").'</strong>';
 	print $langs->trans("YourCommissionsAppearsInMenu", $urformycustomerinstances);
 	print '
@@ -1863,6 +1934,75 @@ if ($mode == 'dashboard')
 
 if ($mode == 'instances')
 {
+	// List of available plans
+	$arrayofplans=array();
+	$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration';
+	$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
+	$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
+	$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
+	//$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";
+	$resqlproducts = $db->query($sqlproducts);
+	if ($resqlproducts)
+	{
+		$num = $db->num_rows($resqlproducts);
+
+		$tmpprod = new Product($db);
+		$tmpprodchild = new Product($db);
+		$i=0;
+		while($i < $num)
+		{
+			$obj = $db->fetch_object($resqlproducts);
+			if ($obj)
+			{
+				$tmpprod->fetch($obj->rowid);
+				$tmpprod->get_sousproduits_arbo();
+				$tmparray = $tmpprod->get_arbo_each_prod();
+
+				$label = $obj->label;
+				$pricefix = $obj->price;
+				$pricefix_ttc = $obj->price_ttc;
+				$priceuser = 0;
+				$priceuser_ttc = 0;
+
+				if (count($tmparray) > 0)
+				{
+					foreach($tmparray as $key => $value)
+					{
+						$tmpprodchild->fetch($value['id']);
+						if ($tmpprodchild->array_options['options_app_or_option'] == 'app')
+						{
+							$pricefix .= $obj->price;
+							$pricefix_ttc .= $obj->price_ttc;
+						}
+						if ($tmpprodchild->array_options['options_app_or_option'] == 'system')
+						{
+							$priceuser .= $obj->price;
+							$priceuser_ttc .= $obj->price_ttc;
+						}
+						if ($tmpprodchild->array_options['options_app_or_option'] == 'option')
+						{
+							$priceuser .= $obj->price;
+							$priceuser_ttc .= $obj->price_ttc;
+						}
+					}
+				}
+
+
+				$arrayofplans[$obj->rowid]=$label.' ('.price(price2num($pricefix,'MT'), 1, $langs, 1, -1, -1, $conf->currency);
+				if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
+				if ($priceuser)
+				{
+					$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, -1, -1, $conf->currency).'/'.$langs->trans("User");
+					if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
+				}
+				$arrayofplans[$obj->rowid].=')';
+			}
+			$i++;
+		}
+	}
+	else dol_print_error($db);
+
+
 	print '
 	<div class="page-content-wrapper">
 			<div class="page-content">
@@ -2397,126 +2537,65 @@ if ($mode == 'instances')
 
 		}		// End loop contract
 
-		// Link to add new instance
-		print '
-		<!-- Add a new instance -->
-		<div class="portlet-body" style=""><br>
-		';
+	}
 
-		print '<a href="#addanotherinstance" id="addanotherinstance" class="valignmiddle">';
-		print '<span class="fa fa-plus-circle valignmiddle" style="font-size: 1.5em; padding-right: 4px;"></span><span class="valignmiddle">'.$langs->trans("AddAnotherInstance").'...</span><br>';
-		print '</a>';
 
-		print '<script type="text/javascript" language="javascript">
-		jQuery(document).ready(function() {
-			jQuery("#addanotherinstance").click(function() {
-				console.log("Click on addanotherinstance");
-				jQuery("#formaddanotherinstance").toggle();
-			});
+	// Link to add new instance
+	print '
+	<!-- Add a new instance -->
+	<div class="portlet-body" style=""><br>
+	';
+
+	print '<a href="#addanotherinstance" id="addanotherinstance" class="valignmiddle">';
+	print '<span class="fa fa-plus-circle valignmiddle" style="font-size: 1.5em; padding-right: 4px;"></span><span class="valignmiddle">'.$langs->trans("AddAnotherInstance").'...</span><br>';
+	print '</a>';
+
+	print '<script type="text/javascript" language="javascript">
+	jQuery(document).ready(function() {
+		jQuery("#addanotherinstance").click(function() {
+			console.log("Click on addanotherinstance");
+			jQuery("#formaddanotherinstance").toggle();
 		});
-			</script>';
+	});
+		</script>';
 
-		print '<br>';
+	print '<br>';
 
-		print '<form id="formaddanotherinstance" class="form-group reposition" style="display: none;" action="register_instance.php" method="POST">';
-		print '<input type="hidden" name="action" value="deployall" />';
-		print '<input type="hidden" name="fromsocid" value="0" />';
-		print '<input type="hidden" name="reusesocid" value="'.$socid.'" />';
+	print '<form id="formaddanotherinstance" class="form-group reposition" style="display: none;" action="register_instance.php" method="POST">';
+	print '<input type="hidden" name="action" value="deployall" />';
+	print '<input type="hidden" name="fromsocid" value="0" />';
+	print '<input type="hidden" name="reusesocid" value="'.$socid.'" />';
 
-		print '<div class="row">
-		<div class="col-md-12">
+	print '<div class="row">
+	<div class="col-md-12">
 
-		<div class="portlet light">';
+	<div class="portlet light">';
 
-		// List of available plans
-		$arrayofplans=array();
-		$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration';
-		$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
-		$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
-		$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
-		//$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";
-		$resqlproducts = $db->query($sqlproducts);
-		if ($resqlproducts)
-		{
-			$num = $db->num_rows($resqlproducts);
+	$MAXINSTANCES = 4;
+	if (count($listofcontractid) < $MAXINSTANCES)
+	{
+		print '<div class="group">';
 
-			$tmpprod = new Product($db);
-			$tmpprodchild = new Product($db);
-			$i=0;
-			while($i < $num)
-			{
-				$obj = $db->fetch_object($resqlproducts);
-				if ($obj)
-				{
-					$tmpprod->fetch($obj->rowid);
-					$tmpprod->get_sousproduits_arbo();
-					$tmparray = $tmpprod->get_arbo_each_prod();
-
-					$label = $obj->label;
-					$pricefix = $obj->price;
-					$pricefix_ttc = $obj->price_ttc;
-					$priceuser = 0;
-					$priceuser_ttc = 0;
-
-					if (count($tmparray) > 0)
-					{
-						foreach($tmparray as $key => $value)
-						{
-							$tmpprodchild->fetch($value['id']);
-							if ($tmpprodchild->array_options['options_app_or_option'] == 'app')
-							{
-								$pricefix .= $obj->price;
-								$pricefix_ttc .= $obj->price_ttc;
-							}
-							if ($tmpprodchild->array_options['options_app_or_option'] == 'system')
-							{
-								$priceuser .= $obj->price;
-								$priceuser_ttc .= $obj->price_ttc;
-							}
-							if ($tmpprodchild->array_options['options_app_or_option'] == 'option')
-							{
-								$priceuser .= $obj->price;
-								$priceuser_ttc .= $obj->price_ttc;
-							}
-						}
-					}
-
-
-					$arrayofplans[$obj->rowid]=$label.' ('.price(price2num($pricefix,'MT'), 1, $langs, 1, -1, -1, $conf->currency);
-					if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
-					if ($priceuser)
-					{
-						$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, -1, -1, $conf->currency).'/'.$langs->trans("User");
-						if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
-					}
-					$arrayofplans[$obj->rowid].=')';
-				}
-				$i++;
-			}
-		}
-		else dol_print_error($db);
-
-		print '
-			<div class="group">
-			<div class="horizontal-fld centpercent">';
-		print '<strong>'.$langs->trans("Type").'</strong> '.$form->selectarray('service', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth500');
+		print '<div class="horizontal-fld centpercent marginbottomonly">';
+		print '<strong>'.$langs->trans("YourSubscriptionPlan").'</strong> '.$form->selectarray('service', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth500').'<br>';
+		print '</div>';
 		//print ajax_combobox('service');
-		print '
-			<br></div>
 
-			<div class="horizontal-fld clearboth">
+		print '
+
+			<div class="horizontal-fld clearboth margintoponly">
 			<div class="control-group required">
 			<label class="control-label" for="password" trans="1">'.$langs->trans("Password").'</label><input name="password" type="password" required />
 			</div>
 			</div>
-			<div class="horizontal-fld ">
+			<div class="horizontal-fld margintoponly">
 			<div class="control-group required">
 			<label class="control-label" for="password2" trans="1">'.$langs->trans("ConfirmPassword").'</label><input name="password2" type="password" required />
 			</div>
 			</div>
 			</div> <!-- end group -->
 
-			<section id="selectDomain">
+			<section id="selectDomain margintoponly" style="margin-top: 20px;">
 			<div class="fld select-domain required">
 			<label trans="1">'.$langs->trans("ChooseANameForYourApplication").'</label>
 			<div class="linked-flds">
@@ -2537,12 +2616,16 @@ if ($mode == 'instances')
 			</section>';
 
 		print '<br><input type="submit" class="btn btn-warning default change-plan-link" name="changeplan" value="'.$langs->trans("Create").'">';
-
-		print '</div></div></div>';
-
-		print '</form>';
-
 	}
+	else
+	{
+		print '<div class="warning">'.$langs->trans("MaxNumberOfInstanceReached", count($listofcontractid), $conf->global->SELLYOURSAAS_MAIN_EMAIL).'</div>';
+	}
+
+	print '</div></div></div>';
+
+	print '</form>';
+
 
 	print '
 	    </div>

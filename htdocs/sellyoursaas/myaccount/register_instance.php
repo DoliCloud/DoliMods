@@ -87,9 +87,10 @@ $sldAndSubdomain = GETPOST('sldAndSubdomain','alpha');
 $tldid = GETPOST('tldid','alpha');
 $domainname = preg_replace('/^\./', '', $tldid);
 $remoteip = $_SERVER['REMOTE_ADDRESS'];
+$origin = GETPOST('origin','aZ09');
 $generateduniquekey=getRandomPassword(true);
 $partner=GETPOST('partner','alpha');
-$partnerkey=GETPOST('partnerkey','alpha');
+$partnerkey=GETPOST('partnerkey','alpha');		// md5 of partner name alias
 
 $plan=GETPOST('plan','alpha');
 $service=GETPOST('service','alpha');
@@ -143,7 +144,6 @@ $now = dol_now();
 
 // Back to url
 $newurl=preg_replace('/register_instance\.php/', 'register.php', $_SERVER["PHP_SELF"]);
-//$newurl='myaccount.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/register.php';
 
 if ($reusecontractid)		// When we use the "Restart deploy" after error from account backoffice
 {
@@ -162,7 +162,8 @@ elseif ($reusesocid)		// When we use the "Add another instance" from account bac
 	if (! preg_match('/tldid/i', $tldid)) $newurl.='&tldid='.urlencode($tldid);
 	if (! preg_match('/service/i', $newurl)) $newurl.='&service='.urlencode($orgname);
 	if (! preg_match('/partner/i', $newurl)) $newurl.='&partner='.urlencode($partner);
-	if (! preg_match('/partnerkey/i', $newurl)) $newurl.='&partnerkey='.urlencode($partnerkey);
+	if (! preg_match('/partnerkey/i', $newurl)) $newurl.='&partnerkey='.urlencode($partnerkey);		// md5 of partner name alias
+	if (! preg_match('/origin/i', $newurl)) $newurl.='&origin='.urlencode($origin);
 
 	if (empty($sldAndSubdomain))
 	{
@@ -200,7 +201,8 @@ else
 	if (! preg_match('/plan/i', $newurl)) $newurl.='&plan='.urlencode($plan);
 	//if (! preg_match('/service/i', $newurl)) $newurl.='&orgName='.urlencode($orgname);
 	if (! preg_match('/partner/i', $newurl)) $newurl.='&partner='.urlencode($partner);
-	if (! preg_match('/partnerkey/i', $newurl)) $newurl.='&partnerkey='.urlencode($partnerkey);
+	if (! preg_match('/partnerkey/i', $newurl)) $newurl.='&partnerkey='.urlencode($partnerkey);		// md5 of partner name alias
+	if (! preg_match('/origin/i', $newurl)) $newurl.='&origin='.urlencode($origin);
 
 	if (empty($sldAndSubdomain))
 	{
@@ -366,7 +368,7 @@ else
 	$tmpthirdparty->tva_assuj = 1;
 	$tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
 	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
-	$tmpthirdparty->array_options['options_source']='REGISTERFORM-UNKNOWN';
+	$tmpthirdparty->array_options['options_source']='REGISTERFORM'.($origin?'-'.$origin:'');
 	$tmpthirdparty->array_options['options_password'] = $password;
 	if (is_object($partnerthirdparty)) $tmpthirdparty->parent = $partnerthirdparty->id;		// Add link to parent/reseller
 	if ($country_code)

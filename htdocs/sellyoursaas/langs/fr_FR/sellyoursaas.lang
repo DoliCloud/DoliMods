@@ -293,3 +293,5 @@ DownloadTheSEPAMandate=Télécharger le mandat SEPA
 CurrentCreditOrDebitCard=Carte de crédit ou débit actuelle
 NewCreditOrDebitCard=Nouvelle carte de credit ou debit
 SELLYOURSAAS_FORCE_STRIPE_TEST=Forcer le mode Test de Stripe (quelquesoit le paramétrage du module Stripe)
+MaxNumberOfInstanceReached=Vous avez atteint le nombre maximum d'instances (<strong>%s</strong>) que vous pouvez créer pour ce compte. Si vous avez besoin de plus d'instance, merci de nous contacter à <strong>%s</strong>
+whereXXXcanbe=où XXX peut être

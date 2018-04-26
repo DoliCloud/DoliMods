@@ -62,6 +62,8 @@ $partnerkey=GETPOST('partnerkey','alpha');
 $plan=GETPOST('plan','alpha');
 $sldAndSubdomain=GETPOST('sldAndSubdomain','alpha');
 $tldid=GETPOST('tldid','alpha');
+$remoteip = $_SERVER['REMOTE_ADDRESS'];
+$origin = GETPOST('origin','aZ09');
 
 $socid=GETPOST('socid','int')?GETPOST('socid','int'):GETPOST('reusesocid','int');
 $reusecontractid = GETPOST('reusecontractid','int');
@@ -79,13 +81,18 @@ if (empty($tmpproduct->id))
 	print 'Service/Plan (Product id / ref) '.$productid.' / '.$productref.' was not found.';
 	exit;
 }
+if (empty($tmpproduct->array_options['options_package']))
+{
+	print 'Service/Plan (Product id / ref) '.$tmpproduct->id.' / '.$productref.' has no package defined on it.';
+	exit;
+}
 
 dol_include_once('/sellyoursaas/class/packages.class.php');
 $tmppackage = new Packages($db);
 $tmppackage->fetch($tmpproduct->array_options['options_package']);
 if (empty($tmppackage->id))
 {
-	print 'Package with id '.$tmpproduct->array_options['options_package'].' was not found.';
+	print "Package with id '".$tmpproduct->array_options['options_package']." was not found.";
 	exit;
 }
 
@@ -229,6 +236,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 	          <input type="hidden" name="reusesocid" value="<?php echo dol_escape_htmltag($reusesocid); ?>" />
 	          <input type="hidden" name="reusecontractid" value="<?php echo dol_escape_htmltag($reusecontractid); ?>" />
 	          <input type="hidden" name="fromsocid" value="<?php echo dol_escape_htmltag($fromsocid); ?>" />
+	          <input type="hidden" name="origin" value="<?php echo dol_escape_htmltag($origin); ?>" />
 
 	          <section id="enterUserAccountDetails">
 
