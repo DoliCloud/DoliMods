@@ -102,7 +102,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 	global $conf;
 
 	$client = new Google_Client();
-	$client->setApplicationName("Dolibarr");
+	$client->setApplicationName("Dolibarr");	// Set prefix of User Agent. User agent is set by PHP API in method Client->execute() of PHP Google Lib.
 	$client->setClassConfig('Google_Cache_File', 'directory', $conf->google->dir_temp);		// Force dir if cache used is Google_Cache_File
 
 	if ($mode == 'web')    // use to synch contact

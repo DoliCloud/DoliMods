@@ -57,9 +57,10 @@ $langs->load("admin");
 $langs->load("other");
 
 $def = array();
-$action=GETPOST("action");
+$action=GETPOST("action",'alpha');
 
 $oauthurl='https://accounts.google.com/o/oauth2/auth';
+
 
 /*
  * Actions
@@ -323,10 +324,16 @@ if ($action == 'pushallthirdparties')
 			exit;
 		}
 
-		$synclimit = 0;	// 0 = all
+		// Sync from $conf->global->GOOGLE_SYNC_FROM_POSITION to $conf->global->GOOGLE_SYNC_TO_POSITION (1 to n)
+		$synclimit = (empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
 		$i=0;
 		while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
 		{
+			if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION))
+			{
+				if (($i + 1) < $conf->global->GOOGLE_SYNC_FROM_POSITION) continue;
+			}
+
 			$gContacts[] = new GContact($obj->rowid,'thirdparty',$gdata);
 			$i++;
 		}
@@ -386,10 +393,15 @@ if ($action == 'pushallcontacts')
 			exit;
 		}
 
-		$synclimit = 0;	// 0 = all
+		$synclimit = (empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
 		$i=0;
 		while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
 		{
+			if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION))
+			{
+				if (($i + 1) < $conf->global->GOOGLE_SYNC_FROM_POSITION) continue;
+			}
+
 			$gContacts[] = new GContact($obj->rowid,'contact',$gdata);
 			$i++;
 		}
@@ -448,10 +460,15 @@ if ($action == 'pushallmembers')
 			exit;
 		}
 
-		$synclimit = 0;	// 0 = all
+		$synclimit = (empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
 		$i=0;
 		while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
 		{
+			if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION))
+			{
+				if (($i + 1) < $conf->global->GOOGLE_SYNC_FROM_POSITION) continue;
+			}
+
 			$gContacts[] = new GContact($obj->rowid,'member',$gdata);
 			$i++;
 		}
@@ -729,7 +746,7 @@ if ($conf->adherent->enabled)
 	print "</tr>";
 }
 print "</table>";
-print $langs->trans("GoogleContactSyncInfo").'<br>';
+print '<div class="opacitymedium">'.$langs->trans("GoogleContactSyncInfo").'</div><br>';
 
 
 print "<br>";
