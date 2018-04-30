@@ -44,6 +44,30 @@ class ActionsGoogle
     }
 
 
+    /**
+     * 	set CSP
+     *
+     * @param	array		$parameters		Array of parameters
+     * @param	Object		$object			Object
+     * @param	string		$action			Action string
+     * @param	HookManager	$hookmanager	Object HookManager
+     */
+    function setContentSecurityPolicy($parameters, &$object, &$action, &$hookmanager)
+    {
+    	global $conf,$user,$langs;
+
+    	$tmp = ($hookmanager->resPrint ? $hookmanager->resPrint : $parameters['contentsecuritypolicy']);
+
+    	$tmp = preg_replace('/script-src \'self\'/', 'script-src \'self\' *.googleapis.com *.google.com *.google-analytics.com', $tmp);
+    	$tmp = preg_replace('/font-src \'self\'/', 'font-src \'self\' *.google.com', $tmp);
+    	$tmp = preg_replace('/connect-src \'self\'/', 'connect-src \'self\' *.google.com', $tmp);
+    	$tmp = preg_replace('/frame-src \'self\'/', 'frame-src \'self\' *.google.com', $tmp);
+
+    	$hookmanager->resPrint = '';
+
+    	$this->resprints = $tmp;
+    	return 1;
+    }
 
     /**
      * addCalendarChoice
@@ -58,7 +82,7 @@ class ActionsGoogle
     {
     	global $conf, $langs, $user;
         global $form;
-        
+
     	$error = 0;
 
     	if ($conf->google->enabled)
@@ -73,7 +97,7 @@ class ActionsGoogle
 
     			$fuser = $user;
                 $now = dol_now();
-                
+
     			$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
 	    		if (empty($userlogin)) $userlogin = empty($fuser->conf->GOOGLE_LOGIN)?'':$fuser->conf->GOOGLE_LOGIN;
 
@@ -82,12 +106,12 @@ class ActionsGoogle
 				if ($valparam) $dateminsync=dol_stringtotime($valparam, 1);
 				if (empty($dateminsync) || $dateminsync < ($now - ($notolderforsync * 24 * 3600))) $dateminsync=($now - ($notolderforsync * 24 * 3600));
 				$dateminsync = strtotime('-1 day',$dateminsync);
-				
+
 	    		$actiongoogle = GETPOST('actiongoogle');
 
 	    		$_SERVER['QUERY_STRING'] = preg_replace('/&*actiongoogle=refresh/','',$_SERVER['QUERY_STRING']);
 
-	    		 
+
 	    		// Action sync
 	    		if ($actiongoogle == 'refresh')
 	    		{

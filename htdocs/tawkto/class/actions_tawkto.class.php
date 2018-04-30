@@ -1,6 +1,30 @@
 <?php
 class ActionsTawkto
 {
+	/**
+	 * 	set CSP
+	 *
+     * @param	array		$parameters		Array of parameters
+     * @param	Object		$object			Object
+     * @param	string		$action			Action string
+     * @param	HookManager	$hookmanager	Object HookManager
+	 */
+	function setContentSecurityPolicy($parameters, &$object, &$action, &$hookmanager)
+	{
+		global $conf,$user,$langs;
+
+		$tmp = ($hookmanager->resPrint ? $hookmanager->resPrint : $parameters['contentsecuritypolicy']);
+
+		$tmp = preg_replace('/script-src \'self\'/', 'script-src \'self\' *.tawk.to *.jsdelivr.net', $tmp);
+		$tmp = preg_replace('/font-src \'self\'/', 'font-src \'self\' *.tawk.to', $tmp);
+		$tmp = preg_replace('/connect-src \'self\'/', 'connect-src \'self\' *.tawk.to wss:', $tmp);
+		$tmp = preg_replace('/frame-src \'self\'/', 'frame-src \'self\' *.tawk.to', $tmp);
+
+		$hookmanager->resPrint = '';
+
+		$this->resprints = $tmp;
+		return 1;
+	}
 
 	/**
 	 * 	Show entity info

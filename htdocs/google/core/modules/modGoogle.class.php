@@ -57,7 +57,7 @@ class modGoogle extends DolibarrModules
 		// Defined if the directory /mymodule/inc/triggers/ contains triggers or not
         $this->module_parts = array(
         	'triggers' => 1,
-        	'hooks' => array('agenda','agendalist')
+        	'hooks' => array('main','agenda','agendalist')
         );
 
 		// Data directories to create when module is enabled
