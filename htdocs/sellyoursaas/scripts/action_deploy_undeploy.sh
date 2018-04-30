@@ -438,7 +438,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 fi
 
 
-# Indeploy/Archive files
+# Undeploy/Archive files
 
 if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 
@@ -467,14 +467,35 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	echo `date +%Y%m%d%H%M%S`" ***** Deploy config file"
 	mkdir -p `dirname $targetfileforconfig1`
 	
-	echo "mv $fileforconfig1 $targetfileforconfig1"
 	if [[ -s $targetfileforconfig1 ]]; then
-		echo File $targetfileforconfig1 already exists. We change nothing.
+		cat $targetfileforconfig1 | grep "$dbname " 2>&1
+		notfound=$?
+		echo notfound=$notfound
+		if [[ $notfound == 1 ]]; then
+			echo File $targetfileforconfig1 already exists but content does not include database param. We recreate file.
+			echo "rm $targetfileforconfig1"
+			if [[ $testorconfirm == "confirm" ]]
+			then
+				rm -f $targetfileforconfig1
+			fi
+			echo "mv $fileforconfig1 $targetfileforconfig1"
+			if [[ $testorconfirm == "confirm" ]]
+			then
+				mv $fileforconfig1 $targetfileforconfig1
+			fi
+		else
+			echo File $targetfileforconfig1 already exists and content includes database parameters. We change nothing.
+		fi
 	else
-		mv $fileforconfig1 $targetfileforconfig1
+		echo "mv $fileforconfig1 $targetfileforconfig1"
+		if [[ $testorconfirm == "confirm" ]]
+		then
+			mv $fileforconfig1 $targetfileforconfig1
+		fi
 	fi
 	chown -R $osusername.$osusername $targetfileforconfig1
 	chmod -R go-rwx $targetfileforconfig1
+	chmod -R g-s $targetfileforconfig1
 	chmod -R a-wx $targetfileforconfig1
 fi
 
@@ -650,7 +671,8 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	
 	Q1="GRANT CREATE,CREATE TEMPORARY TABLES,CREATE VIEW,DROP,DELETE,INSERT,SELECT,UPDATE,ALTER,INDEX,LOCK TABLES,REFERENCES,SHOW VIEW ON $dbname.* TO '$dbusername'@'localhost'; "
 	Q2="GRANT CREATE,CREATE TEMPORARY TABLES,CREATE VIEW,DROP,DELETE,INSERT,SELECT,UPDATE,ALTER,INDEX,LOCK TABLES,REFERENCES,SHOW VIEW ON $dbname.* TO '$dbusername'@'%'; "
-	Q3="FLUSH PRIVILEGES; "
+	Q3="UPDATE mysql.user SET Password=PASSWORD('$dbpassword') WHERE User='$dbusername'; "
+	Q4="FLUSH PRIVILEGES; "
 	SQL="${Q1}${Q2}${Q3}"
 	echo "$MYSQL -A -usellyoursaas -e \"$SQL\""
 	$MYSQL -A -usellyoursaas -p$passsellyoursaas -e "$SQL"
