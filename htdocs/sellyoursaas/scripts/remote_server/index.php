@@ -10,11 +10,16 @@ if (empty($fh))
 	exit();
 }
 
-if (! in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1','1.2.3.4',)))
+// Set array of allowed ips
+$listofips = file_get_contents('./allowed_hosts.txt');
+$tmparray=explode(',', $listofips);
+$tmparray[]='127.0.0.1';
+
+if (empty($listofips) || ! in_array($_SERVER['REMOTE_ADDR'], $tmparray))
 {
-	fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call done with bad ip '.$_SERVER['REMOTE_ADDR']."\n");
-	http_response_code(503);
-	print 'IP address '.$_SERVER['REMOTE_ADDR'].' is not allowed to access this remote server agent.';
+	fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call done with bad ip '.$_SERVER['REMOTE_ADDR']." : Not into file ".realpath('.').'/allowed_hosts.txt'.".\n");
+	http_response_code(403);
+	print 'IP address '.$_SERVER['REMOTE_ADDR'].' is not allowed to access this remote server agent. Check file ./allowed_hosts.txt'."\n";
 	exit();
 }
 
