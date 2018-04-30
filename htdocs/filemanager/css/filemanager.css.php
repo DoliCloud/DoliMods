@@ -395,6 +395,11 @@ ul.jqueryFileTree A:hover {
 .ecm-layout-resizer-closed {
 }
 
+div#ecm-layout-north {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
 .ecm-in-layout-center {
     border-left: 1px !important;
     border-right: 0px !important;
