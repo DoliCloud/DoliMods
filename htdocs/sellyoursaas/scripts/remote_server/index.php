@@ -19,7 +19,10 @@ if (empty($listofips) || ! in_array($_SERVER['REMOTE_ADDR'], $tmparray))
 {
 	fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call done with bad ip '.$_SERVER['REMOTE_ADDR']." : Not into file ".realpath('.').'/allowed_hosts.txt'.".\n");
 	http_response_code(403);
+
 	print 'IP address '.$_SERVER['REMOTE_ADDR'].' is not allowed to access this remote server agent. Check file ./allowed_hosts.txt'."\n";
+
+	fclose($fh);
 	exit();
 }
 
@@ -68,6 +71,7 @@ if (in_array($tmparray[0], array('deploy', 'undeploy', 'deployall', 'undeployall
 	print 'action_deploy_undeploy.sh for action '.$tmparray[0].' return '.$return_var.", \n";
 	print "so remote agent returns http code ".$httpresponse."\n";
 
+	fclose($fh);
 	exit();
 }
 if (in_array($tmparray[0], array('suspend', 'unsuspend')))
@@ -91,14 +95,15 @@ if (in_array($tmparray[0], array('suspend', 'unsuspend')))
 	print 'action_deploy_undeploy.sh for action '.$tmparray[0].' return '.$return_var.", \n";
 	print "so remote agent returns http code ".$httpresponse."\n";
 
+	fclose($fh);
 	exit();
 }
 
 fwrite($fh, date('Y-m-d H:i:s').' action code "'.$tmparray[0].'" not supported'."\n");
-fclose($fh);
 
 http_response_code(404);
 
+fclose($fh);
 exit();
 
 
