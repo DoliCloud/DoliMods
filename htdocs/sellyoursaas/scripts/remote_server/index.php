@@ -12,7 +12,7 @@ if (empty($fh))
 
 // Set array of allowed ips
 $listofips = file_get_contents('./allowed_hosts.txt');
-$tmparray=explode(',', $listofips);
+$tmparray=explode(',', trim($listofips));
 $tmparray[]='127.0.0.1';
 
 if (empty($listofips) || ! in_array($_SERVER['REMOTE_ADDR'], $tmparray))
