@@ -602,7 +602,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		echo "cat $cronfile >> /tmp/$dbname.tmp"
 		cat $cronfile >> /tmp/$dbname.tmp
 		echo cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
-		cat /tmp/$dbname.tmp cp $cronfile /var/spool/cron/crontabs/$osusername
+		cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
 	else
 		echo cron file /var/spool/cron/crontabs/$osusername does not exists yet
 		echo cp $cronfile /var/spool/cron/crontabs/$osusername
@@ -621,9 +621,12 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		rm -f /var/spool/cron/crontabs.disabled/$osusername
 		echo cp /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername
 		cp /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername
-		cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp
-		#echo rm -f /var/spool/cron/crontabs/$osusername
-		echo cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
+
+		#cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp
+		#echo cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
+		#cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
+		echo rm -f /var/spool/cron/crontabs/$osusername
+		rm -f /var/spool/cron/crontabs/$osusername
 	else
 		echo cron file /var/spool/cron/crontabs/$osusername already removed or empty
 	fi 
