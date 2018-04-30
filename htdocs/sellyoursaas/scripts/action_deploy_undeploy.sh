@@ -258,7 +258,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		export NEEDLE="serial"
 		curr=$(/bin/grep -e "${NEEDLE}$" /tmp/${ZONE}.$PID | /bin/sed -n "s/^\s*\([0-9]*\)\s*;\s*${NEEDLE}\s*/\1/p")
 		# replace if current date is shorter (possibly using different format)
-		echo "/bin/grep -e \"${NEEDLE}$\" /tmp/${ZONE}.$PID | /bin/sed -n \"s/^\s*\([0-9]*\)\s*;\s*${NEEDLE}\s*/\1/p\"'
+		echo "/bin/grep -e \"${NEEDLE}$\" /tmp/${ZONE}.$PID | /bin/sed -n \"s/^\s*\([0-9]*\)\s*;\s*${NEEDLE}\s*/\1/p\""
 		echo "Current bind counter during $mode is $curr"
 		if [ "x$curr" == "x" ]; then
 			echo Error when editing the DNS file during a deployment. Failed to find bind counter in file /tmp/${ZONE}.$PID. Sending email to $EMAILFROM
@@ -332,7 +332,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		export NEEDLE="serial"
 		curr=$(/bin/grep -e "${NEEDLE}$" /tmp/${ZONE}.$PID | /bin/sed -n "s/^\s*\([0-9]*\)\s*;\s*${NEEDLE}\s*/\1/p")
 		# replace if current date is shorter (possibly using different format)
-		echo "/bin/grep -e \"${NEEDLE}$\" /tmp/${ZONE}.$PID | /bin/sed -n \"s/^\s*\([0-9]*\)\s*;\s*${NEEDLE}\s*/\1/p\"'
+		echo "/bin/grep -e \"${NEEDLE}$\" /tmp/${ZONE}.$PID | /bin/sed -n \"s/^\s*\([0-9]*\)\s*;\s*${NEEDLE}\s*/\1/p\""
 		echo "Current bind counter during $mode is $curr"
 		if [ ${#curr} -lt ${#DATE} ]; then
 		  serial="${DATE}00"
@@ -675,7 +675,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	Q2="GRANT CREATE,CREATE TEMPORARY TABLES,CREATE VIEW,DROP,DELETE,INSERT,SELECT,UPDATE,ALTER,INDEX,LOCK TABLES,REFERENCES,SHOW VIEW ON $dbname.* TO '$dbusername'@'%'; "
 	Q3="UPDATE mysql.user SET Password=PASSWORD('$dbpassword') WHERE User='$dbusername'; "
 	Q4="FLUSH PRIVILEGES; "
-	SQL="${Q1}${Q2}${Q3}"
+	SQL="${Q1}${Q2}${Q3}${Q4}"
 	echo "$MYSQL -A -usellyoursaas -e \"$SQL\""
 	$MYSQL -A -usellyoursaas -p$passsellyoursaas -e "$SQL"
 	
