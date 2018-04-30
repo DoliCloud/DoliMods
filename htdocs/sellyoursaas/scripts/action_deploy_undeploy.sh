@@ -635,13 +635,15 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	MYSQL=`which mysql`
 	
 	Q1="CREATE DATABASE IF NOT EXISTS $dbname; "
-	Q2="CREATE USER IF NOT EXISTS '$dbusername'@'localhost' IDENTIFIED BY '$dbpassword'; "
+	#Q2="CREATE USER IF NOT EXISTS '$dbusername'@'localhost' IDENTIFIED BY '$dbpassword'; "
+	Q2="CREATE USER '$dbusername'@'localhost' IDENTIFIED BY '$dbpassword'; "
 	SQL="${Q1}${Q2}"
 	echo "$MYSQL -A -usellyoursaas -pXXXXXX -e \"$SQL\""
 	$MYSQL -A -usellyoursaas -p$passsellyoursaas -e "$SQL"
 	
 	Q1="CREATE DATABASE IF NOT EXISTS $dbname; "
-	Q2="CREATE USER IF NOT EXISTS '$dbusername'@'%' IDENTIFIED BY '$dbpassword'; "
+	#Q2="CREATE USER IF NOT EXISTS '$dbusername'@'%' IDENTIFIED BY '$dbpassword'; "
+	Q2="CREATE USER '$dbusername'@'%' IDENTIFIED BY '$dbpassword'; "
 	SQL="${Q1}${Q2}"
 	echo "$MYSQL -A -usellyoursaas -pXXXXXXX -e \"$SQL\""
 	$MYSQL -A -usellyoursaas -p$passsellyoursaas -e "$SQL"
