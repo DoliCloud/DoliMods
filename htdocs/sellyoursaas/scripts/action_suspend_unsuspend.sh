@@ -27,8 +27,7 @@ echo "# realname name --> $(basename $(realpath ${0}))"
 echo "# realname dir ---> $(dirname $(realpath ${0}))"
 
 export PID=${$}
-export targetdir="/home/jail/home"				
-export archivedir="/home/archives"
+export archivedir="/home/jail/archives"
 export ZONES_PATH="/etc/bind/zones"
 export scriptdir=$(dirname $(realpath ${0}))
 export vhostfile="$scriptdir/templates/vhostHttps-sellyoursaas.template"

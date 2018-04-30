@@ -226,6 +226,7 @@ class ActionsSellyoursaas
 								$error++;
 								$this->error=$invoice->error;
 								$this->errors=$invoice->errors;
+								setEventMessages($this->error, $this->errors, 'errors');
 							}
 						}
 					}
@@ -262,6 +263,7 @@ class ActionsSellyoursaas
 						$error++;
 						$this->error=$object->error;
 						$this->errors=$object->errors;
+						setEventMessages($this->error, $this->errors, 'errors');
 					}
 				}
 
