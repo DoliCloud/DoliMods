@@ -10,11 +10,11 @@ if (empty($fh))
 	exit();
 }
 
-if (! in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1','1.2.3.4')))
+if (! in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1','1.2.3.4',)))
 {
 	fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call done with bad ip '.$_SERVER['REMOTE_ADDR']."\n");
 	http_response_code(503);
-	print 'Forbidden by IP address';
+	print 'IP address '.$_SERVER['REMOTE_ADDR'].' is not allowed to access this remote server agent.';
 	exit();
 }
 
