@@ -107,7 +107,7 @@ if ($action == 'addauthorizedkey')
 			}
 		}
 	}
-	else setEventMessage($langs->transnoentitiesnoconv("FailedToConnectToSftp"),'errors');
+	else setEventMessage($langs->transnoentitiesnoconv("FailedToConnectToSftp", $server),'errors');
 }
 
 
@@ -240,7 +240,7 @@ if ($action == 'enable_instance')
 			else setEventMessage($langs->transnoentitiesnoconv("DeleteFails"),'warnings');
 		}
 	}
-	else setEventMessage($langs->transnoentitiesnoconv("FailedToConnectToSftp"),'errors');
+	else setEventMessage($langs->transnoentitiesnoconv("FailedToConnectToSftp", $server),'errors');
 }
 
 
@@ -318,7 +318,7 @@ if ($action == 'addinstalllock')
 			}
 		}
 	}
-	else setEventMessage($langs->transnoentitiesnoconv("FailedToConnectToSftp"),'errors');
+	else setEventMessage($langs->transnoentitiesnoconv("FailedToConnectToSftp", $server),'errors');
 }
 
 
@@ -387,7 +387,7 @@ if ($action == 'delinstalllock')
 			}
 		}
 	}
-	else setEventMessage($langs->transnoentitiesnoconv("FailedToConnectToSftp"),'errors');
+	else setEventMessage($langs->transnoentitiesnoconv("FailedToConnectToSftp", $server),'errors');
 }
 
 
