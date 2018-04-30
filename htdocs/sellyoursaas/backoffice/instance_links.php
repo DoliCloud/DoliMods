@@ -97,6 +97,7 @@ if ($id > 0 || $instanceoldid > 0 || $ref || $refold)
 	$result=$object->fetch($id?$id:$instanceoldid, $ref?$ref:$refold);
 	if ($result < 0) dol_print_error($db,$object->error);
 	if ($object->element != 'contrat') $instanceoldid=$object->id;
+	else $id=$object->id;
 }
 
 $upgradestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/rsync_instance.php '.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.' '.$object->instance;
@@ -303,7 +304,10 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 	//dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'none', $morehtmlref);
 
-	dol_banner_tab($object, ($instanceoldid?'refold':'ref'), $linkback, 1, ($instanceoldid?'name':'ref'), 'ref', $morehtmlref, '', 1, '', '', 1);
+	if (empty($instanceoldid)) $nodbprefix=0;
+	else $nodbprefix=1;
+
+	dol_banner_tab($object, ($instanceoldid?'refold':'ref'), $linkback, 1, ($instanceoldid?'name':'ref'), 'ref', $morehtmlref, '', $nodbprefix, '', '', 1);
 
 
 	if (is_object($object->db2))
