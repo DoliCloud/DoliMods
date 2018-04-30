@@ -258,7 +258,8 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		export NEEDLE="serial"
 		curr=$(/bin/grep -e "${NEEDLE}$" /tmp/${ZONE}.$PID | /bin/sed -n "s/^\s*\([0-9]*\)\s*;\s*${NEEDLE}\s*/\1/p")
 		# replace if current date is shorter (possibly using different format)
-		echo "Current bind counter is $curr"
+		echo "/bin/grep -e \"${NEEDLE}$\" /tmp/${ZONE}.$PID | /bin/sed -n \"s/^\s*\([0-9]*\)\s*;\s*${NEEDLE}\s*/\1/p\"'
+		echo "Current bind counter during $mode is $curr"
 		if [ "x$curr" == "x" ]; then
 			echo Error when editing the DNS file during a deployment. Failed to find bind counter in file /tmp/${ZONE}.$PID. Sending email to $EMAILFROM
 			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. Failed to find bind counter in file /tmp/${ZONE}.$PID" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
@@ -331,7 +332,8 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		export NEEDLE="serial"
 		curr=$(/bin/grep -e "${NEEDLE}$" /tmp/${ZONE}.$PID | /bin/sed -n "s/^\s*\([0-9]*\)\s*;\s*${NEEDLE}\s*/\1/p")
 		# replace if current date is shorter (possibly using different format)
-		echo "Current bind counter is $curr"
+		echo "/bin/grep -e \"${NEEDLE}$\" /tmp/${ZONE}.$PID | /bin/sed -n \"s/^\s*\([0-9]*\)\s*;\s*${NEEDLE}\s*/\1/p\"'
+		echo "Current bind counter during $mode is $curr"
 		if [ ${#curr} -lt ${#DATE} ]; then
 		  serial="${DATE}00"
 		else
