@@ -142,6 +142,11 @@ echo "targetdirwithsources3 = $targetdirwithsources3"
 echo "cronfile = $cronfile"
 echo "cliafter = $cliafter"
 echo "targetdir = $targetdir"
+echo "EMAILFROM = $EMAILFROM"
+echo "REMOTEIP = $REMOTEIP"
+echo "SELLYOURSAAS_ACCOUNT_URL = $SELLYOURSAAS_ACCOUNT_URL" 
+
+
 echo `date +%Y%m%d%H%M%S`" calculated params:"
 echo "vhostfile = $vhostfile"
 echo "instancedir = $instancedir"

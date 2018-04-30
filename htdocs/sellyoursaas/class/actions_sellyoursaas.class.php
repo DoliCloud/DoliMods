@@ -236,7 +236,7 @@ class ActionsSellyoursaas
 				{
 					dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
 					$sellyoursaasutils = new SellYourSaasUtils($db);
-					$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $object);
+					$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $object, 'admin', $object->thirdparty->email, $object->array_options['options_deployment_init_adminpass']);
 					if ($result <= 0)
 					{
 						$error++;
