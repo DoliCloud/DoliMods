@@ -1880,20 +1880,27 @@ class SellYourSaasUtils
     			}
 
     			$savsalt = $conf->global->MAIN_SECURITY_SALT;
+    			$savhashalgo = $conf->global->MAIN_SECURITY_HASH_ALGO;
+
+    			$conf->global->MAIN_SECURITY_HASH_ALGO = empty($conf->global->SELLYOURSAAS_HASHALGOFORPASSWORD)?'':$conf->global->SELLYOURSAAS_HASHALGOFORPASSWORD;
+    			dol_syslog("Using this MAIN_SECURITY_HASH_ALGO for __APPPASSWORDxxx__ variables : ".$conf->global->MAIN_SECURITY_HASH_ALGO);
 
     			$conf->global->MAIN_SECURITY_SALT = empty($conf->global->SELLYOURSAAS_SALTFORPASSWORDENCRYPTION)?'':$conf->global->SELLYOURSAAS_SALTFORPASSWORDENCRYPTION;
     			dol_syslog("Using this salt for __APPPASSWORDxxxSALTED__ variables : ".$conf->global->MAIN_SECURITY_SALT);
+    			$password0salted = dol_hash($password);
     			$passwordmd5salted = dol_hash($password, 'md5');
     			$passwordsha256salted = dol_hash($password, 'sha256');
     			dol_syslog("passwordmd5salted=".$passwordmd5salted);
 
     			$conf->global->MAIN_SECURITY_SALT = '';
     			dol_syslog("Using empty salt for __APPPASSWORDxxx__ variables : ".$conf->global->MAIN_SECURITY_SALT);
+    			$password0 = dol_hash($password);
     			$passwordmd5 = dol_hash($password, 'md5');
     			$passwordsha256 = dol_hash($password, 'sha256');
     			dol_syslog("passwordmd5=".$passwordmd5);
 
     			$conf->global->MAIN_SECURITY_SALT = $savsalt;
+    			$conf->global->MAIN_SECURITY_HASH_ALGO = $savhashalgo;
 
     			// Replace __INSTANCEDIR__, __INSTALLHOURS__, __INSTALLMINUTES__, __OSUSERNAME__, __APPUNIQUEKEY__, __APPDOMAIN__, ...
     			$substitarray=array(
@@ -1915,8 +1922,10 @@ class SellYourSaasUtils
     			'__APPUSERNAME__'=>$appusername,
     			'__APPEMAIL__'=>$email,
     			'__APPPASSWORD__'=>$password,
+    			'__APPPASSWORD0__'=>$password0,
     			'__APPPASSWORDMD5__'=>$passwordmd5,
     			'__APPPASSWORDSHA256__'=>$passwordsha256,
+    			'__APPPASSWORD0SALTED__'=>$password0salted,
     			'__APPPASSWORDMD5SALTED__'=>$passwordmd5salted,
     			'__APPPASSWORDSHA256SALTED__'=>$passwordsha256salted,
     			'__APPUNIQUEKEY__'=>$generateduniquekey,
@@ -2048,20 +2057,27 @@ class SellYourSaasUtils
     				}
 
     				$savsalt = $conf->global->MAIN_SECURITY_SALT;
+    				$savhashalgo = $conf->global->MAIN_SECURITY_HASH_ALGO;
+
+    				$conf->global->MAIN_SECURITY_HASH_ALGO = empty($conf->global->SELLYOURSAAS_HASHALGOFORPASSWORD)?'':$conf->global->SELLYOURSAAS_HASHALGOFORPASSWORD;
+    				dol_syslog("Using this MAIN_SECURITY_HASH_ALGO for __APPPASSWORDxxx__ variables : ".$conf->global->MAIN_SECURITY_HASH_ALGO);
 
     				$conf->global->MAIN_SECURITY_SALT = empty($conf->global->SELLYOURSAAS_SALTFORPASSWORDENCRYPTION)?'':$conf->global->SELLYOURSAAS_SALTFORPASSWORDENCRYPTION;
     				dol_syslog("Using this salt for __APPPASSWORDxxxSALTED__ variables : ".$conf->global->MAIN_SECURITY_SALT);
+    				$password0salted = dol_hash($password);
     				$passwordmd5salted = dol_hash($password, 'md5');
     				$passwordsha256salted = dol_hash($password, 'sha256');
     				dol_syslog("passwordmd5salted=".$passwordmd5salted);
 
     				$conf->global->MAIN_SECURITY_SALT = '';
     				dol_syslog("Using empty salt for __APPPASSWORDxxx__ variables : ".$conf->global->MAIN_SECURITY_SALT);
+    				$password0 = dol_hash($password);
     				$passwordmd5 = dol_hash($password, 'md5');
     				$passwordsha256 = dol_hash($password, 'sha256');
     				dol_syslog("passwordmd5=".$passwordmd5);
 
     				$conf->global->MAIN_SECURITY_SALT = $savsalt;
+    				$conf->global->MAIN_SECURITY_HASH_ALGO = $savhashalgo;
 
     				// Replace __INSTANCEDIR__, __INSTALLHOURS__, __INSTALLMINUTES__, __OSUSERNAME__, __APPUNIQUEKEY__, __APPDOMAIN__, ...
     				$substitarray=array(
@@ -2083,8 +2099,10 @@ class SellYourSaasUtils
     				'__APPUSERNAME__'=>$appusername,
     				'__APPEMAIL__'=>$email,
     				'__APPPASSWORD__'=>$password,
+    				'__APPPASSWORD0__'=>$password0,
     				'__APPPASSWORDMD5__'=>$passwordmd5,
     				'__APPPASSWORDSHA256__'=>$passwordsha256,
+    				'__APPPASSWORD0SALTED__'=>$password0salted,
     				'__APPPASSWORDMD5SALTED__'=>$passwordmd5salted,
     				'__APPPASSWORDSHA256SALTED__'=>$passwordsha256salted,
     				'__APPUNIQUEKEY__'=>$generateduniquekey,
