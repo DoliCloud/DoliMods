@@ -77,9 +77,9 @@ class SellYourSaasUtils
 
     	$this->db->begin();
 
-		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'facture as f,';
+		$sql = 'SELECT f.rowid FROM '.MAIN_DB_PREFIX.'facture as f,';
 		$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafields as se';
-		$sql.= ' WHERE fk_statut = '.Facture::STATUS_DRAFT;
+		$sql.= ' WHERE f.fk_statut = '.Facture::STATUS_DRAFT;
 		$sql.= " AND se.fk_object = f.fk_soc AND se.dolicloud = 'yesv2'";
 		$resql = $this->db->query($sql);
 		if ($resql)
@@ -143,7 +143,7 @@ class SellYourSaasUtils
 			$this->error = $this->db->lasterror();
 		}
 
-		$this->output = count($draftinvoiceprocessed).' invoice(s) validated on '.$num_rows.' draft invoice found'.(count($draftinvoiceprocessed)>0 ? ' : '.join(',', $draftinvoiceprocessed) : '');
+		$this->output = count($draftinvoiceprocessed).' invoice(s) validated on '.$num_rows.' draft invoice found'.(count($draftinvoiceprocessed)>0 ? ' : '.join(',', $draftinvoiceprocessed) : '').' (search done on invoices of SellYourSaas customers only)';
 
 		$this->db->commit();
 
@@ -259,7 +259,7 @@ class SellYourSaasUtils
     	}
     	else $this->error = $this->db->lasterror();
 
-    	$this->output = count($contractprocessed).' email(s) sent'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
+    	$this->output = count($contractprocessed).' email(s) sent'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
 
     	$this->db->commit();
 
