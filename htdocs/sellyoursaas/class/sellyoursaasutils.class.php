@@ -77,9 +77,9 @@ class SellYourSaasUtils
 
     	$this->db->begin();
 
-		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'facture as f,';
+		$sql = 'SELECT f.rowid FROM '.MAIN_DB_PREFIX.'facture as f,';
 		$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafields as se';
-		$sql.= ' WHERE fk_statut = '.Facture::STATUS_DRAFT;
+		$sql.= ' WHERE f.fk_statut = '.Facture::STATUS_DRAFT;
 		$sql.= " AND se.fk_object = f.fk_soc AND se.dolicloud = 'yesv2'";
 		$resql = $this->db->query($sql);
 		if ($resql)
