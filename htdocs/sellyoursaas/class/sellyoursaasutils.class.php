@@ -53,7 +53,7 @@ class SellYourSaasUtils
 
     /**
      * Action executed by scheduler for job SellYourSaasValidateDraftInvoices
-     * Check account is not closed. Validate draft invoice if not, do nothing if closed.
+     * Search draft invoices on sellyoursaas customers and check they are linked to a not closed contract. Validate it if not, do nothing if closed.
      * CAN BE A CRON TASK
      *
      * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
@@ -77,7 +77,10 @@ class SellYourSaasUtils
 
     	$this->db->begin();
 
-		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'facture WHERE fk_statut = '.Facture::STATUS_DRAFT;
+		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'facture as f,';
+		$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafiels as se';
+		$sql.= ' WHERE fk_statut = '.Facture::STATUS_DRAFT;
+		$sql.= " AND se.fk_object = f.fk_soc AND se.dolicloud = 'yesv2'";
 		$resql = $this->db->query($sql);
 		if ($resql)
 		{
@@ -96,7 +99,7 @@ class SellYourSaasUtils
 						//dol_sort_array($object->linkedObjects['facture'], 'date');
 						foreach($invoice->linkedObjects['contrat'] as $idcontract => $contract)
 						{
-							if (! empty($draftinvoiceprocessed[$invoice->id])) continue;	// If already processed, no nothing more
+							if (! empty($draftinvoiceprocessed[$invoice->id])) continue;	// If already processed, do nothing more
 
 							// We ignore $contract->nbofserviceswait +  and $contract->nbofservicesclosed
 							$nbservice = $contract->nbofservicesopened + $contract->nbofservicesexpired;
@@ -149,6 +152,7 @@ class SellYourSaasUtils
 
     /**
      * Action executed by scheduler for job SellYourSaasAlertSoftEndTrial
+     * Search contracts of sellyoursaas customers that are about to expired (date = end date - SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_SOFT_ALERT) and send email remind
      * CAN BE A CRON TASK
      *
      * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
@@ -264,7 +268,8 @@ class SellYourSaasUtils
 
 
     /**
-     * Action executed by scheduler. To run every day
+     * Action executed by scheduler. To run every day.
+     * Send warning when credit card will expire to sellyoursaas customers.
      * CAN BE A CRON TASK
      *
      * @param	int			$day1	Day1 in month to launch warnings (1st)
@@ -395,7 +400,7 @@ class SellYourSaasUtils
 
     	if (! $error)
     	{
-    		$this->output = 'Found '.$num_rows.' payment mode (on customer with active template invoice) for credit card that will expire soon';
+    		$this->output = 'Found '.$num_rows.' payment mode (on customer with active template invoice) for credit card that will expire soon (ran in mode '.$service.')';
     	}
 
     	$this->db->commit();
@@ -405,7 +410,8 @@ class SellYourSaasUtils
 
 
     /**
-     * Action executed by scheduler
+     * Action executed by scheduler.
+     * Send warning when paypal preapproval will expire to sellyoursaas customers.
      * CAN BE A CRON TASK
      *
      * @param	int			$day1	Day1 in month to launch warnings (1st)
@@ -537,174 +543,13 @@ class SellYourSaasUtils
 
     	if (! $error)
     	{
-    		$this->output = 'Found '.$num_rows.' record with paypal approval that will expire soon';
+    		$this->output = 'Found '.$num_rows.' record with paypal approval that will expire soon (ran in mode '.$servicestatus.')';
     	}
 
     	$this->db->commit();
 
     	return $error;
     }
-
-
-    /**
-     * Action executed by scheduler
-     * CAN BE A CRON TASK
-     * Loop on each contract. If it is a paid contract, and there is no unpayed invoice for contract, and end date < in 2 days (so expired or soon expired), we update to contract service end date to end at next period.
-     *
-     * @param	int		$thirdparty_id			Thirdparty id
-     * @return	int								0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
-     */
-    public function doRenewalContracts($thirdparty_id=0)
-    {
-    	global $conf, $langs;
-
-    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doRenewalContracts.log';
-    	$now = dol_now();
-
-    	$mode = 'paid';
-    	$delayindaysshort= 2;	// So we let 2 chance to generate and validate invoice before
-    	$enddatetoscan = dol_time_plus_duree($now, abs($delayindaysshort), 'd');		// $enddatetoscan = yesterday
-
-    	$error = 0;
-    	$this->output = '';
-    	$this->error='';
-
-    	$contractprocessed = array();
-    	$contractignored = array();
-
-    	dol_syslog(__METHOD__, LOG_DEBUG);
-
-    	$this->db->begin();
-
-    	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid, cd.date_fin_validite';
-    	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce,';
-    	$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafields as se';
-    	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
-    	$sql.= " AND ce.deployment_status = 'done'";
-    	//$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, abs($delayindaysshort), 'd'))."'";
-    	//$sql.= " AND cd.date_fin_validite > '".$this->db->idate(dol_time_plus_duree($now, abs($delayindayshard), 'd'))."'";
-    	$sql.= " AND date_format(cd.date_fin_validite, '%Y-%m-%d') < date_format('".$this->db->idate($enddatetoscan)."', '%Y-%m-%d')";
-    	$sql.= " AND cd.statut = 4";
-    	$sql.= " AND c.fk_soc = se.fk_object AND se.dolicloud = 'yesv2'";
-    	if ($thirdparty_id > 0) $sql.=" AND c.fk_soc = ".$thirdparty_id;
-    	//print $sql;
-
-    	function cmp($a, $b)
-    	{
-    		return strcmp($a->date, $b->date);
-    	}
-
-    	$resql = $this->db->query($sql);
-    	if ($resql)
-    	{
-    		$num = $this->db->num_rows($resql);
-
-    		include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
-
-    		$i=0;
-    		while ($i < $num)
-    		{
-    			$obj = $this->db->fetch_object($resql);
-    			if ($obj)
-    			{
-    				if (! empty($contractprocessed[$object->id]) || ! empty($contractignored[$object->id])) continue;
-
-    				// Test if this is a paid or not instance
-    				$object = new Contrat($this->db);
-    				$object->fetch($obj->rowid);		// fetch also lines
-    				$object->fetch_thirdparty();
-
-    				$isAPayingContract = sellyoursaasIsPaidInstance($object);
-    				//var_dump($mode.' '.$isAPayingContract);
-    				if ($mode == 'test' && $isAPayingContract)
-    				{
-    					$contractignored[$object->id]=$object->ref;
-    					continue;											// Discard if this is a paid instance when we are in test mode
-    				}
-    				if ($mode == 'paid' && ! $isAPayingContract)
-    				{
-    					$contractignored[$object->id]=$object->ref;
-    					continue;											// Discard if this is a test instance when we are in paid mode
-    				}
-
-    				// Update expiration date of instance
-    				$tmparray = sellyoursaasGetExpirationDate($object);
-    				$expirationdate = $tmparray['expirationdate'];
-    				$duration_value = $tmparray['duration_value'];
-    				$duration_unit = $tmparray['duration_unit'];
-    				//var_dump($expirationdate.' '.$enddatetoscan);
-
-    				// Test if there is pending invoice
-    				$object->fetchObjectLinked();
-
-    				if (is_array($object->linkedObjects['facture']) && count($object->linkedObjects['facture']) > 0)
-    				{
-    					usort($object->linkedObjects['facture'], "cmp");
-
-    					//dol_sort_array($contract->linkedObjects['facture'], 'date');
-    					$someinvoicenotpaid=0;
-    					foreach($object->linkedObjects['facture'] as $idinvoice => $invoice)
-    					{
-    						if ($invoice->status == Facture::STATUS_DRAFT) continue;	// Draft invoice are not invoice not paid
-
-    						if (empty($invoice->paye))
-    						{
-    							$someinvoicenotpaid++;
-    						}
-    					}
-    					if ($someinvoicenotpaid)
-    					{
-    						$this->output .= 'Contract '.$object->ref.' is qualified for renewal but there is '.$someinvoicenotpaid.' invoice(s) unpayed so we cancel renewal'."\n";
-    						$contractignored[$object->id]=$object->ref;
-							continue;
-    					}
-    				}
-
-    				if ($expirationdate && $expirationdate < $enddatetoscan)
-    				{
-    					$newdate = $expirationdate;
-    					$protecti=0;	//$protecti is to avoid infinite loop
-    					while ($newdate < $enddatetoscan && $protecti < 1000)
-    					{
-    						$newdate = dol_time_plus_duree($newdate, $duration_value, $duration_unit);
-    						$protecti++;
-    					}
-
-    					if ($protecti < 1000)
-    					{
-    						$sqlupdate = 'UPDATE '.MAIN_DB_PREFIX."contratdet SET date_fin_validite = '".$this->db->idate($newdate)."'";
-    						$sqlupdate.= ' WHERE fk_contrat = '.$object->id;
-    						$resqlupdate = $this->db->query($sqlupdate);
-    						if ($resqlupdate)
-    						{
-    							$contractprocessed[$object->id]=$object->ref;
-    						}
-    						else
-    						{
-    							$error++;
-    							$this->error = $this->db->lasterror();
-    						}
-    					}
-    					else
-    					{
-    						$error++;
-    						$this->error = "Bad value for newdate";
-    						dol_syslog("Bad value for newdate", LOG_ERR);
-    					}
-    				}
-    			}
-    			$i++;
-    		}
-    	}
-    	else $this->error = $this->db->lasterror();
-
-    	$this->output .= count($contractprocessed).' paying contract(s) with end date before '.dol_print_date($enddatetoscan, 'day').' were renewed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
-
-    	$this->db->commit();
-
-    	return ($error ? 1: 0);
-    }
-
 
 
     /**
@@ -804,7 +649,7 @@ class SellYourSaasUtils
     	}
     	else $this->error = $this->db->lasterror();
 
-    	$this->output = count($invoiceprocessed).' validated invoice with a valid default payment mode processed'.(count($invoiceprocessed)>0 ? ' : '.join(',', $invoiceprocessed) : '');
+    	$this->output = count($invoiceprocessed).' validated invoice with a valid default payment mode processed'.(count($invoiceprocessed)>0 ? ' : '.join(',', $invoiceprocessed) : '').' (ran in mode '.$servicestatus.')';
 
     	$this->db->commit();
 
@@ -902,7 +747,7 @@ class SellYourSaasUtils
 			dol_syslog("No validated invoices found for thirdparty_id = ".$thirdparty_id);
 		}
 
-		dol_syslog("We found ".count($invoices)." validated invoices to process payment on...");
+		dol_syslog("We found ".count($invoices)." validated invoices to process payment on (ran in mode '.$servicestatus.').");
 
 		// Loop on each invoice
 		foreach($invoices as $invoice)
@@ -1286,6 +1131,166 @@ class SellYourSaasUtils
     }
 
 
+
+
+    /**
+     * Action executed by scheduler
+     * CAN BE A CRON TASK
+     * Loop on each contract. If it is a paid contract, and there is no unpayed invoice for contract, and end date < in 2 days (so expired or soon expired), we update to contract service end date to end at next period.
+     *
+     * @param	int		$thirdparty_id			Thirdparty id
+     * @return	int								0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
+     */
+    public function doRenewalContracts($thirdparty_id=0)
+    {
+    	global $conf, $langs;
+
+    	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doRenewalContracts.log';
+    	$now = dol_now();
+
+    	$mode = 'paid';
+    	$delayindaysshort= 2;	// So we let 2 chance to generate and validate invoice before
+    	$enddatetoscan = dol_time_plus_duree($now, abs($delayindaysshort), 'd');		// $enddatetoscan = yesterday
+
+    	$error = 0;
+    	$this->output = '';
+    	$this->error='';
+
+    	$contractprocessed = array();
+    	$contractignored = array();
+
+    	dol_syslog(__METHOD__, LOG_DEBUG);
+
+    	$this->db->begin();
+
+    	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid, cd.date_fin_validite';
+    	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce,';
+    	$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafields as se';
+    	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
+    	$sql.= " AND ce.deployment_status = 'done'";
+    	//$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, abs($delayindaysshort), 'd'))."'";
+    	//$sql.= " AND cd.date_fin_validite > '".$this->db->idate(dol_time_plus_duree($now, abs($delayindayshard), 'd'))."'";
+    	$sql.= " AND date_format(cd.date_fin_validite, '%Y-%m-%d') < date_format('".$this->db->idate($enddatetoscan)."', '%Y-%m-%d')";
+    	$sql.= " AND cd.statut = 4";
+    	$sql.= " AND c.fk_soc = se.fk_object AND se.dolicloud = 'yesv2'";
+    	if ($thirdparty_id > 0) $sql.=" AND c.fk_soc = ".$thirdparty_id;
+    	//print $sql;
+
+    	function cmp($a, $b)
+    	{
+    		return strcmp($a->date, $b->date);
+    	}
+
+    	$resql = $this->db->query($sql);
+    	if ($resql)
+    	{
+    		$num = $this->db->num_rows($resql);
+
+    		include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+
+    		$i=0;
+    		while ($i < $num)
+    		{
+    			$obj = $this->db->fetch_object($resql);
+    			if ($obj)
+    			{
+    				if (! empty($contractprocessed[$object->id]) || ! empty($contractignored[$object->id])) continue;
+
+    				// Test if this is a paid or not instance
+    				$object = new Contrat($this->db);
+    				$object->fetch($obj->rowid);		// fetch also lines
+    				$object->fetch_thirdparty();
+
+    				$isAPayingContract = sellyoursaasIsPaidInstance($object);
+    				//var_dump($mode.' '.$isAPayingContract);
+    				if ($mode == 'test' && $isAPayingContract)
+    				{
+    					$contractignored[$object->id]=$object->ref;
+    					continue;											// Discard if this is a paid instance when we are in test mode
+    				}
+    				if ($mode == 'paid' && ! $isAPayingContract)
+    				{
+    					$contractignored[$object->id]=$object->ref;
+    					continue;											// Discard if this is a test instance when we are in paid mode
+    				}
+
+    				// Update expiration date of instance
+    				$tmparray = sellyoursaasGetExpirationDate($object);
+    				$expirationdate = $tmparray['expirationdate'];
+    				$duration_value = $tmparray['duration_value'];
+    				$duration_unit = $tmparray['duration_unit'];
+    				//var_dump($expirationdate.' '.$enddatetoscan);
+
+    				// Test if there is pending invoice
+    				$object->fetchObjectLinked();
+
+    				if (is_array($object->linkedObjects['facture']) && count($object->linkedObjects['facture']) > 0)
+    				{
+    					usort($object->linkedObjects['facture'], "cmp");
+
+    					//dol_sort_array($contract->linkedObjects['facture'], 'date');
+    					$someinvoicenotpaid=0;
+    					foreach($object->linkedObjects['facture'] as $idinvoice => $invoice)
+    					{
+    						if ($invoice->status == Facture::STATUS_DRAFT) continue;	// Draft invoice are not invoice not paid
+
+    						if (empty($invoice->paye))
+    						{
+    							$someinvoicenotpaid++;
+    						}
+    					}
+    					if ($someinvoicenotpaid)
+    					{
+    						$this->output .= 'Contract '.$object->ref.' is qualified for renewal but there is '.$someinvoicenotpaid.' invoice(s) unpayed so we cancel renewal'."\n";
+    						$contractignored[$object->id]=$object->ref;
+    						continue;
+    					}
+    				}
+
+    				if ($expirationdate && $expirationdate < $enddatetoscan)
+    				{
+    					$newdate = $expirationdate;
+    					$protecti=0;	//$protecti is to avoid infinite loop
+    					while ($newdate < $enddatetoscan && $protecti < 1000)
+    					{
+    						$newdate = dol_time_plus_duree($newdate, $duration_value, $duration_unit);
+    						$protecti++;
+    					}
+
+    					if ($protecti < 1000)
+    					{
+    						$sqlupdate = 'UPDATE '.MAIN_DB_PREFIX."contratdet SET date_fin_validite = '".$this->db->idate($newdate)."'";
+    						$sqlupdate.= ' WHERE fk_contrat = '.$object->id;
+    						$resqlupdate = $this->db->query($sqlupdate);
+    						if ($resqlupdate)
+    						{
+    							$contractprocessed[$object->id]=$object->ref;
+    						}
+    						else
+    						{
+    							$error++;
+    							$this->error = $this->db->lasterror();
+    						}
+    					}
+    					else
+    					{
+    						$error++;
+    						$this->error = "Bad value for newdate";
+    						dol_syslog("Bad value for newdate", LOG_ERR);
+    					}
+    				}
+    			}
+    			$i++;
+    		}
+    	}
+    	else $this->error = $this->db->lasterror();
+
+    	$this->output .= count($contractprocessed).' paying contract(s) with end date before '.dol_print_date($enddatetoscan, 'day').' were renewed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
+
+    	$this->db->commit();
+
+    	return ($error ? 1: 0);
+    }
 
 
 
