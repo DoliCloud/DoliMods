@@ -1429,7 +1429,7 @@ foreach ($listofcontractid as $contractid => $contract)
 	$suspended = 0;
 	foreach($contract->lines as $keyline => $line)
 	{
-		if ($line->statut == 5 && $contract->array_options['options_deployment_status'] != 'undeployed')
+		if ($line->statut == ContratLigne::STATUS_CLOSED && $contract->array_options['options_deployment_status'] != 'undeployed')
 		{
 			$suspended = 1;
 			break;
@@ -1456,7 +1456,7 @@ if ($mythirdpartyaccount->isareseller)
 		$suspended = 0;
 		foreach($contract->lines as $keyline => $line)
 		{
-			if ($line->statut == 5 && $contract->array_options['options_deployment_status'] != 'undeployed')
+			if ($line->statut == ContratLigne::STATUS_CLOSED && $contract->array_options['options_deployment_status'] != 'undeployed')
 			{
 				$suspended = 1;
 				break;
@@ -2065,7 +2065,7 @@ if ($mode == 'instances')
 			$directaccess = 0;
 			foreach($contract->lines as $keyline => $line)
 			{
-				if ($line->statut == 5 && $contract->array_options['options_deployment_status'] != 'undeployed')
+				if ($line->statut == ContratLigne::STATUS_CLOSED && $contract->array_options['options_deployment_status'] != 'undeployed')
 				{
 					$statuslabel = 'suspended';
 				}
@@ -2105,6 +2105,7 @@ if ($mode == 'instances')
 				 setEventMessages($langs->trans("ResourceComputed"), null, 'mesgs');
 				 }*/
 			}
+
 
 			print '
 			    <div class="row" id="contractid'.$contract->id.'" data-contractref="'.$contract->ref.'">
@@ -2226,11 +2227,12 @@ if ($mode == 'instances')
 				            <div class="tab-pane active" id="tab_resource_'.$contract->id.'">
 								<!-- <p class="opacitymedium" style="padding: 15px; margin-bottom: 5px;">'.$langs->trans("YourResourceAndOptionsDesc").' :</p> -->
 					            <div style="padding-left: 12px; padding-bottom: 12px; padding-right: 12px">';
+
+								// Loop on each service / option
 								foreach($contract->lines as $keyline => $line)
 								{
 									//var_dump($line);
 									print '<div class="resource inline-block boxresource">';
-				                  	print '<div class="">';
 
 				                  	$resourceformula='';
 				                  	$tmpproduct = new Product($db);
@@ -2308,9 +2310,17 @@ if ($mode == 'instances')
 				                  		print '</span>';
 				                  	}
 
-				                  	print '</div>';
 									print '</div>';
 								}
+
+								// Add new option
+
+								print '<div class="resource inline-block boxresource opacitymedium small">';
+								print '<br><br><br>';
+								print $langs->trans("SoonMoreOptionsHere");
+								print '</div>';
+
+
 
 								print '<br><br>';
 
