@@ -195,7 +195,7 @@ class ActionsSellyoursaas
 
         if (in_array($parameters['currentcontext'], array('contractcard')))
         {
-			if ($action == 'deploy')
+        	if ($action == 'deploy' || $action == 'deployall')
 			{
 				$db->begin();
 
