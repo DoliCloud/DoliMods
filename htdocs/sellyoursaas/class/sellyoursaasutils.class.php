@@ -400,7 +400,7 @@ class SellYourSaasUtils
 
     	if (! $error)
     	{
-    		$this->output = 'Found '.$num_rows.' payment mode (on customer with active template invoice) for credit card that will expire soon (ran in mode '.$service.')';
+    		$this->output = 'Found '.$num_rows.' payment mode for credit card that will expire soon (ran in mode '.$service.') (search done on SellYourSaas customers with active template invoice only)';
     	}
 
     	$this->db->commit();
