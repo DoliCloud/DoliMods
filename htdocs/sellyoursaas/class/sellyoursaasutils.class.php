@@ -1297,6 +1297,7 @@ class SellYourSaasUtils
 
     /**
      * Action executed by scheduler
+   	 * Suspend expired services of test instances if we are after planned end date (+ grace offset SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_SUSPEND)
      * CAN BE A CRON TASK
      *
      * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
@@ -1313,6 +1314,7 @@ class SellYourSaasUtils
 
     /**
      * Action executed by scheduler
+   	 * Suspend expired services of paid instances if we are after planned end date (+ grace offset in SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_SUSPEND)
      * CAN BE A CRON TASK
      *
      * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
@@ -1424,12 +1426,12 @@ class SellYourSaasUtils
 
    		if (! $error)
    		{
-   			$this->output = count($contractprocessed).' contract(s) suspended'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
+   			$this->output = count($contractprocessed).' '.$mode.' running contract(s) with end date before '.dol_print_date($datetotest, 'dayrfc').' suspended'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
    			$this->db->commit();
    		}
    		else
    		{
-   			$this->output = count($contractprocessed).' contract(s) to suspend'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
+   			$this->output = count($contractprocessed).' '.$mode.' running contract(s) with end date before '.dol_print_date($datetotest, 'dayrfc').' to suspend'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
    			$this->db->rollback();
    		}
 
@@ -1439,6 +1441,7 @@ class SellYourSaasUtils
 
     /**
      * Action executed by scheduler
+     * Undeployed test instances if we are after planned end date (+ grace offset in SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT)
      * CAN BE A CRON TASK
      *
      * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
@@ -1455,6 +1458,7 @@ class SellYourSaasUtils
 
     /**
      * Action executed by scheduler
+     * Undeployed paid instances if we are after planned end date (+ grace offset in SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT)
      * CAN BE A CRON TASK
      *
      * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
@@ -1490,8 +1494,6 @@ class SellYourSaasUtils
     	$this->output = '';
     	$this->error='';
 
-		$now = dol_now();
-
     	$delayindays = 9999999;
     	if ($mode == 'test') $delayindays = $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT;
     	if ($mode == 'paid') $delayindays = $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT;
@@ -1500,7 +1502,11 @@ class SellYourSaasUtils
 			$this->error='BadValueForDelayBeforeUndeploymentCheckSetup';
 			return -1;
 		}
+
     	dol_syslog(__METHOD__." we undeploy instances mode=".$mode." that are expired since more than ".$delayindays." days", LOG_DEBUG);
+
+    	$now = dol_now();
+    	$datetotest = dol_time_plus_duree($now, -1 * abs($delayindays), 'd');
 
     	$this->db->begin();
 
@@ -1509,7 +1515,7 @@ class SellYourSaasUtils
     	$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafields as se';
     	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
     	$sql.= " AND ce.deployment_status = 'done'";
-    	$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, -1 * abs($delayindays), 'd'))."'";
+    	$sql.= " AND cd.date_fin_validite < '".$this->db->idate($datetotest)."'";
     	$sql.= " AND cd.statut = 5";
     	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
 
@@ -1597,7 +1603,7 @@ class SellYourSaasUtils
     	}
     	else $this->error = $this->db->lasterror();
 
-    	$this->output = count($contractprocessed).' contract(s) undeployed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
+    	$this->output = count($contractprocessed).' contract(s) suspended with end date before '.dol_print_date($datetotest, 'dayrfc').' undeployed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
 
     	$this->db->commit();
 
