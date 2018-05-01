@@ -1251,19 +1251,19 @@ if ($welcomecid > 0)
 	}
 	else
 	{
-	print '
+	print '<!-- message installation finished -->
 		<div class="portlet-body">
 		<p>
 		'.$langs->trans("YouCanAccessYourInstance", $contract->array_options['options_plan']).'&nbsp:
 		</p>
 		<p class="well">
-		'.$langs->trans("URL").' : <a href="http://'.$contract->ref_customer.'" target="_blank">'.$contract->ref_customer.'</a>';
+		'.$langs->trans("URL").' : <a href="https://'.$contract->ref_customer.'" target="_blank">'.$contract->ref_customer.'</a>';
 
 		print '<br> '.$langs->trans("Username").' : '.($_SESSION['initialapplogin']?$_SESSION['initialapplogin']:'NA').'
 		<br> '.$langs->trans("Password").' : '.($_SESSION['initialapppassword']?$_SESSION['initialapppassword']:'NA').'
 		</p>
 		<p>
-		<a class="btn btn-primary" target="_blank" href="http://'.$contract->ref_customer.'?username='.$_SESSION['initialapplogin'].'">
+		<a class="btn btn-primary" target="_blank" href="https://'.$contract->ref_customer.'?username='.$_SESSION['initialapplogin'].'">
 		'.$langs->trans("TakeMeTo", $contract->array_options['options_plan']).'
 		</a>
 		</p>

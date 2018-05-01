@@ -1899,6 +1899,8 @@ class SellYourSaasUtils
     			'__APPUSERNAME__'=>$appusername,
     			'__APPEMAIL__'=>$email,
     			'__APPPASSWORD__'=>$password,
+    			'__APPPASSWORDMD5__'=>dol_hash($password, 'md5'),
+    			'__APPPASSWORDSHA256__'=>dol_hash($password, 'sha256'),
     			'__APPUNIQUEKEY__'=>$generateduniquekey,
     			'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname
     			);
@@ -2047,6 +2049,8 @@ class SellYourSaasUtils
     				'__APPUSERNAME__'=>$appusername,
     				'__APPEMAIL__'=>$email,
     				'__APPPASSWORD__'=>$password,
+    				'__APPPASSWORDMD5__'=>dol_hash($password, 'md5'),
+    				'__APPPASSWORDSHA256__'=>dol_hash($password, 'sha256'),
     				'__APPUNIQUEKEY__'=>$generateduniquekey,
     				'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname
     				);
