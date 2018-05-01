@@ -1879,6 +1879,8 @@ class SellYourSaasUtils
     				$tmppackage->fetch($producttmp->array_options['options_package']);
     			}
 
+    			$salt = empty($conf->global->SELLYOURSAAS_SALTFORPASSWORDENCRYPTION)?'':$conf->global->SELLYOURSAAS_SALTFORPASSWORDENCRYPTION;
+
     			// Replace __INSTANCEDIR__, __INSTALLHOURS__, __INSTALLMINUTES__, __OSUSERNAME__, __APPUNIQUEKEY__, __APPDOMAIN__, ...
     			$substitarray=array(
     			'__INSTANCEDIR__'=>$targetdir.'/'.$generatedunixlogin.'/'.$generateddbname,
@@ -1901,6 +1903,8 @@ class SellYourSaasUtils
     			'__APPPASSWORD__'=>$password,
     			'__APPPASSWORDMD5__'=>dol_hash($password, 'md5'),
     			'__APPPASSWORDSHA256__'=>dol_hash($password, 'sha256'),
+    			'__APPPASSWORDMD5SALTED__'=>dol_hash($salt.$password, 'md5'),
+    			'__APPPASSWORDSHA256SALTED__'=>dol_hash($salt.$password, 'sha256'),
     			'__APPUNIQUEKEY__'=>$generateduniquekey,
     			'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname
     			);
@@ -2029,6 +2033,8 @@ class SellYourSaasUtils
     					$tmppackage->fetch($producttmp->array_options['options_package']);
     				}
 
+    				$salt = empty($conf->global->SELLYOURSAAS_SALTFORPASSWORDENCRYPTION)?'':$conf->global->SELLYOURSAAS_SALTFORPASSWORDENCRYPTION;
+
     				// Replace __INSTANCEDIR__, __INSTALLHOURS__, __INSTALLMINUTES__, __OSUSERNAME__, __APPUNIQUEKEY__, __APPDOMAIN__, ...
     				$substitarray=array(
     				'__INSTANCEDIR__'=>$targetdir.'/'.$generatedunixlogin.'/'.$generateddbname,
@@ -2051,6 +2057,8 @@ class SellYourSaasUtils
     				'__APPPASSWORD__'=>$password,
     				'__APPPASSWORDMD5__'=>dol_hash($password, 'md5'),
     				'__APPPASSWORDSHA256__'=>dol_hash($password, 'sha256'),
+    				'__APPPASSWORDMD5SALTED__'=>dol_hash($salt.$password, 'md5'),
+    				'__APPPASSWORDSHA256SALTED__'=>dol_hash($salt.$password, 'sha256'),
     				'__APPUNIQUEKEY__'=>$generateduniquekey,
     				'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname
     				);
