@@ -183,7 +183,7 @@ class SellYourSaasUtils
 
     	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid';
     	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce,';
-    	$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafiels as se';
+    	$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafields as se';
     	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
     	$sql.= " AND ce.deployment_status = 'done'";
     	//$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, abs($delayindaysshort), 'd'))."'";
@@ -257,7 +257,11 @@ class SellYourSaasUtils
     			$i++;
     		}
     	}
-    	else $this->error = $this->db->lasterror();
+    	else
+    	{
+    		$error++;
+    		$this->error = $this->db->lasterror();
+    	}
 
     	$this->output = count($contractprocessed).' email(s) sent'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
 
@@ -647,13 +651,17 @@ class SellYourSaasUtils
     			$i++;
     		}
     	}
-    	else $this->error = $this->db->lasterror();
+    	else
+    	{
+    		$error++;
+    		$this->error = $this->db->lasterror();
+    	}
 
     	$this->output = count($invoiceprocessed).' validated invoice(s) with a valid default payment mode processed'.(count($invoiceprocessed)>0 ? ' : '.join(',', $invoiceprocessed) : '').' (ran in mode '.$servicestatus.') (search done on SellYourSaas customers only)';
 
     	$this->db->commit();
 
-    	return 0;
+    	return $error;
     }
 
 
@@ -1127,7 +1135,7 @@ class SellYourSaasUtils
 
     	// Payments are processed, and next batch will be to make renewal
 
-    	return 0;
+    	return $error;
     }
 
 
@@ -1283,7 +1291,11 @@ class SellYourSaasUtils
     			$i++;
     		}
     	}
-    	else $this->error = $this->db->lasterror();
+    	else
+    	{
+    		$error++;
+    		$this->error = $this->db->lasterror();
+    	}
 
     	$this->output .= count($contractprocessed).' paying contract(s) with end date before '.dol_print_date($enddatetoscan, 'day').' were renewed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
 
@@ -1422,7 +1434,11 @@ class SellYourSaasUtils
     			$i++;
     		}
     	}
-    	else $this->error = $this->db->lasterror();
+    	else
+    	{
+    		$error++;
+    		$this->error = $this->db->lasterror();
+    	}
 
    		if (! $error)
    		{
@@ -1601,7 +1617,11 @@ class SellYourSaasUtils
     			$i++;
     		}
     	}
-    	else $this->error = $this->db->lasterror();
+    	else
+    	{
+    		$error++;
+    		$this->error = $this->db->lasterror();
+    	}
 
     	$this->output = count($contractprocessed).' contract(s) suspended with end date before '.dol_print_date($datetotest, 'dayrfc').' undeployed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
 

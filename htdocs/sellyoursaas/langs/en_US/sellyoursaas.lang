@@ -326,5 +326,5 @@ CantActivateContractWhenUndeployed=Can't activate an instance when a contract is
 SELLYOURSAAS_FORCE_STRIPE_TEST=Force Test mode of Stripe (whatever is setup of Stripe module)
 MaxNumberOfInstanceReached=You have reached the maximum number of instances (<strong>%s</strong>) you can create for this account. If you need more, please contact us at <strong>%s</strong>
 whereXXXcanbe=where XXX can be
-FailedToConnectToSftp=Failed to reach SSH servser with ssh2_connect(%s)
+FailedToConnectToSftp=Failed to reach SSH server with ssh2_connect(%s)
 SoonMoreOptionsHere=Soon, more otions here..
