@@ -177,7 +177,7 @@ class SellYourSaasUtils
     		$this->error='BadValueForDelayBeforeTrialEndForAlert';
     		return -1;
     	}
-    	dol_syslog(__METHOD__." we send email warning ".$delayindays." days before end of trial", LOG_DEBUG);
+    	dol_syslog(__METHOD__." we send email warning ".$delayindaysshort." days before end of trial", LOG_DEBUG);
 
     	$this->db->begin();
 
