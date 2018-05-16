@@ -930,6 +930,8 @@ class SellYourSaasUtils
 
     							$currencyCodeType = $currency;
 
+    							$ispostactionok = 1;
+
     							// Creation of payment line
     							include_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
     							$paiement = new Paiement($this->db);
@@ -965,7 +967,6 @@ class SellYourSaasUtils
     								else
     								{
     									$postactionmessages[] = 'Payment created';
-    									$ispostactionok=1;
     								}
     							}
 
@@ -992,7 +993,6 @@ class SellYourSaasUtils
     									else
     									{
     										$postactionmessages[] = 'Bank entry of payment created';
-    										$ispostactionok=1;
     									}
     								}
     								else
@@ -1003,7 +1003,7 @@ class SellYourSaasUtils
     								}
     							}
 
-    							if ($ispostactionok)
+    							if ($ispostactionok < 1)
     							{
     								$description='Stripe payment OK but post action KO from doTakeStripePaymentForThirdparty: '.$FULLTAG;
     							}
