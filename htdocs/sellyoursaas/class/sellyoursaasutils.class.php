@@ -56,15 +56,19 @@ class SellYourSaasUtils
      * Search draft invoices on sellyoursaas customers and check they are linked to a not closed contract. Validate it if not, do nothing if closed.
      * CAN BE A CRON TASK
      *
-     * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
+     * @param	int		$restrictonthirdpartyid		0=All qualified draft invoices, >0 = Restrict on qualified draft invoice of thirdparty.
+     * @return	int									0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
      */
-    public function doValidateDraftInvoices()
+    public function doValidateDraftInvoices($restrictonthirdpartyid=0)
     {
     	global $conf, $langs, $user;
+
 		include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 		$invoice = new Facture($this->db);
 
+		$savlog = $conf->global->SYSLOG_FILE;
 		$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doValidateDraftInvoices.log';
+
 		$now = dol_now();
 
 		dol_syslog(__METHOD__." search and validate draft invoices", LOG_DEBUG);
@@ -81,6 +85,7 @@ class SellYourSaasUtils
 		$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafields as se';
 		$sql.= ' WHERE f.fk_statut = '.Facture::STATUS_DRAFT;
 		$sql.= " AND se.fk_object = f.fk_soc AND se.dolicloud = 'yesv2'";
+		if ($restrictonthirdpartyid > 0) $sql.=" AND f.fk_soc = ".$restrictonthirdpartyid;
 		$resql = $this->db->query($sql);
 		if ($resql)
 		{
@@ -154,6 +159,8 @@ class SellYourSaasUtils
 
 		$this->db->commit();
 
+		$conf->global->SYSLOG_FILE = $savlog;
+
 		return ($error ? 1: 0);
     }
 
@@ -170,7 +177,9 @@ class SellYourSaasUtils
 
     	$mode = 'test';
 
+    	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertSoftEndTrial.log';
+
     	$now = dol_now();
 
     	$error = 0;
@@ -283,6 +292,8 @@ class SellYourSaasUtils
 
     	$this->db->commit();
 
+    	$conf->global->SYSLOG_FILE = $savlog;
+
     	return ($error ? 1: 0);
     }
 
@@ -300,7 +311,9 @@ class SellYourSaasUtils
     {
     	global $conf, $langs, $user;
 
+    	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertCreditCardExpiration.log';
+
     	$now = dol_now();
 
     	$error = 0;
@@ -428,6 +441,8 @@ class SellYourSaasUtils
 
     	$this->db->commit();
 
+    	$conf->global->SYSLOG_FILE = $savlog;
+
     	return $error;
     }
 
@@ -445,7 +460,9 @@ class SellYourSaasUtils
     {
     	global $conf, $langs, $user;
 
+    	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertPaypalExpiration.log';
+
     	$now = dol_now();
 
     	$error = 0;
@@ -573,6 +590,8 @@ class SellYourSaasUtils
 
     	$this->db->commit();
 
+    	$conf->global->SYSLOG_FILE = $savlog;
+
     	return $error;
     }
 
@@ -588,6 +607,7 @@ class SellYourSaasUtils
     {
     	global $conf, $langs, $mysoc;
 
+    	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doTakePaymentStripe.log';
 
     	include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
@@ -684,6 +704,8 @@ class SellYourSaasUtils
 
     	$this->db->commit();
 
+    	$conf->global->SYSLOG_FILE = $savlog;
+
     	return $error;
     }
 
@@ -692,15 +714,16 @@ class SellYourSaasUtils
      * doTakeStripePaymentForThirdparty
      * Take payment/send email. Unsuspend if it was suspended (done by trigger BILL_CANCEL or BILL_PAYED).
      *
-     * @param	int		$service				'StripeTest' or 'StripeLive'
-     * @param	int		$servicestatus			Service 0 or 1
-     * @param	int		$thirdparty_id			Thirdparty id
-     * @param	int		$companypaymentmode		Company payment mode id
-     * @param	int		$invoice				null=All invoices of thirdparty, Invoice=Only this invoice
-     * @param	int		$includedraft			Include draft invoices
-     * @return	int								0 if no error, >0 if error
+     * @param	int		$service					'StripeTest' or 'StripeLive'
+     * @param	int		$servicestatus				Service 0 or 1
+     * @param	int		$thirdparty_id				Thirdparty id
+     * @param	int		$companypaymentmode			Company payment mode id
+     * @param	int		$invoice					null=All invoices of thirdparty, Invoice=Only this invoice
+     * @param	int		$includedraft				Include draft invoices
+     * @param	int		$noemailtocustomeriferror	No email sent to customer if there is a payment error (can be used when error is already reported on screen)
+     * @return	int									0 if no error, >0 if error
      */
-    function doTakeStripePaymentForThirdparty($service, $servicestatus, $thirdparty_id, $companypaymentmode, $invoice=null, $includedraft=0)
+    function doTakeStripePaymentForThirdparty($service, $servicestatus, $thirdparty_id, $companypaymentmode, $invoice=null, $includedraft=0, $noemailtocustomeriferror=0)
     {
     	global $conf, $mysoc, $user, $langs;
 
@@ -753,12 +776,15 @@ class SellYourSaasUtils
     				{
     					$invoice = new Facture($this->db);
     					$result = $invoice->fetch($obj->rowid);
-    					if ($result > 0 && $invoice->fk_statut == Facture::STATUS_DRAFT)
+    					if ($result > 0)
     					{
-    						$user->rights->facture->creer = 1;		// Force permission to user to validate invoices
-    						$user->rights->facture->invoice_advance->validate = 1;
+    						if ($invoice->statut == Facture::STATUS_DRAFT)
+    						{
+    							$user->rights->facture->creer = 1;		// Force permission to user to validate invoices
+    							$user->rights->facture->invoice_advance->validate = 1;
 
-    						$result = $invoice->validate($user);
+    							$result = $invoice->validate($user);
+    						}
     					}
     					else
     					{
@@ -780,15 +806,16 @@ class SellYourSaasUtils
     	}
 		if (count($invoices) == 0)
 		{
-			dol_syslog("No validated invoices found for thirdparty_id = ".$thirdparty_id);
+			dol_syslog("No qualified invoices found for thirdparty_id = ".$thirdparty_id);
 		}
 
-		dol_syslog("We found ".count($invoices)." validated invoices to process payment on (ran in mode '.$servicestatus.').");
+		dol_syslog("We found ".count($invoices).' qualified invoices to process payment on (ran in mode '.$servicestatus.').');
 
 		// Loop on each invoice
 		foreach($invoices as $invoice)
 		{
 			dol_syslog("--- Process invoice thirdparty_id = ".$thirdparty_id.", id=".$invoice->id.", ref=".$invoice->ref, LOG_DEBUG);
+			$invoice->fetch_thirdparty();
 
 			$alreadypayed = $invoice->getSommePaiement();
     		$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
@@ -894,14 +921,14 @@ class SellYourSaasUtils
     							{
     								$paymentType = $_SESSION["paymentType"];
     								if (empty($paymentType)) $paymentType = 'CB';
-    								$paymentTypeId = dol_getIdFromCode($db, $paymentType, 'c_paiement', 'code', 'id', 1);
+    								$paymentTypeId = dol_getIdFromCode($this->db, $paymentType, 'c_paiement', 'code', 'id', 1);
     							}
 
     							$currencyCodeType = $currency;
 
     							// Creation of payment line
     							include_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
-    							$paiement = new Paiement($db);
+    							$paiement = new Paiement($this->db);
     							$paiement->datepaye     = $now;
     							$paiement->date         = $now;
     							if ($currencyCodeType == $conf->currency)
@@ -988,7 +1015,7 @@ class SellYourSaasUtils
 
     						// Send email
     						include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
-    						$formmail=new FormMail($db);
+    						$formmail=new FormMail($this->db);
     						// Set output language
     						$outputlangs = new Translate('', $conf);
     						$outputlangs->setDefaultLang(empty($object->thirdparty->default_lang) ? $mysoc->default_lang : $object->thirdparty->default_lang);
@@ -996,69 +1023,75 @@ class SellYourSaasUtils
     						// Get email content from templae
     						$arraydefaultmessage=null;
 
+    						$sendemailtocustomer = 1;
+
     						if (empty($charge) || $charge->status == 'failed')
     						{
     							$labeltouse = 'InvoicePaymentFailure';
+    							if ($noemailtocustomeriferror) $sendemailtocustomer = 0;
     						}
     						else
     						{
     							$labeltouse = 'InvoicePaymentSuccess';
     						}
 
-    						if (! empty($labeltouse)) $arraydefaultmessage=$formmail->getEMailTemplate($db, 'facture_send', $user, $outputlangs, 0, 1, $labeltouse);
-
-    						if (! empty($labeltouse) && is_object($arraydefaultmessage) && $arraydefaultmessage->id > 0)
+    						if ($sendemailtocustomer)
     						{
-    							$subject = $arraydefaultmessage->topic;
-    							$msg     = $arraydefaultmessage->content;
-    						}
+	    						if (! empty($labeltouse)) $arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'facture_send', $user, $outputlangs, 0, 1, $labeltouse);
 
-    						$substitutionarray=getCommonSubstitutionArray($outputlangs, 0, null, $object);
-    						$substitutionarray['__SELLYOURSAAS_PAYMENT_ERROR_DESC__']=$stripefailurecode.' '.$stripefailuremessage;
-    						complete_substitutions_array($substitutionarray, $outputlangs, $object);
-    						$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
-    						$texttosend = make_substitutions($msg, $substitutionarray, $outputlangs);
+	    						if (! empty($labeltouse) && is_object($arraydefaultmessage) && $arraydefaultmessage->id > 0)
+	    						{
+	    							$subject = $arraydefaultmessage->topic;
+	    							$msg     = $arraydefaultmessage->content;
+	    						}
 
-    						// Attach a file ?
-    						$file='';
-    						$listofpaths=array();
-    						$listofnames=array();
-    						$listofmimes=array();
-    						if (is_object($invoice))
-    						{
-    							$invoicediroutput = $conf->facture->dir_output;
-    							$fileparams = dol_most_recent_file($invoicediroutput . '/' . $invoice->ref, preg_quote($invoice->ref, '/').'[^\-]+');
-    							$file = $fileparams['fullname'];
+	    						$substitutionarray=getCommonSubstitutionArray($outputlangs, 0, null, $object);
+	    						$substitutionarray['__SELLYOURSAAS_PAYMENT_ERROR_DESC__']=$stripefailurecode.' '.$stripefailuremessage;
+	    						complete_substitutions_array($substitutionarray, $outputlangs, $object);
+	    						$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
+	    						$texttosend = make_substitutions($msg, $substitutionarray, $outputlangs);
 
-    							$listofpaths=array($file);
-    							$listofnames=array(basename($file));
-    							$listofmimes=array(dol_mimetype($file));
-    						}
-    						$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+	    						// Attach a file ?
+	    						$file='';
+	    						$listofpaths=array();
+	    						$listofnames=array();
+	    						$listofmimes=array();
+	    						if (is_object($invoice))
+	    						{
+	    							$invoicediroutput = $conf->facture->dir_output;
+	    							$fileparams = dol_most_recent_file($invoicediroutput . '/' . $invoice->ref, preg_quote($invoice->ref, '/').'[^\-]+');
+	    							$file = $fileparams['fullname'];
 
-    						// Send email (substitutionarray must be done just before this)
-    						include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-    						$mailfile = new CMailFile($subjecttosend, $invoice->thirdparty->email, $from, $texttosend, $filename_list, $mimetype_list, $mimefilename_list, '', '', 0, -1);
-    						if ($mailfile->sendfile())
-    						{
-    							$result = 1;
-    						}
-    						else
-    						{
-    							$this->error=$langs->trans("ErrorFailedToSendMail",$from,$this->email).'. '.$mailfile->error;
-    							$result = -1;
-    						}
+	    							$listofpaths=array($file);
+	    							$listofnames=array(basename($file));
+	    							$listofmimes=array(dol_mimetype($file));
+	    						}
+	    						$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
 
-    						if ($result < 0)
-    						{
-    							$errmsg=$this->error;
-    							$postactionmessages[] = $errmsg;
-    							$ispostactionok = -1;
-    						}
-    						else
-    						{
-    							if ($file) $postactionmessages[] = 'Email sent to thirdparty (with invoice document attached)';
-    							else $postactionmessages[] = 'Email sent to thirdparty (without any attached document)';
+	    						// Send email (substitutionarray must be done just before this)
+	    						include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+	    						$mailfile = new CMailFile($subjecttosend, $invoice->thirdparty->email, $from, $texttosend, $filename_list, $mimetype_list, $mimefilename_list, '', '', 0, -1);
+	    						if ($mailfile->sendfile())
+	    						{
+	    							$result = 1;
+	    						}
+	    						else
+	    						{
+	    							$this->error=$langs->trans("ErrorFailedToSendMail", $from, $invoice->thirdparty->email).'. '.$mailfile->error;
+	    							$result = -1;
+	    						}
+
+	    						if ($result < 0)
+	    						{
+	    							$errmsg=$this->error;
+	    							$postactionmessages[] = $errmsg;
+	    							$ispostactionok = -1;
+	    						}
+	    						else
+	    						{
+	    							if ($file) $postactionmessages[] = 'Email sent to thirdparty (with invoice document attached)';
+	    							else $postactionmessages[] = 'Email sent to thirdparty (without any attached document)';
+	    						}
     						}
 
     						// Track an event
@@ -1144,6 +1177,7 @@ class SellYourSaasUtils
     {
     	global $conf, $langs;
 
+    	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doTakePaymentPaypal.log';
 
     	$error = 0;
@@ -1163,6 +1197,8 @@ class SellYourSaasUtils
 
     	// Payments are processed, and next batch will be to make renewal
 
+    	$conf->global->SYSLOG_FILE = $savlog;
+
     	return $error;
     }
 
@@ -1172,7 +1208,7 @@ class SellYourSaasUtils
     /**
      * Action executed by scheduler
      * CAN BE A CRON TASK
-     * Loop on each contract. If it is a paid contract, and there is no unpayed invoice for contract, and end date < in 2 days (so expired or soon expired), we update to contract service end date to end at next period.
+     * Loop on each contract. If it is a paid contract, and there is no unpayed invoice for contract, and end date < today + 2 days (so expired or soon expired), we update the running contract service end date to end at next period.
      *
      * @param	int		$thirdparty_id			Thirdparty id
      * @return	int								0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
@@ -1181,7 +1217,9 @@ class SellYourSaasUtils
     {
     	global $conf, $langs;
 
+    	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doRenewalContracts.log';
+
     	$now = dol_now();
 
     	$mode = 'paid';
@@ -1211,11 +1249,6 @@ class SellYourSaasUtils
     	$sql.= " AND c.fk_soc = se.fk_object AND se.dolicloud = 'yesv2'";
     	if ($thirdparty_id > 0) $sql.=" AND c.fk_soc = ".$thirdparty_id;
     	//print $sql;
-
-    	function cmp($a, $b)
-    	{
-    		return strcmp($a->date, $b->date);
-    	}
 
     	$resql = $this->db->query($sql);
     	if ($resql)
@@ -1338,6 +1371,8 @@ class SellYourSaasUtils
 
     	$this->db->commit();
 
+    	$conf->global->SYSLOG_FILE = $savlog;
+
     	return ($error ? 1: 0);
     }
 
@@ -1355,10 +1390,15 @@ class SellYourSaasUtils
     {
     	global $conf, $langs;
 
+    	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doSuspendExpiredTestInstances.log';
 
     	dol_syslog(__METHOD__, LOG_DEBUG);
-    	return $this->doSuspendInstances('test');
+    	$result = $this->doSuspendInstances('test');
+
+    	$conf->global->SYSLOG_FILE = $savlog;
+
+    	return $result;
     }
 
     /**
@@ -1372,10 +1412,15 @@ class SellYourSaasUtils
     {
     	global $conf, $langs;
 
+    	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doSuspendExpiredRealInstances.log';
 
     	dol_syslog(__METHOD__, LOG_DEBUG);
-    	return $this->doSuspendInstances('paid');
+    	$result = $this->doSuspendInstances('paid');
+
+    	$conf->global->SYSLOG_FILE = $savlog;
+
+    	return $result;
     }
 
 
@@ -1520,10 +1565,15 @@ class SellYourSaasUtils
     {
     	global $conf, $langs;
 
+    	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doUndeployOldSuspendedTestInstances.log';
 
     	dol_syslog(__METHOD__, LOG_DEBUG);
-    	return $this->doUndeployOldSuspendedInstances('test');
+    	$result = $this->doUndeployOldSuspendedInstances('test');
+
+    	$conf->global->SYSLOG_FILE = $savlog;
+
+    	return $result;
     }
 
     /**
@@ -1537,10 +1587,15 @@ class SellYourSaasUtils
     {
     	global $conf, $langs;
 
+    	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doUndeployOldSuspendedRealInstances.log';
 
     	dol_syslog(__METHOD__, LOG_DEBUG);
-    	return $this->doUndeployOldSuspendedInstances('paid');
+    	$result = $this->doUndeployOldSuspendedInstances('paid');
+
+    	$conf->global->SYSLOG_FILE = $savlog;
+
+    	return $result;
     }
 
     /**

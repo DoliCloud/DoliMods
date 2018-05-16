@@ -23,6 +23,19 @@
 
 
 /**
+ * To compare on date property
+ *
+ * @param date $a		Date A
+ * @param date $b		Date B
+ * @return boolean		Result of comparison
+ */
+function cmp($a, $b)
+{
+	return strcmp($a->date, $b->date);
+}
+
+
+/**
  * Return if instance is a paid instance or not
  * Check if there is a template invoice
  *

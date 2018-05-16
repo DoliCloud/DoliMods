@@ -215,11 +215,6 @@ if ($mythirdpartyaccount->isareseller)
 }
 //var_dump(array_keys($listofcontractidreseller));
 
-function cmp($a, $b)
-{
-	return strcmp($a->date, $b->date);
-}
-
 // Define environment of payment modes
 $servicestatusstripe = 0;
 if (! empty($conf->stripe->enabled))
@@ -548,12 +543,15 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			if (! $error)
 			{
 				$companypaymentmode->setAsDefault($idpayment, 1);
+				dol_syslog("A credit card was recorded");
 			}
 		}
 
 		$erroronstripecharge = 0;
 
+
 		// Loop on each pending invoices of the thirdparty and try to pay them with payment = invoice remain amount.
+		// Note that it may have no pending invoice yet when contract is in trial mode (running or suspended)
 		if (! $error)
 		{
 			dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
@@ -567,7 +565,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 				setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
 			}
 
-			// If some payment war really done, we force commit to be sure to validate invoices payment done by stripe, whatever is global result of doTakeStripePaymentForThirdparty
+			// If some payment was really done, we force commit to be sure to validate invoices payment done by stripe, whatever is global result of doTakeStripePaymentForThirdparty
 			if ($sellyoursaasutils->stripechargedone > 0)
 			{
 				dol_syslog("Force commit to validate payments recorded after real Stripe charges");
@@ -581,11 +579,13 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 		// Make renewals on contracts of customer
 		if (! $error)
 		{
+			dol_syslog("Make renewals on crontacts for thirdparty id=".$mythirdpartyaccount->id);
+
 			dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 
 			$sellyoursaasutils = new SellYourSaasUtils($db);
 
-			$result = $sellyoursaasutils->doRenewalContracts($mythirdpartyaccount->id);
+			$result = $sellyoursaasutils->doRenewalContracts($mythirdpartyaccount->id);		// If contract was suspended (end of trial for example, this does nothing)
 			if ($result != 0)
 			{
 				$error++;
@@ -612,7 +612,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					}
 				}
 
-				dol_syslog("No recurring invoice found for this contract contract_id = ".$contract->id.", so we create one.");
+				dol_syslog("* No recurring invoice found for this contract contract_id = ".$contract->id.", so we create one.");
 
 				// Now create invoice draft
 				$dateinvoice = $contract->array_options['options_date_endfreeperiod'];
@@ -807,8 +807,8 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					$oldinvoice = new Facture($db);
 					$oldinvoice->fetch($invoice_draft->id);
 
-					$result = $invoice_rec->create($user, $oldinvoice->id);
-					if ($result > 0)
+					$invoicerecid = $invoice_rec->create($user, $oldinvoice->id);
+					if ($invoicerecid > 0)
 					{
 						$sql = 'UPDATE '.MAIN_DB_PREFIX.'facturedet_rec SET date_start_fill = 1, date_end_fill = 1 WHERE fk_facture = '.$invoice_rec->id;
 						$result = $db->query($sql);
@@ -829,6 +829,70 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					{
 						$error++;
 						setEventMessages($invoice_rec->error, $invoice_rec->errors, 'errors');
+					}
+
+					// A template invoice was just created, we run generation of invoice if template invoice date is already in past
+					if (! $error)
+					{
+						dol_syslog("A template invoice was generated with id ".$invoicerecid.", now we run createRecurringInvoices to build real invoice");
+						$facturerec = new FactureRec($db);
+
+						$savperm1 = $user->rights->facture->creer;
+						$savperm2 = $user->rights->facture->invoice_advance->validate;
+						$user->rights->facture->creer = 1;
+						$user->rights->facture->invoice_advance->validate = 1;
+
+						$result = $facturerec->createRecurringInvoices($invoicerecid, 1);
+						if ($result != 0)
+						{
+							$error++;
+							setEventMessages($facturerec->error, $facturerec->errors, 'errors');
+						}
+
+						$user->rights->facture->creer = $savperm1;
+						$user->rights->facture->invoice_advance->validate = $savperm2;
+					}
+					if (! $error)
+					{
+						dol_syslog("Now we try to take payment for thirdpartyid = ".$mythirdpartyaccount->id);	// Unsuspend if it was suspended (done by trigger BILL_CANCEL or BILL_PAYED).
+
+						dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
+
+						$sellyoursaasutils = new SellYourSaasUtils($db);
+
+						$result = $sellyoursaasutils->doTakeStripePaymentForThirdparty($service, $servicestatusstripe, $mythirdpartyaccount->id, $companypaymentmode, null, 0, 1);
+						if ($result != 0)
+						{
+							$error++;
+							setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
+						}
+
+						// If some payment was really done, we force commit to be sure to validate invoices payment done by stripe, whatever is global result of doTakeStripePaymentForThirdparty
+						if ($sellyoursaasutils->stripechargedone > 0)
+						{
+							dol_syslog("Force commit to validate payments recorded after real Stripe charges");
+
+							$db->commit();
+
+							$db->begin();
+						}
+					}
+
+					// Make renewals on contracts of customer
+					if (! $error)
+					{
+						dol_syslog("Now we make renewal of contracts for thirdpartyid=".$mythirdpartyaccount->id." if payments were ok, it is updated and even unsuspended)");
+
+						dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
+
+						$sellyoursaasutils = new SellYourSaasUtils($db);
+
+						$result = $sellyoursaasutils->doRenewalContracts($mythirdpartyaccount->id);		// If contract was suspended (end of trial not yet unlocked for example, this does nothing)
+						if ($result != 0)
+						{
+							$error++;
+							setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
+						}
 					}
 				}
 			}
@@ -1567,7 +1631,7 @@ if (empty($welcomecid))
 				print ' <!-- XDaysAfterEndOfPeriodInstanceSuspended -->
 						<div class="note note-warning">
 							<h4 class="block">'.$langs->trans("XDaysAfterEndOfPeriodInstanceSuspended", $contract->ref_customer, abs($delayindays));
-				if (empty($isAPayingContract))
+				if (empty($atleastonepaymentmode))
 				{
 					print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>';
 				}
@@ -2131,8 +2195,10 @@ if ($mode == 'instances')
 						  print '<form class="inline-block centpercent" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 
 				          // Instance name
-						  print '<a href="https://'.$contract->ref_customer.'" class="caption-subject bold uppercase font-green-sharp" title="'.$langs->trans("Contract").' '.$contract->ref.'" target="_blankinstance">'.$instancename.'</a>
-				          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->';
+						  //print '<a href="https://'.$contract->ref_customer.'" class="caption-subject bold uppercase font-green-sharp" title="'.$langs->trans("Contract").' '.$contract->ref.'" target="_blankinstance">';
+						  print '<span class="bold uppercase">'.$instancename.'</span>';
+						  //print '</a>';
+				          print'<span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->';
 
 						  // Instance status
 				          print '<span class="caption-helper floatright clearboth">';
@@ -2140,7 +2206,7 @@ if ($mode == 'instances')
 				          print '<span class="bold uppercase" style="color:'.$color.'">';
 				          if ($statuslabel == 'processing') print $langs->trans("DeploymentInProgress");
 				          elseif ($statuslabel == 'done') print $langs->trans("Alive");
-				          elseif ($statuslabel == 'suspended') print $langs->trans("Suspended");
+				          elseif ($statuslabel == 'suspended') print $langs->trans("Suspended").' '.img_warning();
 				          elseif ($statuslabel == 'undeployed') print $langs->trans("Undeployed");
 				          else print $statuslabel;
 				          print '</span></span><br>';
@@ -2153,7 +2219,7 @@ if ($mode == 'instances')
 				          	print '<span class="caption-helper"><span class="opacitymedium">';
 				          	if ($conf->dol_optimize_smallscreen) print $langs->trans("URL");
 				          	else print $langs->trans("YourURLToGoOnYourAppInstance");
-				          	print ' : </span><a class="font-green-sharp linktoinstance" href="https://'.$contract->ref_customer.'" target="blankinstance">'.$contract->ref_customer.'</a>';
+				          	print ' : </span><a class="font-green-sharp linktoinstance" href="https://'.$contract->ref_customer.'" target="blankinstance">https://'.$contract->ref_customer.'</a>';
 				          	print '</span><br>';
 				          }
 
@@ -3815,7 +3881,7 @@ if ($mode == 'registerpaymentmode')
 			print '
 		</div>
 		<div class="linkpaypal" style="display: none;">';
-			print '<br><br>';
+			print '<br>';
 			//print $langs->trans("PaypalPaymentModeAvailableForYealySubscriptionOnly");
 			print $langs->trans("PaypalPaymentModeNotYetAvailable");
 			print '<br><br>';

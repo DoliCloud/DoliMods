@@ -23,6 +23,7 @@
  */
 require_once DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php";
 require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture-rec.class.php';
+dol_include_once('sellyoursaas/lib/sellyoursaas.lib.php');
 
 
 /**
@@ -208,10 +209,6 @@ class ActionsSellyoursaas
 				$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
 				if (is_array($object->linkedObjects['facturerec']) && count($object->linkedObjects['facturerec']) > 0)
 				{
-					function cmp($a, $b)
-					{
-						return strcmp($a->date, $b->date);
-					}
 					usort($object->linkedObjects['facturerec'], "cmp");
 
 					//var_dump($object->linkedObjects['facture']);
@@ -319,10 +316,6 @@ class ActionsSellyoursaas
 				$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
 				if (is_array($object->linkedObjects['facturerec']) && count($object->linkedObjects['facturerec']) > 0)
 				{
-					function cmp($a, $b)
-					{
-						return strcmp($a->date, $b->date);
-					}
 					usort($object->linkedObjects['facturerec'], "cmp");
 
 					//var_dump($object->linkedObjects['facture']);
