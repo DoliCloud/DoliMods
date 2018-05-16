@@ -630,8 +630,8 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					$invoice_draft->date				= $dateinvoice;
 
 					$invoice_draft->note_private		= 'Template invoice created after adding a payment mode for card/stripe';
-					$invoice_draft->mode_reglement_id	= dol_getIdFromCode($db, 'CB', 'c_paiement', 'id', 'code');
-					$invoice_draft->cond_reglement_id	= dol_getIdFromCode($db, 'RECEP', 'c_payment_term', 'code', 'rowid');
+					$invoice_draft->mode_reglement_id	= dol_getIdFromCode($db, 'CB', 'c_paiement', 'code', 'id', 1);
+					$invoice_draft->cond_reglement_id	= dol_getIdFromCode($db, 'RECEP', 'c_payment_term', 'code', 'rowid', 1);
 					$invoice_draft->fk_account          = $conf->global->STRIPE_BANK_ACCOUNT_FOR_PAYMENTS;	// stripe
 
 					$invoice_draft->fetch_thirdparty();

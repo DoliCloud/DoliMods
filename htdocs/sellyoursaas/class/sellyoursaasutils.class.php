@@ -883,13 +883,17 @@ class SellYourSaasUtils
     							dol_syslog('Failed to charge card '.$stripecard->id, LOG_WARNING);
 
     							$error++;
-    							$errmsg='Failed to charge card '.$stripecard->id;
+    							$errmsg='Failed to charge card';
     							if (! empty($charge))
     							{
-    								$errmsg.=' failure_code='.$charge->failure_code;
-    								$errmsg.=' failure_message='.$charge->failure_message;
+    								$errmsg.=': failure_code='.$charge->failure_code;
+    								$errmsg.=($charge->failure_message?' - ':'').' failure_message='.$charge->failure_message;
     								if (empty($stripefailurecode))    $stripefailurecode = $charge->failure_code;
     								if (empty($stripefailuremessage)) $stripefailuremessage = $charge->failure_message;
+    							}
+    							else
+    							{
+    								$errmsg.=': '.$stripefailurecode.' - '.$stripefailuremessage;
     							}
 
     							$description='Stripe payment ERROR from doTakeStripePaymentForThirdparty: '.$FULLTAG;
