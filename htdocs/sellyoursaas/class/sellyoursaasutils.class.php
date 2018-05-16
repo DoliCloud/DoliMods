@@ -126,8 +126,13 @@ class SellYourSaasUtils
 							else
 							{
 								// Do nothing
+								dol_syslog("Number of open services (".$nbservice.") is zero or contract is undeployed, so we do nothing.");
 							}
 						}
+					}
+					else
+					{
+						dol_syslog("No linked contract found on this invoice");
 					}
 				}
 				else
@@ -1469,7 +1474,7 @@ class SellYourSaasUtils
 					if ($expirationdate && $expirationdate < $now)
 					{
 						//$object->array_options['options_deployment_status'] = 'suspended';
-						$result = $object->closeAll($user, 0, 'Closed by batch doSuspendInstances the '.dol_print_date($now, 'dayrfc'));			// This may execute trigger that make remote actions to suspend instance
+						$result = $object->closeAll($user, 0, 'Closed by batch doSuspendInstances the '.dol_print_date($now, 'dayhourrfc'));			// This may execute trigger that make remote actions to suspend instance
 						if ($result < 0)
 						{
 							$error++;
@@ -1679,7 +1684,7 @@ class SellYourSaasUtils
     		$this->error = $this->db->lasterror();
     	}
 
-    	$this->output = count($contractprocessed).' contract(s) suspended with end date before '.dol_print_date($datetotest, 'dayrfc').' undeployed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
+    	$this->output = count($contractprocessed).' contract(s), in mode '.$mode.', suspended with end date before '.dol_print_date($datetotest, 'dayrfc').' undeployed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
 
     	$this->db->commit();
 

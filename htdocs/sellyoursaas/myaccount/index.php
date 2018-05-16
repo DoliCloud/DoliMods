@@ -1488,6 +1488,8 @@ if (empty($welcomecid))
 		$tmparray = sellyoursaasGetExpirationDate($contract);
 		$expirationdate = $tmparray['expirationdate'];					// End of date of service
 
+		$messageforinstance=array();
+
 		if (! $isAPayingContract && $contract->array_options['options_date_endfreeperiod'] > 0)
 		{
 			$dateendfreeperiod = $contract->array_options['options_date_endfreeperiod'];
@@ -1501,6 +1503,7 @@ if (empty($welcomecid))
 				{
 					$firstline = reset($contract->lines);
 					print '
+						<!-- XDaysBeforeEndOfTrial -->
 						<div class="note note-warning">
 						<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrial", abs($delayindays), $contract->ref_customer).' !</h4>
 						<p>
@@ -1515,8 +1518,11 @@ if (empty($welcomecid))
 				{
 					$atleastonecontractwithtrialended++;
 
+					$messageforinstance[$contract->ref_customer] = 1;
+
 					$firstline = reset($contract->lines);
 					print '
+						<!-- XDaysAfterEndOfTrial -->
 						<div class="note note-warning">
 						<h4 class="block">'.$langs->trans("XDaysAfterEndOfTrial", $contract->ref_customer, abs($delayindays)).' !</h4>
 						<p>
@@ -1534,6 +1540,7 @@ if (empty($welcomecid))
 				{
 					$firstline = reset($contract->lines);
 					print '
+						<!-- XDaysBeforeEndOfTrialPaymentModeSet -->
 						<div class="note note-info">
 						<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrialPaymentModeSet", abs($delayindays), $contract->ref_customer).'</h4>
 						</div>
@@ -1544,6 +1551,7 @@ if (empty($welcomecid))
 					$atleastonecontractwithtrialended++;
 
 					print '
+						<!-- XDaysAfterEndOfTrialPaymentModeSet -->
 						<div class="note note-info">
 						<h4 class="block">'.$langs->trans("XDaysAfterEndOfTrialPaymentModeSet", $contract->ref_customer, abs($delayindays)).'</h4>
 						</div>
@@ -1554,19 +1562,23 @@ if (empty($welcomecid))
 
 		if ($isASuspendedContract)
 		{
-			print '<div class="note note-warning">
-						<h4 class="block">'.$langs->trans("XDaysAfterEndOfPeriodExpiredPaymentModeSet", $contract->ref_customer, abs($delayindays));
-			if (empty($isAPayingContract))
+			if (empty($messageforinstance[$contract->ref_customer]))	// If warning for expired trial alreay shown
 			{
-				print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>';
+				print ' <!-- XDaysAfterEndOfPeriodInstanceSuspended -->
+						<div class="note note-warning">
+							<h4 class="block">'.$langs->trans("XDaysAfterEndOfPeriodInstanceSuspended", $contract->ref_customer, abs($delayindays));
+				if (empty($isAPayingContract))
+				{
+					print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>';
+				}
+				else
+				{
+					print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("FixPaymentModeToRestoreInstance").'</a>';
+				}
+				print '</h4>
+							</div>
+						';
 			}
-			else
-			{
-				print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("FixPaymentModeToRestoreInstance").'</a>';
-			}
-			print '</h4>
-						</div>
-					';
 		}
 		else if ($isAPayingContract && $expirationdate > 0)
 		{
@@ -1576,6 +1588,7 @@ if (empty($welcomecid))
 			if ($delayindays < 0)	// Expired
 			{
 				print '
+						<!-- XDaysAfterEndOfPeriodPaymentModeSet -->
 						<div class="note note-warning">
 						<h4 class="block">'.$langs->trans("XDaysAfterEndOfPeriodPaymentModeSet", $contract->ref_customer, abs($delayindays)).'</h4>
 						</div>
