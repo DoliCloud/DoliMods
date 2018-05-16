@@ -89,8 +89,10 @@ class SellYourSaasUtils
 			while($i < $num_rows)
 			{
 				$obj = $this->db->fetch_object($resql);
-				if ($invoice->fetch($obj->rowid) > 0)
+				if ($obj && $invoice->fetch($obj->rowid) > 0)
 				{
+					dol_syslog("* Process invoice id=".$invoice->id." ref=".$invoice->ref);
+
 					// Search contract linked to invoice
 					$invoice->fetchObjectLinked();
 
@@ -131,7 +133,7 @@ class SellYourSaasUtils
 				else
 				{
 					$error++;
-					$this->errors[] = 'Failed to get invoice '.$obj->rowid;
+					$this->errors[] = 'Failed to get invoice with id '.$obj->rowid;
 				}
 
 				$i++;
@@ -210,12 +212,21 @@ class SellYourSaasUtils
     			$obj = $this->db->fetch_object($resql);
     			if ($obj)
     			{
-    				if (! empty($contractprocessed[$object->id])) continue;
+    				if (! empty($contractprocessed[$obj->rowid])) continue;
 
     				// Test if this is a paid or not instance
     				$object = new Contrat($this->db);
-    				$object->fetch($obj->rowid);
+    				$result = $object->fetch($obj->rowid);
     				$object->fetch_thirdparty();
+
+    				if ($result <= 0)
+    				{
+    					$error++;
+    					$this->errors[] = 'Failed to load contract with id='.$obj->rowid;
+    					continue;
+    				}
+
+					dol_syslog("* Process contract id=".$object->id." ref=".$object->ref);
 
     				$outputlangs = new Translate('', $conf);
     				$outputlangs->setDefaultLang($object->thirdparty->default_lang);
@@ -355,8 +366,11 @@ class SellYourSaasUtils
 
     			$thirdparty = new Societe($this->db);
     			$thirdparty->fetch($obj->fk_soc);
-    			if ($thirdparty->id)
+
+    			if ($thirdparty->id > 0)
     			{
+    				dol_syslog("* Process thirdparty id=".$thirdparty->id." name=".$thirdparty->nom);
+
     				$langstouse = new Translate('', $conf);
     				$langstouse->setDefaultLang($thirdparty->default_lang ? $thirdparty->default_lang : $langs->defaultlang);
 
@@ -499,8 +513,10 @@ class SellYourSaasUtils
 
 	    			$thirdparty = new Societe($this->db);
 	    			$thirdparty->fetch($obj->fk_soc);
-	    			if ($thirdparty->id)
+	    			if ($thirdparty->id > 0)
 	    			{
+	    				dol_syslog("* Process thirdparty id=".$thirdparty->id." name=".$thirdparty->nom);
+
 	    				$langstouse = new Translate('', $conf);
 	    				$langstouse->setDefaultLang($thirdparty->default_lang ? $thirdparty->default_lang : $langs->defaultlang);
 
@@ -603,7 +619,7 @@ class SellYourSaasUtils
     	$sql.= ' WHERE sr.fk_soc = f.fk_soc';
     	$sql.= " AND f.paye = 0 AND f.type = 0 AND f.fk_statut = ".Facture::STATUS_VALIDATED;
     	$sql.= " AND sr.status = ".$servicestatus;
-    	$sql.= " AND f.fk_soc = se.fk_object AND se.dolicloud == 'yesv2'";
+    	$sql.= " AND f.fk_soc = se.fk_object AND se.dolicloud = 'yesv2'";
     	$sql.= " ORDER BY f.date ASC, sr.default_rib DESC, sr.tms DESC";		// Lines may be duplicated. Never mind, we wil exclude duplicated invoice later.
     	//print $sql;
 
@@ -634,6 +650,8 @@ class SellYourSaasUtils
 	    			}
     				else
     				{
+    					dol_syslog("* Process invoice id=".$invoice->id." ref=".$invoice->ref);
+
     					$result = $this->doTakeStripePaymentForThirdparty($service, $servicestatus, $obj->socid, $companypaymentmode, $invoice, 0);
 						if ($result == 0)	// No error
 						{
@@ -736,6 +754,11 @@ class SellYourSaasUtils
     						$user->rights->facture->invoice_advance->validate = 1;
 
     						$result = $invoice->validate($user);
+    					}
+    					else
+    					{
+   							$error++;
+   							$this->errors[] = 'Failed to load invoice with id='.$obj->rowid;
     					}
     					if ($result > 0)
     					{
@@ -1202,12 +1225,21 @@ class SellYourSaasUtils
     			$obj = $this->db->fetch_object($resql);
     			if ($obj)
     			{
-    				if (! empty($contractprocessed[$object->id]) || ! empty($contractignored[$object->id])) continue;
+    				if (! empty($contractprocessed[$obj->rowid]) || ! empty($contractignored[$obj->rowid])) continue;
 
     				// Test if this is a paid or not instance
     				$object = new Contrat($this->db);
     				$object->fetch($obj->rowid);		// fetch also lines
     				$object->fetch_thirdparty();
+
+    				if ($object->id <= 0)
+    				{
+    					$error++;
+    					$this->errors[] = 'Failed to load contract with id='.$obj->rowid;
+    					continue;
+    				}
+
+    				dol_syslog("* Process contract id=".$object->id." ref=".$object->ref);
 
     				$isAPayingContract = sellyoursaasIsPaidInstance($object);
     				//var_dump($mode.' '.$isAPayingContract);
@@ -1388,7 +1420,7 @@ class SellYourSaasUtils
     	//$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, 1, 'd'))."'";
     	$sql.= " AND cd.date_fin_validite < '".$this->db->idate($datetotest)."'";
     	$sql.= " AND cd.statut = 4";
-    	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud == 'yesv2'";
+    	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
 
     	$resql = $this->db->query($sql);
     	if ($resql)
@@ -1401,17 +1433,34 @@ class SellYourSaasUtils
     		while ($i < $num)
     		{
 				$obj = $this->db->fetch_object($resql);
+
 				if ($obj)
 				{
-					if (! empty($contractprocessed[$object->id])) continue;
+					if (! empty($contractprocessed[$obj->rowid])) continue;
 
 					// Test if this is a paid or not instance
 					$object = new Contrat($this->db);
 					$object->fetch($obj->rowid);
 
+					if ($object->id <= 0)
+					{
+						$error++;
+						$this->errors[] = 'Failed to load contract with id='.$obj->rowid;
+						continue;
+					}
+					dol_syslog("* Process contract id=".$object->id." ref=".$object->ref);
+
 					$isAPayingContract = sellyoursaasIsPaidInstance($object);
-					if ($mode == 'test' && $isAPayingContract) continue;											// Discard if this is a paid instance when we are in test mode
-					if ($mode == 'paid' && ! $isAPayingContract) continue;											// Discard if this is a test instance when we are in paid mode
+					if ($mode == 'test' && $isAPayingContract)
+					{
+						dol_syslog("It is a paying contract, it will not be processed by this batch");
+						continue;											// Discard if this is a paid instance when we are in test mode
+					}
+					if ($mode == 'paid' && ! $isAPayingContract)
+					{
+						dol_syslog("It is not a paying contract, it will not be processed by this batch");
+						continue;											// Discard if this is a test instance when we are in paid mode
+					}
 
 					// Suspend instance
 					$tmparray = sellyoursaasGetExpirationDate($object);
@@ -1548,11 +1597,18 @@ class SellYourSaasUtils
     			$obj = $this->db->fetch_object($resql);
     			if ($obj)
     			{
-    				if (! empty($contractprocessed[$object->id])) continue;
+    				if (! empty($contractprocessed[$obj->rowid])) continue;
 
     				// Test if this is a paid or not instance
     				$object = new Contrat($this->db);
     				$object->fetch($obj->rowid);
+
+    				if ($object->id <= 0)
+    				{
+    					$error++;
+    					$this->errors[] = 'Failed to load contract with id='.$obj->rowid;
+    					continue;
+    				}
 
     				$isAPayingContract = sellyoursaasIsPaidInstance($object);
     				if ($mode == 'test' && $isAPayingContract) continue;										// Discard if this is a paid instance when we are in test mode

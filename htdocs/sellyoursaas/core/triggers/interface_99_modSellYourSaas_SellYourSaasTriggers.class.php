@@ -322,12 +322,12 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 				{
 					if (! preg_match('/sellyoursaas/', session_name()))	// No popup message after trigger if we are not into the backoffice
 					{
-						if ($remoteaction == 'suspend') setEventMessage($langs->trans("InstanceWasSuspended"));
-						elseif ($remoteaction == 'unsuspend') setEventMessage($langs->trans("InstanceWasUnsuspended"));
-						elseif ($remoteaction == 'deploy') setEventMessage($langs->trans("InstanceWasDeployed"));
-						elseif ($remoteaction == 'undeploy') setEventMessage($langs->trans("InstanceWasUndeployed"));
-						elseif ($remoteaction == 'deployall') setEventMessage($langs->trans("InstanceWasDeployed").' (all)');
-						elseif ($remoteaction == 'undeployall') setEventMessage($langs->trans("InstanceWasUndeployed").' (all)');
+						if ($remoteaction == 'suspend') setEventMessage($langs->trans("InstanceWasSuspended", $contract->ref_customer.' ('.$contract->ref.')'));
+						elseif ($remoteaction == 'unsuspend') setEventMessage($langs->trans("InstanceWasUnsuspended", $contract->ref_customer.' ('.$contract->ref.')'));
+						elseif ($remoteaction == 'deploy') setEventMessage($langs->trans("InstanceWasDeployed", $contract->ref_customer.' ('.$contract->ref.')'));
+						elseif ($remoteaction == 'undeploy') setEventMessage($langs->trans("InstanceWasUndeployed", $contract->ref_customer.' ('.$contract->ref.')'));
+						elseif ($remoteaction == 'deployall') setEventMessage($langs->trans("InstanceWasDeployed", $contract->ref_customer.' ('.$contract->ref.')').' (deployall)');
+						elseif ($remoteaction == 'undeployall') setEventMessage($langs->trans("InstanceWasUndeployed", $contract->ref_customer.' ('.$contract->ref.')').' (undeployall)');
 					}
 				}
     		}
