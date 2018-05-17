@@ -646,7 +646,7 @@ class SellYourSaasUtils
     	$sql.= " AND sr.status = ".$servicestatus;
     	$sql.= " AND f.fk_soc = se.fk_object AND se.dolicloud = 'yesv2'";
     	$sql.= " ORDER BY f.datef ASC, sr.default_rib DESC, sr.tms DESC";		// Lines may be duplicated. Never mind, we wil exclude duplicated invoice later.
-    	print $sql;exit;
+    	//print $sql;exit;
 
     	$resql = $this->db->query($sql);
     	if ($resql)
@@ -1149,9 +1149,17 @@ class SellYourSaasUtils
     						$this->errors[]='Failed to get card for stripe customer = '.$customer->id;
     					}
     				} else {
+    					if ($resultthirdparty <= 0)
+    					{
+    						dol_syslog('Failed to load customer for thirdparty_id = '.$thirdparty->id, LOG_WARNING);
+    						$this->errors[]='Failed to load customer for thirdparty_id = '.$thirdparty->id;
+    					}
+    					else 		// $customer stripe not found
+    					{
+    						dol_syslog('Failed to get Stripe customer id for thirdparty_id = '.$thirdparty->id." in mode ".$servicestatus, LOG_WARNING);
+    						$this->errors[]='Failed to get Stripe customer id for thirdparty_id = '.$thirdparty->id." in mode ".$servicestatus;
+    					}
     					$error++;
-    					dol_syslog('Failed to get customer or Stripe customer id for thirdparty_id = '.$thirdparty->id, LOG_WARNING);
-    					$this->errors[]='Failed to get customer or Stripe customer id for thirdparty_id = '.$thirdparty->id;
     				}
     			}
     			catch(Exception $e)
