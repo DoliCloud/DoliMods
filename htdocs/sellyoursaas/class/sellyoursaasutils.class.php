@@ -645,8 +645,8 @@ class SellYourSaasUtils
     	$sql.= " AND f.paye = 0 AND f.type = 0 AND f.fk_statut = ".Facture::STATUS_VALIDATED;
     	$sql.= " AND sr.status = ".$servicestatus;
     	$sql.= " AND f.fk_soc = se.fk_object AND se.dolicloud = 'yesv2'";
-    	$sql.= " ORDER BY f.date ASC, sr.default_rib DESC, sr.tms DESC";		// Lines may be duplicated. Never mind, we wil exclude duplicated invoice later.
-    	//print $sql;exit;
+    	$sql.= " ORDER BY f.datef ASC, sr.default_rib DESC, sr.tms DESC";		// Lines may be duplicated. Never mind, we wil exclude duplicated invoice later.
+    	print $sql;exit;
 
     	$resql = $this->db->query($sql);
     	if ($resql)
@@ -700,7 +700,8 @@ class SellYourSaasUtils
     		$this->error = $this->db->lasterror();
     	}
 
-    	$this->output = count($invoiceprocessed).' validated invoice(s) with a valid default payment mode processed'.(count($invoiceprocessed)>0 ? ' : '.join(',', $invoiceprocessed) : '').' (ran in mode '.$servicestatus.') (search done on SellYourSaas customers only)';
+    	$this->output = count($invoiceprocessedok).' invoice(s) paid among '.count($invoiceprocessed).' qualified invoice(s) with a valid default payment mode processed'.(count($invoiceprocessed)>0 ? ' : '.join(',', $invoiceprocessed) : '').' (ran in mode '.$servicestatus.') (search done on SellYourSaas customers only)';
+    	$this->output .= ' - '.count($invoiceprocessedko).' discarded (missing stripe customer/card id or other reason)';
 
     	$this->db->commit();
 
@@ -830,7 +831,8 @@ class SellYourSaasUtils
     		if ($amountstripe > 0)
     		{
     			try {
-    				dol_syslog("Search existing Stripe card for companypaymentmodeid=".$companypaymentmode->id, LOG_DEBUG);
+//    				var_dump($companypaymentmode);
+    				dol_syslog("Search existing Stripe card for companypaymentmodeid=".$companypaymentmode->id." stripe_card_ref=".$companypaymentmode->stripe_card_ref." mode of payment mode=".$companypaymentmode->status, LOG_DEBUG);
 
     				$thirdparty = new Societe($this->db);
     				$resultthirdparty = $thirdparty->fetch($thirdparty_id);
@@ -838,7 +840,9 @@ class SellYourSaasUtils
     				include_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';
     				$stripe = new Stripe($this->db);
     				$stripeacc = $stripe->getStripeAccount($service);								// Get Stripe OAuth connect account if it exists (no network access here)
+
     				$customer = $stripe->customerStripe($thirdparty, $stripeacc, $servicestatus, 0);
+
     				if ($resultthirdparty > 0 && ! empty($customer))
     				{
     					$stripecard = $stripe->cardStripe($customer, $companypaymentmode, $stripeacc, $servicestatus, 0);
@@ -1140,14 +1144,14 @@ class SellYourSaasUtils
     					}
     					else
     					{
-    						//$error++;
+    						$error++;
     						dol_syslog("No card found for this stripe customer ".$customer->id, LOG_WARNING);
     						$this->errors[]='Failed to get card for stripe customer = '.$customer->id;
     					}
     				} else {
-    					//$error++;
-    					dol_syslog('Failed to get customer for thirdparty_id = '.$thirdparty->id, LOG_WARNING);
-    					$this->errors[]='Failed to get customer for thirdparty_id = '.$thirdparty->id;
+    					$error++;
+    					dol_syslog('Failed to get customer or Stripe customer id for thirdparty_id = '.$thirdparty->id, LOG_WARNING);
+    					$this->errors[]='Failed to get customer or Stripe customer id for thirdparty_id = '.$thirdparty->id;
     				}
     			}
     			catch(Exception $e)
@@ -1159,6 +1163,7 @@ class SellYourSaasUtils
     		}
     		else
     		{
+    			$error++;
     			dol_syslog("Remain to pay is null for this invoice".$customer->id.". Why is the invoice not classified 'Paid' ?", LOG_WARNING);
     			$this->errors[]="Remain to pay is null for this invoice = ".$customer->id.". Why is the invoice not classified 'Paid' ?";
     		}
