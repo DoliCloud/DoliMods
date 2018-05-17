@@ -854,7 +854,7 @@ class SellYourSaasUtils
     						$stripefailurecode='';
     						$stripefailuremessage='';
 
-    						dol_syslog("Create charge on card ".$stripecard->id, LOG_DEBUG, 0, '_stripe');
+    						dol_syslog("Create charge on card ".$stripecard->id, LOG_DEBUG);
     						try {
 	    						$charge = \Stripe\Charge::create(array(
 		    						'amount'   => price2num($amountstripe, 'MU'),
