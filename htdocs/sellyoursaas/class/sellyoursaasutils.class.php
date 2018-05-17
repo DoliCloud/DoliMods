@@ -640,13 +640,13 @@ class SellYourSaasUtils
     	$this->db->begin();
 
     	$sql = 'SELECT f.rowid, se.fk_object as socid, sr.rowid as companypaymentmodeid';
-    	$sql.= ' FROM '.MAIN_DB_PREFIX.'facture as f, '.MAIN_DB_PREFIX.'societe_extrafields as se, '.MAIN_DB_PREFIX.'societe_rib as sr, ';
+    	$sql.= ' FROM '.MAIN_DB_PREFIX.'facture as f, '.MAIN_DB_PREFIX.'societe_extrafields as se, '.MAIN_DB_PREFIX.'societe_rib as sr';
     	$sql.= ' WHERE sr.fk_soc = f.fk_soc';
     	$sql.= " AND f.paye = 0 AND f.type = 0 AND f.fk_statut = ".Facture::STATUS_VALIDATED;
     	$sql.= " AND sr.status = ".$servicestatus;
     	$sql.= " AND f.fk_soc = se.fk_object AND se.dolicloud = 'yesv2'";
     	$sql.= " ORDER BY f.date ASC, sr.default_rib DESC, sr.tms DESC";		// Lines may be duplicated. Never mind, we wil exclude duplicated invoice later.
-    	//print $sql;
+    	//print $sql;exit;
 
     	$resql = $this->db->query($sql);
     	if ($resql)
@@ -677,7 +677,7 @@ class SellYourSaasUtils
     				{
     					dol_syslog("* Process invoice id=".$invoice->id." ref=".$invoice->ref);
 
-    					$result = $this->doTakeStripePaymentForThirdparty($service, $servicestatus, $obj->socid, $companypaymentmode, $invoice, 0);
+    					$result = $this->doTakePaymentStripeForThirdparty($service, $servicestatus, $obj->socid, $companypaymentmode, $invoice, 0);
 						if ($result == 0)	// No error
 						{
 							$invoiceprocessedok[$obj->rowid]=$invoice->ref;
@@ -711,7 +711,7 @@ class SellYourSaasUtils
 
 
     /**
-     * doTakeStripePaymentForThirdparty
+     * doTakePaymentStripeForThirdparty
      * Take payment/send email. Unsuspend if it was suspended (done by trigger BILL_CANCEL or BILL_PAYED).
      *
      * @param	int		$service					'StripeTest' or 'StripeLive'
@@ -723,13 +723,13 @@ class SellYourSaasUtils
      * @param	int		$noemailtocustomeriferror	No email sent to customer if there is a payment error (can be used when error is already reported on screen)
      * @return	int									0 if no error, >0 if error
      */
-    function doTakeStripePaymentForThirdparty($service, $servicestatus, $thirdparty_id, $companypaymentmode, $invoice=null, $includedraft=0, $noemailtocustomeriferror=0)
+    function doTakePaymentStripeForThirdparty($service, $servicestatus, $thirdparty_id, $companypaymentmode, $invoice=null, $includedraft=0, $noemailtocustomeriferror=0)
     {
     	global $conf, $mysoc, $user, $langs;
 
     	$error = 0;
 
-    	dol_syslog("doTakeStripePaymentForThirdparty thirdparty_id=".$thirdparty_id);
+    	dol_syslog("doTakePaymentStripeForThirdparty thirdparty_id=".$thirdparty_id);
 
     	$this->stripechargedone = 0;
     	$now = dol_now();
@@ -737,7 +737,7 @@ class SellYourSaasUtils
     	// Check parameters
     	if (empty($thirdparty_id))
     	{
-    		$this->errors[]='Empty parameter thirdparty_id when calling doTakeStripePaymentForThirdparty';
+    		$this->errors[]='Empty parameter thirdparty_id when calling doTakePaymentStripeForThirdparty';
     		return 1;
     	}
 
@@ -845,7 +845,7 @@ class SellYourSaasUtils
     					if ($stripecard)
     					{
     						$FULLTAG='INV='.$invoice->id.'-CUS='.$thirdparty->code_client;
-    						$description='Stripe payment from doTakeStripePaymentForThirdparty: '.$FULLTAG;
+    						$description='Stripe payment from doTakePaymentStripeForThirdparty: '.$FULLTAG;
 
     						$stripefailurecode='';
     						$stripefailuremessage='';
@@ -896,7 +896,7 @@ class SellYourSaasUtils
     								$errmsg.=': '.$stripefailurecode.' - '.$stripefailuremessage;
     							}
 
-    							$description='Stripe payment ERROR from doTakeStripePaymentForThirdparty: '.$FULLTAG;
+    							$description='Stripe payment ERROR from doTakePaymentStripeForThirdparty: '.$FULLTAG;
     							$postactionmessages[]=$errmsg;
     							$this->errors[]=$errmsg;
     						}
@@ -906,7 +906,7 @@ class SellYourSaasUtils
 
     							$this->stripechargedone++;	// Save a stripe payment was done in realy life so later we will be able to force a commit on recorded payments
 
-    							$description='Stripe payment OK from doTakeStripePaymentForThirdparty: '.$FULLTAG;
+    							$description='Stripe payment OK from doTakePaymentStripeForThirdparty: '.$FULLTAG;
     							$postactionmessages=array();
 
     							$db=$this->db;
@@ -1005,11 +1005,11 @@ class SellYourSaasUtils
 
     							if ($ispostactionok < 1)
     							{
-    								$description='Stripe payment OK but post action KO from doTakeStripePaymentForThirdparty: '.$FULLTAG;
+    								$description='Stripe payment OK but post action KO from doTakePaymentStripeForThirdparty: '.$FULLTAG;
     							}
     							else
     							{
-    								$description='Stripe payment+post action OK from doTakeStripePaymentForThirdparty: '.$FULLTAG;
+    								$description='Stripe payment+post action OK from doTakePaymentStripeForThirdparty: '.$FULLTAG;
     							}
     						}
 

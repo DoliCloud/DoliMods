@@ -558,14 +558,14 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 			$sellyoursaasutils = new SellYourSaasUtils($db);
 
-			$result = $sellyoursaasutils->doTakeStripePaymentForThirdparty($service, $servicestatusstripe, $mythirdpartyaccount->id, $companypaymentmode, null, 1);
+			$result = $sellyoursaasutils->doTakePaymentStripeForThirdparty($service, $servicestatusstripe, $mythirdpartyaccount->id, $companypaymentmode, null, 1);
 			if ($result != 0)
 			{
 				$error++;
 				setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
 			}
 
-			// If some payment was really done, we force commit to be sure to validate invoices payment done by stripe, whatever is global result of doTakeStripePaymentForThirdparty
+			// If some payment was really done, we force commit to be sure to validate invoices payment done by stripe, whatever is global result of doTakePaymentStripeForThirdparty
 			if ($sellyoursaasutils->stripechargedone > 0)
 			{
 				dol_syslog("Force commit to validate payments recorded after real Stripe charges");
@@ -860,14 +860,14 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 						$sellyoursaasutils = new SellYourSaasUtils($db);
 
-						$result = $sellyoursaasutils->doTakeStripePaymentForThirdparty($service, $servicestatusstripe, $mythirdpartyaccount->id, $companypaymentmode, null, 0, 1);
+						$result = $sellyoursaasutils->doTakePaymentStripeForThirdparty($service, $servicestatusstripe, $mythirdpartyaccount->id, $companypaymentmode, null, 0, 1);
 						if ($result != 0)
 						{
 							$error++;
 							setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
 						}
 
-						// If some payment was really done, we force commit to be sure to validate invoices payment done by stripe, whatever is global result of doTakeStripePaymentForThirdparty
+						// If some payment was really done, we force commit to be sure to validate invoices payment done by stripe, whatever is global result of doTakePaymentStripeForThirdparty
 						if ($sellyoursaasutils->stripechargedone > 0)
 						{
 							dol_syslog("Force commit to validate payments recorded after real Stripe charges");
