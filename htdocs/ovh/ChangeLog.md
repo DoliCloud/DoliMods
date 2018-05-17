@@ -1,5 +1,10 @@
 # ChangeLog OVH MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
+## 4.0
+
+* Compatibility PHP 7.1
+* Record an event into agenda (except if MAIN_AGENDA_ACTIONAUTO_SENTBYSMS is set to 0)
+
 ## 3.9
 
 * Add constant OVH_DEFAULT_BANK_ACCOUNT to set default bank account

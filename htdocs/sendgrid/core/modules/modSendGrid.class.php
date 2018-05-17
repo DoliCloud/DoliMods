@@ -104,9 +104,7 @@ class modSendgrid extends DolibarrModules
 		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add', 1, 'allentities', 1),
 		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add', 0, 'current', 0)
 		$this->const = array(0=>array('MAIN_MODULE_SENDGRID_SMS','chaine','sendgrid','This is to enable SENDGRID SMS module',0,'current',1),
-		                     1=>array('MAIN_SMS_SENDMODE','chaine','sendgrid','This is to enable SENDGRID SMS engine',0,'current',1),
-		                     2=>array('MAIN_SMS_DEBUG','chaine','1','This is to enable SENDGRID SMS debug',1,'allentities',0),
-							 3=>array('MAIN_MENU_ENABLE_MODULETOOLS','chaine','1','To enable module tools entry',0,'allentities',1)
+							 1=>array('MAIN_MENU_ENABLE_MODULETOOLS','chaine','1','To enable module tools entry',0,'allentities',1)
 		);			// List of particular constants to add when module is enabled
 
 		// Array to add new pages in new tabs

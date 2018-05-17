@@ -177,7 +177,7 @@ class OvhSms  extends CommonObject
 	 */
 	function SmsSend()
 	{
-	    global $conf;
+	    global $db, $conf, $langs, $user;
 
 		try
 		{
@@ -239,7 +239,49 @@ class OvhSms  extends CommonObject
 
     		            )*/
     		        //var_dump($resultPostJob);
-    		        if ($resultPostJob['totalCreditsRemoved'] > 0) return 1;
+    		        if ($resultPostJob['totalCreditsRemoved'] > 0)
+    		        {
+    		        	$object = new stdClass();
+    		        	$trigger_name = 'SENTBYSMS';
+
+    		        	// Force automatic event to ON if setup not done
+    		        	if (! isset($conf->global->MAIN_AGENDA_ACTIONAUTO_SENTBYSMS))
+    		        	{
+    		        		$conf->global->MAIN_AGENDA_ACTIONAUTO_SENTBYSMS = 1;	// Make trigger on
+    		        	}
+
+    		        	// Initialisation of datas of object to call trigger
+    		        	if (is_object($object))
+    		        	{
+    		        		$langs->load("agenda");
+    		        		$langs->load("other");
+
+    		        		$actiontypecode='AC_OTH_AUTO'; // Event insert into agenda automatically
+
+    		        		//$object->socid			= $sendtosocid;	   // To link to a company
+    		        		//$object->sendtoid		= $sendtoid;	   // To link to contacts/addresses. This is an array.
+    		        		$object->actiontypecode	= $actiontypecode; // Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
+    		        		$object->actionmsg2		= $langs->trans("SMSSentTo", $this->dest);
+    		        		$object->actionmsg		= $langs->trans("SMSSentTo", $this->dest)."\n".$this->message.($this->nostop?'':"\n");
+    		        		//$object->trackid        = $trackid;
+    		        		//$object->fk_element		= $object->id;
+    		        		//$object->elementtype	= $object->element;
+    		        		//$object->attachedfiles	= null;
+
+    		        		// Call of triggers
+    		        		if (! empty($trigger_name))
+    		        		{
+    		        			include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
+    		        			$interface=new Interfaces($db);
+    		        			$result=$interface->run_triggers($trigger_name,$object,$user,$langs,$conf);
+    		        			if ($result < 0) {
+    		        				setEventMessages($interface->error, $interface->errors, 'errors');
+    		        			}
+    		        		}
+    		        	}
+
+    		        	return 1;
+    		        }
     		        else return -1;
 		        }
 		        catch(Exception $e)
@@ -291,7 +333,6 @@ class OvhSms  extends CommonObject
 		    }
 		    else
 		    {
-		        //var_dump($this->conn);
 		        $resultinfo = $this->conn->get('/sms');
 		        $resultinfo = json_decode(json_encode($resultinfo), true);
 		        return $resultinfo;
