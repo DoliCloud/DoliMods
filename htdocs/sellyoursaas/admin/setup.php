@@ -192,6 +192,73 @@ if ($action == 'set')
 			}
 		}
 
+		$varforimage='logoblack'; $dirforimage=$conf->mycompany->dir_output.'/logos/';
+		if ($_FILES[$varforimage]["tmp_name"])
+		{
+			if (preg_match('/([^\\/:]+)$/i',$_FILES[$varforimage]["name"],$reg))
+			{
+				$original_file=$reg[1];
+
+				$isimage=image_format_supported($original_file);
+				if ($isimage >= 0)
+				{
+					dol_syslog("Move file ".$_FILES[$varforimage]["tmp_name"]." to ".$dirforimage.$original_file);
+					if (! is_dir($dirforimage))
+					{
+						dol_mkdir($dirforimage);
+					}
+					$result=dol_move_uploaded_file($_FILES[$varforimage]["tmp_name"],$dirforimage.$original_file,1,0,$_FILES[$varforimage]['error']);
+					if ($result > 0)
+					{
+						dolibarr_set_const($db, "SELLYOURSAAS_LOGO_BLACK",$original_file,'chaine',0,'',$conf->entity);
+
+						// Create thumbs of logo (Note that PDF use original file and not thumbs)
+						if ($isimage > 0)
+						{
+							// Create thumbs
+							//$object->addThumbs($newfile);    // We can't use addThumbs here yet because we need name of generated thumbs to add them into constants.
+
+							// Create small thumb, Used on logon for example
+							$imgThumbSmall = vignette($dirforimage.$original_file, $maxwidthsmall, $maxheightsmall, '_small', $quality);
+							if (image_format_supported($imgThumbSmall) >= 0 && preg_match('/([^\\/:]+)$/i',$imgThumbSmall,$reg))
+							{
+								$imgThumbSmall = $reg[1];    // Save only basename
+								dolibarr_set_const($db, "SELLYOURSAAS_LOGO_SMALL_BLACK",$imgThumbSmall,'chaine',0,'',$conf->entity);
+							}
+							else dol_syslog($imgThumbSmall);
+
+							// Create mini thumb, Used on menu or for setup page for example
+							$imgThumbMini = vignette($dirforimage.$original_file, $maxwidthmini, $maxheightmini, '_mini', $quality);
+							if (image_format_supported($imgThumbMini) >= 0 && preg_match('/([^\\/:]+)$/i',$imgThumbMini,$reg))
+							{
+								$imgThumbMini = $reg[1];     // Save only basename
+								dolibarr_set_const($db, "SELLYOURSAAS_LOGO_MINI_BLACK",$imgThumbMini,'chaine',0,'',$conf->entity);
+							}
+							else dol_syslog($imgThumbMini);
+						}
+						else dol_syslog("ErrorImageFormatNotSupported",LOG_WARNING);
+					}
+					else if (preg_match('/^ErrorFileIsInfectedWithAVirus/',$result))
+					{
+						$error++;
+						$langs->load("errors");
+						$tmparray=explode(':',$result);
+						setEventMessages($langs->trans('ErrorFileIsInfectedWithAVirus',$tmparray[1]), null, 'errors');
+					}
+					else
+					{
+						$error++;
+						setEventMessages($langs->trans("ErrorFailedToSaveFile"), null, 'errors');
+					}
+				}
+				else
+				{
+					$error++;
+					$langs->load("errors");
+					setEventMessages($langs->trans("ErrorBadImageFormat"), null, 'errors');
+				}
+			}
+		}
 	}
 }
 
@@ -229,6 +296,22 @@ if ($action == 'removelogo')
 	$logominifile=$conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI;
 	if ($conf->global->SELLYOURSAAS_LOGO_MINI != '') dol_delete_file($logominifile);
 	dolibarr_del_const($db, "SELLYOURSAAS_LOGO_MINI",$conf->entity);
+}
+if ($action == 'removelogoblack')
+{
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+
+	$logofile=$conf->mycompany->dir_output.'/logos/'.$conf->global->SELLYOURSAAS_LOGO_BLACK;
+	if ($conf->global->SELLYOURSAAS_LOGO_BLACK != '') dol_delete_file($logofile);
+	dolibarr_del_const($db, "SELLYOURSAAS_LOGO_BLACK",$conf->entity);
+
+	$logosmallfile=$conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL_BLACK;
+	if ($conf->global->SELLYOURSAAS_LOGO_SMALL_BLACK != '') dol_delete_file($logosmallfile);
+	dolibarr_del_const($db, "SELLYOURSAAS_LOGO_SMALL_BLACK",$conf->entity);
+
+	$logominifile=$conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI_BLACK;
+	if ($conf->global->SELLYOURSAAS_LOGO_MINI_BLACK != '') dol_delete_file($logominifile);
+	dolibarr_del_const($db, "SELLYOURSAAS_LOGO_MINI_BLACK",$conf->entity);
 }
 
 
@@ -474,7 +557,7 @@ print '<td>120</td>';
 print '</tr>';
 
 // Logo
-print '<tr class="oddeven hideonsmartphone"><td><label for="logo">'.$langs->trans("Logo").' (png,jpg)</label></td><td>';
+print '<tr class="oddeven hideonsmartphone"><td><label for="logo">'.$langs->trans("LogoWhiteBackground").' (png,jpg)</label></td><td>';
 print '<table width="100%" class="nobordernopadding"><tr class="nocellnopadd"><td valign="middle" class="nocellnopadd">';
 print '<input type="file" class="flat class=minwidth200" name="logo" id="logo">';
 print '</td><td class="nocellnopadd" valign="middle" align="right">';
@@ -491,6 +574,23 @@ print '</td></tr></table>';
 print '</td><td>';
 print '</td></tr>';
 
+// Logo font black
+print '<tr class="oddeven hideonsmartphone"><td><label for="logo">'.$langs->trans("LogoBlackBackground").' (png,jpg)</label></td><td>';
+print '<table width="100%" class="nobordernopadding"><tr class="nocellnopadd"><td valign="middle" class="nocellnopadd">';
+print '<input type="file" class="flat class=minwidth200" name="logoblack" id="logoblack">';
+print '</td><td class="nocellnopadd" valign="middle" align="right">';
+if (! empty($conf->global->SELLYOURSAAS_LOGO_MINI_BLACK)) {
+	print '<a href="'.$_SERVER["PHP_SELF"].'?action=removelogoblack">'.img_delete($langs->trans("Delete")).'</a>';
+	if (file_exists($conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI_BLACK)) {
+		print ' &nbsp; ';
+		print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI_BLACK).'">';
+	}
+} else {
+	print '<img height="30" src="'.DOL_URL_ROOT.'/public/theme/common/nophoto.png">';
+}
+print '</td></tr></table>';
+print '</td><td>';
+print '</td></tr>';
 
 
 print '</table>';
