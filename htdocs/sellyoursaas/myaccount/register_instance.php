@@ -133,6 +133,8 @@ if (empty($tmppackage->id))
 	exit;
 }
 
+$freeperioddays = $tmpproduct->array_options['options_freeperioddays'];
+
 $now = dol_now();
 
 
@@ -478,12 +480,15 @@ else
 	// Create contract line for INSTANCE
 	if (! $error)
 	{
-		dol_syslog("Add line to contract for INSTANCE");
+		dol_syslog("Add line to contract for INSTANCE with freeperioddays = ".$freeperioddays);
 
 		if (empty($object->country_code))
 		{
 			$object->country_code = dol_getIdFromCode($db, $object->country_id, 'c_country', 'rowid', 'code');
 		}
+
+		$date_start = $now;
+		$date_end = dol_time_plus_duree($date_start, $freeperioddays, 'd');
 
 		$qty = 1;
 		//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
