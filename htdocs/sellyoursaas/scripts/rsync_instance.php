@@ -132,6 +132,7 @@ $param[]="--exclude build/";
 //$param[]="--exclude doc/";	// To keep files into htdocs/core/module/xxx/doc dir
 $param[]="--exclude dev/";
 $param[]="--exclude documents/";
+$param[]="--include htdocs/modulebuilder/template/test/";
 $param[]="--exclude test/";
 $param[]="--exclude htdocs/conf/conf.php*";
 $param[]="--exclude htdocs/custom";
