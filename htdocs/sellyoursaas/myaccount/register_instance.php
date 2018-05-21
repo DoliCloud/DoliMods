@@ -422,6 +422,9 @@ else
 		exit;
 	}
 
+	$date_start = $now;
+	$date_end = dol_time_plus_duree($date_start, $freeperioddays, 'd');
+
 	// Create contract/instance
 	if (! $error)
 	{
@@ -439,7 +442,7 @@ else
 		$contract->array_options['options_deployment_date_start'] = $now;
 		$contract->array_options['options_deployment_init_email'] = $email;
 		$contract->array_options['options_deployment_init_adminpass'] = $password;
-		$contract->array_options['options_date_endfreeperiod'] = dol_time_plus_duree($now, 15, 'd');
+		$contract->array_options['options_date_endfreeperiod'] = $date_end;
 		$contract->array_options['options_undeployment_date'] = '';
 		$contract->array_options['options_undeployment_ip'] = '';
 		$contract->array_options['options_hostname_os'] = $generatedunixhostname;
@@ -486,9 +489,6 @@ else
 		{
 			$object->country_code = dol_getIdFromCode($db, $object->country_id, 'c_country', 'rowid', 'code');
 		}
-
-		$date_start = $now;
-		$date_end = dol_time_plus_duree($date_start, $freeperioddays, 'd');
 
 		$qty = 1;
 		//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
