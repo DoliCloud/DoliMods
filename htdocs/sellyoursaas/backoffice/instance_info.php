@@ -616,7 +616,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		print '<tr>';
 		print '<td>'.$langs->trans("Modules").'</td><td colspan="3">';
 		$i=0;
-		foreach($conf->global as $key => $val)
+		foreach($confinstance->global as $key => $val)
 		{
 			if (preg_match('/^MAIN_MODULE_[^_]+$/',$key) && ! empty($val))
 			{
