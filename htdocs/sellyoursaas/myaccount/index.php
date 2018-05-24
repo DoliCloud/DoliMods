@@ -4468,7 +4468,7 @@ if ($mode == 'myaccount')
 	<!-- END PAGE HEADER-->
 
 
-	    <div class="row">
+	<div class="row">
 	      <div class="col-md-6">
 
 	        <div class="portlet light">
@@ -4556,7 +4556,7 @@ if ($mode == 'myaccount')
 
 			<div class="portlet light">
 	          <div class="portlet-title">
-	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("YourAdminAccount").'</div>
+	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("YourContactInformation").'</div>
 	          </div>
 	          <div class="portlet-body">
 	            <form action="'.$_SERVER["PHP_SELF"].'" method="post">
@@ -4591,6 +4591,8 @@ if ($mode == 'myaccount')
 	                <input type="submit" name="submit" value="'.$langs->trans("Save").'" class="btn green-haze btn-circle">
 	              </div>
 	            </form>
+
+
 	          </div>
 	        </div>
 
@@ -4619,10 +4621,70 @@ if ($mode == 'myaccount')
 	            </form>
 	          </div>
 	        </div>
+
 	      </div><!-- END COL -->
 
 	    </div> <!-- END ROW -->
 
+
+
+
+	<div class="row">
+	      <div class="col-md-12">
+
+			<a href="#deletemyaccountarea" class="deletemyaccountclick">'.$langs->trans("DeleteMyAccount").'<br><br></a>
+
+			<script type="text/javascript" language="javascript">
+			jQuery(document).ready(function() {
+				jQuery("#deletemyaccountarea").hide();
+				jQuery(".deletemyaccountclick").click(function() {
+					console.log("Click on deletemyaccountclick");
+					jQuery("#deletemyaccountarea").toggle();
+					jQuery(".deletemyaccountclick").toggle();
+				});
+			});
+			</script>
+
+			<div class="portlet light deletemyaccountarea" id="deletemyaccountarea">
+	          <div class="portlet-title">
+	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("DeleteMyAccount").'</div>
+	          </div>
+	          <div class="portlet-body">
+							<form class="form-group" action="'.$_SERVER["PHP_SELF"].'" method="POST">
+				              <div class="">
+				                <p class="opacitymedium" style="padding: 5px">
+				                    ';
+									if (($nbofinstancesinprogressreseller + $nbofinstancesdonereseller + $nbofinstancessuspendedreseller) > 0)
+									{
+										print $langs->trans("ClosingAccountResellerNotPossible", ($nbofinstancesinprogressreseller + $nbofinstancesdonereseller + $nbofinstancessuspendedreseller), $langs->transnoentities("MyInstances"), $langs->transnoentities("DangerZone")).'<br>';
+									}
+									elseif (($nbofinstancesinprogress + $nbofinstancesdone + $nbofinstancessuspended) > 0)
+				                    {
+				                    	print $langs->trans("ClosingAccountNotPossible", ($nbofinstancesinprogress + $nbofinstancesdone + $nbofinstancessuspended), $langs->transnoentities("MyInstances"), $langs->transnoentities("DangerZone")).'<br>';
+				                    }
+				                    else
+				                    {
+				                    	print $langs->trans("PleaseBeSureCustomerAccount", $contract->ref_customer);
+					                    print '
+						                </p>
+										<p class="center" style="padding-bottom: 15px">
+											<input type="text" class="center urlofinstancetodestroy" name="urlofinstancetodestroy" value="'.GETPOST('urlofinstancetodestroy','alpha').'" placeholder="">
+										</p>
+										<p class="center">
+											<input type="hidden" name="mode" value="instances"/>
+											<input type="hidden" name="action" value="undeploy" />
+											<input type="hidden" name="contractid" value="'.$contract->id.'" />
+											<input type="hidden" name="tab" value="danger_'.$contract->id.'" />
+											<input type="submit" class="btn btn-danger" name="undeploy" value="'.$langs->trans("UndeployInstance").'">
+										';
+				                    }
+				                print '</p>
+				              </div>
+							</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	    </div>
 		</div>
