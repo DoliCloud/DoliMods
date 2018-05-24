@@ -1146,6 +1146,51 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 	}
 }
 
+if ($action == 'deleteaccount')
+{
+	if (! GETPOST('accounttodestroy','alpha'))
+	{
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->trans("AccountToDelete")), '', 'errors');
+	}
+	else
+	{
+		if (GETPOST('accounttodestroy','alpha') != $mythirdpartyaccount->email)
+		{
+			setEventMessages($langs->trans("ErrorEmailMustMatch"), null, 'errors');
+		}
+		else
+		{
+			// TODO If there is invoice, me must keep account
+			$keepaccount = 1;
+			if ($keepaccount)
+			{
+				$mythirdpartyaccount->status = 0;
+				$mythirdpartyaccount->update(0, $user);
+				setEventMessages($langs->trans("YourAccountHasBeenClosed"), null, 'errors');
+
+				print '
+					<center>
+				';
+				print $langs->trans("YourAccountHasBeenClosed");
+				print '
+					</center>
+				';
+
+				// TODO
+				// Make a redirect on cancellation survey
+
+
+				exit;
+			}
+			else
+			{
+				$mythirdpartyaccount->delete(0, $user);
+				setEventMessages($langs->trans("YourAccountHasBeenClosed"), null, 'errors');
+			}
+		}
+	}
+}
+
 
 
 /*
@@ -2185,6 +2230,7 @@ if ($mode == 'instances')
 
 
 			print '
+				<!-- card for instance -->
 			    <div class="row" id="contractid'.$contract->id.'" data-contractref="'.$contract->ref.'">
 			      <div class="col-md-12">
 
@@ -2211,7 +2257,7 @@ if ($mode == 'instances')
 				          else print $statuslabel;
 				          print '</span></span><br>';
 
-				          print '<p style="padding-top: 8px;" class="clearboth">';
+				          print '<p style="padding-top: 8px;'.($statuslabel == 'undeployed'?' margin-bottom: 0px':'').'" class="clearboth">';
 
 				          // URL
 				          if ($statuslabel != 'undeployed')
@@ -4622,21 +4668,19 @@ if ($mode == 'myaccount')
 	          </div>
 	        </div>
 
-	      </div><!-- END COL -->
-
-	    </div> <!-- END ROW -->
 
 
+			';
+			if (! GETPOST('deleteaccount')) print '<div class="center"><br><a href="#deletemyaccountarea" class="deletemyaccountclick">'.$langs->trans("DeleteMyAccount").'<br><br></a></div>';
 
-
-	<div class="row">
-	      <div class="col-md-12">
-
-			<a href="#deletemyaccountarea" class="deletemyaccountclick">'.$langs->trans("DeleteMyAccount").'<br><br></a>
-
+			print '
 			<script type="text/javascript" language="javascript">
 			jQuery(document).ready(function() {
-				jQuery("#deletemyaccountarea").hide();
+				';
+
+				if (! GETPOST('deleteaccount')) print 'jQuery("#deletemyaccountarea").hide();';
+
+				print '
 				jQuery(".deletemyaccountclick").click(function() {
 					console.log("Click on deletemyaccountclick");
 					jQuery("#deletemyaccountarea").toggle();
@@ -4668,14 +4712,12 @@ if ($mode == 'myaccount')
 					                    print '
 						                </p>
 										<p class="center" style="padding-bottom: 15px">
-											<input type="text" class="center urlofinstancetodestroy" name="urlofinstancetodestroy" value="'.GETPOST('urlofinstancetodestroy','alpha').'" placeholder="">
+											<input type="text" class="center urlofinstancetodestroy" name="accounttodestroy" value="'.GETPOST('accounttodestroy','alpha').'" placeholder="">
 										</p>
 										<p class="center">
-											<input type="hidden" name="mode" value="instances"/>
-											<input type="hidden" name="action" value="undeploy" />
-											<input type="hidden" name="contractid" value="'.$contract->id.'" />
-											<input type="hidden" name="tab" value="danger_'.$contract->id.'" />
-											<input type="submit" class="btn btn-danger" name="undeploy" value="'.$langs->trans("UndeployInstance").'">
+											<input type="hidden" name="mode" value="myaccount"/>
+											<input type="hidden" name="action" value="deleteaccount" />
+											<input type="submit" class="btn btn-danger" name="deleteaccount" value="'.$langs->trans("DeleteMyAccount").'">
 										';
 				                    }
 				                print '</p>
@@ -4683,8 +4725,12 @@ if ($mode == 'myaccount')
 							</form>
 				</div>
 			</div>
-		</div>
-	</div>
+
+
+	      </div><!-- END COL -->
+
+	    </div> <!-- END ROW -->
+
 
 	    </div>
 		</div>
