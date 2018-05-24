@@ -304,3 +304,5 @@ ClosingAccountResellerNotPossible=Pour pouvoir supprimer votre compte revendeur,
 ClosingAccountNotPossible=Avant de pouvoir fermer votre compte, vous devez d'abord clore vos abonnements actifs (%s). Pour cela, aller sur le menu '%s' puis, pour chaque instance, aller sur l'onglet '%s' pour détruire l'instance. 
 PleaseBeSureCustomerAccount=Afin de confirmer la suppression de votre compte, merci de saisi ici l'email du compte à supprimer
 ErrorEmailMustMatch=Erreur, l'email du compte à supprimer doit correspondre à votre email
+YourAccountHasBeenClosed=Votre compte a été fermé.
+SorryAccountDeleted=Désolé, ce compte semble fermé. Merci de nous contacter (%s) si vous désirez recréer un compte avec ce login/email.

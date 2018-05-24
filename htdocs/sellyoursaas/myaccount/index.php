@@ -94,10 +94,22 @@ $fromsocid=GETPOST('fromsocid','int');
 
 // Id of connected thirdparty
 $socid = GETPOST('socid','int')?GETPOST('socid','int'):$_SESSION['dol_loginsellyoursaas'];
-$result = $mythirdpartyaccount->fetch($fromsocid > 0 ? $fromsocid : $socid);					// fromid set if creation from reseller dashboard else we use socid
-if ($result <= 0)
+$idforfetch = $fromsocid > 0 ? $fromsocid : $socid;
+if ($idforfetch > 0)
 {
-	dol_print_error($db, "Failed to load thirdparty for id=".($fromsocid > 0 ? $fromsocid : $socid));
+	$result = $mythirdpartyaccount->fetch($idforfetch);					// fromid set if creation from reseller dashboard else we use socid
+	if ($result <= 0)
+	{
+		dol_print_error($db, "Failed to load thirdparty for id=".($idforfetch));
+		exit;
+	}
+}
+if ($idforfetch <= 0 || empty($mythirdpartyaccount->status))
+{
+	$_SESSION=array();
+	$_SESSION['dol_loginmesg']=$langs->trans("SorryAccountDeleted", $conf->global->SELLYOURSAAS_MAIN_EMAIL);
+	//header("Location: index.php?username=".urlencode(GETPOST('username','alpha')));
+	header("Location: index.php?usernamebis=".urlencode(GETPOST('username','alpha')));
 	exit;
 }
 
@@ -1166,7 +1178,11 @@ if ($action == 'deleteaccount')
 			{
 				$mythirdpartyaccount->status = 0;
 				$mythirdpartyaccount->update(0, $user);
-				setEventMessages($langs->trans("YourAccountHasBeenClosed"), null, 'errors');
+				//setEventMessages($langs->trans("YourAccountHasBeenClosed"), null, 'errors');
+
+				llxHeader($head, $langs->trans("MyAccount"));
+
+				$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI);
 
 				print '
 					<center>
@@ -1179,6 +1195,7 @@ if ($action == 'deleteaccount')
 				// TODO
 				// Make a redirect on cancellation survey
 
+				llxFooter();
 
 				exit;
 			}
