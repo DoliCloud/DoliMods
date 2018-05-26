@@ -94,7 +94,8 @@ class modSellYourSaas extends DolibarrModules
 			1=>array('CONTRACT_SYNC_PLANNED_DATE_OF_SERVICES', 'chaine', 1, 'Sync planned date of services in same contract', 0, 'current', 1),
 			2=>array('THIRDPARTY_LOGO_ALLOW_EXTERNAL_DOWNLOAD', 'chaine', 1, 'Allow to access thirdparty logo from external link', 0, 'current', 0),
 			3=>array('PRODUIT_SOUSPRODUITS', 'chaine', 1, 'Enable virtual products', 0, 'current', 0),
-			4=>array('STRIPE_ALLOW_LOCAL_CARD', 'chaine', 1, 'Allow to save stripe credit card locally', 0, 'current', 1)
+			4=>array('STRIPE_ALLOW_LOCAL_CARD', 'chaine', 1, 'Allow to save stripe credit card locally', 0, 'current', 1),
+			5=>array('SELLYOURSAAS_NAME', 'chaine', 'SellYourSaas', 'Name of your SellYouSaaS service', 0, 'current', 0)
 		);
 
 
@@ -243,7 +244,7 @@ class modSellYourSaas extends DolibarrModules
 
 		$this->menu[$r]=array(	'fk_menu'=>0,
 								'type'=>'top',
-								'titre'=>'SellYourSaas',
+								'titre'=>'__[SELLYOURSAAS_NAME]__',
 								'mainmenu'=>'sellyoursaas',
 								'url'=>'/sellyoursaas/backoffice/index.php',
 								'langs'=>'',
@@ -712,9 +713,9 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('reseller',                         "Reseller",     'link', 30,   '3', 'facture', 0, 0, '', $param, 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 
 		// Create/import website called 'sellyoursaas'
-		include_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
-		$tmpwebsite = new WebSite($this->db);
-		$result = $tmpwebsite->importWebSite('website_sellyoursaas-demo.zip');
+		//include_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
+		//$tmpwebsite = new WebSite($this->db);
+		//$result = $tmpwebsite->importWebSite('website_sellyoursaas-demo.zip');
 
 
 		return $this->_init($sql,$options);
