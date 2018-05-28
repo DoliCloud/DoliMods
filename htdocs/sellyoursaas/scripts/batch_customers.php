@@ -303,7 +303,7 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 			$command=($path?$path:'')."backup_instance.php ".escapeshellarg($instance)." ".escapeshellarg($conf->global->DOLICLOUD_BACKUP_PATH)." ".$mode;
 			echo $command."\n";
 
-			if ($action == 'backup')
+			if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabase')
 			{
 				//$output = shell_exec($command);
 				ob_start();
