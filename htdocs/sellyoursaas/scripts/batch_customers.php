@@ -223,6 +223,7 @@ if ($resql)
 						if ($ispaymentko) $payment_status='FAILURE';
 					}
 				}
+				if (empty($instance_status_bis)) $instance_status_bis=$instance_status;
 				print "Process instance V".$v." ".$instance." status=".$instance_status." instance_status=".$instance_status_bis." payment_status=".$payment_status."\n";
 
 				// Count
