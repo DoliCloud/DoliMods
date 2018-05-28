@@ -36,6 +36,7 @@ $error=0;
 $dirroot=isset($argv[1])?$argv[1]:'';
 $instance=isset($argv[2])?$argv[2]:'';
 $mode=isset($argv[3])?$argv[3]:'';
+$v=isset($argv[4])?$argv[4]:'';
 
 // Include Dolibarr environment
 @set_time_limit(0);							// No timeout for this script
@@ -80,11 +81,50 @@ $object = new Dolicloud_customers($db,$db2);
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
 	print "Update an instance on remote server with new ref version.\n";
-	print "Usage: $script_file source_root_dir sellyoursaas_instance (test|confirm|confirmunlock|diff|diffadd|diffchange|clean|confirmclean)\n";
+	print "Usage: $script_file source_root_dir sellyoursaas_instance (test|confirm|confirmunlock|diff|diffadd|diffchange|clean|confirmclean) (old)\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);
 }
 
+
+// Use instance to detect if v1 or v2 or instance
+if ($v == 'old')
+{
+	$v=1;
+}
+else
+{
+	$v=2;
+	// Force $v according to hard coded values (keep v2 in default case)
+	if (! empty($instance) && ! preg_match('/(\.on|\.with)\.dolicloud\.com$/',$instance)  && ! preg_match('/\.home\.lan$/',$instance))
+	{
+		$instance=$instance . $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
+	}
+	if (! empty($instance) && preg_match('/\.on\.dolicloud\.com$/',$instance)) {
+		$v=1;
+	}
+	if (! empty($instance) && preg_match('/\.with\.dolicloud\.com$/',$instance)) {
+		$v=2;
+	}
+}
+
+if ($v == 1)
+{
+	$object = new Dolicloud_customers($db, $db2);
+	$result=$object->fetch('',$instance);
+}
+else
+{
+	include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+	$object = new Contrat($db);
+	$result=$object->fetch('', '', $instance);
+}
+
+if ($result <= 0)
+{
+	print "Error: instance ".$instance." for v".$v." not found.\n";
+	exit(-2);
+}
 
 
 $result=$object->fetch('',$instance);
@@ -107,12 +147,26 @@ if (! is_dir($dirroot.'/htdocs'))
 $dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
 $login=$object->username_web;
 $password=$object->password_web;
-$targetdir=$conf->global->DOLICLOUD_EXT_HOME.'/'.$login.'/'.$dirdb;
-$server=$object->instance.'.on.dolicloud.com';
+if ($v != 1)
+{
+	$targetdir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$login.'/'.$dirdb;
+	$server=$object->array_options['options_hostname_os'];
+}
+else
+{
+	$targetdir=$conf->global->DOLICLOUD_EXT_HOME.'/'.$login.'/'.$dirdb;
+	$server=$object->instance.'.on.dolicloud.com';
+}
 
-print 'Synchro of files '.$dirroot.' to '.$targetdir."\n";
+if (empty($login) || empty($dirdb))
+{
+	print "Error: properties for instance ".$instance." are not registered completely (missing at least login or database name).\n";
+	exit(-5);
+}
 
 $sftpconnectstring=$object->username_web.'@'.$object->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
+
+print 'Synchro of files '.$dirroot.' to '.$targetdir."\n";
 print 'SFTP connect string : '.$sftpconnectstring."\n";
 print 'SFTP password '.$object->password_web."\n";
 

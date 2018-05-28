@@ -108,7 +108,7 @@ else
 }
 
 
-if ($v == 'v1')
+if ($v == 1)
 {
 	$object = new Dolicloud_customers($db, $db2);
 	$result=$object->fetch('',$instance);
@@ -126,7 +126,7 @@ if ($result <= 0)
 	exit(-2);
 }
 
-if ($v != 'v1')
+if ($v != 1)
 {
 	$object->instance = $object->ref_customer;
 	$object->username_web = $object->array_options['options_username_os'];
@@ -150,11 +150,9 @@ if (! is_dir($dirroot))
 $dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
 $login=$object->username_web;
 $password=$object->password_web;
-if ($v != 'v1')
+if ($v != 1)
 {
 	$sourcedir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$login.'/'.$dirdb;
-	$server=$object->ref_customer;
-
 	$server=$object->array_options['options_hostname_os'];
 }
 else
