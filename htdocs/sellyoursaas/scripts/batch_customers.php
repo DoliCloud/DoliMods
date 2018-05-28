@@ -128,10 +128,10 @@ if ($instancefilter == 'old')
 }
 else
 {
-	// Add on.dolicloud.com to have a complete instance id
-	if (! empty($instancefiltercomplete) && ! preg_match('/(\.on|\.with)\.dolicloud\.com$/',$instancefiltercomplete))
+	// Force $v according to hard coded values (keep v2 in default case)
+	if (! empty($instancefiltercomplete) && ! preg_match('/(\.on|\.with)\.dolicloud\.com$/',$instancefiltercomplete)  && ! preg_match('/\.home\.lan$/',$instancefiltercomplete))
 	{
-		$instancefiltercomplete=$instancefiltercomplete.'.on.dolicloud.com';
+		$instancefiltercomplete=$instancefiltercomplete . $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
 	}
 	if (! empty($instancefiltercomplete) && preg_match('/\.on\.dolicloud\.com$/',$instancefiltercomplete)) {
 		$v=1;
@@ -223,7 +223,7 @@ if ($resql)
 						if ($ispaymentko) $payment_status='FAILURE';
 					}
 				}
-				print "status=".$instance_status." instance_status=".$instance_status_bis." payment_status=".$payment_status."\n";
+				print "Process instance V".$v." ".$instance." status=".$instance_status." instance_status=".$instance_status_bis." payment_status=".$payment_status."\n";
 
 				// Count
 				if (! in_array($payment_status,array('TRIAL','TRIALING','TRIAL_EXPIRED')))
@@ -239,12 +239,17 @@ if ($resql)
 						else $nbofactiveok++; // not suspended, not close request
 
 						$instances[$obj->id]=$instance;
-						print "Found instance ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$obj->subscription_status."\n";
+						print "Qualify instance V".$v." ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$obj->subscription_status."\n";
 					}
 					else
 					{
 						//print "Found instance ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$obj->subscription_status."\n";
 					}
+				}
+				elseif ($instancefiltercomplete)
+				{
+					$instances[$obj->id]=$instance;
+					print "Qualify instance V".$v." ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$obj->subscription_status."\n";
 				}
 				else
 				{
