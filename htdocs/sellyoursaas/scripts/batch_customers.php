@@ -323,7 +323,7 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 			{
 				$db->begin();
 
-				if ($action == 'backup')	// If  $action == 'backuprsync' || $action == 'backupdatabase', backup is not complete, we do not save
+				if ($action == 'backup')	// If  $action == 'backuprsync' || $action == 'backupdatabase', backup is not complete on purpose, we do not save status
 				{
 					if ($v == 1)
 					{
@@ -347,7 +347,7 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 			{
 				$db->begin();
 
-				if ($action == 'backup')
+				if ($action == 'backup')	// If  $action == 'backuprsync' || $action == 'backupdatabase', backup is not complete on purpose, we do not save status
 				{
 					if ($v == 1)
 					{
@@ -404,12 +404,13 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 	// Loop on each instance
 	if (! $error && $action != 'updatestatsonly')
 	{
+		$i=0;
 		foreach($instances as $instance)
 		{
 			$return_val=0; $error=0; $errors=array();
 
 			// Run database update
-			print "Process update database info (nb of user) of instance ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
+			print "Process update database info (nb of user) of instance ".($i+1)." V".$v." ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
 
 			$db->begin();
 
@@ -457,6 +458,8 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 				print 'KO. '.join(',',$errors)."\n";
 				$db->rollback();
 			}
+			
+			$i++;
 		}
 	}
 
