@@ -38,6 +38,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 // Global variables
 $version='1.0';
 $error=0;
+$RSYNCDELETE=0;
 
 $instance=isset($argv[1])?$argv[1]:'';
 $dirroot=isset($argv[2])?$argv[2]:'';
@@ -229,8 +230,15 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	$param[]="--exclude '*/test/'";
 	$param[]="--exclude '*/temp/'";
 	$param[]="--exclude '*/documents/admin/backup/'";
-	//$param[]="--backup --suffix=.old --delete --delete-excluded";
-	$param[]="--backup --suffix=.old";
+	$param[]="--exclude '*/_source/*'";
+	if ($RSYNCDELETE)
+	{
+		$param[]="--backup --suffix=.old --delete --delete-excluded";
+	}
+	else
+	{
+		$param[]="--backup --suffix=.old";
+	}
 	$param[]="--stats";
 	$param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o PasswordAuthentication=no'";
 
