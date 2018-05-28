@@ -78,6 +78,8 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors, $printoutput=0)
 				// Create authorized_keys file
 				if (empty($fstat['atime']))
 				{
+					@ssh2_sftp_mkdir($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/.ssh');
+
 					if ($printoutput) print 'Write file '.$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/.ssh/authorized_keys'."\n";
 
 					$stream = @fopen($filecert, 'w');
