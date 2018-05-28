@@ -226,7 +226,7 @@ if ($resql)
 					}
 				}
 				if (empty($instance_status_bis)) $instance_status_bis=$instance_status;
-				print "Process instance V".$v." ".$instance." status=".$instance_status." instance_status=".$instance_status_bis." payment_status=".$payment_status."\n";
+				print "Analyze instance ".($i+1)." V".$v." ".$instance." status=".$instance_status." instance_status=".$instance_status_bis." payment_status=".$payment_status."\n";
 
 				// Count
 				if (! in_array($payment_status,array('TRIAL','TRIALING','TRIAL_EXPIRED')))
@@ -284,6 +284,7 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 	// Loop on each instance
 	if (! $error)
 	{
+		$i = 0;
 		foreach($instances as $instance)
 		{
 			$now=dol_now();
@@ -291,7 +292,7 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 			$return_val=0; $error=0; $errors=array();	// No error by default into each loop
 
 			// Run backup
-			print "Process backup of instance ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
+			print "Process backup of instance ".($i+1)." V".$v." ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
 
 			$mode = 'unknown';
 			$mode = ($action == 'backup'?'confirm':$mode);
