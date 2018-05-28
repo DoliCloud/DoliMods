@@ -211,7 +211,8 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	if ($mode != 'confirm' && $mode != 'confirmrsync') $param[]="-n";
 	//$param[]="-a";
 	$param[]="-rltz";
-	$param[]="-vv";
+	//$param[]="-vv";
+	$param[]="-v";
 	$param[]="--exclude .buildpath";
 	$param[]="--exclude .git";
 	$param[]="--exclude .gitignore";
