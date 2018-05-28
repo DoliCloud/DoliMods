@@ -372,7 +372,6 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	//$object->email = $object->thirdparty->email;
 
 	// Contract card
-
 	if (empty($instanceoldid))
 	{
 		$linkback = '<a href="'.DOL_URL_ROOT.'/contrat/list.php?restore_lastsearch_values=1'.(! empty($socid)?'&socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';

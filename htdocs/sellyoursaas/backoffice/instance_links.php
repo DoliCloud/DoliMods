@@ -251,7 +251,14 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 	// Contract card
 
-	$linkback = '<a href="'.DOL_URL_ROOT.'/contrat/list.php?restore_lastsearch_values=1'.(! empty($socid)?'&socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
+	if (empty($instanceoldid))
+	{
+		$linkback = '<a href="'.DOL_URL_ROOT.'/contrat/list.php?restore_lastsearch_values=1'.(! empty($socid)?'&socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
+	}
+	else
+	{
+		$linkback = '<a href="'.dol_buildpath('/sellyoursaas/backoffice/dolicloud_list.php',1).'?instanceoldid='.$instanceoldid.'&restore_lastsearch_values=1'.(! empty($socid)?'&socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
+	}
 
 	$morehtmlref='';
 
