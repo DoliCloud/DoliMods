@@ -300,7 +300,7 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 			$mode = ($action == 'backuptestdatabase'?'testdatabase':$mode);
 			$mode = ($action == 'backuptestrsync'?'testrsync':$mode);
 
-			$command=($path?$path:'')."backup_instance.php ".escapeshellarg($instance)." ".escapeshellarg($conf->global->DOLICLOUD_BACKUP_PATH)." ".$mode);
+			$command=($path?$path:'')."backup_instance.php ".escapeshellarg($instance)." ".escapeshellarg($conf->global->DOLICLOUD_BACKUP_PATH)." ".$mode;
 			echo $command."\n";
 
 			if ($action == 'backup')
