@@ -71,16 +71,6 @@ if ($db2->error)
 	exit;
 }
 
-if ($v != 'v1')
-{
-	include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-	$object = new Contrat($db);
-}
-else
-{
-	$object = new Dolicloud_customers($db, $db2);
-}
-
 
 /*
  *	Main
@@ -88,36 +78,52 @@ else
 
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
-	print "Usage:   $script_file instance    backup_dir  [testrsync|testdatabase|confirmrsync|confirmdatabase|confirm] (v1)\n";
+	print "Usage:   $script_file instance    backup_dir  [testrsync|testdatabase|confirmrsync|confirmdatabase|confirm]  (old)\n";
 	print "Example: $script_file myinstance  ".$conf->global->DOLICLOUD_BACKUP_PATH."  testrsync\n";
 	print "Note:    ssh keys must be authorized to have testrsync and confirmrsync working\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);
 }
 
-if ($v != 'v1')
+
+// Use instance to detect if v1 or v2 or instance
+if ($v == 'old')
 {
-	$result=$object->fetch('','',$instance);
+	$v=1;
 }
 else
 {
+	$v=2;
+	// Force $v according to hard coded values (keep v2 in default case)
+	if (! empty($instance) && ! preg_match('/(\.on|\.with)\.dolicloud\.com$/',$instance)  && ! preg_match('/\.home\.lan$/',$instance))
+	{
+		$instance=$instance . $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
+	}
+	if (! empty($instance) && preg_match('/\.on\.dolicloud\.com$/',$instance)) {
+		$v=1;
+	}
+	if (! empty($instance) && preg_match('/\.with\.dolicloud\.com$/',$instance)) {
+		$v=2;
+	}
+}
+
+
+if ($v == 'v1')
+{
+	$object = new Dolicloud_customers($db, $db2);
 	$result=$object->fetch('',$instance);
 }
+else
+{
+	include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+	$object = new Contrat($db);
+	$result=$object->fetch('', '', $instance);
+}
+
 if ($result <= 0)
 {
-	if ($v != 'v1')
-	{
-		$result=$object->fetch('','',$instance.'.with.dolicloud.com');
-	}
-	else
-	{
-		$result=$object->fetch('',$instance.'.with.dolicloud.com');
-	}
-	if ($result <= 0)
-	{
-		print "Error: instance ".$instance." not found.\n";
-		exit(-2);
-	}
+	print "Error: instance ".$instance." for v".$v." not found.\n";
+	exit(-2);
 }
 
 if ($v != 'v1')
