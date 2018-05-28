@@ -88,6 +88,8 @@ if (! isset($argv[1])) {	// Check parameters
     print "\n";
     print "- backuptestrsync     test rsync backup\n";
     print "- backuptestdatabase  test mysqldump backup\n";
+    print "- backuprsync         creates backup (rsync)\n";
+    print "- backupdatabase      creates backup (mysqldump)\n";
     print "- backup              creates backup (rsync + mysqldump)\n";
     print "- updatedatabase      (=updatecountsonly+updatestatsonly) updates list and nb of users, modules and version and stats\n";
     print "- updatecountsonly    updates counters of instances only (only nb of user for instances)\n";
@@ -271,7 +273,7 @@ print "Found ".count($instances)." not trial instances including ".$nbofactivesu
 
 
 //print "----- Start loop for backup_instance\n";
-if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptestdatabase')
+if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabase' || $action == 'backuptestrsync' || $action == 'backuptestdatabase')
 {
 	if (empty($conf->global->DOLICLOUD_BACKUP_PATH))
 	{
@@ -291,7 +293,14 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 			// Run backup
 			print "Process backup of instance ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
 
-			$command=($path?$path:'')."backup_instance.php ".escapeshellarg($instance)." ".escapeshellarg($conf->global->DOLICLOUD_BACKUP_PATH)." ".($action == 'backup'?'confirm':($action == 'backuptestdatabase'?'testdatabase':'testrsync'));
+			$mode = 'unknown';
+			$mode = ($action == 'backup'?'confirm':$mode);
+			$mode = ($action == 'backuprsync'?'confirmrsync':$mode);
+			$mode = ($action == 'backupdatabase'?'confirmdatabase':$mode);
+			$mode = ($action == 'backuptestdatabase'?'testdatabase':$mode);
+			$mode = ($action == 'backuptestrsync'?'testrsync':$mode);
+
+			$command=($path?$path:'')."backup_instance.php ".escapeshellarg($instance)." ".escapeshellarg($conf->global->DOLICLOUD_BACKUP_PATH)." ".$mode);
 			echo $command."\n";
 
 			if ($action == 'backup')
@@ -313,7 +322,7 @@ if ($action == 'backup' || $action == 'backuptestrsync' || $action == 'backuptes
 			{
 				$db->begin();
 
-				if ($action == 'backup')
+				if ($action == 'backup')	// If  $action == 'backuprsync' || $action == 'backupdatabase', backup is not complete, we do not save
 				{
 					if ($v == 1)
 					{
