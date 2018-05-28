@@ -381,6 +381,8 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 				$instancesbackuperror[]=$instance;
 				print 'Process fails for '.$instance."\n";
 			}
+
+			$i++;
 		}
 	}
 }
