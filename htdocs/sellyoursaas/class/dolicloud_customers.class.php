@@ -953,19 +953,30 @@ class Dolicloud_customers extends CommonObject
 	 *  Return name of contact with link (and eventually picto)
 	 *	Use $this->id, $this->name, $this->firstname, this->civility_id
 	 *
-	 *	@param		int			$withpicto		Include picto with link
-	 *	@param		string		$option			Where the link point to
-	 *	@param		int			$maxlen			Max length of
-	 *  @param      string      $prefixurl      Prefix url
-	 *	@return		string						String with URL
+	 *	@param		int			$withpicto					Include picto with link
+	 *	@param		string		$option						Where the link point to
+	 *	@param		int			$maxlen						Max length of
+	 *  @param      string      $prefixurl      			Prefix url
+	 *  @param  	int     	$save_lastsearch_value    	-1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
+	 *	@return		string									String with URL
 	 */
-	function getNomUrl($withpicto=0,$option='',$maxlen=0,$prefixurl='')
+	function getNomUrl($withpicto=0, $option='', $maxlen=0, $prefixurl='', $save_lastsearch_value=-1)
 	{
 	    global $langs;
 
 	    $result='';
 
-	    $lien = '<a href="'.dol_buildpath('/sellyoursaas/backoffice/instance_info.php',1).'?instanceoldid='.$this->id.'">';
+	    $url = dol_buildpath('/sellyoursaas/backoffice/instance_info.php',1).'?instanceoldid='.$this->id;
+
+	    if ($option != 'nolink')
+	    {
+	    	// Add param to save lastsearch_values or not
+	    	$add_save_lastsearch_values=($save_lastsearch_value == 1 ? 1 : 0);
+	    	if ($save_lastsearch_value == -1 && preg_match('/list\.php/',$_SERVER["PHP_SELF"])) $add_save_lastsearch_values=1;
+	    	if ($add_save_lastsearch_values) $url.='&save_lastsearch_values=1';
+	    }
+
+	    $lien = '<a href="'.$url.'">';
 	    $lienfin='</a>';
 
 	    if ($withpicto) $result.=($lien.img_object($langs->trans("ShowCustomer").': '.$this->ref,'generic').$lienfin.' ');
