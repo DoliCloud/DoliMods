@@ -658,7 +658,6 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	
 	echo Search sellyoursaas credential
 	passsellyoursaas=`cat /root/sellyoursaas`
-	echo $passsellyoursaas
 	if [[ "x$passsellyoursaas" == "x" ]]; then
 		echo Search sellyoursaas credential 2
 		passsellyoursaas=`cat /tmp/sellyoursaas`

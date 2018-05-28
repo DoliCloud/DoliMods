@@ -55,7 +55,6 @@ MYSQL=`which mysql`
 MYSQLDUMP=`which mysqldump`
 echo "Search sellyoursaas database credential in /root/sellyoursaas"
 passsellyoursaas=`cat /root/sellyoursaas`		# First seach into root
-#echo $passsellyoursaas
 if [[ "x$passsellyoursaas" == "x" ]]; then
 	echo Search sellyoursaas credential 2
 	passsellyoursaas=`cat /tmp/sellyoursaas`	# Then search into /tmp
