@@ -29,7 +29,7 @@
  */
 function refreshContract(Contrat $contract)
 {
-	dol_syslog("Scan customer instance to get fresh data (remote v1 on v2)");
+	dol_syslog("Scan customer instance to get fresh data (remote v1 or v2)");
 
 	if (empty($contract->array_options['options_hostname_db']) || empty($contract->array_options['options_username_db']))
 	{
@@ -41,7 +41,7 @@ function refreshContract(Contrat $contract)
 	if (is_object($dbcustomerinstance) && $dbcustomerinstance->connected)
 	{
 		// Get user/pass of last admin user
-		$sql="SELECT login, pass, admin FROM llx_user WHERE statut = 1 ORDER BY statut DESC, datelastlogin DESC";
+		$sql="SELECT login, pass, admin FROM llx_user WHERE statut = 1 AND login <> '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."' ORDER BY statut DESC, datelastlogin DESC";
 		$resql=$dbcustomerinstance->query($sql);
 
 		if ($resql)

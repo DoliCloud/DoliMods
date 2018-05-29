@@ -112,6 +112,7 @@ if ($action == 'set')
 		dolibarr_set_const($db,"SELLYOURSAAS_PUBLIC_KEY",GETPOST("SELLYOURSAAS_PUBLIC_KEY",'none'),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_ANONYMOUSUSER",GETPOST("SELLYOURSAAS_ANONYMOUSUSER",'none'),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"SELLYOURSAAS_LOGIN_FOR_SUPPORT",GETPOST("SELLYOURSAAS_LOGIN_FOR_SUPPORT",'none'),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_SOFT_ALERT",GETPOST("SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_SOFT_ALERT",'int'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_HARD_ALERT",GETPOST("SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_HARD_ALERT",'int'),'chaine',0,'',$conf->entity);
@@ -512,6 +513,13 @@ print '<td>';
 print $form->select_dolusers($conf->global->SELLYOURSAAS_ANONYMOUSUSER, 'SELLYOURSAAS_ANONYMOUSUSER', 1);
 print '</td>';
 print '<td>User used for all anonymous action (registering, actions from customer dashboard, ...)</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("LoginForSupport").'</td>';
+print '<td>';
+print '<input type="text" name="SELLYOURSAAS_LOGIN_FOR_SUPPORT" value="'.$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT.'">';
+print '</td>';
+print '<td>Login to use to create a support user account on customer instances</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_SOFT_ALERT").'</td>';

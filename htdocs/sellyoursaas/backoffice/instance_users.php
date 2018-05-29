@@ -147,7 +147,7 @@ if (empty($reshook))
 	    	// TODO Use the encryption of remote instance
 	    	$password_crypted = dol_hash($password);
 
-	    	$sql="INSERT INTO llx_user(login, admin, pass, pass_crypted, entity) VALUES('supportdolicloud', 1, 'supportdolicloud', '".$newdb->escape($password_crypted)."', 0)";
+	    	$sql="INSERT INTO llx_user(login, admin, pass, pass_crypted, entity) VALUES('".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', 1, '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$newdb->escape($password_crypted)."', 0)";
 	        $resql=$newdb->query($sql);
 	        if (! $resql)
 	        {
@@ -163,12 +163,12 @@ if (empty($reshook))
 		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 	    if (is_object($newdb))
 	    {
-	        $sql="DELETE FROM llx_user_rights where fk_user IN (SELECT rowid FROM llx_user WHERE login = 'supportdolicloud')";
+	    	$sql="DELETE FROM llx_user_rights where fk_user IN (SELECT rowid FROM llx_user WHERE login = '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."')";
 	        $resql=$newdb->query($sql);
 	        if (! $resql) dol_print_error($newdb);
 
 	    	// Get user/pass of last admin user
-	        $sql="DELETE FROM llx_user WHERE login = 'supportdolicloud'";
+	        $sql="DELETE FROM llx_user WHERE login = '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."'";
 	        $resql=$newdb->query($sql);
 	        if (! $resql) dol_print_error($newdb);
 	    }
