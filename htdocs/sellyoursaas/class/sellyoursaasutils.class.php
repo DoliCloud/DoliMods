@@ -1225,7 +1225,7 @@ class SellYourSaasUtils
     /**
      * Action executed by scheduler
      * CAN BE A CRON TASK
-     * Loop on each contract. If it is a paid contract, and there is no unpayed invoice for contract, and end date < today + 2 days (so expired or soon expired), we update the running contract service end date to end at next period.
+     * Loop on each contract. If it is a paid contract, and there is no unpayed invoice for contract, and end date < today + 2 days (so expired or soon expired), we update qty of contract + qty of linked template invoce + the running contract service end date to end at next period.
      *
      * @param	int		$thirdparty_id			Thirdparty id
      * @return	int								0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
@@ -1354,17 +1354,32 @@ class SellYourSaasUtils
 
     					if ($protecti < 1000)
     					{
-    						$sqlupdate = 'UPDATE '.MAIN_DB_PREFIX."contratdet SET date_fin_validite = '".$this->db->idate($newdate)."'";
-    						$sqlupdate.= ' WHERE fk_contrat = '.$object->id;
-    						$resqlupdate = $this->db->query($sqlupdate);
-    						if ($resqlupdate)
-    						{
-    							$contractprocessed[$object->id]=$object->ref;
-    						}
-    						else
+    						// We will update the end of date of contrat, so first we refresh contract data
+    						dol_syslog("We will update the end of date of contract with newdate=".dol_print_date($newdate, 'dayhourrfc')." but first we update qty of resources.");
+
+    						// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines + linked invoices
+    						$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
+    						if ($result <= 0)
     						{
     							$error++;
-    							$this->error = $this->db->lasterror();
+    							$this->error=$this->error;
+    							$this->errors=$this->errors;
+    						}
+
+    						if (! $error)
+    						{
+	    						$sqlupdate = 'UPDATE '.MAIN_DB_PREFIX."contratdet SET date_fin_validite = '".$this->db->idate($newdate)."'";
+	    						$sqlupdate.= ' WHERE fk_contrat = '.$object->id;
+	    						$resqlupdate = $this->db->query($sqlupdate);
+	    						if ($resqlupdate)
+	    						{
+	    							$contractprocessed[$object->id]=$object->ref;
+	    						}
+	    						else
+	    						{
+	    							$error++;
+	    							$this->error = $this->db->lasterror();
+	    						}
     						}
     					}
     					else
@@ -1769,7 +1784,7 @@ class SellYourSaasUtils
     /**
      * Make a remote action on a contract (deploy/undeploy/suspend/unsuspend/...)
      *
-     * @param	string					$remoteaction	Remote action ('suspend/unsuspend'=change apache virtual file, 'deploy/undeploy'=create/delete database, 'refresh'=read remote data)
+     * @param	string					$remoteaction	Remote action ('suspend/unsuspend'=change apache virtual file, 'deploy/undeploy'=create/delete database, 'refresh'=update status of install.lock+authorized key + loop on each line and read remote data and update qty of metrics)
      * @param 	Contrat|ContratLigne	$object			Object contract or contract line
      * @param	string					$appusername	App login
      * @param	string					$email			Initial email
@@ -1994,6 +2009,7 @@ class SellYourSaasUtils
     		$producttmp = new Product($this->db);
     		$producttmp->fetch($tmpobject->fk_product);
 
+    		// remoteaction = 'deploy','deployall','suspend','unsuspend','undeploy'
     		if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
     			in_array($remoteaction, array('deploy','deployall','suspend','unsuspend','undeploy')) &&
     			($producttmp->array_options['options_app_or_option'] == 'app' || $producttmp->array_options['options_app_or_option'] == 'option'))
@@ -2177,6 +2193,7 @@ class SellYourSaasUtils
     			}
     		}
 
+    		// remoteaction = refresh => update the qty for this line if it is a line that is a metric
     		if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
     			$remoteaction == 'refresh')
     		{
@@ -2318,13 +2335,92 @@ class SellYourSaasUtils
     				}
 
     				if (! $error && $newqty != $currentqty)
+    				//if (! $error)
     				{
+    					// tmpobject is contract line
     					$tmpobject->qty = $newqty;
     					$result = $tmpobject->update($user);
     					if ($result <= 0)
     					{
     						$error++;
     						$this->error = 'Failed to update the count for product '.$producttmp->ref;
+    					}
+    					else
+    					{
+    						// Test if there is template invoice linkded
+    						$contract->fetchObjectLinked();
+
+    						if (is_array($contract->linkedObjects['facturerec']) && count($contract->linkedObjects['facturerec']) > 0)
+    						{
+    							//dol_sort_array($contract->linkedObjects['facture'], 'date');
+    							$sometemplateinvoice=0;
+    							$lasttemplateinvoice=null;
+    							foreach($contract->linkedObjects['facturerec'] as $invoice)
+    							{
+    								//if ($invoice->suspended == FactureRec::STATUS_SUSPENDED) continue;	// Draft invoice are not invoice not paid
+    								$sometemplateinvoice++;
+    								$lasttemplateinvoice=$invoice;
+    							}
+    							if ($sometemplateinvoice > 1)
+    							{
+    								$error++;
+    								$this->error = 'Contract '.$object->ref.' has too many template invoice ('.$someinvoicenotpaid.') so we dont know which one to update';
+    							}
+    							elseif (is_object($lasttemplateinvoice))
+    							{
+    								$sqlsearchline = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'facturedet_rec WHERE fk_facture = '.$lasttemplateinvoice->id.' AND fk_product = '.$tmpobject->fk_product;
+    								$resqlsearchline = $this->db->query($sqlsearchline);
+    								if ($resqlsearchline)
+    								{
+    									$num_search_line = $this->db->num_rows($resqlsearchline);
+    									if ($num_search_line > 1)
+    									{
+    										$error++;
+    										$this->error = 'Contract '.$object->ref.' has a template invoice with id ('.$lasttemplateinvoice->id.') that has several lines for product id '.$tmpobject->fk_product.' so we don t know wich line to update qty';
+    									}
+    									else
+    									{
+	    									$objsearchline = $this->db->fetch_object($resqlsearchline);
+	    									if ($objsearchline)	// If empty, it means, template invoice has no line corresponding to contract line
+	    									{
+	    										// Update qty
+	    										$invoicerecline = new FactureLigneRec($this->db);
+	    										$invoicerecline->fetch($objsearchline->rowid);
+
+	    										$tabprice = calcul_price_total($newqty, $invoicerecline->subprice, $invoicerecline->remise_percent, $invoicerecline->tva_tx, $invoicerecline->localtax1_tx, $invoicerecline->txlocaltax2, 0, 'HT', $invoicerecline->info_bits, $invoicerecline->product_type, $mysoc, array(), 100);
+
+	    										$invoicerecline->qty = $newqty;
+
+	    										$invoicerecline->total_ht  = $tabprice[0];
+	    										$invoicerecline->total_tva = $tabprice[1];
+	    										$invoicerecline->total_ttc = $tabprice[2];
+	    										$invoicerecline->total_localtax1 = $tabprice[9];
+	    										$invoicerecline->total_localtax2 = $tabprice[10];
+
+	    										$result = $invoicerecline->update($user);
+
+	    										$result = $lasttemplateinvoice->update_price();
+	    									}
+    									}
+    								}
+    								else
+    								{
+    									$error++;
+    									$this->error = $this->db->lasterror();
+    								}
+    							}
+    						}
+    					}
+    				}
+
+    				if (! $error)
+    				{
+   						$contract->array_options['options_latestresupdate_date']=dol_now();
+    					$result = $contract->update($user);
+    					if ($result <= 0)
+    					{
+    						$error++;
+    						$this->error = 'Failed to update field options_latestresupdate_date on contract '.$contract->ref;
     					}
     				}
     			}

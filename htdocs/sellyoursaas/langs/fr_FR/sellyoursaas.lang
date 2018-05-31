@@ -306,3 +306,4 @@ PleaseBeSureCustomerAccount=Afin de confirmer la suppression de votre compte, me
 ErrorEmailMustMatch=Erreur, l'email du compte à supprimer doit correspondre à votre email
 YourAccountHasBeenClosed=Votre compte a été fermé.
 SorryAccountDeleted=Désolé, ce compte semble fermé. Merci de nous contacter (%s) si vous désirez recréer un compte avec ce login/email.
+LatestResUpdateDate=Date dernière mise à jour resources

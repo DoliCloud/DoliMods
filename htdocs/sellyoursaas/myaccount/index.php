@@ -610,6 +610,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 		{
 			foreach ($listofcontractid as $contract)
 			{
+				// Make a test to pass loop if there is already a template invoice
 				$result = $contract->fetchObjectLinked();
 				if ($result < 0)
 				{
@@ -618,13 +619,18 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 				if (! empty($contract->linkedObjectsIds['facturerec']))
 				{
 					$templateinvoice = reset($contract->linkedObjectsIds['facturerec']);
-					if ($templateinvoice > 0)	// There is already a template invoice, so we discard this contract to avoid to create template twice
+					if ($templateinvoice > 0)			// There is already a template invoice, so we discard this contract to avoid to create template twice
 					{
 						continue;
 					}
 				}
 
 				dol_syslog("* No recurring invoice found for this contract contract_id = ".$contract->id.", so we create one.");
+
+
+				// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines
+				$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
+
 
 				// Now create invoice draft
 				$dateinvoice = $contract->array_options['options_date_endfreeperiod'];
@@ -667,7 +673,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 				// Add lines on invoice
 				if (! $error)
 				{
-					// Add lines of invoice
+					// Add lines of contract to template invoice
 					$srcobject = $contract;
 
 					$lines = $srcobject->lines;
@@ -1607,6 +1613,8 @@ if (empty($welcomecid))
 
 	foreach ($listofcontractid as $contractid => $contract)
 	{
+		if ($mode == 'mycustomerbilling') continue;
+		if ($mode == 'mycustomerinstances') continue;
 		if ($contract->array_options['options_deployment_status'] == 'undeployed') continue;
 
 		$isAPayingContract = sellyoursaasIsPaidInstance($contract);		// At least one template or final invoice
@@ -3516,9 +3524,15 @@ if ($mode == 'mycustomerinstances')
 			<div class="linked-flds">
 			<span class="opacitymedium">https://</span>
 			<input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="" maxlength="29" required />
-			<select name="tldid" id="tldid" >
-			<option value=".with.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'" >.with.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'</option>
-			</select>
+			<select name="tldid" id="tldid" >';
+				$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+				foreach($listofdomain as $val)
+				{
+					$newval=$val;
+					if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
+					print '<option value="'.$newval.'">'.$newval.'</option>';
+				}
+			print '</select>
 			<br class="unfloat" />
 			</div>
 			</div>

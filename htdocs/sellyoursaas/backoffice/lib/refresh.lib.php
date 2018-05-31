@@ -15,12 +15,12 @@ include_once(DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php');
  * Process refresh of setup files for customer $object.
  * This does not update any lastcheck fields.
  *
- * @param 	Conf				$conf			Conf
- * @param 	Database			$db				Database handler
- * @param 	DoliCloudCustomer 	$object	    	Customer (can modify caller)
- * @param	array				$errors	    	Array of errors
- * @param	int					$printoutput	Print output information
- * @return	int									1
+ * @param 	Conf						$conf			Conf
+ * @param 	Database					$db				Database handler
+ * @param 	Contract|DoliCloudCustomer 	$object	    	Customer (can modify caller)
+ * @param	array						$errors	    	Array of errors
+ * @param	int							$printoutput	Print output information
+ * @return	int											1
  */
 function dolicloud_files_refresh($conf, $db, &$object, &$errors, $printoutput=0)
 {
@@ -132,18 +132,40 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors, $printoutput=0)
 /**
  * Process refresh of database for customer $object
  * This also update database field lastcheck.
- * This set a lot of object->xxx properties (lastlogin_admin, lastpass_admin, nbofusers,
- * modulesenabled, version, date_lastcheck, lastcheck)
+ * This set a lot of object->xxx properties
+ * 	->lastlogin_admin, ->lastpass_admin,
+ * 	->nbofusers,
+ * 	->modulesenabled, version, date_lastcheck, lastcheck
  *
- * @param 	Conf				$conf		Conf
- * @param 	Database			$db			Database handler
- * @param 	DoliCloudCustomer 	$object	    Customer (can modify caller)
- * @param	array				$errors	    Array of errors
- * @return	int								1
+ * @param 	Conf						$conf		Conf
+ * @param 	Database					$db			Database handler
+ * @param 	Contract|DoliCloudCustomer 	$object	    Customer (can modify caller)
+ * @param	array						$errors	    Array of errors
+ * @return	int										1
  */
 function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 {
-	$newdb=getDoliDBInstance('mysqli', $object->instance.'.on.dolicloud.com', $object->username_db, $object->password_db, $object->database_db, 3306);
+	$instance = $object->instance;
+	if (empty($instance)) $instance = $object->ref_customer;
+	$username_web = $object->username_web;
+	if (empty($username_web)) $username_web = $object->array_options['options_username_os'];
+	$password_web = $object->password_web;
+	if (empty($password_web)) $password_web = $object->array_options['options_password_os'];
+
+	$username_db = $object->username_db;
+	if (empty($username_db)) $username_db = $object->array_options['options_username_db'];
+	$password_db = $object->password_db;
+	if (empty($password_db)) $password_db = $object->array_options['options_password_db'];
+	$database_db = $object->database_db;
+	if (empty($database_db)) $database_db = $object->array_options['options_database_db'];
+
+	$server=$instance;
+	if (! preg_match('/on\.dolicloud\.com/', $instance) && ! preg_match('/with\.dolicloud\.com/', $instance) && ! preg_match('/home\.lan/', $instance))
+	{
+		$server=$instance.'.on.dolicloud.com';
+	}
+
+	$newdb=getDoliDBInstance('mysqli', $server, $username_db, $password_db, $database_db, 3306);
 
 	$ret=1;
 
@@ -167,7 +189,7 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 			// Get user/pass of last admin user
 			if (! $error)
 			{
-				$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
+				$sql="SELECT login, pass FROM llx_user WHERE admin = 1 AND login <> '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."' ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
 				$resql=$newdb->query($sql);
 				if ($resql)
 				{
@@ -217,7 +239,7 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 			// Get nb of users
 			if (! $error)
 			{
-				$sql="SELECT COUNT(login) as nbofusers FROM llx_user WHERE statut <> 0";
+				$sql="SELECT COUNT(login) as nbofusers FROM llx_user WHERE statut <> 0 AND login <> '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."'";
 				$resql=$newdb->query($sql);
 				if ($resql)
 				{
@@ -232,7 +254,7 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 			// Get last login of users
 			if (! $error)
 			{
-				$sql="SELECT login, pass, datelastlogin FROM llx_user WHERE statut <> 0 ORDER BY datelastlogin DESC LIMIT 1";
+				$sql="SELECT login, pass, datelastlogin FROM llx_user WHERE statut <> 0 AND login <> '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."' ORDER BY datelastlogin DESC LIMIT 1";
 				$resql=$newdb->query($sql);
 				if ($resql)
 				{
@@ -245,7 +267,7 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 				else
 				{
 					$error++;
-					$errors[]='Failed to connect to database '.$object->instance.'.on.dolicloud.com'.' '.$object->username_db;
+					$errors[]='Failed to connect to database '.$instance.'.on.dolicloud.com'.' '.$username_db;
 				}
 			}
 
@@ -253,7 +275,7 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 		}
 		else
 		{
-			$errors[]='Failed to connect '.$conf->db->type.' '.$object->instance.'.on.dolicloud.com '.$object->username_db.' '.$object->password_db.' '.$object->database_db.' 3306';
+			$errors[]='Failed to connect '.$conf->db->type.' '.$instance.'.on.dolicloud.com '.$username_db.' '.$password_db.' '.$database_db.' 3306';
 			$ret=-1;
 		}
 
@@ -265,6 +287,10 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 			$object->date_lastcheck=$now;
 			$object->lastcheck=$now;	// For backward compatibility
 
+			//$object->array_options['options_filelock']=$now;
+			//$object->array_options['options_fileauthorizekey']=$now;
+			//$object->array_options['options_latestresupdate_date']=$now;
+
 			$result = $object->update($user);	// persist
 			if (method_exists($object,'update_old')) $result = $object->update_old($user);	// persist
 
@@ -274,11 +300,15 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 				if ($object->error) $errors[]=$object->error;
 				$errors=array_merge($errors,$object->errors);
 			}
+			else
+			{
+				//var_dump($object);
+			}
 		}
 	}
 	else
 	{
-		$errors[]='Failed to connect '.$conf->db->type.' '.$object->instance.'.on.dolicloud.com '.$object->username_db.' '.$object->password_db.' '.$object->database_db.' 3306';
+		$errors[]='Failed to connect '.$conf->db->type.' '.$server.' '.$username_db.' '.$password_db.' '.$database_db.' 3306';
 		$ret=-1;
 	}
 
