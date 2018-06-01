@@ -2446,18 +2446,17 @@ class SellYourSaasUtils
     		}
     	}
 
-    	if (! $error)
+    	if (! $error && get_class($object) == 'Contrat')
     	{
     		// Create an event
-
     		$actioncomm = new ActionComm($this->db);
     		$actioncomm->type_code   = 'AC_OTH_AUTO';		// Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
     		$actioncomm->code        = 'AC_'.$action;
-    		$actioncomm->label       = 'Remote action '.$remoteaction.' on contract '.$object->ref;
+    		$actioncomm->label       = 'Remote action '.$remoteaction.' on contract'.(preg_match('/PROV/', $object->ref) ? '' : ' '.$object->ref);
     		$actioncomm->datep       = $now;
     		$actioncomm->datef       = $now;
     		$actioncomm->percentage  = -1;   // Not applicable
-    		$actioncomm->socid       = $contract->thirdparty->id;
+    		$actioncomm->socid       = $object->socid;
     		$actioncomm->authorid    = $user->id;   // User saving action
     		$actioncomm->userownerid = $user->id;	// Owner of action
     		$actioncomm->fk_element  = $object->id;
