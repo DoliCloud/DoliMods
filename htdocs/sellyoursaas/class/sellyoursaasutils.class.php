@@ -1141,7 +1141,6 @@ class SellYourSaasUtils
     						$actioncomm->elementtype = $invoice->element;
 
     						$actioncomm->create($user);
-
     					}
     					else
     					{
