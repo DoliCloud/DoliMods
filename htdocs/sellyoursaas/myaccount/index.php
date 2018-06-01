@@ -722,6 +722,23 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 						if ($lines[$i]->date_end)
 							$date_end = $lines[$i]->date_end;
 
+						// If date start is in past, we set it to now
+						$now = dol_now();
+						if ($date_start < $now)
+						{
+							dol_syslog("Date start is in past, so we take current date as date start and update also end date of contract");
+							$tmparray = sellyoursaasGetExpirationDate($srcobject);
+							$duration_value = $tmparray['duration_value'];
+							$duration_unit = $tmparray['duration_unit'];
+
+							$date_start = $now;
+							$date_end = dol_time_plus_duree($now, $duration_value, $duration_unit) - 1;
+
+							// BecauseWe update the end date planned of contract too
+							$sqltoupdateenddate = 'UPDATE '.MAIN_DB_PREFIX."contratdet SET date_fin_validite = '".$db->idate($date_end)."' WHERE fk_contrat = ".$srcobject->id;
+							$resqltoupdateenddate = $db->query($sqltoupdateenddate);
+						}
+
 						// Reset fk_parent_line for no child products and special product
 						if (($lines[$i]->product_type != 9 && empty($lines[$i]->fk_parent_line)) || $lines[$i]->product_type == 9) {
 							$fk_parent_line = 0;
@@ -2674,18 +2691,29 @@ if ($mode == 'instances')
 				            <div class="tab-pane" id="tab_danger_'.$contract->id.'">
 							<form class="form-group" action="'.$_SERVER["PHP_SELF"].'" method="POST">
 				              <div class="">
-				                <p class="opacitymedium" style="padding: 15px">
-				                    '.$langs->trans("PleaseBeSure", $contract->ref_customer).'
-				                </p>
-								<p class="center" style="padding-bottom: 15px">
-									<input type="text" class="center urlofinstancetodestroy" name="urlofinstancetodestroy" value="'.GETPOST('urlofinstancetodestroy','alpha').'" placeholder="">
-								</p>
+								';
+								$hasopeninvoices = sellyoursaasHasOpenInvoices($contract);
+								if ($hasopeninvoices)
+								{
+									print '<span class="opacitymedium">'.$langs->trans("CantCloseBecauseOfOpenInvoices").'</span><br><br>';
+								}
+								else
+								{
+									print '
+					                <p class="opacitymedium" style="padding: 15px">
+					                    '.$langs->trans("PleaseBeSure", $contract->ref_customer).'
+					                </p>
+									<p class="center" style="padding-bottom: 15px">
+										<input type="text" class="center urlofinstancetodestroy" name="urlofinstancetodestroy" value="'.GETPOST('urlofinstancetodestroy','alpha').'" placeholder="">
+									</p>';
+								}
+								print '
 								<p class="center">
 									<input type="hidden" name="mode" value="instances"/>
 									<input type="hidden" name="action" value="undeploy" />
 									<input type="hidden" name="contractid" value="'.$contract->id.'" />
 									<input type="hidden" name="tab" value="danger_'.$contract->id.'" />
-									<input type="submit" class="btn btn-danger" name="undeploy" value="'.$langs->trans("UndeployInstance").'">
+									<input type="submit" '.($hasopeninvoices?' disabled="disabled"':'').' class="btn btn-danger'.($hasopeninvoices?' disabled':'').'" name="undeploy" value="'.$langs->trans("UndeployInstance").'">
 								</p>
 				              </div>
 							</form>

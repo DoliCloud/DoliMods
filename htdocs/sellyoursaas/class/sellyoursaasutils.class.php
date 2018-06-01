@@ -1354,10 +1354,10 @@ class SellYourSaasUtils
     						$protecti++;
     					}
 
-    					if ($protecti < 1000)
+    					if ($protecti < 1000)	// If not, there is a pb
     					{
     						// We will update the end of date of contrat, so first we refresh contract data
-    						dol_syslog("We will update the end of date of contract with newdate=".dol_print_date($newdate, 'dayhourrfc')." but first we update qty of resources by a remote action refresh.");
+    						dol_syslog("We will update the end of date of contract with newdate=".dol_print_date($newdate, 'dayhourrfc')." but first, we update qty of resources by a remote action refresh.");
 
     						// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines + linked template invoice
     						$result = $this->sellyoursaasRemoteAction('refresh', $object);

@@ -111,7 +111,7 @@ function sellyoursaasIsPaymentKo($contract)
 	{
 		foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
 		{
-			if ($invoice->fk_statut == Facture::STATUS_CLOSED) continue;
+			if ($invoice->statut == Facture::STATUS_CLOSED) continue;
 			// The invoice is not paid, we check if there is at least one payment issue
 			$sql=' SELECT id FROM '.MAIN_DB_PREFIX."actioncomm WHERE elementtype = 'invoice' AND fk_element = ".$invoice->id." AND code='INVOICE_PAYMENT_ERROR'";
 			$resql=$db->query($sql);
@@ -126,6 +126,35 @@ function sellyoursaasIsPaymentKo($contract)
 	}
 
 	return $paymenterror;
+}
+
+/**
+ * Return if instance has some unpaid invoices
+ *
+ * @param 	Contrat $contract		Object contract
+ * @return	int						>0 if this is a contract with current payment error
+ */
+function sellyoursaasHasOpenInvoices($contract)
+{
+	global $db;
+
+	$contract->fetchObjectLinked();
+	$atleastoneopeninvoice=0;
+
+	if (is_array($contract->linkedObjects['facture']))
+	{
+		foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
+		{
+			if ($invoice->statut == Facture::STATUS_CLOSED) continue;
+			if ($invoice->statut == Facture::STATUS_ABANDONED) continue;
+			if (empty($invoice->paid))
+			{
+				$atleastoneopeninvoice++;
+			}
+		}
+	}
+
+	return $atleastoneopeninvoice;
 }
 
 
