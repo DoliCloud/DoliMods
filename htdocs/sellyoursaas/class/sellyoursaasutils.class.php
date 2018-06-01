@@ -1235,7 +1235,7 @@ class SellYourSaasUtils
      */
     public function doRenewalContracts($thirdparty_id=0)
     {
-    	global $conf, $langs;
+    	global $conf, $langs, $user;
 
     	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doRenewalContracts.log';
