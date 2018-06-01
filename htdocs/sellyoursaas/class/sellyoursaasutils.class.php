@@ -1226,7 +1226,9 @@ class SellYourSaasUtils
     /**
      * Action executed by scheduler
      * CAN BE A CRON TASK
-     * Loop on each contract. If it is a paid contract, and there is no unpayed invoice for contract, and end date < today + 2 days (so expired or soon expired), we update qty of contract + qty of linked template invoce + the running contract service end date to end at next period.
+     * Loop on each contract.
+     *   If it is a paid contract, and there is no unpayed invoice for contract, and end date < today + 2 days (so expired or soon expired),
+     *     we update qty of contract + qty of linked template invoce + the running contract service end date to end at next period.
      *
      * @param	int		$thirdparty_id			Thirdparty id
      * @return	int								0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
@@ -1356,7 +1358,7 @@ class SellYourSaasUtils
     					if ($protecti < 1000)
     					{
     						// We will update the end of date of contrat, so first we refresh contract data
-    						dol_syslog("We will update the end of date of contract with newdate=".dol_print_date($newdate, 'dayhourrfc')." but first we update qty of resources.");
+    						dol_syslog("We will update the end of date of contract with newdate=".dol_print_date($newdate, 'dayhourrfc')." but first we update qty of resources by a remote action refresh.");
 
     						// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines + linked template invoice
     						$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
