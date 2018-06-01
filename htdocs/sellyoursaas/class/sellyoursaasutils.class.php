@@ -849,7 +849,7 @@ class SellYourSaasUtils
     					$stripecard = $stripe->cardStripe($customer, $companypaymentmode, $stripeacc, $servicestatus, 0);
     					if ($stripecard)
     					{
-    						$FULLTAG='INV='.$invoice->id.'-CUS='.$thirdparty->code_client;
+    						$FULLTAG='INV='.$invoice->id.'-CUS='.$thirdparty->id;
     						$description='Stripe payment from doTakePaymentStripeForThirdparty: '.$FULLTAG;
 
     						$stripefailurecode='';
