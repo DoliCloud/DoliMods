@@ -305,5 +305,7 @@ ClosingAccountNotPossible=Avant de pouvoir fermer votre compte, vous devez d'abo
 PleaseBeSureCustomerAccount=Afin de confirmer la suppression de votre compte, merci de saisi ici l'email du compte à supprimer
 ErrorEmailMustMatch=Erreur, l'email du compte à supprimer doit correspondre à votre email
 YourAccountHasBeenClosed=Votre compte a été fermé.
+SorryInstanceSuspended=Désolé, votre instance <strong>%s</strong> a été suspendue.
 SorryAccountDeleted=Désolé, ce compte semble fermé. Merci de nous contacter (%s) si vous désirez recréer un compte avec ce login/email.
 LatestResUpdateDate=Date dernière mise à jour resources
+GoOnYourDashboardToGetMoreInfo=Aller sur votre espace client <a href="https://%s">https://%s</a> pour obtenir plus d'information et résoudre le problème.

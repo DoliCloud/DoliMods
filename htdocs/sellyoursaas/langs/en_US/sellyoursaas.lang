@@ -335,5 +335,7 @@ ClosingAccountNotPossible=To be able to close your account, your must first dele
 PleaseBeSureCustomerAccount=To confirm the deletion of your account, please enter here email of account to delete...
 ErrorEmailMustMatch=Error, email of account to delete must match email of your account
 YourAccountHasBeenClosed=You account has been closed.
+SorryInstanceSuspended=Sorry, your instance <strong>%s</strong> has been suspended.
 SorryAccountDeleted=Sorry, this account seems to be closed. Please contact us (%s) if you need to recreate an account with this login/email.
 LatestResUpdateDate=Latest resource sync date
+GoOnYourDashboardToGetMoreInfo=Go on your customer dashboard <a href="https://%s">https://%s</a> to get more information and solve the problem.

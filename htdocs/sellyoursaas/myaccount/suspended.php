@@ -56,12 +56,18 @@ $instance=$_GET['instance'];	// example: testldr3.with.dolicloud.com
 // SEarch instance
 $contract = new Contrat($db);
 $contract->fetch(0, '', $instance);
-var_dump($contract);
+$contract->fetch_thirdparty();
+
+$langs->load("sellyoursaas@sellyoursaas");
+
 ?>
 <br><br><br>
 <div style="text-align: center">
-Sorry, your instance <strong><?php echo $instance ?></strong> has been suspended.<br>
-<br>
-Go on your customer dashboard <a href="https://<?php echo $_SERVER['SERVER_NAME']; ?>">https://<?php echo $_SERVER['SERVER_NAME']; ?></a> to get more information and solve the problem.<br>
-<br><br>
+<?php
+print $langs->trans("SorryInstanceSuspended", $instance);
+print '<br>';
+print '<br>';
+print $langs->trans("GoOnYourDashboardToGetMoreInfo", $_SERVER['SERVER_NAME'], $_SERVER['SERVER_NAME']);
+?>
+<br><br><br>
 </div>
