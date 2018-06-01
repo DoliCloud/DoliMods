@@ -371,6 +371,7 @@ else
 	$tmpthirdparty->email = $email;
 	$tmpthirdparty->client = 3;
 	$tmpthirdparty->tva_assuj = 1;
+	$tmpthirdparty->default_lang = $langs->defaultlang;
 	$tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
 	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
 	$tmpthirdparty->array_options['options_source']='REGISTERFORM'.($origin?'-'.$origin:'');
