@@ -60,6 +60,8 @@ $contract->fetch_thirdparty();
 
 $langs->load("sellyoursaas@sellyoursaas");
 
+top_htmlhead();
+
 ?>
 <br><br><br>
 <div style="text-align: center">
@@ -71,3 +73,7 @@ print $langs->trans("GoOnYourDashboardToGetMoreInfo", $_SERVER['SERVER_NAME'], $
 ?>
 <br><br><br>
 </div>
+
+<?php
+llxFooter();
+?>
