@@ -26,6 +26,7 @@
 //require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
 //require_once(DOL_DOCUMENT_ROOT."/product/class/product.class.php");
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+require_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 dol_include_once('sellyoursaas/lib/sellyoursaas.lib.php');
 
@@ -1357,7 +1358,7 @@ class SellYourSaasUtils
     						// We will update the end of date of contrat, so first we refresh contract data
     						dol_syslog("We will update the end of date of contract with newdate=".dol_print_date($newdate, 'dayhourrfc')." but first we update qty of resources.");
 
-    						// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines + linked invoices
+    						// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines + linked template invoice
     						$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
     						if ($result <= 0)
     						{
@@ -1374,6 +1375,24 @@ class SellYourSaasUtils
 	    						if ($resqlupdate)
 	    						{
 	    							$contractprocessed[$object->id]=$object->ref;
+
+	    							$action = 'RENEW_CONTRACT';
+	    							$now = dol_now();
+
+	    							// Create an event
+	    							$actioncomm = new ActionComm($this->db);
+	    							$actioncomm->type_code   = 'AC_OTH_AUTO';		// Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
+	    							$actioncomm->code        = 'AC_'.$action;
+	    							$actioncomm->label       = 'Renewal of contrat '.$object->ref;
+	    							$actioncomm->datep       = $now;
+	    							$actioncomm->datef       = $now;
+	    							$actioncomm->percentage  = -1;   // Not applicable
+	    							$actioncomm->socid       = $contract->thirdparty->id;
+	    							$actioncomm->authorid    = $user->id;   // User saving action
+	    							$actioncomm->userownerid = $user->id;	// Owner of action
+	    							$actioncomm->fk_element  = $object->id;
+	    							$actioncomm->elementtype = 'contract';
+	    							$ret=$actioncomm->create($user);       // User creating action
 	    						}
 	    						else
 	    						{
@@ -2426,6 +2445,26 @@ class SellYourSaasUtils
     			}
     		}
     	}
+
+    	if (! $error)
+    	{
+    		// Create an event
+
+    		$actioncomm = new ActionComm($this->db);
+    		$actioncomm->type_code   = 'AC_OTH_AUTO';		// Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
+    		$actioncomm->code        = 'AC_'.$action;
+    		$actioncomm->label       = 'Remote action '.$remoteaction.' on contract '.$object->ref;
+    		$actioncomm->datep       = $now;
+    		$actioncomm->datef       = $now;
+    		$actioncomm->percentage  = -1;   // Not applicable
+    		$actioncomm->socid       = $contract->thirdparty->id;
+    		$actioncomm->authorid    = $user->id;   // User saving action
+    		$actioncomm->userownerid = $user->id;	// Owner of action
+    		$actioncomm->fk_element  = $object->id;
+    		$actioncomm->elementtype = 'contract';
+    		$ret=$actioncomm->create($user);       // User creating action
+    	}
+
 
     	if ($error) return -1;
     	else return 1;

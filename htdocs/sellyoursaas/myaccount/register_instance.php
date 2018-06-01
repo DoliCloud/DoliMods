@@ -63,6 +63,9 @@ $langs=new Translate('', $conf);
 $langs->setDefaultLang('auto');
 $langs->loadLangs(array("sellyoursaas@sellyoursaas","errors"));
 
+$langsen=new Translate('', $conf);
+$langsen->setDefaultLang('en_US');
+$langsen->loadLangs(array("companies","sellyoursaas@sellyoursaas","errors"));
 
 // Force user
 if (empty($user->id))
@@ -394,6 +397,10 @@ else
 	}
 	else
 	{
+		// Set lang to backoffice language
+		$savlangs = $langs;
+		$langs = $langsen;
+
 		$tmpthirdparty->code_client = -1;
 		$result = $tmpthirdparty->create($user);
 		if ($result <= 0)
@@ -403,6 +410,9 @@ else
 			header("Location: ".$newurl);
 			exit;
 		}
+
+		// Restore lang to user/visitor language
+		$langs = $savlangs;
 	}
 
 	if (! empty($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG))
