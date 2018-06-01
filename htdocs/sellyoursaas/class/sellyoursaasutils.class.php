@@ -1361,7 +1361,7 @@ class SellYourSaasUtils
     						dol_syslog("We will update the end of date of contract with newdate=".dol_print_date($newdate, 'dayhourrfc')." but first we update qty of resources by a remote action refresh.");
 
     						// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines + linked template invoice
-    						$result = $this->sellyoursaasRemoteAction('refresh', $contract);
+    						$result = $this->sellyoursaasRemoteAction('refresh', $object);
     						if ($result <= 0)
     						{
     							$error++;
@@ -2027,6 +2027,12 @@ class SellYourSaasUtils
     	// Loop on each line of contract
     	foreach($listoflines as $tmpobject)
     	{
+    		if (empty($tmpobject))
+    		{
+    			dol_syslog("List of lines contains empty ContratLine", LOG_WARNING);
+    			continue;
+    		}
+
     		$producttmp = new Product($this->db);
     		$producttmp->fetch($tmpobject->fk_product);
 
