@@ -607,11 +607,13 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			}
 		}
 
-		// Create a recurring invoice if there is no reccuring invoice yet
+		// Create a recurring invoice (+real invoice + contract renawal) if there is no reccuring invoice yet
 		if (! $error)
 		{
 			foreach ($listofcontractid as $contract)
 			{
+				dol_syslog("Create recurring invoice on contract if it does not have yet.");
+
 				// Make a test to pass loop if there is already a template invoice
 				$result = $contract->fetchObjectLinked();
 				if ($result < 0)
@@ -627,12 +629,14 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					}
 				}
 
-				dol_syslog("* No recurring invoice found for this contract contract_id = ".$contract->id.", so we create one.");
+				dol_syslog("* No template invoice found for this contract contract_id = ".$contract->id.", so we refresh contract before creating template invoice + creating invoice (if template invoice date is already in past) + making contract renewal.");
 
 
 				// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines
 				$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
 
+
+				dol_syslog("* No template invoice found for this contract contract_id = ".$contract->id.", so we create it then create real invoice (if template invoice date is already in past) then make contract renewal.");
 
 				// Now create invoice draft
 				$dateinvoice = $contract->array_options['options_date_endfreeperiod'];
@@ -859,7 +863,9 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 						$savperm1 = $user->rights->facture->creer;
 						$savperm2 = $user->rights->facture->invoice_advance->validate;
+
 						$user->rights->facture->creer = 1;
+						if (empty($user->rights->facture->invoice_advance)) $user->rights->facture->invoice_advance=new stdClass();
 						$user->rights->facture->invoice_advance->validate = 1;
 
 						$result = $facturerec->createRecurringInvoices($invoicerecid, 1);
@@ -901,7 +907,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					// Make renewals on contracts of customer
 					if (! $error)
 					{
-						dol_syslog("Now we make renewal of contracts for thirdpartyid=".$mythirdpartyaccount->id." if payments were ok, it is updated and even unsuspended)");
+						dol_syslog("Now we make renewal of contracts for thirdpartyid=".$mythirdpartyaccount->id." if payments were ok (it also means contract are refreshed and even unsuspended)");
 
 						dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 

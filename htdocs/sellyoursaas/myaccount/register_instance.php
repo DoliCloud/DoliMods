@@ -446,7 +446,7 @@ else
 		$contract->commercial_signature_id = $user->id;
 		$contract->commercial_suivi_id = $user->id;
 		$contract->date_contrat = $now;
-		$contract->note_private = 'Contact created from the online instance registration form';
+		$contract->note_private = 'Contract created from the online instance registration form';
 
 		$contract->array_options['options_plan'] = $tmppackage->ref;
 		$contract->array_options['options_deployment_status'] = 'processing';

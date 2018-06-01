@@ -1361,7 +1361,7 @@ class SellYourSaasUtils
     						dol_syslog("We will update the end of date of contract with newdate=".dol_print_date($newdate, 'dayhourrfc')." but first we update qty of resources by a remote action refresh.");
 
     						// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines + linked template invoice
-    						$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
+    						$result = $this->sellyoursaasRemoteAction('refresh', $contract);
     						if ($result <= 0)
     						{
     							$error++;
@@ -1829,7 +1829,7 @@ class SellYourSaasUtils
     		$listoflines = array($object);
     	}
 
-    	dol_syslog("* sellyoursaasRemoteAction is called (remoteaction=".$remoteaction." email=".$email." password=".$password.")");
+    	dol_syslog("* sellyoursaasRemoteAction START (remoteaction=".$remoteaction." email=".$email." password=".$password.")");
 
     	include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
@@ -2466,6 +2466,7 @@ class SellYourSaasUtils
     		$ret=$actioncomm->create($user);       // User creating action
     	}
 
+    	dol_syslog("* sellyoursaasRemoteAction END (remoteaction=".$remoteaction." email=".$email." password=".$password.")");
 
     	if ($error) return -1;
     	else return 1;
