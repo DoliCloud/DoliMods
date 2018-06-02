@@ -522,7 +522,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_list',
 		'type'=>'left',
-		'titre'=>'List of Instance V1',
+		'titre'=>'ListOfInstanceV1',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_list_old',
 		'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=dolicloudinstancesv1&search_product_category=6',
@@ -537,7 +537,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_list',
 		'type'=>'left',
-		'titre'=>'List of Instance __[SELLYOURSAAS_DOLICLOUD_ON]__',
+		'titre'=>'ListOfInstanceV2',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_list',
 		'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=dolicloudinstancesv2&search_product_category=__[SELLYOURSAAS_DEFAULT_PRODUCT_CATEG]__',
@@ -586,7 +586,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		'fk_menu'=>'fk_mainmenu=sellyoursaas',
 		'type'=>'left',
-		'titre'=>'Registration page',
+		'titre'=>'RegistrationPage',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'website',
 		//'url'=>'/public/website/index.php?website=sellyoursaas&pageref=register&plan=abc',
@@ -602,7 +602,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		'fk_menu'=>'fk_mainmenu=sellyoursaas',
 		'type'=>'left',
-		'titre'=>'Customer portal',
+		'titre'=>'CustomerPortal',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'website',
 		'url'=>'__[SELLYOURSAAS_ACCOUNT_URL]__',
