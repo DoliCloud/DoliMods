@@ -316,3 +316,4 @@ GoOnYourDashboardToGetMoreInfo=Aller sur votre espace client <a href="https://%s
 CantCloseBecauseOfOpenInvoices=Vous ne pouvez supprimer cette instance maintenant car elle a des factures ouvertes pas encore payées. Merci de réessayer plus tard ou de corriger votre mode de paiement si il y a des erreurs de paiements du à cela.
 TrialInstanceWasSuspended=L'instance de test <strong>%s</strong> a été suspendue
 Resellers=Revendeurs
+SummaryOld=Résumé (DoliCloud old)

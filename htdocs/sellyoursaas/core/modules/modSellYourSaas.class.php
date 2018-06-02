@@ -275,7 +275,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		'fk_menu'=>'fk_mainmenu=sellyoursaas',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 		'type'=>'left',         // This is a Left menu entry
-		'titre'=>'Summary (dolicloud old)',
+		'titre'=>'SummaryOld',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'dolicloud',
 		'url'=>'/sellyoursaas/backoffice/dolicloudold_index.php',
@@ -522,7 +522,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_list',
 		'type'=>'left',
-		'titre'=>'ListOfInstanceV1',
+		'titre'=>'ListOfInstancesV1',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_list_old',
 		'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=dolicloudinstancesv1&search_product_category=6',
@@ -537,7 +537,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_list',
 		'type'=>'left',
-		'titre'=>'ListOfInstanceV2',
+		'titre'=>'ListOfInstancesV2',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_list',
 		'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=dolicloudinstancesv2&search_product_category=__[SELLYOURSAAS_DEFAULT_PRODUCT_CATEG]__',

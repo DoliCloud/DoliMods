@@ -346,3 +346,4 @@ GoOnYourDashboardToGetMoreInfo=Go on your customer dashboard <a href="https://%s
 CantCloseBecauseOfOpenInvoices=You can't remove this instance now because there is some open invoices not yet paid. Please try later or fix your payment mode if there is payment errors.
 TrialInstanceWasSuspended=Trial instance <strong>%s</strong> was suspended
 Resellers=Resellers
+SummaryOld=Summary (DoliCloud old)
