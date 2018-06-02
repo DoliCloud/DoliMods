@@ -38,6 +38,7 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
+require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
 dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 dol_include_once('/sellyoursaas/lib/refresh.lib.php');
 dol_include_once("/sellyoursaas/backoffice/lib/refresh.lib.php");		// do not use dol_buildpath to keep global of var into refresh.lib.php working
