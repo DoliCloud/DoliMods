@@ -340,4 +340,4 @@ SorryAccountDeleted=Sorry, this account seems to be closed. Please contact us (%
 LatestResUpdateDate=Latest resource sync date
 GoOnYourDashboardToGetMoreInfo=Go on your customer dashboard <a href="https://%s">https://%s</a> to get more information and solve the problem.
 CantCloseBecauseOfOpenInvoices=You can't remove this instance now because there is some open invoices not yet paid. Please try later or fix your payment mode if there is payment errors.
-TrialInstanceWasSuspended=Trial instance %s was suspended
+TrialInstanceWasSuspended=Trial instance <strong>%s</strong> was suspended
