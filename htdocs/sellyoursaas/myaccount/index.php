@@ -1739,7 +1739,8 @@ if (empty($welcomecid))
 
 		if ($isASuspendedContract)
 		{
-			if (empty($messageforinstance[$contract->ref_customer]))	// If warning for expired trial alreay shown
+			if (empty($messageforinstance[$contract->ref_customer])		// If warning for expired trial alreay shown
+				&& $delaybeforeendoftrial > 0)							// If trial not yet expired (contract suspended manually before end of trial)
 			{
 				print ' <!-- XDaysAfterEndOfPeriodInstanceSuspended -->
 						<div class="note note-warning">
