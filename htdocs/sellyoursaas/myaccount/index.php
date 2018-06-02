@@ -1660,18 +1660,36 @@ if (empty($welcomecid))
 			{
 				if ($delaybeforeendoftrial > 0)		// Trial not yet expired
 				{
-					$firstline = reset($contract->lines);
-					print '
-						<!-- XDaysBeforeEndOfTrial -->
-						<div class="note note-warning">
-						<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrial", abs($delayindays), $contract->ref_customer).' !</h4>
-						<p>
-						<a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'" class="btn btn-warning">';
-					print $langs->trans("AddAPaymentMode");
-					print '</a>
-						</p>
-						</div>
-					';
+					if (! $isASuspendedContract)
+					{
+						$firstline = reset($contract->lines);
+						print '
+							<!-- XDaysBeforeEndOfTrial -->
+							<div class="note note-warning">
+							<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrial", abs($delayindays), $contract->ref_customer).' !</h4>
+							<p>
+							<a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'" class="btn btn-warning">';
+						print $langs->trans("AddAPaymentMode");
+						print '</a>
+							</p>
+							</div>
+						';
+					}
+					else
+					{
+						$firstline = reset($contract->lines);
+						print '
+							<!-- TrialInstanceWasSuspended -->
+							<div class="note note-warning">
+							<h4 class="block">'.$langs->trans("TrialInstanceWasSuspended", $contract->ref_customer).' !</h4>
+							<p>
+							<a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'" class="btn btn-warning">';
+						print $langs->trans("AddAPaymentModeToRestoreInstance");
+						print '</a>
+							</p>
+							</div>
+						';
+					}
 				}
 				else								// Trial expired
 				{

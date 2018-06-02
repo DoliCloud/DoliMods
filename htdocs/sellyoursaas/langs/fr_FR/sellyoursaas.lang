@@ -310,4 +310,4 @@ SorryAccountDeleted=Désolé, ce compte semble fermé. Merci de nous contacter (
 LatestResUpdateDate=Date dernière mise à jour resources
 GoOnYourDashboardToGetMoreInfo=Aller sur votre espace client <a href="https://%s">https://%s</a> pour obtenir plus d'information et résoudre le problème.
 CantCloseBecauseOfOpenInvoices=Vous ne pouvez supprimer cette instance maintenant car elle a des factures ouvertes pas encore payées. Merci de réessayer plus tard ou de corriger votre mode de paiement si il y a des erreurs de paiements du à cela.
-
+TrialInstanceWasSuspended=L'instance de test %s a été suspendue
