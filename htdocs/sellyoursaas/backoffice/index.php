@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2007-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2007-2018 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -164,47 +164,42 @@ $totalusers=$rep['totalusers'];
 $benefit=($total * (1 - $part) - $serverprice - $totalcommissions);
 
 // Show totals
-$var=false;
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
-print '<td colspan="2">'.$langs->trans("Statistics").' ('.$langs->trans("FromLiveTables").')</td></tr>';
-print '<tr '.$bc[$var].'><td>';
+print '<td class="wordwrap wordbreak">'.$langs->trans("Statistics").' ('.$langs->trans("FromLiveTables").')</td>';
+print '<td></td>';
+print '</tr>';
+print '<tr class="oddeven"><td class="wordwrap wordbreak">';
 print $langs->trans("NbOfInstancesActivePaying").' / '.$langs->trans("NbOfInstancesPaying").' ';
 print '</td><td align="right">';
 print '<font size="+2">'.$totalinstancespaying.' / '.$totalinstances.'</font>';
 print '</td></tr>';
-$var=!$var;
-print '<tr '.$bc[$var].'><td>';
+print '<tr class="oddeven"><td>';
 print $langs->trans("NbOfUsers").' ';
-print '</td><td align="right">';
+print '</td><td align="right" class="wordwrap wordbreak">';
 print '<font size="+2">'.$totalusers.'</font>';
 print '</td></tr>';
-$var=!$var;
-print '<tr '.$bc[$var].'><td>';
+print '<tr class="oddeven"><td class="wordwrap wordbreak">';
 print $langs->trans("AverageRevenuePerInstance");
 print '</td><td align="right">';
 print '<font size="+2">'.($totalinstancespaying?price(price2num($total/$totalinstancespaying,'MT'),1):'0').' </font>';
 print '</td></tr>';
-$var=!$var;
-print '<tr '.$bc[$var].'><td>';
+print '<tr class="oddeven"><td class="wordwrap wordbreak">';
 print $langs->trans("RevenuePerMonth");
 print '</td><td align="right">';
 print '<font size="+2">'.price($total,1).' </font>';
 print '</td></tr>';
-$var=!$var;
-print '<tr '.$bc[$var].'><td>';
+print '<tr class="oddeven"><td class="wordwrap wordbreak">';
 print $langs->trans("CommissionPerMonth").' ';
 print '</td><td align="right">';
 print '<font size="+2">'.price($totalcommissions).'</font>';
 print '</td></tr>';
-$var=!$var;
-print '<tr '.$bc[$var].'><td>';
+print '<tr class="oddeven"><td class="wordwrap wordbreak">';
 print $langs->trans("ChargePerMonth").' ';
 print '</td><td align="right">';
 print '<font size="+2">'.price($serverlocation).'$='.price($serverprice).'€</font>';
 print '</td></tr>';
-$var=!$var;
-print '<tr class="liste_total"><td>';
+print '<tr class="liste_total"><td class="wrapimp wordwrap wordbreak">';
 print $langs->trans("BenefitDoliCloud");
 print '<br>(';
 //print price($total,1).' - '.($part*100).'% - '.price($serverlocation).'$= ';
@@ -314,11 +309,16 @@ if ($resql)
 else dol_print_error($db);
 
 
-//$WIDTH=DolGraph::getDefaultGraphSizeForStats('width');
-//$HEIGHT=DolGraph::getDefaultGraphSizeForStats('height');
-$WIDTH=600;
-$HEIGHT=260;
-
+if (empty($conf->dol_optimize_smallscreen))
+{
+	$WIDTH=600;
+	$HEIGHT=260;
+}
+else
+{
+	$WIDTH=DolGraph::getDefaultGraphSizeForStats('width');
+	$HEIGHT=DolGraph::getDefaultGraphSizeForStats('height');
+}
 
 // Show graph
 $px1 = new DolGraph();
