@@ -317,6 +317,8 @@ LatestBackupStatus=Latest backup status
 FailedToConnectMayBeOldInstance=Failed to connect to user database instance
 BackupDir=Backup directory
 PaymentModeRecorded=Payment mode saved
+CustomerPortal=Customer dashboard
+RegistrationPage=Registration page
 RegistrationCounter=Registration counter for same cookie
 RegistrationPreviousInstance=Previous registered instance for same cookie
 DownloadTheSEPAMandate=Download the SEPA mandate
@@ -341,3 +343,4 @@ LatestResUpdateDate=Latest resource sync date
 GoOnYourDashboardToGetMoreInfo=Go on your customer dashboard <a href="https://%s">https://%s</a> to get more information and solve the problem.
 CantCloseBecauseOfOpenInvoices=You can't remove this instance now because there is some open invoices not yet paid. Please try later or fix your payment mode if there is payment errors.
 TrialInstanceWasSuspended=Trial instance <strong>%s</strong> was suspended
+Resellers=Resellers

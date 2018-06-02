@@ -289,6 +289,8 @@ LatestBackupStatus=Statut dernier backup
 FailedToConnectMayBeOldInstance=Echec de la connection à la base de l'instance de l'utilisateur
 BackupDir=Répertoire de sauvegarde
 PaymentModeRecorded=Mode de paiement enregistré
+CustomerPortal=Espace Client
+RegistrationPage=Page inscription
 RegistrationCounter=Compteur enregistrement pour le même cookie
 RegistrationPreviousInstance=Instance précédente pour le même cookie
 DownloadTheSEPAMandate=Télécharger le mandat SEPA
@@ -311,3 +313,4 @@ LatestResUpdateDate=Date dernière mise à jour resources
 GoOnYourDashboardToGetMoreInfo=Aller sur votre espace client <a href="https://%s">https://%s</a> pour obtenir plus d'information et résoudre le problème.
 CantCloseBecauseOfOpenInvoices=Vous ne pouvez supprimer cette instance maintenant car elle a des factures ouvertes pas encore payées. Merci de réessayer plus tard ou de corriger votre mode de paiement si il y a des erreurs de paiements du à cela.
 TrialInstanceWasSuspended=L'instance de test <strong>%s</strong> a été suspendue
+Resellers=Revendeurs
