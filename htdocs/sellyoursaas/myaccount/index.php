@@ -62,7 +62,11 @@ if (empty($mode) && empty($welcomecid)) $mode='dashboard';
 $langs=new Translate('', $conf);
 $langs->setDefaultLang(GETPOST('lang','aZ09')?GETPOST('lang','aZ09'):'auto');
 
-$langs->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas","other","errors",'mails','paypal','paybox','stripe','withdrawals'));
+$langsen=new Translate('', $conf);
+$langsen->setDefaultLang('en_US');
+
+$langs->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas","other","errors",'mails','paypal','paybox','stripe','withdrawals','other'));
+$langsen->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas","other","errors",'mails','paypal','paybox','stripe','withdrawals','other'));
 
 $mythirdpartyaccount = new Societe($db);
 
@@ -4631,12 +4635,24 @@ if ($mode == 'becomereseller')
 
 		$email = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
 		if (preg_match('/high/', GETPOST('supportchannel','alpha'))) $email = preg_replace('/@/', '+premium@', $email);
-		$subject = (GETPOST('subject','none')?GETPOST('subject','none'):$langs->trans("BecomeReseller").' - '.$email);
+		$subject = (GETPOST('subject','none')?GETPOST('subject','none'):(preg_match('/fr/i', $langs->defaultlang)?$langs->trans("BecomeReseller"):$langsen->trans("BecomeReseller")).' - '.$email);
+
+		$commissiondefault = 20;
 
 		print '<input type="hidden" name="to" value="'.$email.'">';
 		print $langs->trans("MailFrom").' : <input type="text" required name="from" value="'.(GETPOST('from','none')?GETPOST('from','none'):$mythirdpartyaccount->email).'"><br><br>';
 		print $langs->trans("MailTopic").' : <input type="text" required class="minwidth500" name="subject" value="'.$subject.'"><br><br>';
-		print '<textarea rows="6" required placeholder="'.$langs->trans("YourText").'" style="border: 1px solid #888" name="content" class="centpercent">'.GETPOST('content','none').'</textarea><br><br>';
+
+		$texttouse = GETPOST('content','none');
+		if (! $texttouse) $texttouse = (preg_match('/fr/i', $langs->defaultlang)?$langs->trans("YourTextBecomeReseller", $conf->global->SELLYOURSAAS_NAME, $commissiondefault):$langsen->trans("YourTextBecomeReseller", $conf->global->SELLYOURSAAS_NAME, $commissiondefault));
+		$texttouse=preg_replace('/\\\\n/',"\n",$texttouse);
+		print '<textarea rows="6" required style="border: 1px solid #888" name="content" class="centpercent">';
+		print $texttouse;
+		print '</textarea><br><br>';
+
+		/*include_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
+		$doleditor = new DolEditor('content', $texttouse, '95%');
+		$doleditor->Create(0);*/
 
 		print '<center><input type="submit" name="submit" value="'.$langs->trans("SendMail").'" class="btn green-haze btn-circle">';
 		print ' ';

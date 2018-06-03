@@ -241,19 +241,23 @@ class SellYourSaasUtils
     					continue;
     				}
 
-					dol_syslog("* Process contract id=".$object->id." ref=".$object->ref);
+    				dol_syslog("* Process contract id=".$object->id." ref=".$object->ref." ref_customer=".$object->ref_customer);
 
     				$outputlangs = new Translate('', $conf);
     				$outputlangs->setDefaultLang($object->thirdparty->default_lang);
 
     				$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'contract', $user, $outputlangs, 0, 1, 'GentleTrialExpiringReminder');
 
+    				dol_syslog('Call sellyoursaasIsPaidInstance', LOG_DEBUG, 1);
     				$isAPayingContract = sellyoursaasIsPaidInstance($object);
+    				dol_syslog('', 0, -1);
     				if ($mode == 'test' && $isAPayingContract) continue;											// Discard if this is a paid instance when we are in test mode
     				//if ($mode == 'paid' && ! $isAPayingContract) continue;											// Discard if this is a test instance when we are in paid mode
 
     				// Suspend instance
+    				dol_syslog('Call sellyoursaasGetExpirationDate', LOG_DEBUG, 1);
     				$tmparray = sellyoursaasGetExpirationDate($object);
+    				dol_syslog('', 0, -1);
     				$expirationdate = $tmparray['expirationdate'];
 
     				if ($expirationdate && $expirationdate < dol_time_plus_duree($now, abs($delayindaysshort), 'd'))
@@ -1225,9 +1229,8 @@ class SellYourSaasUtils
     /**
      * Action executed by scheduler
      * CAN BE A CRON TASK
-     * Loop on each contract.
-     *   If it is a paid contract, and there is no unpayed invoice for contract, and end date < today + 2 days (so expired or soon expired),
-     *     we update qty of contract + qty of linked template invoce + the running contract service end date to end at next period.
+     * Loop on each contract. If it is a paid contract, and there is no unpaid invoice for contract, and end date < today + 2 days (so expired or soon expired),
+     * we update qty of contract + qty of linked template invoice + the running contract service end date to end at next period.
      *
      * @param	int		$thirdparty_id			Thirdparty id
      * @return	int								0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
@@ -1251,10 +1254,9 @@ class SellYourSaasUtils
 
     	$contractprocessed = array();
     	$contractignored = array();
+    	$contracterror = array();
 
     	dol_syslog(__METHOD__, LOG_DEBUG);
-
-    	$this->db->begin();
 
     	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid, cd.date_fin_validite';
     	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce,';
@@ -1282,7 +1284,7 @@ class SellYourSaasUtils
     			$obj = $this->db->fetch_object($resql);
     			if ($obj)
     			{
-    				if (! empty($contractprocessed[$obj->rowid]) || ! empty($contractignored[$obj->rowid])) continue;
+    				if (! empty($contractprocessed[$obj->rowid]) || ! empty($contractignored[$obj->rowid]) || ! empty($contracterror[$obj->rowid])) continue;
 
     				// Test if this is a paid or not instance
     				$object = new Contrat($this->db);
@@ -1296,10 +1298,11 @@ class SellYourSaasUtils
     					continue;
     				}
 
-    				dol_syslog("* Process contract id=".$object->id." ref=".$object->ref);
+    				dol_syslog("* Process contract id=".$object->id." ref=".$object->ref." ref_customer=".$object->ref_customer);
 
+    				dol_syslog('Call sellyoursaasIsPaidInstance', LOG_DEBUG, 1);
     				$isAPayingContract = sellyoursaasIsPaidInstance($object);
-    				//var_dump($mode.' '.$isAPayingContract);
+    				dol_syslog('', 0, -1);
     				if ($mode == 'test' && $isAPayingContract)
     				{
     					$contractignored[$object->id]=$object->ref;
@@ -1312,7 +1315,9 @@ class SellYourSaasUtils
     				}
 
     				// Update expiration date of instance
+    				dol_syslog('Call sellyoursaasGetExpirationDate', LOG_DEBUG, 1);
     				$tmparray = sellyoursaasGetExpirationDate($object);
+    				dol_syslog('', 0, -1);
     				$expirationdate = $tmparray['expirationdate'];
     				$duration_value = $tmparray['duration_value'];
     				$duration_unit = $tmparray['duration_unit'];
@@ -1359,16 +1364,22 @@ class SellYourSaasUtils
     						// We will update the end of date of contrat, so first we refresh contract data
     						dol_syslog("We will update the end of date of contract with newdate=".dol_print_date($newdate, 'dayhourrfc')." but first, we update qty of resources by a remote action refresh.");
 
+    						$this->db->begin();
+
+    						$errorforlocaltransaction = 0;
+
     						// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines + linked template invoice
     						$result = $this->sellyoursaasRemoteAction('refresh', $object);
     						if ($result <= 0)
     						{
+    							$contracterror[$object->id]=$object->ref;
+
     							$error++;
+    							$errorforlocaltransaction++;
     							$this->error=$this->error;
     							$this->errors=$this->errors;
     						}
-
-    						if (! $error)
+							else
     						{
 	    						$sqlupdate = 'UPDATE '.MAIN_DB_PREFIX."contratdet SET date_fin_validite = '".$this->db->idate($newdate)."'";
 	    						$sqlupdate.= ' WHERE fk_contrat = '.$object->id;
@@ -1397,9 +1408,21 @@ class SellYourSaasUtils
 	    						}
 	    						else
 	    						{
+	    							$contracterror[$object->id]=$object->ref;
+
 	    							$error++;
+	    							$errorforlocaltransaction++;
 	    							$this->error = $this->db->lasterror();
 	    						}
+    						}
+
+    						if (! $errorforlocaltransaction)
+    						{
+    							$this->db->commit();
+    						}
+    						else
+    						{
+    							$this->db->rollback();
     						}
     					}
     					else
@@ -1420,8 +1443,6 @@ class SellYourSaasUtils
     	}
 
     	$this->output .= count($contractprocessed).' paying contract(s) with end date before '.dol_print_date($enddatetoscan, 'day').' were renewed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
-
-    	$this->db->commit();
 
     	$conf->global->SYSLOG_FILE = $savlog;
 
@@ -1550,9 +1571,12 @@ class SellYourSaasUtils
 						$this->errors[] = 'Failed to load contract with id='.$obj->rowid;
 						continue;
 					}
-					dol_syslog("* Process contract id=".$object->id." ref=".$object->ref);
 
+					dol_syslog("* Process contract id=".$object->id." ref=".$object->ref." ref_customer=".$object->ref_customer);
+
+					dol_syslog('Call sellyoursaasIsPaidInstance', LOG_DEBUG, 1);
 					$isAPayingContract = sellyoursaasIsPaidInstance($object);
+					dol_syslog('', 0, -1);
 					if ($mode == 'test' && $isAPayingContract)
 					{
 						dol_syslog("It is a paying contract, it will not be processed by this batch");
@@ -1565,7 +1589,9 @@ class SellYourSaasUtils
 					}
 
 					// Suspend instance
+					dol_syslog('Call sellyoursaasGetExpirationDate', LOG_DEBUG, 1);
 					$tmparray = sellyoursaasGetExpirationDate($object);
+					dol_syslog('', 0, -1);
 					$expirationdate = $tmparray['expirationdate'];
 
 					if ($expirationdate && $expirationdate < $now)
@@ -1828,7 +1854,7 @@ class SellYourSaasUtils
     		$listoflines = array($object);
     	}
 
-    	dol_syslog("* sellyoursaasRemoteAction START (remoteaction=".$remoteaction." email=".$email." password=".$password.")");
+    	dol_syslog("* sellyoursaasRemoteAction START (remoteaction=".$remoteaction." email=".$email." password=".$password.")", LOG_DEBUG, 1);
 
     	include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
@@ -2471,7 +2497,7 @@ class SellYourSaasUtils
     		$ret=$actioncomm->create($user);       // User creating action
     	}
 
-    	dol_syslog("* sellyoursaasRemoteAction END (remoteaction=".$remoteaction." email=".$email." password=".$password.")");
+    	dol_syslog("* sellyoursaasRemoteAction END (remoteaction=".$remoteaction." email=".$email." password=".$password." error=".$error.")", LOG_DEBUG, -1);
 
     	if ($error) return -1;
     	else return 1;

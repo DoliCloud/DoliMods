@@ -148,7 +148,7 @@ XDaysAfterEndOfTrial=La période d'essai de votre instance <strong>%s</strong> e
 XDaysBeforeEndOfTrialPaymentModeSet=Il ne reste que <strong>%s</strong> jours avant la fin de votre période de test pour l'instance <strong>%s</strong>. Un mode de paiement a été enregistré aussi une première facture sera émise et votre instance basculera en mode payant automatiquement (sans perte de vos données) à la fin de la période d'essai.
 XDaysAfterEndOfTrialPaymentModeSet=La période d'essai de votre instance <strong>%s</strong> est expirée depuis <strong>%s</strong> jours(s). Un mode de paiement a été enregistré aussi une première facture sera émise et votre instance basculera en mode payant automatiquement très prochainement (sans perte de vos données).
 XDaysAfterEndOfPeriodInstanceSuspended=Le renouvellement de votre instance n'a pas été validé et votre instance <strong>%s</strong> (expirée depuis <strong>%s</strong> jours) est actuellement suspendue (peut-être à cause d'échecs répétés de paiements)
-XDaysAfterEndOfPeriodPaymentModeSet=La prolongation de votre contrat pour la prochaine période a venir pour l'instance <strong>%s</strong> (et expiré depuis <strong>%s</strong> jours) n'a pas encore été enregistrée. Si votre mode de paiement est correct, cette prolongation devraient être réaliser automatiquement sous peu...
+XDaysAfterEndOfPeriodPaymentModeSet=La prolongation de votre contrat pour la prochaine période a venir pour l'instance <strong>%s</strong> (expiré depuis <strong>%s</strong> jours) n'a pas encore été enregistrée. Si votre mode de paiement est correct, cette prolongation devraient être réaliser automatiquement sous peu...
 AddAPaymentMode=Ajouter un mode de paiement
 ModifyPaymentMode=Modifier mode de paiement
 AddAPaymentModeToRestoreInstance=Ajouter mode de paiement pour débloquer
@@ -321,4 +321,5 @@ Resellers=Revendeurs
 SummaryOld=Résumé (DoliCloud old)
 BecomeReseller=Devenir revendeur
 SELLYOURSAAS_ALLOW_RESELLER_PROGRAM=Activer les fonctions "Revendeurs"
-BecomeResellerDesc=Vous allez postuler pour devenir Revendeur %s. Veuillez lire la page suivante pour être certain de comprendre ce que cela signifie: <a href="%s">Devenir renvendeur %s</a>
+BecomeResellerDesc=Vous allez postuler pour devenir Revendeur %s. Vérifiez d'abord dans le menu 'Mon compte' que vous avez renseigné toutes les informations. Puis veuillez lire la page suivante pour être certain de comprendre ce que cela signifie: <a href="%s">Devenir renvendeur %s</a>
+YourTextBecomeReseller=J'ai compris le principe du programme revendeur %s et j'aimerais en faire partie, aussi merci de m'activer les fonctionnalités Revendeur.\nJe prévois de trouver ___ nouveaux clients par an.\nJe comprend que je n'ai aucun travail à fournir excepté promouvoir mon URL personnalisée pour enregistrer de nouveaux clients. Mon taux de commission initial sera de %s %% (mais pourra augmenter avec le nombre de clients).
