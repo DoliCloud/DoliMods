@@ -261,6 +261,8 @@ if (! empty($conf->paypal->enabled))
 
 if ($cancel)
 {
+	if ($action == 'sendbecomereseller') $backtourl = 'index.php?mode=dashboard';
+
 	$action = '';
 	if ($backtourl)
 	{
@@ -339,10 +341,30 @@ if ($action == 'send')
 	$cmailfile = new CMailFile($topic, $emailto, $emailfrom, $content, array(), array(), array(), '', '', 0, 1, '', '', $trackid, '', 'standard', $replyto);
 	$result = $cmailfile->sendfile();
 
-	if ($result) setEventMessages($langs->trans("TicketSent"), null, 'mesgs');
+	if ($result) setEventMessages($langs->trans("TicketSent"), null, 'warnings');
 	else setEventMessages($langs->trans("FailedToSentTicketPleaseTryLater").' '.$cmailfile->error, $cmailfile->errors, 'errors');
 	$action = '';
 }
+
+// Send reseller request
+if ($action == 'sendbecomereseller')
+{
+	$emailfrom = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+	$emailto = GETPOST('to','alpha');
+	$replyto = GETPOST('from','alpha');
+	$topic = GETPOST('subject','none');
+	$content = GETPOST('content','none');
+
+	$trackid = 'thi'.$mythirdpartyaccount->id;
+
+	$cmailfile = new CMailFile($topic, $emailto, $emailfrom, $content, array(), array(), array(), '', '', 0, 1, '', '', $trackid, '', 'standard', $replyto);
+	$result = $cmailfile->sendfile();
+
+	if ($result) setEventMessages($langs->trans("TicketSent"), null, 'warnings');
+	else setEventMessages($langs->trans("FailedToSentTicketPleaseTryLater").' '.$cmailfile->error, $cmailfile->errors, 'errors');
+	$action = '';
+}
+
 
 if ($action == 'updatemythirdpartyaccount')
 {
@@ -4628,10 +4650,8 @@ if ($mode == 'becomereseller')
 				        <div class="caption">';
 
 		print '<form class="inline-block centpercent" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
-		print '<input type="hidden" name="mode" value="support">';
-		print '<input type="hidden" name="contractid" value="'.$id.'">';
-		print '<input type="hidden" name="action" value="send">';
-		print '<input type="hidden" name="supportchannel" value="'.GETPOST('supportchannel','alpha').'">';
+		print '<input type="hidden" name="mode" value="becomereseller">';
+		print '<input type="hidden" name="action" value="sendbecomereseller">';
 
 		$email = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
 		if (preg_match('/high/', GETPOST('supportchannel','alpha'))) $email = preg_replace('/@/', '+premium@', $email);
