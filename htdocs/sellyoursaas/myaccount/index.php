@@ -1333,6 +1333,12 @@ print '
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-gear"></i> '.$langs->trans("Other").'</a>
             <ul class="dropdown-menu">
 	            <li><a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=support">'.$langs->trans("Support").'</a></li>
+			';
+          if (! $mythirdpartyaccount->isareseller && ! empty($conf->global->SELLYOURSAAS_ALLOW_RESELLER_PROGRAM))
+        {
+	       print '<li><a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=becomereseller">'.$langs->trans("BecomeReseller").'</a></li>';
+        }
+	           print '
                 <li class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="'.$urlfaq.'" target="_newfaq">'.$langs->trans("FAQs").'</a></li>
             </ul>
@@ -4578,6 +4584,85 @@ if ($mode == 'support')
 
 }
 
+
+if ($mode == 'becomereseller')
+{
+	// Print warning to read FAQ before
+	$url = 'https://www.dolicloud.com/en-become-a-dolicloud-reseller.php';
+	if (preg_match('/^fr/i', $langs->defaultlang)) $url = 'https://www.dolicloud.com/fr-become-a-dolicloud-reseller.php';
+	if (preg_match('/^es/i', $langs->defaultlang)) $url = 'https://www.dolicloud.com/es-become-a-dolicloud-reseller.php';
+	print '
+		<div class="alert alert-success note note-success">
+		<h4 class="block">'.$langs->trans("BecomeResellerDesc", $conf->global->SELLYOURSAAS_NAME, $url, $conf->global->SELLYOURSAAS_NAME).'</h4>
+	<br>
+		</div>
+	';
+
+
+	print '
+	<div class="page-content-wrapper">
+			<div class="page-content">
+
+
+	     <!-- BEGIN PAGE HEADER-->
+	<!-- BEGIN PAGE HEAD -->
+	<div class="page-head">
+
+
+	</div>
+	<!-- END PAGE HEAD -->
+	<!-- END PAGE HEADER-->';
+
+
+	print '
+			    <div class="row" id="choosechannel">
+			      <div class="col-md-12">
+
+					<div class="portlet light">
+
+				      <div class="portlet-title">
+				        <div class="caption">';
+
+		print '<form class="inline-block centpercent" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+		print '<input type="hidden" name="mode" value="support">';
+		print '<input type="hidden" name="contractid" value="'.$id.'">';
+		print '<input type="hidden" name="action" value="send">';
+		print '<input type="hidden" name="supportchannel" value="'.GETPOST('supportchannel','alpha').'">';
+
+		$email = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
+		if (preg_match('/high/', GETPOST('supportchannel','alpha'))) $email = preg_replace('/@/', '+premium@', $email);
+		$subject = (GETPOST('subject','none')?GETPOST('subject','none'):$langs->trans("BecomeReseller").' - '.$email);
+
+		print '<input type="hidden" name="to" value="'.$email.'">';
+		print $langs->trans("MailFrom").' : <input type="text" required name="from" value="'.(GETPOST('from','none')?GETPOST('from','none'):$mythirdpartyaccount->email).'"><br><br>';
+		print $langs->trans("MailTopic").' : <input type="text" required class="minwidth500" name="subject" value="'.$subject.'"><br><br>';
+		print '<textarea rows="6" required placeholder="'.$langs->trans("YourText").'" style="border: 1px solid #888" name="content" class="centpercent">'.GETPOST('content','none').'</textarea><br><br>';
+
+		print '<center><input type="submit" name="submit" value="'.$langs->trans("SendMail").'" class="btn green-haze btn-circle">';
+		print ' ';
+		print '<input type="submit" name="cancel" formnovalidate value="'.$langs->trans("Cancel").'" class="btn green-haze btn-circle">';
+		print '</center>';
+
+		print '</form>';
+
+	print ' 	</div></div>
+
+					</div> <!-- END PORTLET -->
+
+
+
+			      </div> <!-- END COL -->
+
+
+			    </div> <!-- END ROW -->
+			';
+
+	print '
+	    </div>
+		</div>
+	';
+
+}
 
 
 if ($mode == 'myaccount')

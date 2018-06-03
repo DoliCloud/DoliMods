@@ -130,7 +130,9 @@ YourPaymentRemind=Relance paiement abonnement  __[SELLYOURSAAS_NAME]__
 YourPaymentRemindContent=Sauf erreur de notre part, la facture __REF__ pour votre abonnement au service __[SELLYOURSAAS_NAME]__ n'a pas encore été payée. Voici un rappel du lien permettant de télécharger la facure et réaliser le paiement en ligne (la période couverte apparait sur la facture). Nous vous recommandons de réaliser le paiement dans un délai de 7 jours afin d'éviter la suspension du service.  
 InstanceNameAlreadyExists=Une instance avec le nom d'adresse <strong>%s</strong> existe déjà. Merci d'un choisir un autre...
 Registration=Inscription
+RegistrationAsReseller=Inscription revendeur
 YourCustomerDashboard=Votre espace client
+YourCustomerOrResellerDashboard=Votre espace client ou revendeur
 InstallationComplete=Installation terminée
 YouCanAccessYourInstance=Vous êtes actuellement dans l'espace de gestion de votre compte. Vous pouvez dès maintenant accéder à votre nouvelle instance %s en utilisant les informations suivantes
 YourCredentialToAccessYourInstanceHasBeenSentByEmail=Vos identifiant pour accéder à votre instance vous ont été envoyés par email à %s
@@ -317,3 +319,6 @@ CantCloseBecauseOfOpenInvoices=Vous ne pouvez supprimer cette instance maintenan
 TrialInstanceWasSuspended=L'instance de test <strong>%s</strong> a été suspendue
 Resellers=Revendeurs
 SummaryOld=Résumé (DoliCloud old)
+BecomeReseller=Devenir revendeur
+SELLYOURSAAS_ALLOW_RESELLER_PROGRAM=Activer les fonctions "Revendeurs"
+BecomeResellerDesc=Vous allez postuler pour devenir Revendeur %s. Veuillez lire la page suivante pour être certain de comprendre ce que cela signifie: <a href="%s">Devenir renvendeur %s</a>

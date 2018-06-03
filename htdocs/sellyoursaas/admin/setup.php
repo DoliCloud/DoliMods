@@ -99,9 +99,12 @@ if ($action == 'set')
 		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_PRODUCT",GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT"),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS",GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS"),'chaine',0,'',$conf->entity);
 
-		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG",GETPOST("SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG"),'chaine',0,'',$conf->entity);
-		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_RESELLER_CATEG",GETPOST("SELLYOURSAAS_DEFAULT_RESELLER_CATEG"),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_PRODUCT_CATEG",GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT_CATEG"),'chaine',0,'',$conf->entity);
+
+		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG",GETPOST("SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG"),'chaine',0,'',$conf->entity);
+
+		dolibarr_set_const($db,"SELLYOURSAAS_ALLOW_RESELLER_PROGRAM",GETPOST("SELLYOURSAAS_ALLOW_RESELLER_PROGRAM"),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_RESELLER_CATEG",GETPOST("SELLYOURSAAS_DEFAULT_RESELLER_CATEG"),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_REFS_URL",GETPOST("SELLYOURSAAS_REFS_URL"),'chaine',0,'',$conf->entity);
 
@@ -448,6 +451,14 @@ print '</td>';
 print '<td>My SaaS service for users</td>';
 print '</tr>';
 
+print '<tr class="oddeven"><td>'.$langs->trans("DefaultCategoryForSaaSServices").'</td>';
+print '<td>';
+$defaultproductcategid=$conf->global->SELLYOURSAAS_DEFAULT_PRODUCT_CATEG;
+print $formother->select_categories(Categorie::TYPE_PRODUCT, $defaultproductcategid, 'SELLYOURSAAS_DEFAULT_PRODUCT_CATEG', 0, 1, 'miwidth300');
+print '</td>';
+print '<td>SaaS Products</td>';
+print '</tr>';
+
 print '<tr class="oddeven"><td>'.$langs->trans("DefaultCategoryForSaaSCustomers").'</td>';
 print '<td>';
 $defaultcustomercategid=$conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG;
@@ -464,12 +475,12 @@ print '</td>';
 print '<td>SaaS Resellers</td>';
 print '</tr>';
 
-print '<tr class="oddeven"><td>'.$langs->trans("DefaultCategoryForSaaSServices").'</td>';
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_ALLOW_RESELLER_PROGRAM").'</td>';
 print '<td>';
-$defaultproductcategid=$conf->global->SELLYOURSAAS_DEFAULT_PRODUCT_CATEG;
-print $formother->select_categories(Categorie::TYPE_PRODUCT, $defaultproductcategid, 'SELLYOURSAAS_DEFAULT_PRODUCT_CATEG', 0, 1, 'miwidth300');
+$allowresellerprogram=$conf->global->SELLYOURSAAS_ALLOW_RESELLER_PROGRAM;
+print $form->selectyesno('SELLYOURSAAS_ALLOW_RESELLER_PROGRAM', $allowresellerprogram, 1);
 print '</td>';
-print '<td>SaaS Products</td>';
+print '<td>Set to yes if you want user to apply to be resellers</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("RefsUrl", DOL_DOCUMENT_ROOT.'/sellyoursaas/git');

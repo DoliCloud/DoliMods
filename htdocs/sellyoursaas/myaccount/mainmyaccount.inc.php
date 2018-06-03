@@ -539,6 +539,7 @@ function dol_loginfunction($langs,$conf,$mysoc)
 	if (! empty($conf->global->MAIN_APPLICATION_TITLE)) $title=$conf->global->MAIN_APPLICATION_TITLE;
 	$titletruedolibarrversion=constant('DOL_VERSION');	// $title used by login template after the @ to inform of true Dolibarr version
 	$title=$langs->trans("YourCustomerDashboard");
+	if (GETPOST('reseller','alpha')) $title=$langs->trans("YourCustomerOrResellerDashboard");
 
 	// Note: $conf->css looks like '/theme/eldy/style.css.php'
 	$conf->css = "/theme/".(GETPOST('theme','alpha')?GETPOST('theme','alpha'):$conf->theme)."/style.css.php";
