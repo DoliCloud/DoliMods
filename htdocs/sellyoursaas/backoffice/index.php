@@ -211,7 +211,7 @@ print '</td></tr>';
 print '<tr class="oddeven"><td class="wordwrap wordbreak">';
 print $langs->trans("ChargePerMonth").' ';
 print '</td><td align="right">';
-print '<font size="+2">'.price($serverlocation).'$='.price($serverprice).'€</font>';
+print '<font size="+2">'.price($serverprice).'€</font>';
 print '</td></tr>';
 print '<tr class="liste_total"><td class="wrapimp wordwrap wordbreak">';
 print $langs->trans("BenefitDoliCloud");
