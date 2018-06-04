@@ -1562,9 +1562,9 @@ if ($mythirdpartyaccount->isareseller)
 	print $langs->trans("YourURLToCreateNewInstance").' : ';
 	$urlforpartner = $conf->global->SELLYOURSAAS_ACCOUNT_URL.'/register.php?partner='.$mythirdpartyaccount->id.'&partnerkey='.md5($mythirdpartyaccount->name_alias);
 	print '<a class="wordbreak" href="'.$urlforpartner.'" target="_blankinstance">'.$urlforpartner;
-	if (is_array($arrayofplans) && count($arrayofplans) > 0) print '&plan=XXX';
+	if (is_array($arrayofplans) && count($arrayofplans) > 1) print '&plan=XXX';
 	print '</a><br>';
-	if (is_array($arrayofplans) && count($arrayofplans) > 0)
+	if (is_array($arrayofplans) && count($arrayofplans) > 1)
 	{
 		print '<div class="opacitymedium">('.$langs->trans("whereXXXcanbe").' '.join(', ', $arrayofplanscode).')</div><br>';
 	}
