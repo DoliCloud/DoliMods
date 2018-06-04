@@ -170,8 +170,8 @@ print "
 		.center { text-align: center; }
 		.valignmiddle { vertical-align: middle; }
 
-	    #logo { text-align: center;	max-width:120px; max-height: 60px; }
-	      .block.small {
+	    #logo { text-align: center;	max-width:200px; max-height: 60px; }
+	    .block.small {
 	        width: 500px;
 	        min-width: 500px;
 	        margin-top: 20px;
