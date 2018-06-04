@@ -144,7 +144,7 @@ print "
 			background-color: #fff;
 		}
 		div.block header {
-			background-color: #888;
+			background-color: #334;
 			color: #eee;padding: 10px;margin-bottom: 20px;
 			text-align: center;
 		}
