@@ -154,6 +154,8 @@ $totalusers=0;
 $totalinstances=0;
 $totalinstancespaying=0;
 $totalcommissions=0;
+$totalresellers=0;
+$serverprice = 80;
 
 $rep=sellyoursaas_calculate_stats($db,'');	// $datelastday is last day of current month
 
@@ -167,9 +169,14 @@ $benefit=($total * (1 - $part) - $serverprice - $totalcommissions);
 // Show totals
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
-print '<td class="wordwrap wordbreak">'.$langs->trans("Statistics").' ('.$langs->trans("FromLiveTables").')</td>';
+print '<td class="wordwrap wordbreak">'.$langs->trans("Statistics").'</td>';
 print '<td></td>';
 print '</tr>';
+print '<tr class="oddeven"><td class="wordwrap wordbreak">';
+print $langs->trans("NbOfResellers");
+print '</td><td align="right">';
+print '<font size="+2">'.$totalresellers.'</font>';
+print '</td></tr>';
 print '<tr class="oddeven"><td class="wordwrap wordbreak">';
 print $langs->trans("NbOfInstancesActivePaying").' / '.$langs->trans("NbOfInstancesPaying").' ';
 print '</td><td align="right">';
