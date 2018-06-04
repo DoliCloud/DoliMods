@@ -78,7 +78,7 @@ class modSellYourSaas extends DolibarrModules
 									'login' => 1,
 									'css' => array(),
 									'hooks' => array('thirdpartycard','thirdpartycomm','thirdpartycontact','contactthirdparty','thirdpartyticket','thirdpartynote','thirdpartydocument',
-													'projectthirdparty','consumptionthirdparty','thirdpartybancard','thirdpartymargins','ticketsuplist','thirdpartynotification','agendathirdparty',
+													'projectthirdparty','consumptionthirdparty','thirdpartybancard','thirdpartymargins','ticketlist','thirdpartynotification','agendathirdparty',
 													'thirdpartydao','formmail','searchform','thirdpartylist','customerlist','prospectlist','contractcard','contractlist','odtgeneration'));
 
 		// Constants
