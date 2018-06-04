@@ -1487,6 +1487,7 @@ $sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration
 $sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
 $sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 $sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
+$sqlproducts.= " AND pe.availabelforresellers = 1";
 //$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";
 $resqlproducts = $db->query($sqlproducts);
 if ($resqlproducts)
@@ -1560,8 +1561,13 @@ if ($mythirdpartyaccount->isareseller)
 		';
 	print $langs->trans("YourURLToCreateNewInstance").' : ';
 	$urlforpartner = $conf->global->SELLYOURSAAS_ACCOUNT_URL.'/register.php?partner='.$mythirdpartyaccount->id.'&partnerkey='.md5($mythirdpartyaccount->name_alias);
-	print '<a class="wordbreak" href="'.$urlforpartner.'" target="_blankinstance">'.$urlforpartner.'&plan=XXX</a><br>';
-	print '<div class="opacitymedium">('.$langs->trans("whereXXXcanbe").' '.join(', ', $arrayofplanscode).')</div><br>';
+	print '<a class="wordbreak" href="'.$urlforpartner.'" target="_blankinstance">'.$urlforpartner;
+	if (is_array($arrayofplans) && count($arrayofplans) > 0) print '&plan=XXX';
+	print '</a><br>';
+	if (is_array($arrayofplans) && count($arrayofplans) > 0)
+	{
+		print '<div class="opacitymedium">('.$langs->trans("whereXXXcanbe").' '.join(', ', $arrayofplanscode).')</div><br>';
+	}
 	$urformycustomerinstances = '<strong>'.$langs->transnoentitiesnoconv("MyCustomersBilling").'</strong>';
 	print $langs->trans("YourCommissionsAppearsInMenu", $urformycustomerinstances);
 	print '
