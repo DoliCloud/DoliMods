@@ -39,7 +39,6 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/dolgraph.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/doleditor.class.php");
-dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 dol_include_once('/sellyoursaas/lib/refresh.lib.php');
 dol_include_once("/sellyoursaas/backoffice/lib/refresh.lib.php");		// do not use dol_buildpath to keep global of var into refresh.lib.php working
 
@@ -105,7 +104,6 @@ if (GETPOST('saveannounce','alpha'))
 ****************************************************/
 
 $form=new Form($db);
-$dolicloudcustomerstatic = new Dolicloud_customers($db,$db2);
 
 llxHeader('',$langs->transnoentitiesnoconv('DoliCloudCustomers'),'');
 
@@ -156,6 +154,14 @@ $totalinstancespaying=0;
 $totalcommissions=0;
 $totalresellers=0;
 $serverprice = 80;
+
+$sql='SELECT COUNT(*) as nb FROM '.MAIN_DB_PREFIX.'societe as s, llx_categorie_fournisseur as c WHERE c.fk_soc = s.rowid AND c.fk_categorie = '.$conf->global->SELLYOURSAAS_DEFAULT_RESELLER_CATEG;
+$resql = $db->query($sql);
+if ($resql)
+{
+	$obj = $db->fetch_object($resql);
+	if ($obj) $totalresellers = $obj->nb;
+}
 
 $rep=sellyoursaas_calculate_stats($db,'');	// $datelastday is last day of current month
 
