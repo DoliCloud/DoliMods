@@ -82,7 +82,6 @@ if (empty($productref))
 		$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
 		$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 		$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
-		$sqlproducts.= " AND p.date(p.rowid = ".$planid." OR 1 = 1)";
 		$sqlproducts.= " ORDER BY p.datec LIMIT 1";
 		$resqlproducts = $db->query($sqlproducts);
 		if ($resqlproducts)
