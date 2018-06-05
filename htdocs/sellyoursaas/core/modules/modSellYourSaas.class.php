@@ -58,13 +58,13 @@ class modSellYourSaas extends DolibarrModules
 		$this->picto='generic';
 
 		// Data directories to create when module is enabled
-		$this->dirs = array('/sellyoursaas/temp','/sellyoursaas/packages','/sellyoursaas/data','/sellyoursaas/git','/sellyoursaas/sqldump');
+		$this->dirs = array('/sellyoursaas/temp','/sellyoursaas/packages','/sellyoursaas/data','/sellyoursaas/git');
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
 		$this->config_page_url = array("setup.php@sellyoursaas");
 
 		// Dependencies
-		$this->depends = array('modAgenda', 'modFacture', 'modService', 'modBanque', 'modCron', 'modCategorie', 'modContrat');		// List of modules class names that must be enabled if this module is enabled
+		$this->depends = array('modAgenda', 'modFacture', 'modService', 'modBanque', 'modCron', 'modCategorie', 'modContrat', 'modGeoIPMaxmind');		// List of modules class names that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,1);						// Minimum version of PHP required by module
 		$this->langfiles = array("sellyoursaas@sellyoursaas");
