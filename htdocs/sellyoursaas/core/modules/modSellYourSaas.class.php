@@ -64,7 +64,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->config_page_url = array("setup.php@sellyoursaas");
 
 		// Dependencies
-		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
+		$this->depends = array('modAgenda', 'modFacture', 'modService', 'modBanque', 'modCron', 'modCategorie');		// List of modules class names that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,1);						// Minimum version of PHP required by module
 		$this->langfiles = array("sellyoursaas@sellyoursaas");
@@ -403,7 +403,6 @@ class modSellYourSaas extends DolibarrModules
 		    'titre'=>'Customers',
 		    'mainmenu'=>'sellyoursaas',
 		    'leftmenu'=>'mysaas_customers',
-			//'url'=>'/societe/list.php?search_options_dolicloud=v',
 			'url'=>'/societe/list.php?search_categ_cus=__[SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG]__',
 			'langs'=>'',
 		    'position'=>230,
@@ -469,7 +468,7 @@ class modSellYourSaas extends DolibarrModules
 		'url'=>'/societe/list.php?search_categ_sup=__[SELLYOURSAAS_DEFAULT_RESELLER_CATEG]__',
 		'langs'=>'',
 		'position'=>233,
-		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		'enabled'=>'$conf->sellyoursaas->enabled && $conf->global->SELLYOURSAAS_ALLOW_RESELLER_PROGRAM',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 		'perms'=>'$user->rights->sellyoursaas->read',
 		'target'=>'',
 		'user'=>0);
@@ -590,7 +589,7 @@ class modSellYourSaas extends DolibarrModules
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'website',
 		//'url'=>'/public/website/index.php?website=sellyoursaas&pageref=register&plan=abc',
-		'url'=>'__[SELLYOURSAAS_ACCOUNT_URL]__/register.php?plan=DOLICLOUD-PACK-Dolibarr&origin=backofficelink&partner=&partnerkey=md5aliaspartner',
+		'url'=>'__[SELLYOURSAAS_ACCOUNT_URL]__/register.php?origin=backofficelink&partner=&partnerkey=md5aliaspartner',
 		'langs'=>'sellyoursaas@sellyoursaas',
 		'position'=>500,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.

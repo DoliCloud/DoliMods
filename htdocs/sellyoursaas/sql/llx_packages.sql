@@ -27,12 +27,19 @@ CREATE TABLE llx_packages(
 	import_key varchar(14), 
 	sqldump varchar(255), 
 	srcfile1 varchar(255), 
-	targetsrcfile1 varchar(255), 
 	srcfile2 varchar(255), 
 	srcfile3 varchar(255), 
-	conffile text, 
+	targetsrcfile1 varchar(255),
+	targetsrcfile2 varchar(255),
+	targetsrcfile3 varchar(255),
+	conffile1 text, 
+	targetconffile1 text, 
+	datafile1 varchar(255), 
+	cliafter text, 
 	sqlafter text, 
 	crontoadd text, 
-	status integer
+	status integer,
+	note_public text,
+	note_private text
 	-- END MODULEBUILDER FIELDS
 ) ENGINE=innodb;
