@@ -158,6 +158,7 @@ $totalcommissions=$rep['totalcommissions'];
 $totalinstancespaying=$rep['totalinstancespaying'];
 $totalinstances=$rep['totalinstances'];
 $totalusers=$rep['totalusers'];
+$part = 0;
 $benefit=($total * (1 - $part) - $serverprice - $totalcommissions);
 
 // Show totals
@@ -205,7 +206,7 @@ print '<tr class="liste_total"><td class="wrapimp wordwrap wordbreak">';
 print $langs->trans("BenefitDoliCloud");
 print '<br>(';
 //print price($total,1).' - '.($part*100).'% - '.price($serverlocation).'$= ';
-print price($total,1).' - '.($part*100).'% - '.price($serverprice).'€ - '.price($totalcommissions).'€ = '.price($total * (1 - $part)).'€ - '.price($serverprice).'€ - '.price($totalcommissions).'€';
+print price($total,1).' - '.($part ? ($part*100).'% - ' : '').price($serverprice).'€ - '.price($totalcommissions).'€ = '.price($total * (1 - $part)).'€ - '.price($serverprice).'€ - '.price($totalcommissions).'€';
 print ')</td><td align="right">';
 print '<font size="+2">'.price($benefit,1).' </font>';
 print '</td></tr>';
