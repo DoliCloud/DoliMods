@@ -384,7 +384,7 @@ if (! $mesg)
 print '<div class="fichecenter"><br></div>';
 
 //print '<hr>';
-print '<div class="fichecenter liste_titre" style="height: 20px;">'.$langs->trans("Graphics").' ('.$langs->trans("FromHistoryStatsTables").')</div>';
+print '<div class="fichecenter liste_titre" style="height: 20px;">'.$langs->trans("Graphics").'</div>';
 
 print '<div class="fichecenter"><div class="impair"><center>';
 print $px1->show();

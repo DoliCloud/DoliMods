@@ -71,7 +71,33 @@ $reusesocid = GETPOST('reusesocid','int');
 $fromsocid = GETPOST('fromsocid','int');
 
 $productid=GETPOST('service','int');
-$productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):($plan?$plan:'DOLICLOUD-PACK-Dolibarr'));
+$productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):'');
+if (empty($productref))
+{
+	$productref = $plan;
+	if (empty($productref))
+	{
+		// Take first plan found
+		$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration';
+		$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
+		$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
+		$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
+		$sqlproducts.= " AND p.date(p.rowid = ".$planid." OR 1 = 1)";
+		$sqlproducts.= " ORDER BY p.datec LIMIT 1";
+		$resqlproducts = $db->query($sqlproducts);
+		if ($resqlproducts)
+		{
+			$num = $db->num_rows($resqlproducts);
+
+			$tmpprod = new Product($db);
+			$obj = $db->fetch_object($resqlproducts);
+			if ($obj)
+			{
+				$productref = $obj->ref;
+			}
+		}
+	}
+}
 
 // Load main product
 $tmpproduct = new Product($db);

@@ -15,14 +15,15 @@ include_once(DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php');
  * Process refresh of setup files for customer $object.
  * This does not update any lastcheck fields.
  *
- * @param 	Conf						$conf			Conf
- * @param 	Database					$db				Database handler
- * @param 	Contract|DoliCloudCustomer 	$object	    	Customer (can modify caller)
- * @param	array						$errors	    	Array of errors
- * @param	int							$printoutput	Print output information
- * @return	int											1
+ * @param 	Conf						$conf					Conf
+ * @param 	Database					$db						Database handler
+ * @param 	Contract|DoliCloudCustomer 	$object	    			Customer (can modify caller)
+ * @param	array						$errors	    			Array of errors
+ * @param	int							$printoutput			Print output information
+ * @param	int							$recreateauthorizekey	1=Recreate authorized key if not found
+ * @return	int													1
  */
-function dolicloud_files_refresh($conf, $db, &$object, &$errors, $printoutput=0)
+function dolicloud_files_refresh($conf, $db, &$object, &$errors, $printoutput=0, $recreateauthorizekey=0)
 {
 	$instance = $object->instance;
 	if (empty($instance)) $instance = $object->ref_customer;
@@ -78,21 +79,29 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors, $printoutput=0)
 				// Create authorized_keys file
 				if (empty($fstat['atime']))
 				{
-					@ssh2_sftp_mkdir($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/.ssh');
-
-					if ($printoutput) print 'Write file '.$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/.ssh/authorized_keys'."\n";
-
-					$stream = @fopen($filecert, 'w');
-					//var_dump($stream);exit;
-					if ($stream)
+					if ($recreateauthorizekey)
 					{
-						fwrite($stream,"ssh-dss AAAAB3NzaC1kc3MAAACBAKu0WcYS8t02uoInHqyxKxQ7qOJaoOw1bRPPSzEKeXZcdHcBffEHpgLUTYEuk8x6rviQ0yRp960NyrjZNCe1rn5cXWuZpJQe/dBGuVMdSK0LiCr6xar66XOsuDDssZn3w0u97pId8wMrsYBzFUj/J3XSbAf5gX5MfWiUuPG+ZcyPAAAAFQCnXg8nISCy6fs11Lo0UXH4fUuSCwAAAIB5TqwLW4lrA0GavA/HG4sS3BdRE8ZxgKRkqY/LQGmVT7MOTCpae97YT7vA8AkPFOpVZWX9qpYD1EjvJlcB9PASmROSV1JCwxXsEK0vxc+MsogqNJTYifdonEjQJJ8dLKh0KPkXoBrTJnn7xNzdarukbiYPDNvH2/OaXUdkrrUoFwAAAIACief5fwRcSeS3R3uTIyoVUBJGhjtOxkEnS6kMvXpdrLi6nMGQvAxsusVhT60gZNHZpOd8zbs0RWI6hBttZl+zd2yK16PFzLbZYR//sQW0vrV4662KbkcgclYNATbVzrZjPUi6LeJ+1PA/n0pI4leWhD+w7hWEPWEkGVGBrwKFAA== admin@apollon1.nltechno.com\nssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEAp6Nj1j5jVgziTIRPiWIdqm95P+yT5wAFYzzyzy5g1/ip+YRz6DT+TJUnpI3+coKPtTGahFkHRUIxCMBBObbgkpw0wJr9aBJrZ4YNSIe+DdmIe0JU4L40eHtOcxDNRFCeS8n9LaQ3/K+UV6JEhplibLYEhPKPn4fTfm7Krj0KDVc= admin@apollon1.nltechno.com\n");
-						fclose($stream);
-						$fstat=ssh2_sftp_stat($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/.ssh/authorized_keys');
+						@ssh2_sftp_mkdir($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/.ssh');
+
+						if ($printoutput) print 'Write file '.$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/.ssh/authorized_keys'."\n";
+
+						$stream = @fopen($filecert, 'w');
+						//var_dump($stream);exit;
+						if ($stream)
+						{
+							$publickeystodeploy = $conf->global->SELLYOURSAAS_PUBLIC_KEY;
+							fwrite($stream, $publickeystodeploy);
+							fclose($stream);
+							$fstat=ssh2_sftp_stat($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/.ssh/authorized_keys');
+						}
+						else
+						{
+							$errors[]='Failed to open for write '.$filecert."\n";
+						}
 					}
 					else
 					{
-						$errors[]='Failed to open for write '.$filecert."\n";
+						if ($printoutput) print 'File '.$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web."/.ssh/authorized_keys not found\n";
 					}
 				}
 				else

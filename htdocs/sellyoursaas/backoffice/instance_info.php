@@ -638,6 +638,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		print '<tr>';
 		print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td>'.($object->array_options['options_fileauthorizekey']?$langs->trans("Yes").' - '.dol_print_date($object->array_options['options_fileauthorizekey'],'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
 		print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
+		print ($object->array_options['options_fileauthorizekey']?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delauthorizedkey">'.$langs->trans("Delete").'</a>)':'');
 		print '</td>';
 		print '<td></td><td></td>';
 		print '</tr>';
@@ -836,6 +837,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		print '<tr>';
 		print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td>'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
 		print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?instanceoldid='.$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
+		print ($object->fileauthorizedkey?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?instanceoldid='.$object->id.'&action=delauthorizedkey">'.$langs->trans("Delete").'</a>)':'');
 		print '</td>';
 		print '<td></td><td></td>';
 		print '</tr>';

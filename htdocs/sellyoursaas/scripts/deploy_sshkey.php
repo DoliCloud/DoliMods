@@ -18,7 +18,7 @@
  */
 
 /**
- *      \file       sellyoursaas/scripts/batch_customers.php
+ *      \file       sellyoursaas/scripts/deploy_sshkey.php
  *		\ingroup    sellyoursaas
  *      \brief      Main master SellYouSaas batch
  *      			backup_instance.php (payed customers rsync + databases backup)
@@ -297,7 +297,7 @@ if ($action == 'test' || $action == 'confirm')
 
 			if ($action == 'confirm')
 			{
-				$return_val = dolicloud_files_refresh($conf, $db, $tmpobject, $errors, 1);
+				$return_val = dolicloud_files_refresh($conf, $db, $tmpobject, $errors, 1, 1);
 
 				echo "Result: ".$return_val."\n";
 				echo "Output: ".join(',',$errors)."\n";
