@@ -103,7 +103,7 @@ $reusecontractid = GETPOST('reusecontractid','int');
 $reusesocid = GETPOST('reusesocid','int');
 
 $productid=GETPOST('service','int');
-$productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):($plan?$plan:'DOLICLOUD-PACK-Dolibarr'));
+$productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):($plan?$plan:''));
 
 // Load main product
 $tmpproduct = new Product($db);
@@ -113,14 +113,13 @@ if (empty($tmpproduct->id))
 	print 'Service/Plan (Product id / ref) '.$productid.' / '.$productref.' was not found.';
 	exit;
 }
-
 // We have the main product, we are searching the package
-
-if (! preg_match('/^DOLICLOUD-PACK-(.+)$/', $tmpproduct->ref, $reg))
+if (empty($tmpproduct->array_options['options_package']))
 {
-	print 'Service/Plan name (Product ref) is invalid. Name must be DOLICLOUD-PACK-...';
+	print 'Service/Plan (Product id / ref) '.$tmpproduct->id.' / '.$productref.' has no package defined on it.';
 	exit;
 }
+// We have the main product, we are searching the duration
 if (empty($tmpproduct->duration_value) || empty($tmpproduct->duration_unit))
 {
 	print 'Service/Plan name (Product ref) '.$productref.' has no default duration';

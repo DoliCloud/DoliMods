@@ -106,6 +106,7 @@ if (empty($tmpproduct->id))
 	print 'Service/Plan (Product id / ref) '.$productid.' / '.$productref.' was not found.';
 	exit;
 }
+// We have the main product, we are searching the package
 if (empty($tmpproduct->array_options['options_package']))
 {
 	print 'Service/Plan (Product id / ref) '.$tmpproduct->id.' / '.$productref.' has no package defined on it.';
@@ -254,6 +255,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
     	    <div class="form-content">
 	    	  <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
 	          <input type="hidden" name="service" value="<?php echo dol_escape_htmltag($tmpproduct->ref); ?>" />
+	          <input type="hidden" name="productref" value="<?php echo dol_escape_htmltag($tmpproduct->ref); ?>" />
 	          <input type="hidden" name="package" value="<?php echo dol_escape_htmltag($tmppackage->ref); ?>" />
 	          <input type="hidden" name="partner" value="<?php echo dol_escape_htmltag($partner); ?>" />
 	          <input type="hidden" name="partnerkey" value="<?php echo dol_escape_htmltag($partnerkey); ?>" />
