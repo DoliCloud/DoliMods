@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2017 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2017-2018 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -388,6 +388,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 
        </div>
 
+          <section id="formActions">
 			<?php
 			$urlfortermofuse = '';
 			if ($conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME == 'dolicloud.com')
@@ -399,15 +400,14 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 			if ($urlfortermofuse)
 			{
 			?>
-	          <section id="formActions">
 	          <p class="termandcondition center" style="color:#444;margin:10px 0;" trans="1"><?php echo $langs->trans("WhenRegisteringYouAccept", $urlfortermofuse) ?></p>
-	          <div class="form-actions center"">
-	              <input type="submit" name="submit" style="margin: 10px;" value="<?php echo $langs->trans("SignMeUp") ?>" class="btn btn-primary" id="submit" />
-	          </div>
-	          </section>
 	        <?php
 			}
 			?>
+	          <div class="form-actions center"">
+	              <input type="submit" name="submit" style="margin: 10px;" value="<?php echo $langs->trans("SignMeUp") ?>" class="btn btn-primary" id="submit" />
+	          </div>
+          </section>
 
      </form> <!-- end form-content -->
 
