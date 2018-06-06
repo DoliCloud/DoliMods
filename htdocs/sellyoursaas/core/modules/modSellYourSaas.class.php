@@ -457,37 +457,6 @@ class modSellYourSaas extends DolibarrModules
 		$r++;
 
 
-
-		// Reseller
-		$this->menu[$r]=array(
-		'fk_menu'=>'fk_mainmenu=sellyoursaas',
-		'type'=>'left',
-		'titre'=>'Resellers',
-		'mainmenu'=>'sellyoursaas',
-		'leftmenu'=>'mysaas_resellerlist',
-		'url'=>'/societe/list.php?search_categ_sup=__[SELLYOURSAAS_DEFAULT_RESELLER_CATEG]__',
-		'langs'=>'',
-		'position'=>233,
-		'enabled'=>'$conf->sellyoursaas->enabled && $conf->global->SELLYOURSAAS_ALLOW_RESELLER_PROGRAM',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		'perms'=>'$user->rights->sellyoursaas->read',
-		'target'=>'',
-		'user'=>0);
-		$r++;
-
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_resellerlist',
-		'type'=>'left',
-		'titre'=>'NewReseller',
-		'mainmenu'=>'sellyoursaas',
-		'leftmenu'=>'mysaas_createreseller',
-		'url'=>'/societe/card.php?action=create&type=f&options_dolicloud=no&suppcats[]=__[SELLYOURSAAS_DEFAULT_RESELLER_CATEG]__',
-		'langs'=>'sellyoursaas@sellyoursaas',
-		'position'=>234,
-		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		'perms'=>'$user->rights->sellyoursaas->write',
-		'target'=>'',
-		'user'=>0);
-		$r++;
-
 		// Instances
 		$this->menu[$r]=array(
 		    'fk_menu'=>'fk_mainmenu=sellyoursaas',
@@ -495,7 +464,7 @@ class modSellYourSaas extends DolibarrModules
 		    'titre'=>'Instances',
 		    'mainmenu'=>'sellyoursaas',
 		    'leftmenu'=>'mysaas_list',
-		    'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=dolicloudinstances',
+		    'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=sellyoursaasinstances',
 		    'langs'=>'sellyoursaas@sellyoursaas',
 		    'position'=>240,
 		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -524,7 +493,7 @@ class modSellYourSaas extends DolibarrModules
 		'titre'=>'ListOfInstancesV1',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_list_old',
-		'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=dolicloudinstancesv1&search_product_category=6',
+		'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=sellyoursaasinstancesv1&search_product_category=6',
 		'langs'=>'sellyoursaas@sellyoursaas',
 		'position'=>245,
 		'enabled'=>'$conf->sellyoursaas->enabled && $conf->global->SELLYOURSAAS_DOLICLOUD_ON',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -539,7 +508,7 @@ class modSellYourSaas extends DolibarrModules
 		'titre'=>'ListOfInstancesV2',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_list',
-		'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=dolicloudinstancesv2&search_product_category=__[SELLYOURSAAS_DEFAULT_PRODUCT_CATEG]__',
+		'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=sellyoursaasinstancesv2&search_product_category=__[SELLYOURSAAS_DEFAULT_PRODUCT_CATEG]__',
 		'langs'=>'sellyoursaas@sellyoursaas',
 		'position'=>246,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -556,7 +525,7 @@ class modSellYourSaas extends DolibarrModules
 		    'titre'=>'CancellationForms',
 		    'mainmenu'=>'sellyoursaas',
 		    'leftmenu'=>'mysaas_cancellation_list',
-		    'url'=>'/sellyoursaas/cancellation_list.php?leftmenu=contracts&contextpage=dolicloudinstances',
+		    'url'=>'/sellyoursaas/cancellation_list.php?leftmenu=contracts&contextpage=sellyoursaasinstances',
 		    'langs'=>'sellyoursaas@sellyoursaas',
 		    'position'=>240,
 		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -598,6 +567,8 @@ class modSellYourSaas extends DolibarrModules
 		'user'=>0);
 		$r++;
 
+		// Link to customers dashboard
+
 		$this->menu[$r]=array(
 		'fk_menu'=>'fk_mainmenu=sellyoursaas',
 		'type'=>'left',
@@ -622,13 +593,44 @@ class modSellYourSaas extends DolibarrModules
 		    'leftmenu'=>'dolicloud_list',
 		    'url'=>'/sellyoursaas/backoffice/dolicloud_list.php',
 		    'langs'=>'sellyoursaas@sellyoursaas',
-		    'position'=>3100,
+		    'position'=>502,
 		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 		    'perms'=>'$user->rights->sellyoursaas->read',
 		    'target'=>'',
 		    'user'=>0);
 		$r++;
 
+
+		// Reseller
+
+		$this->menu[$r]=array(
+		'fk_menu'=>'fk_mainmenu=sellyoursaas',
+		'type'=>'left',
+		'titre'=>'Resellers',
+		'mainmenu'=>'sellyoursaas',
+		'leftmenu'=>'mysaas_resellerlist',
+		'url'=>'/societe/list.php?search_categ_sup=__[SELLYOURSAAS_DEFAULT_RESELLER_CATEG]__',
+		'langs'=>'',
+		'position'=>601,
+		'enabled'=>'$conf->sellyoursaas->enabled && $conf->global->SELLYOURSAAS_ALLOW_RESELLER_PROGRAM',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		'perms'=>'$user->rights->sellyoursaas->read',
+		'target'=>'',
+		'user'=>0);
+		$r++;
+
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=mysaas_resellerlist',
+		'type'=>'left',
+		'titre'=>'NewReseller',
+		'mainmenu'=>'sellyoursaas',
+		'leftmenu'=>'mysaas_createreseller',
+		'url'=>'/societe/card.php?action=create&type=f&options_dolicloud=no&suppcats[]=__[SELLYOURSAAS_DEFAULT_RESELLER_CATEG]__',
+		'langs'=>'sellyoursaas@sellyoursaas',
+		'position'=>602,
+		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		'perms'=>'$user->rights->sellyoursaas->write',
+		'target'=>'',
+		'user'=>0);
+		$r++;
 
 	}
 

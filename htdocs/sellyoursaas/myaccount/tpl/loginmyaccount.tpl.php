@@ -213,12 +213,13 @@ if ($forgetpasslink || $helpcenterlink)
 
 	echo '<br>';
 	echo '<div class="center" style="margin-top: 8px;">';
-	if ($forgetpasslink) {
-		echo '<a class="alogin" href="./passwordforgotten.php'.$moreparam.'">(';
-		echo $langs->trans('PasswordForgotten');
-		if (! $helpcenterlink) echo ')';
-		echo '</a>';
-	}
+	echo '<a class="alogin" href="./passwordforgotten.php'.$moreparam.'">';
+	echo $langs->trans('PasswordForgotten');
+	echo '</a>';
+	echo ' - ';
+	echo '<a class="alogin" href="register.php">';
+	echo $langs->trans('NoAccount');
+	echo '</a>';
 	echo '</div>';
 }
 
