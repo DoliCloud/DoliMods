@@ -1138,9 +1138,7 @@ class SellYourSaasUtils
     						if (empty($charge) || $charge->status == 'failed')
     						{
     							$actioncode='PAYMENT_STRIPE_KO';
-    							$extraparams='';
-    							// TODO Add reason of error
-    							//$extraparams = 'PAYMENT_ERROR_INSUFICIENT_FUNDS';
+    							$extraparams=$stripefailurecode.' '.$stripefailuremessage;
     						}
     						else
     						{
