@@ -2051,6 +2051,7 @@ if ($mode == 'dashboard')
 					{
 						foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
 						{
+							if ($invoice->statut == $invoice::STATUS_DRAFT) continue;
 							if ($invoice->statut != $invoice::STATUS_CLOSED)
 							{
 								$nbinvoicenotpayed++;
