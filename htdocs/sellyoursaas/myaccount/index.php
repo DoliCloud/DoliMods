@@ -1831,12 +1831,15 @@ if (empty($welcomecid))
 			$atleastonepaymentinerroronopeninvoice++;
 
 			$obj = $db->fetch_object($resql);
+			$labelerror = $obj->extraparams;
+			if (empty($labelerror)) $labelerror=$langs->trans("UnknownError");
+
 			// There is at least one payment error
 			if ($obj->extraparams == 'PAYMENT_ERROR_INSUFICIENT_FUNDS')
 			{
 				print '
 						<div class="note note-error">
-						<h4 class="block">'.$langs->trans("SomeOfYourPaymentFailedINSUFICIENT_FUNDS", $obj->label).'</h4>
+						<h4 class="block">'.$langs->trans("SomeOfYourPaymentFailedINSUFICIENT_FUNDS", $labelerror).'</h4>
 						</div>
 					';
 			}
@@ -1844,7 +1847,7 @@ if (empty($welcomecid))
 			{
 				print '
 						<div class="note note-error">
-						<h4 class="block">'.$langs->trans("SomeOfYourPaymentFailed", $obj->label).'</h4>
+						<h4 class="block">'.$langs->trans("SomeOfYourPaymentFailed", $labelerror).'</h4>
 						</div>
 					';
 			}
