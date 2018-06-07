@@ -325,3 +325,4 @@ BecomeResellerDesc=Vous allez postuler pour devenir Revendeur %s. Vérifiez d'ab
 YourTextBecomeReseller=J'ai compris le principe du programme revendeur %s et j'aimerais en faire partie, aussi merci de m'activer les fonctionnalités Revendeur.\nJe prévois de trouver ___ nouveaux clients par an.\nJe comprend que je n'ai aucun travail à fournir excepté promouvoir mon URL personnalisée pour enregistrer de nouveaux clients. Mon taux de commission initial sera de %s %% (mais pourra augmenter avec le nombre de clients).
 NbOfResellers=Nb de revendeurs
 AvailableForResellers=Application disponible pour les revendeurs
+PaymentWillBeProcessedSoon=Le paiement devrait être réalisé sous peu...

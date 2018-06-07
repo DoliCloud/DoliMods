@@ -2067,7 +2067,10 @@ if ($mode == 'dashboard')
 
 				<div class="row">
 				<div class="col-md-9">
-	                '.$langs->trans("UnpaidInvoices").'
+	            ';
+				if ($amountdue > 0) print $form->textwithpicto($langs->trans("UnpaidInvoices"), $langs->trans("PaymentWillBeProcessedSoon"));
+				else print $langs->trans("UnpaidInvoices");
+	            print '
 				</div>
 				<div class="col-md-3 right"><h2>';
 				if ($nbinvoicenotpayed > 0) print '<font style="color: orange">';
@@ -2076,9 +2079,10 @@ if ($mode == 'dashboard')
 				print '<h2></div>
 	            </div>
 				<div class="row">
-				<div class="col-md-9">
-	                '.$langs->trans("RemainderToPay").'
-				</div>
+				<div class="col-md-9">';
+				if ($amountdue > 0) print $form->textwithpicto($langs->trans("RemainderToPay"), $langs->trans("PaymentWillBeProcessedSoon")
+				else print $langs->trans("RemainderToPay");
+				print '</div>
 				<div class="col-md-3 right"><h2>';
 				if ($amountdue > 0) print '<font style="color: orange">';
 				print price($amountdue, 1, $langs, 0, -1, -1, $conf->currency);
