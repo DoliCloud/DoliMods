@@ -913,7 +913,7 @@ class SellYourSaasUtils
     						// Return $charge = array('id'=>'ch_XXXX', 'status'=>'succeeded|pending|failed', 'failure_code'=>, 'failure_message'=>...)
     						if (empty($charge) || $charge->status == 'failed')
     						{
-    							dol_syslog('Failed to charge card '.$stripecard->id, LOG_WARNING);
+    							dol_syslog('Failed to charge card '.$stripecard->id.' stripefailurecode='.$stripefailurecode.' stripefailuremessage='.$stripefailuremessage, LOG_WARNING);
 
     							$error++;
     							$errmsg='Failed to charge card';
@@ -1138,10 +1138,14 @@ class SellYourSaasUtils
     						if (empty($charge) || $charge->status == 'failed')
     						{
     							$actioncode='PAYMENT_STRIPE_KO';
+    							$extraparams='';
+    							// TODO Add reason of error
+    							//$extraparams = 'PAYMENT_ERROR_INSUFICIENT_FUNDS';
     						}
     						else
     						{
     							$actioncode='PAYMENT_STRIPE_OK';
+    							$extraparams='';
     						}
 
     						// Insert record of payment error
@@ -1170,6 +1174,7 @@ class SellYourSaasUtils
     						 $actioncomm->errors_to   = $object->errors_to;*/
     						$actioncomm->fk_element  = $invoice->id;
     						$actioncomm->elementtype = $invoice->element;
+    						$actioncomm->extraparams = $extraparams;
 
     						$actioncomm->create($user);
     					}

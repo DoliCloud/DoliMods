@@ -1667,7 +1667,7 @@ if ($mythirdpartyaccount->isareseller)
 
 
 $atleastonecontractwithtrialended = 0;
-
+$atleastonepaymentinerroronopeninvoice = 0;
 
 // Show warnings
 if (empty($welcomecid))
@@ -1816,7 +1816,7 @@ if (empty($welcomecid))
 
 	// Test if there is a payment error, if yes, ask to fix payment data
 	$sql = 'SELECT f.rowid, ee.code, ee.extraparams  FROM '.MAIN_DB_PREFIX.'facture as f';
-	$sql.= ' INNER JOIN '.MAIN_DB_PREFIX."actioncomm as ee ON ee.fk_element = f.rowid AND elementtype = 'facture' AND code = 'PAYMENT_ERROR'";
+	$sql.= ' INNER JOIN '.MAIN_DB_PREFIX."actioncomm as ee ON ee.fk_element = f.rowid AND ee.elementtype = 'invoice' AND ee.code LIKE 'AC_PAYMENT_%_ERROR'";
 	$sql.= ' WHERE f.fk_soc = '.$mythirdpartyaccount->id.' AND f.paye = 0';
 	$sql.= ' ORDER BY ee.datep DESC';
 
@@ -1827,6 +1827,8 @@ if (empty($welcomecid))
 		$i=0;
 		if ($num_rows)
 		{
+			$atleastonepaymentinerroronopeninvoice++;
+
 			$obj = $db->fetch_object($resql);
 			// There is at least one payment error
 			if ($obj->extraparams == 'PAYMENT_ERROR_INSUFICIENT_FUNDS')
@@ -2575,7 +2577,7 @@ if ($mode == 'instances')
 									$sqlproducts = 'SELECT p.rowid, p.ref, p.label FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
 									$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 									$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
-									$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";		// TODO Restict on compatible plans...
+									$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";		// TODO Restict on plans compatible with current plan...
 									$resqlproducts = $db->query($sqlproducts);
 									if ($resqlproducts)
 									{
@@ -3271,7 +3273,7 @@ if ($mode == 'mycustomerinstances')
 				$sqlproducts = 'SELECT p.rowid, p.ref, p.label FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
 				$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 				$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
-				$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";		// TODO Restict on compatible plans...
+				$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";		// TODO Restict on plans compatible with current plan...
 				$resqlproducts = $db->query($sqlproducts);
 				if ($resqlproducts)
 				{
@@ -3760,8 +3762,39 @@ if ($mode == 'billing')
 								';
 								$alreadypayed = $invoice->getSommePaiement();
 								$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
+								$paymentinerroronthisinvoice = 0;
 
-								print $invoice->getLibStatut(2, $alreadypayed + $amount_credit_notes_included);
+								// Test if there is a payment error, if yes, ask to fix payment data
+								$sql = 'SELECT f.rowid, ee.code, ee.extraparams  FROM '.MAIN_DB_PREFIX.'facture as f';
+								$sql.= ' INNER JOIN '.MAIN_DB_PREFIX."actioncomm as ee ON ee.fk_element = f.rowid AND ee.elementtype = 'invoice' AND ee.code LIKE 'AC_PAYMENT_%_ERROR'";
+								$sql.= ' WHERE f.fk_soc = '.$mythirdpartyaccount->id.' AND f.paye = 0 AND f.rowid = '.$invoice->id;
+								$sql.= ' ORDER BY ee.datep DESC';
+								$sql.= ' LIMIT 1';
+
+								$resql = $db->query($sql);
+								if ($resql)
+								{
+									$num_rows = $db->num_rows($resql);
+									$i=0;
+									if ($num_rows)
+									{
+										$paymentinerroronthisinvoice++;
+										$obj = $db->fetch_object($resql);
+										// There is at least one payment error
+										if ($obj->extraparams == 'PAYMENT_ERROR_INSUFICIENT_FUNDS')
+										{
+											print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/statut8.png"> '.$langs->trans("PaymentError");
+										}
+										else
+										{
+											print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/statut8.png"> '.$langs->trans("PaymentError");
+										}
+									}
+								}
+								if (! $paymentinerroronthisinvoice)
+								{
+									print $invoice->getLibStatut(2, $alreadypayed + $amount_credit_notes_included);
+								}
 								print '
 				              </div>
 
@@ -4382,7 +4415,7 @@ if ($mode == 'support')
 		<div class="alert alert-success note note-success">
 		<h4 class="block">'.$langs->trans("PleaseReadFAQFirst", $urlfaq).'</h4>
 	<br>
-	'.$langs->trans("CurrentServiceStatus" ,$urlstatus).'<br>
+	'.$langs->trans("CurrentServiceStatus", $urlstatus).'<br>
 		</div>
 	';
 
