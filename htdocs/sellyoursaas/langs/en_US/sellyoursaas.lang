@@ -356,3 +356,4 @@ YourTextBecomeReseller=I understood the meaning of the %s reseller program and I
 NbOfResellers=Number of resellers
 AvailableForResellers=Application available for resellers
 PaymentWillBeProcessedSoon=The payment should be processed soon...
+PaymentError=Payment error

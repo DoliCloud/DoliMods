@@ -326,3 +326,4 @@ YourTextBecomeReseller=J'ai compris le principe du programme revendeur %s et j'a
 NbOfResellers=Nb de revendeurs
 AvailableForResellers=Application disponible pour les revendeurs
 PaymentWillBeProcessedSoon=Le paiement devrait être réalisé sous peu...
+PaymentError=Erreur paiement
