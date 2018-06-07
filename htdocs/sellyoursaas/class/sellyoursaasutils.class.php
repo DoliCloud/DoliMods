@@ -120,6 +120,26 @@ class SellYourSaasUtils
 								if ($result > 0)
 								{
 									$draftinvoiceprocessed[$invoice->id]=$invoice->ref;
+
+									// Now we build the invoice
+									$hidedetails = (GETPOST('hidedetails', 'int') ? GETPOST('hidedetails', 'int') : (! empty($conf->global->MAIN_GENERATE_DOCUMENTS_HIDE_DETAILS) ? 1 : 0));
+									$hidedesc = (GETPOST('hidedesc', 'int') ? GETPOST('hidedesc', 'int') : (! empty($conf->global->MAIN_GENERATE_DOCUMENTS_HIDE_DESC) ? 1 : 0));
+									$hideref = (GETPOST('hideref', 'int') ? GETPOST('hideref', 'int') : (! empty($conf->global->MAIN_GENERATE_DOCUMENTS_HIDE_REF) ? 1 : 0));
+
+									// Define output language
+									$outputlangs = $langs;
+									$newlang = '';
+									if ($conf->global->MAIN_MULTILANGS && empty($newlang) && GETPOST('lang_id','aZ09')) $newlang = GETPOST('lang_id','aZ09');
+									if ($conf->global->MAIN_MULTILANGS && empty($newlang))	$newlang = $invoice->thirdparty->default_lang;
+									if (! empty($newlang)) {
+										$outputlangs = new Translate("", $conf);
+										$outputlangs->setDefaultLang($newlang);
+										$outputlangs->load('products');
+									}
+									$model=$invoice->modelpdf;
+									$ret = $invoice->fetch($id); // Reload to get new records
+
+									$result = $invoice->generateDocument($model, $outputlangs, $hidedetails, $hidedesc, $hideref);
 								}
 								else
 								{
