@@ -810,6 +810,9 @@ class SellYourSaasUtils
     							$user->rights->facture->invoice_advance->validate = 1;
 
     							$result = $invoice->validate($user);
+
+    							// TODO Build PDF
+
     						}
     					}
     					else
@@ -887,7 +890,8 @@ class SellYourSaasUtils
 		    						'capture'  => true,							// Charge immediatly
 		    						'description' => $description,
 		    						'metadata' => array("FULLTAG" => $FULLTAG, 'Recipient' => $mysoc->name, 'dol_version'=>DOL_VERSION, 'dol_entity'=>$conf->entity, 'ipaddress'=>(empty($_SERVER['REMOTE_ADDR'])?'':$_SERVER['REMOTE_ADDR'])),
-		    						'customer' => $customer->id,
+	    							//'customer' => $customer->id,
+	    							'customer' => 'bidon_to_force_error',
 		    						'source' => $stripecard,
 		    						'statement_descriptor' => dol_trunc(dol_trunc(dol_string_unaccent($mysoc->name), 6, 'right', 'UTF-8', 1).' '.$FULLTAG, 22, 'right', 'UTF-8', 1)     // 22 chars that appears on bank receipt
 	    						));
@@ -933,7 +937,9 @@ class SellYourSaasUtils
     						{
     							dol_syslog('Successfuly charge card '.$stripecard->id);
 
-    							$this->stripechargedone++;	// Save a stripe payment was done in realy life so later we will be able to force a commit on recorded payments
+    							// Save a stripe payment was done in realy life so later we will be able to force a commit on recorded payments
+    							// even if in batch mode (method doTakePaymentStripe), we will always make all action in one transaction with a forced commit.
+    							$this->stripechargedone++;
 
     							$description='Stripe payment OK from doTakePaymentStripeForThirdparty: '.$FULLTAG;
     							$postactionmessages=array();
@@ -943,6 +949,7 @@ class SellYourSaasUtils
     							$TRANSACTIONID = $charge->id;
     							$currency=$conf->currency;
     							$paymentmethod='stripe';
+    							$emetteur_name = $charge->customer;
 
     							// Same code than into paymentok.php...
 
@@ -1012,7 +1019,7 @@ class SellYourSaasUtils
     								{
     									$label='(CustomerInvoicePayment)';
     									if ($invoice->type == Facture::TYPE_CREDIT_NOTE) $label='(CustomerInvoicePaymentBack)';  // Refund of a credit note
-    									$result=$paiement->addPaymentToBank($user,'payment',$label, $bankaccountid, '', '');
+    									$result=$paiement->addPaymentToBank($user, 'payment', $label, $bankaccountid, $emetteur_name, '');
     									if ($result < 0)
     									{
     										$postactionmessages[] = $paiement->error.' '.joint("<br>\n", $paiement->errors);
