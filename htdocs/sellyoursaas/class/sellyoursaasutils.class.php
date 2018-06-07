@@ -890,8 +890,8 @@ class SellYourSaasUtils
 		    						'capture'  => true,							// Charge immediatly
 		    						'description' => $description,
 		    						'metadata' => array("FULLTAG" => $FULLTAG, 'Recipient' => $mysoc->name, 'dol_version'=>DOL_VERSION, 'dol_entity'=>$conf->entity, 'ipaddress'=>(empty($_SERVER['REMOTE_ADDR'])?'':$_SERVER['REMOTE_ADDR'])),
-	    							//'customer' => $customer->id,
-	    							'customer' => 'bidon_to_force_error',
+	    							'customer' => $customer->id,
+	    							//'customer' => 'bidon_to_force_error',		// To use to force a stripe error
 		    						'source' => $stripecard,
 		    						'statement_descriptor' => dol_trunc(dol_trunc(dol_string_unaccent($mysoc->name), 6, 'right', 'UTF-8', 1).' '.$FULLTAG, 22, 'right', 'UTF-8', 1)     // 22 chars that appears on bank receipt
 	    						));
