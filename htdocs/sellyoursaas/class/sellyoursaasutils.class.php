@@ -1265,7 +1265,7 @@ class SellYourSaasUtils
     	$sql.= " AND ce.deployment_status = 'done'";
     	//$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, abs($delayindaysshort), 'd'))."'";
     	//$sql.= " AND cd.date_fin_validite > '".$this->db->idate(dol_time_plus_duree($now, abs($delayindayshard), 'd'))."'";
-    	$sql.= " AND date_format(cd.date_fin_validite, '%Y-%m-%d') < date_format('".$this->db->idate($enddatetoscan)."', '%Y-%m-%d')";
+    	$sql.= " AND date_format(cd.date_fin_validite, '%Y-%m-%d') <= date_format('".$this->db->idate($enddatetoscan)."', '%Y-%m-%d')";
     	$sql.= " AND cd.statut = 4";
     	$sql.= " AND c.fk_soc = se.fk_object AND se.dolicloud = 'yesv2'";
     	if ($thirdparty_id > 0) $sql.=" AND c.fk_soc = ".$thirdparty_id;
