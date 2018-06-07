@@ -352,8 +352,11 @@ if ($action == 'sendbecomereseller')
 	$emailfrom = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
 	$emailto = GETPOST('to','alpha');
 	$replyto = GETPOST('from','alpha');
-	$topic = GETPOST('subject','none');
+	$topic = '['.$conf->global->SELLYOURSAAS_NAME.'] - '.GETPOST('subject','none').' - '.$mythirdpartyaccount->name;
 	$content = GETPOST('content','none');
+	$content .= "<br><br>\n";
+	$content .= 'Date: '.dol_print_date($now, 'dayhour')."<br>\n";
+	$content .= 'Email: '.GETPOST('from','alpha')."<br>\n";
 
 	$trackid = 'thi'.$mythirdpartyaccount->id;
 
