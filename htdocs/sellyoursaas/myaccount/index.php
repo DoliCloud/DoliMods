@@ -1609,6 +1609,7 @@ if ($resql)
 	}
 }
 $atleastonepaymentmode = (count($arrayofcompanypaymentmode) > 0 ? 1 : 0);
+$nbpaymentmodeok = count($arrayofcompanypaymentmode);
 
 
 // Fill var to count nb of instances
@@ -2068,7 +2069,7 @@ if ($mode == 'dashboard')
 				<div class="row">
 				<div class="col-md-9">
 	            ';
-				if ($amountdue > 0) print $form->textwithpicto($langs->trans("UnpaidInvoices"), $langs->trans("PaymentWillBeProcessedSoon"));
+				if ($amountdue > 0 && $atleastonepaymentmode) print $form->textwithpicto($langs->trans("UnpaidInvoices"), $langs->trans("PaymentWillBeProcessedSoon"));
 				else print $langs->trans("UnpaidInvoices");
 	            print '
 				</div>
@@ -2080,7 +2081,7 @@ if ($mode == 'dashboard')
 	            </div>
 				<div class="row">
 				<div class="col-md-9">';
-				if ($amountdue > 0) print $form->textwithpicto($langs->trans("RemainderToPay"), $langs->trans("PaymentWillBeProcessedSoon")
+				if ($amountdue > 0 && $atleastonepaymentmode) print $form->textwithpicto($langs->trans("RemainderToPay"), $langs->trans("PaymentWillBeProcessedSoon")
 				else print $langs->trans("RemainderToPay");
 				print '</div>
 				<div class="col-md-3 right"><h2>';
@@ -3808,7 +3809,6 @@ if ($mode == 'billing')
 	          <div class="portlet-body">
 	            <p>';
 
-				$nbpaymentmodeok = count($arrayofcompanypaymentmode);
 				$urltoenterpaymentmode = $_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode);
 
 				if ($nbpaymentmodeok > 0)
