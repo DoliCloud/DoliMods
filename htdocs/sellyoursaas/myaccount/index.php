@@ -2081,7 +2081,7 @@ if ($mode == 'dashboard')
 	            </div>
 				<div class="row">
 				<div class="col-md-9">';
-				if ($amountdue > 0 && $atleastonepaymentmode) print $form->textwithpicto($langs->trans("RemainderToPay"), $langs->trans("PaymentWillBeProcessedSoon")
+				if ($amountdue > 0 && $atleastonepaymentmode) print $form->textwithpicto($langs->trans("RemainderToPay"), $langs->trans("PaymentWillBeProcessedSoon"));
 				else print $langs->trans("RemainderToPay");
 				print '</div>
 				<div class="col-md-3 right"><h2>';
