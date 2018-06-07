@@ -1838,7 +1838,7 @@ if (empty($welcomecid))
 			if ($obj->extraparams == 'PAYMENT_ERROR_INSUFICIENT_FUNDS')
 			{
 				print '
-						<div class="note note-error">
+						<div class="note note-warning">
 						<h4 class="block">'.$langs->trans("SomeOfYourPaymentFailedINSUFICIENT_FUNDS", $labelerror).'</h4>
 						</div>
 					';
@@ -1846,7 +1846,7 @@ if (empty($welcomecid))
 			else
 			{
 				print '
-						<div class="note note-error">
+						<div class="note note-warning">
 						<h4 class="block">'.$langs->trans("SomeOfYourPaymentFailed", $labelerror).'</h4>
 						</div>
 					';
