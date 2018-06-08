@@ -605,6 +605,177 @@ class ActionsSellyoursaas
     	return 0;
     }
 
+
+
+
+    /**
+     * Complete list
+     *
+     * @param	array	$parameters		Array of parameters
+     * @param	object	$object			Object
+     * @return	string					HTML content to add by hook
+     */
+    function printFieldListTitle($parameters,&$object)
+    {
+    	global $conf, $langs;
+    	global $param, $sortfield, $sortorder;
+		global $contextpage;
+
+    	if ($parameters['currentcontext'] == 'contractlist' && $contextpage == 'sellyoursaasinstancesvtwo')
+    	{
+    		$langs->load("sellyoursaas@sellyoursaas");
+    		if (empty($conf->global->SELLYOURSAAS_DISABLE_TRIAL_OR_PAID))
+    			print_liste_field_titre("TrialOrPaid",$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
+    		if (empty($conf->global->SELLYOURSAAS_DISABLE_PAYMENT_MODE_SAVED))
+    			print_liste_field_titre("PaymentModeSaved",$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
+    	}
+
+    	return 0;
+    }
+
+    /**
+     * Complete list
+     *
+     * @param	array	$parameters		Array of parameters
+     * @param	object	$object			Object
+     * @return	string					HTML content to add by hook
+     */
+    function printFieldListOption($parameters,&$object)
+    {
+    	global $conf, $langs;
+    	global $contextpage;
+
+    	if ($parameters['currentcontext'] == 'contractlist' && $contextpage == 'sellyoursaasinstancesvtwo')
+    	{
+    		//global $param, $sortfield, $sortorder;
+    		if (empty($conf->global->SELLYOURSAAS_DISABLE_TRIAL_OR_PAID))
+    		{
+    			print '<td class="liste_titre"></td>';
+    		}
+    		if (empty($conf->global->SELLYOURSAAS_DISABLE_PAYMENT_MODE_SAVED))
+    		{
+    			print '<td class="liste_titre"></td>';
+    		}
+    	}
+
+    	return 0;
+    }
+
+    /**
+     * Complete list
+     *
+     * @param	array	$parameters		Array of parameters
+     * @param	object	$object			Object
+     * @return	string					HTML content to add by hook
+     */
+    function printFieldListValue($parameters,&$object)
+    {
+    	global $conf, $langs;
+    	global $db;
+		global $contextpage;
+
+		if ($parameters['currentcontext'] == 'contractlist' && $contextpage == 'sellyoursaasinstancesvtwo')
+    	{
+    		if (empty($conf->global->SELLYOURSAAS_DISABLE_TRIAL_OR_PAID))
+    		{
+    			global $contractmpforloop;
+	    		if (! is_object($contractmpforloop))
+	    		{
+	    			$contractmpforloop = new Contrat($db);
+	    		}
+	    		$contractmpforloop->id = $parameters['obj']->rowid ? $parameters['obj']->rowid : $parameters['obj']->id;
+
+	    		print '<td align="right">';
+
+    			dol_include_once('sellyoursaas/lib/sellyoursaas.lib.php');
+    			$ret = '<div class="right bold">';
+    			$ispaid = sellyoursaasIsPaidInstance($contractmpforloop);
+    			if ($ispaid) $ret .= '<span class="badge" style="font-size: 1em; background-color: green">'.$langs->trans("PayedMode").'</span>';
+    			else $ret .= '<span class="badge" style="font-size: 1em">'.$langs->trans("TrialMode").'</span>';
+    			$ret .= '</div>';
+
+    			print $ret;
+
+    			print '</td>';
+    		}
+    		if (empty($conf->global->SELLYOURSAAS_DISABLE_PAYMENT_MODE_SAVED))
+    		{
+    			global $companytmpforloop;
+    			if (! is_object($companytmpforloop))
+    			{
+    				$companytmpforloop = new Societe($db);
+    			}
+    			$companytmpforloop->id = $parameters['obj']->socid;
+
+
+    			// Define environment of payment modes
+    			$servicestatusstripe = 0;
+    			if (! empty($conf->stripe->enabled))
+    			{
+    				$service = 'StripeTest';
+    				$servicestatusstripe = 0;
+    				if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha') && empty($conf->global->SELLYOURSAAS_FORCE_STRIPE_TEST))
+    				{
+    					$service = 'StripeLive';
+    					$servicestatusstripe = 1;
+    				}
+    			}
+    			$servicestatuspaypal = 0;
+    			if (! empty($conf->paypal->enabled))
+    			{
+    				$servicestatuspaypal = 0;
+    				if (! empty($conf->global->PAYPAL_LIVE) && ! GETPOST('forcesandbox','alpha') && empty($conf->global->SELLYOURSAAS_FORCE_PAYPAL_TEST))
+    				{
+    					$servicestatuspaypal = 1;
+    				}
+    			}
+
+
+    			// Fill array of company payment modes
+    			$atleastonepaymentmode = 0;
+    			$sql = 'SELECT rowid, default_rib FROM '.MAIN_DB_PREFIX."societe_rib";
+    			$sql.= " WHERE type in ('ban', 'card', 'paypal')";
+    			$sql.= " AND fk_soc = ".$companytmpforloop->id;
+    			$sql.= " AND (type = 'ban' OR (type='card' AND status = ".$servicestatusstripe.") OR (type='paypal' AND status = ".$servicestatuspaypal."))";
+    			$sql.= " ORDER BY default_rib DESC, tms DESC";
+
+    			$resqltmp = $db->query($sql);
+    			if ($resqltmp)
+    			{
+    				$num_rows = $db->num_rows($resqltmp);
+    				if ($num_rows)
+    				{
+    					$i=0;
+    					while ($i < $num_rows)
+    					{
+    						$objtmp = $db->fetch_object($resqltmp);
+    						if ($objtmp)
+    						{
+    							if ($objtmp->default_rib != 1) continue;	// Keep the default payment mode only
+    							$atleastonepaymentmode++;
+    							break;
+    						}
+    						$i++;
+    					}
+    				}
+    			}
+
+    			print '<td align="right">';
+    			dol_include_once('sellyoursaas/lib/sellyoursaas.lib.php');
+    			$ret = '<div>';
+    			if ($atleastonepaymentmode) $ret .= $langs->trans("Yes");
+    			else $ret .= $langs->trans("No");
+    			$ret .= '</div>';
+
+    			print $ret;
+
+    			print '</td>';
+    		}
+    	}
+
+    	return 0;
+    }
+
 }
 
 

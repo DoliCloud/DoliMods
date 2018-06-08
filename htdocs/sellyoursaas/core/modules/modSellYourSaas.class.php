@@ -493,7 +493,7 @@ class modSellYourSaas extends DolibarrModules
 		'titre'=>'ListOfInstancesV1',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_list_old',
-		'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=sellyoursaasinstancesv1&search_product_category=6',
+		'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=sellyoursaasinstancesvone&search_product_category=6',
 		'langs'=>'sellyoursaas@sellyoursaas',
 		'position'=>245,
 		'enabled'=>'$conf->sellyoursaas->enabled && $conf->global->SELLYOURSAAS_DOLICLOUD_ON',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -508,7 +508,7 @@ class modSellYourSaas extends DolibarrModules
 		'titre'=>'ListOfInstancesV2',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_list',
-		'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=sellyoursaasinstancesv2&search_product_category=__[SELLYOURSAAS_DEFAULT_PRODUCT_CATEG]__',
+		'url'=>'/contrat/list.php?leftmenu=contracts&contextpage=sellyoursaasinstancesvtwo&search_product_category=__[SELLYOURSAAS_DEFAULT_PRODUCT_CATEG]__',
 		'langs'=>'sellyoursaas@sellyoursaas',
 		'position'=>246,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.

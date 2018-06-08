@@ -46,7 +46,7 @@ class ActionsBilledOnOrders
 
 
     /**
-     * Complete doc forms
+     * Add a column in some list
      *
      * @param	array	$parameters		Array of parameters
      * @param	object	$object			Object
@@ -86,7 +86,7 @@ class ActionsBilledOnOrders
     }
 
     /**
-     * Complete doc forms
+     * Add a column in some list
      *
      * @param	array	$parameters		Array of parameters
      * @param	object	$object			Object
@@ -150,7 +150,7 @@ class ActionsBilledOnOrders
     }
 
     /**
-     * Complete doc forms
+     * Add a column in some list
      *
      * @param	array	$parameters		Array of parameters
      * @param	object	$object			Object
