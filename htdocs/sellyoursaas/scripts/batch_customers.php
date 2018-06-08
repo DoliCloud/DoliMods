@@ -607,6 +607,14 @@ print $out;
 if (! $nboferrors)
 {
 	print '--- end OK - '.strftime("%Y%m%d-%H%M%S")."\n";
+
+	$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+	$to = $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;
+	$msg = 'Backup done without errors by '.$script_file." ".$argv[1]." ".$argv[2]."\n\n".$out;
+
+	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+	$cmail = new CMailFile('['.$conf->global->SELLYOURSAAS_NAME.'] Success for backup', $to, $from, $msg);
+	$cmail->sendfile();
 }
 else
 {

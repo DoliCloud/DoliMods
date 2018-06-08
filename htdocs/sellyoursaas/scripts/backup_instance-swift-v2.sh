@@ -18,7 +18,7 @@ FROM_MAIL_DISLAY="Backups DoliCloud $(hostname | awk -F. '{print $1}')"
 RECIPIENT_ADDRESSES='supervision@dolicloud.com'
 
 HOMEDIRS="/home/jail/home"
-VHOSTSDIR="/etc/apache2/sellyoursaas-enabled/"
+VHOSTSDIR="/etc/apache2/sellyoursaas-online/"
 
 
 LOCKFILE="${BackupPath}SellYourSaasCustomerInstancesBackup.lock"

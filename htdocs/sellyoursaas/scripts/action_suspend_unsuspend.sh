@@ -169,14 +169,14 @@ if [[ "$mode" == "suspend" ]]; then
 
 	#echo Enable conf with a2ensite $fqn.conf
 	#a2ensite $fqn.conf
-	echo Enable conf with ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-enabled
-	ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-enabled
+	echo Enable conf with ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-online
+	ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-online
 	
 	echo /usr/sbin/apache2ctl configtest
 	/usr/sbin/apache2ctl configtest
 	if [[ "x$?" != "x0" ]]; then
-		echo Error when running apache2ctl configtest. We remove the new created virtual host /etc/apache2/sellyoursaas-enabled/$fqn.conf to hope to restore configtest ok.
-		rm -f /etc/apache2/sellyoursaas-enabled/$fqn.conf
+		echo Error when running apache2ctl configtest. We remove the new created virtual host /etc/apache2/sellyoursaas-online/$fqn.conf to hope to restore configtest ok.
+		rm -f /etc/apache2/sellyoursaas-online/$fqn.conf
 		echo "Failed to suspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb when suspending $instancename.$domainname" supervision@dolicloud.com 
 		exit 1
 	fi 

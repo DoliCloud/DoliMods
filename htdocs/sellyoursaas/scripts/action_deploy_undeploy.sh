@@ -548,8 +548,8 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 
 	#echo Enable conf with a2ensite $fqn.conf
 	#a2ensite $fqn.conf
-	echo Enable conf with ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-enabled 
-	ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-enabled
+	echo Enable conf with ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-online 
+	ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-online
 	
 	echo /usr/sbin/apache2ctl configtest
 	/usr/sbin/apache2ctl configtest
@@ -571,14 +571,14 @@ fi
 
 if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 
-	export apacheconf="/etc/apache2/sellyoursaas-enabled/$fqn.conf"
+	export apacheconf="/etc/apache2/sellyoursaas-online/$fqn.conf"
 	echo `date +%Y%m%d%H%M%S`" ***** Remove apache conf $apacheconf"
 
 	if [ -f $apacheconf ]; then
 	
 		echo Disable conf with a2dissite $fqn.conf
 		#a2dissite $fqn.conf
-		rm /etc/apache2/sellyoursaas-enabled/$fqn.conf
+		rm /etc/apache2/sellyoursaas-online/$fqn.conf
 		
 		/usr/sbin/apache2ctl configtest
 		if [[ "x$?" != "x0" ]]; then

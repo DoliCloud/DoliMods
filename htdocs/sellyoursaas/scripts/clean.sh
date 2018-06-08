@@ -95,7 +95,7 @@ echo "***** Clean available virtualhost that are not enabled hosts"
 for fic in `ls /etc/apache2/sellyoursaas-available/*.*.dolicloud.com.conf 2>&1`
 do
 	basfic=`basename $fic` 
-	if [ ! -L /etc/apache2/sellyoursaas-enabled/$basfic ]; then
+	if [ ! -L /etc/apache2/sellyoursaas-online/$basfic ]; then
 		echo Remove file $basfic
 		if [[ $testorconfirm == "confirm" ]]; then
 			rm /etc/apache2/sellyoursaas-available/$basfic
@@ -323,17 +323,17 @@ do
 			fi
 			
 
-			apacheconf=/etc/apache2/sellyoursaas-enabled/$instancename.conf
+			apacheconf=/etc/apache2/sellyoursaas-online/$instancename.conf
 			
 			if [ -f $apacheconf ]; then
 				# Remove apache virtual host
 				#echo "   ** Disable apache conf with a2dissite $instancename"
 				#a2dissite $instancename
-				echo "   ** Disable apache conf with rm /etc/apache2/sellyoursaas-enabled/$instancename.conf"
-				echo rm /etc/apache2/sellyoursaas-enabled/$instancename.conf
+				echo "   ** Disable apache conf with rm /etc/apache2/sellyoursaas-online/$instancename.conf"
+				echo rm /etc/apache2/sellyoursaas-online/$instancename.conf
 				if [[ $testorconfirm == "confirm" ]]; then
 					#a2dissite $instancename
-					rm /etc/apache2/sellyoursaas-enabled/$instancename.conf
+					rm /etc/apache2/sellyoursaas-online/$instancename.conf
 				fi
 			fi
 
