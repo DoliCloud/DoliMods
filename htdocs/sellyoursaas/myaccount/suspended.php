@@ -63,6 +63,9 @@ $langs->load("sellyoursaas@sellyoursaas");
 top_htmlhead('');
 
 ?>
+
+<body id="suspended">
+
 <br><br><br>
 <div style="text-align: center">
 <?php
@@ -74,6 +77,4 @@ print $langs->trans("GoOnYourDashboardToGetMoreInfo", $_SERVER['SERVER_NAME'], $
 <br><br><br>
 </div>
 
-<?php
-llxFooter();
-?>
+</body>

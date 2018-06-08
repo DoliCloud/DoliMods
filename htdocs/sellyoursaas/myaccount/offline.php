@@ -63,6 +63,9 @@ $langs->load("sellyoursaas@sellyoursaas");
 top_htmlhead('');
 
 ?>
+
+<body id="offline">
+
 <br><br><br>
 <div style="text-align: center">
 <?php
@@ -74,6 +77,4 @@ print '<br>';
 <br><br><br>
 </div>
 
-<?php
-llxFooter();
-?>
+</body>
