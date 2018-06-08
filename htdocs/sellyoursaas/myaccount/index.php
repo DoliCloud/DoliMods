@@ -1240,7 +1240,7 @@ if ($action == 'deleteaccount')
 				$mythirdpartyaccount->update(0, $user);
 				//setEventMessages($langs->trans("YourAccountHasBeenClosed"), null, 'errors');
 
-				llxHeader($head, $langs->trans("MyAccount"));
+				llxHeader($head, $langs->trans("MyAccount"), '', '', 0, 0, '', '', '', 'myaccount');
 
 				$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI);
 
@@ -1311,7 +1311,7 @@ var select2arrayoflanguage = {
 
 
 
-llxHeader($head, $langs->trans("MyAccount"));
+llxHeader($head, $langs->trans("MyAccount"), '', '', 0, 0, '', '', '', 'myaccount');
 
 $linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI);
 
