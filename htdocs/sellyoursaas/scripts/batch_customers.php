@@ -292,7 +292,7 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 			$return_val=0; $error=0; $errors=array();	// No error by default into each loop
 
 			// Run backup
-			print "Process backup of instance ".($i+1)." V".$v." ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
+			print "***** Process backup of instance ".($i+1)." V".$v." ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
 
 			$mode = 'unknown';
 			$mode = ($action == 'backup'?'confirm':$mode);
@@ -373,13 +373,13 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 			if (! $error)
 			{
 				$nbofok++;
-				print 'Process success for '.$instance."\n";
+				print '-> Backup process success for '.$instance."\n";
 			}
 			else
 			{
 				$nboferrors++;
 				$instancesbackuperror[]=$instance;
-				print 'Process fails for '.$instance."\n";
+				print '-> Backup process fails for '.$instance."\n";
 			}
 
 			$i++;
@@ -458,7 +458,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 				print 'KO. '.join(',',$errors)."\n";
 				$db->rollback();
 			}
-			
+
 			$i++;
 		}
 	}
@@ -592,23 +592,33 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 
 
 // Result
-print "Nb of instances (all time): ".$nbofalltime."\n";
-print "Nb of instances (active with or without payment error, close request or not): ".$nbofactive."\n";
-print "Nb of instances (active but close request): ".$nbofactiveclosurerequest."\n";
-print "Nb of instances (active but suspended): ".$nbofactivesusp."\n";
-print "Nb of instances (active but payment ko, not yet suspended): ".$nbofactivepaymentko."\n";
-print "Nb of instances process ok: ".$nbofok."\n";
-print "Nb of instances process ko: ".$nboferrors;
-print (count($instancesbackuperror)?", error for backup on ".join(',',$instancesbackuperror):"");
-print (count($instancesupdateerror)?", error for update on ".join(',',$instancesupdateerror):"");
-print "\n";
+$out = '';
+$out.= "Nb of instances (all time): ".$nbofalltime."\n";
+$out.= "Nb of instances (active with or without payment error, close request or not): ".$nbofactive."\n";
+$out.= "Nb of instances (active but close request): ".$nbofactiveclosurerequest."\n";
+$out.= "Nb of instances (active but suspended): ".$nbofactivesusp."\n";
+$out.= "Nb of instances (active but payment ko, not yet suspended): ".$nbofactivepaymentko."\n";
+$out.= "Nb of instances processed ok: ".$nbofok."\n";
+$out.= "Nb of instances processed ko: ".$nboferrors;
+$out.= (count($instancesbackuperror)?", error for backup on ".join(', ',$instancesbackuperror):"");
+$out.= (count($instancesupdateerror)?", error for update on ".join(', ',$instancesupdateerror):"");
+$out.= "\n";
+print $out;
 if (! $nboferrors)
 {
-	print '--- end ok - '.strftime("%Y%m%d-%H%M%S")."\n";
+	print '--- end OK - '.strftime("%Y%m%d-%H%M%S")."\n";
 }
 else
 {
-	print '--- end error code='.$nboferrors.' - '.strftime("%Y%m%d-%H%M%S")."\n";
+	print '--- end ERROR nb='.$nboferrors.' - '.strftime("%Y%m%d-%H%M%S")."\n";
+
+	$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+	$to = $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;
+	$msg = 'Error in '.$script_file." ".$argv[1]." ".$argv[2]."\n\n".$out;
+
+	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+	$cmail = new CMailFile('[Alert] Error in backups', $to, $from, $msg);
+	$cmail->sendfile();
 }
 
 $db->close();	// Close database opened handler

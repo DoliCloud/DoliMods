@@ -260,9 +260,19 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	}
 
 	// Add file tag
-	$handle=fopen($dirroot.'/'.$login.'/last_rsync_'.$instance.'.txt','w');
-	fwrite($handle,'File created after rsync of '.$instance.". return_var=".$return_var."\n");
-	fclose($handle);
+	if ($mode == 'confirm' || $mode == 'confirmrsync')
+	{
+		$handle=fopen($dirroot.'/'.$login.'/last_rsync_'.$instance.'.txt','w');
+		if ($handle)
+		{
+			fwrite($handle,'File created after rsync of '.$instance.". return_var=".$return_var."\n");
+			fclose($handle);
+		}
+		else
+		{
+			print 'Warning: Failed to create file last_rsync_'.$instance.'.txt'."\n";
+		}
+	}
 }
 
 // Backup database
@@ -305,8 +315,15 @@ if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 	if ($mode == 'confirm' || $mode == 'confirmdatabase')
 	{
 		$handle=fopen($dirroot.'/'.$login.'/last_mysqldump_'.$instance.'.txt','w');
-		fwrite($handle,'File created after mysqldump of '.$instance.". return_varmysql=".$return_varmysql."\n");
-		fclose($handle);
+		if ($handle)
+		{
+			fwrite($handle,'File created after mysqldump of '.$instance.". return_varmysql=".$return_varmysql."\n");
+			fclose($handle);
+		}
+		else
+		{
+			print 'Warning: Failed to create file last_mysqldump_'.$instance.'.txt'."\n";
+		}
 	}
 }
 
