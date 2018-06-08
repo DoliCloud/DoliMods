@@ -60,7 +60,7 @@ $contract->fetch_thirdparty();
 
 $langs->load("sellyoursaas@sellyoursaas");
 
-top_htmlhead('');
+top_htmlhead('', 'OffLine Page');
 
 ?>
 

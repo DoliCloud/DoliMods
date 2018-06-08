@@ -34,7 +34,7 @@
 
 
 define('DOL_URL_ROOT', 'source');
-define('DOL_APPLICATION_TITLE', 'SellYourSaas MyAccount');
+define('DOL_APPLICATION_TITLE', 'MyAccount');
 
 
 // Functions
