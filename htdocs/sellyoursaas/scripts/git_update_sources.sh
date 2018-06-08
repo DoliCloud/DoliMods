@@ -19,8 +19,8 @@ for dir in `ls -d $1/*`
 do
         echo -- Process dir $dir
         cd $dir
-        git pull --ff-only --depth=10
-        echo Result of git pull -ff-only = $?
+        git pull
+        echo Result of git pull = $?
 
         if [ -s build/generate_filelist_xml.php ]; then
                 echo "Found generate_filelist_xml.php"
