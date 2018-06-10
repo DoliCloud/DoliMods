@@ -8,7 +8,7 @@
 
 if [ "x$2" == "x" ]; then
    echo "Usage:   $0  newurl  test|offline|online"
-   echo "Example: $0  https://myaccount/dolicloud.com/offline.php  test"
+   echo "Example: $0  https://myaccount.dolicloud.com/offline.php  test"
    exit 1
 fi
 
