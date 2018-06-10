@@ -124,7 +124,7 @@ $newobject->instance = $newinstance;
 $newobject->username_web = $newobject->array_options['options_username_os'];
 $newobject->password_web = $newobject->array_options['options_password_os'];
 $newobject->hostname_web = $newobject->array_options['options_hostname_os'];
-$newobject->username_db  = $newobject->array_options['options_usernamed_db'];
+$newobject->username_db  = $newobject->array_options['options_username_db'];
 $newobject->password_db  = $newobject->array_options['options_password_db'];
 $newobject->database_db  = $newobject->array_options['options_database_db'];
 
@@ -272,6 +272,18 @@ $return_varmysql=0;
 print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
 exec($fullcommand, $output, $return_varmysql);
 print strftime("%Y%m%d-%H%M%S").' mysqldump done (return='.$return_varmysql.')'."\n";
+
+// Output result
+foreach($output as $outputline)
+{
+	print $outputline."\n";
+}
+
+
+print "--- Set permissions with ".$newlogin.".".$newlogin." ".$targetdir."\n";
+$output=array();
+$return_varchmod=0;
+exec("chmod -R ".$newlogin.".".$newlogin." ".$targetdir, $output, $return_varchmod);
 
 // Output result
 foreach($output as $outputline)
