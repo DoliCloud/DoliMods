@@ -246,12 +246,17 @@ print "\n";
 
 
 
-print "--- Set permissions with ".$newlogin.".".$newlogin." ".$targetdir."\n";
+print "--- Set permissions with chmod -R ".$newlogin.".".$newlogin." ".$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$newlogin.'/'.$newdirdb."\n";
 $output=array();
 $return_varchmod=0;
 if ($mode == 'confirm')
 {
-	exec("chmod -R ".$newlogin.".".$newlogin." ".$targetdir, $output, $return_varchmod);
+	if (empty($conf->global->DOLICLOUD_INSTANCES_PATH) || empty($newlogin) || empty($newdirdb))
+	{
+		print 'Bad value for data. We stop to avoid drama';
+		exit(-7);
+	}
+	exec("chown -R ".$newlogin.".".$newlogin." ".$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$newlogin.'/'.$newdirdb, $output, $return_varchmod);
 }
 
 // Output result
