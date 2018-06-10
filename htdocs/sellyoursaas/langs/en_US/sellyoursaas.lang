@@ -360,3 +360,4 @@ PaymentError=Payment error
 SorryInstancesAreOffLine=Sorry, due to a technical trouble, instances are currently offline for a maintenance purpose, please retry in few minutes after our intervention...
 TrialOrPaid=Trial or Paid
 PaymentModeSaved=Payment mode recorded
+RetryNow=Retry now

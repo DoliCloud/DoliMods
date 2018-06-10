@@ -69,7 +69,10 @@ top_htmlhead('', 'OffLine Page');
 <br><br><br>
 <div style="text-align: center">
 <?php
-print $langs->trans("SorryInstancesAreOffLine", $instance);
+print $langs->trans("SorryInstancesAreOffLine", $instance).'<br>';
+print '<br>';
+print '<br>';
+print '<a href="https://'.$instance.'">'.$langs->trans("RetryNow").'</a><br>';
 print '<br>';
 print '<br>';
 //print $langs->trans("GoOnYourDashboardToGetMoreInfo", $_SERVER['SERVER_NAME'], $_SERVER['SERVER_NAME']);
