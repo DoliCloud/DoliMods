@@ -245,6 +245,26 @@ print "-> Files were sync into dir of instance ".$newobject->ref_customer.": ".$
 print "\n";
 
 
+
+print "--- Set permissions with ".$newlogin.".".$newlogin." ".$targetdir."\n";
+$output=array();
+$return_varchmod=0;
+if ($mode == 'confirm')
+{
+	exec("chmod -R ".$newlogin.".".$newlogin." ".$targetdir, $output, $return_varchmod);
+}
+
+// Output result
+foreach($output as $outputline)
+{
+	print $outputline."\n";
+}
+
+print "\n";
+
+print "-> Files were sync into dir of instance ".$newobject->ref_customer.": ".$targetdir."\n";
+
+
 print '--- Dump database '.$oldobject->database_db.' into /tmp/mysqldump_'.$oldobject->database_db.'_'.gmstrftime('%d').".sql\n";
 
 $command="mysqldump";
@@ -279,19 +299,6 @@ foreach($output as $outputline)
 	print $outputline."\n";
 }
 
-
-print "--- Set permissions with ".$newlogin.".".$newlogin." ".$targetdir."\n";
-$output=array();
-$return_varchmod=0;
-exec("chmod -R ".$newlogin.".".$newlogin." ".$targetdir, $output, $return_varchmod);
-
-// Output result
-foreach($output as $outputline)
-{
-	print $outputline."\n";
-}
-
-print "\n";
 
 
 print '--- Load database '.$newobject->database_db.' from /tmp/mysqldump_'.$oldobject->database_db.'_'.gmstrftime('%d').".sql\n";
