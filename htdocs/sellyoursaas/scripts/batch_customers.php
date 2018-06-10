@@ -609,25 +609,31 @@ if (! $nboferrors)
 {
 	print '--- end OK - '.strftime("%Y%m%d-%H%M%S")."\n";
 
-	$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
-	$to = $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;
-	$msg = 'Backup done without errors by '.$script_file." ".$argv[1]." ".$argv[2]."\n\n".$out;
+	if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabase' || $action == 'backuptestrsync' || $action == 'backuptestdatabase')
+	{
+		$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+		$to = $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;
+		$msg = 'Backup done without errors by '.$script_file." ".$argv[1]." ".$argv[2]."\n\n".$out;
 
-	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-	$cmail = new CMailFile('['.$conf->global->SELLYOURSAAS_NAME.'] Success for backup', $to, $from, $msg);
-	$cmail->sendfile();
+		include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+		$cmail = new CMailFile('['.$conf->global->SELLYOURSAAS_NAME.'] Success for backup', $to, $from, $msg);
+		$cmail->sendfile();
+	}
 }
 else
 {
 	print '--- end ERROR nb='.$nboferrors.' - '.strftime("%Y%m%d-%H%M%S")."\n";
 
-	$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
-	$to = $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;
-	$msg = 'Error in '.$script_file." ".$argv[1]." ".$argv[2]."\n\n".$out;
+	if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabase' || $action == 'backuptestrsync' || $action == 'backuptestdatabase')
+	{
+		$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+		$to = $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;
+		$msg = 'Error in '.$script_file." ".$argv[1]." ".$argv[2]."\n\n".$out;
 
-	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-	$cmail = new CMailFile('[Alert] Error in backups', $to, $from, $msg);
-	$cmail->sendfile();
+		include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+		$cmail = new CMailFile('[Alert] Error in backups', $to, $from, $msg);
+		$cmail->sendfile();
+	}
 }
 
 $db->close();	// Close database opened handler
