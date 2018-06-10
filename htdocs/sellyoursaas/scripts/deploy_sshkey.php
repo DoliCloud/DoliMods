@@ -125,9 +125,10 @@ if ($instancefilter == 'old')
 else
 {
 	// Force $v according to hard coded values (keep v2 in default case)
-	if (! empty($instancefiltercomplete) && ! preg_match('/(\.on|\.with)\.dolicloud\.com$/',$instancefiltercomplete)  && ! preg_match('/\.home\.lan$/',$instancefiltercomplete))
+	if (! empty($instancefiltercomplete) && ! preg_match('/(\.on|\.with)\.dolicloud\.com$/',$instancefiltercomplete) && ! preg_match('/\.home\.lan$/',$instancefiltercomplete))
 	{
-		$instancefiltercomplete=$instancefiltercomplete . $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
+		// TODO Manage several domains
+		$instancefiltercomplete=$instancefiltercomplete.".".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
 	}
 	if (! empty($instancefiltercomplete) && preg_match('/\.on\.dolicloud\.com$/',$instancefiltercomplete)) {
 		$v=1;
