@@ -188,7 +188,7 @@ if (! in_array($mode,array('diff','diffadd','diffchange'))) $param[]="--stats";
 if (in_array($mode,array('clean','confirmclean'))) $param[]="--delete";
 $param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'";
 
-$param[]=$oldlogin.'@'.$oldserver.":".$sourcedir;
+$param[]=$oldlogin.'@'.$oldserver.":".$sourcedir.'/*';
 //$param[]=$newlogin.'@'.$newserver.":".$targetdir;
 $param[]=$targetdir;
 
