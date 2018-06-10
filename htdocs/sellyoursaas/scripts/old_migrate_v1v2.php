@@ -59,6 +59,7 @@ if (! $res) die("Include of master fails");
 dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
 dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
+include_once(DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php');
 
 
 $db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
@@ -78,28 +79,33 @@ $objectv2 = new Contrat($db);
  *	Main
  */
 
+print "***** ".$script_file." *****\n";
+
 if (empty($oldinstance) || empty($newinstance) || empty($mode))
 {
-	print "Migrate an old instance on new server.\n";
+	print "Migrate an old instance on new server. Script must be ran with root.\n";
 	print "Usage: $script_file oldinstance newinstance (test|confirm)\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);
 }
 
+if (0 != posix_getuid()) {
+	echo "Script must be ran with root.\n";
+	exit(-1);
+}
 
-
-if (! empty($oldinstance) && ! preg_match('/(\.on.dolicloud\.com$/',$instance) && ! preg_match('/\.home\.lan$/',$instance))
+if (! empty($oldinstance) && ! preg_match('/\.on\.dolicloud\.com$/',$oldinstance) && ! preg_match('/\.home\.lan$/',$oldinstance))
 {
 	$oldinstance=$oldinstance.".on.dolicloud.com";
 }
-if (! empty($newinstance) && ! preg_match('/(\.with)\.dolicloud\.com$/',$instance) && ! preg_match('/\.home\.lan$/',$instance))
+if (! empty($newinstance) && ! preg_match('/\.with\.dolicloud\.com$/',$newinstance) && ! preg_match('/\.home\.lan$/',$newinstance))
 {
 	// TODO Manage serveral domains
 	$newinstance=$newinstance.".".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
 }
 
 $oldobject = new Dolicloud_customers($db, $db2);
-$result=$object->fetch('',$oldinstance);
+$result=$oldobject->fetch('',$oldinstance);
 if ($result <= 0)
 {
 	print "Error: old instance ".$oldinstance." not found.\n";
@@ -114,50 +120,60 @@ if ($result <= 0)
 	print "Error: newinstance ".$newinstance." not found.\n";
 	exit(-2);
 }
+$newobject->instance = $newinstance;
+$newobject->username_web = $newobject->array_options['options_username_os'];
+$newobject->password_web = $newobject->array_options['options_password_os'];
+$newobject->hostname_web = $newobject->array_options['options_hostname_os'];
+$newobject->username_db  = $newobject->array_options['options_usernamed_db'];
+$newobject->password_db  = $newobject->array_options['options_password_db'];
+$newobject->database_db  = $newobject->array_options['options_database_db'];
 
 
-
-
-if (empty($object->instance) || empty($object->username_web) || empty($object->password_web) || empty($object->database_db))
+if (empty($oldobject->instance) || empty($oldobject->username_web) || empty($oldobject->password_web) || empty($oldobject->database_db))
 {
-	print "Error: Some properties for instance ".$instance." was not registered into database.\n";
+	print "Error: Some properties for instance ".$oldinstance." was not registered into database.\n";
 	exit(-3);
 }
-if (! is_dir($dirroot.'/htdocs'))
+if (empty($newobject->instance) || empty($newobject->username_web) || empty($newobject->password_web) || empty($newobject->database_db))
 {
-	print "Error: Source directory to synchronize must contains a htdocs directory.\n";
-	exit(-4);
+	print "Error: Some properties for instance ".$newinstance." was not registered into database.\n";
+	exit(-3);
 }
 
-$dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
-$login=$object->username_web;
-$password=$object->password_web;
-if ($v != 1)
-{
-	$targetdir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$login.'/'.$dirdb;
-	$server=$object->array_options['options_hostname_os'];
-}
-else
-{
-	$targetdir=$conf->global->DOLICLOUD_EXT_HOME.'/'.$login.'/'.$dirdb;
-	$server=$object->instance.'.on.dolicloud.com';
-}
+$olddirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$oldobject->database_db);
+$oldlogin=$oldobject->username_web;
+$oldpassword=$oldobject->password_web;
+$oldloginbase=$oldobject->username_db;
+$oldpasswordbase=$oldobject->password_db;
+$newdirdb=$newobject->database_db;
+$newlogin=$newobject->username_web;
+$newpassword=$newobject->password_web;
+$newloginbase=$newobject->username_db;
+$newpasswordbase=$newobject->password_db;
 
-if (empty($login) || empty($dirdb))
+$sourcedir=$conf->global->DOLICLOUD_EXT_HOME.'/'.$oldlogin.'/'.$olddirdb;
+$targetdir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$newlogin.'/'.$newdirdb;
+$oldserver=$oldobject->hostname_web;
+$newserver=$newobject->array_options['options_hostname_os'];
+
+if (empty($oldlogin) || empty($olddirdb))
 {
-	print "Error: properties for instance ".$instance." are not registered completely (missing at least login or database name).\n";
+	print "Error: properties for instance ".$oldinstance." are not registered completely (missing at least login or database name).\n";
 	exit(-5);
 }
 
-$sftpconnectstring=$object->username_web.'@'.$object->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
+$oldsftpconnectstring=$oldobject->username_web.'@'.$oldobject->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$oldlogin.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$olddirdb);
+$newsftpconnectstring=$newobject->username_web.'@'.$newobject->hostname_web.':'.$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$newlogin.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$newdirdb);
 
-print 'Synchro of files '.$dirroot.' to '.$targetdir."\n";
-print 'SFTP connect string : '.$sftpconnectstring."\n";
-print 'SFTP password '.$object->password_web."\n";
+print '--- Synchro of files '.$sourcedir.' to '.$targetdir."\n";
+print 'SFTP connect string : '.$oldsftpconnectstring."\n";
+print 'SFTP connect string : '.$newsftpconnectstring."\n";
+print 'SFTP old password '.$oldobject->password_web."\n";
+//print 'SFTP new password '.$newobject->password_web."\n";
 
 $command="rsync";
 $param=array();
-if (! in_array($mode,array('confirm','confirmunlock','confirmclean'))) $param[]="-n";
+if (! in_array($mode,array('confirm'))) $param[]="-n";
 //$param[]="-a";
 if (! in_array($mode,array('diff','diffadd','diffchange'))) $param[]="-rlt";
 else { $param[]="-rlD"; $param[]="--modify-window=1000000000"; $param[]="--delete -n"; }
@@ -167,25 +183,14 @@ $param[]="--exclude .git";
 $param[]="--exclude .gitignore";
 $param[]="--exclude .settings";
 $param[]="--exclude .project";
-$param[]="--exclude build/";
-//$param[]="--exclude doc/";	// To keep files into htdocs/core/module/xxx/doc dir
-$param[]="--exclude dev/";
-$param[]="--exclude documents/";
-$param[]="--include htdocs/modulebuilder/template/test/";
-$param[]="--exclude test/";
-$param[]="--exclude htdocs/conf/conf.php*";
-$param[]="--exclude htdocs/custom";
-$param[]="--exclude htdocs/customfields/";
-$param[]="--exclude htdocs/bootstrap/";
-$param[]="--exclude htdocs/agefodd/";
-$param[]="--exclude htdocs/memcached/";
-$param[]="--exclude htdocs/cabinetmed/";
+$param[]="--exclude htdocs/conf/conf.php";
 if (! in_array($mode,array('diff','diffadd','diffchange'))) $param[]="--stats";
 if (in_array($mode,array('clean','confirmclean'))) $param[]="--delete";
-$param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o PasswordAuthentication=no'";
+$param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'";
 
-$param[]=$dirroot.'/';
-$param[]=$login.'@'.$server.":".$targetdir;
+$param[]=$oldlogin.'@'.$oldserver.":".$sourcedir;
+//$param[]=$newlogin.'@'.$newserver.":".$targetdir;
+$param[]=$targetdir;
 
 //var_dump($param);
 $fullcommand=$command." ".join(" ",$param);
@@ -206,12 +211,12 @@ if ($mode == 'confirmunlock')
 	// SFTP connect
 	if (! function_exists("ssh2_connect")) { dol_print_error('','ssh2_connect function does not exists'); exit(1); }
 
-	$server=$object->instance.'.on.dolicloud.com';
-	$connection = ssh2_connect($server, 22);
+	$newserver=$newobject->instance.'.with.dolicloud.com';
+	$connection = ssh2_connect($newserver, 22);
 	if ($connection)
 	{
 		//print $object->instance." ".$object->username_web." ".$object->password_web."<br>\n";
-		if (! @ssh2_auth_password($connection, $object->username_web, $object->password_web))
+		if (! @ssh2_auth_password($connection, $newobject->username_web, $newobject->password_web))
 		{
 			dol_syslog("Could not authenticate with username ".$username." . and password ".preg_replace('/./', '*', $password), LOG_ERR);
 			exit(-5);
@@ -236,24 +241,71 @@ if ($mode == 'confirmunlock')
 	}
 }
 
-if ($mode != 'test')
+print "-> Files were sync into dir of instance ".$newobject->ref_customer.": ".$targetdir."\n";
+print "\n";
+
+
+print '--- Dump database '.$oldobject->database_db.' into /tmp/mysqldump_'.$oldobject->database_db.'_'.gmstrftime('%d').".sql\n";
+
+$command="mysqldump";
+$param=array();
+$param[]=$oldobject->database_db;
+$param[]="-h";
+$param[]=$oldserver;
+$param[]="-u";
+$param[]=$oldobject->username_db;
+$param[]='-p"'.str_replace(array('"','`'),array('\"','\`'),$oldobject->password_db).'"';
+$param[]="--compress";
+$param[]="-l";
+$param[]="--single-transaction";
+$param[]="-K";
+$param[]="--tables";
+$param[]="-c";
+$param[]="-e";
+$param[]="--hex-blob";
+$param[]="--default-character-set=utf8";
+
+$fullcommand=$command." ".join(" ",$param);
+$fullcommand.=' > /tmp/mysqldump_'.$oldobject->database_db.'_'.gmstrftime('%d').'.sql';
+$output=array();
+$return_varmysql=0;
+print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
+exec($fullcommand, $output, $return_varmysql);
+print strftime("%Y%m%d-%H%M%S").' mysqldump done (return='.$return_varmysql.')'."\n";
+
+// Output result
+foreach($output as $outputline)
 {
-	print "Create event into database\n";
-	dol_syslog("Add event into database");
-
-	$user = new User($db);
-	$user->fetch('', 'ldestailleur');
-
-	$actioncomm=new ActionComm($db);
-	$actioncomm->datep=dol_now('tzserver');
-	$actioncomm->percentage=100;
-	$actioncomm->label='Upgrade instance='.$instance.' dirroot='.$dirroot.' mode='.$mode;
-	$actioncomm->fk_element=$object->id;
-	$actioncomm->elementtype='dolicloudcustomers';
-	$actioncomm->type_code='AC_OTH_AUTO';
-	$actioncomm->userassigned[$user->id]=array('id'=>$user->id);
-	$actioncomm->userownerid=$user->id;
-	$actioncomm->create($user);
+	print $outputline."\n";
 }
 
-exit($return_var);
+print "\n";
+
+
+print '--- Load database '.$newobject->database_db.' from /tmp/mysqldump_'.$oldobject->database_db.'_'.gmstrftime('%d').".sql\n";
+
+$fullcommand="cat /tmp/mysqldump_".$oldobject->database_db.'_'.gmstrftime('%d').".sql | mysql -u".$newloginbase." -p".$newpasswordbase." -D ".$newobject->database_db;
+print "Load dump with ".$fullcommand."\n";
+if ($mode == 'confirm' || $mode == 'confirmrm')
+{
+	$output=array();
+	$return_var=0;
+	print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
+	exec($fullcommand, $output, $return_var);
+	foreach($output as $line) print $line."\n";
+}
+
+print "\n";
+
+if ($mode == 'confirm')
+{
+	print '-> Dump loaded into database '.$newobject->database_db.'. You can test instance on URL https://'.$newobject->ref_customer."\n";
+	print "Finished.\n";
+}
+else
+{
+	print '-> Dump NOT loaded (test mode) into database '.$newobject->database_db.'. You can test instance on URL https://'.$newobject->ref_customer."\n";
+	print "Finished.\n";
+}
+
+exit($return_var + $return_varmysql);
