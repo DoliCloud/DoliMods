@@ -54,4 +54,8 @@ if [ "x$2" = "xonline" ]; then
 	/etc/init.d/apache2 reload 
 fi
 
+if [ "x$2" != "xoffline" -a "x$2" != "xonline" ]; then
+	echo Nothing more done. We are in test mode.
+fi
+
 echo "Finished."
