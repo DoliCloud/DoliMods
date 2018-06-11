@@ -110,6 +110,7 @@ if ($action == 'set')
 
 		dolibarr_set_const($db,"SELLYOURSAAS_ACCOUNT_URL",GETPOST("SELLYOURSAAS_ACCOUNT_URL",'alpha'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_PRICES_URL",GETPOST("SELLYOURSAAS_PRICES_URL",'alpha'),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"SELLYOURSAAS_STATUS_URL",GETPOST("SELLYOURSAAS_STATUS_URL",'alpha'),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_MYACCOUNT_FOOTER",GETPOST("SELLYOURSAAS_MYACCOUNT_FOOTER",'none'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_PUBLIC_KEY",GETPOST("SELLYOURSAAS_PUBLIC_KEY",'none'),'chaine',0,'',$conf->entity);
@@ -503,6 +504,13 @@ print '<td>';
 print '<input class="minwidth300" type="text" name="SELLYOURSAAS_PRICES_URL" value="'.$conf->global->SELLYOURSAAS_PRICES_URL.'">';
 print '</td>';
 print '<td>https://myaccount.mysaas.com/prices.html</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasStatusUrl").'</td>';
+print '<td>';
+print '<input class="minwidth300" type="text" name="SELLYOURSAAS_STATUS_URL" value="'.$conf->global->SELLYOURSAAS_STATUS_URL.'">';
+print '</td>';
+print '<td>https://status.mysaas.com</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("FooterContent").'</td>';

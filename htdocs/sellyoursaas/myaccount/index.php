@@ -120,10 +120,14 @@ if ($idforfetch <= 0 || empty($mythirdpartyaccount->status))
 $langcode = 'en';
 if ($langs->getDefaultLang(1) == 'es') $langcode = 'es';
 if ($langs->getDefaultLang(1) == 'fr') $langcode = 'fr';
-$urlfaq='https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/'.$langcode.'/faq';
+
+$urlfaq = '';
+if (preg_match('/dolicloud\.com/', $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME))
+{
+	$urlfaq='https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/'.$langcode.'/faq';
+}
 
 $urlstatus=$conf->global->SELLYOURSAAS_STATUSPAGE;
-$urlstatus='https://status.dolicloud.com';
 $now =dol_now();
 $tmp=dol_getdate($now);
 $nowmonth = $tmp['mon'];
@@ -1364,10 +1368,10 @@ print '
 	            <li><a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=support">'.$langs->trans("Support").'</a></li>
 			';
           if (! $mythirdpartyaccount->isareseller && ! empty($conf->global->SELLYOURSAAS_ALLOW_RESELLER_PROGRAM))
-        {
-	       print '<li><a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=becomereseller">'.$langs->trans("BecomeReseller").'</a></li>';
-        }
-	           print '
+          {
+          	print '<li><a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=becomereseller">'.$langs->trans("BecomeReseller").'</a></li>';
+          }
+          print '
                 <li class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="'.$urlfaq.'" target="_newfaq">'.$langs->trans("FAQs").'</a></li>
             </ul>
@@ -4436,10 +4440,13 @@ if ($mode == 'support')
 {
 	// Print warning to read FAQ before
 	print '
-		<div class="alert alert-success note note-success">
-		<h4 class="block">'.$langs->trans("PleaseReadFAQFirst", $urlfaq).'</h4>
-	<br>
-	'.$langs->trans("CurrentServiceStatus", $urlstatus).'<br>
+		<div class="alert alert-success note note-success">';
+	if ($urlfaq)
+	{
+		print '<h4 class="block">'.$langs->trans("PleaseReadFAQFirst", $urlfaq).'</h4><br>';
+	}
+	print $langs->trans("CurrentServiceStatus", $urlstatus).'<br>';
+	print '
 		</div>
 	';
 

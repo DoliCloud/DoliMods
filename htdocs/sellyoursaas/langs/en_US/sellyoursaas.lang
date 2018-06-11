@@ -94,6 +94,7 @@ SellYourSaasSubDomains=List of Sub-domain of customer instances
 SellYourSaasSubDomainsIP=List of IPs of customer instances
 SellYourSaasAccountUrl=Url of customers account
 SellYourSaasPricesUrl=Home page of your application prices
+SellYourSaasStatusUrl=Url for status page
 SellYourSaasMainEmail=Main email
 SellYourSaasSupervisionEmail=Supervision email (for issue alerts)
 SellYourSaasNoReplyEmail=No reply email
