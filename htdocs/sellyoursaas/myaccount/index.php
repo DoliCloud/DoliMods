@@ -1451,8 +1451,8 @@ if ($welcomecid > 0)
 		<p class="well">
 		'.$langs->trans("URL").' : <a href="https://'.$contract->ref_customer.'" target="_blank">'.$contract->ref_customer.'</a>';
 
-		print '<br> '.$langs->trans("Username").' : '.($_SESSION['initialapplogin']?$_SESSION['initialapplogin']:'NA').'
-		<br> '.$langs->trans("Password").' : '.($_SESSION['initialapppassword']?$_SESSION['initialapppassword']:'NA').'
+		print '<br> '.$langs->trans("Username").' : '.($_SESSION['initialapplogin']?'<strong>'.$_SESSION['initialapplogin'].'</strong>':'NA').'
+		<br> '.$langs->trans("Password").' : '.($_SESSION['initialapppassword']?'<strong>'.$_SESSION['initialapppassword'].'</strong>':'NA').'
 		</p>
 		<p>
 		<a class="btn btn-primary" target="_blank" href="https://'.$contract->ref_customer.'?username='.$_SESSION['initialapplogin'].'">
