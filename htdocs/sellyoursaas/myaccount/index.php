@@ -127,7 +127,7 @@ if (preg_match('/dolicloud\.com/', $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
 	$urlfaq='https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/'.$langcode.'/faq';
 }
 
-$urlstatus=$conf->global->SELLYOURSAAS_STATUSPAGE;
+$urlstatus=$conf->global->SELLYOURSAAS_STATUS_URL;
 $now =dol_now();
 $tmp=dol_getdate($now);
 $nowmonth = $tmp['mon'];
