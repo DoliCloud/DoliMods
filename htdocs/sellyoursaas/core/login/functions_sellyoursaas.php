@@ -52,7 +52,7 @@ function check_user_password_sellyoursaas($usertotest, $passwordtotest, $entityt
 
 		if (GETPOST('login_hash', 'alpha', 1))
 		{
-			$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$usertotest.dol_print_date(dol_now(),'dayrfc'));	// hash is valid one hour
+			$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$usertotest.dol_print_date(dol_now(),'dayrfc'));	// hash is valid one day
 			//var_dump(GETPOST('login_hash', 'alpha', 1));
 			//var_dump($dol_login_hash);exit;
 
@@ -83,7 +83,8 @@ function check_user_password_sellyoursaas($usertotest, $passwordtotest, $entityt
 		var_dump(dol_hash($passwordtotest));
 		var_dump($thirdparty->array_options['options_password']);*/
 
-		if ($passwordtotest_crypted == $thirdparty->array_options['options_password'])
+		if (dol_verifyHash($passwordtotest, $thirdparty->array_options['options_password']) ||
+			$passwordtotest_crypted == $thirdparty->array_options['options_password'])			// For compatibility with old versions
 		{
 			if (empty($conf->global->SELLYOURSAAS_ANONYMOUSUSER))
 			{
