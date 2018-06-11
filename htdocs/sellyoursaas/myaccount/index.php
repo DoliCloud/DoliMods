@@ -3701,131 +3701,145 @@ if ($mode == 'billing')
 	          </div>
 ';
 
-		foreach ($listofcontractid as $id => $contract)
+		if (count($listofcontractid) > 0)
 		{
-			$planref = $contract->array_options['options_plan'];
-			$statuslabel = $contract->array_options['options_deployment_status'];
-			$instancename = preg_replace('/\..*$/', '', $contract->ref_customer);
-
-			$package = new Packages($db);
-			$package->fetch(0, $planref);
-
-			$color = "green";
-			if ($statuslabel == 'processing') $color = 'orange';
-			if ($statuslabel == 'suspended') $color = 'orange';
-
-			$dbprefix = $contract->array_options['options_db_prefix'];
-			if (empty($dbprefix)) $dbprefix = 'llx_';
-
-			print '
-			<br>
-	        <div class="portlet-body">
-
-	            <div class="row" style="border-bottom: 1px solid #ddd;">
-
-	              <div class="col-md-6">
-			          <a href="https://'.$contract->ref_customer.'" class="caption-subject bold uppercase font-green-sharp" title="'.$langs->trans("Contract").' '.$contract->ref.'" target="_blankinstance">'.$instancename.'</a>
-			          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->
-	              </div><!-- END COL -->
-	              <div class="col-md-2 hideonsmartphone">
-	                '.$langs->trans("Date").'
-	              </div>
-	              <div class="col-md-2 hideonsmartphone">
-	                '.$langs->trans("Amount").'
-	              </div>
-	              <div class="col-md-2 hideonsmartphone">
-	                '.$langs->trans("Status").'
-	              </div>
-	            </div> <!-- END ROW -->
-			';
-
-			$contract->fetchObjectLinked();
-			$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
-			if (is_array($contract->linkedObjects['facture']) && count($contract->linkedObjects['facture']) > 0)
+			foreach ($listofcontractid as $id => $contract)
 			{
-				usort($contract->linkedObjects['facture'], "cmp");
+				$planref = $contract->array_options['options_plan'];
+				$statuslabel = $contract->array_options['options_deployment_status'];
+				$instancename = preg_replace('/\..*$/', '', $contract->ref_customer);
 
-				//var_dump($contract->linkedObjects['facture']);
-				//dol_sort_array($contract->linkedObjects['facture'], 'date');
-				foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
+				$package = new Packages($db);
+				$package->fetch(0, $planref);
+
+				$color = "green";
+				if ($statuslabel == 'processing') $color = 'orange';
+				if ($statuslabel == 'suspended') $color = 'orange';
+
+				$dbprefix = $contract->array_options['options_db_prefix'];
+				if (empty($dbprefix)) $dbprefix = 'llx_';
+
+				print '
+				<br>
+		        <div class="portlet-body">
+
+		            <div class="row" style="border-bottom: 1px solid #ddd;">
+
+		              <div class="col-md-6">
+				          <a href="https://'.$contract->ref_customer.'" class="caption-subject bold uppercase font-green-sharp" title="'.$langs->trans("Contract").' '.$contract->ref.'" target="_blankinstance">'.$instancename.'</a>
+				          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->
+		              </div><!-- END COL -->
+		              <div class="col-md-2 hideonsmartphone">
+		                '.$langs->trans("Date").'
+		              </div>
+		              <div class="col-md-2 hideonsmartphone">
+		                '.$langs->trans("Amount").'
+		              </div>
+		              <div class="col-md-2 hideonsmartphone">
+		                '.$langs->trans("Status").'
+		              </div>
+		            </div> <!-- END ROW -->
+				';
+
+				$contract->fetchObjectLinked();
+				$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
+				if (is_array($contract->linkedObjects['facture']) && count($contract->linkedObjects['facture']) > 0)
 				{
-					if ($invoice->statut == Facture::STATUS_DRAFT) continue;
+					usort($contract->linkedObjects['facture'], "cmp");
 
-					print '
-				            <div class="row" style="margin-top:20px">
+					//var_dump($contract->linkedObjects['facture']);
+					//dol_sort_array($contract->linkedObjects['facture'], 'date');
+					foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
+					{
+						if ($invoice->statut == Facture::STATUS_DRAFT) continue;
 
-				              <div class="col-md-6">
-								';
-								$url = $invoice->getLastMainDocLink($invoice->element, 0, 1);
-								print '<a href="'.DOL_URL_ROOT.'/'.$url.'">'.$invoice->ref.' '.img_mime($invoice->ref.'.pdf', $langs->trans("File").': '.$invoice->ref.'.pdf').'</a>
-				              </div>
-				              <div class="col-md-2">
-								'.dol_print_date($invoice->date, 'day').'
-				              </div>
-				              <div class="col-md-2">
-								'.price(price2num($invoice->total_ttc), 1, $langs, 0, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency).'
-				              </div>
-				              <div class="col-md-2 nowrap">
-								';
-								$alreadypayed = $invoice->getSommePaiement();
-								$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
-								$paymentinerroronthisinvoice = 0;
+						print '
+					            <div class="row" style="margin-top:20px">
 
-								// Test if there is a payment error, if yes, ask to fix payment data
-								$sql = 'SELECT f.rowid, ee.code, ee.extraparams  FROM '.MAIN_DB_PREFIX.'facture as f';
-								$sql.= ' INNER JOIN '.MAIN_DB_PREFIX."actioncomm as ee ON ee.fk_element = f.rowid AND ee.elementtype = 'invoice'";
-								$sql.= " AND ee.code LIKE 'AC_PAYMENT_%_KO'";
-								$sql.= ' WHERE f.fk_soc = '.$mythirdpartyaccount->id.' AND f.paye = 0 AND f.rowid = '.$invoice->id;
-								$sql.= ' ORDER BY ee.datep DESC';
-								$sql.= ' LIMIT 1';
+					              <div class="col-md-6">
+									';
+									$url = $invoice->getLastMainDocLink($invoice->element, 0, 1);
+									print '<a href="'.DOL_URL_ROOT.'/'.$url.'">'.$invoice->ref.' '.img_mime($invoice->ref.'.pdf', $langs->trans("File").': '.$invoice->ref.'.pdf').'</a>
+					              </div>
+					              <div class="col-md-2">
+									'.dol_print_date($invoice->date, 'day').'
+					              </div>
+					              <div class="col-md-2">
+									'.price(price2num($invoice->total_ttc), 1, $langs, 0, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency).'
+					              </div>
+					              <div class="col-md-2 nowrap">
+									';
+									$alreadypayed = $invoice->getSommePaiement();
+									$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
+									$paymentinerroronthisinvoice = 0;
 
-								$resql = $db->query($sql);
-								if ($resql)
-								{
-									$num_rows = $db->num_rows($resql);
-									$i=0;
-									if ($num_rows)
+									// Test if there is a payment error, if yes, ask to fix payment data
+									$sql = 'SELECT f.rowid, ee.code, ee.extraparams  FROM '.MAIN_DB_PREFIX.'facture as f';
+									$sql.= ' INNER JOIN '.MAIN_DB_PREFIX."actioncomm as ee ON ee.fk_element = f.rowid AND ee.elementtype = 'invoice'";
+									$sql.= " AND ee.code LIKE 'AC_PAYMENT_%_KO'";
+									$sql.= ' WHERE f.fk_soc = '.$mythirdpartyaccount->id.' AND f.paye = 0 AND f.rowid = '.$invoice->id;
+									$sql.= ' ORDER BY ee.datep DESC';
+									$sql.= ' LIMIT 1';
+
+									$resql = $db->query($sql);
+									if ($resql)
 									{
-										$paymentinerroronthisinvoice++;
-										$obj = $db->fetch_object($resql);
-										// There is at least one payment error
-										if ($obj->extraparams == 'PAYMENT_ERROR_INSUFICIENT_FUNDS')
+										$num_rows = $db->num_rows($resql);
+										$i=0;
+										if ($num_rows)
 										{
-											print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/statut8.png"> '.$langs->trans("PaymentError");
-										}
-										else
-										{
-											print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/statut8.png"> '.$langs->trans("PaymentError");
+											$paymentinerroronthisinvoice++;
+											$obj = $db->fetch_object($resql);
+											// There is at least one payment error
+											if ($obj->extraparams == 'PAYMENT_ERROR_INSUFICIENT_FUNDS')
+											{
+												print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/statut8.png"> '.$langs->trans("PaymentError");
+											}
+											else
+											{
+												print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/statut8.png"> '.$langs->trans("PaymentError");
+											}
 										}
 									}
-								}
-								if (! $paymentinerroronthisinvoice)
-								{
-									print $invoice->getLibStatut(2, $alreadypayed + $amount_credit_notes_included);
-								}
-								print '
-				              </div>
+									if (! $paymentinerroronthisinvoice)
+									{
+										print $invoice->getLibStatut(2, $alreadypayed + $amount_credit_notes_included);
+									}
+									print '
+					              </div>
 
-				            </div>
+					            </div>
+							';
+					}
+				}
+				else
+				{
+					print '
+					            <div class="row" style="margin-top:20px">
+
+					              <div class="col-md-12">
+								<span class="opacitymedium">'.$langs->trans("NoneF").'</span>
+								  </div>
+								</div>
 						';
 				}
-			}
-			else
-			{
+
 				print '
-				            <div class="row" style="margin-top:20px">
-
-				              <div class="col-md-12">
-							<span class="opacitymedium">'.$langs->trans("NoneF").'</span>
-							  </div>
-							</div>
-					';
+		          </div> <!-- END PORTLET-BODY -->
+				<br><br>
+				';
 			}
-
+		}
+		else
+		{
 			print '
-	          </div> <!-- END PORTLET-BODY -->
-			<br><br>
-			';
+					            <div class="row" style="margin-top:20px">
+
+					              <div class="col-md-12">
+								<span class="opacitymedium">'.$langs->trans("NoneF").'</span>
+								  </div>
+								</div>
+						';
 		}
 
 		print '
