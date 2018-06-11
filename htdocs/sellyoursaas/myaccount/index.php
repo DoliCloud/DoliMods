@@ -2571,7 +2571,7 @@ if ($mode == 'instances')
 
 								print '<br><br>';
 
-								// Plan
+								// Show the current Plan (with link to change it)
 								print '<span class="caption-helper"><span class="opacitymedium">'.$langs->trans("YourSubscriptionPlan").' : </span>';
 								if ($action == 'changeplan' && $planid > 0 && $id == GETPOST('id','int'))
 								{
@@ -2608,7 +2608,7 @@ if ($mode == 'instances')
 									print '<span class="bold">'.$planlabel.'</span>';
 									if ($statuslabel != 'undeployed')
 									{
-										if ($priceinvoicedht == $contrat->total_ht)
+										if ($priceinvoicedht == $contract->total_ht)
 										{
 											print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=instances&action=changeplan&id='.$contract->id.'#contractid'.$contract->id.'">'.$langs->trans("ChangePlan").'</a>';
 										}
@@ -2624,7 +2624,7 @@ if ($mode == 'instances')
 									if ($foundtemplate > 1) print '<span style="color:orange">'.$langs->trans("WarningFoundMoreThanOneInvoicingTemplate", $conf->global->SELLYOURSAAS_MAIN_EMAIL).'</span>';
 									else
 									{
-										if ($priceinvoicedht != $contrat->total_ht)
+										if ($priceinvoicedht != $contract->total_ht)
 										{
 											print $langs->trans("FlatOrDiscountedPrice").' = ';
 										}
