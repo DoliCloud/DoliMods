@@ -215,11 +215,13 @@ print '</table>';
 
 print '</div></div></div>';
 
+//$servicetouse='old';
+$servicetouse=strtolower($conf->global->SELLYOURSAAS_NAME);
 
 // array(array(0=>'labelxA',1=>yA1,...,n=>yAn), array('labelxB',yB1,...yBn))
 $data1 = array();
 $sql ='SELECT name, x, y FROM '.MAIN_DB_PREFIX.'dolicloud_stats';
-$sql.=" WHERE service = '".strtolower($conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)."' AND name IN ('total', 'totalcommissions')";
+$sql.=" WHERE service = '".$servicetouse."' AND name IN ('total', 'totalcommissions')";
 $sql.=" ORDER BY x, name";
 $resql=$db->query($sql);
 if ($resql)
@@ -268,7 +270,7 @@ else dol_print_error($db);
 
 $data2 = array();
 $sql ='SELECT name, x, y FROM '.MAIN_DB_PREFIX.'dolicloud_stats';
-$sql.=" WHERE service = '".strtolower($conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)."' AND name IN ('totalinstancespaying', 'totalusers')";
+$sql.=" WHERE service = '".$servicetouse."' AND name IN ('totalinstancespaying', 'totalusers')";
 $sql.=" ORDER BY x, name";
 $resql=$db->query($sql);
 if ($resql)
