@@ -309,19 +309,29 @@ foreach($output as $outputline)
 print '--- Load database '.$newobject->database_db.' from /tmp/mysqldump_'.$oldobject->database_db.'_'.gmstrftime('%d').".sql\n";
 //print "If the load fails, try to run mysql -u".$newloginbase." -p".$newpasswordbase." -D ".$newobject->database_db."\n";
 
-$fullcommand='echo "drop table llx_accounting_account;" | mysql -u'.$newloginbase.' -p'.$newpasswordbase.' -D '.$newobject->database_db;
-print "Drop table to prevent load error with ".$fullcommand."\n";
+$fullcommanda='echo "drop table llx_accounting_account;" | mysql -u'.$newloginbase.' -p'.$newpasswordbase.' -D '.$newobject->database_db;
+$fullcommandb='echo "drop table llx_accounting_system;" | mysql -u'.$newloginbase.' -p'.$newpasswordbase.' -D '.$newobject->database_db;
+
+$output=array();
+$return_var=0;
+print strftime("%Y%m%d-%H%M%S").' Drop table to prevent load error with '.$fullcommanda."\n";
 if ($mode == 'confirm' || $mode == 'confirmrm')
 {
-	$output=array();
-	$return_var=0;
-	print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
-	exec($fullcommand, $output, $return_var);
+	exec($fullcommanda, $output, $return_var);
+	foreach($output as $line) print $line."\n";
+}
+
+$output=array();
+$return_var=0;
+print strftime("%Y%m%d-%H%M%S").' Drop table to prevent load error with '.$fullcommandb."\n";
+if ($mode == 'confirm' || $mode == 'confirmrm')
+{
+	exec($fullcommandb, $output, $return_var);
 	foreach($output as $line) print $line."\n";
 }
 
 $fullcommand="cat /tmp/mysqldump_".$oldobject->database_db.'_'.gmstrftime('%d').".sql | mysql -u".$newloginbase." -p".$newpasswordbase." -D ".$newobject->database_db;
-print "Load dump with ".$fullcommand."\n";
+print strftime("%Y%m%d-%H%M%S")." Load dump with ".$fullcommand."\n";
 if ($mode == 'confirm' || $mode == 'confirmrm')
 {
 	$output=array();
