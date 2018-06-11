@@ -599,8 +599,11 @@ $out.= "Nb of instances (active with or without payment error, close request or 
 $out.= "Nb of instances (active but close request): ".$nbofactiveclosurerequest."\n";
 $out.= "Nb of instances (active but suspended): ".$nbofactivesusp."\n";
 $out.= "Nb of instances (active but payment ko, not yet suspended): ".$nbofactivepaymentko."\n";
-$out.= "Nb of instances processed ok: ".$nbofok."\n";
-$out.= "Nb of instances processed ko: ".$nboferrors;
+if ($action != 'updatestatsonly')
+{
+	$out.= "Nb of instances processed ok: ".$nbofok."\n";
+	$out.= "Nb of instances processed ko: ".$nboferrors;
+}
 $out.= (count($instancesbackuperror)?", error for backup on ".join(', ',$instancesbackuperror):"");
 $out.= (count($instancesupdateerror)?", error for update on ".join(', ',$instancesupdateerror):"");
 $out.= "\n";

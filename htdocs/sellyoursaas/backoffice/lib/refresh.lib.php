@@ -525,9 +525,11 @@ function sellyoursaas_calculate_stats($db, $datelim)
 				if ($obj)
 				{
 					// Get resource for instance
-					$object->fetch($obj->rowid);
+					$object->fetch($obj->id);
 
 					$contract = $object;
+					$price = 0;
+
 					// Calculate price on invoicing
 					$contract->fetchObjectLinked();
 					if (is_array($contract->linkedObjects['facturerec']))
@@ -592,8 +594,9 @@ function sellyoursaas_calculate_stats($db, $datelim)
 		dol_print_error($db);
 	}
 
-	return array('total'=>(double) $total, 'totalcommissions'=>(double) $totalcommissions,
-	'totalinstancespaying'=>(int) $totalinstancespaying,'totalinstances'=>(int) $totalinstances, 'totalusers'=>(int) $totalusers,
-	'totalcustomerspaying'=>(int) count($listofcustomerspaying), 'totalcustomers'=>(int) count($listofcustomers)
+	return array(
+		'total'=>(double) $total, 'totalcommissions'=>(double) $totalcommissions,
+		'totalinstancespaying'=>(int) $totalinstancespaying,'totalinstances'=>(int) $totalinstances, 'totalusers'=>(int) $totalusers,
+		'totalcustomerspaying'=>(int) count($listofcustomerspaying), 'totalcustomers'=>(int) count($listofcustomers)
 	);
 }
