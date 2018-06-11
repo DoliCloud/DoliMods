@@ -2095,7 +2095,7 @@ if ($mode == 'dashboard')
 				print '</div>
 				<div class="col-md-3 right"><h2>';
 				if ($amountdue > 0) print '<font style="color: orange">';
-				print price($amountdue, 1, $langs, 0, -1, -1, $conf->currency);
+				print price($amountdue, 1, $langs, 0, -1, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency);
 				if ($amountdue > 0) print '</font>';
 				print '</h2></div>
 	            </div>
@@ -3763,7 +3763,7 @@ if ($mode == 'billing')
 								'.dol_print_date($invoice->date, 'day').'
 				              </div>
 				              <div class="col-md-2">
-								'.price(price2num($invoice->total_ttc), 1, $langs, 0, 0, 0, $conf->currency).'
+								'.price(price2num($invoice->total_ttc), 1, $langs, 0, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency).'
 				              </div>
 				              <div class="col-md-2 nowrap">
 								';
@@ -4341,8 +4341,10 @@ if ($mode == 'mycustomerbilling')
 			$obj = $db->fetch_object($resql);
 			if (empty($obj)) break;		// Should not happen
 
-			$tmpthirdparty->fetch($obj->fk_soc);
+			$tmpthirdparty->fetch($obj->fk_soc);	// To get current efault commission of this customer
 			$tmpinvoice->fetch($obj->rowid);
+
+			if ($tmpinvoice->statut == Facture::STATUS_DRAFT) continue;
 
 			$currentcommissionpercent = $tmpthirdparty->array_options['options_commission'];
 			$commissionpercent = $obj->commission;
@@ -4374,7 +4376,7 @@ if ($mode == 'mycustomerbilling')
              print '
               </td>
               <td>
-                '.price($obj->total_ttc).'
+                '.price(price2num($obj->total_ttc), 1, $langs, 0, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency).'
               </td>
               <td>
                 '.Facture::LibStatut($obj->paye, $obj->fk_statut).'
