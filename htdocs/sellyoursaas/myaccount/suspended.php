@@ -71,6 +71,8 @@ top_htmlhead('' ,'Suspension Page');
 <?php
 print $langs->trans("SorryInstanceSuspended", $instance);
 print '<br>';
+print '<a href="https://'.$instance.'">'.$langs->trans("ClickToCheckAgain").'</a><br>';
+print '<br>';
 print '<br>';
 print $langs->trans("GoOnYourDashboardToGetMoreInfo", $_SERVER['SERVER_NAME'], $_SERVER['SERVER_NAME']);
 ?>

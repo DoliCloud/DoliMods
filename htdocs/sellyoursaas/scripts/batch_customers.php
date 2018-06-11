@@ -411,7 +411,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 			$return_val=0; $error=0; $errors=array();
 
 			// Run database update
-			print "Process update database info (nb of user) of instance ".($i+1)." V".$v." ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
+			print "Process update database info (nb of user) of instance ".($i+1)." V".$v." ".$instance.' - '.strftime("%Y%m%d-%H%M%S")." : ";
 
 			$db->begin();
 
