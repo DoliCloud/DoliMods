@@ -2204,6 +2204,7 @@ if ($mode == 'instances')
 			if ($obj)
 			{
 				$tmpprod->fetch($obj->rowid);
+				$tmpprod->sousprods = arra();
 				$tmpprod->get_sousproduits_arbo();
 				$tmparray = $tmpprod->get_arbo_each_prod();
 
