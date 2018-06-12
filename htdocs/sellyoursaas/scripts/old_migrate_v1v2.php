@@ -310,8 +310,6 @@ print '--- Load database '.$newobject->database_db.' from /tmp/mysqldump_'.$oldo
 //print "If the load fails, try to run mysql -u".$newloginbase." -p".$newpasswordbase." -D ".$newobject->database_db."\n";
 
 $fullcommanda='echo "drop table llx_accounting_account;" | mysql -u'.$newloginbase.' -p'.$newpasswordbase.' -D '.$newobject->database_db;
-$fullcommandb='echo "drop table llx_accounting_system;" | mysql -u'.$newloginbase.' -p'.$newpasswordbase.' -D '.$newobject->database_db;
-
 $output=array();
 $return_var=0;
 print strftime("%Y%m%d-%H%M%S").' Drop table to prevent load error with '.$fullcommanda."\n";
@@ -321,6 +319,7 @@ if ($mode == 'confirm' || $mode == 'confirmrm')
 	foreach($output as $line) print $line."\n";
 }
 
+$fullcommandb='echo "drop table llx_accounting_system;" | mysql -u'.$newloginbase.' -p'.$newpasswordbase.' -D '.$newobject->database_db;
 $output=array();
 $return_var=0;
 print strftime("%Y%m%d-%H%M%S").' Drop table to prevent load error with '.$fullcommandb."\n";
@@ -340,6 +339,18 @@ if ($mode == 'confirm' || $mode == 'confirmrm')
 	exec($fullcommand, $output, $return_var);
 	foreach($output as $line) print $line."\n";
 }
+
+$fullcommandc='echo "UPDATE llx_const set value = \''.$newlogin.'\' WHERE name = \'CRON_KEY\';" | mysql -u'.$newloginbase.' -p'.$newpasswordbase.' -D '.$newobject->database_db;
+$output=array();
+$return_var=0;
+print strftime("%Y%m%d-%H%M%S").' Update cron key '.$fullcommandc."\n";
+if ($mode == 'confirm' || $mode == 'confirmrm')
+{
+	exec($fullcommandc, $output, $return_var);
+	foreach($output as $line) print $line."\n";
+}
+
+
 
 print "\n";
 
