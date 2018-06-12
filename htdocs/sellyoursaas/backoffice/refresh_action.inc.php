@@ -280,7 +280,7 @@ if ($action == 'addinstalllock')
 	$connection = ssh2_connect($server, 22);
 	if ($connection)
 	{
-		//print $object->instance." ".$username_web." ".$password_web."<br>\n";
+		//print $instance." ".$username_web." ".$password_web."<br>\n";
 		if (! @ssh2_auth_password($connection, $username_web, $password_web))
 		{
 			dol_syslog("Could not authenticate with username ".$username_web." . and password ".preg_replace('/./', '*', $password_web), LOG_ERR);
@@ -355,7 +355,7 @@ if ($action == 'delauthorizedkey')
 	$connection = ssh2_connect($server, 22);
 	if ($connection)
 	{
-		//print $object->instance." ".$username_web." ".$password_web."<br>\n";
+		//print $instance." ".$username_web." ".$password_web."<br>\n";
 		if (! @ssh2_auth_password($connection, $username_web, $password_web))
 		{
 			dol_syslog("Could not authenticate with username ".$username_web." . and password ".preg_replace('/./', '*', $password_web), LOG_ERR);

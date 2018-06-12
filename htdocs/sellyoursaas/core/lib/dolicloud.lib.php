@@ -135,7 +135,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
     $sustring='su '.$object->username_os;
     $links.='<input type="text" name="sustring" id="sustring" value="'.$sustring.'" size="30"><br>';
     if ($conf->use_javascript_ajax) $links.=ajax_autoselect('sustring');
-    $links.='<br>';
+    //$links.='<br>';
 
 	// SFTP
 	//$sftpconnectstring=$object->username_os.':'.$object->password_web.'@'.$object->hostname_os.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
