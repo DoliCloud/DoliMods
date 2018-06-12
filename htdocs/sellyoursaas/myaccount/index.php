@@ -162,12 +162,15 @@ if ($resql)
 	}
 }
 
-$categorie=new Categorie($db);
-$categorie->fetch($conf->global->SELLYOURSAAS_DEFAULT_RESELLER_CATEG);
 $mythirdpartyaccount->isareseller = 0;
-if ($categorie->containsObject('supplier', $mythirdpartyaccount->id))
+if ($conf->global->SELLYOURSAAS_DEFAULT_RESELLER_CATEG > 0)
 {
-	$mythirdpartyaccount->isareseller = 1;
+	$categorie=new Categorie($db);
+	$categorie->fetch($conf->global->SELLYOURSAAS_DEFAULT_RESELLER_CATEG);
+	if ($categorie->containsObject('supplier', $mythirdpartyaccount->id) > 0)
+	{
+		$mythirdpartyaccount->isareseller = 1;
+	}
 }
 
 $listofcontractidresellerall = array();
