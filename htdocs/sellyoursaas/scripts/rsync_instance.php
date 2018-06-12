@@ -127,13 +127,17 @@ if ($result <= 0)
 	exit(-2);
 }
 
-
-$result=$object->fetch('',$instance);
-if ($result < 0)
+if ($v != 1)
 {
-	print "Error: Instance ".$instance." not found.\n";
-	exit(-2);
+	$object->instance = $object->ref_customer;
+	$object->username_web = $object->array_options['options_username_os'];
+	$object->password_web = $object->array_options['options_password_os'];
+	$object->username_db = $object->array_options['options_username_db'];
+	$object->password_db = $object->array_options['options_password_db'];
+	$object->database_db = $object->array_options['options_database_db'];
 }
+
+
 if (empty($object->instance) || empty($object->username_web) || empty($object->password_web) || empty($object->database_db))
 {
 	print "Error: Some properties for instance ".$instance." was not registered into database.\n";
