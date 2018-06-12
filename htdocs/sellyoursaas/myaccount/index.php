@@ -2188,7 +2188,7 @@ if ($mode == 'instances')
 	$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
 	$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 	$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
-	$sqlproducts.= " AND pe.ref NOT LIKE '%DolibarrV1%'";
+	$sqlproducts.= " AND p.ref NOT LIKE '%DolibarrV1%'";
 	//$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";
 	$resqlproducts = $db->query($sqlproducts);
 	if ($resqlproducts)
@@ -2589,7 +2589,7 @@ if ($mode == 'instances')
 									$sqlproducts = 'SELECT p.rowid, p.ref, p.label FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
 									$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 									$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
-									$sqlproducts.= " AND pe.ref NOT LIKE '%DolibarrV1%'";
+									$sqlproducts.= " AND p.ref NOT LIKE '%DolibarrV1%'";
 									$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";		// TODO Restict on plans compatible with current plan...
 									$resqlproducts = $db->query($sqlproducts);
 									if ($resqlproducts)
