@@ -2188,6 +2188,7 @@ if ($mode == 'instances')
 	$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
 	$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 	$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
+	$sqlproducts.= " AND pe.ref NOT LIKE '%DolibarrV1%'";
 	//$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";
 	$resqlproducts = $db->query($sqlproducts);
 	if ($resqlproducts)
@@ -2219,18 +2220,18 @@ if ($mode == 'instances')
 						$tmpprodchild->fetch($value['id']);
 						if ($tmpprodchild->array_options['options_app_or_option'] == 'app')
 						{
-							$pricefix .= $obj->price;
-							$pricefix_ttc .= $obj->price_ttc;
+							$pricefix .= $tmpprodchild->price;
+							$pricefix_ttc .= $tmpprodchild->price_ttc;
 						}
 						if ($tmpprodchild->array_options['options_app_or_option'] == 'system')
 						{
-							$priceuser .= $obj->price;
-							$priceuser_ttc .= $obj->price_ttc;
+							$priceuser .= $tmpprodchild->price;
+							$priceuser_ttc .= $tmpprodchild->price_ttc;
 						}
 						if ($tmpprodchild->array_options['options_app_or_option'] == 'option')
 						{
-							$priceuser .= $obj->price;
-							$priceuser_ttc .= $obj->price_ttc;
+							$priceuser .= $tmpprodchild->price;
+							$priceuser_ttc .= $tmpprodchild->price_ttc;
 						}
 					}
 				}
