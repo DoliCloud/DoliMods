@@ -556,7 +556,7 @@ print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_HASHALGOFORPASSWORD
 print '<td>';
 print '<input type="text" name="SELLYOURSAAS_HASHALGOFORPASSWORD" value="'.$conf->global->SELLYOURSAAS_HASHALGOFORPASSWORD.'">';
 print '</td>';
-print '<td>Algorithm used to build substitution keys __APPPASSWORD0xxx</td>';
+print '<td>Algorithm used to build substitution keys __APPPASSWORD0xxx__</td>';
 print '</tr>';
 
 
