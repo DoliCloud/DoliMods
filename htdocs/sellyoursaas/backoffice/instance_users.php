@@ -179,10 +179,25 @@ if (empty($reshook))
 		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 		if (is_object($newdb))
 		{
-			$password=GETPOST('newpassword','alpha');
+			$password=GETPOST('newpassword','none');
 
-			// TODO Use the encryption of remote instance
+			// TODO Use the encryption of remote instance.
+			// Currently, we use admin setup or sellyoursaas setup if defined
+			$savsalt = $conf->global->MAIN_SECURITY_SALT;
+			$savalgo = $conf->global->MAIN_SECURITY_HASH_ALGO;
+			if (! empty($conf->global->SELLYOURSAAS_SALTFORPASSWORDENCRYPTION))
+			{
+				$conf->global->MAIN_SECURITY_SALT = $conf->global->SELLYOURSAAS_SALTFORPASSWORDENCRYPTION;
+			}
+			if (! empty($conf->global->SELLYOURSAAS_HASHALGOFORPASSWORD))
+			{
+				$conf->global->MAIN_SECURITY_HASH_ALGO = $conf->global->SELLYOURSAAS_HASHALGOFORPASSWORD;
+			}
+
 			$password_crypted = dol_hash($password);
+
+			$conf->global->MAIN_SECURITY_SALT = $savsalt;
+			$conf->global->MAIN_SECURITY_HASH_ALGO = $savalgo;
 
 			$sql="UPDATE llx_user set pass='".$newdb->escape($password)."', pass_crypted = '".$newdb->escape($password_crypted)."' where rowid = ".GETPOST('remoteid','int');
 			$resql=$newdb->query($sql);
