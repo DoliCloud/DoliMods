@@ -72,7 +72,7 @@ class ActionsSellyoursaas
 		    	}
 		    	if ($object->array_options['options_dolicloud'] == 'yesv2')
 		    	{
-		    		$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$object->email.dol_print_date(dol_now(),'dayrfc'));	// hash is valid one hour
+		    		$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$object->email.dol_print_date(dol_now(),'dayrfc'), 5);	// hash is valid one hour
 		    		$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?mode=logout_dashboard&username='.$object->email.'&password=&login_hash='.$dol_login_hash;
 		    	}
 
@@ -516,7 +516,7 @@ class ActionsSellyoursaas
     				}
     				if ($object->array_options['options_dolicloud'] == 'yesv2')
     				{
-    					$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$object->email.dol_print_date(dol_now(),'dayrfc'));	// hash is valid one hour
+    					$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$object->email.dol_print_date(dol_now(),'dayrfc'), 5);	// hash is valid one hour
     					$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?mode=logout_dashboard&username='.$object->email.'&password=&login_hash='.$dol_login_hash;
     				}
 

@@ -52,7 +52,7 @@ function check_user_password_sellyoursaas($usertotest, $passwordtotest, $entityt
 
 		if (GETPOST('login_hash', 'alpha', 1))
 		{
-			$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$usertotest.dol_print_date(dol_now(),'dayrfc'));	// hash is valid one day
+			$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$usertotest.dol_print_date(dol_now(),'dayrfc'), 5);	// hash is valid one day
 			//var_dump(GETPOST('login_hash', 'alpha', 1));
 			//var_dump($dol_login_hash);exit;
 
