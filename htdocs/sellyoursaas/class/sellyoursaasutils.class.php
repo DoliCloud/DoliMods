@@ -291,14 +291,20 @@ class SellYourSaasUtils
     					$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray);
     					$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
     					$to = $object->thirdparty->email;
+    					$trackid = 'thi'.$object->thirdparty->id;
 
-    					$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
+    					$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1, '', '', $trackid);
     					$result = $cmail->sendfile();
     					if (! $result)
     					{
     						$error++;
     						$this->error = $cmail->error;
     						$this->errors = $cmail->errors;
+    						dol_syslog("Failed to send email to ".$to." ".$this->error, LOG_DEBUG);
+    					}
+    					else
+    					{
+    						dol_syslog("Email sent to ".$to, LOG_DEBUG);
     					}
 
     					$contractprocessed[$object->id]=$object->ref;
