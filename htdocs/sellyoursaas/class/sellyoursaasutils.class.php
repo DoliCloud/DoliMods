@@ -201,6 +201,10 @@ class SellYourSaasUtils
     	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertSoftEndTrial.log';
 
+    	$contractprocessed = array();
+    	$contractok = array();
+    	$contractko = array();
+
     	$now = dol_now();
 
     	$error = 0;
@@ -234,8 +238,6 @@ class SellYourSaasUtils
     	if ($resql)
     	{
     		$num = $this->db->num_rows($resql);
-
-    		$contractprocessed = array();
 
     		include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
     		include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
@@ -301,10 +303,12 @@ class SellYourSaasUtils
     						$this->error = $cmail->error;
     						$this->errors = $cmail->errors;
     						dol_syslog("Failed to send email to ".$to." ".$this->error, LOG_DEBUG);
+    						$contractko[$object->id]=$object->ref;
     					}
     					else
     					{
     						dol_syslog("Email sent to ".$to, LOG_DEBUG);
+    						$contractok[$object->id]=$object->ref;
     					}
 
     					$contractprocessed[$object->id]=$object->ref;
@@ -319,7 +323,15 @@ class SellYourSaasUtils
     		$this->error = $this->db->lasterror();
     	}
 
-    	$this->output = count($contractprocessed).' email(s) sent'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
+    	$this->output = count($contractprocessed).' contract(s) processed (search done on contracts of SellYourSaas customers only).';
+    	if (count($contractok)>0)
+    	{
+    		$this->output .= ' '.count($contractok).' email(s) sent for '.join(',', $contractok).'.';
+    	}
+    	if (count($contractko)>0)
+    	{
+    		$this->output .= ' '.count($contractko).' email(s) in error for '.join(',', $contractko).'.';
+    	}
 
     	$this->db->commit();
 
