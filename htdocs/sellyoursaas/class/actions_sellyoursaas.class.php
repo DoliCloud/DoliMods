@@ -625,9 +625,9 @@ class ActionsSellyoursaas
     	{
     		$langs->load("sellyoursaas@sellyoursaas");
     		if (empty($conf->global->SELLYOURSAAS_DISABLE_TRIAL_OR_PAID))
-    			print_liste_field_titre("TrialOrPaid",$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
+    			print_liste_field_titre("TrialOrPaid",$_SERVER["PHP_SELF"],'','',$param,' align="center"',$sortfield,$sortorder);
     		if (empty($conf->global->SELLYOURSAAS_DISABLE_PAYMENT_MODE_SAVED))
-    			print_liste_field_titre("PaymentModeSaved",$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
+    			print_liste_field_titre("PaymentModeSaved",$_SERVER["PHP_SELF"],'','',$param,' align="center"',$sortfield,$sortorder);
     	}
 
     	return 0;
@@ -685,12 +685,12 @@ class ActionsSellyoursaas
 	    		}
 	    		$contractmpforloop->id = $parameters['obj']->rowid ? $parameters['obj']->rowid : $parameters['obj']->id;
 	    		$contractmpforloop->socid = $parameters['obj']->socid;
-	    		print '<td align="right">';
+	    		print '<td align="center">';
 
 	    		if (! preg_match('/\.on\./', $parameters['obj']->ref_customer))
 	    		{
 	    			dol_include_once('sellyoursaas/lib/sellyoursaas.lib.php');
-	    			$ret = '<div class="right bold">';
+	    			$ret = '<div class="bold">';
 	    			$ispaid = sellyoursaasIsPaidInstance($contractmpforloop);
 	    			if ($ispaid) $ret .= '<span class="badge" style="font-size: 1em; background-color: green">'.$langs->trans("PayedMode").'</span>';
 	    			else $ret .= '<span class="badge" style="font-size: 1em">'.$langs->trans("TrialMode").'</span>';
@@ -763,7 +763,7 @@ class ActionsSellyoursaas
     				}
     			}
 
-    			print '<td align="right">';
+    			print '<td align="center">';
     			dol_include_once('sellyoursaas/lib/sellyoursaas.lib.php');
     			if ($atleastonepaymentmode) print $langs->trans("Yes");
     			print '</td>';
