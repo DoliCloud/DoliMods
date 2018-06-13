@@ -126,6 +126,9 @@ if ($action == 'set')
 		dolibarr_set_const($db,"SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT",GETPOST("SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT",'int'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT",GETPOST("SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT",'int'),'chaine',0,'',$conf->entity);
 
+		dolibarr_set_const($db,"SELLYOURSAAS_HASHALGOFORPASSWORD",GETPOST("SELLYOURSAAS_HASHALGOFORPASSWORD",'int'),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"SELLYOURSAAS_SALTFORPASSWORDENCRYPTION",GETPOST("SELLYOURSAAS_SALTFORPASSWORDENCRYPTION",'int'),'chaine',0,'',$conf->entity);
+
 		dolibarr_set_const($db,'SELLYOURSAAS_FORCE_STRIPE_TEST',GETPOST("SELLYOURSAAS_FORCE_STRIPE_TEST",'int'),'chaine',0,'',$conf->entity);
 
 
@@ -540,6 +543,22 @@ print '<input type="text" name="SELLYOURSAAS_LOGIN_FOR_SUPPORT" value="'.$conf->
 print '</td>';
 print '<td>Login to use to create a support user account on customer instances</td>';
 print '</tr>';
+
+
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_SALTFORPASSWORDENCRYPTION").'</td>';
+print '<td>';
+print '<input type="text" name="SELLYOURSAAS_SALTFORPASSWORDENCRYPTION" value="'.$conf->global->SELLYOURSAAS_SALTFORPASSWORDENCRYPTION.'">';
+print '</td>';
+print '<td>Salt use to build substitution keys __APPPASSWORDxxxSALTED__</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_HASHALGOFORPASSWORD").'</td>';
+print '<td>';
+print '<input type="text" name="SELLYOURSAAS_HASHALGOFORPASSWORD" value="'.$conf->global->SELLYOURSAAS_HASHALGOFORPASSWORD.'">';
+print '</td>';
+print '<td>Algorithm used to build substitution keys __APPPASSWORD0xxx</td>';
+print '</tr>';
+
 
 print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_SOFT_ALERT").'</td>';
 print '<td>';
