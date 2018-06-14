@@ -647,71 +647,73 @@ print "</form>\n";
 print "<br>";
 
 
-// Param
-$var=true;
-print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-print '<input type="hidden" name="action" value="setstratus5">';
+if (! empty($conf->global->SELLYOURSAAS_DOLICLOUD_ON))
+{
+	// Param
+	print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+	print '<input type="hidden" name="action" value="setstratus5">';
 
-print '<strong>DoliCloud V1</strong>';
-print '<table class="noborder" width="100%">';
-print '<tr class="liste_titre">';
-print '<td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td>';
-print '<td>'.$langs->trans("Examples").'</td>';
-print '<td align="right"><input type="submit" class="button" value="'.$langs->trans("Save").'"></td>';
-print "</tr>\n";
+	print '<strong>DoliCloud V1</strong>';
+	print '<table class="noborder" width="100%">';
+	print '<tr class="liste_titre">';
+	print '<td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td>';
+	print '<td>'.$langs->trans("Examples").'</td>';
+	print '<td align="right"><input type="submit" class="button" value="'.$langs->trans("Save").'"></td>';
+	print "</tr>\n";
 
-print '<tr class="oddeven"><td>'.$langs->trans("DirForDoliCloudInstances").' (remote dir)</td>';
-print '<td>';
-print '<input size="40" type="text" name="DOLICLOUD_EXT_HOME" value="'.$conf->global->DOLICLOUD_EXT_HOME.'">';
-print '</td>';
-print '<td>/home/jail/home</td>';
-print '<td>&nbsp;</td>';
-print '</tr>';
+	print '<tr class="oddeven"><td>'.$langs->trans("DirForDoliCloudInstances").' (remote dir)</td>';
+	print '<td>';
+	print '<input size="40" type="text" name="DOLICLOUD_EXT_HOME" value="'.$conf->global->DOLICLOUD_EXT_HOME.'">';
+	print '</td>';
+	print '<td>/home/jail/home</td>';
+	print '<td>&nbsp;</td>';
+	print '</tr>';
 
-print '<tr class="oddeven"><td>'.$langs->trans("DatabaseServer").'</td>';
-print '<td>';
-print '<input size="40" type="text" name="DOLICLOUD_DATABASE_HOST" value="'.$conf->global->DOLICLOUD_DATABASE_HOST.'">';
-print '</td>';
-print '<td>localhost</td>';
-print '<td>&nbsp;</td>';
-print '</tr>';
+	print '<tr class="oddeven"><td>'.$langs->trans("DatabaseServer").'</td>';
+	print '<td>';
+	print '<input size="40" type="text" name="DOLICLOUD_DATABASE_HOST" value="'.$conf->global->DOLICLOUD_DATABASE_HOST.'">';
+	print '</td>';
+	print '<td>localhost</td>';
+	print '<td>&nbsp;</td>';
+	print '</tr>';
 
-print '<tr class="oddeven"><td>'.$langs->trans("DatabasePort").'</td>';
-print '<td>';
-print '<input size="40" type="text" name="DOLICLOUD_DATABASE_PORT" value="'.$conf->global->DOLICLOUD_DATABASE_PORT.'">';
-print '</td>';
-print '<td>3306</td>';
-print '<td>&nbsp;</td>';
-print '</tr>';
+	print '<tr class="oddeven"><td>'.$langs->trans("DatabasePort").'</td>';
+	print '<td>';
+	print '<input size="40" type="text" name="DOLICLOUD_DATABASE_PORT" value="'.$conf->global->DOLICLOUD_DATABASE_PORT.'">';
+	print '</td>';
+	print '<td>3306</td>';
+	print '<td>&nbsp;</td>';
+	print '</tr>';
 
-print '<tr class="oddeven"><td>'.$langs->trans("DatabaseName").'</td>';
-print '<td>';
-print '<input size="40" type="text" name="DOLICLOUD_DATABASE_NAME" value="'.$conf->global->DOLICLOUD_DATABASE_NAME.'">';
-print '</td>';
-print '<td>dolicloud_saasplex</td>';
-print '<td>&nbsp;</td>';
-print '</tr>';
+	print '<tr class="oddeven"><td>'.$langs->trans("DatabaseName").'</td>';
+	print '<td>';
+	print '<input size="40" type="text" name="DOLICLOUD_DATABASE_NAME" value="'.$conf->global->DOLICLOUD_DATABASE_NAME.'">';
+	print '</td>';
+	print '<td>dolicloud_saasplex</td>';
+	print '<td>&nbsp;</td>';
+	print '</tr>';
 
-print '<tr class="oddeven"><td>'.$langs->trans("DatabaseUser").'</td>';
-print '<td>';
-print '<input size="40" type="text" name="DOLICLOUD_DATABASE_USER" value="'.$conf->global->DOLICLOUD_DATABASE_USER.'">';
-print '</td>';
-print '<td>dolicloud</td>';
-print '<td>&nbsp;</td>';
-print '</tr>';
+	print '<tr class="oddeven"><td>'.$langs->trans("DatabaseUser").'</td>';
+	print '<td>';
+	print '<input size="40" type="text" name="DOLICLOUD_DATABASE_USER" value="'.$conf->global->DOLICLOUD_DATABASE_USER.'">';
+	print '</td>';
+	print '<td>dolicloud</td>';
+	print '<td>&nbsp;</td>';
+	print '</tr>';
 
-print '<tr class="oddeven"><td>'.$langs->trans("DatabasePassword").'</td>';
-print '<td>';
-print '<input size="40" type="text" name="DOLICLOUD_DATABASE_PASS" value="'.$conf->global->DOLICLOUD_DATABASE_PASS.'">';
-print '</td>';
-print '<td></td>';
-print '<td>&nbsp;</td>';
-print '</tr>';
+	print '<tr class="oddeven"><td>'.$langs->trans("DatabasePassword").'</td>';
+	print '<td>';
+	print '<input size="40" type="text" name="DOLICLOUD_DATABASE_PASS" value="'.$conf->global->DOLICLOUD_DATABASE_PASS.'">';
+	print '</td>';
+	print '<td></td>';
+	print '<td>&nbsp;</td>';
+	print '</tr>';
 
-print '</table>';
+	print '</table>';
 
-print '</form>';
+	print '</form>';
+}
 
 print '<br>';
 
