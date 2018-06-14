@@ -1546,7 +1546,9 @@ class SellYourSaasUtils
 
 
    	/**
-   	 * Called by doSuspendExpiredTestInstances or doSuspendExpiredRealInstances
+   	 * Called by batch only: doSuspendExpiredTestInstances or doSuspendExpiredRealInstances
+   	 * It set the status of services to "offline" and send an email to wen the customer.
+   	 * Note: An instance can also be suspended from backoffice by setting service to "offline". In such a case, no email is sent.
    	 *
    	 * @param	string	$mode		'test' or 'paid'
    	 * @return	int					0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
@@ -1650,10 +1652,45 @@ class SellYourSaasUtils
 						{
 							$error++;
 							$this->error = $object->error;
-							$this->errors = $object->errors;
+							$this->errors += $object->errors;
 						}
+						else
+						{
+							$contractprocessed[$object->id]=$object->ref;
 
-						$contractprocessed[$object->id]=$object->ref;
+							// Send an email to warn customer of suspension
+							if ($mode == 'test')
+							{
+								$labeltemplate = 'CustomerAccountSuspendedTrial';
+							}
+							if ($mode == 'paid')
+							{
+								$labeltemplate = 'CustomerAccountSuspended';
+							}
+
+							// Send deployment email
+							include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+							include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+							$formmail=new FormMail($db);
+
+							$arraydefaultmessage=$formmail->getEMailTemplate($db, 'thirdparty', $user, $langs, 0, 1, $labeltemplate);
+
+							$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $object);
+							complete_substitutions_array($substitutionarray, $langs, $object);
+
+							$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langs);
+							$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langs);
+							$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+							$to = $object->thirdparty->email;
+
+							$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
+							$result = $cmail->sendfile();
+							if (! $result)
+							{
+								$error++;
+								$this->errors += $cmail->errors;
+							}
+						}
 					}
 				}
     			$i++;
