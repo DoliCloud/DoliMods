@@ -363,3 +363,5 @@ TrialOrPaid=Trial or Paid
 PaymentModeSaved=Payment mode recorded
 RetryNow=Retry now
 ClickToCheckAgain=Click here to check again
+BadValueForDomainInEmail=Wrong email: Bad value for the domain part in email (after the @). If you are sure your email is correct, please send us a notice at %s.
+LogIn=Log In  
