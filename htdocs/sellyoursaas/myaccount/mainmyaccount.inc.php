@@ -522,6 +522,9 @@ function dol_loginfunction($langs,$conf,$mysoc)
 	global $dolibarr_main_demo,$db;
 	global $smartphone,$hookmanager;
 
+	//$langs=new Translate('', $conf);
+	$langs->setDefaultLang(GETPOST('lang','aZ09')?GETPOST('lang','aZ09'):'auto');
+
 	$langs->loadLangs(array("main","other","help","admin","sellyoursaas@sellyoursaas"));
 
 	// Instantiate hooks of thirdparty module only if not already define

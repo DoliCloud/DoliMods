@@ -60,11 +60,12 @@ dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
 // Re set variables specific to new environment
 $conf->global->SYSLOG_FILE_ONEPERSESSION=1;
 $langs=new Translate('', $conf);
-$langs->setDefaultLang('auto');
-$langs->loadLangs(array("sellyoursaas@sellyoursaas","errors"));
+$langs->setDefaultLang(GETPOST('lang','aZ09')?GETPOST('lang','aZ09'):'auto');
 
 $langsen=new Translate('', $conf);
 $langsen->setDefaultLang('en_US');
+
+$langs->loadLangs(array("companies","sellyoursaas@sellyoursaas","errors"));
 $langsen->loadLangs(array("companies","sellyoursaas@sellyoursaas","errors"));
 
 // Force user

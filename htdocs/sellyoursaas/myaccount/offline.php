@@ -58,7 +58,16 @@ $contract = new Contrat($db);
 $contract->fetch(0, '', $instance);
 $contract->fetch_thirdparty();
 
-$langs->load("sellyoursaas@sellyoursaas");
+
+$langs=new Translate('', $conf);
+$langs->setDefaultLang(GETPOST('lang','aZ09')?GETPOST('lang','aZ09'):'auto');
+
+$langsen=new Translate('', $conf);
+$langsen->setDefaultLang('en_US');
+
+$langs->loadLangs(array("main","companies","sellyoursaas@sellyoursaas","errors"));
+$langsen->loadLangs(array("main","companies","sellyoursaas@sellyoursaas","errors"));
+
 
 top_htmlhead('', 'OffLine Page');
 

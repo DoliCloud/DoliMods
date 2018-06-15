@@ -53,8 +53,13 @@ require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 // Re set variables specific to new environment
 $conf->global->SYSLOG_FILE_ONEPERSESSION=1;
 $langs=new Translate('', $conf);
-$langs->setDefaultLang('auto');
+$langs->setDefaultLang(GETPOST('lang','aZ09')?GETPOST('lang','aZ09'):'auto');
+
+$langsen=new Translate('', $conf);
+$langsen->setDefaultLang('en_US');
+
 $langs->loadLangs(array("main","companies","sellyoursaas@sellyoursaas","errors"));
+$langsen->loadLangs(array("main","companies","sellyoursaas@sellyoursaas","errors"));
 
 
 $partner=GETPOST('partner','alpha');
