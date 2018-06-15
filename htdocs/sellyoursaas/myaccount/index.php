@@ -4170,7 +4170,7 @@ if ($mode == 'registerpaymentmode')
 			}
 
 			print '<div class="row"><div class="col-md-12"><label>'.$langs->trans("NameOnCard").'</label>';
-			print '<input class="minwidth200" type="text" name="proprio" value="'.GETPOST('proprio','alpha').'"></div></div>';
+			print '<input class="minwidth200" style="margin-bottom: 15px" type="text" name="proprio" value="'.GETPOST('proprio','alpha').'"></div></div>';
 
 
 			if (! empty($conf->global->SELLYOURSAAS_STRIPE_USE_TOKEN))
@@ -4188,7 +4188,7 @@ if ($mode == 'registerpaymentmode')
 
 				print '<script src="https://js.stripe.com/v3/"></script>';
 
-				print '	<center><div class="form-row">
+				print '	<center><div class="form-row" style="max-width: 320px">
 
 				<div id="card-element">
 				<!-- A Stripe Element will be inserted here. -->
