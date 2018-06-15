@@ -4590,7 +4590,8 @@ if ($mode == 'support')
 						}
 
 
-						print '<option value="low_other"'.(GETPOST('supportchannel','alpha') == 'low_other' ? ' selected="selected"':'').'>'.$langs->trans("Other").' ('.$langs->trans("Priority").': '.$langs->trans("Low").')</option>';
+						//print '<option value="low_other"'.(GETPOST('supportchannel','alpha') == 'low_other' ? ' selected="selected"':'').'>'.$langs->trans("Other").' ('.$langs->trans("Priority").': '.$langs->trans("Low").')</option>';
+						print '<option value="low_other"'.(GETPOST('supportchannel','alpha') == 'low_other' ? ' selected="selected"':'').'>'.$langs->trans("Other").'</option>';
 						if (empty($atleastonehigh))
 						{
 							print '<option value="high_premium" disabled="disabled">'.$langs->trans("PremiumSupport").' ('.$langs->trans("Priority").': '.$langs->trans("High").') - '.$langs->trans("NoPremiumPlan").'</option>';
