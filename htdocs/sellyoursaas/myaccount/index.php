@@ -4200,9 +4200,10 @@ if ($mode == 'registerpaymentmode')
 				</div></form>';
 
 				print '<br>';
-				print '<button class="btn btn-info btn-circle">'.$langs->trans("Save").'</button>';
+				print '<button class="btn btn-info btn-circle" id="buttontopay">'.$langs->trans("Save").'</button>';
+				print '<img id="hourglasstopay" class="hidden" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/working.gif'.'">';
 				print ' ';
-				print '<a href="'.($backtourl ? $backtourl : $_SERVER["PHP_SELF"]).'" class="btn green-haze btn-circle">'.$langs->trans("Cancel").'</a>';
+				print '<a id="buttontocancel" href="'.($backtourl ? $backtourl : $_SERVER["PHP_SELF"]).'" class="btn green-haze btn-circle">'.$langs->trans("Cancel").'</a>';
 
 
 				print '<script type="text/javascript" language="javascript">';
@@ -4300,6 +4301,7 @@ if ($mode == 'registerpaymentmode')
 
 				      // Submit the form
 				      jQuery('#buttontopay').hide();
+				      jQuery('#buttontocancel').hide();
 				      jQuery('#hourglasstopay').show();
 				      console.log('submit token');
 				      form.submit();
@@ -4317,6 +4319,7 @@ if ($mode == 'registerpaymentmode')
 
 					  // Submit the form
 				      jQuery('#buttontopay').hide();
+				      jQuery('#buttontocancel').hide();
 				      jQuery('#hourglasstopay').show();
 				      console.log('submit source');
 					  form.submit();
