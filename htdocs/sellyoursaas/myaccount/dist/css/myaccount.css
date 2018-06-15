@@ -75,6 +75,13 @@ input.form-control::-moz-placeholder { /* Firefox 19+ */
     padding: 20px;
 	margin-bottom: 30px;
 }
+@media only screen and (max-width: 400px) {	/* reduction 3 */
+	.portlet {
+	    border: 1px solid #aaa;
+	    padding: 4px;
+		margin-bottom: 30px;
+	}
+}
 .portletnoborder {
 	margin-bottom: 20px;
 }
@@ -505,11 +512,13 @@ inline;font-size: 11px;font-weight: 300;text-shadow: none;height:
 middle;-webkit-border-radius: 12px !important;-moz-border-radius: 
 12px !important;border-radius: 12px !important;}.dropdown-menu.
 badge-roundless {-webkit-border-radius: 0 !important;
--moz-border-radius: 0 !important;border-radius: 0 !important;}.btn {
+-moz-border-radius: 0 !important;border-radius: 0 !important;}
+.btn {
 border-width: 0;padding: 7px 14px;font-size: 14px;outline: none !
 important;background-image: none !important;filter: none;
 -webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;
-text-shadow: none;}.btn.dropdown-toggle, .btn-group .btn.
+text-shadow: none;}
+.btn.dropdown-toggle, .btn-group .btn.
 dropdown-toggle, .btn:hover, .btn:disabled, .btn[disabled], .btn:
 focus, .btn:active, .btn.active {outline: none !important;
 background-image: none !important;filter: none;-webkit-box-shadow: 
@@ -2789,8 +2798,8 @@ background-color: #29cfae;}.bg-green-turquoise {border-color:
 #36D7B7 !important;background-image: none !important;background-color
 : #36D7B7 !important;color: #FFFFFF !important;}.font-green-turquoise
 {color: #36D7B7 !important;}.progress-bar.green-turquoise {
-background: #36D7B7 !important;color: #FFFFFF !important;}.green-haze
-.btn {color: #FFFFFF;background-color: #44b6ae;border-color: "";}.
+background: #36D7B7 !important;color: #FFFFFF !important;}
+.green-haze .btn {color: #FFFFFF;background-color: #44b6ae;border-color: "";}.
 green-haze.btn:hover, .green-haze.btn:focus, .green-haze.btn:active, 
 .green-haze.btn.active {color: #FFFFFF;background-color: #3a9c95;}.
 open .green-haze.btn.dropdown-toggle {color: #FFFFFF;background-color

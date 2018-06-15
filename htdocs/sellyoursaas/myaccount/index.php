@@ -52,6 +52,10 @@ dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
 
 $conf->global->SYSLOG_FILE_ONEPERSESSION=1;
 
+// Which mode to get credit card (direct credit card data or token) ?
+$conf->global->SELLYOURSAAS_STRIPE_USE_TOKEN = 1;
+
+
 $welcomecid = GETPOST('welcomecid','alpha');
 $mode = GETPOST('mode', 'alpha');
 $action = GETPOST('action', 'alpha');
@@ -511,17 +515,31 @@ if ($action == 'updatepassword')
 
 if ($action == 'createpaymentmode')		// Create credit card stripe
 {
+	$stripeToken = GETPOST("stripeToken",'alpha');
 	$label = 'Card '.dol_print_date($now, 'dayhourrfc');
 
-	if (! GETPOST('proprio','alpha') || ! GETPOST('cardnumber','alpha') || ! GETPOST('exp_date_month','alpha') || ! GETPOST('exp_date_year','alpha') || ! GETPOST('cvn','alpha'))
+	if (empty($conf->global->SELLYOURSAAS_STRIPE_USE_TOKEN))
 	{
-		if (! GETPOST('proprio','alpha')) setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameOnCard")), null, 'errors');
-		if (! GETPOST('cardnumber','alpha')) setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("CardNumber")), null, 'errors');
-		if (! (GETPOST('exp_date_month','alpha') > 0) || ! (GETPOST('exp_date_year','alpha') > 0)) setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("ExpiryDate")), null, 'errors');
-		if (! GETPOST('cvn','alpha')) setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("CVN")), null, 'errors');
-		$action='';
-		$mode='registerpaymentmode';
-		$error++;
+		if (! GETPOST('proprio','alpha') || ! GETPOST('cardnumber','alpha') || ! GETPOST('exp_date_month','alpha') || ! GETPOST('exp_date_year','alpha') || ! GETPOST('cvn','alpha'))
+		{
+			if (! GETPOST('proprio','alpha')) setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameOnCard")), null, 'errors');
+			if (! GETPOST('cardnumber','alpha')) setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("CardNumber")), null, 'errors');
+			if (! (GETPOST('exp_date_month','alpha') > 0) || ! (GETPOST('exp_date_year','alpha') > 0)) setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("ExpiryDate")), null, 'errors');
+			if (! GETPOST('cvn','alpha')) setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("CVN")), null, 'errors');
+			$action='';
+			$mode='registerpaymentmode';
+			$error++;
+		}
+	}
+	else
+	{
+		if (! $stripeToken)
+		{
+			setEventMessages($langs->trans("ErrorTokenWasNotProvidedByPreviousPage"), null, 'errors');
+			$action='';
+			$mode='registerpaymentmode';
+			$error++;
+		}
 	}
 
 	if (! $error)
@@ -543,6 +561,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 		$companypaymentmode->type            = 'card';
 		$companypaymentmode->country_code    = $mythirdpartyaccount->country_code;
 		$companypaymentmode->status          = $servicestatusstripe;
+		// field $companypaymentmode->stripe_card_ref is filled later
 
 		$db->begin();
 
@@ -573,16 +592,61 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					}
 					else
 					{
-						// Creation of Stripe card + update of societe_account
-						$card = $stripe->cardStripe($cu, $companypaymentmode, $stripeacc, $servicestatusstripe, 1);
-						if (! $card)
+						if (! empty($conf->global->SELLYOURSAAS_STRIPE_USE_TOKEN))
 						{
-							$error++;
-							setEventMessages($stripe->error, $stripe->errors, 'errors');
+							$metadata = array(
+								'dol_version'=>DOL_VERSION,
+								'dol_entity'=>$conf->entity,
+								'ipaddress'=>(empty($_SERVER['REMOTE_ADDR'])?'':$_SERVER['REMOTE_ADDR'])
+							);
+							//if (! empty($dol_id))        			$metadata["dol_id"] = $dol_id;
+							//if (! empty($dol_type))      			$metadata["dol_type"] = $dol_type;
+							if (! empty($mythirdpartyaccount->id)) 	$metadata["dol_thirdparty_id"] = $mythirdpartyaccount->id;
+
+							// Create Stripe card from Token
+							$card = $cu->sources->create(array("source" => $stripeToken, "metadata" => $metadata));
+
+							if (empty($card))
+							{
+								$error++;
+								dol_syslog('Failed to create card record', LOG_WARNING, 0, '_stripe');
+								setEventMessages('Failed to create card record', null, 'errors');
+								$action='';
+							}
+							else
+							{
+								$sql = "UPDATE " . MAIN_DB_PREFIX . "societe_rib";
+								$sql.= " SET stripe_card_ref = '".$db->escape($card->id)."', card_type = '".$db->escape($card->brand)."',";
+								$sql.= " country_code = '".$db->escape($card->country)."',";
+								$sql.= " exp_date_month = '".$db->escape($card->exp_month)."',";
+								$sql.= " exp_date_year = '".$db->escape($card->exp_year)."',";
+								$sql.= " last_four = '".$db->escape($card->last4)."',";
+								//$sql.= " cvn = '".$db->escape($card->???)."',";
+								$sql.= " approved = ".($card->cvc_check == 'pass' ? 1 : 0);
+								$sql.= " WHERE rowid = " . $companypaymentmode->id;
+								$sql.= " AND type = 'card'";
+								$resql = $db->query($sql);
+								if (! $resql)
+								{
+									setEventMessages($db->lasterror(), null, 'errors');
+								}
+
+								$stripecard = $card->id;
+							}
 						}
 						else
 						{
-							$stripecard = $card->id;
+							// Create Stripe card from data in $companypaymentmode (societe_rib) created previsoulsy + update of societe_rib to save stripe_card_ref
+							$card = $stripe->cardStripe($cu, $companypaymentmode, $stripeacc, $servicestatusstripe, 1);
+							if (! $card)
+							{
+								$error++;
+								setEventMessages($stripe->error, $stripe->errors, 'errors');
+							}
+							else
+							{
+								$stripecard = $card->id;
+							}
 						}
 					}
 				}
@@ -1056,8 +1120,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 						if ($result <= 0)
 						{
 							$error++;
-							$this->error=$invoice->error;
-							$this->errors=$invoice->errors;
+							setEventMessages($invoice->error, $invoice->errors, 'errors');
 						}
 					}
 				}
@@ -1152,8 +1215,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 							if ($result <= 0)
 							{
 								$error++;
-								$this->error=$invoice->error;
-								$this->errors=$invoice->errors;
+								setEventMessages($invoice->error, $invoice->errors, 'errors');
 							}
 						}
 					}
@@ -1297,7 +1359,8 @@ $head='<link rel="icon" href="img/favicon.ico">
 <!-- Bootstrap core CSS -->
 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">-->
 <link href="dist/css/bootstrap.css" rel="stylesheet">
-<link href="dist/css/myaccount.css" rel="stylesheet">';
+<link href="dist/css/myaccount.css" rel="stylesheet">
+<link href="dist/css/stripe.css" rel="stylesheet">';
 $head.="
 <script>
 var select2arrayoflanguage = {
@@ -4044,8 +4107,11 @@ if ($mode == 'registerpaymentmode')
 		<div class="col-md-12 center">
 		<div class="portlet light">
 
-		<div class="portlet-body">
-		<form action="'.$_SERVER["PHP_SELF"].'" method="POST">
+		<div class="portlet-body">';
+
+
+		print '
+		<form action="'.$_SERVER["PHP_SELF"].'" method="POST" id="payment-form">
 		<input type="hidden" name="action" value="createpaymentmode">
 		<input type="hidden" name="backtourl" value="'.$backtourl.'">
 
@@ -4106,22 +4172,181 @@ if ($mode == 'registerpaymentmode')
 			print '<div class="row"><div class="col-md-12"><label>'.$langs->trans("NameOnCard").'</label>';
 			print '<input class="minwidth200" type="text" name="proprio" value="'.GETPOST('proprio','alpha').'"></div></div>';
 
-			print '<div class="row"><div class="col-md-12"><label>'.$langs->trans("CardNumber").'</label>';
-			print '<input class="minwidth200" type="text" name="cardnumber" value="'.GETPOST('cardnumber','alpha').'"></div></div>';
 
-			print '<div class="row"><div class="col-md-12"><label>'.$langs->trans("ExpiryDate").'</label><br>';
-			print $formother->select_month(GETPOST('exp_date_month','int'), 'exp_date_month', 1, 1, 'width100');
-			print $formother->select_year(GETPOST('exp_date_year','int'), 'exp_date_year', 1, 5, 10, 0, 0, '', 'marginleftonly width100');
-			print '</div></div>';
+			if (! empty($conf->global->SELLYOURSAAS_STRIPE_USE_TOKEN))
+			{
+				require_once DOL_DOCUMENT_ROOT.'/stripe/config.php';
+				// Reforce the $stripearrayofkeys because content may change depending on option
+				if (empty($conf->global->STRIPE_LIVE) || GETPOST('forcesandbox','alpha') || ! empty($conf->global->SELLYOURSAAS_FORCE_STRIPE_TEST))
+				{
+					$stripearrayofkeys = $stripearrayofkeysbyenv[0];	// Test
+				}
+				else
+				{
+					$stripearrayofkeys = $stripearrayofkeysbyenv[1];	// Live
+				}
 
-			print '<div class="row"><div class="col-md-12"><label><br>'.$langs->trans("CVN").'</label>';
-			print '<input size="5" type="text" class="maxwidth100" name="cvn" value="'.GETPOST('cvn','alpha').'"></div></div>';
-			print '<br>';
-			print '<input type="submit" name="submitcard" value="'.$langs->trans("Save").'" class="btn btn-info btn-circle">';
-			print ' ';
-			print '<input type="submit" name="cancel" value="'.$langs->trans("Cancel").'" class="btn green-haze btn-circle">';
+				print '<script src="https://js.stripe.com/v3/"></script>';
+
+				print '	<center><div class="form-row">
+
+				<div id="card-element">
+				<!-- A Stripe Element will be inserted here. -->
+				</div>
+
+				<!-- Used to display form errors. -->
+				<div id="card-errors" role="alert"></div>
+
+				</div></form>';
+
+				print '<br>';
+				print '<button class="btn btn-info btn-circle">'.$langs->trans("Save").'</button>';
+				print ' ';
+				print '<a href="'.($backtourl ? $backtourl : $_SERVER["PHP_SELF"]).'" class="btn green-haze btn-circle">'.$langs->trans("Cancel").'</a>';
+
+
+				print '<script type="text/javascript" language="javascript">';
+				print "
+					// Create a Stripe client.
+					var stripe = Stripe('".$stripearrayofkeys['publishable_key']."');		/* Defined into config.php */
+
+					// Create an instance of Elements.
+					var elements = stripe.elements();
+
+					// Custom styling can be passed to options when creating an Element.
+					// (Note that this demo uses a wider set of styles than the guide below.)
+					var style = {
+					  base: {
+					    color: '#32325d',
+					    lineHeight: '18px',
+					    fontFamily: '\"Helvetica Neue\", Helvetica, sans-serif',
+					    fontSmoothing: 'antialiased',
+					    fontSize: '16px',
+					    '::placeholder': {
+					      color: '#aab7c4'
+					    }
+					  },
+					  invalid: {
+					    color: '#fa755a',
+					    iconColor: '#fa755a'
+					  }
+					};
+
+					// Create an instance of the card Element.
+					var card = elements.create('card', {style: style});
+
+					// Add an instance of the card Element into the `card-element` <div>.
+					card.mount('#card-element');
+
+					// Handle real-time validation errors from the card Element.
+					card.addEventListener('change', function(event) {
+					  var displayError = document.getElementById('card-errors');
+					  if (event.error) {
+					    displayError.textContent = event.error.message;
+					  } else {
+					    displayError.textContent = '';
+					  }
+					});
+
+					// Handle form submission.
+					var form = document.getElementById('payment-form');
+					form.addEventListener('submit', function(event) {
+					  event.preventDefault();";
+						if (empty($conf->global->STRIPE_USE_3DSECURE))	// Ask credit card directly, no 3DS test
+						{
+						?>
+							/* Use token */
+							stripe.createToken(card).then(function(result) {
+						        if (result.error) {
+						          // Inform the user if there was an error
+						          var errorElement = document.getElementById('card-errors');
+						          errorElement.textContent = result.error.message;
+						        } else {
+						          // Send the token to your server
+						          stripeTokenHandler(result.token);
+						        }
+							});
+						<?php
+						}
+						else											// Ask credit card with 3DS test
+						{
+						?>
+							/* Use 3DS source */
+							stripe.createSource(card).then(function(result) {
+							    if (result.error) {
+							      // Inform the user if there was an error
+							      var errorElement = document.getElementById('card-errors');
+							      errorElement.textContent = result.error.message;
+							    } else {
+							      // Send the source to your server
+							      stripeSourceHandler(result.source);
+							    }
+							});
+						<?php
+						}
+					print "
+					});
+
+
+					/* Insert the Token into the form so it gets submitted to the server */
+				    function stripeTokenHandler(token) {
+				      // Insert the token ID into the form so it gets submitted to the server
+				      var form = document.getElementById('payment-form');
+				      var hiddenInput = document.createElement('input');
+				      hiddenInput.setAttribute('type', 'hidden');
+				      hiddenInput.setAttribute('name', 'stripeToken');
+				      hiddenInput.setAttribute('value', token.id);
+				      form.appendChild(hiddenInput);
+
+				      // Submit the form
+				      jQuery('#buttontopay').hide();
+				      jQuery('#hourglasstopay').show();
+				      console.log('submit token');
+				      form.submit();
+				    }
+
+					/* Insert the Source into the form so it gets submitted to the server */
+					function stripeSourceHandler(source) {
+					  // Insert the source ID into the form so it gets submitted to the server
+					  var form = document.getElementById('payment-form');
+					  var hiddenInput = document.createElement('input');
+					  hiddenInput.setAttribute('type', 'hidden');
+					  hiddenInput.setAttribute('name', 'stripeSource');
+					  hiddenInput.setAttribute('value', source.id);
+					  form.appendChild(hiddenInput);
+
+					  // Submit the form
+				      jQuery('#buttontopay').hide();
+				      jQuery('#hourglasstopay').show();
+				      console.log('submit source');
+					  form.submit();
+					}
+
+					</script>
+					";
+			}
+			else
+			{
+				print '<div class="row"><div class="col-md-12"><label>'.$langs->trans("CardNumber").'</label>';
+				print '<input class="minwidth200" type="text" name="cardnumber" value="'.GETPOST('cardnumber','alpha').'"></div></div>';
+
+				print '<div class="row"><div class="col-md-12"><label>'.$langs->trans("ExpiryDate").'</label><br>';
+				print $formother->select_month(GETPOST('exp_date_month','int'), 'exp_date_month', 1, 1, 'width100');
+				print $formother->select_year(GETPOST('exp_date_year','int'), 'exp_date_year', 1, 5, 10, 0, 0, '', 'marginleftonly width100');
+				print '</div></div>';
+
+				print '<div class="row"><div class="col-md-12"><label><br>'.$langs->trans("CVN").'</label>';
+				print '<input size="5" type="text" class="maxwidth100" name="cvn" value="'.GETPOST('cvn','alpha').'"></div></div>';
+
+				print '<br>';
+				print '<input type="submit" name="submitcard" value="'.$langs->trans("Save").'" class="btn btn-info btn-circle">';
+				print ' ';
+				print '<input type="submit" name="cancel" value="'.$langs->trans("Cancel").'" class="btn green-haze btn-circle">';
+			}
+
 			print '
 		</div>
+
 		<div class="linkpaypal" style="display: none;">';
 			print '<br>';
 			//print $langs->trans("PaypalPaymentModeAvailableForYealySubscriptionOnly");
@@ -4133,6 +4358,7 @@ if ($mode == 'registerpaymentmode')
 
 		print '
 		</div>
+
 		<div class="linksepa" style="display: none;">';
 		if ($mythirdpartyaccount->isInEEC())
 		{
