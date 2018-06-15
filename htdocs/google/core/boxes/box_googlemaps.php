@@ -79,7 +79,7 @@ class box_googlemaps extends ModeleBoxes
         $this->info_box_head = array('text' => $langs->trans("BoxMaps",$max));
 
         $i=0;
-		if ($conf->societe->enabled && $user->rights->societe->lire && empty($conf->global->CABINETMED_HIDETHIRPARTIESMENU))
+        if ($conf->societe->enabled && $user->rights->societe->lire && ! empty($conf->global->GOOGLE_ENABLE_GMAPS) && empty($conf->global->CABINETMED_HIDETHIRPARTIESMENU))
 		{
 			$something++;
 
@@ -95,7 +95,7 @@ class box_googlemaps extends ModeleBoxes
 
 			$i++;
 		}
-		if ($conf->societe->enabled && $user->rights->societe->lire)
+		if ($conf->societe->enabled && $user->rights->societe->lire && ! empty($conf->global->GOOGLE_ENABLE_GMAPS_CONTACTS))
 		{
 			$something++;
 
@@ -111,7 +111,7 @@ class box_googlemaps extends ModeleBoxes
 
 			$i++;
 		}
-		if ($conf->adherent->enabled && $user->rights->adherent->lire)
+		if ($conf->adherent->enabled && $user->rights->adherent->lire && ! empty($conf->global->GOOGLE_ENABLE_GMAPS_MEMBERS))
 		{
 			$something++;
 
