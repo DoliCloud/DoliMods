@@ -82,7 +82,7 @@ if (empty($user->id))
 	$user->getrights();
 }
 
-$orgname = trim(GETPOST('orgName','alpha'));
+$orgname = ucfirst(trim(GETPOST('orgName','alpha')));
 $email = trim(GETPOST('username','alpha'));
 $domainemail = preg_replace('/^.*@/', '', $email);
 $password = trim(GETPOST('password','alpha'));
@@ -166,7 +166,7 @@ elseif ($reusesocid)		// When we use the "Add another instance" from account bac
 	$newurl.='&mode=instances';
 	if (! preg_match('/sldAndSubdomain/i', $sldAndSubdomain)) $newurl.='&sldAndSubdomain='.urlencode($sldAndSubdomain);
 	if (! preg_match('/tldid/i', $tldid)) $newurl.='&tldid='.urlencode($tldid);
-	if (! preg_match('/service/i', $newurl)) $newurl.='&service='.urlencode($orgname);
+	if (! preg_match('/service/i', $newurl)) $newurl.='&service='.urlencode($service);
 	if (! preg_match('/partner/i', $newurl)) $newurl.='&partner='.urlencode($partner);
 	if (! preg_match('/partnerkey/i', $newurl)) $newurl.='&partnerkey='.urlencode($partnerkey);		// md5 of partner name alias
 	if (! preg_match('/origin/i', $newurl)) $newurl.='&origin='.urlencode($origin);
@@ -205,7 +205,6 @@ else
 	if (! preg_match('/sldAndSubdomain/i', $sldAndSubdomain)) $newurl.='&sldAndSubdomain='.urlencode($sldAndSubdomain);
 	if (! preg_match('/tldid/i', $tldid)) $newurl.='&tldid='.urlencode($tldid);
 	if (! preg_match('/plan/i', $newurl)) $newurl.='&plan='.urlencode($plan);
-	//if (! preg_match('/service/i', $newurl)) $newurl.='&orgName='.urlencode($orgname);
 	if (! preg_match('/partner/i', $newurl)) $newurl.='&partner='.urlencode($partner);
 	if (! preg_match('/partnerkey/i', $newurl)) $newurl.='&partnerkey='.urlencode($partnerkey);		// md5 of partner name alias
 	if (! preg_match('/origin/i', $newurl)) $newurl.='&origin='.urlencode($origin);
