@@ -200,7 +200,7 @@ if (! empty($_SESSION['dol_loginmesg']))
 <!-- Button Connection -->
 <section id="formActions">
 <div class="form-actions center">
-<input type="submit" class="btn btn-primary" value="&nbsp; <?php echo $langs->trans('Connection'); ?> &nbsp;" tabindex="5" />
+<input type="submit" class="btn btn-primary" value="&nbsp; <?php echo $langs->trans('LogIn'); ?> &nbsp;" tabindex="5" />
 
 <?php
 if ($forgetpasslink || $helpcenterlink)

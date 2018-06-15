@@ -146,7 +146,7 @@ if (! empty($morelogincontent)) {
 }
 */
 
-if (empty($asknewpass) && 0) {
+if (empty($asknewpass) && 1) {
 	// Add a variable param to force not using cache (jmobile)
 	$php_self = preg_replace('/[&\?]time=(\d+)/','',$php_self);	// Remove param time
 	if (preg_match('/\?/',$php_self)) $php_self.='&time='.dol_print_date(dol_now(),'dayhourlog');

@@ -51,11 +51,15 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/usergroups.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 if (! empty($conf->ldap->enabled)) require_once DOL_DOCUMENT_ROOT.'/core/class/ldap.class.php';
 
-$langs->load("errors");
-$langs->load("users");
-$langs->load("companies");
-$langs->load("ldap");
-$langs->load("other");
+$langs=new Translate('', $conf);
+$langs->setDefaultLang(GETPOST('lang','aZ09')?GETPOST('lang','aZ09'):'auto');
+
+$langsen=new Translate('', $conf);
+$langsen->setDefaultLang('en_US');
+
+$langs->loadLangs(array("main","users","ldap","companies","bills","sellyoursaas@sellyoursaas","other","errors",'mails','paypal','paybox','stripe','withdrawals','other'));
+$langsen->loadLangs(array("main","users","ldap","companies","bills","sellyoursaas@sellyoursaas","other","errors",'mails','paypal','paybox','stripe','withdrawals','other'));
+
 
 // Security check
 if (! empty($conf->global->SELLYOURSAAS_SECURITY_DISABLEFORGETPASSLINK))
@@ -169,7 +173,7 @@ if ($hashreset)
 if ($action == 'buildnewpassword' && $username)
 {
     $sessionkey = 'dol_antispam_value';
-    $ok=(array_key_exists($sessionkey, $_SESSION) === TRUE && (strtolower($_SESSION[$sessionkey]) == strtolower($_POST['code'])));
+    $ok=(array_key_exists($sessionkey, $_SESSION) === true && (strtolower($_SESSION[$sessionkey]) == strtolower($_POST['code'])));
 
     // Verify code
     if (! $ok)
@@ -216,10 +220,7 @@ if ($action == 'buildnewpassword' && $username)
                 	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
                 	$formmail=new FormMail($db);
 
-                	$arraydefaultmessage=$formmail->getEMailTemplate($db, 'thirdparty', $user, $langs, 0, 1, 'PasswordAssistance');
-
-                	$appli = $conf->global->SELLYOURSAAS_NAME;
-                	$subject = $langs->transnoentitiesnoconv("SubjectNewPassword", $appli);
+                	$arraydefaultmessage=$formmail->getEMailTemplate($db, 'thirdparty', $user, $langs, 0, 1, '(PasswordAssistance)');
 
                 	//$mesg.='You may find more information on all different user/password reset process onto <a href="https://www.dolicloud.com/en-faq-i-forgot-my-login-or-password">the following page</a>';
 
@@ -231,6 +232,13 @@ if ($action == 'buildnewpassword' && $username)
                 	$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langs);
                 	$mesg = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langs);
 
+                	/*if (empty($subject))
+                	{
+                		$appli = $conf->global->SELLYOURSAAS_NAME;
+                		$subject = '['.$appli.'] '.$langs->transnoentitiesnoconv("SubjectNewPasswordForYouCustomerDashboard");
+                		$mesg = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langs);
+                	}*/
+
                 	$newemail = new CMailFile($subject, $username, $conf->global->SELLYOURSAAS_MAIN_EMAIL, $mesg, array(),array(),array(),'','',0,-1,'','',$trackid,'','standard');
 
                 	if ($newemail->sendfile() > 0)
@@ -240,7 +248,7 @@ if ($action == 'buildnewpassword' && $username)
                     }
                     else
                     {
-                        $message.= '<div class="error">'.$edituser->error.'</div>';
+                    	$message.= '<div class="error">'.$newemail->error.'</div>';
                     }
                 }
             //}

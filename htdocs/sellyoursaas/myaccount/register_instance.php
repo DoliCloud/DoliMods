@@ -83,11 +83,12 @@ if (empty($user->id))
 
 $orgname = trim(GETPOST('orgName','alpha'));
 $email = trim(GETPOST('username','alpha'));
-$password = GETPOST('password','alpha');
-$password2 = GETPOST('password2','alpha');
-$country_code = GETPOST('address_country','alpha');
-$sldAndSubdomain = GETPOST('sldAndSubdomain','alpha');
-$tldid = GETPOST('tldid','alpha');
+$domainemail = preg_replace('/^.*@/', '', $email);
+$password = trim(GETPOST('password','alpha'));
+$password2 = trim(GETPOST('password2','alpha'));
+$country_code = trim(GETPOST('address_country','alpha'));
+$sldAndSubdomain = trim(GETPOST('sldAndSubdomain','alpha'));
+$tldid = trim(GETPOST('tldid','alpha'));
 $domainname = preg_replace('/^\./', '', $tldid);
 $remoteip = $_SERVER['REMOTE_ADDRESS'];
 $origin = GETPOST('origin','aZ09');
@@ -237,6 +238,21 @@ else
 		setEventMessages($langs->trans("ErrorBadEMail"), null, 'errors');
 		header("Location: ".$newurl);
 		exit;
+	}
+	/*if (! filter_var($domainemail, FILTER_VALIDATE_DOMAIN))
+	{
+		setEventMessages($langs->trans("BadValueForDomainInEmail", $conf->global->SELLYOURSAAS_MAIN_EMAIL), null, 'errors');
+		header("Location: ".$newurl);
+		exit;
+	}*/
+	if (function_exists('idn_to_ascii') && function_exists('checkdnsrr'))
+	{
+		if (! checkdnsrr(idn_to_ascii($domainemail)))
+		{
+			setEventMessages($langs->trans("BadValueForDomainInEmail", $conf->global->SELLYOURSAAS_MAIN_EMAIL), null, 'errors');
+			header("Location: ".$newurl);
+			exit;
+		}
 	}
 	if (empty($password) || empty($password2))
 	{
