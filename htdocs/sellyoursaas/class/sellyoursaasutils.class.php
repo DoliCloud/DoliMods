@@ -234,7 +234,6 @@ class SellYourSaasUtils
     	$sql.= " AND cd.date_fin_validite >= '".$this->db->idate($date_limit_expiration - 7 * 24 * 3600)."'";	// Protection: We dont' go higher than 5 days late to avoid to resend to much warning when update of date_softalert_endfreeperiod fails
     	$sql.= " AND cd.statut = 4";
     	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
-    	$sql.= " LIMIT 5";
     	//print $sql;
 
     	$resql = $this->db->query($sql);
@@ -245,6 +244,9 @@ class SellYourSaasUtils
     		include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
     		include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
     		$formmail=new FormMail($this->db);
+
+    		$MAXPERCALL=5;
+    		$nbsending = 0;
 
     		$i=0;
     		while ($i < $num)
@@ -287,37 +289,41 @@ class SellYourSaasUtils
 
     				if ($expirationdate && $expirationdate < $date_limit_expiration)
     				{
-    					$substitutionarray=getCommonSubstitutionArray($outputlangs, 0, null, $object);
-    					$substitutionarray['__SELLYOURSAAS_EXPIRY_DATE__']=dol_print_date($expirationdate, 'day', $outputlangs, 'tzserver');
-    					complete_substitutions_array($substitutionarray, $outputlangs, $object);
-
-    					//$object->array_options['options_deployment_status'] = 'suspended';
-    					$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray);
-    					$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray);
-    					$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
-    					$to = $object->thirdparty->email;
-    					$trackid = 'thi'.$object->thirdparty->id;
-
-    					$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1, '', '', $trackid);
-    					$result = $cmail->sendfile();
-    					if (! $result)
+    					$nbsending++;
+    					if ($nbofsending <= $MAXPERCALL)
     					{
-    						$error++;
-    						$this->error = $cmail->error;
-    						$this->errors = $cmail->errors;
-    						dol_syslog("Failed to send email to ".$to." ".$this->error, LOG_DEBUG);
-    						$contractko[$object->id]=$object->ref;
-    					}
-    					else
-    					{
-    						dol_syslog("Email sent to ".$to, LOG_DEBUG);
-    						$contractok[$object->id]=$object->ref;
+	    					$substitutionarray=getCommonSubstitutionArray($outputlangs, 0, null, $object);
+	    					$substitutionarray['__SELLYOURSAAS_EXPIRY_DATE__']=dol_print_date($expirationdate, 'day', $outputlangs, 'tzserver');
+	    					complete_substitutions_array($substitutionarray, $outputlangs, $object);
 
-    						$sqlupdatedate = 'UPDATE '.MAIN_DB_PREFIX."contrat_extrafields SET date_softalert_endfreeperiod = '".$this->db->idate($now)."' WHERE fk_object = ".$object->id;
-    						$resqlupdatedate = $this->db->query($sqlupdatedate);
-    					}
+	    					//$object->array_options['options_deployment_status'] = 'suspended';
+	    					$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray);
+	    					$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray);
+	    					$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+	    					$to = $object->thirdparty->email;
+	    					$trackid = 'thi'.$object->thirdparty->id;
 
-    					$contractprocessed[$object->id]=$object->ref;
+	    					$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1, '', '', $trackid);
+	    					$result = $cmail->sendfile();
+	    					if (! $result)
+	    					{
+	    						$error++;
+	    						$this->error = $cmail->error;
+	    						$this->errors = $cmail->errors;
+	    						dol_syslog("Failed to send email to ".$to." ".$this->error, LOG_DEBUG);
+	    						$contractko[$object->id]=$object->ref;
+	    					}
+	    					else
+	    					{
+	    						dol_syslog("Email sent to ".$to, LOG_DEBUG);
+	    						$contractok[$object->id]=$object->ref;
+
+	    						$sqlupdatedate = 'UPDATE '.MAIN_DB_PREFIX."contrat_extrafields SET date_softalert_endfreeperiod = '".$this->db->idate($now)."' WHERE fk_object = ".$object->id;
+	    						$resqlupdatedate = $this->db->query($sqlupdatedate);
+	    					}
+
+	    					$contractprocessed[$object->id]=$object->ref;
+    					}
     				}
     			}
     			$i++;
