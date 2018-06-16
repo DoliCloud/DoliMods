@@ -620,7 +620,7 @@ if (! $nboferrors)
 
 		include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 		$cmail = new CMailFile('['.$conf->global->SELLYOURSAAS_NAME.'] Success for backup', $to, $from, $msg);
-		$cmail->sendfile();
+		$result = $cmail->sendfile();
 	}
 }
 else
@@ -635,7 +635,7 @@ else
 
 		include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 		$cmail = new CMailFile('[Alert] Error in backups', $to, $from, $msg);
-		$cmail->sendfile();
+		$result = $cmail->sendfile();
 	}
 }
 
