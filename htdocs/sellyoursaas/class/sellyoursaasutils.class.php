@@ -218,18 +218,20 @@ class SellYourSaasUtils
     		$this->error='BadValueForDelayBeforeTrialEndForAlert';
     		return -1;
     	}
-    	dol_syslog(__METHOD__." we send email warning ".$delayindaysshort." days before end of trial", LOG_DEBUG);
+    	dol_syslog(__METHOD__." we send email warning on contract that will expire in ".$delayindaysshort." days or before and not yet reminded", LOG_DEBUG);
 
     	$this->db->begin();
 
-    	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid';
+    	$date_limit_expiration = dol_time_plus_duree($now, abs($delayindaysshort), 'd');
+
+    	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid, cd.date_fin_validite';
     	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce,';
     	$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafields as se';
     	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
     	$sql.= " AND ce.deployment_status = 'done'";
-    	//$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, abs($delayindaysshort), 'd'))."'";
-    	//$sql.= " AND cd.date_fin_validite > '".$this->db->idate(dol_time_plus_duree($now, abs($delayindayshard), 'd'))."'";
-    	$sql.= " AND date_format(cd.date_fin_validite, '%Y-%m-%d') = date_format('".$this->db->idate(dol_time_plus_duree($now, abs($delayindaysshort), 'd'))."', '%Y-%m-%d')";
+    	$sql.= " AND ce.date_softalert_endfreeperiod IS NULL";
+    	$sql.= " AND cd.date_fin_validite < '".$this->db->idate($date_limit_expiration)."'";
+    	$sql.= " AND cd.date_fin_validite > '".$this->db->idate($date_limit_expiration - 7 * 24 * 3600)."'";	// Protection: We dont' go higher than 5 days late to avoid to resend to much warning when update of date_softalert_endfreeperiod fails
     	$sql.= " AND cd.statut = 4";
     	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
     	//print $sql;
@@ -282,7 +284,7 @@ class SellYourSaasUtils
     				dol_syslog('', 0, -1);
     				$expirationdate = $tmparray['expirationdate'];
 
-    				if ($expirationdate && $expirationdate < dol_time_plus_duree($now, abs($delayindaysshort), 'd'))
+    				if ($expirationdate && $expirationdate < $date_limit_expiration)
     				{
     					$substitutionarray=getCommonSubstitutionArray($outputlangs, 0, null, $object);
     					$substitutionarray['__SELLYOURSAAS_EXPIRY_DATE__']=dol_print_date($expirationdate, 'day', $outputlangs, 'tzserver');
@@ -309,6 +311,9 @@ class SellYourSaasUtils
     					{
     						dol_syslog("Email sent to ".$to, LOG_DEBUG);
     						$contractok[$object->id]=$object->ref;
+
+    						$sqlupdatedate = 'UPDATE '.MAIN_DB_PREFIX."contrat_extrafields SET date_softalert_endfreeperiod = '".$this->db->idate($now)."' WHERE fk_object = ".$object->id;
+    						$resqlupdatedate = $this->db->query($sqlupdatedate);
     					}
 
     					$contractprocessed[$object->id]=$object->ref;
