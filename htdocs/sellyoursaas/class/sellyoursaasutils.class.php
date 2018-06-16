@@ -290,7 +290,7 @@ class SellYourSaasUtils
     				if ($expirationdate && $expirationdate < $date_limit_expiration)
     				{
     					$nbsending++;
-    					if ($nbofsending <= $MAXPERCALL)
+    					if ($nbsending <= $MAXPERCALL)
     					{
 	    					$substitutionarray=getCommonSubstitutionArray($outputlangs, 0, null, $object);
 	    					$substitutionarray['__SELLYOURSAAS_EXPIRY_DATE__']=dol_print_date($expirationdate, 'day', $outputlangs, 'tzserver');
