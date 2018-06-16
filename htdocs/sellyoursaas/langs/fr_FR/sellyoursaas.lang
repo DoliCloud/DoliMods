@@ -225,6 +225,7 @@ YourSubscriptionPlan=Votre forumle d'abonnement
 SetANewPaymentMode=Définir ou redéfinir un mode de paiement. Si une ou plusieurs de vos instances ont été désactivées à cause d'un trop grand nombre d'erreur de paiement, un mode de paiement valide permettra leur réactivation immédiate.
 DeploymentDate=Date de déploiement
 UndeploymentDate=Date de désinstallation
+UndeploymentIP=IP de désinstallation
 DeploymentInProgress=Deploiement en cours
 Alive=En service
 Undeployed=Désinstallé
