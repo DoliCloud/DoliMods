@@ -230,10 +230,11 @@ class SellYourSaasUtils
     	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
     	$sql.= " AND ce.deployment_status = 'done'";
     	$sql.= " AND ce.date_softalert_endfreeperiod IS NULL";
-    	$sql.= " AND cd.date_fin_validite < '".$this->db->idate($date_limit_expiration)."'";
-    	$sql.= " AND cd.date_fin_validite > '".$this->db->idate($date_limit_expiration - 7 * 24 * 3600)."'";	// Protection: We dont' go higher than 5 days late to avoid to resend to much warning when update of date_softalert_endfreeperiod fails
+    	$sql.= " AND cd.date_fin_validite <= '".$this->db->idate($date_limit_expiration)."'";
+    	$sql.= " AND cd.date_fin_validite >= '".$this->db->idate($date_limit_expiration - 7 * 24 * 3600)."'";	// Protection: We dont' go higher than 5 days late to avoid to resend to much warning when update of date_softalert_endfreeperiod fails
     	$sql.= " AND cd.statut = 4";
     	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
+    	$sql.= " LIMIT 10";
     	//print $sql;
 
     	$resql = $this->db->query($sql);
