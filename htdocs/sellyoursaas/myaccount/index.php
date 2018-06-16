@@ -2072,7 +2072,7 @@ if ($mode == 'dashboard')
 		                $missing = 0;
 		                if (empty($mythirdpartyaccount->array_options['options_firstname'])) $missing++;
 		                if (empty($mythirdpartyaccount->array_options['options_lastname'])) $missing++;
-		                if (empty($mythirdpartyaccount->tva_intra)) $missing++;
+		                if ($mythirdpartyaccount->tva_assuj && empty($mythirdpartyaccount->tva_intra)) $missing++;
 
 		                if (! $missing)
 		                {

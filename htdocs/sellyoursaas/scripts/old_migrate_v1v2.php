@@ -362,7 +362,7 @@ if ($mode == 'confirm')
 else
 {
 	print '-> Dump NOT loaded (test mode) into database '.$newobject->database_db.'. You can test instance on URL https://'.$newobject->ref_customer."\n";
-	print "Finished.\n";
+	print "Finished. DON'T FORGET TO DISABLE INVOICING ON OLD SYSTEM !!!\n";
 }
 
 exit($return_var + $return_varmysql);
