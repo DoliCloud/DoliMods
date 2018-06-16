@@ -1578,6 +1578,7 @@ class SellYourSaasUtils
     	$langs->load("sellyoursaas");
 
     	$error = 0;
+    	$erroremail = '';
     	$this->output = '';
     	$this->error='';
 
@@ -1699,8 +1700,9 @@ class SellYourSaasUtils
 							$result = $cmail->sendfile();
 							if (! $result)
 							{
-								$error++;
-								$this->errors += $cmail->errors;
+								$erroremail .= ($erroremail ? ' ' : '').$cmail->error;
+								$this->errors[] = $cmail->error;
+								if (is_array($cmail->errors) && count($cmail->errors) > 0) $this->errors += $cmail->errors;
 							}
 						}
 					}
@@ -1717,11 +1719,13 @@ class SellYourSaasUtils
    		if (! $error)
    		{
    			$this->output = count($contractprocessed).' '.$mode.' running contract(s) with end date before '.dol_print_date($datetotest, 'dayrfc').' suspended'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
+   			if ($erroremail) $this->output.='. Got errors when sending some email : '.$erroremail;
    			$this->db->commit();
    		}
    		else
    		{
    			$this->output = count($contractprocessed).' '.$mode.' running contract(s) with end date before '.dol_print_date($datetotest, 'dayrfc').' to suspend'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
+   			if ($erroremail) $this->output.='. Got errors when sending some email : '.$erroremail;
    			$this->db->rollback();
    		}
 
