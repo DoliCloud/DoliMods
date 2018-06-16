@@ -342,3 +342,5 @@ TrialOrPaid=Mode gratuit ou payant
 PaymentModeSaved=Mode de paiement enregistré
 RetryNow=Ré-essayer maintenant
 LogIn=Se connecter
+DateSoftAlertEndTrial=Date dernière alerte de fin d'essai
+DateEndTrial=Date fin d'essai
