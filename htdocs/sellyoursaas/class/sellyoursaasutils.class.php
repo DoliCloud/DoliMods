@@ -218,7 +218,7 @@ class SellYourSaasUtils
     		$this->error='BadValueForDelayBeforeTrialEndForAlert';
     		return -1;
     	}
-    	dol_syslog(__METHOD__." we send email warning on contract that will expire in ".$delayindaysshort." days or before and not yet reminded", LOG_DEBUG);
+    	dol_syslog(__METHOD__." we send email warning on contract that will expire in ".$delayindaysshort." days or before and not yet reminded", LOG_DEBUG, 1);
 
     	$this->db->begin();
 
@@ -346,6 +346,8 @@ class SellYourSaasUtils
     	}
 
     	$this->db->commit();
+
+    	dol_syslog(__METHOD__." ".$this->output, LOG_DEBUG, -1);
 
     	$conf->global->SYSLOG_FILE = $savlog;
 
