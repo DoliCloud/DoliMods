@@ -73,7 +73,7 @@ top_htmlhead('' ,'Suspension Page');
 
 ?>
 
-<body id="suspended">
+<body id="suspended" style="font-size: 1.2em">
 
 <br><br><br>
 <div style="text-align: center">

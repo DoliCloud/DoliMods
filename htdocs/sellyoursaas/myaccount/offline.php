@@ -73,7 +73,7 @@ top_htmlhead('', 'OffLine Page');
 
 ?>
 
-<body id="offline">
+<body id="offline" style="font-size: 1.2em">
 
 <br><br><br>
 <div style="text-align: center">
