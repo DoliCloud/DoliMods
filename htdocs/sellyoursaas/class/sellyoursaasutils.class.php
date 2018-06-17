@@ -310,7 +310,7 @@ class SellYourSaasUtils
 	    						$error++;
 	    						$this->error = $cmail->error;
 	    						$this->errors = $cmail->errors;
-	    						dol_syslog("Failed to send email to ".$to." ".$this->error, LOG_DEBUG);
+	    						dol_syslog("Failed to send email to ".$to." ".$this->error, LOG_WARNING);
 	    						$contractko[$object->id]=$object->ref;
 	    					}
 	    					else
