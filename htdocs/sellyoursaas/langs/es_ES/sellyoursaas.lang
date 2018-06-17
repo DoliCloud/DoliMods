@@ -314,7 +314,7 @@ YourAccountHasBeenClosed=Su cuenta ha sido cerrada.
 SorryInstanceSuspended=Lo sentimos, su instancia de <strong>%s</strong> ha sido suspendida.
 SorryAccountDeleted=Lo sentimos, esta cuenta parece cerrada. Comuníquese con nosotros (%s) si desea recrear una cuenta con este nombre de usuario/e-mail.
 LatestResUpdateDate=Fecha última acutalización de recursos
-GoOnYourDashboardToGetMoreInfo=Vaya a su área de cliente <a href="https://%s">https://%s</a> para obtener más información y solucionar el problema.
+GoOnYourDashboardToGetMoreInfo=Vaya a su área de cliente <a href="https://%s"><span class="fa fa-link"></span> https://%s</a> para obtener más información y solucionar el problema.
 CantCloseBecauseOfOpenInvoices=No puede eliminar esta instancia ahora porque tiene facturas pendientes. Intentelo de nuevo más tarde o corrija su método de pago si hay errores de pago debido a esto.
 TrialInstanceWasSuspended=La instancia de pruebas <strong>%s</strong> ha sido suspendida
 Resellers=Revendedores
