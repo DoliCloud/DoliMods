@@ -1688,7 +1688,7 @@ class SellYourSaasUtils
 							include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 							$formmail=new FormMail($this->db);
 
-							$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'thirdparty', $user, $langs, 0, 1, $labeltemplate);
+							$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'contract', $user, $langs, 0, 1, $labeltemplate);
 
 							$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $object);
 							complete_substitutions_array($substitutionarray, $langs, $object);
@@ -1700,7 +1700,7 @@ class SellYourSaasUtils
 
 							$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
 							$result = $cmail->sendfile();
-							if (! $result)
+							if (! $result || $cmail->error)
 							{
 								$erroremail .= ($erroremail ? ' ' : '').$cmail->error;
 								$this->errors[] = $cmail->error;
