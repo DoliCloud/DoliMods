@@ -37,7 +37,7 @@ if (! empty($conf->dol_use_jmobile)) $conf->use_javascript_ajax=1;
 
 $php_self = dol_escape_htmltag($_SERVER['PHP_SELF']);
 $php_self.= dol_escape_htmltag($_SERVER["QUERY_STRING"])?'?'.dol_escape_htmltag($_SERVER["QUERY_STRING"]):'';
-$php_self = preg_replace('/hashreset=[0-9a-zA-Z]+/', '', $php_self);
+$php_self = preg_replace('/&hashreset=[0-9a-zA-Z]+/', '', $php_self);
 
 $arrayofjs=array();
 $titleofloginpage=$langs->trans('SendNewPassword');
