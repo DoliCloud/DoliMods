@@ -148,7 +148,7 @@ if ($hashreset)
 					else
 					{
 						// Everything is ok to reset password
-						$editthirdparty->array_options['options_password']=$newpassword1;
+						$editthirdparty->array_options['options_password']=dol_hash($newpassword1);
 						$editthirdparty->array_options['options_pass_temp']='';
 						$result=$editthirdparty->update($editthirdparty->id, $user, 0);
 						$message = '<div class="ok">'.$langs->trans("YourPasswordHasBeenReset").'</div>';
