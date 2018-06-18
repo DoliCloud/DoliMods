@@ -1686,9 +1686,9 @@ class SellYourSaasUtils
 							// Send deployment email
 							include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
 							include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-							$formmail=new FormMail($db);
+							$formmail=new FormMail($this->db);
 
-							$arraydefaultmessage=$formmail->getEMailTemplate($db, 'thirdparty', $user, $langs, 0, 1, $labeltemplate);
+							$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'thirdparty', $user, $langs, 0, 1, $labeltemplate);
 
 							$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $object);
 							complete_substitutions_array($substitutionarray, $langs, $object);
