@@ -1630,6 +1630,7 @@ class SellYourSaasUtils
 					// Test if this is a paid or not instance
 					$object = new Contrat($this->db);
 					$object->fetch($obj->rowid);
+					$object->fetch_thirdparty();
 
 					if ($object->id <= 0)
 					{
