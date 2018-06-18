@@ -28,6 +28,7 @@
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 dol_include_once('sellyoursaas/lib/sellyoursaas.lib.php');
 
 
