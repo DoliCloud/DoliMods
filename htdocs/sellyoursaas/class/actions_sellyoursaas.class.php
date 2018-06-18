@@ -689,14 +689,17 @@ class ActionsSellyoursaas
 
 	    		if (! preg_match('/\.on\./', $parameters['obj']->ref_customer))
 	    		{
-	    			dol_include_once('sellyoursaas/lib/sellyoursaas.lib.php');
-	    			$ret = '<div class="bold">';
-	    			$ispaid = sellyoursaasIsPaidInstance($contractmpforloop);
-	    			if ($ispaid) $ret .= '<span class="badge" style="font-size: 1em; background-color: green">'.$langs->trans("PayedMode").'</span>';
-	    			else $ret .= '<span class="badge" style="font-size: 1em">'.$langs->trans("TrialMode").'</span>';
-	    			$ret .= '</div>';
+	    			if ($parameters['obj']->options_deployment_status != 'undeployed')
+	    			{
+		    			dol_include_once('sellyoursaas/lib/sellyoursaas.lib.php');
+		    			$ret = '<div class="bold">';
+		    			$ispaid = sellyoursaasIsPaidInstance($contractmpforloop);
+		    			if ($ispaid) $ret .= '<span class="badge" style="font-size: 1em; background-color: green">'.$langs->trans("PayedMode").'</span>';
+		    			else $ret .= '<span class="badge" style="font-size: 1em">'.$langs->trans("TrialMode").'</span>';
+		    			$ret .= '</div>';
 
-	    			print $ret;
+		    			print $ret;
+	    			}
 	    		}
 
 	    		print '</td>';

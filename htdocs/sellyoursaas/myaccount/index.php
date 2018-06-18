@@ -1183,7 +1183,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 			}
 		}
 
-		// Send confirmation email
+		// Force to close services and launch "undeploy"
 		if (! $error && $action == 'undeployconfirmed')
 		{
 			if ($hash != GETPOST('hash','alpha'))
@@ -1194,6 +1194,8 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 			else
 			{
 				$object = $contract;
+
+				dol_syslog("Start undeploy after a confirmation from email for ".$contract->ref_customer);
 
 				// SAME CODE THAN INTO ACTION_SELLYOURSAAS.CLASS.PHP
 
