@@ -367,3 +367,4 @@ BadValueForDomainInEmail=Wrong email: Bad value for the domain part in email (af
 LogIn=Log In
 DateSoftAlertEndTrial=Date last soft alert for end trial
 DateEndTrial=Date end trial
+ErrorBadHashInLinkToResetPassword=Error, this link to reset password is not valid or was already used

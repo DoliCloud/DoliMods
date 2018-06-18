@@ -345,3 +345,4 @@ RetryNow=Ré-essayer maintenant
 LogIn=Se connecter
 DateSoftAlertEndTrial=Date dernière alerte de fin d'essai
 DateEndTrial=Date fin d'essai
+ErrorBadHashInLinkToResetPassword=Erreur, ce lien pour mettre à jour son mot de passe est invalide ou déjà utilisé
