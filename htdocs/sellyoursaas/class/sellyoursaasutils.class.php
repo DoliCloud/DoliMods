@@ -1704,7 +1704,7 @@ class SellYourSaasUtils
 							$result = $cmail->sendfile();
 							if (! $result || $cmail->error)
 							{
-								$erroremail .= ($erroremail ? ' ' : '').$cmail->error;
+								$erroremail .= ($erroremail ? ', ' : '').$cmail->error;
 								$this->errors[] = $cmail->error;
 								if (is_array($cmail->errors) && count($cmail->errors) > 0) $this->errors += $cmail->errors;
 							}
