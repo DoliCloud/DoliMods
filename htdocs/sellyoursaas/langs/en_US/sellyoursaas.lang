@@ -368,3 +368,7 @@ LogIn=Log In
 DateSoftAlertEndTrial=Date last soft alert for end trial
 DateEndTrial=Date end trial
 ErrorBadHashInLinkToResetPassword=Error, this link to reset password is not valid or was already used
+DeletePackages=Delete package
+ConfirmDeletePackages=Are you sure you want to delete this package?
+ClonePackages=Clone package
+ConfirmClonePackages=Are you sure you want to clone this package?

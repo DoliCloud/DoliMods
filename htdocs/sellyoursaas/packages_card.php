@@ -62,6 +62,7 @@ $langs->loadLangs(array("sellyoursaas@sellyoursaas","other"));
 $id			= GETPOST('id', 'int');
 $ref        = GETPOST('ref', 'alpha');
 $action		= GETPOST('action', 'alpha');
+$confirm    = GETPOST('confirm', 'alpha');
 $cancel     = GETPOST('cancel', 'aZ09');
 $backtopage = GETPOST('backtopage', 'alpha');
 
@@ -114,7 +115,9 @@ if (empty($reshook))
 
 	$permissiontoadd = $user->rights->sellyoursaas->write;
 	$permissiontodelete = $user->rights->sellyoursaas->delete;
+	if (empty($backtopage)) $backtopage = dol_buildpath('/sellyoursaas/packages_card.php',1).'?id=__ID__';
 	$backurlforlist = dol_buildpath('/sellyoursaas/packages_list.php',1);
+	$triggermodname = 'SELLYOURSAAS_PACKAGE_MODIFY';
 
 	// Actions cancel, add, update or delete
 	include DOL_DOCUMENT_ROOT.'/core/actions_addupdatedelete.inc.php';
@@ -238,6 +241,13 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	    $formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id, $langs->trans('DeletePackages'), $langs->trans('ConfirmDeletePackages'), 'confirm_delete', '', 0, 1);
 	}
 
+	// Clone confirmation
+	if ($action == 'clone') {
+		// Create an array for form
+		$formquestion = array();
+		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id, $langs->trans('ClonePackages'), $langs->trans('ConfirmClonePackages', $object->ref), 'confirm_clone', $formquestion, 'yes', 1);
+	}
+
 	// Confirmation of action xxxx
 	if ($action == 'xxx')
 	{
@@ -247,7 +257,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	            // 'text' => $langs->trans("ConfirmClone"),
 	            // array('type' => 'checkbox', 'name' => 'clone_content', 'label' => $langs->trans("CloneMainAttributes"), 'value' => 1),
 	            // array('type' => 'checkbox', 'name' => 'update_prices', 'label' => $langs->trans("PuttingPricesUpToDate"), 'value' => 1),
-	            // array('type' => 'other',    'name' => 'idwarehouse',   'label' => $langs->trans("SelectWarehouseForStockDecrease"), 'value' => $formproduct->selectWarehouses(GETPOST('idwarehouse')?GETPOST('idwarehouse'):'ifone', 'idwarehouse', '', 1)));
+	            // array('type' => 'other',    'name' => 'idwarehouse',   'label' => $langs->trans("SelectWarehouseForStockDecrease"), 'value' => $formproduct->selectWarehouses(GETPOST('idwarehouse')?GETPOST('idwarehouse'):'ifone', 'idwarehouse', '', 1))
 	    }*/
 	    $formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id, $langs->trans('XXX'), $text, 'confirm_xxx', $formquestion, 0, 1, 220);
 	}
@@ -349,6 +359,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
     	    // Send
             print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=presend&mode=init#formmailbeforetitle">' . $langs->trans('SendByMail') . '</a></div>'."\n";
 
+            // Modify
             if ($user->rights->sellyoursaas->write)
     		{
     			print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=edit">'.$langs->trans("Modify").'</a></div>'."\n";
@@ -356,6 +367,12 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
     		else
     		{
     			print '<div class="inline-block divButAction"><a class="butActionRefused" href="#" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans('Modify').'</a></div>'."\n";
+    		}
+
+    		// Clone
+    		if ($user->rights->sellyoursaas->write)
+    		{
+    			print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&amp;socid=' . $object->socid . '&amp;action=clone&amp;object=order">' . $langs->trans("ToClone") . '</a></div>';
     		}
 
     	    /*if ($user->rights->sellyoursaas->write)

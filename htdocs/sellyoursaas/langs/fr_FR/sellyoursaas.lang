@@ -346,3 +346,7 @@ LogIn=Se connecter
 DateSoftAlertEndTrial=Date dernière alerte de fin d'essai
 DateEndTrial=Date fin d'essai
 ErrorBadHashInLinkToResetPassword=Erreur, ce lien pour mettre à jour son mot de passe est invalide ou déjà utilisé
+DeletePackages=Supprimer ce package
+ConfirmDeletePackages=Etes-vous sur de vouloir supprimer ce package ?
+ClonePackages=Cloner le package
+ConfirmClonePackages=Etes vous sur de vouloir cloner ce package ?

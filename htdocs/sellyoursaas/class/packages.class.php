@@ -205,7 +205,7 @@ class Packages extends CommonObject
 	    unset($object->fk_user_creat);
 	    unset($object->import_key);
 
-	    // Clear fields
+	    // Clear other fields
 	    $object->ref = "copy_of_".$object->ref;
 	    $object->title = $langs->trans("CopyOf")." ".$object->title;
 	    // ...

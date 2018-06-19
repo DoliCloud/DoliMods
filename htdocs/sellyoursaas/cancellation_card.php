@@ -63,6 +63,7 @@ $langs->loadLangs(array("sellyoursaas@sellyoursaas","other"));
 $id			= GETPOST('id', 'int');
 $ref        = GETPOST('ref', 'alpha');
 $action		= GETPOST('action', 'alpha');
+$confirm    = GETPOST('confirm', 'alpha');
 $cancel     = GETPOST('cancel', 'aZ09');
 $backtopage = GETPOST('backtopage', 'alpha');
 
@@ -114,7 +115,9 @@ if (empty($reshook))
 
 	$permissiontoadd = $user->rights->sellyoursaas->write;
 	$permissiontodelete = $user->rights->sellyoursaas->delete;
+	if (empty($backtopage)) $backtopage = dol_buildpath('/sellyoursaas/cancellation_card.php',1).'?id=__ID__';
 	$backurlforlist = dol_buildpath('/sellyoursaas/cancellation_list.php',1);
+	$triggermodname = 'SELLYOURSAAS_CANCELLATION_MODIFY';
 
 	// Actions cancel, add, update or delete
 	include DOL_DOCUMENT_ROOT.'/core/actions_addupdatedelete.inc.php';
