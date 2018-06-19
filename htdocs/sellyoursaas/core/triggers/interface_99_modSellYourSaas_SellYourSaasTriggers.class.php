@@ -106,7 +106,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         				$reseller = $object->context['linkto'];
 
 						// $object->context['linkto'] is Societe object
-        				if (empty($reseller->name_alias))
+        				if (empty($reseller->name_alias))	// Used to generate the partnerkey
         				{
         					$this->errors[] = $langs->trans("CompanyAliasIsRequiredWhenWeSetResellerTag");
         					return -1;
@@ -124,7 +124,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 
         					$reseller->oldcopy = dol_clone($reseller);
 
-        					$reseller->array_options['options_password']=$password;
+        					$reseller->array_options['options_password']=dol_hash($password);
 
         					$reseller->update($reseller->id, $user, 0);
         				}

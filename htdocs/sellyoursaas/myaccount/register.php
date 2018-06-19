@@ -62,7 +62,7 @@ $langs->loadLangs(array("main","companies","sellyoursaas@sellyoursaas","errors")
 $langsen->loadLangs(array("main","companies","sellyoursaas@sellyoursaas","errors"));
 
 
-$partner=GETPOST('partner','alpha');
+$partner=GETPOST('partner','int');
 $partnerkey=GETPOST('partnerkey','alpha');
 $plan=GETPOST('plan','alpha');
 $sldAndSubdomain=GETPOST('sldAndSubdomain','alpha');
@@ -222,11 +222,9 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
         	$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL);
         }
 
-        if (GETPOST('partner','alpha'))
+        if ($partnerthirdparty->id > 0)
         {
-            $tmpthirdparty = new Societe($db);
-            $result = $tmpthirdparty->fetch(0, GETPOST('partner','alpha'));
-            $logo = $tmpthirdparty->logo;
+        	$logo = $partnerthirdparty->logo;
         }
         ?>
 		<div class="page-header-top">

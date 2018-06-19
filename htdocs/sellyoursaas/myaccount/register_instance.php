@@ -94,8 +94,8 @@ $domainname = preg_replace('/^\./', '', $tldid);
 $remoteip = $_SERVER['REMOTE_ADDRESS'];
 $origin = GETPOST('origin','aZ09');
 $generateduniquekey=getRandomPassword(true);
-$partner=GETPOST('partner','alpha');
-$partnerkey=GETPOST('partnerkey','alpha');		// md5 of partner name alias
+$partner=GETPOST('partner','int');
+$partnerkey=GETPOST('partnerkey','alpha');		// md5 of partner name_alias
 
 $plan=GETPOST('plan','alpha');
 $service=GETPOST('service','alpha');
@@ -391,7 +391,7 @@ else
 	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
 	$tmpthirdparty->array_options['options_source']='REGISTERFORM'.($origin?'-'.$origin:'');
 	$tmpthirdparty->array_options['options_password'] = $password;
-	if (is_object($partnerthirdparty)) $tmpthirdparty->parent = $partnerthirdparty->id;		// Add link to parent/reseller
+	if ($partner > 0) $tmpthirdparty->parent = $partner;		// Add link to parent/reseller
 	if ($country_code)
 	{
 		$tmpthirdparty->country_id = getCountry($country_code, 3, $db);
