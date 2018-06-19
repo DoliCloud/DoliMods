@@ -1644,7 +1644,7 @@ if ($mythirdpartyaccount->isareseller)
 		print '<div class="opacitymedium">('.$langs->trans("whereXXXcanbe").' '.join(', ', $arrayofplanscode).')</div><br>';
 	}
 	$urformycustomerinstances = '<strong>'.$langs->transnoentitiesnoconv("MyCustomersBilling").'</strong>';
-	print $langs->trans("YourCommissionsAppearsInMenu", $urformycustomerinstances);
+	print $langs->trans("YourCommissionsAppearsInMenu", $mythirdpartyaccount->array_options['options_commission'], $urformycustomerinstances);
 	print '
 		</div>
 	';
