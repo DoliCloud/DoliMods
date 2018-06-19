@@ -391,7 +391,7 @@ else
 	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
 	$tmpthirdparty->array_options['options_source']='REGISTERFORM'.($origin?'-'.$origin:'');
 	$tmpthirdparty->array_options['options_password'] = $password;
-	if ($partner > 0) $tmpthirdparty->parent = $partner;		// Add link to parent/reseller
+
 	if ($country_code)
 	{
 		$tmpthirdparty->country_id = getCountry($country_code, 3, $db);
@@ -418,6 +418,8 @@ else
 		$langs = $langsen;
 
 		$tmpthirdparty->code_client = -1;
+		if ($partner > 0) $tmpthirdparty->parent = $partner;		// Add link to parent/reseller
+
 		$result = $tmpthirdparty->create($user);
 		if ($result <= 0)
 		{
