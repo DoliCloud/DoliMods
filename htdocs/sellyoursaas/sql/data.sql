@@ -1,4 +1,7 @@
 
+ALTER TABLE llx_contrat MODIFY ref_customer VARCHAR(128);
+
+
 -- Insert payment modes
 INSERT INTO llx_c_paiement (id,code,libelle,type,active,accountancy_code,module) VALUES (100,'STRIPE','Stripe',2,1,null,null);
 INSERT INTO llx_c_paiement (id,code,libelle,type,active,accountancy_code,module) VALUES (101,'PAYPAL','Paypal',2,1,null,null);
