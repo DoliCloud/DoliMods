@@ -222,10 +222,6 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
         	$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL);
         }
 
-        if ($partnerthirdparty->id > 0)
-        {
-        	$logo = $partnerthirdparty->logo;
-        }
         ?>
 		<div class="page-header-top">
 		    <div class="container">
