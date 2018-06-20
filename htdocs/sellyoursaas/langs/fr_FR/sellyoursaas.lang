@@ -343,6 +343,7 @@ SorryInstancesAreOffLine=Suite à un problème technique, l'instance %s est actu
 TrialOrPaid=Mode gratuit ou payant
 PaymentModeSaved=Mode de paiement enregistré
 RetryNow=Ré-essayer maintenant
+ClickToCheckAgain=Cliquer ici pour vérifier à nouveau
 LogIn=Se connecter
 DateSoftAlertEndTrial=Date dernière alerte de fin d'essai
 DateEndTrial=Date fin d'essai
