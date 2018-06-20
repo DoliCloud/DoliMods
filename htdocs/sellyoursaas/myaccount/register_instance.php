@@ -345,7 +345,7 @@ else
 			header("Location: ".$newurl);
 			exit;
 		}
-		else dol_syslog("Not found");
+		else dol_syslog("Email not already used. Good.");
 	}
 
 	$fqdninstance = $sldAndSubdomain.$tldid;
@@ -357,7 +357,7 @@ else
 		header("Location: ".$newurl);
 		exit;
 	}
-	else dol_syslog("Not found");
+	else dol_syslog("Contract name not already used. Good.");
 
 
 	// Generate credentials
