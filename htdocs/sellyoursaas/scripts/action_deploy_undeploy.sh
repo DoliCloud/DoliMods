@@ -115,9 +115,13 @@ export targetdir=${21}
 export EMAILFROM=${22}
 export REMOTEIP=${23}
 export SELLYOURSAAS_ACCOUNT_URL=${24}
+export instancenameold=${25}
+export domainnameold=${26}
+export customurl=${27}
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
+export fqnold=$instancenameold.$domainnameold
 
 # For debug
 echo `date +%Y%m%d%H%M%S`" input params for $0:"
@@ -146,11 +150,11 @@ echo "EMAILFROM = $EMAILFROM"
 echo "REMOTEIP = $REMOTEIP"
 echo "SELLYOURSAAS_ACCOUNT_URL = $SELLYOURSAAS_ACCOUNT_URL" 
 
-
 echo `date +%Y%m%d%H%M%S`" calculated params:"
 echo "vhostfile = $vhostfile"
 echo "instancedir = $instancedir"
 echo "fqn = $fqn"
+echo "fqnold = $fqnold"
 
 if [[ ! -d $archivedir ]]; then
 	echo Failed to find archive directory $archivedir
@@ -583,7 +587,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		/usr/sbin/apache2ctl configtest
 		if [[ "x$?" != "x0" ]]; then
 			echo Error when running apache2ctl configtest 
-			echo "Failed to deployall instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
+			echo "Failed to undeploy or undeployall instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in undeployment" supervision@dolicloud.com 
 			exit 1
 		fi 
 		
@@ -591,7 +595,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		service apache2 reload
 		if [[ "x$?" != "x0" ]]; then
 			echo Error when running service apache2 reload 
-			echo "Failed to deployall instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
+			echo "Failed to undeploy or undeployall instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in undeployment" supervision@dolicloud.com 
 			exit 2
 		fi
 	else

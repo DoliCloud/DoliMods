@@ -195,9 +195,20 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         		/*var_dump($object->oldcopy->array_options['options_date_endfreeperiod']);
         		var_dump($object->array_options['options_date_endfreeperiod']);
         		var_dump($object->lines);*/
-        		if (isset($object->oldcopy)
+
+        		if (isset($object->oldcopy)	// We rename instance name
+        		&& ($object->oldcopy->ref_customer != $object->ref_customer
+        		|| $object->oldcopy->array_options['options_custom_url'] != $object->array_options['options_custom_url']))
+        		{
+        			dol_syslog("We found a change in ref_customer or into custom url, so we will call the remote action rename");
+        			$remoteaction='rename';
+        		}
+
+        		if (isset($object->oldcopy)	// We change end of trial
         			&& $object->oldcopy->array_options['options_date_endfreeperiod'] != $object->array_options['options_date_endfreeperiod'])
         		{
+        			dol_syslog("We found a change in date of end of trial, so we will call the remote action rename");
+
         			// Check there is no recurring invoice. If yes, we refuse to change this.
         			$object->fetchObjectLinked();
         			//var_dump($object->linkedObjects);
@@ -328,6 +339,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 						elseif ($remoteaction == 'undeploy') setEventMessage($langs->trans("InstanceWasUndeployed", $contract->ref_customer.' ('.$contract->ref.')'));
 						elseif ($remoteaction == 'deployall') setEventMessage($langs->trans("InstanceWasDeployed", $contract->ref_customer.' ('.$contract->ref.')').' (deployall)');
 						elseif ($remoteaction == 'undeployall') setEventMessage($langs->trans("InstanceWasUndeployed", $contract->ref_customer.' ('.$contract->ref.')').' (undeployall)');
+						elseif ($remoteaction == 'rename') setEventMessage($langs->trans("InstanceWasRenamed", $contract->ref_customer.' '.$contract->array_options['options_custom_url'].' ('.$contract->ref.')'));
 					}
 				}
     		}

@@ -1935,7 +1935,7 @@ class SellYourSaasUtils
     /**
      * Make a remote action on a contract (deploy/undeploy/suspend/unsuspend/...)
      *
-     * @param	string					$remoteaction	Remote action ('suspend/unsuspend'=change apache virtual file, 'deploy/undeploy'=create/delete database, 'refresh'=update status of install.lock+authorized key + loop on each line and read remote data and update qty of metrics)
+     * @param	string					$remoteaction	Remote action ('suspend/unsuspend/rename'=change apache virtual file, 'deploy/undeploy'=create/delete database, 'refresh'=update status of install.lock+authorized key + loop on each line and read remote data and update qty of metrics)
      * @param 	Contrat|ContratLigne	$object			Object contract or contract line
      * @param	string					$appusername	App login
      * @param	string					$email			Initial email
@@ -2165,14 +2165,27 @@ class SellYourSaasUtils
     		$producttmp = new Product($this->db);
     		$producttmp->fetch($tmpobject->fk_product);
 
-    		// remoteaction = 'deploy','deployall','suspend','unsuspend','undeploy'
-    		if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
-    			in_array($remoteaction, array('deploy','deployall','suspend','unsuspend','undeploy')) &&
-    			($producttmp->array_options['options_app_or_option'] == 'app' || $producttmp->array_options['options_app_or_option'] == 'option'))
+    		// Is it a product linked to a package ?
+    		dol_include_once('/sellyoursaas/class/packages.class.php');
+    		$tmppackage = new Packages($this->db);
+    		if (! empty($producttmp->array_options['options_package']))
     		{
-    			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-    			dol_include_once('/sellyoursaas/class/packages.class.php');
+    			$tmppackage->fetch($producttmp->array_options['options_package']);
+    		}
 
+    		$doremoteaction = 0;
+    		if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
+    			in_array($remoteaction, array('deploy','deployall','rename','suspend','unsuspend','undeploy')) &&
+    			($producttmp->array_options['options_app_or_option'] == 'app')) $doremoteaction = 1;
+    		if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
+    			in_array($remoteaction, array('deploy','deployall','deployoption')) &&
+    			($producttmp->array_options['options_app_or_option'] == 'option')) $doremoteaction = 1;
+
+    		// remoteaction = 'deploy','deployall','deplyoption','rename','suspend','unsuspend','undeploy'
+    		if ($doremoteaction)
+    		{
+    			dol_syslog("Enter into doremoteaction if with ".$tmpobject->id." ".$producttmp->array_options['options_app_or_option']);
+    			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
     			$contract = new Contrat($this->db);
     			$contract->fetch($tmpobject->fk_contrat);
 
@@ -2187,22 +2200,21 @@ class SellYourSaasUtils
     				break;
     			}
 
+    			$tmpold=explode('.', $object->oldcopy->ref_customer, 2);
+    			$sldAndSubdomainold=$tmpold[0];
+    			$domainnameold=$tmpold[1];
+    			$serverdeployementold = $this->getRemoveServerDeploymentIp($domainnameold);
+
     			$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
 
-    			$generatedunixlogin=$contract->array_options['options_username_os'];
+    			$generatedunixlogin   =$contract->array_options['options_username_os'];
     			$generatedunixpassword=$contract->array_options['options_password_os'];
-    			$generateddbname=$contract->array_options['options_database_db'];
-    			$generateddbport = ($contract->array_options['options_port_db']?$contract->array_options['options_port_db']:3306);
-    			$generateddbusername=$contract->array_options['options_username_db'];
-    			$generateddbpassword=$contract->array_options['options_password_db'];
-    			$generateddbprefix=($contract->array_options['options_prefix_db']?$contract->array_options['options_prefix_db']:'llx_');
-
-    			// Is it a product linked to a package ?
-    			$tmppackage = new Packages($this->db);
-    			if (! empty($producttmp->array_options['options_package']))
-    			{
-    				$tmppackage->fetch($producttmp->array_options['options_package']);
-    			}
+    			$generateddbname      =$contract->array_options['options_database_db'];
+    			$generateddbport      =($contract->array_options['options_port_db']?$contract->array_options['options_port_db']:3306);
+    			$generateddbusername  =$contract->array_options['options_username_db'];
+    			$generateddbpassword  =$contract->array_options['options_password_db'];
+    			$generateddbprefix    =($contract->array_options['options_prefix_db']?$contract->array_options['options_prefix_db']:'llx_');
+    			$customurl            =$contract->array_options['options_custom_url'];
 
     			$savsalt = $conf->global->MAIN_SECURITY_SALT;
     			$savhashalgo = $conf->global->MAIN_SECURITY_HASH_ALGO;
@@ -2292,15 +2304,19 @@ class SellYourSaasUtils
     			$commandurl.= '&'.$tmppackage->srcconffile1.'&'.$tmppackage->targetconffile1.'&'.$tmppackage->datafile1;
     			$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
     			$commandurl.= '&'.$tmppackage->srccronfile.'&'.$tmppackage->srccliafter.'&'.$targetdir;
-    			$commandurl.= '&'.$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;
+    			$commandurl.= '&'.$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;	// Param 22 in .sh
     			$commandurl.= '&'.$serverdeployement;
-    			$commandurl.= '&'.$conf->global->SELLYOURSAAS_ACCOUNT_URL;
+    			$commandurl.= '&'.$conf->global->SELLYOURSAAS_ACCOUNT_URL;			// Param 24 in .sh
+    			$commandurl.= '&'.$sldAndSubdomainold;
+    			$commandurl.= '&'.$domainnameold;
+    			$commandurl.= '&'.$custom_url;
 
     			$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 
 
     			$conf->global->MAIN_USE_RESPONSE_TIMEOUT = 60;
 
+    			// Execute remote action
     			if (! $error)
     			{
 	    			$urltoget='http://'.$serverdeployement.':8080/'.$remoteaction.'?'.urlencode($commandurl);
@@ -2315,7 +2331,7 @@ class SellYourSaasUtils
 	    			}
     			}
 
-    			if (! $error && in_array($remoteaction, array('deploy','deployall')))
+    			if (! $error && in_array($remoteaction, array('deploy','deployall','deployoption')))
     			{
 			    	// Execute personalized SQL requests
 			    	if (! $error)
