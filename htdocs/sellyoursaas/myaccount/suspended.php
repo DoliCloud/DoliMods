@@ -77,6 +77,7 @@ top_htmlhead('' ,'Suspension Page');
 
 <br><br><br>
 <div style="text-align: center">
+<span class="fa fa-desktop" style="font-size: 40px; opacity: 0.3"></span><br><br>
 <?php
 print $langs->trans("SorryInstanceSuspended", $instance);
 print '<br>';
