@@ -272,7 +272,7 @@ if (! empty($conf->paypal->enabled))
 
 if (empty($welcomecid))
 {
-	dol_syslog('----- index.php mod='.$mode.' action='.$action.' cancel='.$cancel, LOG_DEBUG, 1, '_myaccount');
+	dol_syslog('----- index.php mode='.$mode.' action='.$action.' cancel='.$cancel, LOG_DEBUG, 1, '_myaccount');
 }
 
 if ($cancel)
