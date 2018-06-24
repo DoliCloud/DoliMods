@@ -204,12 +204,22 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("upgradestring", 0);
 	$links.='<br>';
 
-	// Upgrade link
+	// Purge data
 	$purgestringtoshow=$purgestring;
 	$links.='Purge command line string (remplacer "test" par "confirm" pour exécuter réellement)<br>';
 	$links.='<input type="text" id="purgestring" name="purgestring" value="'.$purgestringtoshow.'" class="quatrevingtpercent"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("purgestring", 0);
 	$links.='<br>';
+
+	// Upgrade link from V1
+	if (! empty($conf->global->SELLYOURSAAS_DOLICLOUD_ON))
+	{
+		$migratestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/old_migrate_v1v2.php oldname '.$object->instance.' test';
+		$links.='Migrate v1 to V2 command line string (remplacer "test" par "confirm" pour exécuter réellement)<br>';
+		$links.='<input type="text" id="v1tov2" name="v1tov2" value="'.$migratestring.'" class="quatrevingtpercent"><br>';
+		if ($conf->use_javascript_ajax) $links.=ajax_autoselect("v1tov2", 0);
+		$links.='<br>';
+	}
 
 	return $links;
 }
