@@ -1933,7 +1933,7 @@ class SellYourSaasUtils
 
 
     /**
-     * Make a remote action on a contract (deploy/undeploy/suspend/unsuspend/...)
+     * Make a remote action on a contract (deploy/undeploy/suspend/unsuspend/rename/...)
      *
      * @param	string					$remoteaction	Remote action ('suspend/unsuspend/rename'=change apache virtual file, 'deploy/undeploy'=create/delete database, 'refresh'=update status of install.lock+authorized key + loop on each line and read remote data and update qty of metrics)
      * @param 	Contrat|ContratLigne	$object			Object contract or contract line
