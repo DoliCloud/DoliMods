@@ -190,8 +190,8 @@ while read bidon osusername dbname deploymentstatus; do
     		
 			echo "Do a dump of database $dbname - may fails if already removed"
 			mkdir -p $archivedir/$osusername
-			echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $archivedir/$osusername/dump.$dbname.$now.sql"
-			$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $archivedir/$osusername/dump.$dbname.$now.sql
+			echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bz2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2"
+			$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bz2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2
 
 			echo "Now drop the database"
 			echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname"

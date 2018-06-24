@@ -2203,7 +2203,7 @@ class SellYourSaasUtils
     			$tmpold=explode('.', $object->oldcopy->ref_customer, 2);
     			$sldAndSubdomainold=$tmpold[0];
     			$domainnameold=$tmpold[1];
-    			$serverdeployementold = $this->getRemoveServerDeploymentIp($domainnameold);
+   				$serverdeployementold = $this->getRemoveServerDeploymentIp($domainnameold);
 
     			$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
 
@@ -2638,6 +2638,8 @@ class SellYourSaasUtils
     function getRemoveServerDeploymentIp($domainname)
     {
     	global $conf;
+
+    	if (empty($domainname)) return '';
 
     	$error = 0;
 

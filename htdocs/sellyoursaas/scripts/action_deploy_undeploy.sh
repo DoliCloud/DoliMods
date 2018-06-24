@@ -203,7 +203,7 @@ fi
 
 if [[ "$mode" == "undeployall" ]]; then
 
-	echo `date +%Y%m%d%H%M%S`" ***** Delete user $osusername with home into /home/jail/home/$osusername"
+	echo `date +%Y%m%d%H%M%S`" ***** Delete user $osusername with home into /home/jail/home/$osusername and archive it into $archivedir"
 	
 	echo deluser --remove-home --backup --backup-to $archivedir $osusername
 	if [[ $testorconfirm == "confirm" ]]
@@ -708,6 +708,25 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 
 fi
 
+
+# Drop database
+
+if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
+
+	echo `date +%Y%m%d%H%M%S`" ***** Archive and dump database $dbname in $archivedir/$osusername"
+
+	echo "Do a dump of database $dbname - may fails if already removed"
+	mkdir -p $archivedir/$osusername
+	echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bz2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2"
+	$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bz2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2
+
+	#echo "Now drop the database"
+	#echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname"
+	#if [[ $testorconfirm == "confirm" ]]; then
+	#	echo "DROP DATABASE $dbname;" | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname
+	#fi	
+
+fi
 
 
 # Execute after CLI
