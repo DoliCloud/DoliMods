@@ -156,11 +156,26 @@ echo "instancedir = $instancedir"
 echo "fqn = $fqn"
 echo "fqnold = $fqnold"
 
+
+MYSQL=`which mysql`
+MYSQLDUMP=`which mysqldump`
+echo "Search sellyoursaas database credential in /root/sellyoursaas"
+passsellyoursaas=`cat /root/sellyoursaas`		# First seach into root
+if [[ "x$passsellyoursaas" == "x" ]]; then
+	echo Search sellyoursaas credential 2
+	passsellyoursaas=`cat /tmp/sellyoursaas`	# Then search into /tmp
+	if [[ "x$passsellyoursaas" == "x" ]]; then
+		echo Failed to get password for mysql user sellyoursaas 
+		exit 1
+	fi
+fi 
+
 if [[ ! -d $archivedir ]]; then
 	echo Failed to find archive directory $archivedir
-	echo "Failed to deployall instance $instancename.$domainname with: Failed to find archive directory $archivedir" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
+	echo "Failed to $mode instance $instancename.$domainname with: Failed to find archive directory $archivedir" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deploy/undeploy" supervision@dolicloud.com 
 	exit 1
 fi
+
 
 testorconfirm="confirm"
 
@@ -660,20 +675,6 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 
 	echo `date +%Y%m%d%H%M%S`" ***** Create database $dbname for user $dbusername"
 	
-	echo Search sellyoursaas credential
-	passsellyoursaas=`cat /root/sellyoursaas`
-	if [[ "x$passsellyoursaas" == "x" ]]; then
-		echo Search sellyoursaas credential 2
-		passsellyoursaas=`cat /tmp/sellyoursaas`
-		if [[ "x$passsellyoursaas" == "x" ]]; then
-			echo Failed to get password for mysql user sellyoursaas 
-			echo "Failed to deployall instance $instancename.$domainname with: Failed to get password for mysql user sellyoursaas" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
-			exit 1
-		fi
-	fi 
-	
-	MYSQL=`which mysql`
-	
 	Q1="CREATE DATABASE IF NOT EXISTS $dbname; "
 	#Q2="CREATE USER IF NOT EXISTS '$dbusername'@'localhost' IDENTIFIED BY '$dbpassword'; "
 	Q2="CREATE USER '$dbusername'@'localhost' IDENTIFIED BY '$dbpassword'; "
@@ -717,8 +718,8 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 
 	echo "Do a dump of database $dbname - may fails if already removed"
 	mkdir -p $archivedir/$osusername
-	echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bz2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2"
-	$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bz2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2
+	echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2"
+	$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2
 
 	#echo "Now drop the database"
 	#echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname"
