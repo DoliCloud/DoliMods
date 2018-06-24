@@ -50,7 +50,7 @@ require_once DOL_DOCUMENT_ROOT.'/societe/class/companypaymentmode.class.php';
 dol_include_once('/sellyoursaas/class/packages.class.php');
 dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
 
-$conf->global->SYSLOG_FILE_ONEPERSESSION=1;
+$conf->global->SYSLOG_FILE_ONEPERSESSION=2;
 
 // Which mode to get credit card (direct credit card data or token) ?
 $conf->global->SELLYOURSAAS_STRIPE_USE_TOKEN = 1;

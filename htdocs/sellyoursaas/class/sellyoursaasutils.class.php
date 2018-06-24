@@ -2608,7 +2608,7 @@ class SellYourSaasUtils
     		$actioncomm = new ActionComm($this->db);
     		$actioncomm->type_code   = 'AC_OTH_AUTO';		// Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
     		$actioncomm->code        = 'AC_'.$action;
-    		$actioncomm->label       = 'Remote action '.$remoteaction.' on contract'.(preg_match('/PROV/', $object->ref) ? '' : ' '.$object->ref);
+    		$actioncomm->label       = 'Remote action '.$remoteaction.(preg_match('/PROV/', $object->ref) ? '' : ' on '.$object->ref).' by '.$_SERVER["REMOTE_ADDR"];
     		$actioncomm->datep       = $now;
     		$actioncomm->datef       = $now;
     		$actioncomm->percentage  = -1;   // Not applicable
