@@ -116,7 +116,7 @@ Organization=Organisation
 NameOfCompany=Nom de société/institution
 ConfirmPassword=Confirmer mot de passe
 ChooseANameForYourApplication=Choisissez un nom d'adresse pour l'application
-WhenRegisteringYouAccept=En vous enregistrant, vous acceptez les <a href="%s" target="_blank">Conditions d'utilisation</a>
+WhenRegisteringYouAccept=En vous enregistrant, vous acceptez les<br><a href="%s" target="_blank">Conditions d'utilisation</a>
 SignMeUp=Créer mon instance
 ErrorPasswordMismatch=Erreur, les 2 saisies de mot de passe doivent être identiques
 ErrorOnlyCharAZAllowedFor=Seuls les caractères a-z, 0-9 ou - sont autorisés pour le %s
