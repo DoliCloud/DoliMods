@@ -384,7 +384,7 @@ else
 
 	$tmpthirdparty->name = $orgname;
 	$tmpthirdparty->email = $email;
-	$tmpthirdparty->client = 3;
+	$tmpthirdparty->client = 2;
 	$tmpthirdparty->tva_assuj = 1;
 	$tmpthirdparty->default_lang = $langs->defaultlang;
 	$tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';

@@ -661,6 +661,13 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			{
 				$companypaymentmode->setAsDefault($idpayment, 1);
 				dol_syslog("A credit card was recorded", LOG_DEBUG, 0, '_myaccount');
+
+				if ($mythirdpartyaccount->client == 2)
+				{
+					dol_syslog("Set status of thirdparty to prospect+client instead of only prospect", LOG_DEBUG, 0, '_myaccount');
+					$mythirdpartyaccount->client = 3;
+					$mythirdpartyaccount->update(0, $user);
+				}
 			}
 		}
 
