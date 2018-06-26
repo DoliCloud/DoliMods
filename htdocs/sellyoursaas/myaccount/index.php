@@ -665,7 +665,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 				if ($mythirdpartyaccount->client == 2)
 				{
 					dol_syslog("Set status of thirdparty to prospect+client instead of only prospect", LOG_DEBUG, 0, '_myaccount');
-					$mythirdpartyaccount->client = 3;
+					$mythirdpartyaccount->client |= 1;
 					$mythirdpartyaccount->update(0, $user);
 				}
 			}
