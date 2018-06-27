@@ -1019,6 +1019,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 						{
 							$error++;
 							setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
+							dol_syslog("Failed to take payment ".$sellyoursaasutils->error, LOG_DEBUG, 0, '_myaccount');
 						}
 
 						// If some payment was really done, we force commit to be sure to validate invoices payment done by stripe, whatever is global result of doTakePaymentStripeForThirdparty
