@@ -133,8 +133,12 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
     if ($conf->use_javascript_ajax) $links.=ajax_autoselect('sshconnectstring');
     $links.=' &nbsp; '.$langs->trans("or").' SU: ';
     $sustring='su '.$object->username_os;
-    $links.='<input type="text" name="sustring" id="sustring" value="'.$sustring.'" size="30"><br>';
+    $links.='<input type="text" name="sustring" id="sustring" value="'.$sustring.'" size="30">';
     if ($conf->use_javascript_ajax) $links.=ajax_autoselect('sustring');
+    $links.=' with password ';
+    $links.='<input type="text" name="sshpassword" id="sshpassword" value="'.$object->password_os.'" size="30">';
+    if ($conf->use_javascript_ajax) $links.=ajax_autoselect('sshpassword');
+    $links.='<br>';
     //$links.='<br>';
 
 	// SFTP
