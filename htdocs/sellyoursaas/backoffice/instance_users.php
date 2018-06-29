@@ -461,16 +461,32 @@ if (empty($instanceoldid))
 
 
 // Dolibarr instance login
-if (empty($instanceoldid))
+if ($lastpassadmin)
 {
-	$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+	if (empty($instanceoldid))
+	{
+		$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+	}
+	else
+	{
+		$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+	}
+	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+	print 'Dolibarr link (last logged admin): '.$link.'<br>';
 }
 else
 {
-	$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+	if (empty($instanceoldid))
+	{
+		$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password=';
+	}
+	else
+	{
+		$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$object->array_options['deployment_init_adminpass'];
+	}
+	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+	print 'Dolibarr link (initial pass at install): '.$link.'<br>';
 }
-$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-print 'Dolibarr link (last logged admin): '.$link.'<br>';
 print '<br>';
 
 
