@@ -478,7 +478,7 @@ else
 {
 	if (empty($instanceoldid))
 	{
-		$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password='.$object->array_options['deployment_init_adminpass'];
+		$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password='.$object->array_options['options_deployment_init_adminpass'];
 	}
 	else
 	{
