@@ -329,15 +329,15 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 					if ($v == 1)
 					{
 						$result=$object->fetch('',$instance);
-						$object->date_lastrsync=$now;	// date last files and database rsync backup
+						$object->date_lastrsync=$now;	// date latest files and database rsync backup
 						$object->backup_status='OK';
 						$object->update($user);
 					}
 					else
 					{
 						$result=$object->fetch('','',$instance);
-						$object->array_options['latestbackup_date']=$now;	// date last files and database rsync backup
-						$object->array_options['latestbackup_status']='OK';
+						$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
+						$object->array_options['options_latestbackup_status']='OK';
 						$object->update($user);
 					}
 				}
@@ -353,14 +353,14 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 					if ($v == 1)
 					{
 						$result=$object->fetch('',$instance);
-						//$object->date_lastrsync=$now;	// date last files and database rsync backup
+						//$object->date_lastrsync=$now;	// date latest files and database rsync backup
 						$object->backup_status='KO '.strftime("%Y%m%d-%H%M%S");
 						$object->update($user);
 					}
 					else
 					{
 						$result=$object->fetch('','',$instance);
-						$object->array_options['options_latestbackup_date']=$now;	// date last files and database rsync backup
+						$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
 						$object->array_options['options_latestbackup_status']='KO';
 						$object->update($user);
 					}
