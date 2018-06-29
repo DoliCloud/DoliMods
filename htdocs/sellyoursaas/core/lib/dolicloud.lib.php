@@ -87,10 +87,18 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
     if (preg_match('/^[0-9\.]$/',$domainforapp)) $domainforapp=$object->ref_customer;	// If this is an ip, we use the ref_customer.
 
 	// Dolibarr instance login
-	$url='https://'.$object->hostname_os.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
-	$link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
-	$links.='Dolibarr link (last logged admin): ';
-	//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
+    if (empty($lastpassadmin))
+    {
+    	$url='https://'.$object->hostname_os.'?username='.$lastloginadmin.'&amp;password='.$object->array_options['options_deployment_init_adminpass'];;
+    	$link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
+    	$links.='Dolibarr link (initial install pass): ';
+    }
+    else
+    {
+		$url='https://'.$object->hostname_os.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+		$link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
+		$links.='Dolibarr link (last logged admin): ';
+    }
 	$links.=$link.'<br>';
 
 	$links.='<br>';

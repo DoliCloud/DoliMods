@@ -364,10 +364,6 @@ if ($id > 0 || $instanceoldid > 0)
 
 print '<br>';
 
-if (empty($lastpassadmin))
-{
-	$lastpassadmin = $object->array_options['options_deployment_init_adminpass'];
-}
 
 print getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid);
 
