@@ -478,11 +478,11 @@ else
 {
 	if (empty($instanceoldid))
 	{
-		$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password=';
+		$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password='.$object->array_options['deployment_init_adminpass'];
 	}
 	else
 	{
-		$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$object->array_options['deployment_init_adminpass'];
+		$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password=';
 	}
 	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
 	print 'Dolibarr link (initial pass at install): '.$link.'<br>';
