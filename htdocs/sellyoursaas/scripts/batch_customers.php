@@ -634,7 +634,7 @@ else
 		$msg = 'Error in '.$script_file." ".$argv[1]." ".$argv[2]."\n\n".$out;
 
 		include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-		$cmail = new CMailFile('[Alert] Error in backups', $to, $from, $msg);
+		$cmail = new CMailFile('[Alert] Error in backups', $to, $from, $msg, array(), array(), array(), '', '', 0, 0, '', '', '', '', 'emailing');
 		$result = $cmail->sendfile();
 	}
 }
