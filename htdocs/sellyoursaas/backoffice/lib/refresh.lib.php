@@ -506,7 +506,7 @@ function sellyoursaas_calculate_stats($db, $datelim)
 	//$sql.= " AND s.payment_status NOT IN ('TRIAL', 'TRIALING', 'TRIAL_EXPIRED')";	// We keep OK, FAILURE, PAST_DUE
 	if ($datelim) $sql.= " AND ce.deployment_date_end <= '".$db->idate($datelim)."'";
 
-	dol_syslog($script_file." sellyoursaas_calculate_stats sql=".$sql, LOG_DEBUG);
+	dol_syslog("sellyoursaas_calculate_stats sql=".$sql, LOG_DEBUG, 1);
 	$resql=$db->query($sql);
 	if ($resql)
 	{
@@ -593,6 +593,8 @@ function sellyoursaas_calculate_stats($db, $datelim)
 		$error++;
 		dol_print_error($db);
 	}
+
+	dol_syslog("sellyoursaas_calculate_stats end", LOG_DEBUG, -1);
 
 	return array(
 		'total'=>(double) $total, 'totalcommissions'=>(double) $totalcommissions,
