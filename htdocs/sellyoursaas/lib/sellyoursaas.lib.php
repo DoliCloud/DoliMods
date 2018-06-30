@@ -175,7 +175,9 @@ function sellyoursaasGetExpirationDate($contract)
 	$nbofusers = 0;
 
 	include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
-	$tmpprod = new Product($db);
+
+	global $cachefortmpprod;
+	if (! isset($cachefortmpprod) || ! is_array($cachefortmpprod)) $cachefortmpprod = array();
 
 	// Loop on each line to get lowest expiration date
 	foreach($contract->lines as $line)
@@ -188,15 +190,23 @@ function sellyoursaasGetExpirationDate($contract)
 
 		if ($line->fk_product > 0)
 		{
-			$tmpprod->fetch($line->fk_product);
-			if ($tmpprod->array_options['options_app_or_option'] == 'app')
+			if (empty($cachefortmpprod[$line->fk_product]))
 			{
-				$duration_value = $tmpprod->duration_value;
-				$duration_unit = $tmpprod->duration_unit;
+				$tmpprod = new Product($db);
+				$tmpprod->fetch($line->fk_product);
+				$cachefortmpprod[$line->fk_product] = $tmpprod;
 			}
-			if ($tmpprod->array_options['options_app_or_option'] == 'system' && preg_match('/user/i', $tmpprod->label))
+			$prodforline = $cachefortmpprod[$line->fk_product];
+
+			if ($prodforline->array_options['options_app_or_option'] == 'app')
 			{
-				$nbofusers = $line->qty;
+				$duration_value = $prodforline->duration_value;
+				$duration_unit = $prodforline->duration_unit;
+			}
+			if ($prodforline->array_options['options_app_or_option'] == 'system')
+			{
+				if (preg_match('/user/i', $prodforline->label)) $nbofusers = $line->qty;
+				if (preg_match('/\sgb\s/i', $prodforline->label)) $nbofgbs = $line->qty;
 			}
 		}
 	}

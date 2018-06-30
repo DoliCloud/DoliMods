@@ -524,35 +524,11 @@ function sellyoursaas_calculate_stats($db, $datelim)
 				$obj = $db->fetch_object($resql);
 				if ($obj)
 				{
+					unset($object->linkedObjects);
+
 					// Get resource for instance
 					$object->fetch($obj->id);
 
-					$contract = $object;
-					$price = 0;
-
-					// Calculate price on invoicing
-					$contract->fetchObjectLinked();
-					if (is_array($contract->linkedObjects['facturerec']))
-					{
-						foreach($contract->linkedObjects['facturerec'] as $idtemplateinvoice => $templateinvoice)
-						{
-							if (! $templateinvoice->suspended)
-							{
-								if ($templateinvoice->unit_frequency == 'm' && $templateinvoice->frequency == 1)
-								{
-									$price += $templateinvoice->total_ht;
-								}
-								elseif ($templateinvoice->unit_frequency == 'y' && $templateinvoice->frequency == 1)
-								{
-									$price += ($templateinvoice->total_ht / 12);
-								}
-								else
-								{
-									$price += $templateinvoice->total_ht;
-								}
-							}
-						}
-					}
 					$tmpdata = sellyoursaasGetExpirationDate($object);
 					$nbofuser = $tmpdata['nbusers'];
 
@@ -563,7 +539,8 @@ function sellyoursaas_calculate_stats($db, $datelim)
 					if (in_array($obj->status,array('SUSPENDED'))) $activepaying=0;
 					if (in_array($obj->status,array('CLOSED','CLOSE_QUEUED','CLOSURE_REQUESTED')) || in_array($obj->instance_status,array('UNDEPLOYED'))) $activepaying=0;
 					if (in_array($obj->payment_status,array('TRIAL','TRIALING','TRIAL_EXPIRED','FAILURE','PAST_DUE'))) $activepaying=0;*/
-					$ispaid = sellyoursaasIsPaidInstance($object);
+
+					$ispaid = sellyoursaasIsPaidInstance($object);		// This also load $object->linkedObjects['facturerec']
 
 					if (! $ispaid)
 					{
@@ -573,6 +550,32 @@ function sellyoursaas_calculate_stats($db, $datelim)
 					else
 					{
 						$listofcustomerspaying[$obj->customer_id]++;
+
+						// Calculate price on invoicing
+						$price = 0;
+						//var_dump(count($object->linkedObjects));
+						//$object->fetchObjectLinked();
+						if (is_array($object->linkedObjects['facturerec']))
+						{
+							foreach($object->linkedObjects['facturerec'] as $idtemplateinvoice => $templateinvoice)
+							{
+								if (! $templateinvoice->suspended)
+								{
+									if ($templateinvoice->unit_frequency == 'm' && $templateinvoice->frequency == 1)
+									{
+										$price += $templateinvoice->total_ht;
+									}
+									elseif ($templateinvoice->unit_frequency == 'y' && $templateinvoice->frequency == 1)
+									{
+										$price += ($templateinvoice->total_ht / 12);
+									}
+									else
+									{
+										$price += $templateinvoice->total_ht;
+									}
+								}
+							}
+						}
 
 						$totalinstancespaying++;
 						$total+=$price;
