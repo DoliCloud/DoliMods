@@ -1622,11 +1622,14 @@ if ($resqlproducts)
 				}
 			}
 
-			$arrayofplans[$obj->rowid]=$label.' ('.price(price2num($pricefix,'MT'), 1, $langs, 1, -1, -1, $conf->currency);
+			$pricetoshow = price2num($pricefix,'MT');
+			if (empty($pricetoshow)) $pricetoshow = 0;
+			$arrayofplans[$obj->rowid]=$label.' ('.price($pricetoshow, 1, $langs, 1, 0, -1, $conf->currency);
+
 			if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
 			if ($priceuser)
 			{
-				$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, -1, -1, $conf->currency).'/'.$langs->trans("User");
+				$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, 0, -1, $conf->currency).'/'.$langs->trans("User");
 				if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
 			}
 			$arrayofplans[$obj->rowid].=')';
@@ -2317,12 +2320,14 @@ if ($mode == 'instances')
 					}
 				}
 
+				$pricetoshow = price2num($pricefix,'MT');
+				if (empty($pricetoshow)) $pricetoshow = 0;
+				$arrayofplans[$obj->rowid]=$label.' ('.price($pricetoshow, 1, $langs, 1, 0, -1, $conf->currency);
 
-				$arrayofplans[$obj->rowid]=$label.' ('.price(price2num($pricefix,'MT'), 1, $langs, 1, -1, -1, $conf->currency);
 				if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
 				if ($priceuser)
 				{
-					$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, -1, -1, $conf->currency).' / '.$langs->trans("User");
+					$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, 0, -1, $conf->currency).' / '.$langs->trans("User");
 					if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
 				}
 				$arrayofplans[$obj->rowid].=')';
@@ -2925,6 +2930,8 @@ if ($mode == 'instances')
 	<div class="col-md-12">
 
 	<div class="portlet light">';
+
+	asort($arrayofplans);
 
 	$MAXINSTANCES = 4;
 	if (count($listofcontractid) < $MAXINSTANCES)
@@ -3671,13 +3678,14 @@ if ($mode == 'mycustomerinstances')
 							}
 						}
 					}
+					$pricetoshow = price2num($pricefix,'MT');
+					if (empty($pricetoshow)) $pricetoshow = 0;
+					$arrayofplans[$obj->rowid]=$label.' ('.price($pricetoshow, 1, $langs, 1, 0, -1, $conf->currency);
 
-
-					$arrayofplans[$obj->rowid]=$label.' ('.price(price2num($pricefix,'MT'), 1, $langs, 1, -1, -1, $conf->currency);
 					if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
 					if ($priceuser)
 					{
-						$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, -1, -1, $conf->currency).'/'.$langs->trans("User");
+						$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, 0, -1, $conf->currency).'/'.$langs->trans("User");
 						if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
 					}
 					$arrayofplans[$obj->rowid].=')';
