@@ -49,6 +49,7 @@ if (! $res) die("Include of main fails");
 
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
@@ -483,7 +484,15 @@ else
 		$contract->array_options['options_password_db'] = $generateddbpassword;
 		//$contract->array_options['options_nb_users'] = 1;
 		//$contract->array_options['options_nb_gb'] = 0.01;
+
 		$contract->array_options['options_deployment_ip'] = $_SERVER["REMOTE_ADDR"];
+		$vpnproba = '';
+		if (! empty($_SERVER["REMOTE_ADDR"]))
+		{
+			$result = getURLContent('http://check.getipintel.net/check.php?ip='.$_SERVER["REMOTE_ADDR"].'&contact=contact+checkcustomer@nltechno.com&flag=f');
+			$vpnproba = $result['content'];
+		}
+		$contract->array_options['options_deployment_vpn_proba'] = $vpnproba;
 
 		$prefix=dol_getprefix('');
 		$cookieregistrationa='DOLREGISTERA_'.$prefix;
