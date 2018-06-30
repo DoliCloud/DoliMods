@@ -57,6 +57,7 @@ require_once DOL_DOCUMENT_ROOT.'/cron/class/cronjob.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
+dol_include_once('/sellyoursaas/class/packages.class.php');
 
 // Re set variables specific to new environment
 $conf->global->SYSLOG_FILE_ONEPERSESSION=1;
@@ -110,32 +111,34 @@ $productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):($plan?
 
 // Load main product
 $tmpproduct = new Product($db);
-$result = $tmpproduct->fetch($productid, $productref);
-if (empty($tmpproduct->id))
-{
-	print 'Service/Plan (Product id / ref) '.$productid.' / '.$productref.' was not found.';
-	exit;
-}
-// We have the main product, we are searching the package
-if (empty($tmpproduct->array_options['options_package']))
-{
-	print 'Service/Plan (Product id / ref) '.$tmpproduct->id.' / '.$productref.' has no package defined on it.';
-	exit;
-}
-// We have the main product, we are searching the duration
-if (empty($tmpproduct->duration_value) || empty($tmpproduct->duration_unit))
-{
-	print 'Service/Plan name (Product ref) '.$productref.' has no default duration';
-	exit;
-}
-
-dol_include_once('/sellyoursaas/class/packages.class.php');
 $tmppackage = new Packages($db);
-$tmppackage->fetch($tmpproduct->array_options['options_package']);
-if (empty($tmppackage->id))
+if (empty($reusecontractid))
 {
-	print 'Package with id '.$tmpproduct->array_options['options_package'].' was not found.';
-	exit;
+	$result = $tmpproduct->fetch($productid, $productref);
+	if (empty($tmpproduct->id))
+	{
+		print 'Service/Plan (Product id / ref) '.$productid.' / '.$productref.' was not found.';
+		exit;
+	}
+	// We have the main product, we are searching the package
+	if (empty($tmpproduct->array_options['options_package']))
+	{
+		print 'Service/Plan (Product id / ref) '.$tmpproduct->id.' / '.$productref.' has no package defined on it.';
+		exit;
+	}
+	// We have the main product, we are searching the duration
+	if (empty($tmpproduct->duration_value) || empty($tmpproduct->duration_unit))
+	{
+		print 'Service/Plan name (Product ref) '.$productref.' has no default duration';
+		exit;
+	}
+
+	$tmppackage->fetch($tmpproduct->array_options['options_package']);
+	if (empty($tmppackage->id))
+	{
+		print 'Package with id '.$tmpproduct->array_options['options_package'].' was not found.';
+		exit;
+	}
 }
 
 $freeperioddays = $tmpproduct->array_options['options_freeperioddays'];
