@@ -230,7 +230,7 @@ if [[ "$mode" == "rename" ]]; then
 		/usr/sbin/apache2ctl configtest
 		if [[ "x$?" != "x0" ]]; then
 			echo Error when running apache2ctl configtest 
-			echo "Failed to delete virtual host with old name instance $instancenameold.$domainnameold with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in rename" supervision@dolicloud.com 
+			echo "Failed to delete virtual host with old name instance $instancenameold.$domainnameold with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in rename" $EMAILFROM
 			exit 1
 		fi
 		
@@ -238,7 +238,7 @@ if [[ "$mode" == "rename" ]]; then
 		service apache2 reload
 		if [[ "x$?" != "x0" ]]; then
 			echo Error when running service apache2 reload 
-			echo "Failed to delete virtual host with old name instance $instancenameold.$domainnameold with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in rename" supervision@dolicloud.com 
+			echo "Failed to delete virtual host with old name instance $instancenameold.$domainnameold with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in rename" $EMAILFROM
 			exit 2
 		fi
 	else
@@ -298,7 +298,7 @@ if [[ "$mode" == "suspend" ]]; then
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running apache2ctl configtest. We remove the new created virtual host /etc/apache2/sellyoursaas-online/$fqn.conf to hope to restore configtest ok.
 		rm -f /etc/apache2/sellyoursaas-online/$fqn.conf
-		echo "Failed to suspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb when suspending $instancename.$domainname" supervision@dolicloud.com 
+		echo "Failed to suspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb when suspending $instancename.$domainname" $EMAILFROM 
 		exit 1
 	fi 
 	
@@ -306,7 +306,7 @@ if [[ "$mode" == "suspend" ]]; then
 	service apache2 reload
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running service apache2 reload
-		echo "Failed to suspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb when suspending $instancename.$domainname" supervision@dolicloud.com 
+		echo "Failed to suspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb when suspending $instancename.$domainname" $EMAILFROM 
 		exit 2
 	fi
 			
