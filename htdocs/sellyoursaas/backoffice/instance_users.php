@@ -601,10 +601,12 @@ function print_user_table($newdb)
 				print '<td>'.dol_print_date($newdb->jdate($obj->datelastlogin),'dayhour').'</td>';
 				print '<td>'.$obj->entity.'</td>';
 				print '<td>';
-				if ($obj->fk_user > 0) print 'Parent user: '.$obj->fk_user;
-				if ($obj->fk_soc > 0) print 'Parent thirdparty: '.$obj->fk_soc;
-				if ($obj->fk_socpeople > 0) print 'Parent contact: '.$obj->fk_socpeople;
-				if ($obj->fk_member > 0) print 'Parent member: '.$obj->fk_member;
+				$txtparent='';
+				if ($obj->fk_user > 0)      $txtparent.=($txtparent?'<br>':'').'Parent user: '.$obj->fk_user;
+				if ($obj->fk_soc > 0)       $txtparent.=($txtparent?'<br>':'').'Parent thirdparty: '.$obj->fk_soc;
+				if ($obj->fk_socpeople > 0) $txtparent.=($txtparent?'<br>':'').'Parent contact: '.$obj->fk_socpeople;
+				if ($obj->fk_member > 0)    $txtparent.=($txtparent?'<br>':'').'Parent member: '.$obj->fk_member;
+				print $txtparent;
 				print '</td>';
 				print '<td align="center">';
 				if ($obj->statut)
