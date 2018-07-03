@@ -708,7 +708,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	do
 		echo "$MYSQL -A -usellyoursaas -p$passsellyoursaas -D $dbname < $dumpfile"
 		$MYSQL -A -usellyoursaas -p$passsellyoursaas -D $dbname < $dumpfile
-		$result=$?
+		result=$?
 		if [[ "x$result" != "x0" ]]; then
 			echo Failed to load dump file $dumpfile
 			echo "Failed to $mode instance $instancename.$domainname with: Failed to load dump file $dumpfile" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deploy/undeploy" $EMAILFROM
