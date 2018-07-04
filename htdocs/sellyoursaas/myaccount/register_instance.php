@@ -249,14 +249,11 @@ else
 		header("Location: ".$newurl);
 		exit;
 	}*/
-	if (function_exists('idn_to_ascii') && function_exists('checkdnsrr'))
+	if (function_exists('isValidMXRecord') && isValidMXRecord($domainemail) == 0)
 	{
-		if (! checkdnsrr(idn_to_ascii($domainemail)))
-		{
-			setEventMessages($langs->trans("BadValueForDomainInEmail", $conf->global->SELLYOURSAAS_MAIN_EMAIL), null, 'errors');
-			header("Location: ".$newurl);
-			exit;
-		}
+		setEventMessages($langs->trans("BadValueForDomainInEmail", $conf->global->SELLYOURSAAS_MAIN_EMAIL), null, 'errors');
+		header("Location: ".$newurl);
+		exit;
 	}
 	if (empty($password) || empty($password2))
 	{
