@@ -376,4 +376,5 @@ ClonePackages=Clone package
 ConfirmClonePackages=Are you sure you want to clone this package?
 InstanceWasRenamed=Instance was renamed into %s.
 IfSomethingMustBeDeployed=If something must be install when you deploy this service, enter here the name of package to install.
-ProspectsOrCustomers=Prospects or Customers 
+ProspectsOrCustomers=Prospects or Customers
+ResourceUnitLabel=Label for unit of this resource

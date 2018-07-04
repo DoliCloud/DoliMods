@@ -99,14 +99,13 @@ $generateduniquekey=getRandomPassword(true);
 $partner=GETPOST('partner','int');
 $partnerkey=GETPOST('partnerkey','alpha');		// md5 of partner name_alias
 
-$plan=GETPOST('plan','alpha');
-$service=GETPOST('service','alpha');
-
 $fromsocid=GETPOST('fromsocid','int');
 $reusecontractid = GETPOST('reusecontractid','int');
 $reusesocid = GETPOST('reusesocid','int');
 
+$service=GETPOST('service','int');
 $productid=GETPOST('service','int');
+$plan=GETPOST('plan','alpha');
 $productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):($plan?$plan:''));
 
 // Load main product

@@ -1567,13 +1567,14 @@ if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE))
 }
 
 
-// List of available plans
+// List of available plans/products (available for reseller)
 $arrayofplans=array();
 $arrayofplanscode=array();
 $sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration';
 $sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
 $sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 $sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
+$sqlproducts.= " AND p.ref NOT LIKE '%DolibarrV1%'";
 $sqlproducts.= " AND pe.availabelforresellers = 1";
 //$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";
 $resqlproducts = $db->query($sqlproducts);
@@ -1594,42 +1595,41 @@ if ($resqlproducts)
 			$tmparray = $tmpprod->get_arbo_each_prod();
 
 			$label = $obj->label;
-			$pricefix = $obj->price;
-			$pricefix_ttc = $obj->price_ttc;
-			$priceuser = 0;
-			$priceuser_ttc = 0;
+
+			$priceinstance=array();
+			$priceinstance_ttc=array();
+
+			$priceinstance['fix'] = $obj->price;
+			$priceinstance_ttc['fix'] = $obj->price_ttc;
+			$priceinstance['user'] = 0;
+			$priceinstance_ttc['user'] = 0;
 
 			if (count($tmparray) > 0)
 			{
 				foreach($tmparray as $key => $value)
 				{
 					$tmpprodchild->fetch($value['id']);
-					if ($tmpprodchild->array_options['options_app_or_option'] == 'app')
+					if (preg_match('/user/i', $tmpprodchild->ref) || preg_match('/user/i', $tmpprodchild->array_options['options_resource_label']))
 					{
-						$pricefix .= $obj->price;
-						$pricefix_ttc .= $obj->price_ttc;
+						$priceinstance['user'] .= $obj->price;
+						$priceinstance_ttc['user'] .= $obj->price_ttc;
 					}
-					if ($tmpprodchild->array_options['options_app_or_option'] == 'system')
+					else
 					{
-						$priceuser .= $obj->price;
-						$priceuser_ttc .= $obj->price_ttc;
-					}
-					if ($tmpprodchild->array_options['options_app_or_option'] == 'option')
-					{
-						$priceuser .= $obj->price;
-						$priceuser_ttc .= $obj->price_ttc;
+						$priceinstance['fix'] += $tmpprodchild->price;
+						$priceinstance_ttc['fix'] += $tmpprodchild->price_ttc;
 					}
 				}
 			}
 
-			$pricetoshow = price2num($pricefix,'MT');
+			$pricetoshow = price2num($priceinstance['fix'],'MT');
 			if (empty($pricetoshow)) $pricetoshow = 0;
 			$arrayofplans[$obj->rowid]=$label.' ('.price($pricetoshow, 1, $langs, 1, 0, -1, $conf->currency);
 
 			if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
-			if ($priceuser)
+			if ($priceinstance['user'])
 			{
-				$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, 0, -1, $conf->currency).'/'.$langs->trans("User");
+				$arrayofplans[$obj->rowid].=' + '.price(price2num($priceinstance['user'],'MT'), 1, $langs, 1, 0, -1, $conf->currency).'/'.$langs->trans("User");
 				if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
 			}
 			$arrayofplans[$obj->rowid].=')';
@@ -1844,13 +1844,16 @@ if (empty($welcomecid))
 			{
 				if ($delaybeforeendoftrial > 0)		// Trial not yet expired
 				{
-					$firstline = reset($contract->lines);
-					print '
-						<!-- XDaysBeforeEndOfTrialPaymentModeSet -->
-						<div class="note note-info">
-						<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrialPaymentModeSet", abs($delayindays), $contract->ref_customer).'</h4>
-						</div>
-					';
+					if ($contract->array_options['options_deployment_status'] != 'processing')
+					{
+						$firstline = reset($contract->lines);
+						print '
+							<!-- XDaysBeforeEndOfTrialPaymentModeSet -->
+							<div class="note note-info">
+							<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrialPaymentModeSet", abs($delayindays), $contract->ref_customer).'</h4>
+							</div>
+						';
+					}
 				}
 				else								// Trial expired
 				{
@@ -2265,7 +2268,7 @@ if ($mode == 'dashboard')
 
 if ($mode == 'instances')
 {
-	// List of available plans
+	// List of available plans/producs
 	$arrayofplans=array();
 	$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration';
 	$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
@@ -2273,6 +2276,9 @@ if ($mode == 'instances')
 	$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
 	$sqlproducts.= " AND p.ref NOT LIKE '%DolibarrV1%'";
 	//$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";
+	//$sqlproducts.=' AND p.rowid = 202';
+	//print $sqlproducts;
+
 	$resqlproducts = $db->query($sqlproducts);
 	if ($resqlproducts)
 	{
@@ -2292,42 +2298,42 @@ if ($mode == 'instances')
 				$tmparray = $tmpprod->get_arbo_each_prod();
 
 				$label = $obj->label;
-				$pricefix = $obj->price;
-				$pricefix_ttc = $obj->price_ttc;
-				$priceuser = 0;
-				$priceuser_ttc = 0;
+
+				$priceinstance=array();
+				$priceinstance_ttc=array();
+
+				$priceinstance['fix'] = $obj->price;
+				$priceinstance_ttc['fix'] = $obj->price_ttc;
+				$priceinstance['user'] = 0;
+				$priceinstance_ttc['user'] = 0;
 
 				if (count($tmparray) > 0)
 				{
 					foreach($tmparray as $key => $value)
 					{
 						$tmpprodchild->fetch($value['id']);
-						if ($tmpprodchild->array_options['options_app_or_option'] == 'app')
+						if (preg_match('/user/i', $tmpprodchild->ref) || preg_match('/user/i', $tmpprodchild->array_options['options_resource_label']))
 						{
-							$pricefix .= $tmpprodchild->price;
-							$pricefix_ttc .= $tmpprodchild->price_ttc;
+							$priceinstance['user'] += $tmpprodchild->price;
+							$priceinstance_ttc['user'] += $tmpprodchild->price_ttc;
 						}
-						if ($tmpprodchild->array_options['options_app_or_option'] == 'system')
+						else
 						{
-							$priceuser .= $tmpprodchild->price;
-							$priceuser_ttc .= $tmpprodchild->price_ttc;
+							$priceinstance['fix'] += $tmpprodchild->price;
+							$priceinstance_ttc['fix'] += $tmpprodchild->price_ttc;
 						}
-						if ($tmpprodchild->array_options['options_app_or_option'] == 'option')
-						{
-							$priceuser .= $tmpprodchild->price;
-							$priceuser_ttc .= $tmpprodchild->price_ttc;
-						}
+						//var_dump($tmpprodchild->id.' '.$tmpprodchild->array_options['options_app_or_option'].' '.$tmpprodchild->price_ttc.' -> '.$priceuser.' / '.$priceuser_ttc);
 					}
 				}
 
-				$pricetoshow = price2num($pricefix,'MT');
+				$pricetoshow = price2num($priceinstance['fix'],'MT');
 				if (empty($pricetoshow)) $pricetoshow = 0;
 				$arrayofplans[$obj->rowid]=$label.' ('.price($pricetoshow, 1, $langs, 1, 0, -1, $conf->currency);
 
 				if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
-				if ($priceuser)
+				if ($priceinstance['user'])
 				{
-					$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, 0, -1, $conf->currency).' / '.$langs->trans("User");
+					$arrayofplans[$obj->rowid].=' + '.price(price2num($priceinstance['user'],'MT'), 1, $langs, 1, 0, -1, $conf->currency).' / '.$langs->trans("User");
 					if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
 				}
 				$arrayofplans[$obj->rowid].=')';
@@ -2595,20 +2601,20 @@ if ($mode == 'instances')
 					                  		print '<span class="opacitymedium small">'.$langs->trans("Option").'</span><br>';
 					                  	}*/
 
+
+					                  	// Label
 					                  	$labelprod = $tmpproduct->label;
-					                  	$labelprodsing = '';
-					                  	if (preg_match('/instance/i', $tmpproduct->label))
+					                  	if (preg_match('/instance/i', $tmpproduct->ref) || preg_match('/instance/i', $tmpproduct->label))
 					                  	{
 					                  		$labelprod = $langs->trans("Application");
-					                  		$labelprodsing = $langs->trans("Application");
 					                  	}
-					                  	elseif (preg_match('/users/i', $tmpproduct->label))
+					                  	elseif (preg_match('/user/i', $tmpproduct->ref) || preg_match('/user/i', $tmpproduct->label))
 					                  	{
 					                  		$labelprod = $langs->trans("Users");
-					                  		$labelprodsing = $langs->trans("User");
 					                  	}
-										// Label
+
 					                  	print '<span class="opacitymedium small">'.$labelprod.'</span><br>';
+
 					                  	// Qty
 					                  	$resourceformula = $tmpproduct->array_options['options_resource_formula'];
 					                  	if (preg_match('/SQL:/', $resourceformula))
@@ -2626,7 +2632,8 @@ if ($mode == 'instances')
 										{
 											print '<span class="opacitymedium small">'.price($line->price, 1, $langs, 0, -1, -1, $conf->currency);
 											//if ($line->qty > 1 && $labelprodsing) print ' / '.$labelprodsing;
-											if (($line->qty > 1 || preg_match('/users/i', $tmpproduct->label)) && $labelprodsing) print ' / '.$labelprodsing;
+											if ($tmpproduct->array_options['options_resource_label']) print ' / '.$tmpproduct->array_options['options_resource_label'];
+											elseif (preg_match('/users/i', $tmpproduct->ref)) print ' / '.$langs->trans("User");	// backward compatibility
 											// TODO
 											print ' / '.$langs->trans("Month");
 											print '</span>';
@@ -2981,7 +2988,9 @@ if ($mode == 'instances')
 	}
 	else
 	{
-		print '<div class="warning">'.$langs->trans("MaxNumberOfInstanceReached", count($listofcontractid), $conf->global->SELLYOURSAAS_MAIN_EMAIL).'</div>';
+		// Max number of instances reached
+		print '<!-- Max number of instances reached -->';
+		print '<div class="warning">'.$langs->trans("MaxNumberOfInstanceReached", $MAXINSTANCES, $conf->global->SELLYOURSAAS_MAIN_EMAIL).'</div>';
 	}
 
 	print '</div></div></div>';
@@ -3303,16 +3312,13 @@ if ($mode == 'mycustomerinstances')
 					 }*/
 
 					$labelprod = $tmpproduct->label;
-					$labelprodsing = '';
-					if (preg_match('/instance/i', $tmpproduct->label))
+					if (preg_match('/instance/i', $tmpproduct->ref) || preg_match('/instance/i', $tmpproduct->label))
 					{
 						$labelprod = $langs->trans("Application");
-						$labelprodsing = $langs->trans("Application");
 					}
-					elseif (preg_match('/users/i', $tmpproduct->label))
+					elseif (preg_match('/user/i', $tmpproduct->ref) || preg_match('/user/i', $tmpproduct->label))
 					{
 						$labelprod = $langs->trans("Users");
-						$labelprodsing = $langs->trans("User");
 					}
 					// Label
 					print '<span class="opacitymedium small">'.$labelprod.'</span><br>';
@@ -3332,8 +3338,8 @@ if ($mode == 'mycustomerinstances')
 					if ($line->price)
 					{
 						print '<span class="opacitymedium small">'.price($line->price, 1, $langs, 0, -1, -1, $conf->currency);
-						//if ($line->qty > 1 && $labelprodsing) print ' / '.$labelprodsing;
-						if (($line->qty > 1 || preg_match('/users/i', $tmpproduct->label)) && $labelprodsing) print ' / '.$labelprodsing;
+						if ($tmpproduct->array_options['options_resource_label']) print ' / '.$tmpproduct->array_options['options_resource_label'];
+						elseif (preg_match('/users/i', $tmpproduct->ref)) print ' / '.$langs->trans("User");	// backward compatibility
 						// TODO
 						print ' / '.$langs->trans("Month");
 						print '</span>';

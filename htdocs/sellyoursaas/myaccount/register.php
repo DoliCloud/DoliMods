@@ -77,7 +77,7 @@ $fromsocid = GETPOST('fromsocid','int');
 
 $productid=GETPOST('service','int');
 $productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):'');
-if (empty($productref))
+if (empty($productid) && empty($productref))
 {
 	$productref = $plan;
 	if (empty($productref))
@@ -118,6 +118,7 @@ if (empty($tmpproduct->array_options['options_package']))
 	print 'Service/Plan (Product id / ref) '.$tmpproduct->id.' / '.$productref.' has no package defined on it.';
 	exit;
 }
+$productref = $tmpproduct->ref;
 
 dol_include_once('/sellyoursaas/class/packages.class.php');
 $tmppackage = new Packages($db);
@@ -184,7 +185,6 @@ $head='<link rel="icon" href="img/favicon.ico">
 <link href="dist/css/myaccount.css" rel="stylesheet">';
 
 llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(), array('../dist/css/myaccount.css'), '', 'register');
-
 
 $prefix=dol_getprefix('');
 $cookieregistrationa='DOLREGISTERA_'.$prefix;
@@ -254,7 +254,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 	      <form action="register_instance.php" method="post" id="formregister">
     	    <div class="form-content">
 	    	  <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
-	          <input type="hidden" name="service" value="<?php echo dol_escape_htmltag($tmpproduct->ref); ?>" />
+	          <input type="hidden" name="service" value="<?php echo dol_escape_htmltag($tmpproduct->id); ?>" />
 	          <input type="hidden" name="productref" value="<?php echo dol_escape_htmltag($tmpproduct->ref); ?>" />
 	          <input type="hidden" name="package" value="<?php echo dol_escape_htmltag($tmppackage->ref); ?>" />
 	          <input type="hidden" name="partner" value="<?php echo dol_escape_htmltag($partner); ?>" />

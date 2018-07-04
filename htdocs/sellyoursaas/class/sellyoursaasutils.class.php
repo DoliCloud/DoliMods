@@ -2158,7 +2158,7 @@ class SellYourSaasUtils
     	{
     		if (empty($tmpobject))
     		{
-    			dol_syslog("List of lines contains empty ContratLine", LOG_WARNING);
+    			dol_syslog("List of lines contains an empty ContratLine, we discard this one.", LOG_WARNING);
     			continue;
     		}
 
@@ -2184,7 +2184,7 @@ class SellYourSaasUtils
     		// remoteaction = 'deploy','deployall','deplyoption','rename','suspend','unsuspend','undeploy'
     		if ($doremoteaction)
     		{
-    			dol_syslog("Enter into doremoteaction if with ".$tmpobject->id." ".$producttmp->array_options['options_app_or_option']);
+    			dol_syslog("Enter into doremoteaction code, with ".$tmpobject->id." ".$producttmp->array_options['options_app_or_option']);
     			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
     			$contract = new Contrat($this->db);
     			$contract->fetch($tmpobject->fk_contrat);
@@ -2310,6 +2310,7 @@ class SellYourSaasUtils
     			$commandurl.= '&'.$sldAndSubdomainold;
     			$commandurl.= '&'.$domainnameold;
     			$commandurl.= '&'.$custom_url;
+				$commandurl.= '&'.$tmpobject->id;		// ID of line of contract
 
     			$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 
