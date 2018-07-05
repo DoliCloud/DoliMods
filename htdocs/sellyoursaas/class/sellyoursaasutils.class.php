@@ -1584,6 +1584,8 @@ class SellYourSaasUtils
     	$erroremail = '';
     	$this->output = '';
     	$this->error='';
+    	$contractprocessed = array();
+		$contractconvertedintemplateinvoice = array();
 
     	$gracedelay=9999999;
     	if ($mode == 'test') $gracedelay=$conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_SUSPEND;
@@ -1615,8 +1617,6 @@ class SellYourSaasUtils
     	if ($resql)
     	{
     		$num = $this->db->num_rows($resql);
-
-    		$contractprocessed = array();
 
     		$i=0;
     		while ($i < $num)
@@ -1663,50 +1663,61 @@ class SellYourSaasUtils
 
 					if ($expirationdate && $expirationdate < $now)
 					{
-						//$object->array_options['options_deployment_status'] = 'suspended';
-						$result = $object->closeAll($user, 0, 'Closed by batch doSuspendInstances the '.dol_print_date($now, 'dayhourrfc'));			// This may execute trigger that make remote actions to suspend instance
-						if ($result < 0)
+						// If thirdparty has a default payment mode, create the template invoice.
+						$customerHasAPaymentMode = sellyoursaasThirdpartyHasPaymentMode($object->thirdparty->id);
+						if ($customerHasAPaymentMode)
 						{
-							$error++;
-							$this->error = $object->error;
-							$this->errors += $object->errors;
+							// TODO
+							$contractconvertedintemplateinvoice[$object->id]=$object->ref;
+
 						}
 						else
 						{
-							$contractprocessed[$object->id]=$object->ref;
-
-							// Send an email to warn customer of suspension
-							if ($mode == 'test')
+							//$object->array_options['options_deployment_status'] = 'suspended';
+							$result = $object->closeAll($user, 0, 'Closed by batch doSuspendInstances the '.dol_print_date($now, 'dayhourrfc'));			// This may execute trigger that make remote actions to suspend instance
+							if ($result < 0)
 							{
-								$labeltemplate = 'CustomerAccountSuspendedTrial';
+								$error++;
+								$this->error = $object->error;
+								$this->errors += $object->errors;
 							}
-							if ($mode == 'paid')
+							else
 							{
-								$labeltemplate = 'CustomerAccountSuspended';
-							}
+								$contractprocessed[$object->id]=$object->ref;
 
-							// Send deployment email
-							include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
-							include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-							$formmail=new FormMail($this->db);
+								// Send an email to warn customer of suspension
+								if ($mode == 'test')
+								{
+									$labeltemplate = 'CustomerAccountSuspendedTrial';
+								}
+								if ($mode == 'paid')
+								{
+									$labeltemplate = 'CustomerAccountSuspended';
+								}
 
-							$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'contract', $user, $langs, 0, 1, $labeltemplate);
+								// Send deployment email
+								include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+								include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+								$formmail=new FormMail($this->db);
 
-							$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $object);
-							complete_substitutions_array($substitutionarray, $langs, $object);
+								$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'contract', $user, $langs, 0, 1, $labeltemplate);
 
-							$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langs);
-							$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langs);
-							$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
-							$to = $object->thirdparty->email;
+								$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $object);
+								complete_substitutions_array($substitutionarray, $langs, $object);
 
-							$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
-							$result = $cmail->sendfile();
-							if (! $result || $cmail->error)
-							{
-								$erroremail .= ($erroremail ? ', ' : '').$cmail->error;
-								$this->errors[] = $cmail->error;
-								if (is_array($cmail->errors) && count($cmail->errors) > 0) $this->errors += $cmail->errors;
+								$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langs);
+								$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langs);
+								$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+								$to = $object->thirdparty->email;
+
+								$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
+								$result = $cmail->sendfile();
+								if (! $result || $cmail->error)
+								{
+									$erroremail .= ($erroremail ? ', ' : '').$cmail->error;
+									$this->errors[] = $cmail->error;
+									if (is_array($cmail->errors) && count($cmail->errors) > 0) $this->errors += $cmail->errors;
+								}
 							}
 						}
 					}
@@ -1723,12 +1734,14 @@ class SellYourSaasUtils
    		if (! $error)
    		{
    			$this->output = count($contractprocessed).' '.$mode.' running contract(s) with end date before '.dol_print_date($datetotest, 'dayrfc').' suspended'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
+   			$this->output.='. '.count($contractconvertedintemplateinvoice).' '.$mode.' running contract(s) with end date before '.dol_print_date($datetotest, 'dayrfc').' converted into template invoice'.(count($contractconvertedintemplateinvoice)>0 ? ' : '.join(',', $contractconvertedintemplateinvoice) : '');
    			if ($erroremail) $this->output.='. Got errors when sending some email : '.$erroremail;
    			$this->db->commit();
    		}
    		else
    		{
    			$this->output = count($contractprocessed).' '.$mode.' running contract(s) with end date before '.dol_print_date($datetotest, 'dayrfc').' to suspend'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
+   			$this->output.='. '.count($contractconvertedintemplateinvoice).' '.$mode.' running contract(s) with end date before '.dol_print_date($datetotest, 'dayrfc').' to convert into template invoice'.(count($contractconvertedintemplateinvoice)>0 ? ' : '.join(',', $contractconvertedintemplateinvoice) : '');
    			if ($erroremail) $this->output.='. Got errors when sending some email : '.$erroremail;
    			$this->db->rollback();
    		}

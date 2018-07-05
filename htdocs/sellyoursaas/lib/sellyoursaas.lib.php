@@ -34,6 +34,71 @@ function cmp($a, $b)
 	return strcmp($a->date, $b->date);
 }
 
+/**
+ * Return if a thirdparty has a payment mode
+ *
+ * @param 	int	$thirdpartyidtotest		Third party id
+ * @return 	int							>0 if there is at least one payment mode
+ */
+function sellyoursaasThirdpartyHasPaymentMode($thirdpartyidtotest)
+{
+	global $conf, $db, $user;
+
+	$atleastonepaymentmode = 0;
+
+	// Define environment of payment modes
+	$servicestatusstripe = 0;
+	if (! empty($conf->stripe->enabled))
+	{
+		$service = 'StripeTest';
+		$servicestatusstripe = 0;
+		if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha') && empty($conf->global->SELLYOURSAAS_FORCE_STRIPE_TEST))
+		{
+			$service = 'StripeLive';
+			$servicestatusstripe = 1;
+		}
+	}
+	$servicestatuspaypal = 0;
+	if (! empty($conf->paypal->enabled))
+	{
+		$servicestatuspaypal = 0;
+		if (! empty($conf->global->PAYPAL_LIVE) && ! GETPOST('forcesandbox','alpha') && empty($conf->global->SELLYOURSAAS_FORCE_PAYPAL_TEST))
+		{
+			$servicestatuspaypal = 1;
+		}
+	}
+
+
+	// Fill array of company payment modes
+	$sql = 'SELECT rowid, default_rib FROM '.MAIN_DB_PREFIX."societe_rib";
+	$sql.= " WHERE type in ('ban', 'card', 'paypal')";
+	$sql.= " AND fk_soc = ".$thirdpartyidtotest;
+	$sql.= " AND (type = 'ban' OR (type='card' AND status = ".$servicestatusstripe.") OR (type='paypal' AND status = ".$servicestatuspaypal."))";
+	$sql.= " ORDER BY default_rib DESC, tms DESC";
+
+	$resqltmp = $db->query($sql);
+	if ($resqltmp)
+	{
+		$num_rows = $db->num_rows($resqltmp);
+		if ($num_rows)
+		{
+			$i=0;
+			while ($i < $num_rows)
+			{
+				$objtmp = $db->fetch_object($resqltmp);
+				if ($objtmp)
+				{
+					if ($objtmp->default_rib != 1) continue;	// Keep the default payment mode only
+					$atleastonepaymentmode++;
+					break;
+				}
+				$i++;
+			}
+		}
+	}
+
+	return $atleastonepaymentmode;
+}
 
 /**
  * Return if instance is a paid instance or not
