@@ -499,9 +499,11 @@ function sellyoursaas_calculate_stats($db, $datelim)
 
 	// Get list of instance
 	$sql = "SELECT c.rowid as id, c.ref_customer as instance, c.fk_soc as customer_id,";
-	$sql.= " ce.deployment_status as instance_status";
-	$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
-	$sql.= " WHERE c.ref_customer <> '' AND c.ref_customer IS NOT NULL";
+	$sql.= " ce.deployment_status as instance_status,";
+	$sql.= " s.parent";
+	$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object,";
+	$sql.= " ".MAIN_DB_PREFIX."societe as s";
+	$sql.= " WHERE s.rowid = c.fk_soc AND c.ref_customer <> '' AND c.ref_customer IS NOT NULL";
 	$sql.= " AND ce.deployment_status IS NOT NULL";
 	//$sql.= " AND s.payment_status NOT IN ('TRIAL', 'TRIALING', 'TRIAL_EXPIRED')";	// We keep OK, FAILURE, PAST_DUE
 	if ($datelim) $sql.= " AND ce.deployment_date_end <= '".$db->idate($datelim)."'";
@@ -518,6 +520,7 @@ function sellyoursaas_calculate_stats($db, $datelim)
 			dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
 
 			$object = new Contrat($db);
+			//$cacheofthirdparties = array();
 
 			while ($i < $num)
 			{
@@ -581,9 +584,11 @@ function sellyoursaas_calculate_stats($db, $datelim)
 						$total+=$price;
 
 						//print "cpt=".$totalinstancespaying." customer_id=".$obj->customer_id." instance=".$obj->instance." status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status." => Price = ".$obj->price_instance.' * '.($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)." + ".max(0,($obj->nbofusers - $obj->min_threshold))." * ".$obj->price_user." = ".$price."<br>\n";
-						if (! empty($object->parent))
+						if (! empty($obj->parent))
 						{
-							$totalcommissions+=price2num($price * $object->thirdparty->array_options['commission'] / 100);
+							$thirdpartyparent = new Societe($db);
+							$thirdpartyparent->fetch($obj->parent);
+							$totalcommissions+=price2num($price * $thirdpartyparent->array_options['options_commission'] / 100);
 						}
 					}
 				}
