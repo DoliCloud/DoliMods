@@ -1610,7 +1610,7 @@ class SellYourSaasUtils
     	$sql.= " AND ce.deployment_status = 'done'";
     	//$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, 1, 'd'))."'";
     	$sql.= " AND cd.date_fin_validite < '".$this->db->idate($datetotest)."'";
-    	$sql.= " AND cd.statut = 4";
+    	$sql.= " AND cd.statut = 4";												// Not yet suspended
     	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
 
     	$resql = $this->db->query($sql);
@@ -1669,6 +1669,276 @@ class SellYourSaasUtils
 						{
 							// TODO
 							$contractconvertedintemplateinvoice[$object->id]=$object->ref;
+
+							// Portion of code similar to more complete code into index.php
+							// We set some parameter to be able to use same code
+							$sellyoursaasutils = $this;
+							$db = $this->db;
+							$listofcontractid = array($object);
+
+							foreach ($listofcontractid as $contract)
+							{
+								dol_syslog("Create recurring invoice on contract if it does not have yet.", LOG_DEBUG, 0, '_myaccount');
+
+								// Make a test to pass loop if there is already a template invoice
+								$result = $contract->fetchObjectLinked();
+								if ($result < 0)
+								{
+									continue;							// There is an error, so we discard this contract to avoid to create template twice
+								}
+								if (! empty($contract->linkedObjectsIds['facturerec']))
+								{
+									$templateinvoice = reset($contract->linkedObjectsIds['facturerec']);
+									if ($templateinvoice > 0)			// There is already a template invoice, so we discard this contract to avoid to create template twice
+									{
+										continue;
+									}
+								}
+
+								dol_syslog("* No template invoice found for this contract contract_id = ".$contract->id.", so we refresh contract before creating template invoice + creating invoice (if template invoice date is already in past) + making contract renewal.", LOG_DEBUG, 0, '_myaccount');
+
+
+								// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines
+								$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
+
+
+								dol_syslog("* No template invoice found for this contract contract_id = ".$contract->id.", so we create it then create real invoice (if template invoice date is already in past) then make contract renewal.", LOG_DEBUG, 0, '_myaccount');
+
+								// Now create invoice draft
+								$dateinvoice = $contract->array_options['options_date_endfreeperiod'];
+								if ($dateinvoice < $now) $dateinvoice = $now;
+
+								$invoice_draft = new Facture($db);
+								$tmpproduct = new Product($db);
+
+								// Create empty invoice
+								if (! $error)
+								{
+									$invoice_draft->socid				= $contract->socid;
+									$invoice_draft->type				= Facture::TYPE_STANDARD;
+									$invoice_draft->number				= '';
+									$invoice_draft->date				= $dateinvoice;
+
+									$invoice_draft->note_private		= 'Template invoice created by doSuspendInstances because expired and a payment mode exists for customer';
+									$invoice_draft->mode_reglement_id	= dol_getIdFromCode($db, 'CB', 'c_paiement', 'code', 'id', 1);
+									$invoice_draft->cond_reglement_id	= dol_getIdFromCode($db, 'RECEP', 'c_payment_term', 'code', 'rowid', 1);
+									$invoice_draft->fk_account          = $conf->global->STRIPE_BANK_ACCOUNT_FOR_PAYMENTS;	// stripe
+
+									$invoice_draft->fetch_thirdparty();
+
+									$origin='contrat';
+									$originid=$contract->id;
+
+									$invoice_draft->origin = $origin;
+									$invoice_draft->origin_id = $originid;
+
+									// Possibility to add external linked objects with hooks
+									$invoice_draft->linked_objects[$invoice_draft->origin] = $invoice_draft->origin_id;
+
+									$idinvoice = $invoice_draft->create($user);      // This include class to add_object_linked() and add add_contact()
+									if (! ($idinvoice > 0))
+									{
+										$this->errors[] = $invoice_draft->error;
+										$error++;
+									}
+								}
+								// Add lines on invoice
+								if (! $error)
+								{
+									// Add lines of contract to template invoice
+									$srcobject = $contract;
+
+									$lines = $srcobject->lines;
+									if (empty($lines) && method_exists($srcobject, 'fetch_lines'))
+									{
+										$srcobject->fetch_lines();
+										$lines = $srcobject->lines;
+									}
+
+									$frequency=1;
+									$frequency_unit='m';
+
+									$date_start = false;
+									$fk_parent_line=0;
+									$num=count($lines);
+									for ($i=0; $i<$num; $i++)
+									{
+										$label=(! empty($lines[$i]->label)?$lines[$i]->label:'');
+										$desc=(! empty($lines[$i]->desc)?$lines[$i]->desc:$lines[$i]->libelle);
+										if ($invoice_draft->situation_counter == 1) $lines[$i]->situation_percent =  0;
+
+										// Positive line
+										$product_type = ($lines[$i]->product_type ? $lines[$i]->product_type : 0);
+
+										// Date start
+										$date_start = false;
+										if ($lines[$i]->date_debut_prevue)
+											$date_start = $lines[$i]->date_debut_prevue;
+											if ($lines[$i]->date_debut_reel)
+												$date_start = $lines[$i]->date_debut_reel;
+												if ($lines[$i]->date_start)
+													$date_start = $lines[$i]->date_start;
+
+													// Date end
+													$date_end = false;
+													if ($lines[$i]->date_fin_prevue)
+														$date_end = $lines[$i]->date_fin_prevue;
+														if ($lines[$i]->date_fin_reel)
+															$date_end = $lines[$i]->date_fin_reel;
+															if ($lines[$i]->date_end)
+																$date_end = $lines[$i]->date_end;
+
+																// If date start is in past, we set it to now
+																$now = dol_now();
+																if ($date_start < $now)
+																{
+																	dol_syslog("Date start is in past, so we take current date as date start and update also end date of contract", LOG_DEBUG, 0, '_myaccount');
+																	$tmparray = sellyoursaasGetExpirationDate($srcobject);
+																	$duration_value = $tmparray['duration_value'];
+																	$duration_unit = $tmparray['duration_unit'];
+
+																	$date_start = $now;
+																	$date_end = dol_time_plus_duree($now, $duration_value, $duration_unit) - 1;
+
+																	// BecauseWe update the end date planned of contract too
+																	$sqltoupdateenddate = 'UPDATE '.MAIN_DB_PREFIX."contratdet SET date_fin_validite = '".$db->idate($date_end)."' WHERE fk_contrat = ".$srcobject->id;
+																	$resqltoupdateenddate = $db->query($sqltoupdateenddate);
+																}
+
+																// Reset fk_parent_line for no child products and special product
+																if (($lines[$i]->product_type != 9 && empty($lines[$i]->fk_parent_line)) || $lines[$i]->product_type == 9) {
+																	$fk_parent_line = 0;
+																}
+
+																// Discount
+																$discount = $lines[$i]->remise_percent;
+
+																// Extrafields
+																if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED) && method_exists($lines[$i], 'fetch_optionals')) {
+																	$lines[$i]->fetch_optionals($lines[$i]->rowid);
+																	$array_options = $lines[$i]->array_options;
+																}
+
+																$tva_tx = $lines[$i]->tva_tx;
+																if (! empty($lines[$i]->vat_src_code) && ! preg_match('/\(/', $tva_tx)) $tva_tx .= ' ('.$lines[$i]->vat_src_code.')';
+
+																// View third's localtaxes for NOW and do not use value from origin.
+																$localtax1_tx = get_localtax($tva_tx, 1, $invoice_draft->thirdparty);
+																$localtax2_tx = get_localtax($tva_tx, 2, $invoice_draft->thirdparty);
+
+																//$price_invoice_template_line = $lines[$i]->subprice * GETPOST('frequency_multiple','int');
+																$price_invoice_template_line = $lines[$i]->subprice;
+
+																$result = $invoice_draft->addline($desc, $price_invoice_template_line, $lines[$i]->qty, $tva_tx, $localtax1_tx, $localtax2_tx, $lines[$i]->fk_product, $discount, $date_start, $date_end, 0, $lines[$i]->info_bits, $lines[$i]->fk_remise_except, 'HT', 0, $product_type, $lines[$i]->rang, $lines[$i]->special_code, $invoice_draft->origin, $lines[$i]->rowid, $fk_parent_line, $lines[$i]->fk_fournprice, $lines[$i]->pa_ht, $label, $array_options, $lines[$i]->situation_percent, $lines[$i]->fk_prev_id, $lines[$i]->fk_unit);
+
+																if ($result > 0) {
+																	$lineid = $result;
+																} else {
+																	$lineid = 0;
+																	$error++;
+																	break;
+																}
+
+																// Defined the new fk_parent_line
+																if ($result > 0 && $lines[$i]->product_type == 9) {
+																	$fk_parent_line = $result;
+																}
+
+																$tmpproduct->fetch($lines[$i]->fk_product);
+
+																dol_syslog("Read frequency for product id=".$tmpproduct->id, LOG_DEBUG, 0, '_myaccount');
+																if ($tmpproduct->array_options['options_app_or_option'] == 'app')
+																{
+																	$frequency = $tmpproduct->duration_value;
+																	$frequency_unit = $tmpproduct->duration_unit;
+																}
+									}
+								}
+
+								// Now we convert invoice into a template
+								if (! $error)
+								{
+									//var_dump($invoice_draft->lines);
+									//var_dump(dol_print_date($date_start,'dayhour'));
+									//exit;
+
+									$frequency=1;
+									$frequency_unit='m';
+									$tmp=dol_getdate($date_start?$date_start:$now);
+									$reyear=$tmp['year'];
+									$remonth=$tmp['mon'];
+									$reday=$tmp['mday'];
+									$rehour=$tmp['hours'];
+									$remin=$tmp['minutes'];
+									$nb_gen_max=0;
+									//print dol_print_date($date_start,'dayhour');
+									//var_dump($remonth);
+
+									$invoice_rec = new FactureRec($db);
+
+									$invoice_rec->titre = 'Template invoice for '.$contract->ref.' '.$contract->ref_customer;
+									$invoice_rec->note_private = $contract->note_private;
+									//$invoice_rec->note_public  = dol_concatdesc($contract->note_public, '__(Period)__ : __INVOICE_DATE_NEXT_INVOICE_BEFORE_GEN__ - __INVOICE_DATE_NEXT_INVOICE_AFTER_GEN__');
+									$invoice_rec->note_public  = $contract->note_public;
+									$invoice_rec->mode_reglement_id = $invoice_draft->mode_reglement_id;
+
+									$invoice_rec->usenewprice = 0;
+
+									$invoice_rec->frequency = $frequency;
+									$invoice_rec->unit_frequency = $frequency_unit;
+									$invoice_rec->nb_gen_max = $nb_gen_max;
+									$invoice_rec->auto_validate = 0;
+
+									$invoice_rec->fk_project = 0;
+
+									$date_next_execution = dol_mktime($rehour, $remin, 0, $remonth, $reday, $reyear);
+									$invoice_rec->date_when = $date_next_execution;
+
+									// Get first contract linked to invoice used to generate template
+									if ($invoice_draft->id > 0)
+									{
+										$srcObject = $invoice_draft;
+
+										$srcObject->fetchObjectLinked();
+
+										if (! empty($srcObject->linkedObjectsIds['contrat']))
+										{
+											$contractidid = reset($srcObject->linkedObjectsIds['contrat']);
+
+											$invoice_rec->origin = 'contrat';
+											$invoice_rec->origin_id = $contractidid;
+											$invoice_rec->linked_objects[$invoice_draft->origin] = $invoice_draft->origin_id;
+										}
+									}
+
+									$oldinvoice = new Facture($db);
+									$oldinvoice->fetch($invoice_draft->id);
+
+									$invoicerecid = $invoice_rec->create($user, $oldinvoice->id);
+									if ($invoicerecid > 0)
+									{
+										$sql = 'UPDATE '.MAIN_DB_PREFIX.'facturedet_rec SET date_start_fill = 1, date_end_fill = 1 WHERE fk_facture = '.$invoice_rec->id;
+										$result = $db->query($sql);
+										if (! $error && $result < 0)
+										{
+											$error++;
+											$this->errors[] = $db->lasterror();
+										}
+
+										$result=$oldinvoice->delete($user, 1);
+										if (! $error && $result < 0)
+										{
+											$error++;
+											$this->errors[] = $oldinvoice->error;
+										}
+									}
+									else
+									{
+										$error++;
+										$this->errors[] = $invoice_rec->error;
+									}
+								}
+							}
 
 						}
 						else
@@ -1733,17 +2003,17 @@ class SellYourSaasUtils
 
    		if (! $error)
    		{
+   			$this->db->commit();
    			$this->output = count($contractprocessed).' '.$mode.' running contract(s) with end date before '.dol_print_date($datetotest, 'dayrfc').' suspended'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
    			$this->output.='. '.count($contractconvertedintemplateinvoice).' '.$mode.' running contract(s) with end date before '.dol_print_date($datetotest, 'dayrfc').' converted into template invoice'.(count($contractconvertedintemplateinvoice)>0 ? ' : '.join(',', $contractconvertedintemplateinvoice) : '');
    			if ($erroremail) $this->output.='. Got errors when sending some email : '.$erroremail;
-   			$this->db->commit();
    		}
    		else
    		{
+   			$this->db->rollback();
    			$this->output = count($contractprocessed).' '.$mode.' running contract(s) with end date before '.dol_print_date($datetotest, 'dayrfc').' to suspend'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
    			$this->output.='. '.count($contractconvertedintemplateinvoice).' '.$mode.' running contract(s) with end date before '.dol_print_date($datetotest, 'dayrfc').' to convert into template invoice'.(count($contractconvertedintemplateinvoice)>0 ? ' : '.join(',', $contractconvertedintemplateinvoice) : '');
    			if ($erroremail) $this->output.='. Got errors when sending some email : '.$erroremail;
-   			$this->db->rollback();
    		}
 
     	return ($error ? 1: 0);
