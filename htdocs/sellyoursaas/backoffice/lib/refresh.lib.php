@@ -586,7 +586,7 @@ function sellyoursaas_calculate_stats($db, $datelim)
 						//print "cpt=".$totalinstancespaying." customer_id=".$obj->customer_id." instance=".$obj->instance." status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status." => Price = ".$obj->price_instance.' * '.($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)." + ".max(0,($obj->nbofusers - $obj->min_threshold))." * ".$obj->price_user." = ".$price."<br>\n";
 						if (! empty($obj->parent))
 						{
-							$thirdpartyparent = new Societe($db);
+							$thirdpartyparent = new Societe($db);		// TODO Extend the select with left join on parent + extrafield to get this data
 							$thirdpartyparent->fetch($obj->parent);
 							$totalcommissions+=price2num($price * $thirdpartyparent->array_options['options_commission'] / 100);
 						}
