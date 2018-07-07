@@ -301,6 +301,7 @@ if ($resql)
     // Lignes des champs de filtre
     print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 
+    print '<div class="div-table-responsive">';		// You can use div-table-responsive-no-min if you dont need reserved height for your table
     print '<table class="liste" width="100%">';
     print '<tr class="liste_titre">';
     print_liste_field_titre($langs->trans('Instance'),$_SERVER['PHP_SELF'],'i.name','',$param,'align="left"',$sortfield,$sortorder);
@@ -427,6 +428,7 @@ if ($resql)
     }
 
     print '</table>';
+	print '</div>';
 
     print '</form>';
 
