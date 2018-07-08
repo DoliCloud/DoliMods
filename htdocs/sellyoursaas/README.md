@@ -2,80 +2,34 @@
 
 
 ## Features
-SellYourSaas is a module to complete your ERP CRM to be able to manage and sell Saas application.
-It covers definition of packages to sell, deployement, a customer dashboard for its subscription and automatic invoicing and renewal.
+SellYourSaas is a module to complete your ERP CRM so it is able to manage and sell Saas application on line.
+It covers definition of packages to sell, deployement of application on a remote server, a customer dashboard for
+your subscribers and automatic invoicing and renewal.
 
-Other modules are available on <a href="https://www.dolistore.com" target="_new">Dolistore.com</a>.
+This is a list of some features supported by this application:
 
+- Can create profiles of packages to define what to deploy when a subscription to this package is done: files/directories to deploy, databases dump to load, cron entry to add,
+SSH public keys of admin to deploy and any other command lines to launch.
+- Create services that define the plan (which package and option) and price policy to use for invoicing: per application, per user, per Gigabytes or any combination of this.
+- Support free trial period with no credit card required on some plans.
+- Can define the SQL or CLI command for each service to define the quantity to bill (For example a sql request to count the number of customers).
+- Provides URLs for the online subscription of a service.
+- Can decide if customer has MySQL/MariaDB and/or restricted (or not) SSH access to its instance.
+- Each customer has its own system and data environment (jail)
+- Add a system layer to replace the php mail function to track and stop evil users using their instance to try to make Spams.  
+- Autofill and autodetect country in the subscription page using Geoip.
+- Include a probability of VPN usage for each subscriber (to fight against spammer).
+- Manage a network of reseller with commission dedicated to each reseller (a reseller has its own URL to register/create a new instances of an application and any customer that use it to create its instance is linked to the reseller. Reseller will gain a commission for each invoice paid by the customer). 
+- Provide a customer dashboard for customers to manage their subscription, download their invoice.
+- Each customer can deploy more applications/services with their existing account.
+- All customer, subscriptions (contracts), invoices are Dolibarr common documents shared with your existing workflow.
+- Payment of customer can be done automatically by credit card using Stripe or by SEPA mandate.
+- Billing rules (date, amount, frequency of next payment) can be modified differently for each customer.
+- Provide a lot of predefined email templates in server languages for the subscription management (subscription, trial expiration,
+cancellation, ...)
+- Can manage each customer/subscription from Dolibarr backoffice (for example deploy, suspend, unsuspend, undeploy an instance).
+- Provide statistics reports on trial instances, customers, etc.
 
-<!--
-For more informations, see the [translator's documentation](https://wiki.dolibarr.org/index.php/Translator_documentation).
-
-There is a [Transifex project](https://transifex.com/projects/p/dolibarr-module-template) for this module.
--->
-
-
-<!--
-
-Install
--------
-
-### Manually
-
-- Make sure Dolibarr is already installed and configured on your workstation or development server.
-
-- In your Dolibarr installation directory, edit the ```htdocs/conf/conf.php``` file
-
-- Find the following lines:
-    ```php
-    //$dolibarr_main_url_root_alt ...
-    //$dolibarr_main_document_root_alt ...
-    ```
-
-- And uncomment these lines (delete the leading ```//```) and assign a sensible value according to your Dolibarr installation
-
-    For example :
-
-    - UNIX:
-        ```php
-        $dolibarr_main_url_root = 'http://localhost/Dolibarr/htdocs';
-        $dolibarr_main_document_root = '/var/www/Dolibarr/htdocs';
-        $dolibarr_main_url_root_alt = '/custom';
-        $dolibarr_main_document_root_alt = '/var/www/Dolibarr/htdocs/custom';
-        ```
-
-    - Windows:
-        ```php
-        $dolibarr_main_url_root = 'http://localhost/Dolibarr/htdocs';
-        $dolibarr_main_document_root = 'C:/My Web Sites/Dolibarr/htdocs';
-        $dolibarr_main_url_root_alt = '/custom';
-        $dolibarr_main_document_root_alt = 'C:/My Web Sites/Dolibarr/htdocs/custom';
-        ```
-
-    For more information about the ```conf.php``` file take a look at the conf.php.example file.
-
-- Clone the repository in ```$dolibarr_main_document_root_alt/mymodule```
-
-```sh
-git clone git@github.com:Dolibarr/dolibarr-module-template.git mymodule
-```
-
-### <a name="final_steps"></a>Final steps
-
-From your browser:
-
-  - Log into Dolibarr as a super-administrator
-  - Go to "Setup" -> "Modules"
-  - You should now be able to find and enable the module
-
-
-
-## Publishing the module
-The de-facto standard for publishing and marketing modules for Dolibarr is the [Dolistore](https://www.dolistore.com).  
-Templates for required images and texts are [provided](dev/dolistore).  
-Check the dedicated [README](dev/dolistore/README.md) for more informations.
-
--->
 
 
 Licenses
@@ -88,6 +42,7 @@ Licenses
 GPLv3 or (at your option) any later version.
 
 See [COPYING](COPYING) for more information.
+
 
 #### Documentation
 

@@ -354,4 +354,4 @@ ConfirmDeletePackages=Etes-vous sur de vouloir supprimer ce package ?
 ClonePackages=Cloner le package
 ConfirmClonePackages=Etes vous sur de vouloir cloner ce package ?
 ProspectsOrCustomers=Prospets ou Clients
-ResourceUnitLabel=Libellé de l'unité de ressource
+ResourceUnitLabel=Libellé de l'unité des quantités
