@@ -598,6 +598,8 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					}
 					else
 					{
+						dol_syslog('--- Stripe customer created, now we try to create card with mode SELLYOURSAAS_STRIPE_USE_TOKEN='.$conf->global->SELLYOURSAAS_STRIPE_USE_TOKEN);
+
 						if (! empty($conf->global->SELLYOURSAAS_STRIPE_USE_TOKEN))
 						{
 							$metadata = array(
@@ -610,34 +612,48 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 							if (! empty($mythirdpartyaccount->id)) 	$metadata["dol_thirdparty_id"] = $mythirdpartyaccount->id;
 
 							// Create Stripe card from Token
-							$card = $cu->sources->create(array("source" => $stripeToken, "metadata" => $metadata));
-
-							if (empty($card))
+							try
+							{
+								$card = $cu->sources->create(array("source" => $stripeToken, "metadata" => $metadata));
+							}
+							catch(Exception $e)
 							{
 								$error++;
-								dol_syslog('--- Failed to create card record', LOG_WARNING, 0);
-								setEventMessages('Failed to create card record', null, 'errors');
+								$this->error = $e->getMessage();
+								dol_syslog('--- FailedToCreateCardRecord '.$this->error, LOG_WARNING);
+								setEventMessages($langs->trans('FailedToCreateCardRecord', $this->error), null, 'errors');
 								$action='';
 							}
-							else
-							{
-								$sql = "UPDATE " . MAIN_DB_PREFIX . "societe_rib";
-								$sql.= " SET stripe_card_ref = '".$db->escape($card->id)."', card_type = '".$db->escape($card->brand)."',";
-								$sql.= " country_code = '".$db->escape($card->country)."',";
-								$sql.= " exp_date_month = '".$db->escape($card->exp_month)."',";
-								$sql.= " exp_date_year = '".$db->escape($card->exp_year)."',";
-								$sql.= " last_four = '".$db->escape($card->last4)."',";
-								//$sql.= " cvn = '".$db->escape($card->???)."',";
-								$sql.= " approved = ".($card->cvc_check == 'pass' ? 1 : 0);
-								$sql.= " WHERE rowid = " . $companypaymentmode->id;
-								$sql.= " AND type = 'card'";
-								$resql = $db->query($sql);
-								if (! $resql)
-								{
-									setEventMessages($db->lasterror(), null, 'errors');
-								}
 
-								$stripecard = $card->id;
+							if (! $error)
+							{
+								if (empty($card))
+								{
+									$error++;
+									dol_syslog('--- FailedToCreateCardRecord', LOG_WARNING, 0);
+									setEventMessages($langs->trans('FailedToCreateCardRecord', ''), null, 'errors');
+									$action='';
+								}
+								else
+								{
+									$sql = "UPDATE " . MAIN_DB_PREFIX . "societe_rib";
+									$sql.= " SET stripe_card_ref = '".$db->escape($card->id)."', card_type = '".$db->escape($card->brand)."',";
+									$sql.= " country_code = '".$db->escape($card->country)."',";
+									$sql.= " exp_date_month = '".$db->escape($card->exp_month)."',";
+									$sql.= " exp_date_year = '".$db->escape($card->exp_year)."',";
+									$sql.= " last_four = '".$db->escape($card->last4)."',";
+									//$sql.= " cvn = '".$db->escape($card->???)."',";
+									$sql.= " approved = ".($card->cvc_check == 'pass' ? 1 : 0);
+									$sql.= " WHERE rowid = " . $companypaymentmode->id;
+									$sql.= " AND type = 'card'";
+									$resql = $db->query($sql);
+									if (! $resql)
+									{
+										setEventMessages($db->lasterror(), null, 'errors');
+									}
+
+									$stripecard = $card->id;
+								}
 							}
 						}
 						else
