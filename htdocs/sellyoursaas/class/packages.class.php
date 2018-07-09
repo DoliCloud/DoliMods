@@ -91,7 +91,7 @@ class Packages extends CommonObject
 		'targetsrcfile3' => array('type'=>'varchar(255)', 'label'=>'Target relative dir for sources 3', 'visible'=>-1, 'enabled'=>1, 'position'=>56, 'notnull'=>-1, 'css'=>'minwidth500'),
 		'conffile1' => array('type'=>'text', 'label'=>'Template of config file 1', 'visible'=>-1, 'enabled'=>1, 'position'=>57, 'notnull'=>-1),
 		'targetconffile1' => array('type'=>'varchar(255)', 'label'=>'Target relative file for config file 1', 'visible'=>-1, 'enabled'=>1, 'position'=>58, 'notnull'=>-1, 'css'=>'minwidth500'),
-		'datafile1' => array('type'=>'varchar(255)', 'label'=>'Dir with dump files', 'visible'=>-1, 'enabled'=>1, 'position'=>59, 'notnull'=>-1, 'css'=>'minwidth500'),
+		'datafile1' => array('type'=>'varchar(255)', 'label'=>'Dir with dump files', 'visible'=>-1, 'enabled'=>1, 'position'=>59, 'notnull'=>-1, 'css'=>'minwidth500', 'help'=>'You can set here __DOL_DATA_ROOT__/sellyoursaas/packages/__PACKAGEREF__ so you can put the sql dump files from the tab "Linked files"'),
 		//'targetdatafile1' => array('type'=>'varchar(255)', 'label'=>'Target dir for data 1', 'visible'=>-1, 'enabled'=>1, 'position'=>55, 'notnull'=>-1, 'css'=>'minwidth500'),
 		'crontoadd' => array('type'=>'text', 'label'=>'Template of cron file', 'visible'=>-1, 'enabled'=>1, 'position'=>60, 'notnull'=>-1, 'help'=>'Content will be used to add a file into /etc/cron.d'),
 		'cliafter' => array('type'=>'text', 'label'=>'Shell after', 'visible'=>-1, 'enabled'=>1, 'position'=>65, 'notnull'=>-1, 'help'=>'Cli shell executed after deployment'),
