@@ -625,9 +625,9 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 								$stripefailuremessage = $err['message'];
 
 								$error++;
-								$this->error = $stripefailurecode.' '.$stripefailuremessage;
-								dol_syslog('--- FailedToCreateCardRecord Strip Error Card '.$this->error, LOG_WARNING);
-								setEventMessages($langs->trans('FailedToCreateCardRecord', $this->error), null, 'errors');
+								$errormsg = $stripefailurecode.' '.$stripefailuremessage;
+								dol_syslog('--- FailedToCreateCardRecord Strip Error Card '.$errormsg, LOG_WARNING);
+								setEventMessages($langs->trans('FailedToCreateCardRecord', $errormsg), null, 'errors');
 								$action='';
 
 								dol_syslog('--- FailedToCreateCardRecord '.json_encode($err), LOG_WARNING);
@@ -635,9 +635,9 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 							catch(Exception $e)
 							{
 								$error++;
-								$this->error = $e->getMessage();
-								dol_syslog('--- FailedToCreateCardRecord Exception '.$this->error, LOG_WARNING);
-								setEventMessages($langs->trans('FailedToCreateCardRecord', $this->error), null, 'errors');
+								$errormsg = $e->getMessage();
+								dol_syslog('--- FailedToCreateCardRecord Exception '.$errormsg, LOG_WARNING);
+								setEventMessages($langs->trans('FailedToCreateCardRecord', $errormsg), null, 'errors');
 								$action='';
 							}
 
