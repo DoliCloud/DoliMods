@@ -598,7 +598,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					}
 					else
 					{
-						dol_syslog('--- Stripe customer created, now we try to create card with mode SELLYOURSAAS_STRIPE_USE_TOKEN='.$conf->global->SELLYOURSAAS_STRIPE_USE_TOKEN);
+						dol_syslog('--- Stripe customer retrieved or created, now we try to create card with mode SELLYOURSAAS_STRIPE_USE_TOKEN='.$conf->global->SELLYOURSAAS_STRIPE_USE_TOKEN);
 
 						if (! empty($conf->global->SELLYOURSAAS_STRIPE_USE_TOKEN))
 						{
@@ -616,11 +616,27 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 							{
 								$card = $cu->sources->create(array("source" => $stripeToken, "metadata" => $metadata));
 							}
+							catch(\Stripe\Error\Card $e) {
+								// Since it's a decline, Stripe_CardError will be caught
+								$body = $e->getJsonBody();
+								$err  = $body['error'];
+
+								$stripefailurecode = $err['code'];
+								$stripefailuremessage = $err['message'];
+
+								$error++;
+								$this->error = $stripefailurecode.' '.$stripefailuremessage;
+								dol_syslog('--- FailedToCreateCardRecord Strip Error Card '.$this->error, LOG_WARNING);
+								setEventMessages($langs->trans('FailedToCreateCardRecord', $this->error), null, 'errors');
+								$action='';
+
+								dol_syslog('--- FailedToCreateCardRecord '.json_encode($err), LOG_WARNING);
+							}
 							catch(Exception $e)
 							{
 								$error++;
 								$this->error = $e->getMessage();
-								dol_syslog('--- FailedToCreateCardRecord '.$this->error, LOG_WARNING);
+								dol_syslog('--- FailedToCreateCardRecord Exception '.$this->error, LOG_WARNING);
 								setEventMessages($langs->trans('FailedToCreateCardRecord', $this->error), null, 'errors');
 								$action='';
 							}
