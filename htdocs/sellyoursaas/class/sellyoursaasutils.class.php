@@ -1678,7 +1678,7 @@ class SellYourSaasUtils
 
 							foreach ($listofcontractid as $contract)
 							{
-								dol_syslog("Create recurring invoice on contract if it does not have yet.", LOG_DEBUG, 0, '_myaccount');
+								dol_syslog("--- Create recurring invoice on contract if it does not have yet.", LOG_DEBUG, 0);
 
 								// Make a test to pass loop if there is already a template invoice
 								$result = $contract->fetchObjectLinked();
@@ -1695,14 +1695,14 @@ class SellYourSaasUtils
 									}
 								}
 
-								dol_syslog("* No template invoice found for this contract contract_id = ".$contract->id.", so we refresh contract before creating template invoice + creating invoice (if template invoice date is already in past) + making contract renewal.", LOG_DEBUG, 0, '_myaccount');
+								dol_syslog("--- No template invoice found for this contract contract_id = ".$contract->id.", so we refresh contract before creating template invoice + creating invoice (if template invoice date is already in past) + making contract renewal.", LOG_DEBUG, 0);
 
 
 								// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines
 								$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
 
 
-								dol_syslog("* No template invoice found for this contract contract_id = ".$contract->id.", so we create it then create real invoice (if template invoice date is already in past) then make contract renewal.", LOG_DEBUG, 0, '_myaccount');
+								dol_syslog("--- No template invoice found for this contract contract_id = ".$contract->id.", so we create it then create real invoice (if template invoice date is already in past) then make contract renewal.", LOG_DEBUG, 0);
 
 								// Now create invoice draft
 								$dateinvoice = $contract->array_options['options_date_endfreeperiod'];
@@ -1792,7 +1792,7 @@ class SellYourSaasUtils
 																$now = dol_now();
 																if ($date_start < $now)
 																{
-																	dol_syslog("Date start is in past, so we take current date as date start and update also end date of contract", LOG_DEBUG, 0, '_myaccount');
+																	dol_syslog("--- Date start is in past, so we take current date as date start and update also end date of contract", LOG_DEBUG, 0);
 																	$tmparray = sellyoursaasGetExpirationDate($srcobject);
 																	$duration_value = $tmparray['duration_value'];
 																	$duration_unit = $tmparray['duration_unit'];
@@ -1846,7 +1846,7 @@ class SellYourSaasUtils
 
 																$tmpproduct->fetch($lines[$i]->fk_product);
 
-																dol_syslog("Read frequency for product id=".$tmpproduct->id, LOG_DEBUG, 0, '_myaccount');
+																dol_syslog("--- Read frequency for product id=".$tmpproduct->id, LOG_DEBUG, 0);
 																if ($tmpproduct->array_options['options_app_or_option'] == 'app')
 																{
 																	$frequency = $tmpproduct->duration_value;

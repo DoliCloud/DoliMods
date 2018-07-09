@@ -272,7 +272,7 @@ if (! empty($conf->paypal->enabled))
 
 if (empty($welcomecid))
 {
-	dol_syslog('----- index.php mode='.$mode.' action='.$action.' cancel='.$cancel, LOG_DEBUG, 1, '_myaccount');
+	dol_syslog('----- index.php mode='.$mode.' action='.$action.' cancel='.$cancel, LOG_DEBUG, 1);
 }
 
 if ($cancel)
@@ -615,7 +615,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 							if (empty($card))
 							{
 								$error++;
-								dol_syslog('Failed to create card record', LOG_WARNING, 0, '_myaccount');
+								dol_syslog('--- Failed to create card record', LOG_WARNING, 0);
 								setEventMessages('Failed to create card record', null, 'errors');
 								$action='';
 							}
@@ -661,11 +661,11 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			if (! $error)
 			{
 				$companypaymentmode->setAsDefault($idpayment, 1);
-				dol_syslog("A credit card was recorded", LOG_DEBUG, 0, '_myaccount');
+				dol_syslog("--- A credit card was recorded", LOG_DEBUG, 0);
 
 				if ($mythirdpartyaccount->client == 2)
 				{
-					dol_syslog("Set status of thirdparty to prospect+client instead of only prospect", LOG_DEBUG, 0, '_myaccount');
+					dol_syslog("--- Set status of thirdparty to prospect+client instead of only prospect", LOG_DEBUG, 0);
 					$mythirdpartyaccount->set_as_client();
 				}
 			}
@@ -678,7 +678,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 		// Note that it may have no pending invoice yet when contract is in trial mode (running or suspended)
 		if (! $error)
 		{
-			dol_syslog("Now we search pending invoices for thirdparty to pay them (Note that it may have no pending invoice yet when contract is in trial mode)", LOG_DEBUG, 0, '_myaccount');
+			dol_syslog("--- Now we search pending invoices for thirdparty to pay them (Note that it may have no pending invoice yet when contract is in trial mode)", LOG_DEBUG, 0);
 
 			dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 
@@ -694,7 +694,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			// If some payment was really done, we force commit to be sure to validate invoices payment done by stripe, whatever is global result of doTakePaymentStripeForThirdparty
 			if ($sellyoursaasutils->stripechargedone > 0)
 			{
-				dol_syslog("Force commit to validate payments recorded after real Stripe charges", LOG_DEBUG, 0, '_myaccount');
+				dol_syslog("--- Force commit to validate payments recorded after real Stripe charges", LOG_DEBUG, 0);
 
 				$db->commit();
 
@@ -705,7 +705,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 		// Make renewals on contracts of customer
 		if (! $error)
 		{
-			dol_syslog("Make renewals on crontacts for thirdparty id=".$mythirdpartyaccount->id, LOG_DEBUG, 0, '_myaccount');
+			dol_syslog("--- Make renewals on crontacts for thirdparty id=".$mythirdpartyaccount->id, LOG_DEBUG, 0);
 
 			dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 
@@ -724,7 +724,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 		{
 			foreach ($listofcontractid as $contract)
 			{
-				dol_syslog("Create recurring invoice on contract if it does not have yet.", LOG_DEBUG, 0, '_myaccount');
+				dol_syslog("--- Create recurring invoice on contract if it does not have yet.", LOG_DEBUG, 0);
 
 				// Make a test to pass loop if there is already a template invoice
 				$result = $contract->fetchObjectLinked();
@@ -741,14 +741,14 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					}
 				}
 
-				dol_syslog("* No template invoice found for this contract contract_id = ".$contract->id.", so we refresh contract before creating template invoice + creating invoice (if template invoice date is already in past) + making contract renewal.", LOG_DEBUG, 0, '_myaccount');
+				dol_syslog("--- No template invoice found for this contract contract_id = ".$contract->id.", so we refresh contract before creating template invoice + creating invoice (if template invoice date is already in past) + making contract renewal.", LOG_DEBUG, 0);
 
 
 				// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines
 				$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
 
 
-				dol_syslog("* No template invoice found for this contract contract_id = ".$contract->id.", so we create it then create real invoice (if template invoice date is already in past) then make contract renewal.", LOG_DEBUG, 0, '_myaccount');
+				dol_syslog("--- No template invoice found for this contract contract_id = ".$contract->id.", so we create it then create real invoice (if template invoice date is already in past) then make contract renewal.", LOG_DEBUG, 0);
 
 				// Now create invoice draft
 				$dateinvoice = $contract->array_options['options_date_endfreeperiod'];
@@ -838,7 +838,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 						$now = dol_now();
 						if ($date_start < $now)
 						{
-							dol_syslog("Date start is in past, so we take current date as date start and update also end date of contract", LOG_DEBUG, 0, '_myaccount');
+							dol_syslog("--- Date start is in past, so we take current date as date start and update also end date of contract", LOG_DEBUG, 0);
 							$tmparray = sellyoursaasGetExpirationDate($srcobject);
 							$duration_value = $tmparray['duration_value'];
 							$duration_unit = $tmparray['duration_unit'];
@@ -892,7 +892,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 						$tmpproduct->fetch($lines[$i]->fk_product);
 
-						dol_syslog("Read frequency for product id=".$tmpproduct->id, LOG_DEBUG, 0, '_myaccount');
+						dol_syslog("--- Read frequency for product id=".$tmpproduct->id, LOG_DEBUG, 0);
 						if ($tmpproduct->array_options['options_app_or_option'] == 'app')
 						{
 							$frequency = $tmpproduct->duration_value;
@@ -987,7 +987,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					// A template invoice was just created, we run generation of invoice if template invoice date is already in past
 					if (! $error)
 					{
-						dol_syslog("A template invoice was generated with id ".$invoicerecid.", now we run createRecurringInvoices to build real invoice", LOG_DEBUG, 0, '_myaccount');
+						dol_syslog("--- A template invoice was generated with id ".$invoicerecid.", now we run createRecurringInvoices to build real invoice", LOG_DEBUG, 0);
 						$facturerec = new FactureRec($db);
 
 						$savperm1 = $user->rights->facture->creer;
@@ -1009,7 +1009,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					}
 					if (! $error)
 					{
-						dol_syslog("Now we try to take payment for thirdpartyid = ".$mythirdpartyaccount->id, LOG_DEBUG, 0, '_myaccount');	// Unsuspend if it was suspended (done by trigger BILL_CANCEL or BILL_PAYED).
+						dol_syslog("--- Now we try to take payment for thirdpartyid = ".$mythirdpartyaccount->id, LOG_DEBUG, 0);	// Unsuspend if it was suspended (done by trigger BILL_CANCEL or BILL_PAYED).
 
 						dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 
@@ -1020,13 +1020,13 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 						{
 							$error++;
 							setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
-							dol_syslog("Failed to take payment ".$sellyoursaasutils->error, LOG_DEBUG, 0, '_myaccount');
+							dol_syslog("--- Failed to take payment ".$sellyoursaasutils->error, LOG_DEBUG, 0);
 						}
 
 						// If some payment was really done, we force commit to be sure to validate invoices payment done by stripe, whatever is global result of doTakePaymentStripeForThirdparty
 						if ($sellyoursaasutils->stripechargedone > 0)
 						{
-							dol_syslog("Force commit to validate payments recorded after real Stripe charges", LOG_DEBUG, 0, '_myaccount');
+							dol_syslog("--- Force commit to validate payments recorded after real Stripe charges", LOG_DEBUG, 0);
 
 							$db->commit();
 
@@ -1037,7 +1037,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					// Make renewals on contracts of customer
 					if (! $error)
 					{
-						dol_syslog("Now we make renewal of contracts for thirdpartyid=".$mythirdpartyaccount->id." if payments were ok (it also means contract are refreshed and even unsuspended)", LOG_DEBUG, 0, '_myaccount');
+						dol_syslog("--- Now we make renewal of contracts for thirdpartyid=".$mythirdpartyaccount->id." if payments were ok (it also means contract are refreshed and even unsuspended)", LOG_DEBUG, 0);
 
 						dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 
@@ -1157,7 +1157,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 
 			if (! $error)
 			{
-				dol_syslog("Unactivate all lines - undeploy process from myaccount", LOG_DEBUG, 0, '_myaccount');
+				dol_syslog("--- Unactivate all lines - undeploy process from myaccount", LOG_DEBUG, 0);
 
 				$result = $contract->closeAll($user, 1, $comment);
 				if ($result < 0)
@@ -1208,7 +1208,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 			{
 				$object = $contract;
 
-				dol_syslog("Start undeploy after a confirmation from email for ".$contract->ref_customer, LOG_DEBUG, 0, '_myaccount');
+				dol_syslog("--- Start undeploy after a confirmation from email for ".$contract->ref_customer, LOG_DEBUG, 0);
 
 				// SAME CODE THAN INTO ACTION_SELLYOURSAAS.CLASS.PHP
 
@@ -1255,7 +1255,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 				// Unactivate all lines
 				if (! $error)
 				{
-					dol_syslog("Unactivate all lines - undeployconfirmed process from myaccount", LOG_DEBUG, 0, '_myaccount');
+					dol_syslog("--- Unactivate all lines - undeployconfirmed process from myaccount", LOG_DEBUG, 0);
 
 					$result = $object->closeAll($user, 1, $comment);
 					if ($result <= 0)
