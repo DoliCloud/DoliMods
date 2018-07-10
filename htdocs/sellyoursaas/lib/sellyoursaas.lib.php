@@ -102,16 +102,17 @@ function sellyoursaasThirdpartyHasPaymentMode($thirdpartyidtotest)
 
 /**
  * Return if instance is a paid instance or not
- * Check if there is a template invoice
+ * Check if there is an invoice or template invoice (it was a paying customer) or just a template invoice (it is a current paying customer)
  *
  * @param 	Contrat $contract		Object contract
+ * @param	int		$mode			0=Test invoice or template invoice of contract, 1=Test only templates invoices
  * @return	int						>0 if this is a paid contract
  */
-function sellyoursaasIsPaidInstance($contract)
+function sellyoursaasIsPaidInstance($contract, $mode=0)
 {
 	$contract->fetchObjectLinked();
-	$foundtemplate=0;
 
+	$foundtemplate=0;
 	if (is_array($contract->linkedObjects['facturerec']))
 	{
 		foreach($contract->linkedObjects['facturerec'] as $idtemplateinvoice => $templateinvoice)
@@ -123,16 +124,20 @@ function sellyoursaasIsPaidInstance($contract)
 
 	if ($foundtemplate) return 1;
 
-	if (is_array($contract->linkedObjects['facture']))
+	if ($mode == 0)
 	{
-		foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
+		$foundinvoice=0;
+		if (is_array($contract->linkedObjects['facture']))
 		{
-			$foundinvoice++;
-			break;
+			foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
+			{
+				$foundinvoice++;
+				break;
+			}
 		}
-	}
 
-	if ($foundinvoice) return 1;
+		if ($foundinvoice) return 1;
+	}
 
 	/*
 	$nbinvoicenotpayed = 0;

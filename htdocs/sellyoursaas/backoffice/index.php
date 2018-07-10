@@ -173,7 +173,7 @@ print '</td><td align="right">';
 print '<font size="+2">'.$totalresellers.'</font>';
 print '</td></tr>';
 print '<tr class="oddeven"><td class="wordwrap wordbreak">';
-print $langs->trans("NbOfInstancesActivePaying").' / '.$langs->trans("NbOfActiveInstances").' ';
+print $form->textwithpicto($langs->trans("NbOfInstancesActivePaying"), $langs->trans("NbOfInstancesActivePayingDesc")).' / '.$langs->trans("NbOfActiveInstances").' ';
 print '</td><td align="right">';
 print '<font size="+2">'.$totalinstancespaying.' / '.$totalinstances.'</font>';
 print '</td></tr>';

@@ -505,8 +505,7 @@ function sellyoursaas_calculate_stats($db, $datelim)
 	$sql.= " ".MAIN_DB_PREFIX."societe as s";
 	$sql.= " WHERE s.rowid = c.fk_soc AND c.ref_customer <> '' AND c.ref_customer IS NOT NULL";
 	$sql.= " AND ce.deployment_status IS NOT NULL";
-	//$sql.= " AND s.payment_status NOT IN ('TRIAL', 'TRIALING', 'TRIAL_EXPIRED')";	// We keep OK, FAILURE, PAST_DUE
-	if ($datelim) $sql.= " AND ce.deployment_date_end <= '".$db->idate($datelim)."'";
+	if ($datelim) $sql.= " AND ce.deployment_date_end <= '".$db->idate($datelim)."'";	// Only instances deployed before this date
 
 	dol_syslog("sellyoursaas_calculate_stats sql=".$sql, LOG_DEBUG, 1);
 	$resql=$db->query($sql);
@@ -538,28 +537,22 @@ function sellyoursaas_calculate_stats($db, $datelim)
 					$totalinstances++;
 					$totalusers+=$nbofuser;
 
-					/*$activepaying=1;
-					if (in_array($obj->status,array('SUSPENDED'))) $activepaying=0;
-					if (in_array($obj->status,array('CLOSED','CLOSE_QUEUED','CLOSURE_REQUESTED')) || in_array($obj->instance_status,array('UNDEPLOYED'))) $activepaying=0;
-					if (in_array($obj->payment_status,array('TRIAL','TRIALING','TRIAL_EXPIRED','FAILURE','PAST_DUE'))) $activepaying=0;*/
-
+					// Return true if instance $object is paying instance (template invoice exists)
 					$ispaid = sellyoursaasIsPaidInstance($object);		// This also load $object->linkedObjects['facturerec']
-
-					if (! $ispaid)
+					if (! $ispaid)		// This is a test only customer
 					{
 						$listofcustomers[$obj->customer_id]++;
 						//print "cpt=".$totalinstances." customer_id=".$obj->customer_id." instance=".$obj->instance." status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status." => Price = ".$obj->price_instance.' * '.($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)." + ".max(0,($obj->nbofusers - $obj->min_threshold))." * ".$obj->price_user." = ".$price." -> 0<br>\n";
 					}
-					else
+					else				// This is a paying customer (with at least one invoice or recurring invoice)
 					{
-						$listofcustomerspaying[$obj->customer_id]++;
-
 						// Calculate price on invoicing
 						$price = 0;
-						//var_dump(count($object->linkedObjects));
-						//$object->fetchObjectLinked();
-						if (is_array($object->linkedObjects['facturerec']))
+
+						if (is_array($object->linkedObjects['facturerec']))		// $object->linkedObjects loaded by the previous sellyoursaasIsPaidInstance
 						{
+							$atleastonenotsuspended = 0;
+
 							foreach($object->linkedObjects['facturerec'] as $idtemplateinvoice => $templateinvoice)
 							{
 								if (! $templateinvoice->suspended)
@@ -576,15 +569,22 @@ function sellyoursaas_calculate_stats($db, $datelim)
 									{
 										$price += $templateinvoice->total_ht;
 									}
+
+									$atleastonenotsuspended = 1;
 								}
+							}
+
+							if ($atleastonenotsuspended)	// Really a paying customer if template invoice not suspended
+							{
+								$listofcustomerspaying[$obj->customer_id]++;
+								$totalinstancespaying++;
 							}
 						}
 
-						$totalinstancespaying++;
 						$total+=$price;
 
 						//print "cpt=".$totalinstancespaying." customer_id=".$obj->customer_id." instance=".$obj->instance." status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status." => Price = ".$obj->price_instance.' * '.($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)." + ".max(0,($obj->nbofusers - $obj->min_threshold))." * ".$obj->price_user." = ".$price."<br>\n";
-						if (! empty($obj->parent))
+						if ($atleastonenotsuspended && ! empty($obj->parent))
 						{
 							$thirdpartyparent = new Societe($db);		// TODO Extend the select with left join on parent + extrafield to get this data
 							$thirdpartyparent->fetch($obj->parent);
