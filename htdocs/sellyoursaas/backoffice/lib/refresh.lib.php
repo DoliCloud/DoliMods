@@ -483,7 +483,7 @@ function dolicloud_calculate_stats($db, $datelim)
 
 
 /**
- * Calculate stats ('total', 'totalcommissions', 'totalinstancespaying' (nbclients 'ACTIVE' not at trial), 'totalinstances' (nb clients not at trial, include suspended), 'totalusers')
+ * Calculate stats ('total', 'totalcommissions', 'totalinstancespaying', 'totalinstancessuspended', 'totalinstancesexpired', 'totalinstances' (nb instances included suspended), 'totalusers')
  * at date datelim (or realtime if date is empty)
  *
  * Rem: Comptage des users par status
@@ -494,7 +494,8 @@ function dolicloud_calculate_stats($db, $datelim)
  */
 function sellyoursaas_calculate_stats($db, $datelim)
 {
-	$total = $totalcommissions = $totalinstancespaying = $totalinstances = $totalusers = 0;
+	$total = $totalcommissions = $totalinstancespaying = $totalinstancesexpired = $totalinstancessuspended = $totalinstances = $totalusers = 0;
+	$listofinstancespaying=array();
 	$listofcustomers=array(); $listofcustomerspaying=array();
 
 	// Get list of instance
@@ -504,7 +505,7 @@ function sellyoursaas_calculate_stats($db, $datelim)
 	$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object,";
 	$sql.= " ".MAIN_DB_PREFIX."societe as s";
 	$sql.= " WHERE s.rowid = c.fk_soc AND c.ref_customer <> '' AND c.ref_customer IS NOT NULL";
-	$sql.= " AND ce.deployment_status IS NOT NULL";
+	$sql.= " AND ce.deployment_status IS NOT NULL AND ce.deployment_status = 'done'";
 	if ($datelim) $sql.= " AND ce.deployment_date_end <= '".$db->idate($datelim)."'";	// Only instances deployed before this date
 
 	dol_syslog("sellyoursaas_calculate_stats sql=".$sql, LOG_DEBUG, 1);
@@ -518,6 +519,7 @@ function sellyoursaas_calculate_stats($db, $datelim)
 			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 			dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
 
+			$now = dol_now();
 			$object = new Contrat($db);
 			//$cacheofthirdparties = array();
 
@@ -533,16 +535,24 @@ function sellyoursaas_calculate_stats($db, $datelim)
 
 					$tmpdata = sellyoursaasGetExpirationDate($object);
 					$nbofuser = $tmpdata['nbusers'];
-
 					$totalinstances++;
 					$totalusers+=$nbofuser;
 
 					// Return true if instance $object is paying instance (template invoice exists)
-					$ispaid = sellyoursaasIsPaidInstance($object);		// This also load $object->linkedObjects['facturerec']
-					if (! $ispaid)		// This is a test only customer
+					$ispaid = sellyoursaasIsPaidInstance($object);										// This also load $object->linkedObjects['facturerec']
+					if (! $ispaid || $tmpdata['expirationdate'] < $now || $tmpdata['status'] == 5)		// This is a test only customer or expired or suspended
 					{
 						$listofcustomers[$obj->customer_id]++;
 						//print "cpt=".$totalinstances." customer_id=".$obj->customer_id." instance=".$obj->instance." status=".$obj->status." instance_status=".$obj->instance_status." payment_status=".$obj->payment_status." => Price = ".$obj->price_instance.' * '.($obj->plan_meter_id == 1 ? $obj->nbofusers : 1)." + ".max(0,($obj->nbofusers - $obj->min_threshold))." * ".$obj->price_user." = ".$price." -> 0<br>\n";
+
+						if ($tmpdata['status'] == 5)
+						{
+							$totalinstancessuspended++;
+						}
+						elseif ($tmpdata['expirationdate'] < $now)
+						{
+							$totalinstancesexpired++;
+						}
 					}
 					else				// This is a paying customer (with at least one invoice or recurring invoice)
 					{
@@ -577,6 +587,7 @@ function sellyoursaas_calculate_stats($db, $datelim)
 							if ($atleastonenotsuspended)	// Really a paying customer if template invoice not suspended
 							{
 								$listofcustomerspaying[$obj->customer_id]++;
+								$listofinstancespaying[$object->id]=$object->ref;
 								$totalinstancespaying++;
 							}
 						}
@@ -604,9 +615,11 @@ function sellyoursaas_calculate_stats($db, $datelim)
 
 	dol_syslog("sellyoursaas_calculate_stats end", LOG_DEBUG, -1);
 
+	//var_dump($listofinstancespaying);
 	return array(
 		'total'=>(double) $total, 'totalcommissions'=>(double) $totalcommissions,
-		'totalinstancespaying'=>(int) $totalinstancespaying,'totalinstances'=>(int) $totalinstances, 'totalusers'=>(int) $totalusers,
+		'totalinstancespaying'=>(int) $totalinstancespaying, 'totalinstancessuspended'=>(int) $totalinstancessuspended, 'totalinstancesexpired'=>(int) $totalinstancesexpired, 'totalinstances'=>(int) $totalinstances,
+		'totalusers'=>(int) $totalusers,
 		'totalcustomerspaying'=>(int) count($listofcustomerspaying), 'totalcustomers'=>(int) count($listofcustomers)
 	);
 }

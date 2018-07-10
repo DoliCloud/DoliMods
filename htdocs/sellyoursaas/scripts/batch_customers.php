@@ -540,7 +540,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 						}
 						else
 						{
-							$rep=sellyoursaas_calculate_stats($db,$datelastday);	// Get qty and amount into template invoices linked to a contracts
+							$rep=sellyoursaas_calculate_stats($db,$datelastday);	// Get qty and amount into template invoices linked to active contracts
 						}
 
 						if ($rep)
