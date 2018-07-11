@@ -86,6 +86,8 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 	 */
 	public function runTrigger($action, $object, User $user, Translate $langs, Conf $conf)
 	{
+		global $mysoc;
+
         if (empty($conf->sellyoursaas->enabled)) return 0;     // Module not active, we do nothing
 
 	    // Put here code you want to execute when a Dolibarr business events occurs.
@@ -266,6 +268,104 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         		}
 
         		break;
+
+        	case 'COMPANY_MODIFY':
+        		/*var_dump($object->oldcopy->array_options['options_date_endfreeperiod']);
+        		 var_dump($object->array_options['options_date_endfreeperiod']);
+        		 var_dump($object->lines);*/
+
+        		if (isset($object->oldcopy)	&&
+        		(($object->oldcopy->tva_intra != $object->tva_intra)
+        		|| $object->oldcopy->country_id != $object->country_id))
+        		{
+        			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+        			include_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+
+        			dol_syslog("We change intra vat or country id, so we must change vat into contract and into template invoices");
+
+        			$object->country_code = getCountry($object->country_id, 2);
+
+        			$sql ="SELECT c.rowid FROM ".MAIN_DB_PREFIX."contrat as c, ".MAIN_DB_PREFIX."contrat_extrafields as ce";
+        			$sql.=" WHERE ce.fk_object = c.rowid AND ce.deployment_status IS NOT NULL";
+        			$sql.=" AND c.fk_soc = ".$object->id;
+        			$resql = $this->db->query($sql);
+        			if ($resql)
+        			{
+        				$num = $this->db->num_rows($resql);
+        				$i=0;
+        				while($i < $num)
+        				{
+							$obj = $this->db->fetch_object($resql);
+
+							$contract = new Contrat($this->db);
+							$contract->fetch($obj->rowid);
+
+							foreach($contract->lines as $line)
+							{
+								//$newvatrate = get_default_tva($mysoc, $object, $line->fk_product);
+								$newvatrate = get_default_tva($mysoc, $object, 0);
+								if ($newvatrate != $line->tva_tx)
+								{
+									$line->tva_tx = $newvatrate;
+									$line->update($user, 1);
+								}
+							}
+
+							// Test if there is template invoice linked to contract
+							$contract->fetchObjectLinked();
+
+							if (is_array($contract->linkedObjects['facturerec']) && count($contract->linkedObjects['facturerec']) > 0)
+							{
+								foreach($contract->linkedObjects['facturerec'] as $invoice)
+								{
+									$sqlsearchline = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'facturedet_rec WHERE fk_facture = '.$invoice->id;
+									$resqlsearchline = $this->db->query($sqlsearchline);
+									if ($resqlsearchline)
+									{
+										$num_search_line = $this->db->num_rows($resqlsearchline);
+										$j=0;
+										while ($j < $num_search_line)
+										{
+											$objsearchline = $this->db->fetch_object($resqlsearchline);
+											if ($objsearchline)	// If empty, it means, template invoice has no line corresponding to contract line
+											{
+												// Update qty
+												$invoicerecline = new FactureLigneRec($this->db);
+												$invoicerecline->fetch($objsearchline->rowid);
+
+												$invoicerecline->tva_tx = get_default_tva($mysoc, $object, 0);
+
+												$tabprice = calcul_price_total($invoicerecline->qty, $invoicerecline->subprice, $invoicerecline->remise_percent, $invoicerecline->tva_tx, $invoicerecline->localtax1_tx, $invoicerecline->txlocaltax2, 0, 'HT', $invoicerecline->info_bits, $invoicerecline->product_type, $mysoc, array(), 100);
+
+												$invoicerecline->total_ht  = $tabprice[0];
+												$invoicerecline->total_tva = $tabprice[1];
+												$invoicerecline->total_ttc = $tabprice[2];
+												$invoicerecline->total_localtax1 = $tabprice[9];
+												$invoicerecline->total_localtax2 = $tabprice[10];
+
+												$result = $invoicerecline->update($user, 1);
+											}
+
+											$j++;
+										}
+
+										$result = $invoice->update_price();
+									}
+									else
+									{
+										$error++;
+										$this->error = $this->db->lasterror();
+									}
+								}
+							}
+
+        					$i++;
+        				}
+        			}
+        			else dol_print_error($this->db);
+
+        		}
+
         }
     	if ($remoteaction)
     	{

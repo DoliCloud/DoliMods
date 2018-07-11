@@ -414,11 +414,17 @@ if ($action == 'updatemythirdpartyaccount')
 
 	$db->begin();	// Start transaction
 
+	$mythirdpartyaccount->oldcopy = dol_clone($mythirdpartyaccount);
+
 	$mythirdpartyaccount->name = $orgname;
 	$mythirdpartyaccount->address = $address;
 	$mythirdpartyaccount->town = $town;
 	$mythirdpartyaccount->zip = $zip;
-	if ($country_id > 0) $mythirdpartyaccount->country_id = $country_id;
+	if ($country_id > 0)
+	{
+		$mythirdpartyaccount->country_id = $country_id;
+		$mythirdpartyaccount->country_code = $country_code;
+	}
 	$mythirdpartyaccount->tva_assuj = $vatassuj;
 	$mythirdpartyaccount->tva_intra = $vatnumber;
 
