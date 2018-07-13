@@ -65,6 +65,8 @@ class SellYourSaasUtils
     {
     	global $conf, $langs, $user;
 
+    	$langs->load("agenda");
+
 		include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 		$invoice = new Facture($this->db);
 
@@ -196,6 +198,8 @@ class SellYourSaasUtils
     public function doAlertSoftEndTrial()
     {
     	global $conf, $langs, $user;
+
+    	$langs->load("agenda");
 
     	$mode = 'test';
 
@@ -369,6 +373,8 @@ class SellYourSaasUtils
     {
     	global $conf, $langs, $user;
 
+    	$langs->load("agenda");
+
     	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertCreditCardExpiration.log';
 
@@ -518,6 +524,8 @@ class SellYourSaasUtils
     {
     	global $conf, $langs, $user;
 
+    	$langs->load("agenda");
+
     	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doAlertPaypalExpiration.log';
 
@@ -665,6 +673,8 @@ class SellYourSaasUtils
     {
     	global $conf, $langs, $mysoc;
 
+    	$langs->load("agenda");
+
     	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doTakePaymentStripe.log';
 
@@ -787,6 +797,8 @@ class SellYourSaasUtils
     	global $conf, $mysoc, $user, $langs;
 
     	$error = 0;
+
+    	$langs->load("agenda");
 
     	dol_syslog("doTakePaymentStripeForThirdparty thirdparty_id=".$thirdparty_id);
 
@@ -1261,6 +1273,8 @@ class SellYourSaasUtils
     {
     	global $conf, $langs;
 
+    	$langs->load("agenda");
+
     	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doTakePaymentPaypal.log';
 
@@ -1301,6 +1315,8 @@ class SellYourSaasUtils
     public function doRenewalContracts($thirdparty_id=0)
     {
     	global $conf, $langs, $user;
+
+    	$langs->load("agenda");
 
     	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doRenewalContracts.log';
@@ -1526,6 +1542,8 @@ class SellYourSaasUtils
     {
     	global $conf, $langs;
 
+    	$langs->load("agenda");
+
     	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doSuspendExpiredTestInstances.log';
 
@@ -1547,6 +1565,8 @@ class SellYourSaasUtils
     public function doSuspendExpiredRealInstances()
     {
     	global $conf, $langs;
+
+    	$langs->load("agenda");
 
     	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doSuspendExpiredRealInstances.log';
@@ -1579,6 +1599,7 @@ class SellYourSaasUtils
     	}
 
     	$langs->load("sellyoursaas");
+    	$langs->load("agenda");
 
     	$error = 0;
     	$erroremail = '';
@@ -2031,6 +2052,8 @@ class SellYourSaasUtils
     {
     	global $conf, $langs;
 
+    	$langs->load("agenda");
+
     	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doUndeployOldSuspendedTestInstances.log';
 
@@ -2053,6 +2076,8 @@ class SellYourSaasUtils
     {
     	global $conf, $langs;
 
+    	$langs->load("agenda");
+
     	$savlog = $conf->global->SYSLOG_FILE;
     	$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_doUndeployOldSuspendedRealInstances.log';
 
@@ -2074,6 +2099,8 @@ class SellYourSaasUtils
     public function doUndeployOldSuspendedInstances($mode)
     {
     	global $conf, $langs, $user;
+
+    	$langs->load("agenda");
 
     	if ($mode != 'test' && $mode != 'paid')
     	{
@@ -2228,6 +2255,8 @@ class SellYourSaasUtils
     function sellyoursaasRemoteAction($remoteaction, $object, $appusername='admin', $email='', $password='')
     {
     	global $conf, $langs, $user;
+
+    	$langs->load("agenda");
 
     	$error = 0;
 
