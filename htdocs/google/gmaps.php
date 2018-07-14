@@ -161,20 +161,20 @@ else
 dol_fiche_end();
 
 // Show maps
-
-if ($address && $address != $object->country)
+if ($address && $address != $object->country)		// $address != $object->country to exclude address of country only
 {
 	// Detect if we use https
 	//$sforhttps=(((empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != 'on') && (empty($_SERVER["SERVER_PORT"])||$_SERVER["SERVER_PORT"]!=443))?'':'s');
 
     // URL to include javascript map
-	$url='https://maps.googleapis.com/maps/api/js';
-	if (empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="?sensor=true";
-	else $url.="?key=".$conf->global->GOOGLE_API_SERVERKEY;
+	$urlforjsmap='https://maps.googleapis.com/maps/api/js';
+	if (empty($conf->global->GOOGLE_API_SERVERKEY)) $urlforjsmap.="?sensor=true";
+	else $urlforjsmap.="?key=".$conf->global->GOOGLE_API_SERVERKEY;
+
 ?>
 
 <!--gmaps.php: Include Google javascript map -->
-<script type="text/javascript" src="<?php echo $url; ?>"></script>
+<script type="text/javascript" src="<?php echo $urlforjsmap; ?>"></script>
 
 <script type="text/javascript">
   var geocoder;
@@ -209,7 +209,7 @@ if ($address && $address != $object->country)
             position: results[0].geometry.location
         });
 
-		var infowindow = new google.maps.InfoWindow({ content: '<div style="width:250px; height:80px;"><?php echo dol_escape_js($object->name); ?><br><?php echo dol_escape_js(dol_string_nospecial($address,'<br>',array("\r\n","\n","\r"))).(empty($url)?'':'<br><a href="'.$url.'">'.$url.'</a>'); ?></div>' });
+		var infowindow = new google.maps.InfoWindow({ content: '<div style="width:250px; height:80px;" class="divdolibarrgoogleaddress"><?php echo dol_escape_js($object->name); ?><br><?php echo dol_escape_js(dol_string_nospecial($address,'<br>',array("\r\n","\n","\r"))).(empty($url)?'':'<br><a href="'.$url.'">'.$url.'</a>'); ?></div>' });
 
 		google.maps.event.addListener(marker, 'click', function() {
 		  infowindow.open(map,marker);

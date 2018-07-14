@@ -1,9 +1,10 @@
 # ChangeLog GOOGLE MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a> 
 
 
-## unreleased
+## 6.0.1 unreleased
 
 - Fix list of maps visible in widget.
+- Fix link in popup of addresses in map.
 
 
 ## 6.0
@@ -14,7 +15,7 @@
 ## 3.7
 
 - Compatibility with Dolibarr 3.7 and +
-- Add filter on sale representative
+- Add filter on sale representative.
 
 
 ## 1.0
