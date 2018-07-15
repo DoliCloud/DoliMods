@@ -572,8 +572,8 @@ class modSellYourSaas extends DolibarrModules
 		'titre'=>'RegistrationPage',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'website',
-		//'url'=>'/public/website/index.php?website=sellyoursaas&pageref=register&plan=abc',
-		'url'=>'__[SELLYOURSAAS_ACCOUNT_URL]__/register.php?origin=backofficelink&plan=&partner=&partnerkey=md5aliaspartner',
+		'url'=>'/sellyoursaas/registrationlinks_list.php',
+		//'url'=>'__[SELLYOURSAAS_ACCOUNT_URL]__/register.php?origin=backofficelink&plan=&partner=&partnerkey=md5aliaspartner',
 		'langs'=>'sellyoursaas@sellyoursaas',
 		'position'=>500,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
