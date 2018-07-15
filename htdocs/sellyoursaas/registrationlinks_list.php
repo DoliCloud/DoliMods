@@ -333,8 +333,8 @@ $arrayofmassactions =  array(
 	//'presend'=>$langs->trans("SendByMail"),
 	//'builddoc'=>$langs->trans("PDFMerge"),
 );
-if ($user->rights->sellyoursaas->delete) $arrayofmassactions['predelete']=$langs->trans("Delete");
-if (in_array($massaction, array('presend','predelete'))) $arrayofmassactions=array();
+//if ($user->rights->sellyoursaas->delete) $arrayofmassactions['predelete']=$langs->trans("Delete");
+//if (in_array($massaction, array('presend','predelete'))) $arrayofmassactions=array();
 $massactionbutton=$form->selectMassAction('', $arrayofmassactions);
 
 print '<form method="POST" id="searchFormList" action="'.$_SERVER["PHP_SELF"].'">';
@@ -498,7 +498,10 @@ while ($i < min($num, $limit))
 	include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_print_fields.tpl.php';
 	// Link
 	print '<td>';
-	print '<a href="'.$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/register.php?origin=backofficelink&plan='.$obj->ref.'&partner=&partnerkey=md5aliaspartner">URL</a>';
+	print '<a href="'.$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/register.php?origin=backofficelink&plan='.$obj->ref.'&partner=&partnerkey=md5aliaspartner">';
+	print img_picto('', 'object_globe');
+	print ' URL';
+	print '</a>';
 	print '</td>';
 	// Fields from hook
 	$parameters=array('arrayfields'=>$arrayfields, 'obj'=>$obj);
