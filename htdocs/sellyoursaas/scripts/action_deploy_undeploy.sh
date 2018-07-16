@@ -500,38 +500,44 @@ fi
 if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	
 	echo `date +%Y%m%d%H%M%S`" ***** Deploy config file"
-	mkdir -p `dirname $targetfileforconfig1`
 	
-	if [[ -s $targetfileforconfig1 ]]; then
-		cat $targetfileforconfig1 | grep "$dbname " 2>&1
-		notfound=$?
-		echo notfound=$notfound
-		if [[ $notfound == 1 ]]; then
-			echo File $targetfileforconfig1 already exists but content does not include database param. We recreate file.
-			echo "rm $targetfileforconfig1"
-			if [[ $testorconfirm == "confirm" ]]
-			then
-				rm -f $targetfileforconfig1
+	if [[ $targetfileforconfig1 == "-" ]]
+	then
+		echo No config file to deploy for this service
+	else
+		mkdir -p `dirname $targetfileforconfig1`
+		
+		if [[ -s $targetfileforconfig1 ]]; then
+			cat $targetfileforconfig1 | grep "$dbname " 2>&1
+			notfound=$?
+			echo notfound=$notfound
+			if [[ $notfound == 1 ]]; then
+				echo File $targetfileforconfig1 already exists but content does not include database param. We recreate file.
+				echo "rm $targetfileforconfig1"
+				if [[ $testorconfirm == "confirm" ]]
+				then
+					rm -f $targetfileforconfig1
+				fi
+				echo "mv $fileforconfig1 $targetfileforconfig1"
+				if [[ $testorconfirm == "confirm" ]]
+				then
+					mv $fileforconfig1 $targetfileforconfig1
+				fi
+			else
+				echo File $targetfileforconfig1 already exists and content includes database parameters. We change nothing.
 			fi
+		else
 			echo "mv $fileforconfig1 $targetfileforconfig1"
 			if [[ $testorconfirm == "confirm" ]]
 			then
 				mv $fileforconfig1 $targetfileforconfig1
 			fi
-		else
-			echo File $targetfileforconfig1 already exists and content includes database parameters. We change nothing.
 		fi
-	else
-		echo "mv $fileforconfig1 $targetfileforconfig1"
-		if [[ $testorconfirm == "confirm" ]]
-		then
-			mv $fileforconfig1 $targetfileforconfig1
-		fi
+		chown -R $osusername.$osusername $targetfileforconfig1
+		chmod -R go-rwx $targetfileforconfig1
+		chmod -R g-s $targetfileforconfig1
+		chmod -R a-wx $targetfileforconfig1
 	fi
-	chown -R $osusername.$osusername $targetfileforconfig1
-	chmod -R go-rwx $targetfileforconfig1
-	chmod -R g-s $targetfileforconfig1
-	chmod -R a-wx $targetfileforconfig1
 fi
 
 
@@ -628,22 +634,28 @@ fi
 if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 
 	echo `date +%Y%m%d%H%M%S`" ***** Install cron file $cronfile"
-	if [[ -f /var/spool/cron/crontabs/$osusername ]]; then
-		echo merge existing $cronfile with existing /var/spool/cron/crontabs/$osusername
-		echo "cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp"
-		cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp
-		echo "cat $cronfile >> /tmp/$dbname.tmp"
-		cat $cronfile >> /tmp/$dbname.tmp
-		echo cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
-		cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
+	
+	if [[ -s $cronfile ]]
+	then
+		if [[ -f /var/spool/cron/crontabs/$osusername ]]; then
+			echo merge existing $cronfile with existing /var/spool/cron/crontabs/$osusername
+			echo "cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp"
+			cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp
+			echo "cat $cronfile >> /tmp/$dbname.tmp"
+			cat $cronfile >> /tmp/$dbname.tmp
+			echo cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
+			cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
+		else
+			echo cron file /var/spool/cron/crontabs/$osusername does not exists yet
+			echo cp $cronfile /var/spool/cron/crontabs/$osusername
+			cp $cronfile /var/spool/cron/crontabs/$osusername
+		fi
+	
+		chown $osusername.$osusername /var/spool/cron/crontabs/$osusername
+		chmod 600 /var/spool/cron/crontabs/$osusername
 	else
-		echo cron file /var/spool/cron/crontabs/$osusername does not exists yet
-		echo cp $cronfile /var/spool/cron/crontabs/$osusername
-		cp $cronfile /var/spool/cron/crontabs/$osusername
+		echo There is no cron file to install
 	fi
-
-	chown $osusername.$osusername /var/spool/cron/crontabs/$osusername
-	chmod 600 /var/spool/cron/crontabs/$osusername
 fi
 
 if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
@@ -744,8 +756,13 @@ fi
 if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	if [[ "x$cliafter" != "x" ]]; then
 		if [ -f $cliafter ]; then
-				echo ". $cliafter"
-				. $cliafter
+			echo ". $cliafter"
+			. $cliafter
+			if [[ "x$?" != "x0" ]]; then
+				echo Error when running the CLI script $cliafter 
+				echo "Error when running the CLI script $cliafter" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in undeployment" $EMAILFROM
+				exit 1
+			fi
 		fi
 	fi
 fi

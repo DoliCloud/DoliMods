@@ -669,7 +669,7 @@ if (! $error)
 if (! $error)
 {
 	$contract->array_options['options_deployment_status'] = 'done';
-	$contract->array_options['options_deployment_date_end'] = dol_now('tzserver');
+	$contract->array_options['options_deployment_date_end'] = dol_now();
 	$contract->array_options['options_undeployment_date'] = '';
 	$contract->array_options['options_undeployment_ip'] = '';
 

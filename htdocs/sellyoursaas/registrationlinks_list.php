@@ -498,7 +498,7 @@ while ($i < min($num, $limit))
 	include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_print_fields.tpl.php';
 	// Link
 	print '<td>';
-	print '<a href="'.$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/register.php?origin=backofficelink&plan='.$obj->ref.'&partner=&partnerkey=md5aliaspartner">';
+	print '<a href="'.$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/register.php?origin=backofficelink&plan='.$obj->ref.'&partner=&partnerkey=md5aliaspartner" target="_register">';
 	print img_picto('', 'object_globe');
 	print ' URL';
 	print '</a>';
