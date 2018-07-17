@@ -1649,7 +1649,7 @@ class SellYourSaasUtils
     	$sql.= " AND cd.statut = 4";												// Not yet suspended
     	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
 		$sql.= $this->db->order('c.rowid','ASC');
-    	$sql.= $this->db->plimit(20);	// To avoid to reach quota of emails sent
+    	$sql.= $this->db->plimit(25);	// To avoid to reach quota of emails sent
 
     	$resql = $this->db->query($sql);
     	if ($resql)
@@ -2154,7 +2154,7 @@ class SellYourSaasUtils
     	$sql.= " AND cd.statut = 5";
     	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
     	$sql.= $this->db->order('c.rowid','ASC');
-    	$sql.= $this->db->plimit(20);	// To avoid to reach timeouts
+    	$sql.= $this->db->plimit(25);	// To avoid to reach timeouts
 
     	$resql = $this->db->query($sql);
     	if ($resql)
