@@ -707,6 +707,25 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					dol_syslog("--- Set status of thirdparty to prospect+client instead of only prospect", LOG_DEBUG, 0);
 					$mythirdpartyaccount->set_as_client();
 				}
+
+				if (! $error)
+				{
+					include_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
+					// Create an event
+					$actioncomm = new ActionComm($db);
+					$actioncomm->type_code   = 'AC_OTH_AUTO';		// Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
+					$actioncomm->code        = 'AC_ADD_PAYMENT';
+					$actioncomm->label       = 'Payment mode added by '.$_SERVER["REMOTE_ADDR"];
+					$actioncomm->datep       = $now;
+					$actioncomm->datef       = $now;
+					$actioncomm->percentage  = -1;   // Not applicable
+					$actioncomm->socid       = $mythirdpartyaccount->id;
+					$actioncomm->authorid    = $user->id;   // User saving action
+					$actioncomm->userownerid = $user->id;	// Owner of action
+					//$actioncomm->fk_element  = $mythirdpartyaccount->id;
+					//$actioncomm->elementtype = 'thirdparty';
+					$ret=$actioncomm->create($user);       // User creating action
+				}
 			}
 		}
 
