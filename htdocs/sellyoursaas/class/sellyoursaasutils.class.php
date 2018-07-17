@@ -2937,7 +2937,7 @@ class SellYourSaasUtils
     		$actioncomm->elementtype = 'contract';
     		if (! is_numeric($addevent))
     		{
-    			$actioncomm->comments    = $addevent;
+    			$actioncomm->note    = $addevent;
     		}
     		$ret=$actioncomm->create($user);       // User creating action
     	}
