@@ -264,6 +264,7 @@ if (! empty($conf->paypal->enabled))
 	}
 }
 
+$initialaction = $action;
 
 
 /*
@@ -2472,7 +2473,7 @@ if ($mode == 'instances')
 
 
 			// Update resources of instance
-			if (in_array($statuslabel, array('suspended', 'done')))
+			if (in_array($statuslabel, array('suspended', 'done')) && ! in_array($initialaction, array('changeplan')))
 			{
 				$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
 				if ($result <= 0)
@@ -2611,8 +2612,10 @@ if ($mode == 'instances')
 								<!-- <p class="opacitymedium" style="padding: 15px; margin-bottom: 5px;">'.$langs->trans("YourResourceAndOptionsDesc").' :</p> -->
 					            <div style="padding-left: 12px; padding-bottom: 12px; padding-right: 12px">';
 
+				     			$arrayoflines = $contract->lines;
+				     			//var_dump($arrayoflines);
 								// Loop on each service / option
-								foreach($contract->lines as $keyline => $line)
+				     			foreach($arrayoflines as $keyline => $line)
 								{
 									//var_dump($line);
 									print '<div class="resource inline-block boxresource">';
@@ -2623,8 +2626,22 @@ if ($mode == 'instances')
 				                  	{
 					                  	$tmpproduct->fetch($line->fk_product);
 
-					                  	$htmlforphoto = $tmpproduct->show_photos('product', $conf->product->dir_output, 1, 1, 1, 0, 0, 40, 40, 1, 1, 1);
-					                  	print $htmlforphoto;
+					                  	$maxHeight=40;
+					                  	$maxWidth=40;
+					                  	$alt='';
+					                  	$htmlforphoto = $tmpproduct->show_photos('product', $conf->product->dir_output, 1, 1, 1, 0, 0, $maxHeight, $maxWidth, 1, 1, 1);
+
+										if (empty($htmlforphoto) || $htmlforphoto == '<!-- Photo -->' || $htmlforphoto == '<!-- Photo -->'."\n")
+					                  	{
+					                  		print '<!--no photo defined -->';
+					                  		print '<table width="100%" valign="top" align="center" border="0" cellpadding="2" cellspacing="2"><tr><td width="100%" class="photo">';
+					                  		print '<img class="photo photowithmargin" border="0" height="'.$maxHeight.'" src="'.DOL_URL_ROOT.'/public/theme/common/nophoto.png" title="'.dol_escape_htmltag($alt).'">';
+					                  		print '</td></tr></table>';
+					                  	}
+					                  	else
+					                  	{
+					                  		print $htmlforphoto;
+					                  	}
 
 					                  	//var_dump($tmpproduct->array_options);
 					                  	/*if ($tmpproduct->array_options['options_app_or_option'] == 'app')

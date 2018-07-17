@@ -2251,9 +2251,10 @@ class SellYourSaasUtils
      * @param	string					$appusername	App login
      * @param	string					$email			Initial email
      * @param	string					$password		Initial password
+     * @param	string					$addevent		'1'=Force to add event.
      * @return	int										<0 if KO, >0 if OK
      */
-    function sellyoursaasRemoteAction($remoteaction, $object, $appusername='admin', $email='', $password='')
+    function sellyoursaasRemoteAction($remoteaction, $object, $appusername='admin', $email='', $password='', $addevent='0')
     {
     	global $conf, $langs, $user;
 
@@ -2494,9 +2495,11 @@ class SellYourSaasUtils
     			in_array($remoteaction, array('deploy','deployall','deployoption')) &&
     			($producttmp->array_options['options_app_or_option'] == 'option')) $doremoteaction = 1;
 
-    		// remoteaction = 'deploy','deployall','deplyoption','rename','suspend','unsuspend','undeploy'
+    		// remoteaction = 'deploy','deployall','deployoption','rename','suspend','unsuspend','undeploy'
     		if ($doremoteaction)
     		{
+    			$addevent = 1;
+
     			dol_syslog("Enter into doremoteaction code, with ".$tmpobject->id." ".$producttmp->array_options['options_app_or_option']);
     			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
     			$contract = new Contrat($this->db);
@@ -2824,7 +2827,6 @@ class SellYourSaasUtils
     				}
 
     				if (! $error && $newqty != $currentqty)
-    				//if (! $error)
     				{
     					// tmpobject is contract line
     					$tmpobject->qty = $newqty;
@@ -2836,6 +2838,8 @@ class SellYourSaasUtils
     					}
     					else
     					{
+    						$addevent = 'Qty line '.$tmpobject->id.' updated '.$currentqty.' -> '.$newqty;
+
     						// Test if there is template invoice linkded
     						$contract->fetchObjectLinked();
 
@@ -2916,7 +2920,7 @@ class SellYourSaasUtils
     		}
     	}
 
-    	if (! $error && get_class($object) == 'Contrat')
+    	if (! $error && get_class($object) == 'Contrat' && $addevent)
     	{
     		// Create an event
     		$actioncomm = new ActionComm($this->db);
@@ -2931,6 +2935,10 @@ class SellYourSaasUtils
     		$actioncomm->userownerid = $user->id;	// Owner of action
     		$actioncomm->fk_element  = $object->id;
     		$actioncomm->elementtype = 'contract';
+    		if (! is_numeric($addevent))
+    		{
+    			$actioncomm->comments    = $addevent;
+    		}
     		$ret=$actioncomm->create($user);       // User creating action
     	}
 

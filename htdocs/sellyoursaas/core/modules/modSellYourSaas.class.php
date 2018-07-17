@@ -569,7 +569,7 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		'fk_menu'=>'fk_mainmenu=sellyoursaas',
 		'type'=>'left',
-		'titre'=>'RegistrationPage',
+		'titre'=>'RegistrationPages',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'website',
 		'url'=>'/sellyoursaas/registrationlinks_list.php',
