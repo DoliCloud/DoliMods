@@ -1078,7 +1078,7 @@ class SellYourSaasUtils
     								}
     								else
     								{
-    									$postactionmessages[] = 'Setup of bank account to use in module '.$paymentmethod.' was not set. Not way to record the payment.';
+    									$postactionmessages[] = 'Setup of bank account to use in module '.$paymentmethod.' was not set. No way to record the payment.';
     									$ispostactionok = -1;
     									$error++;
     								}
@@ -1133,6 +1133,21 @@ class SellYourSaasUtils
 	    						$substitutionarray=getCommonSubstitutionArray($outputlangs, 0, null, $object);
 	    						$substitutionarray['__SELLYOURSAAS_PAYMENT_ERROR_DESC__']=$stripefailurecode.' '.$stripefailuremessage;
 	    						complete_substitutions_array($substitutionarray, $outputlangs, $object);
+
+	    						// Set the property ->ref_customer with ref_customer of contract so __REFCLIENT__ will be replaced in email content
+	    						// Search contract linked to invoice
+	    						$invoice->fetchObjectLinked();
+	    						if (is_array($invoice->linkedObjects['contrat']) && count($invoice->linkedObjects['contrat']) > 0)
+	    						{
+	    							//dol_sort_array($object->linkedObjects['facture'], 'date');
+	    							foreach($invoice->linkedObjects['contrat'] as $idcontract => $contract)
+	    							{
+	    								$substitutionarray['__CONTRACT_REF__']=$contract->ref_customer;
+	    								$substitutionarray['__REFCLIENT__']=$contract->ref_customer;
+	    								break;
+	    							}
+	    						}
+
 	    						$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
 	    						$texttosend = make_substitutions($msg, $substitutionarray, $outputlangs);
 
