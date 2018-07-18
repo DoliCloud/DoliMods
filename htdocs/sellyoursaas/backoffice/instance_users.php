@@ -147,7 +147,7 @@ if (empty($reshook))
 	    	// TODO Use the encryption of remote instance
 	    	$password_crypted = dol_hash($password);
 
-	    	$sql="INSERT INTO llx_user(login, admin, pass, pass_crypted, entity) VALUES('".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', 1, '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$newdb->escape($password_crypted)."', 0)";
+	    	$sql="INSERT INTO llx_user(login, lastname, admin, pass, pass_crypted, entity) VALUES('".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', 1, '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$newdb->escape($password_crypted)."', 0)";
 	        $resql=$newdb->query($sql);
 	        if (! $resql)
 	        {
