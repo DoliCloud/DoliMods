@@ -179,9 +179,12 @@ print $form->textwithpicto($langs->trans("NbOfInstancesActivePaying"), $langs->t
 print ' / '.$langs->trans("NbOfActiveInstances").' ';
 print '</td><td align="right">';
 print '<font size="+2">'.$totalinstancespaying.' / '.$totalinstances.'</font>';
-print '<!--';
-print join(', ', $rep['listofinstancepaying']);
-print '-->';
+print '<!--'."\n";
+foreach($rep['listofinstancepaying'] as $arrayofcontract)
+{
+	print $arrayofcontract['thirdparty_name'].' - '.$arrayofcontract['contract_ref']."\n";
+}
+print "\n".'-->';
 print '</td></tr>';
 print '<tr class="oddeven"><td class="wordwrap wordbreak">';
 print $langs->trans("NbOfSuspendedInstances").' ';

@@ -501,7 +501,7 @@ function sellyoursaas_calculate_stats($db, $datelim)
 	// Get list of instance
 	$sql = "SELECT c.rowid as id, c.ref_customer as instance, c.fk_soc as customer_id,";
 	$sql.= " ce.deployment_status as instance_status,";
-	$sql.= " s.parent";
+	$sql.= " s.parent, s.nom as name";
 	$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object,";
 	$sql.= " ".MAIN_DB_PREFIX."societe as s";
 	$sql.= " WHERE s.rowid = c.fk_soc AND c.ref_customer <> '' AND c.ref_customer IS NOT NULL";
@@ -587,7 +587,7 @@ function sellyoursaas_calculate_stats($db, $datelim)
 							if ($atleastonenotsuspended)	// Really a paying customer if template invoice not suspended
 							{
 								$listofcustomerspaying[$obj->customer_id]++;
-								$listofinstancespaying[$object->id]=$object->ref;
+								$listofinstancespaying[$object->id]=array('thirdparty_id'=>$obj->customer_id, 'thirdparty_name'=>$obj->name, 'contract_ref'=>$object->ref);
 								$totalinstancespaying++;
 							}
 						}
