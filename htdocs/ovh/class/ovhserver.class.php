@@ -145,7 +145,7 @@ class OvhServer extends CommonObject
         $result = '';
         $companylink = '';
 
-        $label = '<u>' . $langs->trans("OVHServer") . '</u>';
+        $label = '<u>' . $langs->trans("Server") . '</u>';
         $label.= '<br>';
         $label.= '<b>' . $langs->trans('Id') . ':</b> ' . $this->id.'<br>';
         $label.= '<b>' . $langs->trans('Ref') . ':</b> ' . $this->ref;
