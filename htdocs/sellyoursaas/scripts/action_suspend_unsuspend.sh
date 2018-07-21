@@ -309,7 +309,7 @@ if [[ "$mode" == "suspend" ]]; then
 		echo "Failed to suspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb when suspending $instancename.$domainname" $EMAILFROM 
 		exit 2
 	fi
-			
+
 fi
 
 

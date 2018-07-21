@@ -1991,6 +1991,9 @@ class SellYourSaasUtils
 							}
 							else
 							{
+								// Add a delay because the closeAll may have triggered a suspend remote action and we want to be sure the apache reload is complete
+								sleep(1);
+
 								$contractprocessed[$object->id]=$object->ref;
 
 								// Send an email to warn customer of suspension
