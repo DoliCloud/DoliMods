@@ -319,58 +319,7 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 
 			if ($return_val != 0) $error++;
 
-			// Update database
-			if (! $error)
-			{
-				$db->begin();
-
-				if ($action == 'backup')	// If  $action == 'backuprsync' || $action == 'backupdatabase', backup is not complete on purpose, we do not save status
-				{
-					if ($v == 1)
-					{
-						$result=$object->fetch('',$instance);
-						$object->date_lastrsync=$now;	// date latest files and database rsync backup
-						$object->backup_status='OK';
-						$object->update($user);
-					}
-					else
-					{
-						$result=$object->fetch('','',$instance);
-						$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
-						$object->array_options['options_latestbackup_status']='OK';
-						$object->update($user);
-					}
-				}
-
-				$db->commit();
-			}
-			else
-			{
-				$db->begin();
-
-				if ($action == 'backup')	// If  $action == 'backuprsync' || $action == 'backupdatabase', backup is not complete on purpose, we do not save status
-				{
-					if ($v == 1)
-					{
-						$result=$object->fetch('',$instance);
-						//$object->date_lastrsync=$now;	// date latest files and database rsync backup
-						$object->backup_status='KO '.strftime("%Y%m%d-%H%M%S");
-						$object->update($user);
-					}
-					else
-					{
-						$result=$object->fetch('','',$instance);
-						$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
-						$object->array_options['options_latestbackup_status']='KO';
-						$object->update($user);
-					}
-				}
-
-				$db->commit();
-			}
-
-
-			//
+			// Return
 			if (! $error)
 			{
 				$nbofok++;
