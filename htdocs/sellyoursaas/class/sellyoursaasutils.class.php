@@ -2272,10 +2272,10 @@ class SellYourSaasUtils
      * @param	string					$appusername	App login
      * @param	string					$email			Initial email
      * @param	string					$password		Initial password
-     * @param	string					$addevent		'1'=Force to add event.
+     * @param	string					$forceaddevent	'1'=Force to add event. If '0', add of event is done only for remoteaction = 'deploy','deployall','deployoption','rename','suspend','unsuspend','undeploy'
      * @return	int										<0 if KO, >0 if OK
      */
-    function sellyoursaasRemoteAction($remoteaction, $object, $appusername='admin', $email='', $password='', $addevent='0')
+    function sellyoursaasRemoteAction($remoteaction, $object, $appusername='admin', $email='', $password='', $forceaddevent='0')
     {
     	global $conf, $langs, $user;
 
@@ -2519,7 +2519,7 @@ class SellYourSaasUtils
     		// remoteaction = 'deploy','deployall','deployoption','rename','suspend','unsuspend','undeploy'
     		if ($doremoteaction)
     		{
-    			$addevent = 1;
+    			$forceaddevent = 1;
 
     			dol_syslog("Enter into doremoteaction code, with ".$tmpobject->id." ".$producttmp->array_options['options_app_or_option']);
     			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
@@ -2652,7 +2652,7 @@ class SellYourSaasUtils
     			$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 
 
-    			$conf->global->MAIN_USE_RESPONSE_TIMEOUT = 60;
+    			$conf->global->MAIN_USE_RESPONSE_TIMEOUT = 80;	// Timeout of call of external URL to make remote action
 
     			// Execute remote action
     			if (! $error)
@@ -2859,7 +2859,7 @@ class SellYourSaasUtils
     					}
     					else
     					{
-    						$addevent = 'Qty line '.$tmpobject->id.' updated '.$currentqty.' -> '.$newqty;
+    						$forceaddevent = 'Qty line '.$tmpobject->id.' updated '.$currentqty.' -> '.$newqty;
 
     						// Test if there is template invoice linkded
     						$contract->fetchObjectLinked();
@@ -2941,7 +2941,7 @@ class SellYourSaasUtils
     		}
     	}
 
-    	if (! $error && get_class($object) == 'Contrat' && $addevent)
+    	if (! $error && get_class($object) == 'Contrat' && $forceaddevent)
     	{
     		// Create an event
     		$actioncomm = new ActionComm($this->db);
@@ -2956,9 +2956,9 @@ class SellYourSaasUtils
     		$actioncomm->userownerid = $user->id;	// Owner of action
     		$actioncomm->fk_element  = $object->id;
     		$actioncomm->elementtype = 'contract';
-    		if (! is_numeric($addevent))
+    		if (! is_numeric($forceaddevent))
     		{
-    			$actioncomm->note    = $addevent;
+    			$actioncomm->note    = $forceaddevent;
     		}
     		$ret=$actioncomm->create($user);       // User creating action
     	}

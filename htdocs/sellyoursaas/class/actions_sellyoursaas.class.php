@@ -245,7 +245,7 @@ class ActionsSellyoursaas
 
 				// Finish deployall
 
-				$comment = 'Activation after click on redeploy from contract card';
+				$comment = 'Activation after click on redeploy from contract card on '.dol_print_date(dol_now(), 'dayhourrfc');
 
 				// Activate all lines
 				if (! $error)
@@ -281,6 +281,7 @@ class ActionsSellyoursaas
 					else
 					{
 						setEventMessages($langs->trans("InstanceWasDeployed"), null, 'mesgs');
+						setEventMessages($langs->trans("NoEmailSentToInformCustomer"), null, 'mesgs');
 					}
 				}
 
