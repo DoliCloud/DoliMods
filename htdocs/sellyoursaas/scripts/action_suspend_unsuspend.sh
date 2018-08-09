@@ -103,9 +103,18 @@ export targetdir=${21}
 export EMAILFROM=${22}
 export REMOTEIP=${23}
 export SELLYOURSAAS_ACCOUNT_URL=${24}
+export instancenameold=${25}
+export domainnameold=${26}
+export customurl=${27}
+if [ "x$customurl" == "x-" ]; then
+	customurl=""
+fi
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
+export fqnold=$instancenameold.$domainnameold
+
+
 
 # For debug
 echo `date +%Y%m%d%H%M%S`" input params for $0:"
@@ -118,10 +127,14 @@ echo "targetdir = $targetdir"
 echo "EMAILFROM = $EMAILFROM"
 echo "REMOTEIP = $REMOTEIP"
 echo "SELLYOURSAAS_ACCOUNT_URL = $SELLYOURSAAS_ACCOUNT_URL" 
+echo "instancenameold = $instancenameold" 
+echo "domainnameold = $domainnameold" 
+echo "customurl = $customurl" 
 
 echo `date +%Y%m%d%H%M%S`" calculated params:"
 echo "instancedir = $instancedir"
 echo "fqn = $fqn"
+echo "fqnold = $fqnold"
 
 if [[ ! -d $archivedir ]]; then
 	echo Failed to find archive directory $archivedir
@@ -132,6 +145,114 @@ testorconfirm="confirm"
 
 
 
+# Rename
+
+if [[ "$mode" == "rename" ]]; then
+
+	echo `date +%Y%m%d%H%M%S`" ***** For instance in /home/jail/home/$osusername/$dbname, check if new virtual host $fqn exists"
+
+	export apacheconf="/etc/apache2/sellyoursaas-online/$fqn.conf"
+	if [ -f $apacheconf ]; then
+			echo "Error failed to rename. New name is already used." 
+			exit 1
+	fi
+	
+	
+	# TODO
+	# Add DNS entry for $fqn
+
+
+	echo `date +%Y%m%d%H%M%S`" ***** For instance in /home/jail/home/$osusername/$dbname, create a new virtual name $fqn"
+
+	export apacheconf="/etc/apache2/sellyoursaas-available/$fqn.conf"
+	echo `date +%Y%m%d%H%M%S`" ***** Create a new apache conf $apacheconf from $vhostfile"
+
+	if [[ -s $apacheconf ]]
+	then
+		echo "Apache conf $apacheconf already exists, we delete it since it may be a file from an old instance with same name"
+		rm -f $apacheconf
+	fi
+
+	echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
+			  sed -e 's/__webAppAliases__/$instancename.$domainname $customurl/g' | \
+			  sed -e 's/__webAppLogName__/$instancename/g' | \
+			  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
+			  sed -e 's/__osUsername__/$osusername/g' | \
+			  sed -e 's/__osGroupname__/$osusername/g' | \
+			  sed -e 's;__osUserPath__;/home/jail/home/$osusername/$dbname;g' | \
+			  sed -e 's;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g' | \
+			  sed -e 's;__webAppPath__;$instancedir;g' > $apacheconf"
+	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
+			  sed -e "s/__webAppAliases__/$instancename.$domainname $customurl/g" | \
+			  sed -e "s/__webAppLogName__/$instancename/g" | \
+			  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
+			  sed -e "s/__osUsername__/$osusername/g" | \
+			  sed -e "s/__osGroupname__/$osusername/g" | \
+			  sed -e "s;__osUserPath__;/home/jail/home/$osusername/$dbname;g" | \
+			  sed -e "s;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g" | \
+			  sed -e "s;__webAppPath__;$instancedir;g" > $apacheconf
+
+
+	#echo Enable conf with a2ensite $fqn.conf
+	#a2ensite $fqn.conf
+	echo Enable conf with ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-enabled
+	ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-enabled
+	
+	echo /usr/sbin/apache2ctl configtest
+	/usr/sbin/apache2ctl configtest
+	if [[ "x$?" != "x0" ]]; then
+		echo Error when running apache2ctl configtest 
+		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" $EMAILFROM 
+		exit 1
+	fi 
+
+	echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. service apache2 reload"
+	service apache2 reload
+	if [[ "x$?" != "x0" ]]; then
+		echo Error when running service apache2 reload
+		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" $EMAILFROM 
+		exit 2
+	fi
+
+
+
+	echo `date +%Y%m%d%H%M%S`" ***** For instance in /home/jail/home/$osusername/$dbname, delete old virtual name $fqnold"
+
+	export apacheconf="/etc/apache2/sellyoursaas-online/$fqnold.conf"
+	echo `date +%Y%m%d%H%M%S`" ***** Remove apache conf $apacheconf"
+
+	if [ -f $apacheconf ]; then
+	
+		echo Disable conf with a2dissite $fqnold.conf
+		#a2dissite $fqn.conf
+		rm /etc/apache2/sellyoursaas-online/$fqnold.conf
+		
+		/usr/sbin/apache2ctl configtest
+		if [[ "x$?" != "x0" ]]; then
+			echo Error when running apache2ctl configtest 
+			echo "Failed to delete virtual host with old name instance $instancenameold.$domainnameold with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in rename" $EMAILFROM
+			exit 1
+		fi
+		
+		echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. service apache2 reload"
+		service apache2 reload
+		if [[ "x$?" != "x0" ]]; then
+			echo Error when running service apache2 reload 
+			echo "Failed to delete virtual host with old name instance $instancenameold.$domainnameold with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in rename" $EMAILFROM
+			exit 2
+		fi
+	else
+		echo "Virtual host $apacheconf seems already disabled"
+	fi
+
+
+	# TODO
+	# Remove DNS entry for $fqnold
+
+
+
+
+fi
 
 # Suspend
 
@@ -177,7 +298,7 @@ if [[ "$mode" == "suspend" ]]; then
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running apache2ctl configtest. We remove the new created virtual host /etc/apache2/sellyoursaas-online/$fqn.conf to hope to restore configtest ok.
 		rm -f /etc/apache2/sellyoursaas-online/$fqn.conf
-		echo "Failed to suspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb when suspending $instancename.$domainname" supervision@dolicloud.com 
+		echo "Failed to suspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb when suspending $instancename.$domainname" $EMAILFROM 
 		exit 1
 	fi 
 	
@@ -185,10 +306,10 @@ if [[ "$mode" == "suspend" ]]; then
 	service apache2 reload
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running service apache2 reload
-		echo "Failed to suspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb when suspending $instancename.$domainname" supervision@dolicloud.com 
+		echo "Failed to suspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb when suspending $instancename.$domainname" $EMAILFROM 
 		exit 2
 	fi
-			
+
 fi
 
 

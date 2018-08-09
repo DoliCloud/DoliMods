@@ -246,7 +246,7 @@ print "\n";
 
 
 
-print "--- Set permissions with chmod -R ".$newlogin.".".$newlogin." ".$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$newlogin.'/'.$newdirdb."\n";
+print "--- Set permissions with chown -R ".$newlogin.".".$newlogin." ".$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$newlogin.'/'.$newdirdb."\n";
 $output=array();
 $return_varchmod=0;
 if ($mode == 'confirm')

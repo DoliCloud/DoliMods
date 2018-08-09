@@ -74,10 +74,10 @@ if (in_array($tmparray[0], array('deploy', 'undeploy', 'deployall', 'undeployall
 
 	exit();
 }
-if (in_array($tmparray[0], array('suspend', 'unsuspend')))
+if (in_array($tmparray[0], array('rename', 'suspend', 'unsuspend')))
 {
-	if ($DEBUG) fwrite($fh, date('Y-m-d H:i:s').' ./action_deploy_undeploy.sh '.$tmparray[0].' '.$paramspace."\n");
-	else fwrite($fh, date('Y-m-d H:i:s').' ./action_deploy_undeploy.sh '.$tmparray[0].' ...'."\n");
+	if ($DEBUG) fwrite($fh, date('Y-m-d H:i:s').' ./action_suspend_unsuspend.sh '.$tmparray[0].' '.$paramspace."\n");
+	else fwrite($fh, date('Y-m-d H:i:s').' ./action_suspend_unsuspend.sh '.$tmparray[0].' ...'."\n");
 
 	exec('./action_suspend_unsuspend.sh '.$tmparray[0].' '.$paramspace.' 2>&1', $output, $return_var);
 
@@ -92,7 +92,7 @@ if (in_array($tmparray[0], array('suspend', 'unsuspend')))
 	}
 	http_response_code($httpresponse);
 
-	print 'action_deploy_undeploy.sh for action '.$tmparray[0].' return '.$return_var.", \n";
+	print 'action_suspend_unsuspend.sh for action '.$tmparray[0].' return '.$return_var.", \n";
 	print "so remote agent returns http code ".$httpresponse."\n";
 
 	exit();

@@ -271,7 +271,7 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 		}
 		else
 		{
-			print 'Warning: Failed to create file last_rsync_'.$instance.'.txt'."\n";
+			print strftime("%Y%m%d-%H%M%S").' Warning: Failed to create file last_rsync_'.$instance.'.txt'."\n";
 		}
 	}
 }
@@ -323,27 +323,57 @@ if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 		}
 		else
 		{
-			print 'Warning: Failed to create file last_mysqldump_'.$instance.'.txt'."\n";
+			print strftime("%Y%m%d-%H%M%S").' Warning: Failed to create file last_mysqldump_'.$instance.'.txt'."\n";
 		}
 	}
 }
 
+$now=dol_now();
 
 // Update database
 if (empty($return_var) && empty($return_varmysql))
 {
 	if ($mode == 'confirm')
 	{
-		$now=dol_now();
-		print strftime("%Y%m%d-%H%M%S").' Update date of full backup (rsync+dump) for instance '.$object->instance.' to '.$now."\n";
-		$object->date_lastrsync=$now;
-		$object->update(0);
+		print 'Update date of full backup (rsync+dump) for instance '.$object->instance.' to '.$now."\n";
+
+		// Update database
+		if ($v == 1)
+		{
+			$object->date_lastrsync=$now;	// date latest files and database rsync backup
+			$object->backup_status='OK';
+			$object->update(null);
+		}
+		else
+		{
+			$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
+			$object->array_options['options_latestbackup_status']='OK';
+			$object->update(null);
+		}
 	}
 }
 else
 {
-	if (! empty($return_var)) print "ERROR into backup process of rsync: ".$return_var."\n";
+	if (! empty($return_var))      print "ERROR into backup process of rsync: ".$return_var."\n";
 	if (! empty($return_varmysql)) print "ERROR into backup process of mysqldump: ".$return_varmysql."\n";
+
+	if ($mode == 'confirm')
+	{
+		// Update database
+		if ($v == 1)
+		{
+			//$object->date_lastrsync=$now;	// date latest files and database rsync backup
+			$object->backup_status='KO '.strftime("%Y%m%d-%H%M%S");
+			$object->update($user);
+		}
+		else
+		{
+			$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
+			$object->array_options['options_latestbackup_status']='KO';
+			$object->update($user);
+		}
+	}
+
 	exit(1);
 }
 

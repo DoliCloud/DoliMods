@@ -245,7 +245,7 @@ class ActionsSellyoursaas
 
 				// Finish deployall
 
-				$comment = 'Activation after click on redeploy from contract card';
+				$comment = 'Activation after click on redeploy from contract card on '.dol_print_date(dol_now(), 'dayhourrfc');
 
 				// Activate all lines
 				if (! $error)
@@ -281,6 +281,7 @@ class ActionsSellyoursaas
 					else
 					{
 						setEventMessages($langs->trans("InstanceWasDeployed"), null, 'mesgs');
+						setEventMessages($langs->trans("NoEmailSentToInformCustomer"), null, 'mesgs');
 					}
 				}
 
@@ -713,58 +714,7 @@ class ActionsSellyoursaas
     			}
     			$companytmpforloop->id = $parameters['obj']->socid;
 
-
-    			// Define environment of payment modes
-    			$servicestatusstripe = 0;
-    			if (! empty($conf->stripe->enabled))
-    			{
-    				$service = 'StripeTest';
-    				$servicestatusstripe = 0;
-    				if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha') && empty($conf->global->SELLYOURSAAS_FORCE_STRIPE_TEST))
-    				{
-    					$service = 'StripeLive';
-    					$servicestatusstripe = 1;
-    				}
-    			}
-    			$servicestatuspaypal = 0;
-    			if (! empty($conf->paypal->enabled))
-    			{
-    				$servicestatuspaypal = 0;
-    				if (! empty($conf->global->PAYPAL_LIVE) && ! GETPOST('forcesandbox','alpha') && empty($conf->global->SELLYOURSAAS_FORCE_PAYPAL_TEST))
-    				{
-    					$servicestatuspaypal = 1;
-    				}
-    			}
-
-
-    			// Fill array of company payment modes
-    			$atleastonepaymentmode = 0;
-    			$sql = 'SELECT rowid, default_rib FROM '.MAIN_DB_PREFIX."societe_rib";
-    			$sql.= " WHERE type in ('ban', 'card', 'paypal')";
-    			$sql.= " AND fk_soc = ".$companytmpforloop->id;
-    			$sql.= " AND (type = 'ban' OR (type='card' AND status = ".$servicestatusstripe.") OR (type='paypal' AND status = ".$servicestatuspaypal."))";
-    			$sql.= " ORDER BY default_rib DESC, tms DESC";
-
-    			$resqltmp = $db->query($sql);
-    			if ($resqltmp)
-    			{
-    				$num_rows = $db->num_rows($resqltmp);
-    				if ($num_rows)
-    				{
-    					$i=0;
-    					while ($i < $num_rows)
-    					{
-    						$objtmp = $db->fetch_object($resqltmp);
-    						if ($objtmp)
-    						{
-    							if ($objtmp->default_rib != 1) continue;	// Keep the default payment mode only
-    							$atleastonepaymentmode++;
-    							break;
-    						}
-    						$i++;
-    					}
-    				}
-    			}
+    			$atleastonepaymentmode = sellyoursaasThirdpartyHasPaymentMode($companytmpforloop->id);
 
     			print '<td align="center">';
     			dol_include_once('sellyoursaas/lib/sellyoursaas.lib.php');

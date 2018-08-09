@@ -38,6 +38,7 @@ if [ "x$1" == "x" ]; then
 fi
 if [ "x$2" == "x" ]; then
 	echo "Missing parameter 2 - test|confirm" 1>&2
+	echo "Usage: ${0} [databasename] [test|confirm]"
 fi
 if [[ "x$1" == "x" || "x$2" == "x" ]]; then
 	exit
@@ -92,7 +93,7 @@ fi
 
 
 echo "***** Clean available virtualhost that are not enabled hosts"
-for fic in `ls /etc/apache2/sellyoursaas-available/*.*.dolicloud.com.conf 2>&1`
+for fic in `ls /etc/apache2/sellyoursaas-available/*.*.dolicloud.com.conf /etc/apache2/sellyoursaas-available/*.home.lan 2>/dev/null`
 do
 	basfic=`basename $fic` 
 	if [ ! -L /etc/apache2/sellyoursaas-online/$basfic ]; then
@@ -190,8 +191,8 @@ while read bidon osusername dbname deploymentstatus; do
     		
 			echo "Do a dump of database $dbname - may fails if already removed"
 			mkdir -p $archivedir/$osusername
-			echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $archivedir/$osusername/dump.$dbname.$now.sql"
-			$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname > $archivedir/$osusername/dump.$dbname.$now.sql
+			echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2"
+			$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2
 
 			echo "Now drop the database"
 			echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname"

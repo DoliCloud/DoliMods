@@ -319,58 +319,7 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 
 			if ($return_val != 0) $error++;
 
-			// Update database
-			if (! $error)
-			{
-				$db->begin();
-
-				if ($action == 'backup')	// If  $action == 'backuprsync' || $action == 'backupdatabase', backup is not complete on purpose, we do not save status
-				{
-					if ($v == 1)
-					{
-						$result=$object->fetch('',$instance);
-						$object->date_lastrsync=$now;	// date last files and database rsync backup
-						$object->backup_status='OK';
-						$object->update($user);
-					}
-					else
-					{
-						$result=$object->fetch('','',$instance);
-						$object->array_options['latestbackup_date']=$now;	// date last files and database rsync backup
-						$object->array_options['latestbackup_status']='OK';
-						$object->update($user);
-					}
-				}
-
-				$db->commit();
-			}
-			else
-			{
-				$db->begin();
-
-				if ($action == 'backup')	// If  $action == 'backuprsync' || $action == 'backupdatabase', backup is not complete on purpose, we do not save status
-				{
-					if ($v == 1)
-					{
-						$result=$object->fetch('',$instance);
-						//$object->date_lastrsync=$now;	// date last files and database rsync backup
-						$object->backup_status='KO '.strftime("%Y%m%d-%H%M%S");
-						$object->update($user);
-					}
-					else
-					{
-						$result=$object->fetch('','',$instance);
-						$object->array_options['options_latestbackup_date']=$now;	// date last files and database rsync backup
-						$object->array_options['options_latestbackup_status']='KO';
-						$object->update($user);
-					}
-				}
-
-				$db->commit();
-			}
-
-
-			//
+			// Return
 			if (! $error)
 			{
 				$nbofok++;
@@ -540,7 +489,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 						}
 						else
 						{
-							$rep=sellyoursaas_calculate_stats($db,$datelastday);	// Get qty and amount into template invoices linked to a contracts
+							$rep=sellyoursaas_calculate_stats($db,$datelastday);	// Get qty and amount into template invoices linked to active contracts
 						}
 
 						if ($rep)
@@ -594,15 +543,15 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 
 // Result
 $out = '';
-$out.= "Nb of instances (all time): ".$nbofalltime."\n";
-$out.= "Nb of instances (active with or without payment error, close request or not): ".$nbofactive."\n";
-$out.= "Nb of instances (active but close request): ".$nbofactiveclosurerequest."\n";
-$out.= "Nb of instances (active but suspended): ".$nbofactivesusp."\n";
-$out.= "Nb of instances (active but payment ko, not yet suspended): ".$nbofactivepaymentko."\n";
+$out.= "Nb of paying instances (all time): ".$nbofalltime."\n";
+$out.= "Nb of paying instances (active with or without payment error, close request or not): ".$nbofactive."\n";
+$out.= "Nb of paying instances (active but close request): ".$nbofactiveclosurerequest."\n";
+$out.= "Nb of paying instances (active but suspended): ".$nbofactivesusp."\n";
+$out.= "Nb of paying instances (active but payment ko, not yet suspended): ".$nbofactivepaymentko."\n";
 if ($action != 'updatestatsonly')
 {
-	$out.= "Nb of instances processed ok: ".$nbofok."\n";
-	$out.= "Nb of instances processed ko: ".$nboferrors;
+	$out.= "Nb of paying instances processed ok: ".$nbofok."\n";
+	$out.= "Nb of paying instances processed ko: ".$nboferrors;
 }
 $out.= (count($instancesbackuperror)?", error for backup on ".join(', ',$instancesbackuperror):"");
 $out.= (count($instancesupdateerror)?", error for update on ".join(', ',$instancesupdateerror):"");
@@ -634,7 +583,7 @@ else
 		$msg = 'Error in '.$script_file." ".$argv[1]." ".$argv[2]."\n\n".$out;
 
 		include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-		$cmail = new CMailFile('[Alert] Error in backups', $to, $from, $msg);
+		$cmail = new CMailFile('[Alert] Error in backups - '.dol_print_date(dol_now(), 'dayrfc'), $to, $from, $msg, array(), array(), array(), '', '', 0, 0, '', '', '', '', 'emailing');
 		$result = $cmail->sendfile();
 	}
 }

@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2005-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2005-2018 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This file is an example to follow to add your own email selector inside
  * the Dolibarr email tool.
@@ -61,15 +61,15 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
         $form=new Form($this->db);
 
         $arraysource=array('yesv1'=>'V1','yesv2'=>'V2');
-        $arraystatus=array('TRIALING'=>'TRIALING','TRIAL_EXPIRED'=>'TRIAL_EXPIRED','ACTIVE'=>'ACTIVE','ACTIVE_PAY_ERR'=>'ACTIVE_PAY_ERR','SUSPENDED'=>'SUSPENDED','UNDEPLOYED'=>'UNDEPLOYED','CLOSURE_REQUESTED'=>'CLOSURE_REQUESTED','CLOSED'=>'CLOSED');
+        $arraystatus=array('processing'=>'Processing','done'=>'Done','undeployed'=>'Undeployed');
 
         $s='';
         $s.=$langs->trans("Source").': ';
-        $s.='<select name="filter" class="flat">';
+        $s.='<select name="options_dolicloud" class="flat">';
         $s.='<option value="none">&nbsp;</option>';
-        foreach($arraysource as $status)
+        foreach($arraysource as $key => $status)
         {
-	        $s.='<option value="'.$status.'">'.$status.'</option>';
+        	$s.='<option value="'.$key.'"'.($key == 'yesv2' ? ' selected':'').'>'.$status.'</option>';
         }
         $s.='</select>';
 
@@ -78,9 +78,9 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
         $s.=$langs->trans("Status").': ';
         $s.='<select name="filter" class="flat">';
         $s.='<option value="none">&nbsp;</option>';
-        foreach($arraystatus as $status)
+        foreach($arraystatus as $key => $status)
         {
-	        $s.='<option value="'.$status.'">'.$status.'</option>';
+	        $s.='<option value="'.$key.'">'.$status.'</option>';
         }
         $s.='</select>';
 
@@ -136,13 +136,25 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 		$sql.= " from ".MAIN_DB_PREFIX."societe as s";
 		$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."societe_extrafields as se on se.fk_object = s.rowid";
 		$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c on s.fk_pays = c.rowid";
+		if (! empty($_POST['filter']) && $_POST['filter'] != 'none')
+		{
+			$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."contrat as co on co.fk_soc = s.rowid";
+			$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as coe on coe.fk_object = co.rowid";
+		}
 		$sql.= " where email IS NOT NULL AND email != ''";
-		if (! empty($_POST['filter']) && $_POST['filter'] != 'none') $sql.= " AND status = '".$this->db->escape($_POST['filter'])."'";
+		if (! empty($_POST['options_dolicloud']) && $_POST['options_dolicloud'] != 'none')
+		{
+			$sql.= " AND se.dolicloud = '".$this->db->escape($_POST['options_dolicloud'])."'";
+		}
 		if (! empty($_POST['lang_id']) && $_POST['lang_id'] != 'none') $sql.= " AND default_lang = '".$this->db->escape($_POST['lang_id'])."'";
 		if (! empty($_POST['not_lang_id']) && $_POST['not_lang_id'] != 'none') $sql.= " AND default_lang <> '".$this->db->escape($_POST['lang_id'])."'";
 		if (! empty($_POST['country_id']) && $_POST['country_id'] != 'none') $sql.= " AND fk_pays = '".$this->db->escape($_POST['country_id'])."'";
+		if (! empty($_POST['filter']) && $_POST['filter'] != 'none')
+		{
+			$sql.= " AND coe.deployment_status = '".$this->db->escape($_POST['filter'])."'";
+		}
 		$sql.= " ORDER BY email";
-
+print $sql;
 		// Stocke destinataires dans cibles
 		$result=$this->db->query($sql);
 		if ($result)

@@ -49,6 +49,7 @@ if (! $res) die("Include of main fails");
 
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
@@ -56,6 +57,7 @@ require_once DOL_DOCUMENT_ROOT.'/cron/class/cronjob.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
+dol_include_once('/sellyoursaas/class/packages.class.php');
 
 // Re set variables specific to new environment
 $conf->global->SYSLOG_FILE_ONEPERSESSION=1;
@@ -97,44 +99,45 @@ $generateduniquekey=getRandomPassword(true);
 $partner=GETPOST('partner','int');
 $partnerkey=GETPOST('partnerkey','alpha');		// md5 of partner name_alias
 
-$plan=GETPOST('plan','alpha');
-$service=GETPOST('service','alpha');
-
 $fromsocid=GETPOST('fromsocid','int');
 $reusecontractid = GETPOST('reusecontractid','int');
 $reusesocid = GETPOST('reusesocid','int');
 
+$service=GETPOST('service','int');
 $productid=GETPOST('service','int');
+$plan=GETPOST('plan','alpha');
 $productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):($plan?$plan:''));
 
 // Load main product
 $tmpproduct = new Product($db);
-$result = $tmpproduct->fetch($productid, $productref);
-if (empty($tmpproduct->id))
-{
-	print 'Service/Plan (Product id / ref) '.$productid.' / '.$productref.' was not found.';
-	exit;
-}
-// We have the main product, we are searching the package
-if (empty($tmpproduct->array_options['options_package']))
-{
-	print 'Service/Plan (Product id / ref) '.$tmpproduct->id.' / '.$productref.' has no package defined on it.';
-	exit;
-}
-// We have the main product, we are searching the duration
-if (empty($tmpproduct->duration_value) || empty($tmpproduct->duration_unit))
-{
-	print 'Service/Plan name (Product ref) '.$productref.' has no default duration';
-	exit;
-}
-
-dol_include_once('/sellyoursaas/class/packages.class.php');
 $tmppackage = new Packages($db);
-$tmppackage->fetch($tmpproduct->array_options['options_package']);
-if (empty($tmppackage->id))
+if (empty($reusecontractid))
 {
-	print 'Package with id '.$tmpproduct->array_options['options_package'].' was not found.';
-	exit;
+	$result = $tmpproduct->fetch($productid, $productref);
+	if (empty($tmpproduct->id))
+	{
+		print 'Service/Plan (Product id / ref) '.$productid.' / '.$productref.' was not found.';
+		exit;
+	}
+	// We have the main product, we are searching the package
+	if (empty($tmpproduct->array_options['options_package']))
+	{
+		print 'Service/Plan (Product id / ref) '.$tmpproduct->id.' / '.$productref.' has no package defined on it.';
+		exit;
+	}
+	// We have the main product, we are searching the duration
+	if (empty($tmpproduct->duration_value) || empty($tmpproduct->duration_unit))
+	{
+		print 'Service/Plan name (Product ref) '.$productref.' has no default duration';
+		exit;
+	}
+
+	$tmppackage->fetch($tmpproduct->array_options['options_package']);
+	if (empty($tmppackage->id))
+	{
+		print 'Package with id '.$tmpproduct->array_options['options_package'].' was not found.';
+		exit;
+	}
 }
 
 $freeperioddays = $tmpproduct->array_options['options_freeperioddays'];
@@ -245,14 +248,11 @@ else
 		header("Location: ".$newurl);
 		exit;
 	}*/
-	if (function_exists('idn_to_ascii') && function_exists('checkdnsrr'))
+	if (function_exists('isValidMXRecord') && isValidMXRecord($domainemail) == 0)
 	{
-		if (! checkdnsrr(idn_to_ascii($domainemail)))
-		{
-			setEventMessages($langs->trans("BadValueForDomainInEmail", $conf->global->SELLYOURSAAS_MAIN_EMAIL), null, 'errors');
-			header("Location: ".$newurl);
-			exit;
-		}
+		setEventMessages($langs->trans("BadValueForDomainInEmail", $conf->global->SELLYOURSAAS_MAIN_EMAIL), null, 'errors');
+		header("Location: ".$newurl);
+		exit;
 	}
 	if (empty($password) || empty($password2))
 	{
@@ -345,7 +345,7 @@ else
 			header("Location: ".$newurl);
 			exit;
 		}
-		else dol_syslog("Not found");
+		else dol_syslog("Email not already used. Good.");
 	}
 
 	$fqdninstance = $sldAndSubdomain.$tldid;
@@ -357,7 +357,7 @@ else
 		header("Location: ".$newurl);
 		exit;
 	}
-	else dol_syslog("Not found");
+	else dol_syslog("Contract name not already used. Good.");
 
 
 	// Generate credentials
@@ -384,7 +384,7 @@ else
 
 	$tmpthirdparty->name = $orgname;
 	$tmpthirdparty->email = $email;
-	$tmpthirdparty->client = 3;
+	$tmpthirdparty->client = 2;
 	$tmpthirdparty->tva_assuj = 1;
 	$tmpthirdparty->default_lang = $langs->defaultlang;
 	$tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
@@ -483,7 +483,26 @@ else
 		$contract->array_options['options_password_db'] = $generateddbpassword;
 		//$contract->array_options['options_nb_users'] = 1;
 		//$contract->array_options['options_nb_gb'] = 0.01;
+
 		$contract->array_options['options_deployment_ip'] = $_SERVER["REMOTE_ADDR"];
+		$vpnproba = '';
+		if (! empty($_SERVER["REMOTE_ADDR"]))
+		{
+			$emailforvpncheck='contact+checkcustomer@nltechno.com';	// TODO Use a parameter email
+			$url = 'http://check.getipintel.net/check.php?ip='.$_SERVER["REMOTE_ADDR"].'&contact='.urlencode($emailforvpncheck).'&flag=f';
+			$result = getURLContent($url);
+			/* The proxy check system will return negative values on error. For standard format (non-json), an additional HTTP 400 status code is returned
+				-1 Invalid no input
+				-2 Invalid IP address
+				-3 Unroutable address / private address
+				-4 Unable to reach database, most likely the database is being updated. Keep an eye on twitter for more information.
+				-5 Your connecting IP has been banned from the system or you do not have permission to access a particular service. Did you exceed your query limits? Did you use an invalid email address? If you want more information, please use the contact links below.
+				-6 You did not provide any contact information with your query or the contact information is invalid.
+				If you exceed the number of allowed queries, you'll receive a HTTP 429 error.
+			 */
+			$vpnproba = $result['content'];
+		}
+		$contract->array_options['options_deployment_vpn_proba'] = $vpnproba;
 
 		$prefix=dol_getprefix('');
 		$cookieregistrationa='DOLREGISTERA_'.$prefix;
@@ -650,7 +669,7 @@ if (! $error)
 if (! $error)
 {
 	$contract->array_options['options_deployment_status'] = 'done';
-	$contract->array_options['options_deployment_date_end'] = dol_now('tzserver');
+	$contract->array_options['options_deployment_date_end'] = dol_now();
 	$contract->array_options['options_undeployment_date'] = '';
 	$contract->array_options['options_undeployment_ip'] = '';
 
@@ -743,7 +762,7 @@ $errormessages[] = 'Deployement of instance '.$sldAndSubdomain.$tldid.' started 
 $errormessages[] = 'Our team was alerted. You will receive an email as soon as deployment is complete.';
 
 dol_syslog("Error in deployment", LOG_ERR);
-$email = new CMailFile('[Alert] Registration/deployment error', $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL, $conf->global->SELLYOURSAAS_NOREPLY_EMAIL, join("\n",$errormessages)."\n\nParameters of command used:\n".$commandurl);
+$email = new CMailFile('[Alert] Registration/deployment error - '.dol_print_date(dol_now(), 'dayrfc'), $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL, $conf->global->SELLYOURSAAS_NOREPLY_EMAIL, join("\n",$errormessages)."\n\nParameters of command used:\n".$commandurl, array(), array(), array(), '', '', 0, 0, '', '', '', '', 'emailing');
 $email->sendfile();
 
 

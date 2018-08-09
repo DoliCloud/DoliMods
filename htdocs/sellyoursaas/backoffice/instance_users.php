@@ -147,7 +147,7 @@ if (empty($reshook))
 	    	// TODO Use the encryption of remote instance
 	    	$password_crypted = dol_hash($password);
 
-	    	$sql="INSERT INTO llx_user(login, admin, pass, pass_crypted, entity) VALUES('".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', 1, '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$newdb->escape($password_crypted)."', 0)";
+	    	$sql="INSERT INTO llx_user(login, lastname, admin, pass, pass_crypted, entity) VALUES('".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', 1, '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$newdb->escape($password_crypted)."', 0)";
 	        $resql=$newdb->query($sql);
 	        if (! $resql)
 	        {
@@ -172,6 +172,29 @@ if (empty($reshook))
 	        $resql=$newdb->query($sql);
 	        if (! $resql) dol_print_error($newdb);
 	    }
+	}
+
+	if ($action == "disableuser")
+	{
+		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
+		if (is_object($newdb))
+		{
+			$sql="UPDATE llx_user set statut=0 WHERE rowid = ".GETPOST('remoteid','int');
+			$resql=$newdb->query($sql);
+			if (! $resql) dol_print_error($newdb);
+			else setEventMessages("UserDisabled", null, 'mesgs');
+		}
+	}
+	if ($action == "enableuser")
+	{
+		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
+		if (is_object($newdb))
+		{
+			$sql="UPDATE llx_user set statut=1 WHERE rowid = ".GETPOST('remoteid','int');
+			$resql=$newdb->query($sql);
+			if (! $resql) dol_print_error($newdb);
+			else setEventMessages("UserEnabled", null, 'mesgs');
+		}
 	}
 
 	if ($action == "confirm_resetpassword")
@@ -438,16 +461,32 @@ if (empty($instanceoldid))
 
 
 // Dolibarr instance login
-if (empty($instanceoldid))
+if ($lastpassadmin)
 {
-	$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+	if (empty($instanceoldid))
+	{
+		$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+	}
+	else
+	{
+		$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+	}
+	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+	print 'Dolibarr link (last logged admin): '.$link.'<br>';
 }
 else
 {
-	$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+	if (empty($instanceoldid))
+	{
+		$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password='.$object->array_options['options_deployment_init_adminpass'];
+	}
+	else
+	{
+		$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password=';
+	}
+	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
+	print 'Dolibarr link (initial pass at install): '.$link.'<br>';
 }
-$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-print 'Dolibarr link (last logged admin): '.$link.'<br>';
 print '<br>';
 
 
@@ -507,7 +546,7 @@ function print_user_table($newdb)
 	print '<td>'.$langs->trans("DateLastLogin").'</td>';
 	print '<td>'.$langs->trans("Entity").'</td>';
 	print '<td>'.$langs->trans("ParentsId").'</td>';
-	print '<td>'.$langs->trans("Status").'</td>';
+	print '<td class="center">'.$langs->trans("Status").'</td>';
 	print '<td></td>';
 	print '</tr>';
 
@@ -562,16 +601,25 @@ function print_user_table($newdb)
 				print '<td>'.dol_print_date($newdb->jdate($obj->datelastlogin),'dayhour').'</td>';
 				print '<td>'.$obj->entity.'</td>';
 				print '<td>';
-				if ($obj->fk_user > 0) print 'Parent user: '.$obj->fk_user;
-				if ($obj->fk_soc > 0) print 'Parent thirdparty: '.$obj->fk_soc;
-				if ($obj->fk_socpeople > 0) print 'Parent contact: '.$obj->fk_socpeople;
-				if ($obj->fk_member > 0) print 'Parent member: '.$obj->fk_member;
+				$txtparent='';
+				if ($obj->fk_user > 0)      $txtparent.=($txtparent?'<br>':'').'Parent user: '.$obj->fk_user;
+				if ($obj->fk_soc > 0)       $txtparent.=($txtparent?'<br>':'').'Parent thirdparty: '.$obj->fk_soc;
+				if ($obj->fk_socpeople > 0) $txtparent.=($txtparent?'<br>':'').'Parent contact: '.$obj->fk_socpeople;
+				if ($obj->fk_member > 0)    $txtparent.=($txtparent?'<br>':'').'Parent member: '.$obj->fk_member;
+				print $txtparent;
 				print '</td>';
-				print '<td align="right">'.$obj->statut.'</td>';
+				print '<td align="center">';
+				if ($obj->statut)
+				{
+					print '<a href="'.$_SERVER["PHP_SELF"].'?action=disableuser&remoteid='.$obj->rowid.($instanceoldid?'&instanceoldid='.$instanceoldid:('&id='.$id)).'"><span class="fa fa-toggle-on marginleftonly valignmiddle" style="font-size: 2em; color: #227722;" alt="Activated" title="Activated"></span></a>';
+				}
+				else
+				{
+					print '<a href="'.$_SERVER["PHP_SELF"].'?action=enableuser&remoteid='.$obj->rowid.($instanceoldid?'&instanceoldid='.$instanceoldid:('&id='.$id)).'"><span class="fa fa-toggle-off marginleftonly valignmiddle" style="font-size: 2em; color: #888888;" alt="Disabled" title="Disabled"></span></a>';
+				}
+				print '</td>';
 				print '<td align="right">';
-
 				print '<a href="'.$_SERVER["PHP_SELF"].'?action=resetpassword&remoteid='.$obj->rowid.($instanceoldid?'&instanceoldid='.$instanceoldid:('&id='.$id)).'">'.img_picto('ResetPassword', 'object_technic').'</a>';
-
 				print '</td>';
 				print '</tr>';
 				$i++;

@@ -226,7 +226,6 @@ if ($mode == 'confirmunlock')
 	// SFTP connect
 	if (! function_exists("ssh2_connect")) { dol_print_error('','ssh2_connect function does not exists'); exit(1); }
 
-	$server=$object->instance.'.on.dolicloud.com';
 	$connection = ssh2_connect($server, 22);
 	if ($connection)
 	{

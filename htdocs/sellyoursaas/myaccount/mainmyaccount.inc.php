@@ -491,7 +491,7 @@ if (! function_exists('dol_getprefix'))
 	{
 		global $conf;
 
-		// If MAIL_PREFIX_FOR_EMAIL_ID is set and prefix is for email
+		// If MAIL_PREFIX_FOR_EMAIL_ID is set and requested prefix (mode) is for email
 		if ($mode == 'email' && ! empty($conf->global->MAIL_PREFIX_FOR_EMAIL_ID))
 		{
 			if ($conf->global->MAIL_PREFIX_FOR_EMAIL_ID != 'SERVER_NAME') return $conf->global->MAIL_PREFIX_FOR_EMAIL_ID;

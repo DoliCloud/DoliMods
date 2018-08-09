@@ -156,6 +156,8 @@ $rep=sellyoursaas_calculate_stats($db,'');	// $datelastday is last day of curren
 $total=$rep['total'];
 $totalcommissions=$rep['totalcommissions'];
 $totalinstancespaying=$rep['totalinstancespaying'];
+$totalinstancessuspended=$rep['totalinstancessuspended'];
+$totalinstancesexpired=$rep['totalinstancesexpired'];
 $totalinstances=$rep['totalinstances'];
 $totalusers=$rep['totalusers'];
 $part = 0;
@@ -173,9 +175,22 @@ print '</td><td align="right">';
 print '<font size="+2">'.$totalresellers.'</font>';
 print '</td></tr>';
 print '<tr class="oddeven"><td class="wordwrap wordbreak">';
-print $langs->trans("NbOfInstancesActivePaying").' / '.$langs->trans("NbOfInstancesPaying").' ';
+print $form->textwithpicto($langs->trans("NbOfInstancesActivePaying"), $langs->trans("NbOfInstancesActivePayingDesc"));
+print ' / '.$langs->trans("NbOfActiveInstances").' ';
 print '</td><td align="right">';
 print '<font size="+2">'.$totalinstancespaying.' / '.$totalinstances.'</font>';
+print '<!--'."\n";
+foreach($rep['listofinstancepaying'] as $arrayofcontract)
+{
+	print $arrayofcontract['thirdparty_name'].' - '.$arrayofcontract['contract_ref']."\n";
+}
+print "\n".'-->';
+print '</td></tr>';
+print '<tr class="oddeven"><td class="wordwrap wordbreak">';
+print $langs->trans("NbOfSuspendedInstances").' ';
+print ' + '.$langs->trans("NbOfExpiredInstances").' ';
+print '</td><td align="right">';
+print '<font size="+2">'.$totalinstancessuspended.' + '.$totalinstancesexpired.'</font>';
 print '</td></tr>';
 print '<tr class="oddeven"><td>';
 print $langs->trans("NbOfUsers").' ';

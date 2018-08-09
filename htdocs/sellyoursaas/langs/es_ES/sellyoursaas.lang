@@ -115,7 +115,7 @@ Organization=Organización
 NameOfCompany=Nombre de empresa/institución
 ConfirmPassword=Confirmar contraseña
 ChooseANameForYourApplication=Elija un nombre de dirección para la aplicación
-WhenRegisteringYouAccept=Al registrarse, acepta las <a href="%s" target="_blank">Condiciones de uso</a>
+WhenRegisteringYouAccept=Al registrarse, acepta las<br><a href="%s" target="_blank">Condiciones de uso</a>
 SignMeUp=Crear mi instancia
 ErrorPasswordMismatch=Error, las 2 entradas de contraseña deben ser idénticas
 ErrorOnlyCharAZAllowedFor=Solo están permitidos los caracteres a-z, 0-9 o - para %s
@@ -257,6 +257,7 @@ High=Elevado
 YourText=Por favor ingrese su texto aquí...
 TicketSent=Su ticket ha sido recibido. Lo trataremos lo antes posible.
 FailedToSentTicketPleaseTryLater=Error al enviar su ticket. Por favor intentelo de nuevo más tarde...
+FailedToCreateCardRecord=Error al validar tu tarjeta.
 AlreadyHaveAnAccount=¿Ya tiene una cuenta?
 LoginAction=Iniciar sesión
 RecreateAuthorizedKey=Crear archivo authorized_keys
@@ -295,7 +296,7 @@ FailedToConnectMayBeOldInstance=Error al conectarse a la base de datos de la ins
 BackupDir=Directorio copia de seguridad
 PaymentModeRecorded=Método de pago registrado
 CustomerPortal=Área Cliente
-RegistrationPage=Página inscripción
+RegistrationPages=Páginas inscripción
 RegistrationCounter=Contador de registro para la misma cookie
 RegistrationPreviousInstance=Instancia anterior para la misma cookie
 DownloadTheSEPAMandate=Descargar el mandato SEPA
@@ -322,7 +323,7 @@ Resellers=Revendedores
 SummaryOld=Resumen (DoliCloud old)
 BecomeReseller=Convertirse en revendedor
 SELLYOURSAAS_ALLOW_RESELLER_PROGRAM=Activar las funciones de "Revendedores"
-BecomeResellerDesc=Usted va a pedir convertirse en revendedor %s. Primero compruebe en el menú 'Mi cuenta' que ha rellenado toda la información. Luego, lea la siguiente página para asegurarse de que comprende lo que significa: <a href="%s">Convertirse en revendedor %s</a>
+BecomeResellerDesc=Usted va a pedir convertirse en revendedor %s. Primero compruebe en el menú 'Mi cuenta' que ha rellenado toda la información. Luego, lea la siguiente página para asegurarse de que comprende lo que significa: <a href="%s" target="_blank">Convertirse en revendedor %s</a>
 YourTextBecomeReseller=Entendí el principio del programa de revendedor %s y me gustaría formar parte de él, por favor activenme las características de revendedor. \nTengo previsto encontrar ___ clientes nuevos al año. \nEntiendo que no tengo trabajo para proporcionar excepto para promocionar mi URL personalizada para registrar nuevos clientes. Mi tasa de comisión inicial será de %s %% (pero puede aumentar con la cantidad de clientes).
 NbOfResellers=Nº de revendedores
 AvailableForResellers=Aplicación disponible para revendedores
@@ -332,4 +333,5 @@ SorryInstancesAreOffLine=Debido a un problema técnico, la instancia% s no está
 TrialOrPaid=Modo gratuito o pagado
 PaymentModeSaved=Método de pago registrado
 RetryNow=Inténtalo nuevamente ahora
+ClickToCheckAgain=Haga clic aquí para verificar nuevamente
 LogIn=Conectarse

@@ -50,7 +50,7 @@ require_once DOL_DOCUMENT_ROOT.'/societe/class/companypaymentmode.class.php';
 dol_include_once('/sellyoursaas/class/packages.class.php');
 dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
 
-$conf->global->SYSLOG_FILE_ONEPERSESSION=1;
+$conf->global->SYSLOG_FILE_ONEPERSESSION=2;
 
 // Which mode to get credit card (direct credit card data or token) ?
 $conf->global->SELLYOURSAAS_STRIPE_USE_TOKEN = 1;
@@ -264,11 +264,17 @@ if (! empty($conf->paypal->enabled))
 	}
 }
 
+$initialaction = $action;
 
 
 /*
  * Action
  */
+
+if (empty($welcomecid))
+{
+	dol_syslog('----- index.php mode='.$mode.' action='.$action.' cancel='.$cancel, LOG_DEBUG, 1);
+}
 
 if ($cancel)
 {
@@ -325,6 +331,7 @@ if ($action == 'send')
 		$content .= "<br><br>\n";
 		$content .= 'Date: '.dol_print_date($now, 'dayhour')."<br>\n";
 		$content .= 'Instance: <a href="https://'.$tmpcontract->ref_customer.'">'.$tmpcontract->ref_customer."</a><br>\n";
+		//$content .= 'Ref contract: <a href="xxx/contrat/card.php?id='.$tmpcontract->ref.">".$tmpcontract->ref."</a><br>\n"; 	// No link to backoffice as the mail is used with answer to.
 		$content .= 'Ref contract: '.$tmpcontract->ref."<br>\n";
 		// Add the support type
 		foreach($tmpcontract->lines as $key => $val)
@@ -408,11 +415,17 @@ if ($action == 'updatemythirdpartyaccount')
 
 	$db->begin();	// Start transaction
 
+	$mythirdpartyaccount->oldcopy = dol_clone($mythirdpartyaccount);
+
 	$mythirdpartyaccount->name = $orgname;
 	$mythirdpartyaccount->address = $address;
 	$mythirdpartyaccount->town = $town;
 	$mythirdpartyaccount->zip = $zip;
-	if ($country_id > 0) $mythirdpartyaccount->country_id = $country_id;
+	if ($country_id > 0)
+	{
+		$mythirdpartyaccount->country_id = $country_id;
+		$mythirdpartyaccount->country_code = $country_code;
+	}
 	$mythirdpartyaccount->tva_assuj = $vatassuj;
 	$mythirdpartyaccount->tva_intra = $vatnumber;
 
@@ -592,6 +605,8 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					}
 					else
 					{
+						dol_syslog('--- Stripe customer retrieved or created, now we try to create card with mode SELLYOURSAAS_STRIPE_USE_TOKEN='.$conf->global->SELLYOURSAAS_STRIPE_USE_TOKEN);
+
 						if (! empty($conf->global->SELLYOURSAAS_STRIPE_USE_TOKEN))
 						{
 							$metadata = array(
@@ -604,34 +619,64 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 							if (! empty($mythirdpartyaccount->id)) 	$metadata["dol_thirdparty_id"] = $mythirdpartyaccount->id;
 
 							// Create Stripe card from Token
-							$card = $cu->sources->create(array("source" => $stripeToken, "metadata" => $metadata));
+							try
+							{
+								$card = $cu->sources->create(array("source" => $stripeToken, "metadata" => $metadata));
+							}
+							catch(\Stripe\Error\Card $e) {
+								// Since it's a decline, Stripe_CardError will be caught
+								$body = $e->getJsonBody();
+								$err  = $body['error'];
 
-							if (empty($card))
+								$stripefailurecode = $err['code'];
+								$stripefailuremessage = $err['message'];
+
+								$error++;
+								$errormsg = 'Code: '.$stripefailurecode.', '.$langs->trans("Message").': '.$stripefailuremessage;
+								dol_syslog('--- FailedToCreateCardRecord Strip Error Card '.$errormsg, LOG_WARNING);
+								setEventMessages($langs->trans('FailedToCreateCardRecord').($errormsg?'<br>'.$errormsg:''), null, 'errors');
+								$action='';
+
+								dol_syslog('--- FailedToCreateCardRecord '.json_encode($err), LOG_WARNING);
+							}
+							catch(Exception $e)
 							{
 								$error++;
-								dol_syslog('Failed to create card record', LOG_WARNING, 0, '_stripe');
-								setEventMessages('Failed to create card record', null, 'errors');
+								$errormsg = $e->getMessage();
+								dol_syslog('--- FailedToCreateCardRecord Exception '.$errormsg, LOG_WARNING);
+								setEventMessages($langs->trans('FailedToCreateCardRecord').($errormsg?'<br>'.$errormsg:''), null, 'errors');
 								$action='';
 							}
-							else
-							{
-								$sql = "UPDATE " . MAIN_DB_PREFIX . "societe_rib";
-								$sql.= " SET stripe_card_ref = '".$db->escape($card->id)."', card_type = '".$db->escape($card->brand)."',";
-								$sql.= " country_code = '".$db->escape($card->country)."',";
-								$sql.= " exp_date_month = '".$db->escape($card->exp_month)."',";
-								$sql.= " exp_date_year = '".$db->escape($card->exp_year)."',";
-								$sql.= " last_four = '".$db->escape($card->last4)."',";
-								//$sql.= " cvn = '".$db->escape($card->???)."',";
-								$sql.= " approved = ".($card->cvc_check == 'pass' ? 1 : 0);
-								$sql.= " WHERE rowid = " . $companypaymentmode->id;
-								$sql.= " AND type = 'card'";
-								$resql = $db->query($sql);
-								if (! $resql)
-								{
-									setEventMessages($db->lasterror(), null, 'errors');
-								}
 
-								$stripecard = $card->id;
+							if (! $error)
+							{
+								if (empty($card))
+								{
+									$error++;
+									dol_syslog('--- FailedToCreateCardRecord', LOG_WARNING, 0);
+									setEventMessages($langs->trans('FailedToCreateCardRecord', ''), null, 'errors');
+									$action='';
+								}
+								else
+								{
+									$sql = "UPDATE " . MAIN_DB_PREFIX . "societe_rib";
+									$sql.= " SET stripe_card_ref = '".$db->escape($card->id)."', card_type = '".$db->escape($card->brand)."',";
+									$sql.= " country_code = '".$db->escape($card->country)."',";
+									$sql.= " exp_date_month = '".$db->escape($card->exp_month)."',";
+									$sql.= " exp_date_year = '".$db->escape($card->exp_year)."',";
+									$sql.= " last_four = '".$db->escape($card->last4)."',";
+									//$sql.= " cvn = '".$db->escape($card->???)."',";
+									$sql.= " approved = ".($card->cvc_check == 'pass' ? 1 : 0);
+									$sql.= " WHERE rowid = " . $companypaymentmode->id;
+									$sql.= " AND type = 'card'";
+									$resql = $db->query($sql);
+									if (! $resql)
+									{
+										setEventMessages($db->lasterror(), null, 'errors');
+									}
+
+									$stripecard = $card->id;
+								}
 							}
 						}
 						else
@@ -655,7 +700,32 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			if (! $error)
 			{
 				$companypaymentmode->setAsDefault($idpayment, 1);
-				dol_syslog("A credit card was recorded");
+				dol_syslog("--- A credit card was recorded", LOG_DEBUG, 0);
+
+				if ($mythirdpartyaccount->client == 2)
+				{
+					dol_syslog("--- Set status of thirdparty to prospect+client instead of only prospect", LOG_DEBUG, 0);
+					$mythirdpartyaccount->set_as_client();
+				}
+
+				if (! $error)
+				{
+					include_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
+					// Create an event
+					$actioncomm = new ActionComm($db);
+					$actioncomm->type_code   = 'AC_OTH_AUTO';		// Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
+					$actioncomm->code        = 'AC_ADD_PAYMENT';
+					$actioncomm->label       = 'Payment mode added by '.$_SERVER["REMOTE_ADDR"];
+					$actioncomm->datep       = $now;
+					$actioncomm->datef       = $now;
+					$actioncomm->percentage  = -1;   // Not applicable
+					$actioncomm->socid       = $mythirdpartyaccount->id;
+					$actioncomm->authorid    = $user->id;   // User saving action
+					$actioncomm->userownerid = $user->id;	// Owner of action
+					//$actioncomm->fk_element  = $mythirdpartyaccount->id;
+					//$actioncomm->elementtype = 'thirdparty';
+					$ret=$actioncomm->create($user);       // User creating action
+				}
 			}
 		}
 
@@ -666,7 +736,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 		// Note that it may have no pending invoice yet when contract is in trial mode (running or suspended)
 		if (! $error)
 		{
-			dol_syslog("Now we search pending invoices for thirdparty to pay them (Note that it may have no pending invoice yet when contract is in trial mode)");
+			dol_syslog("--- Now we search pending invoices for thirdparty to pay them (Note that it may have no pending invoice yet when contract is in trial mode)", LOG_DEBUG, 0);
 
 			dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 
@@ -682,7 +752,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			// If some payment was really done, we force commit to be sure to validate invoices payment done by stripe, whatever is global result of doTakePaymentStripeForThirdparty
 			if ($sellyoursaasutils->stripechargedone > 0)
 			{
-				dol_syslog("Force commit to validate payments recorded after real Stripe charges");
+				dol_syslog("--- Force commit to validate payments recorded after real Stripe charges", LOG_DEBUG, 0);
 
 				$db->commit();
 
@@ -693,7 +763,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 		// Make renewals on contracts of customer
 		if (! $error)
 		{
-			dol_syslog("Make renewals on crontacts for thirdparty id=".$mythirdpartyaccount->id);
+			dol_syslog("--- Make renewals on crontacts for thirdparty id=".$mythirdpartyaccount->id, LOG_DEBUG, 0);
 
 			dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 
@@ -712,7 +782,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 		{
 			foreach ($listofcontractid as $contract)
 			{
-				dol_syslog("Create recurring invoice on contract if it does not have yet.");
+				dol_syslog("--- Create recurring invoice on contract if it does not have yet.", LOG_DEBUG, 0);
 
 				// Make a test to pass loop if there is already a template invoice
 				$result = $contract->fetchObjectLinked();
@@ -729,14 +799,14 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					}
 				}
 
-				dol_syslog("* No template invoice found for this contract contract_id = ".$contract->id.", so we refresh contract before creating template invoice + creating invoice (if template invoice date is already in past) + making contract renewal.");
+				dol_syslog("--- No template invoice found for this contract contract_id = ".$contract->id.", so we refresh contract before creating template invoice + creating invoice (if template invoice date is already in past) + making contract renewal.", LOG_DEBUG, 0);
 
 
 				// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines
 				$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
 
 
-				dol_syslog("* No template invoice found for this contract contract_id = ".$contract->id.", so we create it then create real invoice (if template invoice date is already in past) then make contract renewal.");
+				dol_syslog("--- No template invoice found for this contract contract_id = ".$contract->id.", so we create it then create real invoice (if template invoice date is already in past) then make contract renewal.", LOG_DEBUG, 0);
 
 				// Now create invoice draft
 				$dateinvoice = $contract->array_options['options_date_endfreeperiod'];
@@ -826,7 +896,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 						$now = dol_now();
 						if ($date_start < $now)
 						{
-							dol_syslog("Date start is in past, so we take current date as date start and update also end date of contract");
+							dol_syslog("--- Date start is in past, so we take current date as date start and update also end date of contract", LOG_DEBUG, 0);
 							$tmparray = sellyoursaasGetExpirationDate($srcobject);
 							$duration_value = $tmparray['duration_value'];
 							$duration_unit = $tmparray['duration_unit'];
@@ -880,7 +950,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 						$tmpproduct->fetch($lines[$i]->fk_product);
 
-						dol_syslog("Read frequency for product id=".$tmpproduct->id);
+						dol_syslog("--- Read frequency for product id=".$tmpproduct->id, LOG_DEBUG, 0);
 						if ($tmpproduct->array_options['options_app_or_option'] == 'app')
 						{
 							$frequency = $tmpproduct->duration_value;
@@ -975,7 +1045,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					// A template invoice was just created, we run generation of invoice if template invoice date is already in past
 					if (! $error)
 					{
-						dol_syslog("A template invoice was generated with id ".$invoicerecid.", now we run createRecurringInvoices to build real invoice");
+						dol_syslog("--- A template invoice was generated with id ".$invoicerecid.", now we run createRecurringInvoices to build real invoice", LOG_DEBUG, 0);
 						$facturerec = new FactureRec($db);
 
 						$savperm1 = $user->rights->facture->creer;
@@ -997,7 +1067,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					}
 					if (! $error)
 					{
-						dol_syslog("Now we try to take payment for thirdpartyid = ".$mythirdpartyaccount->id);	// Unsuspend if it was suspended (done by trigger BILL_CANCEL or BILL_PAYED).
+						dol_syslog("--- Now we try to take payment for thirdpartyid = ".$mythirdpartyaccount->id, LOG_DEBUG, 0);	// Unsuspend if it was suspended (done by trigger BILL_CANCEL or BILL_PAYED).
 
 						dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 
@@ -1008,12 +1078,13 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 						{
 							$error++;
 							setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
+							dol_syslog("--- Failed to take payment ".$sellyoursaasutils->error, LOG_DEBUG, 0);
 						}
 
 						// If some payment was really done, we force commit to be sure to validate invoices payment done by stripe, whatever is global result of doTakePaymentStripeForThirdparty
 						if ($sellyoursaasutils->stripechargedone > 0)
 						{
-							dol_syslog("Force commit to validate payments recorded after real Stripe charges");
+							dol_syslog("--- Force commit to validate payments recorded after real Stripe charges", LOG_DEBUG, 0);
 
 							$db->commit();
 
@@ -1024,7 +1095,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					// Make renewals on contracts of customer
 					if (! $error)
 					{
-						dol_syslog("Now we make renewal of contracts for thirdpartyid=".$mythirdpartyaccount->id." if payments were ok (it also means contract are refreshed and even unsuspended)");
+						dol_syslog("--- Now we make renewal of contracts for thirdpartyid=".$mythirdpartyaccount->id." if payments were ok (it also means contract are refreshed and even unsuspended)", LOG_DEBUG, 0);
 
 						dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 
@@ -1144,7 +1215,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 
 			if (! $error)
 			{
-				dol_syslog("Unactivate all lines - undeploy process from myaccount");
+				dol_syslog("--- Unactivate all lines - undeploy process from myaccount", LOG_DEBUG, 0);
 
 				$result = $contract->closeAll($user, 1, $comment);
 				if ($result < 0)
@@ -1195,7 +1266,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 			{
 				$object = $contract;
 
-				dol_syslog("Start undeploy after a confirmation from email for ".$contract->ref_customer);
+				dol_syslog("--- Start undeploy after a confirmation from email for ".$contract->ref_customer, LOG_DEBUG, 0);
 
 				// SAME CODE THAN INTO ACTION_SELLYOURSAAS.CLASS.PHP
 
@@ -1242,7 +1313,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 				// Unactivate all lines
 				if (! $error)
 				{
-					dol_syslog("Unactivate all lines - undeployconfirmed process from myaccount");
+					dol_syslog("--- Unactivate all lines - undeployconfirmed process from myaccount", LOG_DEBUG, 0);
 
 					$result = $object->closeAll($user, 1, $comment);
 					if ($result <= 0)
@@ -1555,13 +1626,14 @@ if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE))
 }
 
 
-// List of available plans
+// List of available plans/products (available for reseller)
 $arrayofplans=array();
 $arrayofplanscode=array();
 $sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration';
 $sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
 $sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 $sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
+$sqlproducts.= " AND p.ref NOT LIKE '%DolibarrV1%'";
 $sqlproducts.= " AND pe.availabelforresellers = 1";
 //$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";
 $resqlproducts = $db->query($sqlproducts);
@@ -1582,39 +1654,41 @@ if ($resqlproducts)
 			$tmparray = $tmpprod->get_arbo_each_prod();
 
 			$label = $obj->label;
-			$pricefix = $obj->price;
-			$pricefix_ttc = $obj->price_ttc;
-			$priceuser = 0;
-			$priceuser_ttc = 0;
+
+			$priceinstance=array();
+			$priceinstance_ttc=array();
+
+			$priceinstance['fix'] = $obj->price;
+			$priceinstance_ttc['fix'] = $obj->price_ttc;
+			$priceinstance['user'] = 0;
+			$priceinstance_ttc['user'] = 0;
 
 			if (count($tmparray) > 0)
 			{
 				foreach($tmparray as $key => $value)
 				{
 					$tmpprodchild->fetch($value['id']);
-					if ($tmpprodchild->array_options['options_app_or_option'] == 'app')
+					if (preg_match('/user/i', $tmpprodchild->ref) || preg_match('/user/i', $tmpprodchild->array_options['options_resource_label']))
 					{
-						$pricefix .= $obj->price;
-						$pricefix_ttc .= $obj->price_ttc;
+						$priceinstance['user'] .= $obj->price;
+						$priceinstance_ttc['user'] .= $obj->price_ttc;
 					}
-					if ($tmpprodchild->array_options['options_app_or_option'] == 'system')
+					else
 					{
-						$priceuser .= $obj->price;
-						$priceuser_ttc .= $obj->price_ttc;
-					}
-					if ($tmpprodchild->array_options['options_app_or_option'] == 'option')
-					{
-						$priceuser .= $obj->price;
-						$priceuser_ttc .= $obj->price_ttc;
+						$priceinstance['fix'] += $tmpprodchild->price;
+						$priceinstance_ttc['fix'] += $tmpprodchild->price_ttc;
 					}
 				}
 			}
 
-			$arrayofplans[$obj->rowid]=$label.' ('.price(price2num($pricefix,'MT'), 1, $langs, 1, -1, -1, $conf->currency);
+			$pricetoshow = price2num($priceinstance['fix'],'MT');
+			if (empty($pricetoshow)) $pricetoshow = 0;
+			$arrayofplans[$obj->rowid]=$label.' ('.price($pricetoshow, 1, $langs, 1, 0, -1, $conf->currency);
+
 			if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
-			if ($priceuser)
+			if ($priceinstance['user'])
 			{
-				$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, -1, -1, $conf->currency).'/'.$langs->trans("User");
+				$arrayofplans[$obj->rowid].=' + '.price(price2num($priceinstance['user'],'MT'), 1, $langs, 1, 0, -1, $conf->currency).'/'.$langs->trans("User");
 				if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
 			}
 			$arrayofplans[$obj->rowid].=')';
@@ -1829,13 +1903,16 @@ if (empty($welcomecid))
 			{
 				if ($delaybeforeendoftrial > 0)		// Trial not yet expired
 				{
-					$firstline = reset($contract->lines);
-					print '
-						<!-- XDaysBeforeEndOfTrialPaymentModeSet -->
-						<div class="note note-info">
-						<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrialPaymentModeSet", abs($delayindays), $contract->ref_customer).'</h4>
-						</div>
-					';
+					if ($contract->array_options['options_deployment_status'] != 'processing')
+					{
+						$firstline = reset($contract->lines);
+						print '
+							<!-- XDaysBeforeEndOfTrialPaymentModeSet -->
+							<div class="note note-info">
+							<h4 class="block">'.$langs->trans("XDaysBeforeEndOfTrialPaymentModeSet", abs($delayindays), $contract->ref_customer).'</h4>
+							</div>
+						';
+					}
 				}
 				else								// Trial expired
 				{
@@ -2250,7 +2327,7 @@ if ($mode == 'dashboard')
 
 if ($mode == 'instances')
 {
-	// List of available plans
+	// List of available plans/producs
 	$arrayofplans=array();
 	$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration';
 	$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
@@ -2258,6 +2335,9 @@ if ($mode == 'instances')
 	$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
 	$sqlproducts.= " AND p.ref NOT LIKE '%DolibarrV1%'";
 	//$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";
+	//$sqlproducts.=' AND p.rowid = 202';
+	//print $sqlproducts;
+
 	$resqlproducts = $db->query($sqlproducts);
 	if ($resqlproducts)
 	{
@@ -2277,40 +2357,42 @@ if ($mode == 'instances')
 				$tmparray = $tmpprod->get_arbo_each_prod();
 
 				$label = $obj->label;
-				$pricefix = $obj->price;
-				$pricefix_ttc = $obj->price_ttc;
-				$priceuser = 0;
-				$priceuser_ttc = 0;
+
+				$priceinstance=array();
+				$priceinstance_ttc=array();
+
+				$priceinstance['fix'] = $obj->price;
+				$priceinstance_ttc['fix'] = $obj->price_ttc;
+				$priceinstance['user'] = 0;
+				$priceinstance_ttc['user'] = 0;
 
 				if (count($tmparray) > 0)
 				{
 					foreach($tmparray as $key => $value)
 					{
 						$tmpprodchild->fetch($value['id']);
-						if ($tmpprodchild->array_options['options_app_or_option'] == 'app')
+						if (preg_match('/user/i', $tmpprodchild->ref) || preg_match('/user/i', $tmpprodchild->array_options['options_resource_label']))
 						{
-							$pricefix .= $tmpprodchild->price;
-							$pricefix_ttc .= $tmpprodchild->price_ttc;
+							$priceinstance['user'] += $tmpprodchild->price;
+							$priceinstance_ttc['user'] += $tmpprodchild->price_ttc;
 						}
-						if ($tmpprodchild->array_options['options_app_or_option'] == 'system')
+						else
 						{
-							$priceuser .= $tmpprodchild->price;
-							$priceuser_ttc .= $tmpprodchild->price_ttc;
+							$priceinstance['fix'] += $tmpprodchild->price;
+							$priceinstance_ttc['fix'] += $tmpprodchild->price_ttc;
 						}
-						if ($tmpprodchild->array_options['options_app_or_option'] == 'option')
-						{
-							$priceuser .= $tmpprodchild->price;
-							$priceuser_ttc .= $tmpprodchild->price_ttc;
-						}
+						//var_dump($tmpprodchild->id.' '.$tmpprodchild->array_options['options_app_or_option'].' '.$tmpprodchild->price_ttc.' -> '.$priceuser.' / '.$priceuser_ttc);
 					}
 				}
 
+				$pricetoshow = price2num($priceinstance['fix'],'MT');
+				if (empty($pricetoshow)) $pricetoshow = 0;
+				$arrayofplans[$obj->rowid]=$label.' ('.price($pricetoshow, 1, $langs, 1, 0, -1, $conf->currency);
 
-				$arrayofplans[$obj->rowid]=$label.' ('.price(price2num($pricefix,'MT'), 1, $langs, 1, -1, -1, $conf->currency);
 				if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
-				if ($priceuser)
+				if ($priceinstance['user'])
 				{
-					$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, -1, -1, $conf->currency).' / '.$langs->trans("User");
+					$arrayofplans[$obj->rowid].=' + '.price(price2num($priceinstance['user'],'MT'), 1, $langs, 1, 0, -1, $conf->currency).' / '.$langs->trans("User");
 					if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
 				}
 				$arrayofplans[$obj->rowid].=')';
@@ -2410,7 +2492,7 @@ if ($mode == 'instances')
 
 
 			// Update resources of instance
-			if (in_array($statuslabel, array('suspended', 'done')))
+			if (in_array($statuslabel, array('suspended', 'done')) && ! in_array($initialaction, array('changeplan')))
 			{
 				$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
 				if ($result <= 0)
@@ -2549,8 +2631,10 @@ if ($mode == 'instances')
 								<!-- <p class="opacitymedium" style="padding: 15px; margin-bottom: 5px;">'.$langs->trans("YourResourceAndOptionsDesc").' :</p> -->
 					            <div style="padding-left: 12px; padding-bottom: 12px; padding-right: 12px">';
 
+				     			$arrayoflines = $contract->lines;
+				     			//var_dump($arrayoflines);
 								// Loop on each service / option
-								foreach($contract->lines as $keyline => $line)
+				     			foreach($arrayoflines as $keyline => $line)
 								{
 									//var_dump($line);
 									print '<div class="resource inline-block boxresource">';
@@ -2561,8 +2645,22 @@ if ($mode == 'instances')
 				                  	{
 					                  	$tmpproduct->fetch($line->fk_product);
 
-					                  	$htmlforphoto = $tmpproduct->show_photos('product', $conf->product->dir_output, 1, 1, 1, 0, 0, 40, 40, 1, 1, 1);
-					                  	print $htmlforphoto;
+					                  	$maxHeight=40;
+					                  	$maxWidth=40;
+					                  	$alt='';
+					                  	$htmlforphoto = $tmpproduct->show_photos('product', $conf->product->dir_output, 1, 1, 1, 0, 0, $maxHeight, $maxWidth, 1, 1, 1);
+
+										if (empty($htmlforphoto) || $htmlforphoto == '<!-- Photo -->' || $htmlforphoto == '<!-- Photo -->'."\n")
+					                  	{
+					                  		print '<!--no photo defined -->';
+					                  		print '<table width="100%" valign="top" align="center" border="0" cellpadding="2" cellspacing="2"><tr><td width="100%" class="photo">';
+					                  		print '<img class="photo photowithmargin" border="0" height="'.$maxHeight.'" src="'.DOL_URL_ROOT.'/public/theme/common/nophoto.png" title="'.dol_escape_htmltag($alt).'">';
+					                  		print '</td></tr></table>';
+					                  	}
+					                  	else
+					                  	{
+					                  		print $htmlforphoto;
+					                  	}
 
 					                  	//var_dump($tmpproduct->array_options);
 					                  	/*if ($tmpproduct->array_options['options_app_or_option'] == 'app')
@@ -2578,20 +2676,20 @@ if ($mode == 'instances')
 					                  		print '<span class="opacitymedium small">'.$langs->trans("Option").'</span><br>';
 					                  	}*/
 
+
+					                  	// Label
 					                  	$labelprod = $tmpproduct->label;
-					                  	$labelprodsing = '';
-					                  	if (preg_match('/instance/i', $tmpproduct->label))
+					                  	if (preg_match('/instance/i', $tmpproduct->ref) || preg_match('/instance/i', $tmpproduct->label))
 					                  	{
 					                  		$labelprod = $langs->trans("Application");
-					                  		$labelprodsing = $langs->trans("Application");
 					                  	}
-					                  	elseif (preg_match('/users/i', $tmpproduct->label))
+					                  	elseif (preg_match('/user/i', $tmpproduct->ref) || preg_match('/user/i', $tmpproduct->label))
 					                  	{
 					                  		$labelprod = $langs->trans("Users");
-					                  		$labelprodsing = $langs->trans("User");
 					                  	}
-										// Label
+
 					                  	print '<span class="opacitymedium small">'.$labelprod.'</span><br>';
+
 					                  	// Qty
 					                  	$resourceformula = $tmpproduct->array_options['options_resource_formula'];
 					                  	if (preg_match('/SQL:/', $resourceformula))
@@ -2609,7 +2707,8 @@ if ($mode == 'instances')
 										{
 											print '<span class="opacitymedium small">'.price($line->price, 1, $langs, 0, -1, -1, $conf->currency);
 											//if ($line->qty > 1 && $labelprodsing) print ' / '.$labelprodsing;
-											if (($line->qty > 1 || preg_match('/users/i', $tmpproduct->label)) && $labelprodsing) print ' / '.$labelprodsing;
+											if ($tmpproduct->array_options['options_resource_label']) print ' / '.$tmpproduct->array_options['options_resource_label'];
+											elseif (preg_match('/users/i', $tmpproduct->ref)) print ' / '.$langs->trans("User");	// backward compatibility
 											// TODO
 											print ' / '.$langs->trans("Month");
 											print '</span>';
@@ -2914,6 +3013,8 @@ if ($mode == 'instances')
 
 	<div class="portlet light">';
 
+	asort($arrayofplans);
+
 	$MAXINSTANCES = 4;
 	if (count($listofcontractid) < $MAXINSTANCES)
 	{
@@ -2962,7 +3063,9 @@ if ($mode == 'instances')
 	}
 	else
 	{
-		print '<div class="warning">'.$langs->trans("MaxNumberOfInstanceReached", count($listofcontractid), $conf->global->SELLYOURSAAS_MAIN_EMAIL).'</div>';
+		// Max number of instances reached
+		print '<!-- Max number of instances reached -->';
+		print '<div class="warning">'.$langs->trans("MaxNumberOfInstanceReached", $MAXINSTANCES, $conf->global->SELLYOURSAAS_MAIN_EMAIL).'</div>';
 	}
 
 	print '</div></div></div>';
@@ -3284,16 +3387,13 @@ if ($mode == 'mycustomerinstances')
 					 }*/
 
 					$labelprod = $tmpproduct->label;
-					$labelprodsing = '';
-					if (preg_match('/instance/i', $tmpproduct->label))
+					if (preg_match('/instance/i', $tmpproduct->ref) || preg_match('/instance/i', $tmpproduct->label))
 					{
 						$labelprod = $langs->trans("Application");
-						$labelprodsing = $langs->trans("Application");
 					}
-					elseif (preg_match('/users/i', $tmpproduct->label))
+					elseif (preg_match('/user/i', $tmpproduct->ref) || preg_match('/user/i', $tmpproduct->label))
 					{
 						$labelprod = $langs->trans("Users");
-						$labelprodsing = $langs->trans("User");
 					}
 					// Label
 					print '<span class="opacitymedium small">'.$labelprod.'</span><br>';
@@ -3313,8 +3413,8 @@ if ($mode == 'mycustomerinstances')
 					if ($line->price)
 					{
 						print '<span class="opacitymedium small">'.price($line->price, 1, $langs, 0, -1, -1, $conf->currency);
-						//if ($line->qty > 1 && $labelprodsing) print ' / '.$labelprodsing;
-						if (($line->qty > 1 || preg_match('/users/i', $tmpproduct->label)) && $labelprodsing) print ' / '.$labelprodsing;
+						if ($tmpproduct->array_options['options_resource_label']) print ' / '.$tmpproduct->array_options['options_resource_label'];
+						elseif (preg_match('/users/i', $tmpproduct->ref)) print ' / '.$langs->trans("User");	// backward compatibility
 						// TODO
 						print ' / '.$langs->trans("Month");
 						print '</span>';
@@ -3659,13 +3759,14 @@ if ($mode == 'mycustomerinstances')
 							}
 						}
 					}
+					$pricetoshow = price2num($pricefix,'MT');
+					if (empty($pricetoshow)) $pricetoshow = 0;
+					$arrayofplans[$obj->rowid]=$label.' ('.price($pricetoshow, 1, $langs, 1, 0, -1, $conf->currency);
 
-
-					$arrayofplans[$obj->rowid]=$label.' ('.price(price2num($pricefix,'MT'), 1, $langs, 1, -1, -1, $conf->currency);
 					if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
 					if ($priceuser)
 					{
-						$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, -1, -1, $conf->currency).'/'.$langs->trans("User");
+						$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, 0, -1, $conf->currency).'/'.$langs->trans("User");
 						if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
 					}
 					$arrayofplans[$obj->rowid].=')';

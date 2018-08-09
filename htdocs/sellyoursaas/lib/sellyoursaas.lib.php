@@ -34,19 +34,85 @@ function cmp($a, $b)
 	return strcmp($a->date, $b->date);
 }
 
+/**
+ * Return if a thirdparty has a payment mode
+ *
+ * @param 	int	$thirdpartyidtotest		Third party id
+ * @return 	int							>0 if there is at least one payment mode
+ */
+function sellyoursaasThirdpartyHasPaymentMode($thirdpartyidtotest)
+{
+	global $conf, $db, $user;
+
+	$atleastonepaymentmode = 0;
+
+	// Define environment of payment modes
+	$servicestatusstripe = 0;
+	if (! empty($conf->stripe->enabled))
+	{
+		$service = 'StripeTest';
+		$servicestatusstripe = 0;
+		if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha') && empty($conf->global->SELLYOURSAAS_FORCE_STRIPE_TEST))
+		{
+			$service = 'StripeLive';
+			$servicestatusstripe = 1;
+		}
+	}
+	$servicestatuspaypal = 0;
+	if (! empty($conf->paypal->enabled))
+	{
+		$servicestatuspaypal = 0;
+		if (! empty($conf->global->PAYPAL_LIVE) && ! GETPOST('forcesandbox','alpha') && empty($conf->global->SELLYOURSAAS_FORCE_PAYPAL_TEST))
+		{
+			$servicestatuspaypal = 1;
+		}
+	}
+
+
+	// Fill array of company payment modes
+	$sql = 'SELECT rowid, default_rib FROM '.MAIN_DB_PREFIX."societe_rib";
+	$sql.= " WHERE type in ('ban', 'card', 'paypal')";
+	$sql.= " AND fk_soc = ".$thirdpartyidtotest;
+	$sql.= " AND (type = 'ban' OR (type='card' AND status = ".$servicestatusstripe.") OR (type='paypal' AND status = ".$servicestatuspaypal."))";
+	$sql.= " ORDER BY default_rib DESC, tms DESC";
+
+	$resqltmp = $db->query($sql);
+	if ($resqltmp)
+	{
+		$num_rows = $db->num_rows($resqltmp);
+		if ($num_rows)
+		{
+			$i=0;
+			while ($i < $num_rows)
+			{
+				$objtmp = $db->fetch_object($resqltmp);
+				if ($objtmp)
+				{
+					if ($objtmp->default_rib != 1) continue;	// Keep the default payment mode only
+					$atleastonepaymentmode++;
+					break;
+				}
+				$i++;
+			}
+		}
+	}
+
+	return $atleastonepaymentmode;
+}
 
 /**
  * Return if instance is a paid instance or not
- * Check if there is a template invoice
+ * Check if there is an invoice or template invoice (it was a paying customer) or just a template invoice (it is a current paying customer)
  *
  * @param 	Contrat $contract		Object contract
+ * @param	int		$mode			0=Test invoice or template invoice of contract, 1=Test only templates invoices
  * @return	int						>0 if this is a paid contract
  */
-function sellyoursaasIsPaidInstance($contract)
+function sellyoursaasIsPaidInstance($contract, $mode=0)
 {
 	$contract->fetchObjectLinked();
-	$foundtemplate=0;
 
+	$foundtemplate=0;
 	if (is_array($contract->linkedObjects['facturerec']))
 	{
 		foreach($contract->linkedObjects['facturerec'] as $idtemplateinvoice => $templateinvoice)
@@ -58,16 +124,20 @@ function sellyoursaasIsPaidInstance($contract)
 
 	if ($foundtemplate) return 1;
 
-	if (is_array($contract->linkedObjects['facture']))
+	if ($mode == 0)
 	{
-		foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
+		$foundinvoice=0;
+		if (is_array($contract->linkedObjects['facture']))
 		{
-			$foundinvoice++;
-			break;
+			foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
+			{
+				$foundinvoice++;
+				break;
+			}
 		}
-	}
 
-	if ($foundinvoice) return 1;
+		if ($foundinvoice) return 1;
+	}
 
 	/*
 	$nbinvoicenotpayed = 0;
@@ -172,10 +242,13 @@ function sellyoursaasGetExpirationDate($contract)
 	$expirationdate = 0;
 	$duration_value = 0;
 	$duration_unit = '';
+	$status = 0;
 	$nbofusers = 0;
 
 	include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
-	$tmpprod = new Product($db);
+
+	global $cachefortmpprod;
+	if (! isset($cachefortmpprod) || ! is_array($cachefortmpprod)) $cachefortmpprod = array();
 
 	// Loop on each line to get lowest expiration date
 	foreach($contract->lines as $line)
@@ -188,20 +261,30 @@ function sellyoursaasGetExpirationDate($contract)
 
 		if ($line->fk_product > 0)
 		{
-			$tmpprod->fetch($line->fk_product);
-			if ($tmpprod->array_options['options_app_or_option'] == 'app')
+			if (empty($cachefortmpprod[$line->fk_product]))
 			{
-				$duration_value = $tmpprod->duration_value;
-				$duration_unit = $tmpprod->duration_unit;
+				$tmpprod = new Product($db);
+				$tmpprod->fetch($line->fk_product);
+				$cachefortmpprod[$line->fk_product] = $tmpprod;
 			}
-			if ($tmpprod->array_options['options_app_or_option'] == 'system' && preg_match('/user/i', $tmpprod->label))
+			$prodforline = $cachefortmpprod[$line->fk_product];
+
+			if ($prodforline->array_options['options_app_or_option'] == 'app')
 			{
-				$nbofusers = $line->qty;
+				$duration_value = $prodforline->duration_value;
+				$duration_unit = $prodforline->duration_unit;
+
+				$status = $line->statut;
+			}
+			if ($prodforline->array_options['options_app_or_option'] == 'system')
+			{
+				if (preg_match('/user/i', $prodforline->label)) $nbofusers = $line->qty;
+				if (preg_match('/\sgb\s/i', $prodforline->label)) $nbofgbs = $line->qty;
 			}
 		}
 	}
 
-	return array('expirationdate'=>$expirationdate, 'duration_value'=>$duration_value, 'duration_unit'=>$duration_unit, 'nbusers'=>$nbofusers);
+	return array('status'=>$status, 'expirationdate'=>$expirationdate, 'duration_value'=>$duration_value, 'duration_unit'=>$duration_unit, 'nbusers'=>$nbofusers);
 }
 
 

@@ -87,10 +87,18 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
     if (preg_match('/^[0-9\.]$/',$domainforapp)) $domainforapp=$object->ref_customer;	// If this is an ip, we use the ref_customer.
 
 	// Dolibarr instance login
-	$url='https://'.$object->hostname_os.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
-	$link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
-	$links.='Dolibarr link (last logged admin): ';
-	//print '<input type="text" name="dashboardconnectstring" value="'.dashboardconnectstring.'" size="100"><br>';
+    if (empty($lastpassadmin))
+    {
+    	$url='https://'.$object->hostname_os.'?username='.$lastloginadmin.'&amp;password='.$object->array_options['options_deployment_init_adminpass'];;
+    	$link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
+    	$links.='Dolibarr link (initial install pass): ';
+    }
+    else
+    {
+		$url='https://'.$object->hostname_os.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+		$link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
+		$links.='Dolibarr link (last logged admin): ';
+    }
 	$links.=$link.'<br>';
 
 	$links.='<br>';
@@ -133,8 +141,12 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
     if ($conf->use_javascript_ajax) $links.=ajax_autoselect('sshconnectstring');
     $links.=' &nbsp; '.$langs->trans("or").' SU: ';
     $sustring='su '.$object->username_os;
-    $links.='<input type="text" name="sustring" id="sustring" value="'.$sustring.'" size="30"><br>';
+    $links.='<input type="text" name="sustring" id="sustring" value="'.$sustring.'" size="30">';
     if ($conf->use_javascript_ajax) $links.=ajax_autoselect('sustring');
+    $links.=' with password ';
+    $links.='<input type="text" name="sshpassword" id="sshpassword" value="'.$object->password_os.'" size="30">';
+    if ($conf->use_javascript_ajax) $links.=ajax_autoselect('sshpassword');
+    $links.='<br>';
     //$links.='<br>';
 
 	// SFTP
@@ -204,12 +216,22 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("upgradestring", 0);
 	$links.='<br>';
 
-	// Upgrade link
+	// Purge data
 	$purgestringtoshow=$purgestring;
 	$links.='Purge command line string (remplacer "test" par "confirm" pour exécuter réellement)<br>';
 	$links.='<input type="text" id="purgestring" name="purgestring" value="'.$purgestringtoshow.'" class="quatrevingtpercent"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("purgestring", 0);
 	$links.='<br>';
+
+	// Upgrade link from V1
+	if (! empty($conf->global->SELLYOURSAAS_DOLICLOUD_ON))
+	{
+		$migratestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/old_migrate_v1v2.php oldname '.$object->instance.' test';
+		$links.='Migrate v1 to V2 command line string (remplacer "test" par "confirm" pour exécuter réellement)<br>';
+		$links.='<input type="text" id="v1tov2" name="v1tov2" value="'.$migratestring.'" class="quatrevingtpercent"><br>';
+		if ($conf->use_javascript_ajax) $links.=ajax_autoselect("v1tov2", 0);
+		$links.='<br>';
+	}
 
 	return $links;
 }

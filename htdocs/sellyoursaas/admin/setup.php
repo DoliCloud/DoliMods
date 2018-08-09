@@ -718,6 +718,11 @@ if (! empty($conf->global->SELLYOURSAAS_DOLICLOUD_ON))
 print '<br>';
 
 
+print 'idn_to_ascii function: '.yn(function_exists('idn_to_ascii')).'<br>';
+print 'checkdnsrr function: '.yn(function_exists('checkdnsrr')).'<br>';
+print "<br>\n";
+
+
 //dol_fiche_end();
 
 

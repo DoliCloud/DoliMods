@@ -115,9 +115,13 @@ export targetdir=${21}
 export EMAILFROM=${22}
 export REMOTEIP=${23}
 export SELLYOURSAAS_ACCOUNT_URL=${24}
+export instancenameold=${25}
+export domainnameold=${26}
+export customurl=${27}
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
+export fqnold=$instancenameold.$domainnameold
 
 # For debug
 echo `date +%Y%m%d%H%M%S`" input params for $0:"
@@ -145,18 +149,36 @@ echo "targetdir = $targetdir"
 echo "EMAILFROM = $EMAILFROM"
 echo "REMOTEIP = $REMOTEIP"
 echo "SELLYOURSAAS_ACCOUNT_URL = $SELLYOURSAAS_ACCOUNT_URL" 
-
+echo "instancenameold = $instancenameold" 
+echo "domainnameold = $domainnameold" 
+echo "customurl = $customurl" 
 
 echo `date +%Y%m%d%H%M%S`" calculated params:"
 echo "vhostfile = $vhostfile"
 echo "instancedir = $instancedir"
 echo "fqn = $fqn"
+echo "fqnold = $fqnold"
+
+
+MYSQL=`which mysql`
+MYSQLDUMP=`which mysqldump`
+echo "Search sellyoursaas database credential in /root/sellyoursaas"
+passsellyoursaas=`cat /root/sellyoursaas`		# First seach into root
+if [[ "x$passsellyoursaas" == "x" ]]; then
+	echo Search sellyoursaas credential 2
+	passsellyoursaas=`cat /tmp/sellyoursaas`	# Then search into /tmp
+	if [[ "x$passsellyoursaas" == "x" ]]; then
+		echo Failed to get password for mysql user sellyoursaas 
+		exit 1
+	fi
+fi 
 
 if [[ ! -d $archivedir ]]; then
 	echo Failed to find archive directory $archivedir
-	echo "Failed to deployall instance $instancename.$domainname with: Failed to find archive directory $archivedir" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
+	echo "Failed to $mode instance $instancename.$domainname with: Failed to find archive directory $archivedir" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deploy/undeploy" $EMAILFROM
 	exit 1
 fi
+
 
 testorconfirm="confirm"
 
@@ -182,7 +204,7 @@ if [[ "$mode" == "deployall" ]]; then
 		useradd -m -d $targetdir/$osusername -p "$passcrypted" -s '/bin/secureBash' $osusername 
 		if [[ "$?x" != "0x" ]]; then
 			echo Error failed to create user $osusername 
-			echo "Failed to deployall instance $instancename.$domainname with: useradd -m -d $targetdir/$osusername -p $ospassword -s '/bin/secureBash' $osusername" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
+			echo "Failed to deployall instance $instancename.$domainname with: useradd -m -d $targetdir/$osusername -p $ospassword -s '/bin/secureBash' $osusername" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM
 			exit 1
 		fi
 		chmod -R go-rwx /home/jail/home/$osusername
@@ -199,7 +221,7 @@ fi
 
 if [[ "$mode" == "undeployall" ]]; then
 
-	echo `date +%Y%m%d%H%M%S`" ***** Delete user $osusername with home into /home/jail/home/$osusername"
+	echo `date +%Y%m%d%H%M%S`" ***** Delete user $osusername with home into /home/jail/home/$osusername and archive it into $archivedir"
 	
 	echo deluser --remove-home --backup --backup-to $archivedir $osusername
 	if [[ $testorconfirm == "confirm" ]]
@@ -267,7 +289,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		echo "Current bind counter during $mode is $curr"
 		if [ "x$curr" == "x" ]; then
 			echo Error when editing the DNS file during a deployment. Failed to find bind counter in file /tmp/${ZONE}.$PID. Sending email to $EMAILFROM
-			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. Failed to find bind counter in file /tmp/${ZONE}.$PID" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
+			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. Failed to find bind counter in file /tmp/${ZONE}.$PID" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM
 			exit 1
 		fi
 		if [ ${#curr} -lt ${#DATE} ]; then
@@ -289,7 +311,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		named-checkzone $domainname /tmp/${ZONE}.$PID
 		if [[ "$?x" != "0x" ]]; then
 			echo Error when editing the DNS file during a deployment. File /tmp/${ZONE}.$PID is not valid. Sending email to $EMAILFROM
-			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
+			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM 
 			exit 1
 		fi
 		
@@ -307,7 +329,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		nslookup $fqn 127.0.0.1
 		if [[ "$?x" != "0x" ]]; then
 			echo Error after reloading DNS. nslookup of $fqn fails
-			echo "Failed to deployall instance $instancename.$domainname with: Error after reloading DNS. nslookup of $fqn fails" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
+			echo "Failed to deployall instance $instancename.$domainname with: Error after reloading DNS. nslookup of $fqn fails" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM 
 			exit 1
 		fi 
 	fi
@@ -359,7 +381,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		named-checkzone $domainname /tmp/${ZONE}.$PID
 		if [[ "$?x" != "0x" ]]; then
 			echo Error when editing the DNS file un undeployment. File /tmp/${ZONE}.$PID is not valid 
-			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
+			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM
 			exit 1
 		fi
 		
@@ -377,7 +399,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		#nslookup $fqn 127.0.0.1
 		#if [[ "$?x" != "0x" ]]; then
 		#	echo Error after reloading DNS. nslookup of $fqn fails. 
-		#	echo "Failed to deployall instance $instancename.$domainname with: Error after reloading DNS. nslookup of $fqn fails. " | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
+		#	echo "Failed to deployall instance $instancename.$domainname with: Error after reloading DNS. nslookup of $fqn fails. " | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM
 		#	exit 1
 		#fi 
 	fi
@@ -478,38 +500,44 @@ fi
 if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	
 	echo `date +%Y%m%d%H%M%S`" ***** Deploy config file"
-	mkdir -p `dirname $targetfileforconfig1`
 	
-	if [[ -s $targetfileforconfig1 ]]; then
-		cat $targetfileforconfig1 | grep "$dbname " 2>&1
-		notfound=$?
-		echo notfound=$notfound
-		if [[ $notfound == 1 ]]; then
-			echo File $targetfileforconfig1 already exists but content does not include database param. We recreate file.
-			echo "rm $targetfileforconfig1"
-			if [[ $testorconfirm == "confirm" ]]
-			then
-				rm -f $targetfileforconfig1
+	if [[ $targetfileforconfig1 == "-" ]]
+	then
+		echo No config file to deploy for this service
+	else
+		mkdir -p `dirname $targetfileforconfig1`
+		
+		if [[ -s $targetfileforconfig1 ]]; then
+			cat $targetfileforconfig1 | grep "$dbname " 2>&1
+			notfound=$?
+			echo notfound=$notfound
+			if [[ $notfound == 1 ]]; then
+				echo File $targetfileforconfig1 already exists but content does not include database param. We recreate file.
+				echo "rm $targetfileforconfig1"
+				if [[ $testorconfirm == "confirm" ]]
+				then
+					rm -f $targetfileforconfig1
+				fi
+				echo "mv $fileforconfig1 $targetfileforconfig1"
+				if [[ $testorconfirm == "confirm" ]]
+				then
+					mv $fileforconfig1 $targetfileforconfig1
+				fi
+			else
+				echo File $targetfileforconfig1 already exists and content includes database parameters. We change nothing.
 			fi
+		else
 			echo "mv $fileforconfig1 $targetfileforconfig1"
 			if [[ $testorconfirm == "confirm" ]]
 			then
 				mv $fileforconfig1 $targetfileforconfig1
 			fi
-		else
-			echo File $targetfileforconfig1 already exists and content includes database parameters. We change nothing.
 		fi
-	else
-		echo "mv $fileforconfig1 $targetfileforconfig1"
-		if [[ $testorconfirm == "confirm" ]]
-		then
-			mv $fileforconfig1 $targetfileforconfig1
-		fi
+		chown -R $osusername.$osusername $targetfileforconfig1
+		chmod -R go-rwx $targetfileforconfig1
+		chmod -R g-s $targetfileforconfig1
+		chmod -R a-wx $targetfileforconfig1
 	fi
-	chown -R $osusername.$osusername $targetfileforconfig1
-	chmod -R go-rwx $targetfileforconfig1
-	chmod -R g-s $targetfileforconfig1
-	chmod -R a-wx $targetfileforconfig1
 fi
 
 
@@ -555,7 +583,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	/usr/sbin/apache2ctl configtest
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running apache2ctl configtest 
-		echo "Failed to deployall instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
+		echo "Failed to deployall instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM
 		exit 1
 	fi 
 	
@@ -563,7 +591,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	service apache2 reload
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running service apache2 reload 
-		echo "Failed to deployall instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
+		echo "Failed to deployall instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM
 		exit 2
 	fi
 
@@ -583,7 +611,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		/usr/sbin/apache2ctl configtest
 		if [[ "x$?" != "x0" ]]; then
 			echo Error when running apache2ctl configtest 
-			echo "Failed to deployall instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
+			echo "Failed to undeploy or undeployall instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in undeployment" $EMAILFROM
 			exit 1
 		fi 
 		
@@ -591,7 +619,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		service apache2 reload
 		if [[ "x$?" != "x0" ]]; then
 			echo Error when running service apache2 reload 
-			echo "Failed to deployall instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
+			echo "Failed to undeploy or undeployall instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in undeployment" $EMAILFROM
 			exit 2
 		fi
 	else
@@ -606,22 +634,28 @@ fi
 if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 
 	echo `date +%Y%m%d%H%M%S`" ***** Install cron file $cronfile"
-	if [[ -f /var/spool/cron/crontabs/$osusername ]]; then
-		echo merge existing $cronfile with existing /var/spool/cron/crontabs/$osusername
-		echo "cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp"
-		cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp
-		echo "cat $cronfile >> /tmp/$dbname.tmp"
-		cat $cronfile >> /tmp/$dbname.tmp
-		echo cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
-		cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
+	
+	if [[ -s $cronfile ]]
+	then
+		if [[ -f /var/spool/cron/crontabs/$osusername ]]; then
+			echo merge existing $cronfile with existing /var/spool/cron/crontabs/$osusername
+			echo "cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp"
+			cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp
+			echo "cat $cronfile >> /tmp/$dbname.tmp"
+			cat $cronfile >> /tmp/$dbname.tmp
+			echo cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
+			cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
+		else
+			echo cron file /var/spool/cron/crontabs/$osusername does not exists yet
+			echo cp $cronfile /var/spool/cron/crontabs/$osusername
+			cp $cronfile /var/spool/cron/crontabs/$osusername
+		fi
+	
+		chown $osusername.$osusername /var/spool/cron/crontabs/$osusername
+		chmod 600 /var/spool/cron/crontabs/$osusername
 	else
-		echo cron file /var/spool/cron/crontabs/$osusername does not exists yet
-		echo cp $cronfile /var/spool/cron/crontabs/$osusername
-		cp $cronfile /var/spool/cron/crontabs/$osusername
+		echo There is no cron file to install
 	fi
-
-	chown $osusername.$osusername /var/spool/cron/crontabs/$osusername
-	chmod 600 /var/spool/cron/crontabs/$osusername
 fi
 
 if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
@@ -656,20 +690,6 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 
 	echo `date +%Y%m%d%H%M%S`" ***** Create database $dbname for user $dbusername"
 	
-	echo Search sellyoursaas credential
-	passsellyoursaas=`cat /root/sellyoursaas`
-	if [[ "x$passsellyoursaas" == "x" ]]; then
-		echo Search sellyoursaas credential 2
-		passsellyoursaas=`cat /tmp/sellyoursaas`
-		if [[ "x$passsellyoursaas" == "x" ]]; then
-			echo Failed to get password for mysql user sellyoursaas 
-			echo "Failed to deployall instance $instancename.$domainname with: Failed to get password for mysql user sellyoursaas" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" supervision@dolicloud.com 
-			exit 1
-		fi
-	fi 
-	
-	MYSQL=`which mysql`
-	
 	Q1="CREATE DATABASE IF NOT EXISTS $dbname; "
 	#Q2="CREATE USER IF NOT EXISTS '$dbusername'@'localhost' IDENTIFIED BY '$dbpassword'; "
 	Q2="CREATE USER '$dbusername'@'localhost' IDENTIFIED BY '$dbpassword'; "
@@ -700,10 +720,35 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	do
 		echo "$MYSQL -A -usellyoursaas -p$passsellyoursaas -D $dbname < $dumpfile"
 		$MYSQL -A -usellyoursaas -p$passsellyoursaas -D $dbname < $dumpfile
+		result=$?
+		if [[ "x$result" != "x0" ]]; then
+			echo Failed to load dump file $dumpfile
+			echo "Failed to $mode instance $instancename.$domainname with: Failed to load dump file $dumpfile" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deploy/undeploy" $EMAILFROM
+			exit 1
+		fi
 	done
 
 fi
 
+
+# Drop database
+
+if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
+
+	echo `date +%Y%m%d%H%M%S`" ***** Archive and dump database $dbname in $archivedir/$osusername"
+
+	echo "Do a dump of database $dbname - may fails if already removed"
+	mkdir -p $archivedir/$osusername
+	echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2"
+	$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2
+
+	#echo "Now drop the database"
+	#echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname"
+	#if [[ $testorconfirm == "confirm" ]]; then
+	#	echo "DROP DATABASE $dbname;" | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname
+	#fi	
+
+fi
 
 
 # Execute after CLI
@@ -711,8 +756,13 @@ fi
 if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	if [[ "x$cliafter" != "x" ]]; then
 		if [ -f $cliafter ]; then
-				echo ". $cliafter"
-				. $cliafter
+			echo ". $cliafter"
+			. $cliafter
+			if [[ "x$?" != "x0" ]]; then
+				echo Error when running the CLI script $cliafter 
+				echo "Error when running the CLI script $cliafter" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in undeployment" $EMAILFROM
+				exit 1
+			fi
 		fi
 	fi
 fi
