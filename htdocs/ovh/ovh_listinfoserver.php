@@ -263,6 +263,7 @@ else
 
     		print '<div class="fichecenter">';
     		print '<div class="underbanner clearboth"></div>';
+
     		print '<table class="border centpercent">'."\n";
         	print '<tr><td class="titlefield">'.$langs->trans("Id").'</td><td> ' . $server . '</td></tr>';
 
@@ -297,6 +298,7 @@ else
             print '<br>';
 
             //var_dump($resultinfosnapshot);
+    		print '<div class="div-table-responsive-no-min">';
             print '<table class="noborder centpercent">';
             print '<tr><td class="titlefield">'.$langs->trans("Snapshot").'</td><td>'.$langs->trans("Date").'</td><td>'.$langs->trans("Region").'</td><td>'.$langs->trans("Size").'</td></tr>';
             foreach($resultinfosnapshot as $val)
@@ -317,6 +319,7 @@ else
             	 print '</tr>';
             }
             print '</table>';
+            print '</div>';
     	}
     	else	// mode = dedicated
     	{
@@ -460,8 +463,8 @@ else
         	}
 
         	print '<table width="100%;">';
-        	print '<tr><td  class="liste_titre" colspan="2">';
-        	print '<strong>Interfaces</strong> </td></tr>';
+        	print '<tr><td class="liste_titre" colspan="2">';
+        	print '<strong>Interfaces</strong></td></tr>';
         	$i = 0;
 
         	while ($resultinfo->network->interfaces[$i])
@@ -547,6 +550,7 @@ else
 
     	if (count($result))
     	{
+    		print '<div class="div-table-responsive-no-min">';
         	print '<table class="noborder tableovh centpercent">';
         	foreach ($result as $serverobj)
         	{
@@ -591,6 +595,7 @@ else
         	    }
         	}
         	print '</table>';
+        	print '</div>';
     	}
     	else
     	{
