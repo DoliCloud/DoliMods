@@ -175,8 +175,8 @@ else
 	$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
 	$sql.= " WHERE c.ref_customer <> '' AND c.ref_customer IS NOT NULL";
 	if ($instancefiltercomplete) $sql.= " AND c.ref_customer = '".$instancefiltercomplete."'";
+	else $sql.= " AND ce.deployment_status <> 'undeployed'";		// Exclude undeployed only if we don't request a specific instance
 	$sql.= " AND ce.deployment_status IS NOT NULL";
-	$sql.= " AND ce.deployment_status <> 'undeployed';
 
 	$dbtousetosearch = $db;
 }
