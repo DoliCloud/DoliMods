@@ -176,6 +176,7 @@ else
 	$sql.= " WHERE c.ref_customer <> '' AND c.ref_customer IS NOT NULL";
 	if ($instancefiltercomplete) $sql.= " AND c.ref_customer = '".$instancefiltercomplete."'";
 	$sql.= " AND ce.deployment_status IS NOT NULL";
+	$sql.= " AND ce.deployment_status <> 'undeployed';
 
 	$dbtousetosearch = $db;
 }
