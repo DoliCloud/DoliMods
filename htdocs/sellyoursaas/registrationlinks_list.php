@@ -187,8 +187,6 @@ if (empty($reshook))
 
 /*
  * View
- *
- * Put here all code to render page
  */
 
 $form=new Form($db);
@@ -199,6 +197,12 @@ $now=dol_now();
 $help_url='';
 $title = $langs->trans('ListOfRegistrationLinks');
 
+if (empty($conf->global->SELLYOURSAAS_DEFAULT_PRODUCT_CATEG))
+{
+	print 'Error, setup of module SellYourSaas not complete';
+	llxFooter();
+	exit;
+}
 
 // Build and execute select
 // --------------------------------------------------------------------
@@ -216,8 +220,8 @@ $reshook=$hookmanager->executeHooks('printFieldListSelect', $parameters, $object
 $sql.=$hookmanager->resPrint;
 $sql=preg_replace('/, $/','', $sql);
 $sql.= " FROM ".MAIN_DB_PREFIX.$object->table_element." as t";
-if (is_array($extrafields->attributes[$object->table_element]['label']) && count($extrafields->attributes[$object->table_element]['label'])) $sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$object->table_element."_extrafields as ef on (t.rowid = ef.fk_object),";
-$sql.= " ".MAIN_DB_PREFIX."categorie_product as cp";
+if (is_array($extrafields->attributes[$object->table_element]['label']) && count($extrafields->attributes[$object->table_element]['label'])) $sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$object->table_element."_extrafields as ef on (t.rowid = ef.fk_object)";
+$sql.= ", ".MAIN_DB_PREFIX."categorie_product as cp";
 if ($object->ismultientitymanaged == 1) $sql.= " WHERE t.entity IN (".getEntity($object->element).")";
 else $sql.=" WHERE 1 = 1";
 $sql.=" AND t.rowid = cp.fk_product AND cp.fk_categorie = ".$conf->global->SELLYOURSAAS_DEFAULT_PRODUCT_CATEG;
@@ -228,7 +232,7 @@ foreach($search as $key => $val)
 	if ($search[$key] != '') $sql.=natural_search($key, $search[$key], (($key == 'status')?2:$mode_search));
 }
 if ($search_all) $sql.= natural_search(array_keys($fieldstosearchall), $search_all);
-$sql.=" AND ef.app_or_option = 'app'";
+if (is_array($extrafields->attributes[$object->table_element]['label']) && count($extrafields->attributes[$object->table_element]['label'])) $sql.=" AND ef.app_or_option = 'app'";
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks

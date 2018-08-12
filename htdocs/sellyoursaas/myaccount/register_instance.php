@@ -149,7 +149,7 @@ $now = dol_now();
  * Actions
  */
 
-//print "partner=".$partner." plan=".$plan." orgname = ".$orgname." email=".$email." password=".$password." password2=".$password2." country_code=".$country_code." remoteip=".$remoteip." sldAndSubdomain=".$sldAndSubdomain." tldid=".$tldid;
+//print "partner=".$partner." productref=".$productref." orgname = ".$orgname." email=".$email." password=".$password." password2=".$password2." country_code=".$country_code." remoteip=".$remoteip." sldAndSubdomain=".$sldAndSubdomain." tldid=".$tldid;
 
 // Back to url
 $newurl=preg_replace('/register_instance\.php/', 'register.php', $_SERVER["PHP_SELF"]);
@@ -207,7 +207,7 @@ else
 	if (! preg_match('/address_country/i', $newurl)) $newurl.='&address_country='.urlencode($country_code);
 	if (! preg_match('/sldAndSubdomain/i', $sldAndSubdomain)) $newurl.='&sldAndSubdomain='.urlencode($sldAndSubdomain);
 	if (! preg_match('/tldid/i', $tldid)) $newurl.='&tldid='.urlencode($tldid);
-	if (! preg_match('/plan/i', $newurl)) $newurl.='&plan='.urlencode($plan);
+	if (! preg_match('/plan/i', $newurl)) $newurl.='&plan='.urlencode($productref);
 	if (! preg_match('/partner/i', $newurl)) $newurl.='&partner='.urlencode($partner);
 	if (! preg_match('/partnerkey/i', $newurl)) $newurl.='&partnerkey='.urlencode($partnerkey);		// md5 of partner name alias
 	if (! preg_match('/origin/i', $newurl)) $newurl.='&origin='.urlencode($origin);
