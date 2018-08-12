@@ -52,7 +52,7 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors, $printoutput=0,
 
 			if (! @ssh2_auth_password($connection, $username_web, $password_web))
 			{
-				dol_syslog("Could not authenticate with username ".$username_web." . and password ".preg_replace('/./', '*', $password_web), LOG_ERR);
+				dol_syslog("Could not authenticate in dolicloud_files_refresh with username ".$username_web." . and password ".preg_replace('/./', '*', $password_web), LOG_ERR);
 			}
 			else
 			{
