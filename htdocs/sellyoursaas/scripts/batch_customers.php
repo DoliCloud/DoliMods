@@ -196,12 +196,15 @@ if ($resql)
 			{
 				$instance = $obj->instance;
 				$payment_status='PAID';
+				$subscription_status = 'OPEN';
+
 				$found = true;
 				if ($v == 1)
 				{
 					$instance_status = $obj->status;
 					$instance_status_bis = $obj->instance_status;
 					$payment_status = $obj->payment_status;
+					$subscription_status = $obj->subscription_status;
 				}
 				else
 				{
@@ -218,6 +221,17 @@ if ($resql)
 						else { $instance_status = 'UNKNOWN'; }
 					}
 
+					$issuspended = sellyoursaasIsSuspended($object);
+					if ($issuspended)
+					{
+						$subscription_status = 'CLOSED';
+						$instance_status = 'SUSPENDED';
+					}
+					else
+					{
+						$subscription_status = 'OPEN';
+					}
+
 					$ispaid = sellyoursaasIsPaidInstance($object);
 					if (! $ispaid) $payment_status='TRIAL';
 					else
@@ -227,7 +241,7 @@ if ($resql)
 					}
 				}
 				if (empty($instance_status_bis)) $instance_status_bis=$instance_status;
-				print "Analyze instance ".($i+1)." V".$v." ".$instance." status=".$instance_status." instance_status=".$instance_status_bis." payment_status=".$payment_status."\n";
+				print "Analyze instance ".($i+1)." V".$v." ".$instance." status=".$instance_status." instance_status=".$instance_status_bis." payment_status=".$payment_status." subscription_status=".$subscription_status."\n";
 
 				// Count
 				if (! in_array($payment_status,array('TRIAL','TRIALING','TRIAL_EXPIRED')))
@@ -243,7 +257,7 @@ if ($resql)
 						else $nbofactiveok++; // not suspended, not close request
 
 						$instances[$obj->id]=$instance;
-						print "Qualify instance V".$v." ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$obj->subscription_status."\n";
+						print "Qualify instance V".$v." ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$subscription_status."\n";
 					}
 					else
 					{
