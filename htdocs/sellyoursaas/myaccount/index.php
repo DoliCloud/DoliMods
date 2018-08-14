@@ -333,6 +333,7 @@ if ($action == 'send')
 		$content .= 'Instance: <a href="https://'.$tmpcontract->ref_customer.'">'.$tmpcontract->ref_customer."</a><br>\n";
 		//$content .= 'Ref contract: <a href="xxx/contrat/card.php?id='.$tmpcontract->ref.">".$tmpcontract->ref."</a><br>\n"; 	// No link to backoffice as the mail is used with answer to.
 		$content .= 'Ref contract: '.$tmpcontract->ref."<br>\n";
+		$tmpcontract->fetch_thirdparty();
 		if (is_object($tmpcontract->thirdparty))
 		{
 			$content .= 'Organization: '.$tmpcontract->thirdparty->name."<br>\n";
