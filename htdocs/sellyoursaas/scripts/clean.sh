@@ -71,7 +71,7 @@ if [[ ! -d $archivedir ]]; then
 fi
 
 echo "***** Clean temporary files"
-echo rm -f /tmp/instancefound
+echo rm -f /tmp/instancefound*
 rm -f /tmp/instancefound
 if [ -f /tmp/instancefound ]; then
 	echo Failed to delete file /tmp/instancefound
@@ -84,7 +84,7 @@ if [ -f /tmp/osutoclean ]; then
 	exit 1
 fi
 echo rm -f /tmp/osusernamefound
-rm -f /tmp/osusernamefound
+rm -f /tmp/osusernamefound*
 if [ -f /tmp/osusernamefound ]; then
 	echo Failed to delete file /tmp/osusernamefound
 	exit 1
@@ -118,6 +118,7 @@ SQL="${Q1}${Q2}"
 
 echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL' | grep -v 'ref_customer'"
 $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep -v 'ref_customer' >> /tmp/instancefound
+$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep -v 'ref_customer' >> /tmp/instancefound-activedbs
 if [ "x$?" != "x0" ]; then
 	echo "Failed to make first SQL request to get instances. Exit 1."
 	exit 1
@@ -129,6 +130,7 @@ SQL="${Q1}${Q2}"
 
 echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL' | grep 'dbn' "
 $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep 'dbn' | awk ' { print "NULL unknown "$1" unknown" } ' >> /tmp/instancefound
+$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep 'dbn' | awk ' { print $1 } ' >> /tmp/instancefound-alldbs
 if [ "x$?" != "x0" ]; then
 	echo "Failed to make second SQL request to get instances. Exit 1."
 	exit 1
@@ -173,20 +175,22 @@ $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" >> /tmp/osutoclean
 $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" >> /tmp/osutoclean-oldundeployed
 
 
-echo "***** Search from /tmp/instancefound: osu unix account with record in /etc/passwd but not in instancefound" 
-cat /tmp/instancefound | awk '{ if ($2 != "username_os" && $2 != "unknown" && $2 != "NULL") print $2":" }' > /tmp/osusernamefound
-if [ -s /tmp/osusernamefound ]; then
-	for osusername in `grep -v /etc/passwd -f /tmp/osusernamefound | grep '^osu'`
-	do
-		tmpvar1=`echo $osusername | awk -F ":" ' { print $1 } '`
-		echo User $tmpvar1 is an ^osu user in /etc/passwd but has no available instance in /tmp/instancefound
-		echo $tmpvar1 >> /tmp/osutoclean
-		echo $tmpvar1 >> /tmp/osutoclean-inetcpasswdbutnotindb
-	done
-fi
+# We disable this because when we undeploy, user is kept and we want to remove it only 2 month after undeployment date (processed by previous point)
+# TODO For contracts deleted from database, we must found something else: 
+#echo "***** Search from /tmp/instancefound: osu unix account with record in /etc/passwd but not in instancefound" 
+#cat /tmp/instancefound | awk '{ if ($2 != "username_os" && $2 != "unknown" && $2 != "NULL") print $2":" }' > /tmp/osusernamefound
+#if [ -s /tmp/osusernamefound ]; then
+#	for osusername in `grep -v /etc/passwd -f /tmp/osusernamefound | grep '^osu'`
+#	do
+#		tmpvar1=`echo $osusername | awk -F ":" ' { print $1 } '`
+#		echo User $tmpvar1 is an ^osu user in /etc/passwd but has no available instance in /tmp/instancefound
+#		echo $tmpvar1 >> /tmp/osutoclean
+#		echo $tmpvar1 >> /tmp/osutoclean-inetcpasswdbutnotinactivedb
+#	done
+#fi
 
 
-echo "***** Search from /tmp/instancefound: databases of a non existing unix users and archive/drop them" 
+echo "***** Search from /tmp/instancefound of active databases (with known osusername) with a non existing unix user and archive/drop them (should never happen)" 
 while read bidon osusername dbname deploymentstatus; do 
 	if [[ "x$osusername" != "xusername_os" && "x$osusername" != "xunknown" && "x$osusername" != "xNULL" && "x$dbname" != "xNULL" ]]; then
     	id $osusername >/dev/null 2>/dev/null

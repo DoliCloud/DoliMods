@@ -496,7 +496,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		echo The dir $targetdir/$osusername/$dbname seems already removed/archived
 	fi
 
-	# Note, we archive the dir for instance but the dir for user is still here. Will be removed by clean.sh
+	# Note, we archive the dir for instance but the dir for user and user is still here. Will be removed by clean.sh
 fi
 
 
