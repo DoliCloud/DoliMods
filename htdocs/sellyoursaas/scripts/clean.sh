@@ -23,7 +23,7 @@ echo "# realname dir ---> $(dirname $(realpath ${0}))"
 export PID=${$}
 export scriptdir=$(dirname $(realpath ${0}))
 export targetdir="/home/jail/home"				
-export archivedir="/home/archives"
+export archivedir="/mnt/diskbackup/archives"
 export ZONES_PATH="/etc/bind/zones"
 export ZONE="with.dolicloud.com.hosts" 
 
