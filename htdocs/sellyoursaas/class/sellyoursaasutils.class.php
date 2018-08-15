@@ -2229,9 +2229,9 @@ class SellYourSaasUtils
     					$contractprocessed[$object->id]=$object->ref;	// To avoid to make action twice on same contract
     				}
 
-    				// Finish deployall
+    				// Finish undeploy
 
-    				$comment = 'Close after click on undeploy from contract card';
+    				$comment = 'Close after undeployment by doUndeployOldSuspendedInstances('.$mode.')';
 
     				// Unactivate all lines
     				if (! $error)

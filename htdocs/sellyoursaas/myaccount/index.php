@@ -1215,7 +1215,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 				}
 			}
 
-			// Finish deploy all
+			// Finish undeploy
 
 			$comment = 'Services closed after an undeploy request from Customer dashboard';
 
