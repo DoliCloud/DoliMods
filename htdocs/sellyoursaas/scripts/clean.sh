@@ -72,18 +72,18 @@ fi
 
 echo "***** Clean temporary files"
 echo rm -f /tmp/instancefound*
-rm -f /tmp/instancefound
+rm -f /tmp/instancefound*
 if [ -f /tmp/instancefound ]; then
 	echo Failed to delete file /tmp/instancefound
 	exit 1
 fi
-echo rm -f /tmp/osutoclean
+echo rm -f /tmp/osutoclean*
 rm -f /tmp/osutoclean*
 if [ -f /tmp/osutoclean ]; then
 	echo Failed to delete file /tmp/osutoclean
 	exit 1
 fi
-echo rm -f /tmp/osusernamefound
+echo rm -f /tmp/osusernamefound*
 rm -f /tmp/osusernamefound*
 if [ -f /tmp/osusernamefound ]; then
 	echo Failed to delete file /tmp/osusernamefound
@@ -107,10 +107,25 @@ do
 done
 
 
+echo "***** Get list of databases of all instances and save into /tmp/instancefound-dbinsellyoursaas"
+
+echo "#url=ref_customer	username_os	database_db status" > /tmp/instancefound-dbinsellyoursaas
+
+Q1="use $database; "
+Q2="SELECT c.ref_customer, ce.username_os, ce.database_db, ce.deployment_status FROM llx_contrat as c, llx_contrat_extrafields as ce WHERE ce.fk_object = c.rowid AND ce.deployment_status IS NOT NULL";
+SQL="${Q1}${Q2}"
+
+echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL' | grep -v 'ref_customer'"
+$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep -v 'ref_customer' >> /tmp/instancefound-dbinsellyoursaas
+if [ "x$?" != "x0" ]; then
+	echo "Failed to make first SQL request to get instances. Exit 1."
+	exit 1
+fi
+
 
 echo "***** Get list of databases of known active instances and save into /tmp/instancefound"
 
-echo "#url=ref_customer	username_os	database_db" > /tmp/instancefound
+echo "#url=ref_customer	username_os	database_db status" > /tmp/instancefound
 
 Q1="use $database; "
 Q2="SELECT c.ref_customer, ce.username_os, ce.database_db, ce.deployment_status FROM llx_contrat as c, llx_contrat_extrafields as ce WHERE ce.fk_object = c.rowid AND ce.deployment_status IN ('processing','done')";
@@ -118,11 +133,14 @@ SQL="${Q1}${Q2}"
 
 echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL' | grep -v 'ref_customer'"
 $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep -v 'ref_customer' >> /tmp/instancefound
-$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep -v 'ref_customer' >> /tmp/instancefound-activedbs
+$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep -v 'ref_customer' >> /tmp/instancefound-activedbinsellyoursaas
 if [ "x$?" != "x0" ]; then
 	echo "Failed to make first SQL request to get instances. Exit 1."
 	exit 1
 fi
+
+
+echo "***** Get list of databases available in mysql and save into /tmp/instancefound"
 
 Q1="use mysql; "
 Q2="SHOW DATABASES; ";
@@ -130,7 +148,7 @@ SQL="${Q1}${Q2}"
 
 echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL' | grep 'dbn' "
 $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep 'dbn' | awk ' { print "NULL unknown "$1" unknown" } ' >> /tmp/instancefound
-$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep 'dbn' | awk ' { print $1 } ' >> /tmp/instancefound-alldbs
+$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep 'dbn' | awk ' { print $1 } ' >> /tmp/instancefound-dbinmysqldic
 if [ "x$?" != "x0" ]; then
 	echo "Failed to make second SQL request to get instances. Exit 1."
 	exit 1
@@ -220,11 +238,11 @@ for osusername in `grep '^osu' /tmp/osutoclean | sort -u`
 do
 	echo "   ** Archive and delete qualified user $osusername found in /tmp/osutoclean"
 	
-	echo Try to find database and instance name from username
+	echo Try to find database and instance name from username $osusername
 	export instancename=""
 	export dbname=""
-	export instancename=`grep $osusername /tmp/instancefound | cut -f 1`
-	export dbname=`grep $osusername /tmp/instancefound | cut -f 3`
+	export instancename=`grep $osusername /tmp/instancefound-dbinsellyoursaas | cut -f 1`
+	export dbname=`grep $osusername /tmp/instancefound-dbinsellyoursaas | cut -f 3`
 
 	echo For osusername=$osusername, dbname is $dbname, instancename is $instancename
 	
