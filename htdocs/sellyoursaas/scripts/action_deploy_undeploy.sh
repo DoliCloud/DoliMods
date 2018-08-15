@@ -480,6 +480,10 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 			echo The dir $archivedir/$osusername/$dbname already exists, so we overwrite files into existing archive
 			echo cp -pr $targetdir/$osusername/$dbname $archivedir/$osusername
 			cp -pr $targetdir/$osusername/$dbname $archivedir/$osusername
+			if [[ $testorconfirm == "confirm" ]]
+			then
+				rm -fr $targetdir/$osusername/$dbname
+			fi
 		else
 			echo mv -f $targetdir/$osusername/$dbname $archivedir/$osusername/$dbname
 			if [[ $testorconfirm == "confirm" ]]
@@ -492,6 +496,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		echo The dir $targetdir/$osusername/$dbname seems already removed/archived
 	fi
 
+	# Note, we archive the dir for instance but the dir for user is still here. Will be removed by clean.sh
 fi
 
 
@@ -742,12 +747,15 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 	echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2"
 	$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2
 
-	#echo "Now drop the database"
-	#echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname"
-	#if [[ $testorconfirm == "confirm" ]]; then
-	#	echo "DROP DATABASE $dbname;" | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname
-	#fi	
-
+	if [[ "x$?" == "x0" ]]; then
+		echo "Now drop the database"
+		echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname"
+		if [[ $testorconfirm == "confirm" ]]; then
+			echo "DROP DATABASE $dbname;" | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname
+		fi
+	else
+		echo "ERROR in dumping database, so we don't try to drop it"	
+	fi
 fi
 
 
