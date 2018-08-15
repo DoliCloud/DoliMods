@@ -33,7 +33,7 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 if [ "x$1" == "x" ]; then
-	echo "Missing parameter 1 - sellyoursaas admin databasename" 1>&2
+	echo "Missing parameter 1 - sellyoursaas admin database name (user 'sellyoursaas' must exists)" 1>&2
 	echo "Usage: ${0} [databasename] [test|confirm]"
 fi
 if [ "x$2" == "x" ]; then
@@ -182,12 +182,12 @@ if [ -s /tmp/osusernamefound ]; then
 fi
 
 
-echo "***** Search from /tmp/instancefound: databases without unix users and archive/drop them" 
+echo "***** Search from /tmp/instancefound: databases of a non existing unix users and archive/drop them" 
 while read bidon osusername dbname deploymentstatus; do 
-	if [[ "x$osusername" != "xusername_os" && "x$osusername" != "xNULL" && "x$dbname" != "xNULL" ]]; then
+	if [[ "x$osusername" != "xusername_os" && "x$osusername" != "xunknown" && "x$osusername" != "xNULL" && "x$dbname" != "xNULL" ]]; then
     	id $osusername >/dev/null 2>/dev/null
     	if [[ "x$?" == "x1" ]]; then
-    		echo Line $bidon $osusername $dbname is for a user that does not exists
+    		echo Line $bidon $osusername $dbname $deploymentstatus is for a user that does not exists
     		
 			echo "Do a dump of database $dbname - may fails if already removed"
 			mkdir -p $archivedir/$osusername
