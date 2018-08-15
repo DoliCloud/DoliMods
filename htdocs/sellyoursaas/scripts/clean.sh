@@ -257,7 +257,7 @@ do
 			echo "Now drop the database"
 			echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname"
 			if [[ $testorconfirm == "confirm" ]]; then
-				echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname
+				echo "DROP DATABASE $dbname;" | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname
 			fi	
 		fi
 	fi
