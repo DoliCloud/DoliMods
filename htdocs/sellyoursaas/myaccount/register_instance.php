@@ -67,8 +67,8 @@ $langs->setDefaultLang(GETPOST('lang','aZ09')?GETPOST('lang','aZ09'):'auto');
 $langsen=new Translate('', $conf);
 $langsen->setDefaultLang('en_US');
 
-$langs->loadLangs(array("companies","sellyoursaas@sellyoursaas","errors"));
-$langsen->loadLangs(array("companies","sellyoursaas@sellyoursaas","errors"));
+$langs->loadLangs(array("main","companies","sellyoursaas@sellyoursaas","errors"));
+$langsen->loadLangs(array("main","companies","sellyoursaas@sellyoursaas","errors"));
 
 // Force user
 if (empty($user->id))
@@ -176,7 +176,7 @@ elseif ($reusesocid)		// When we use the "Add another instance" from account bac
 
 	if (empty($sldAndSubdomain))
 	{
-		setEventMessages($langs->trans("ErrorFieldsRequired", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
 		header("Location: ".$newurl);
 		exit;
 	}
@@ -188,7 +188,7 @@ elseif ($reusesocid)		// When we use the "Add another instance" from account bac
 	}
 	if (empty($password) || empty($password2))
 	{
-		setEventMessages($langs->trans("ErrorFieldsRequired", $langs->transnoentitiesnoconv("Password")), null, 'errors');
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Password")), null, 'errors');
 		header("Location: ".$newurl);
 		exit;
 	}
@@ -214,7 +214,7 @@ else
 
 	if (empty($sldAndSubdomain))
 	{
-		setEventMessages($langs->trans("ErrorFieldsRequired", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
 		header("Location: ".$newurl);
 		exit;
 	}
@@ -226,7 +226,7 @@ else
 	}
 	if (empty($orgname))
 	{
-		setEventMessages($langs->trans("ErrorFieldsRequired", $langs->transnoentitiesnoconv("NameOfCompany")), null, 'errors');
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameOfCompany")), null, 'errors');
 		header("Location: ".$newurl);
 		exit;
 	}
@@ -238,7 +238,7 @@ else
 	}
 	if (empty($email))
 	{
-		setEventMessages($langs->trans("ErrorFieldsRequired", $langs->transnoentitiesnoconv("Email")), null, 'errors');
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Email")), null, 'errors');
 		header("Location: ".$newurl);
 		exit;
 	}
@@ -262,7 +262,7 @@ else
 	}
 	if (empty($password) || empty($password2))
 	{
-		setEventMessages($langs->trans("ErrorFieldsRequired", $langs->transnoentitiesnoconv("Password")), null, 'errors');
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Password")), null, 'errors');
 	    header("Location: ".$newurl);
 	    exit;
 	}
