@@ -189,9 +189,17 @@ Q3=" (SELECT fk_contrat FROM llx_contratdet as cd, llx_contrat_extrafields as ce
 SQL="${Q1}${Q2}${Q3}"
 
 echo "$MYSQL -usellyoursaas -e $SQL"
-$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" >> /tmp/osutoclean
 $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" >> /tmp/osutoclean-oldundeployed
-
+if [ -s /tmp/osutoclean-oldundeployed ]; then
+	for osusername in `cat /tmp/osutoclean-oldundeployed | grep '^osu'`
+	do
+		tmpvar1=`echo $osusername | awk -F ":" ' { print $1 } '`
+		if [ -d /home/jail/home/$osusername ]; then
+			echo User $tmpvar1 is an ^osu user in /tmp/osutoclean-oldundeployed but has no home dir so we will remove it
+			echo $tmpvar1 >> /tmp/osutoclean
+		fi
+	done
+fi
 
 # We disable this because when we undeploy, user is kept and we want to remove it only 2 month after undeployment date (processed by previous point)
 # TODO For contracts deleted from database, we must found something else: 
