@@ -359,15 +359,14 @@ do
 				echo "   ** Disable apache conf with rm /etc/apache2/sellyoursaas-online/$instancename.conf"
 				echo rm /etc/apache2/sellyoursaas-online/$instancename.conf
 				if [[ $testorconfirm == "confirm" ]]; then
-					#a2dissite $instancename
 					rm /etc/apache2/sellyoursaas-online/$instancename.conf
 				fi
 			fi
 
 			echo "   ** Remove apache conf /etc/apache2/sellyoursaas-available/$instancename"
 			if [[ -f /etc/apache2/sellyoursaas-available/$instancename ]]; then
+				echo rm /etc/apache2/sellyoursaas-available/$instancename
 				if [[ $testorconfirm == "confirm" ]]; then
-					echo rm /etc/apache2/sellyoursaas-available/$instancename
 					rm /etc/apache2/sellyoursaas-available/$instancename
 				fi
 			else
