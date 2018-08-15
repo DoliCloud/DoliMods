@@ -97,7 +97,7 @@ for fic in `ls /etc/apache2/sellyoursaas-available/*.*.dolicloud.com.conf /etc/a
 do
 	basfic=`basename $fic` 
 	if [ ! -L /etc/apache2/sellyoursaas-online/$basfic ]; then
-		echo Remove file $basfic
+		echo Remove file with rm /etc/apache2/sellyoursaas-available/$basfic
 		if [[ $testorconfirm == "confirm" ]]; then
 			rm /etc/apache2/sellyoursaas-available/$basfic
 		fi
