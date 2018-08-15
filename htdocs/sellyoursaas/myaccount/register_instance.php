@@ -226,13 +226,13 @@ else
 	}
 	if (empty($orgname))
 	{
-		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("CompanyName")), null, 'errors');
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameOfCompany")), null, 'errors');
 		header("Location: ".$newurl);
 		exit;
 	}
 	if (! preg_match('/[a-zA-Z0-9][a-zA-Z0-9]/', $orgname))
 	{
-		setEventMessages($langs->trans("ErrorFieldMustHaveXChar", $langs->transnoentitiesnoconv("CompanyName"), 2), null, 'errors');
+		setEventMessages($langs->trans("ErrorFieldMustHaveXChar", $langs->transnoentitiesnoconv("NameOfCompany"), 2), null, 'errors');
 		header("Location: ".$newurl);
 		exit;
 	}
