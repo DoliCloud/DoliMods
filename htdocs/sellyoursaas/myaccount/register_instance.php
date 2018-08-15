@@ -230,6 +230,12 @@ else
 		header("Location: ".$newurl);
 		exit;
 	}
+	if (! preg_match('/[a-zA-Z0-9][a-zA-Z0-9]/', $orgname))
+	{
+		setEventMessages($langs->trans("ErrorFieldMustHaveXChar", $langs->transnoentitiesnoconv("CompanyName"), 2), null, 'errors');
+		header("Location: ".$newurl);
+		exit;
+	}
 	if (empty($email))
 	{
 		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Email")), null, 'errors');
