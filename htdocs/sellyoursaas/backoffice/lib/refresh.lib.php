@@ -505,7 +505,7 @@ function sellyoursaas_calculate_stats($db, $datelim)
 	$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object,";
 	$sql.= " ".MAIN_DB_PREFIX."societe as s";
 	$sql.= " WHERE s.rowid = c.fk_soc AND c.ref_customer <> '' AND c.ref_customer IS NOT NULL";
-	$sql.= " AND ce.deployment_status IS NOT NULL AND ce.deployment_status = 'done'";
+	$sql.= " AND ce.deployment_status = 'done'";
 	if ($datelim) $sql.= " AND ce.deployment_date_end <= '".$db->idate($datelim)."'";	// Only instances deployed before this date
 
 	dol_syslog("sellyoursaas_calculate_stats sql=".$sql, LOG_DEBUG, 1);

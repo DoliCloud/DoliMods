@@ -50,7 +50,7 @@ $langs->loadLangs(array("companies","other","sellyoursaas@sellyoursaas"));
 // Get parameters
 $id			= GETPOST('id','int');
 $action		= GETPOST('action','alpha');
-$myparam	= GETPOST('myparam','alpha');
+$mode		= GETPOST('mode','alpha');
 
 $sortfield = GETPOST("sortfield",'alpha');
 $sortorder = GETPOST("sortorder",'alpha');
@@ -151,22 +151,46 @@ if ($resql)
 	if ($obj) $totalresellers = $obj->nb;
 }
 
-$rep=sellyoursaas_calculate_stats($db,'');	// $datelastday is last day of current month
+if ($mode == 'refreshstats')
+{
+	$rep=sellyoursaas_calculate_stats($db,'');	// $datelastday is last day of current month
 
-$total=$rep['total'];
-$totalcommissions=$rep['totalcommissions'];
-$totalinstancespaying=$rep['totalinstancespaying'];
-$totalinstancessuspended=$rep['totalinstancessuspended'];
-$totalinstancesexpired=$rep['totalinstancesexpired'];
-$totalinstances=$rep['totalinstances'];
-$totalusers=$rep['totalusers'];
+	$total=$rep['total'];
+	$totalcommissions=$rep['totalcommissions'];
+	$totalinstancespaying=$rep['totalinstancespaying'];
+	$totalinstancessuspended=$rep['totalinstancessuspended'];
+	$totalinstancesexpired=$rep['totalinstancesexpired'];
+	$totalinstances=$rep['totalinstances'];
+	$totalusers=$rep['totalusers'];
+
+	$_SESSION['stats_total']=$total;
+	$_SESSION['stats_totalcommissions']=$totalcommissions;
+	$_SESSION['stats_totalinstancespaying']=$totalinstancespaying;
+	$_SESSION['stats_totalinstancessuspended']=$totalinstancessuspended;
+	$_SESSION['stats_totalinstancesexpired']=$totalinstancesexpired;
+	$_SESSION['stats_totalinstances']=$totalinstances;
+	$_SESSION['stats_totalusers']=$totalusers;
+}
+else
+{
+	$total = $_SESSION['stats_total'];
+	$totalcommissions = $_SESSION['stats_totalcommissions'];
+	$totalinstancespaying = $_SESSION['stats_totalinstancespaying'];
+	$totalinstancessuspended = $_SESSION['stats_totalinstancessuspended'];
+	$totalinstancesexpired = $_SESSION['stats_totalinstancesexpired'];
+	$totalinstances = $_SESSION['stats_totalinstances'];
+	$totalusers = $_SESSION['stats_totalusers'];
+}
+
 $part = 0;
 $benefit=($total * (1 - $part) - $serverprice - $totalcommissions);
 
 // Show totals
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
-print '<td class="wordwrap wordbreak">'.$langs->trans("Statistics").'</td>';
+print '<td class="wordwrap wordbreak"><span class="valignmiddle">'.$langs->trans("Statistics").'</span>';
+print '<a href="'.$_SERVER["PHP_SELF"].'?mode=refreshstats">'.img_picto('', 'refresh', '', false, 0, 0, '', 'valignmiddle').'</a>';
+print '</td>';
 print '<td></td>';
 print '</tr>';
 print '<tr class="oddeven"><td class="wordwrap wordbreak">';
