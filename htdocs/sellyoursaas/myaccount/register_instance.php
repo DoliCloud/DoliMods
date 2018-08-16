@@ -570,15 +570,16 @@ else
 	//var_dump('instance:'.$dolicloudcustomer->price_instance);
 	//exit;
 
+	$j=1;
+
 	// Create contract line for other products
 	if (! $error)
 	{
-		dol_syslog("Add line to contract for depending products like USERS");
+		dol_syslog("Add line to contract for depending products (like USERS or options)");
 
 		$prodschild = $tmpproduct->getChildsArbo($tmpproduct->id,1);
 
 		$tmpsubproduct = new Product($db);
-		$j=2;
 		foreach($prodschild as $prodid => $arrayprodid)
 		{
 			$tmpsubproduct->fetch($prodid);	// To load the price
@@ -592,8 +593,10 @@ else
 			$price = $tmpsubproduct->price;
 			$discount = 0;
 
-			if ($price > 0 && $qty > 0)
+			if ($qty > 0)
 			{
+				$j++;
+
 				$contractlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $prodid, $discount, $date_start, $date_end, 'HT', 0);
 				if ($contractlineid < 0)
 				{
@@ -601,12 +604,10 @@ else
 					exit;
 				}
 			}
-
-			$j++;
 		}
 	}
 
-	dol_syslog("Reload all lines after creation to have contract->lines ok");
+	dol_syslog("Reload all lines after creation (".$j." lines in contract) to have contract->lines ok");
 	$contract->fetch_lines();
 
 	if (! $error)
