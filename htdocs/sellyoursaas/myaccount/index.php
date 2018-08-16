@@ -3019,7 +3019,8 @@ if ($mode == 'instances')
 
 	<div class="portlet light">';
 
-	asort($arrayofplans);
+	//var_dump($arrayofplans);
+	natcasesort($arrayofplans);
 
 	$MAXINSTANCES = 4;
 	if (count($listofcontractid) < $MAXINSTANCES)
@@ -3027,7 +3028,9 @@ if ($mode == 'instances')
 		print '<div class="group">';
 
 		print '<div class="horizontal-fld centpercent marginbottomonly">';
-		print '<strong>'.$langs->trans("YourSubscriptionPlan").'</strong> '.$form->selectarray('service', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth500').'<br>';
+		print '<strong>'.$langs->trans("YourSubscriptionPlan").'</strong> ';
+		print $form->selectarray('service', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth500');
+		print '<br>';
 		print '</div>';
 		//print ajax_combobox('service');
 
