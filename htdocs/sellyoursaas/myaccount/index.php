@@ -83,7 +83,7 @@ $search_customer_name=GETPOST('search_customer_name','alphanohtml');
 $MAXINSTANCEVIGNETTE = 4;
 
 // Load variable for pagination
-$limit = GETPOST('limit','int')?GETPOST('limit','int'):$MAXINSTANCEVIGNETTE;
+$limit = GETPOST('limit','int')?GETPOST('limit','int'):($mode == 'instance' ? $MAXINSTANCEVIGNETTE : 20);
 $sortfield = GETPOST('sortfield','alpha');
 $sortorder = GETPOST('sortorder','alpha');
 $page = GETPOST('page','int');
@@ -4671,7 +4671,6 @@ if ($mode == 'mycustomerbilling')
 		// if total resultset is smaller the limit, no need to do paging.
 		if (is_numeric($nbtotalofrecords) && $limit > $nbtotalofrecords)
 		{
-			$resql = $result;
 			$num = $nbtotalofrecords;
 		}
 		else
@@ -4694,10 +4693,10 @@ if ($mode == 'mycustomerbilling')
 		$tmpinvoice = new Facture($db);
 		$ecmfile = new EcmFiles($db);
 
+
 		// Loop on record
 		// --------------------------------------------------------------------
 		$i=0;
-		$totalamountcommission = 0;
 		while ($i < min($num, $limit))
 		{
 			$obj = $db->fetch_object($resql);
@@ -4712,7 +4711,6 @@ if ($mode == 'mycustomerbilling')
 			$commissionpercent = $obj->commission;
 			if ($obj->paye) $commission = price2num($obj->total_ttc * $commissionpercent / 100, 'MT');
 			else $commission = 0;
-			$totalamountcommission += $commissions;
 
 			print '
 				<tr>
@@ -4733,7 +4731,7 @@ if ($mode == 'mycustomerbilling')
                 	 var_dump(DOL_URL_ROOT);
                 	 var_dump($publicurltodownload);*/
                 	$urltouse=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/'.(DOL_URL_ROOT?DOL_URL_ROOT.'/':'').$publicurltodownload;
-                	print '<br><a href="'.$urltouse.'" target="_download">'.$langs->trans("Download").'</a>';
+             print '<br><a href="'.$urltouse.'" target="_download">'.$langs->trans("Download").'</a>';
 
              print '
               </td>
@@ -4755,9 +4753,37 @@ if ($mode == 'mycustomerbilling')
 			$i++;
 		}
 
+		if ($nbtotalofrecords > $limit)
+		{
+			print '<tr><td colspan="6" class="center">';
+			if ($page > 0) print '<a href="'.$_SERVER["PHP_SEFL"].'?mode='.$mode.'&limit='.$limit.'&page='.($page-1).'">'.$langs->trans("Previous").'</a>';
+			if ($page > 0 && (($page + 1) * $limit) <= $nbtotalofrecords) print ' &nbsp; ... &nbsp; ';
+			if ((($page + 1) * $limit) <= $nbtotalofrecords) print '<a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&limit='.$limit.'&page='.($page+1).'">'.$langs->trans("Next").'</a>';
+			print '<br><br>';
+			print '</td>';
+			print '<td class="right">...<br><br></td>';
+			print '</tr>';
+		}
+
+		// Get total of commissions
+		$totalamountcommission='ERROR';
+
+		$sql ='SELECT SUM(fe.commission * f.total / 100) as total';
+		$sql.= ' FROM '.MAIN_DB_PREFIX.'facture as f LEFT JOIN '.MAIN_DB_PREFIX.'facture_extrafields as fe ON fe.fk_object = f.rowid';
+		//$sql.=' WHERE fe.reseller IN ('.join(',', $listofcustomeridreseller).')';
+		$sql.=' WHERE fe.reseller = '.$mythirdpartyaccount->id;
+		$sql.=' AND fk_statut <> '.Facture::STATUS_DRAFT;
+		$sql.=' AND paye = 1';
+
+		$resql = $db->query($sql);
+		if ($resql)
+		{
+			$obj = $db->fetch_object($resql);
+			$totalamountcommission=$obj->total;
+		}
 
 		print '<tr class="liste_title"><td colspan="6">'.$langs->trans("Total").'</td>';
-		print '<td align="right">'.price($totalamountcommission).'</td>';
+		print '<td align="right"><strong>'.price($totalamountcommission).'</strong></td>';
 		print '</tr>';
 
 		print '</table>
