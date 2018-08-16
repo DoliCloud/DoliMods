@@ -287,7 +287,7 @@ $errormessages = array();
 
 $error = 0;
 
-dol_syslog("Fetch contract (id = ".$reusecontractid.", domain name  = ".$fqdninstance.")");
+dol_syslog("Start view of register_instance (reusecontractid = ".$reusecontractid.", reusesocid = ".$reusesocid.", domain name  = ".$fqdninstance.")");
 
 $contract = new Contrat($db);
 if ($reusecontractid)
