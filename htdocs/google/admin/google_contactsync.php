@@ -318,6 +318,8 @@ if ($action == 'pushallthirdparties')
 		//	$res = GContact::deleteDolibarrContacts();
 		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'societe';
 		$sql.= ' WHERE entity IN ('.getEntity('societe').')';
+		$sql.= ' ORDER BY rowid';
+
 		$resql = $db->query($sql);
 		if (! $resql)
 		{
@@ -395,6 +397,8 @@ if ($action == 'pushallcontacts')
 		//	$res = GContact::deleteDolibarrContacts();
 		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'socpeople';
 		$sql.= ' WHERE entity IN ('.getEntity('socpeople').')';
+		$sql.= ' ORDER BY rowid';
+
 		$resql = $db->query($sql);
 		if (! $resql)
 		{
@@ -471,6 +475,8 @@ if ($action == 'pushallmembers')
 
 		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'adherent';
 		$sql.= ' WHERE entity IN ('.getEntity('adherent').')';
+		$sql.= ' ORDER BY rowid';
+
 		$resql = $db->query($sql);
 		if (! $resql)
 		{

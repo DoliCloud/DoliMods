@@ -6,6 +6,7 @@
 - FIX list of maps visible in widget.
 - FIX link in popup of addresses in map.
 - FIX Compatibility with multicompany module
+- FIX Process record by rowid order in the mass push feature
 
 
 ## 6.0
