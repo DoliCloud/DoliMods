@@ -252,7 +252,7 @@ class GContact
         $dolContact = new Societe($db);
         $result=$dolContact->fetch($this->dolID);
         if($result==0)
-            throw new Exception('Internal error: Thirdparty not found');
+        	throw new Exception('Internal error: Thirdparty with ID '.$this->dolID.' not found');
         if($result==0)
             throw new Exception($dolContact->$error);
 
@@ -361,7 +361,7 @@ class GContact
     	$dolContact = new Contact($db);
     	$result=$dolContact->fetch($this->dolID);
     	if($result==0)
-    		throw new Exception('Internal error: Contact not found');
+    		throw new Exception('Internal error: Contact with ID '.$this->dolID.' not found');
     	if($result==0)
     		throw new Exception($dolContact->$error);
 
@@ -481,7 +481,7 @@ class GContact
     	$dolContact = new Adherent($db);
     	$result=$dolContact->fetch($this->dolID);
     	if($result==0)
-    		throw new Exception('Internal error: Contact not found');
+    		throw new Exception('Internal error: Member with ID '.$this->dolID.' not found');
     	if($result==0)
     		throw new Exception($dolContact->$error);
 
