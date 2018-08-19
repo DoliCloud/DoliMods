@@ -317,6 +317,7 @@ if ($action == 'pushallthirdparties')
 
 		//	$res = GContact::deleteDolibarrContacts();
 		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'societe';
+		$sql.= ' WHERE entity IN ('.getEntity('societe').')';
 		$resql = $db->query($sql);
 		if (! $resql)
 		{
@@ -325,16 +326,23 @@ if ($action == 'pushallthirdparties')
 		}
 
 		// Sync from $conf->global->GOOGLE_SYNC_FROM_POSITION to $conf->global->GOOGLE_SYNC_TO_POSITION (1 to n)
-		$synclimit = (empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
+		$synclimit = GETPOST('syncto','int')?GETPOST('syncto','int'):(empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
 		$i=0;
 		while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
 		{
-			if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION))
+			if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION) || GETPOST('syncfrom','int'))
 			{
-				if (($i + 1) < $conf->global->GOOGLE_SYNC_FROM_POSITION) continue;
+				if (($i + 1) < (GETPOST('syncfrom','int')?GETPOST('syncfrom','int'):$conf->global->GOOGLE_SYNC_FROM_POSITION)) continue;
 			}
 
-			$gContacts[] = new GContact($obj->rowid,'thirdparty',$gdata);
+			try {
+				$gContacts[] = new GContact($obj->rowid, 'thirdparty', $gdata);
+			}
+			catch(Exception $e)
+			{
+				print "Error in constructor new GContact(".$obj->rowid.", 'thirdparty', ...)";
+			}
+
 			$i++;
 		}
 
@@ -343,7 +351,7 @@ if ($action == 'pushallthirdparties')
 
 		if (is_numeric($result) && $result >= 0)
 		{
-			$mesg = $langs->trans("PushToGoogleSucess",count($gContacts));
+			$mesg = $langs->trans("PushToGoogleSucess", count($gContacts));
 		}
 		else
 		{
@@ -386,6 +394,7 @@ if ($action == 'pushallcontacts')
 
 		//	$res = GContact::deleteDolibarrContacts();
 		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'socpeople';
+		$sql.= ' WHERE entity IN ('.getEntity('socpeople').')';
 		$resql = $db->query($sql);
 		if (! $resql)
 		{
@@ -393,16 +402,24 @@ if ($action == 'pushallcontacts')
 			exit;
 		}
 
-		$synclimit = (empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
+		$synclimit = GETPOST('syncto','int')?GETPOST('syncto','int'):(empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
 		$i=0;
 		while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
 		{
-			if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION))
+			if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION) || GETPOST('syncfrom','int'))
 			{
-				if (($i + 1) < $conf->global->GOOGLE_SYNC_FROM_POSITION) continue;
+				if (($i + 1) < (GETPOST('syncfrom','int')?GETPOST('syncfrom','int'):$conf->global->GOOGLE_SYNC_FROM_POSITION)) continue;
 			}
 
-			$gContacts[] = new GContact($obj->rowid,'contact',$gdata);
+			try
+			{
+				$gContacts[] = new GContact($obj->rowid, 'contact', $gdata);
+			}
+			catch(Exception $e)
+			{
+				print "Error in constructor new GContact(".$obj->rowid.", 'contact', ...)";
+			}
+
 			$i++;
 		}
 
@@ -453,6 +470,7 @@ if ($action == 'pushallmembers')
 		dol_include_once('/google/class/gcontacts.class.php');
 
 		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'adherent';
+		$sql.= ' WHERE entity IN ('.getEntity('adherent').')';
 		$resql = $db->query($sql);
 		if (! $resql)
 		{
@@ -460,13 +478,13 @@ if ($action == 'pushallmembers')
 			exit;
 		}
 
-		$synclimit = (empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
+		$synclimit = GETPOST('syncto','int')?GETPOST('syncto','int'):(empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
 		$i=0;
 		while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit)))
 		{
-			if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION))
+			if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION) || GETPOST('syncfrom','int'))
 			{
-				if (($i + 1) < $conf->global->GOOGLE_SYNC_FROM_POSITION) continue;
+				if (($i + 1) < (GETPOST('syncfrom','int')?GETPOST('syncfrom','int'):$conf->global->GOOGLE_SYNC_FROM_POSITION)) continue;
 			}
 
 			$gContacts[] = new GContact($obj->rowid,'member',$gdata);
