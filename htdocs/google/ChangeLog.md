@@ -3,13 +3,14 @@
 
 ## 6.0.1 unreleased
 
-- Fix list of maps visible in widget.
-- Fix link in popup of addresses in map.
+- FIX list of maps visible in widget.
+- FIX link in popup of addresses in map.
+- FIX Compatibility with multicompany module
 
 
 ## 6.0
 
-- Fix save of setup for agenda sync per user.
+- FIX save of setup for agenda sync per user.
 
 
 ## 3.7
