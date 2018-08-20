@@ -1288,7 +1288,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 					//dol_sort_array($object->linkedObjects['facture'], 'date');
 					foreach($object->linkedObjects['facturerec'] as $idinvoice => $invoice)
 					{
-						if ($invoice->suspended == FactureRec::STATUS_UNSUSPENDED)
+						if ($invoice->suspended == FactureRec::STATUS_NOTSUSPENDED)
 						{
 							$result = $invoice->setStatut(FactureRec::STATUS_SUSPENDED);
 							if ($result <= 0)
