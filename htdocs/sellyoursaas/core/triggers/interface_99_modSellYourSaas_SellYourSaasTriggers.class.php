@@ -251,7 +251,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         		// Loop on contract of invoice
         		$object->fetchObjectLinked();
 
-        		if (! empty($object->linkedObjectsIds['contrat']))
+        		if ($object->type != Facture::TYPE_CREDIT_NOTE  && ! empty($object->linkedObjectsIds['contrat']))
         		{
         			$contractid = reset($object->linkedObjectsIds['contrat']);
         			dol_syslog("The cancel/paid invoice ".$object->ref." is linked to contract id ".$contractid.", we check if we have to unsuspend it.");
