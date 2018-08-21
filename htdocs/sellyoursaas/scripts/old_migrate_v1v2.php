@@ -26,7 +26,7 @@ $path=dirname(__FILE__).'/';
 // Test if batch mode
 if (substr($sapi_type, 0, 3) == 'cgi') {
 	echo "Error: You are using PHP for CGI. To execute ".$script_file." from command line, you must use PHP for CLI mode.\n";
-	exit;
+	exit(-1);
 }
 
 // Global variables
@@ -66,7 +66,7 @@ $db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->
 if ($db2->error)
 {
 	dol_print_error($db2,"host=".$conf->global->DOLICLOUD_DATABASE_HOST.", port=".$conf->global->DOLICLOUD_DATABASE_PORT.", user=".$conf->global->DOLICLOUD_DATABASE_USER.", databasename=".$conf->global->DOLICLOUD_DATABASE_NAME.", ".$db2->error);
-	exit;
+	exit(-1);
 }
 
 
@@ -111,14 +111,338 @@ if ($result <= 0)
 	print "Error: old instance ".$oldinstance." not found.\n";
 	exit(-2);
 }
+if (empty($oldobject->instance) || empty($oldobject->username_web) || empty($oldobject->password_web) || empty($oldobject->database_db))
+{
+	print "Error: Some properties for old instance ".$oldinstance." was not registered into database.\n";
+	exit(-3);
+}
 
 include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 $newobject = new Contrat($db);
 $result=$newobject->fetch('', '', $newinstance);
 if ($result <= 0)
 {
-	print "Error: newinstance ".$newinstance." not found.\n";
-	exit(-2);
+	print "Error: newinstance ".$newinstance." not found. Do you want to create new third party and instance ?\n";
+
+	$line = readline('y/N');
+	if ($line != 'y')
+	{
+		// Exit by default
+		exit(-2);
+	}
+
+	$createthirdandinstance = 1;
+	$reusecontractid = 0;
+	$reusesocid = 0;
+	$productid = 0;
+	$productref = 'DOLICLOUD-PACK-Dolibarr';
+	$password = 'achanger';
+	$orgname = $oldobject->name;
+	$email = $oldobject->email;
+	$country_code = $oldobject->country_code;
+	$partner = 0;
+
+	$tmpproduct = new Product($db);
+	$tmppackage = new Packages($db);
+	if (empty($reusecontractid))
+	{
+		$result = $tmpproduct->fetch($productid, $productref);
+		if (empty($tmpproduct->id))
+		{
+			print 'Service/Plan (Product id / ref) '.$productid.' / '.$productref.' was not found.';
+			exit(-1);
+		}
+		// We have the main product, we are searching the package
+		if (empty($tmpproduct->array_options['options_package']))
+		{
+			print 'Service/Plan (Product id / ref) '.$tmpproduct->id.' / '.$productref.' has no package defined on it.';
+			exit(-1);
+		}
+		// We have the main product, we are searching the duration
+		if (empty($tmpproduct->duration_value) || empty($tmpproduct->duration_unit))
+		{
+			print 'Service/Plan name (Product ref) '.$productref.' has no default duration';
+			exit(-1);
+		}
+
+		$tmppackage->fetch($tmpproduct->array_options['options_package']);
+		if (empty($tmppackage->id))
+		{
+			print 'Package with id '.$tmpproduct->array_options['options_package'].' was not found.';
+			exit(-1);
+		}
+	}
+
+	$freeperioddays = $tmpproduct->array_options['options_freeperioddays'];
+
+	$now = dol_now();
+
+	// Create thirdparty
+
+	$tmpthirdparty = new Societe($db);
+	$result = $tmpthirdparty->fetch(0, '', '', '', '', '', '', '', '', '', $email);
+	if ($result < 0)
+	{
+		dol_print_error_email('FETCHTP'.$email, $tmpthirdparty->error, $tmpthirdparty->errors, 'alert alert-error');
+		exit(-1);
+	}
+	else if ($result > 0)	// Found one record
+	{
+		print $langs->trans("AccountAlreadyExistsForEmail", $conf->global->SELLYOURSAAS_ACCOUNT_URL);
+		exit(-1);
+	}
+	else dol_syslog("Email not already used. Good.");
+
+	$generatedunixlogin = strtolower('osu'.substr(getRandomPassword(true), 0, 9));		// Must be lowercase as it can be used for default email
+	$generatedunixpassword = substr(getRandomPassword(true), 0, 10);
+
+	$generateddbname = 'dbn'.substr(getRandomPassword(true), 0, 8);
+	$generateddbusername = 'dbu'.substr(getRandomPassword(true), 0, 9);
+	$generateddbpassword = substr(getRandomPassword(true), 0, 10);
+	$generateddbhostname = $newinstance;
+	$generateddbport = 3306;
+	$generatedunixhostname = $newinstance;
+
+
+	// Create thirdparty
+
+	$db->begin();	// Start transaction
+
+	$tmpthirdparty->oldcopy = dol_clone($tmpthirdparty);
+
+	$password_encoding = 'password_hash';
+	$password_crypted = dol_hash($password);
+
+	$tmpthirdparty->name = $orgname;
+	$tmpthirdparty->email = $email;
+	$tmpthirdparty->client = 2;
+	$tmpthirdparty->tva_assuj = 1;
+	$tmpthirdparty->default_lang = $langs->defaultlang;
+	$tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
+	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
+	$tmpthirdparty->array_options['options_source']='MIGRATIONV1';
+	$tmpthirdparty->array_options['options_password'] = $password;
+
+	if ($country_code)
+	{
+		$tmpthirdparty->country_id = getCountry($country_code, 3, $db);
+	}
+
+	if ($tmpthirdparty->id > 0)
+	{
+		if (empty($reusesocid))
+		{
+			$result = $tmpthirdparty->update(0, $user);
+			if ($result <= 0)
+			{
+				$db->rollback();
+				setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+				//header("Location: ".$newurl);
+				exit(-1);
+			}
+		}
+	}
+	else
+	{
+		// Set lang to backoffice language
+		$savlangs = $langs;
+		$langs = $langsen;
+
+		$tmpthirdparty->code_client = -1;
+		if ($partner > 0) $tmpthirdparty->parent = $partner;		// Add link to parent/reseller
+
+		$result = $tmpthirdparty->create($user);
+		if ($result <= 0)
+		{
+			$db->rollback();
+			setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+			//header("Location: ".$newurl);
+			exit(-1);
+		}
+
+		// Restore lang to user/visitor language
+		$langs = $savlangs;
+	}
+
+	if (! empty($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG))
+	{
+		$result = $tmpthirdparty->setCategories(array($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG => $conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG), 'customer');
+		if ($result < 0)
+		{
+			$db->rollback();
+			setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+			//header("Location: ".$newurl);
+			exit(-1);
+		}
+	}
+	else
+	{
+		dol_print_error_email('SETUPTAG', 'Setup of module not complete. The default customer tag is not defined.', null, 'alert alert-error');
+		exit(-1);
+	}
+
+	$date_start = $now;
+	$date_end = dol_time_plus_duree($date_start, $freeperioddays, 'd');
+
+	if (! $error)
+	{
+		dol_syslog("Create contract with deployment status 'Processing'");
+
+		$contract->ref_customer = $newinstance;
+		$contract->socid = $tmpthirdparty->id;
+		$contract->commercial_signature_id = $user->id;
+		$contract->commercial_suivi_id = $user->id;
+		$contract->date_contrat = $now;
+		$contract->note_private = 'Contract created from the online instance registration form';
+
+		$contract->array_options['options_plan'] = $tmppackage->ref;
+		$contract->array_options['options_deployment_status'] = 'processing';
+		$contract->array_options['options_deployment_date_start'] = $now;
+		$contract->array_options['options_deployment_init_email'] = $email;
+		$contract->array_options['options_deployment_init_adminpass'] = $password;
+		$contract->array_options['options_date_endfreeperiod'] = $date_end;
+		$contract->array_options['options_undeployment_date'] = '';
+		$contract->array_options['options_undeployment_ip'] = '';
+		$contract->array_options['options_hostname_os'] = $generatedunixhostname;
+		$contract->array_options['options_username_os'] = $generatedunixlogin;
+		$contract->array_options['options_password_os'] = $generatedunixpassword;
+		$contract->array_options['options_hostname_db'] = $generateddbhostname;
+		$contract->array_options['options_database_db'] = $generateddbname;
+		$contract->array_options['options_port_db'] = $generateddbport;
+		$contract->array_options['options_username_db'] = $generateddbusername;
+		$contract->array_options['options_password_db'] = $generateddbpassword;
+		//$contract->array_options['options_nb_users'] = 1;
+		//$contract->array_options['options_nb_gb'] = 0.01;
+
+		$contract->array_options['options_deployment_ip'] = $_SERVER["REMOTE_ADDR"];
+		$vpnproba = '';
+		if (! empty($_SERVER["REMOTE_ADDR"]))
+		{
+			$emailforvpncheck='contact+checkcustomer@nltechno.com';	// TODO Use a parameter email
+			$url = 'http://check.getipintel.net/check.php?ip='.$_SERVER["REMOTE_ADDR"].'&contact='.urlencode($emailforvpncheck).'&flag=f';
+			$result = getURLContent($url);
+			/* The proxy check system will return negative values on error. For standard format (non-json), an additional HTTP 400 status code is returned
+			 -1 Invalid no input
+			 -2 Invalid IP address
+			 -3 Unroutable address / private address
+			 -4 Unable to reach database, most likely the database is being updated. Keep an eye on twitter for more information.
+			 -5 Your connecting IP has been banned from the system or you do not have permission to access a particular service. Did you exceed your query limits? Did you use an invalid email address? If you want more information, please use the contact links below.
+			 -6 You did not provide any contact information with your query or the contact information is invalid.
+			 If you exceed the number of allowed queries, you'll receive a HTTP 429 error.
+			 */
+			$vpnproba = $result['content'];
+		}
+		$contract->array_options['options_deployment_vpn_proba'] = $vpnproba;
+
+		$prefix=dol_getprefix('');
+		$cookieregistrationa='DOLREGISTERA_'.$prefix;
+		$cookieregistrationb='DOLREGISTERB_'.$prefix;
+		$nbregistration = (int) $_COOKIE[$cookieregistrationa];
+		if (! empty($_COOKIE[$cookieregistrationa]))
+		{
+			$contract->array_options['options_cookieregister_counter'] = ($nbregistration ? $nbregistration : 1);
+		}
+		if (! empty($_COOKIE[$cookieregistrationb]))
+		{
+			$contract->array_options['options_cookieregister_previous_instance'] = dol_decode($_COOKIE[$cookieregistrationb]);
+		}
+
+		$result = $contract->create($user);
+		if ($result <= 0)
+		{
+			dol_print_error_email('CREATECONTRACT', $contract->error, $contract->errors, 'alert alert-error');
+			exit(-1);
+		}
+	}
+
+	$object = $tmpthirdparty;
+
+	// Create contract line for INSTANCE
+	if (! $error)
+	{
+		dol_syslog("Add line to contract for INSTANCE with freeperioddays = ".$freeperioddays);
+
+		if (empty($object->country_code))
+		{
+			$object->country_code = dol_getIdFromCode($db, $object->country_id, 'c_country', 'rowid', 'code');
+		}
+
+		$qty = 1;
+		//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+		$vat = get_default_tva($mysoc, $object, $tmpproduct->id);
+		$localtax1_tx = get_default_localtax($mysoc, $object, 1, 0);
+		$localtax2_tx = get_default_localtax($mysoc, $object, 2, 0);
+		//var_dump($mysoc->country_code);
+		//var_dump($object->country_code);
+		//var_dump($tmpproduct->tva_tx);
+		//var_dump($vat);exit(-1);
+
+		$price = $tmpproduct->price;
+		$discount = 0;
+
+		$productidtocreate = $tmpproduct->id;
+
+		$contractlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreate, $discount, $date_start, $date_end, 'HT', 0);
+		if ($contractlineid < 0)
+		{
+			dol_print_error_email('CREATECONTRACTLINE1', $contract->error, $contract->errors, 'alert alert-error');
+			exit(-1);
+		}
+	}
+
+	//var_dump('user:'.$dolicloudcustomer->price_user);
+	//var_dump('instance:'.$dolicloudcustomer->price_instance);
+	//exit(-1);
+
+	$j=1;
+
+	// Create contract line for other products
+	if (! $error)
+	{
+		dol_syslog("Add line to contract for depending products (like USERS or options)");
+
+		$prodschild = $tmpproduct->getChildsArbo($tmpproduct->id,1);
+
+		$tmpsubproduct = new Product($db);
+		foreach($prodschild as $prodid => $arrayprodid)
+		{
+			$tmpsubproduct->fetch($prodid);	// To load the price
+
+			$qty = 1;
+			//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+			$vat = get_default_tva($mysoc, $object, $prodid);
+			$localtax1_tx = get_default_localtax($mysoc, $object, 1, $prodid);
+			$localtax2_tx = get_default_localtax($mysoc, $object, 2, $prodid);
+
+			$price = $tmpsubproduct->price;
+			$discount = 0;
+
+			if ($qty > 0)
+			{
+				$j++;
+
+				$contractlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $prodid, $discount, $date_start, $date_end, 'HT', 0);
+				if ($contractlineid < 0)
+				{
+					dol_print_error_email('CREATECONTRACTLINE'.$j, $contract->error, $contract->errors, 'alert alert-error');
+					exit(-1);
+				}
+			}
+		}
+	}
+
+	dol_syslog("Reload all lines after creation (".$j." lines in contract) to have contract->lines ok");
+	$contract->fetch_lines();
+
+	if (! $error)
+	{
+		$db->commit();
+	}
+	else
+	{
+		$db->rollback();
+	}
+
 }
 $newobject->instance = $newinstance;
 $newobject->username_web = $newobject->array_options['options_username_os'];
@@ -128,12 +452,6 @@ $newobject->username_db  = $newobject->array_options['options_username_db'];
 $newobject->password_db  = $newobject->array_options['options_password_db'];
 $newobject->database_db  = $newobject->array_options['options_database_db'];
 
-
-if (empty($oldobject->instance) || empty($oldobject->username_web) || empty($oldobject->password_web) || empty($oldobject->database_db))
-{
-	print "Error: Some properties for instance ".$oldinstance." was not registered into database.\n";
-	exit(-3);
-}
 if (empty($newobject->instance) || empty($newobject->username_web) || empty($newobject->password_web) || empty($newobject->database_db))
 {
 	print "Error: Some properties for instance ".$newinstance." was not registered into database.\n";

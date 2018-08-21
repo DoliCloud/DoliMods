@@ -379,9 +379,10 @@ else
 	$generatedunixhostname = $sldAndSubdomain.'.'.$domainname;
 
 
-	// Create thirdparty
-
 	$db->begin();	// Start transaction
+
+
+	// Create thirdparty
 
 	$tmpthirdparty->oldcopy = dol_clone($tmpthirdparty);
 
@@ -460,6 +461,7 @@ else
 	$date_end = dol_time_plus_duree($date_start, $freeperioddays, 'd');
 
 	// Create contract/instance
+
 	if (! $error)
 	{
 		dol_syslog("Create contract with deployment status 'Processing'");
