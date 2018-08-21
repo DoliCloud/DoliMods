@@ -174,6 +174,7 @@ if ($result <= 0)
 	}
 
 	$freeperioddays = $tmpproduct->array_options['options_freeperioddays'];
+	$freeperioddays += 15;
 
 	$now = dol_now();
 
