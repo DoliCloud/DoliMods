@@ -5221,7 +5221,8 @@ if ($mode == 'myaccount')
 
 					$placeholderforvat='';
 					if ($mythirdpartyaccount->country_code == 'FR') $placeholderforvat='Exemple: FR12345678';
-					if ($mythirdpartyaccount->country_code == 'BE') $placeholderforvat='Exemple: BE12345678';
+					elseif ($mythirdpartyaccount->country_code == 'BE') $placeholderforvat='Exemple: BE12345678';
+					else $placeholderforvat=$langs->trans("EnterVATHere");
 
 					print '
 					<br>
