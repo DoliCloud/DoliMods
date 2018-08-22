@@ -1632,10 +1632,11 @@ if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE))
 }
 
 
+
 // List of available plans/products (available for reseller)
 $arrayofplans=array();
 $arrayofplanscode=array();
-$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration';
+$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration, pe.availabelforresellers';
 $sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
 $sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 $sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
@@ -1656,6 +1657,7 @@ if ($resqlproducts)
 		if ($obj)
 		{
 			$tmpprod->fetch($obj->rowid);
+			$tmpprod->sousprods = array();
 			$tmpprod->get_sousproduits_arbo();
 			$tmparray = $tmpprod->get_arbo_each_prod();
 
@@ -1676,8 +1678,8 @@ if ($resqlproducts)
 					$tmpprodchild->fetch($value['id']);
 					if (preg_match('/user/i', $tmpprodchild->ref) || preg_match('/user/i', $tmpprodchild->array_options['options_resource_label']))
 					{
-						$priceinstance['user'] .= $obj->price;
-						$priceinstance_ttc['user'] .= $obj->price_ttc;
+						$priceinstance['user'] .= $tmpprodchild->price;
+						$priceinstance_ttc['user'] .= $tmpprodchild->price_ttc;
 					}
 					else
 					{
@@ -2335,7 +2337,7 @@ if ($mode == 'instances')
 {
 	// List of available plans/producs
 	$arrayofplans=array();
-	$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration';
+	$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration, pe.availabelforresellers';
 	$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
 	$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 	$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
