@@ -2759,7 +2759,7 @@ if ($mode == 'instances')
 									print '<input type="hidden" name="contractid" value="'.$contract->id.'" />';
 
 									// List of available plans/products
-									$arrayofplans=array();
+									$arrayofplanstoswitch=array();
 									$sqlproducts = 'SELECT p.rowid, p.ref, p.label FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
 									$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 									$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
@@ -2775,12 +2775,12 @@ if ($mode == 'instances')
 											$obj = $db->fetch_object($resqlproducts);
 											if ($obj)
 											{
-												$arrayofplans[$obj->rowid]=$obj->label;
+												$arrayofplanstoswitch[$obj->rowid]=$obj->label;
 											}
 											$i++;
 										}
 									}
-									print $form->selectarray('planid', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth300');
+									print $form->selectarray('planid', $arrayofplanstoswitch, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth300');
 									print '<input type="submit" class="btn btn-warning default change-plan-link" name="changeplan" value="'.$langs->trans("ChangePlan").'">';
 								}
 								else
@@ -3460,7 +3460,7 @@ if ($mode == 'mycustomerinstances')
 				print '<input type="hidden" name="contractid" value="'.$contract->id.'" />';
 
 				// List of available plans
-				$arrayofplans=array();
+				$arrayofplanstoswitch=array();
 				$sqlproducts = 'SELECT p.rowid, p.ref, p.label FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
 				$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 				$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
@@ -3475,12 +3475,12 @@ if ($mode == 'mycustomerinstances')
 						$obj = $db->fetch_object($resqlproducts);
 						if ($obj)
 						{
-							$arrayofplans[$obj->rowid]=$obj->label;
+							$arrayofplanstoswitch[$obj->rowid]=$obj->label;
 						}
 						$i++;
 					}
 				}
-				print $form->selectarray('planid', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth300');
+				print $form->selectarray('planid', $arrayofplanstoswitch, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth300');
 				print '<input type="submit" class="btn btn-warning default change-plan-link" name="changeplan" value="'.$langs->trans("ChangePlan").'">';
 			}
 			else
@@ -3716,74 +3716,7 @@ if ($mode == 'mycustomerinstances')
 
 		<div class="portlet light">';
 
-		// List of available plans
-		$arrayofplans=array();
-		$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration';
-		$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
-		$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
-		$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
-		//$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";
-		$resqlproducts = $db->query($sqlproducts);
-		if ($resqlproducts)
-		{
-			$num = $db->num_rows($resqlproducts);
-
-			$tmpprod = new Product($db);
-			$tmpprodchild = new Product($db);
-			$i=0;
-			while($i < $num)
-			{
-				$obj = $db->fetch_object($resqlproducts);
-				if ($obj)
-				{
-					$tmpprod->fetch($obj->rowid);
-					$tmpprod->get_sousproduits_arbo();
-					$tmparray = $tmpprod->get_arbo_each_prod();
-
-					$label = $obj->label;
-					$pricefix = $obj->price;
-					$pricefix_ttc = $obj->price_ttc;
-					$priceuser = 0;
-					$priceuser_ttc = 0;
-
-					if (count($tmparray) > 0)
-					{
-						foreach($tmparray as $key => $value)
-						{
-							$tmpprodchild->fetch($value['id']);
-							if ($tmpprodchild->array_options['options_app_or_option'] == 'app')
-							{
-								$pricefix .= $obj->price;
-								$pricefix_ttc .= $obj->price_ttc;
-							}
-							if ($tmpprodchild->array_options['options_app_or_option'] == 'system')
-							{
-								$priceuser .= $obj->price;
-								$priceuser_ttc .= $obj->price_ttc;
-							}
-							if ($tmpprodchild->array_options['options_app_or_option'] == 'option')
-							{
-								$priceuser .= $obj->price;
-								$priceuser_ttc .= $obj->price_ttc;
-							}
-						}
-					}
-					$pricetoshow = price2num($pricefix,'MT');
-					if (empty($pricetoshow)) $pricetoshow = 0;
-					$arrayofplans[$obj->rowid]=$label.' ('.price($pricetoshow, 1, $langs, 1, 0, -1, $conf->currency);
-
-					if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
-					if ($priceuser)
-					{
-						$arrayofplans[$obj->rowid].=' + '.price(price2num($priceuser,'MT'), 1, $langs, 1, 0, -1, $conf->currency).'/'.$langs->trans("User");
-						if ($tmpprod->duration) $arrayofplans[$obj->rowid].=' / '.($tmpprod->duration == '1m' ? $langs->trans("Month") : '');
-					}
-					$arrayofplans[$obj->rowid].=')';
-				}
-				$i++;
-			}
-		}
-		else dol_print_error($db);
+		natcasesort($arrayofplans);
 
 		print '
 			<div class="group">
