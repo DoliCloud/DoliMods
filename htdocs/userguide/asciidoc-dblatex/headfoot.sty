@@ -1,0 +1,84 @@
+% Header and Footer configurations
+
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{etoolbox}
+\usepackage{lastpage}
+
+% Define Teclib Logo
+\def\tecliblogo{
+\includegraphics[height=1.3cm,keepaspectratio=true,trim=0mm 0mm 0mm 0mm,clip]{dolibarr_logo.png}
+}
+
+
+% Define Customer Logo
+\@ifundefined{DBKcustomer}{\def\DBKcustomer{}}
+
+\def\customerlogo{
+\ifthenelse{\equal{\DBKcustomer}{}}{}
+{
+\includegraphics[height=1.3cm,keepaspectratio=true,trim=0mm 0mm 0mm 0mm,clip]{{\DBKcustomer}.png}
+}
+}
+%\renewcommand{\arraystretch}{1.4}
+
+
+% redefine Header/Footer
+
+\def\footerRef{\footnotesize Référence de document : {\bf\DBKedition} | {\bf\DBKdate} }
+\def\footerInfo{\scriptsize\textit{\textbf{\href{http://www.dolibarr.org.com}{Dolibarr user guide}}}}
+
+% Define page style of front page
+
+\fancypagestyle{plainfront}{%
+    \fancyhead{}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0.4pt}
+    %\fancyhead[L]{\raisebox{-0.5\height}\tecliblogo}
+    \fancyhead[L]{\tecliblogo}
+    \fancyhead[C]{\normalsize\bf{\mytitle}\\\footnotesize{\DBKsubtitle}}
+    %\fancyhead[R]{\raisebox{-0.5\height}\customerlogo}
+    \fancyhead[R]{\customerlogo}
+    \fancyfoot[L]{
+        \colorbox{teclib-color-green-light}{%
+            \begin{minipage}{\linewidth-2\fboxsep}%
+                \footerInfo%
+            \end{minipage}%
+        }
+    }
+}
+
+% Define page style of main pages
+
+\fancypagestyle{plain}{%
+    \fancyhead{}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0.4pt}
+    \fancyhead[L]{\tecliblogo}
+    \fancyhead[C]{\normalsize\bf{\mytitle}\\\footnotesize{\DBKsubtitle}}
+    \fancyhead[R]{\customerlogo}
+    \fancyfoot[L]{
+        \colorbox{teclib-color-green-light}{%
+            \begin{minipage}{\linewidth-2\fboxsep}%
+                \footerInfo%
+                \hfill\textsf{\thepage{}/\pageref*{LastPage}}%
+            \end{minipage}%
+        }
+    }
+}
+
+\fancypagestyle{firststyle}
+{
+    \renewcommand{\fancyhf}{}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0.4pt}
+    \fancyhead[L]{\tecliblogo}
+    \fancyhead[C]{}
+    \fancyhead[R]{\customerlogo}
+}
+
+
+
+
+\fancyfoot[C]{}
+\fancyfoot[R]{}

@@ -1,0 +1,21 @@
+
+% Define front/main/back matter if not available
+
+\undef\frontmatter
+\undef\mainmatter
+\undef\backmatter
+
+\@ifundefined{frontmatter}{
+  \def\frontmatter{\cleardoublepage\pagenumbering{roman}
+                    \pagestyle{plainfront}
+}
+}{}
+\@ifundefined{mainmatter}{
+  \def\mainmatter{\cleardoublepage\pagenumbering{arabic}
+                   \pagestyle{plain}
+}
+}{}
+\@ifundefined{backmatter}{
+  \def\backmatter{\if@openright\cleardoublepage\else\clearpage\fi}
+}{}
+

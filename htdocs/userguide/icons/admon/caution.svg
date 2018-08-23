@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: IcoMoon -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   data-tags="warning, alert"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="warning.svg">
+  <metadata
+     id="metadata74">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs72" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1216"
+     inkscape:window-height="730"
+     id="namedview70"
+     showgrid="false"
+     inkscape:zoom="0.4609375"
+     inkscape:cx="256"
+     inkscape:cy="256"
+     inkscape:window-x="150"
+     inkscape:window-y="18"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <path
+     d="M 505.216,419.376l-191.984-384.00C 302.40,13.696, 280.256,0.00, 256.00,0.00s-46.40,13.696-57.232,35.376 l-191.984,384.00c-9.92,19.84-8.864,43.408, 2.80,62.288C 21.248,500.512, 41.84,512.00, 64.016,512.00l 383.952,0.00 c 22.192,0.00, 42.784-11.488, 54.432-30.336 C 514.064,462.784, 515.12,439.216, 505.216,419.376z M 287.968,432.00c0.00,8.848-7.152,16.00-16.00,16.00l-32.00,0.00 c-8.848,0.00-16.00-7.152-16.00-16.00l0.00-32.00 c0.00-8.848, 7.152-16.00, 16.00-16.00l 32.00,0.00 c 8.848,0.00, 16.00,7.152, 16.00,16.00L 287.968,432.00 z M 287.968,304.00c0.00,8.848-7.152,16.00-16.00,16.00l-32.00,0.00 c-8.848,0.00-16.00-7.152-16.00-16.00L 223.968,144.00 c0.00-8.832, 7.152-16.00, 16.00-16.00l 32.00,0.00 c 8.848,0.00, 16.00,7.168, 16.00,16.00 L 287.968,304.00 z"
+     id="path68" />
+</svg>

@@ -1,0 +1,92 @@
+\PassOptionsToPackage{compact}{titlesec}
+\usepackage{titletoc}
+
+% Redefine Document Main Title
+\let\stdtitle=\title
+\def\title#1{
+  \gdef\mytitle{#1}
+  \def\DBKtitle{#1}
+}
+
+%% LDR \surroundwithmdframed[style=framedlisting]{lstlisting}
+\let\stdmaketitle=\maketitle
+\def\maketitle{
+  \thispagestyle{firststyle}
+  \null
+  \begin{center}
+    \begin{center}
+    { \color{teclib-color-purple} \Huge{\bf \mytitle} \par}%
+    { \color{teclib-color-purple} \large{\bf \DBKsubtitle} \par}%
+    \end{center}
+  \end{center}
+
+  \DBKlegalblock
+
+}
+
+% Section (or TOC) reformatting
+\newcommand{\colorsection}[1]{%
+  \ifthenelse{\equal{\thesection}{0}}{%
+    \begin{center}
+          \color{teclib-color-purple}\Large\bfseries #1%
+    \end{center}
+  }%
+  {%
+    \begin{center}
+          \color{teclib-color-purple}\Large\bfseries\thesection\ - #1%
+    \end{center}
+  }
+}
+
+\titleformat{name=\section}[block]
+  {}
+  {}
+  {0em}
+  {\colorsection}
+  {}
+
+% subsection reformatting
+\newcommand{\colorsubsectiontext}[1]{%
+\textcolor{teclib-color-purple}{\textbf{#1}}
+}
+
+\titleformat{\subsection}[hang]
+  {\bfseries}%
+  {\textcolor{teclib-color-purple}{\thesubsection\hspace{0.2em}-}}%
+  {0.2em}%
+  {\colorsubsectiontext}%
+
+% subsubsection reformatting
+\newcommand{\colorsubsubsectiontext}[1]{%
+\textcolor{teclib-color-purple}{\textbf{#1}}
+}
+
+\titleformat{\subsubsection}[hang]
+  {\bfseries}%
+  {\textcolor{teclib-color-purple}{\thesubsubsection\hspace{0.2em}-}}%
+  {0.2em}%
+  {\colorsubsubsectiontext}%
+
+
+% Paragraph reformatting
+\titleformat{\paragraph}[hang]{\bfseries}{\theparagraph}{1em}{}
+
+
+% Title Spacing
+\titlespacing{\section}{0pt}{0pt}{0pt}
+\titlespacing{\subsection}{20pt}{20pt}{10pt}
+\titlespacing{\subsubsection}{40pt}{10pt}{10pt}
+
+% Table of Contents
+\titlecontents{section} [0em]
+    {\large\bfseries}
+    {\textcolor{teclib-color-purple}{\thecontentslabel\ - }}
+    {\hspace*{-2.3em}}
+    {\normalsize\titlerule*[0.5pc]{.}\contentspage}
+
+\titlecontents{subsection} [2.5em]
+    {\normalsize}
+    {\textcolor{teclib-color-purple}{\thecontentslabel\ - }}
+    {\hspace*{-2.3em}}
+    {\normalsize\titlerule*[0.5pc]{.}\contentspage}
+

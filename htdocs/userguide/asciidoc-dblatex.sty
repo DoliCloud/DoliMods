@@ -1,0 +1,131 @@
+%%
+%% This style is derived from the docbook one.
+%%
+%% See http://en.wikibooks.org/wiki/LaTeX/Page_Layout for page layout
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{asciidoc}[2008/06/05 AsciiDoc DocBook Style]
+%% Just use the original package and pass the options.
+
+
+\usepackage[
+a4paper,
+%vscale=1,
+%textheight=20cm,
+top=2cm,bottom=1.2cm,
+left=1cm,right=1cm,
+marginparwidth=0cm,
+marginparsep=0cm,
+headheight=1.5cm,
+headsep=0.2cm,
+footskip=0.8cm,
+%includehead,
+%includefoot,
+%verbose,
+%showframe
+]{geometry}
+\RequirePackageWithOptions{docbook}
+
+% Docbook fix : Ne pas utiliser l'environnement 'quote' pour les 'legalnotice'
+\renewenvironment{DBKlegalnotice}{
+  \if@twocolumn
+    \noindent\small\textit{\DBKlegaltitle}
+    \/\bfseries---$\!$
+  \else
+    \noindent\begin{center}\small\bfseries\DBKlegaltitle
+    \end{center}\begin{center}\small
+  \fi
+}{
+  \vspace{0.6em}\par\if@twocolumn\else\end{center}\fi
+}
+
+% Header Dimension
+%\setlength{\headheight}{0.5cm}
+%
+% Include some custom configurations
+%
+\usepackage{asciidoc-dblatex/colors}
+%% LDR \usepackage{asciidoc-dblatex/mdframed}
+\usepackage{asciidoc-dblatex/headfoot}
+\usepackage{asciidoc-dblatex/pagestyle}
+\usepackage{asciidoc-dblatex/listings}
+\usepackage{asciidoc-dblatex/titles}
+\usepackage{asciidoc-dblatex/items}
+
+%\usepackage{polyglossia}
+%\setdefaultlanguage{french}
+
+%\usepackage[frenchb]{babel}
+
+
+
+%\frenchbsetup{
+%StandardLayout=true,%
+%GlobalLayoutFrench=false,%
+%ReduceListSpacing=false,%
+%CompactItemize=true,%
+%StandardItemLabels=true,%
+%IndentFirst=false,%
+%StandardLists=true,%
+%FrenchFootnotes=false,%
+%AutoSpaceFootnotes=false,%
+%FrenchSuperscripts=false,%
+%AutoSpacePunctuation=false,%
+%ThinColonSpace=false,%
+%LowercaseSuperscripts=false,%
+%PartNameFull=false, %
+%ShowOptions=true
+%}
+
+%\renewcommand*{\Fcolonspace}{}
+%\renewcommand*{\Fthinspace}{}
+
+
+% Sidebar is a boxed minipage that can contain verbatim.
+% Changed shadow box to double box.
+\renewenvironment{sidebar}[1][0.95\textwidth]{
+  \hspace{0mm}\newline%
+  \noindent\begin{Sbox}\begin{minipage}{#1}%
+  \setlength\parskip{\medskipamount}%
+}{
+  \end{minipage}\end{Sbox}\doublebox{\TheSbox}%
+}
+
+% For DocBook literallayout elements, see `./dblatex/dblatex-readme.txt`.
+\usepackage{alltt}
+
+%\usepackage[obeyspaces]{url}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{soul}
+\setuldepth{}
+\setul{0.1ex}{0.01ex}
+
+\usepackage{array}
+\setlength{\extrarowheight}{1pt}
+
+\arrayrulecolor{teclib-color-purple}
+
+% Babel French is doing too much of reformatting
+% so I've disabled it until finding how to customize it.
+\renewcommand\contentsname{Table des Matières}
+%\frenchbsetup{StandardLayout=false,GlobalLayoutFrench=false,AutoSpacePunctuation=false,ThinColonSpace=true}
+
+% Set paragraph indentation
+%\setlength{\parindent}{0.5em}
+
+%\def\date#1{
+%    \gdef\mydate{#1}
+%}
+
+
+\linespread{0.85}
+
+\setitemize{itemsep=0pt}
+\setlist{itemsep=0pt}
+
+%%\paperwidth  537.68896pt  but that is 7.46 inches
+%%\paperheight 699.57306pt
+%%\textwidth  310.61507pt
+%%\textheight 465.92299pt

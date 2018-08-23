@@ -1,0 +1,44 @@
+%\newenvironment{admminipage}%
+%{ % this code corresponds to the \begin{adminipage} command
+%  \begin{Sbox}%
+%  \begin{minipage}%
+%} %done
+%{ % this code corresponds to the \end{adminipage} command
+%  \end{minipage}
+%  \end{Sbox}
+%  \fbox{\TheSbox}
+%} %done
+%
+%\renewenvironment{DBKadmonition}[2] {
+%  % this code corresponds to the \begin{admonition} command
+%  \hspace{0mm}\newline\hspace*\fill\newline
+%  \noindent
+%  \setlength{\fboxsep}{5pt}
+%  \setlength{\admlength}{\linewidth}
+%  \addtolength{\admlength}{-10\fboxsep}
+%  \addtolength{\admlength}{-10\fboxrule}
+%  \admminipage{\admlength}
+%  {\bfseries \sc\large{#2}} \newline
+%  ~\\[1mm]
+%  \sffamily
+%  \ifthenelse{\equal{#1}{}}{
+%    \def\admgraph{false}
+%  }{
+%    \def\admgraph{true}
+%    \includegraphics[width=1cm]{#1}
+%    \addtolength{\admlength}{-1cm}
+%    \addtolength{\admlength}{-20pt}
+%    \begin{minipage}[lt]{\admlength}
+%  }
+%  \parskip=0.5\baselineskip \advance\parskip by 0pt plus 2pt
+%} %done
+%{ % this code corresponds to the \end{admonition} command
+%  \vspace{5mm}
+%  \ifthenelse{\equal{\admgraph}{false}}{}{
+%    \end{minipage}
+%  }
+%  \endadmminipage
+%  \vspace{.5em}
+%  \par
+%}
+
