@@ -18,10 +18,6 @@ scriptdir = os.path.dirname(os.path.realpath(__file__))
 # Used by AsciiDoc to generate XML DocBook
 asciidoc_conf =  os.path.normpath(os.path.join(scriptdir, "./asciidoc.conf"))
 
-# Used by DBLatex to generate PDF
-dblatex_xsl = os.path.normpath(os.path.join(scriptdir,"./dblatex/asciidoc-dblatex-teclib.xsl"))
-# Latex STYle file
-dblatex_sty = os.path.normpath(os.path.join(scriptdir,"./dblatex/asciidoc-dblatex-teclib.sty"))
 # Logos path
 dblatex_logos = os.path.normpath(os.path.join(scriptdir,"./logos/"))
 # Icons path
@@ -67,17 +63,12 @@ if __name__ == "__main__" :
     parser.add_argument('file', metavar="file", help='one Asciidoc file')
     parser.add_argument('--output', '-o' , metavar="output", help="file output name")
     parser.add_argument('--debug', action='store_true', help='add more Debug feature , especially the debug feature of DBLatex (cf. dblatex --help)')
-    parser.add_argument('--uselocalsheets', action='store_true', help='Use local .spy and .xsl sheets found into current directory')
-    parser.add_argument('--serenit', action='store_true', help='Use SerenIT template')
-    parser.add_argument('--auguria', action='store_true', help='Use Auguria template')
-    parser.add_argument('--buytheway', action='store_true', help='Use Buy The Way template')
 
     args = parser.parse_args()
 	
-    if args.uselocalsheets:
-        logging.info('Use local style sheets')
-        dblatex_xsl = os.path.join(os.getcwd(),"asciidoc-dblatex.xsl")
-        dblatex_sty = os.path.join(os.getcwd(),"asciidoc-dblatex.sty")
+    logging.info('Use local style sheets')
+    dblatex_xsl = os.path.join(os.getcwd(),"asciidoc-dblatex/asciidoc-dblatex.xsl")
+    dblatex_sty = os.path.join(os.getcwd(),"asciidoc-dblatex/asciidoc-dblatex.sty")
     
     pdfcommand_base = [
         'dblatex',
