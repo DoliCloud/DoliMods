@@ -1,5 +1,5 @@
-= MYMODULE =
-:subtitle: MYMODULE SPECIFICATIONS
+= USER GUIDE =
+:subtitle: Guide for end users
 
 
 
