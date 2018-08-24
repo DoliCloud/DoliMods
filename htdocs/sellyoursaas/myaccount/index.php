@@ -748,7 +748,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 			$sellyoursaasutils = new SellYourSaasUtils($db);
 
-			$result = $sellyoursaasutils->doTakePaymentStripeForThirdparty($service, $servicestatusstripe, $mythirdpartyaccount->id, $companypaymentmode, null, 1);
+			$result = $sellyoursaasutils->doTakePaymentStripeForThirdparty($service, $servicestatusstripe, $mythirdpartyaccount->id, $companypaymentmode, null, 1, 1, 1);
 			if ($result != 0)
 			{
 				$error++;

@@ -789,10 +789,11 @@ class SellYourSaasUtils
      * @param	int		$companypaymentmode			Company payment mode id
      * @param	int		$invoice					null=All invoices of thirdparty, Invoice=Only this invoice
      * @param	int		$includedraft				Include draft invoices
-     * @param	int		$noemailtocustomeriferror	No email sent to customer if there is a payment error (can be used when error is already reported on screen)
+     * @param	int		$noemailtocustomeriferror	1=No email sent to customer if there is a payment error (can be used when error is already reported on screen)
+     * @param	int		$nocancelifpaymenterror		1=Do not cancel payment if there is a recent payment error
      * @return	int									0 if no error, >0 if error
      */
-    function doTakePaymentStripeForThirdparty($service, $servicestatus, $thirdparty_id, $companypaymentmode, $invoice=null, $includedraft=0, $noemailtocustomeriferror=0)
+    function doTakePaymentStripeForThirdparty($service, $servicestatus, $thirdparty_id, $companypaymentmode, $invoice=null, $includedraft=0, $noemailtocustomeriferror=0, $nocancelifpaymenterror=0)
     {
     	global $conf, $mysoc, $user, $langs;
 
@@ -929,7 +930,7 @@ class SellYourSaasUtils
 							if ($obj && $obj->nb > 0) $recentfailedpayment = true;
 						}
 
-						if ($recentfailedpayment)
+						if ($recentfailedpayment && empty($nocancelifpaymenterror))
 						{
 							$errmsg='Payment try was canceled (recent payment in error for this customer)';
 							dol_syslog($errmsg, LOG_DEBUG);
