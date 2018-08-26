@@ -49,6 +49,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+dol_include_once('/sellyoursaas/class/packages.class.php');
 
 // Re set variables specific to new environment
 $conf->global->SYSLOG_FILE_ONEPERSESSION=1;
@@ -104,29 +105,32 @@ if (empty($productid) && empty($productref))
 	}
 }
 
-// Load main product
 $tmpproduct = new Product($db);
-$result = $tmpproduct->fetch($productid, $productref);
-if (empty($tmpproduct->id))
-{
-	print 'Service/Plan (Product id / ref) '.$productid.' / '.$productref.' was not found.';
-	exit;
-}
-// We have the main product, we are searching the package
-if (empty($tmpproduct->array_options['options_package']))
-{
-	print 'Service/Plan (Product id / ref) '.$tmpproduct->id.' / '.$productref.' has no package defined on it.';
-	exit;
-}
-$productref = $tmpproduct->ref;
-
-dol_include_once('/sellyoursaas/class/packages.class.php');
 $tmppackage = new Packages($db);
-$tmppackage->fetch($tmpproduct->array_options['options_package']);
-if (empty($tmppackage->id))
+
+// Load main product
+if ($productref != 'none')
 {
-	print "Package with id '".$tmpproduct->array_options['options_package']." was not found.";
-	exit;
+	$result = $tmpproduct->fetch($productid, $productref);
+	if (empty($tmpproduct->id))
+	{
+		print 'Service/Plan (Product id / ref) '.$productid.' / '.$productref.' was not found.';
+		exit;
+	}
+	// We have the main product, we are searching the package
+	if (empty($tmpproduct->array_options['options_package']))
+	{
+		print 'Service/Plan (Product id / ref) '.$tmpproduct->id.' / '.$productref.' has no package defined on it.';
+		exit;
+	}
+	$productref = $tmpproduct->ref;
+
+	$tmppackage->fetch($tmpproduct->array_options['options_package']);
+	if (empty($tmppackage->id))
+	{
+		print "Package with id '".$tmpproduct->array_options['options_package']." was not found.";
+		exit;
+	}
 }
 
 // Check partner exists if provided
@@ -255,7 +259,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
     	    <div class="form-content">
 	    	  <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
 	          <input type="hidden" name="service" value="<?php echo dol_escape_htmltag($tmpproduct->id); ?>" />
-	          <input type="hidden" name="productref" value="<?php echo dol_escape_htmltag($tmpproduct->ref); ?>" />
+	          <input type="hidden" name="productref" value="<?php echo ($productref == 'none' ? 'none' : dol_escape_htmltag($tmpproduct->ref)); ?>" />
 	          <input type="hidden" name="package" value="<?php echo dol_escape_htmltag($tmppackage->ref); ?>" />
 	          <input type="hidden" name="partner" value="<?php echo dol_escape_htmltag($partner); ?>" />
 	          <input type="hidden" name="partnerkey" value="<?php echo dol_escape_htmltag($partnerkey); ?>" />
@@ -359,32 +363,36 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
           </section>
 
           <?php
-          if (empty($reusecontractid)) print '<br>';
-          else print '<hr/>';
-          ?>
+          if ($productref != 'none')
+          {
+	          if (empty($reusecontractid)) print '<br>';
+	          else print '<hr/>';
+	          ?>
 
-          <section id="selectDomain">
-            <div class="fld select-domain required">
-              <label trans="1"><?php echo $langs->trans("ChooseANameForYourApplication") ?></label>
-              <div class="linked-flds">
-                <span class="opacitymedium">https://</span>
-                <input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="<?php echo $sldAndSubdomain; ?>" maxlength="29" />
-                <select name="tldid" id="tldid" >
-                	<?php
-                	$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
-                	foreach($listofdomain as $val)
-                	{
-                		$newval=$val;
-                		if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
-                		print '<option value="'.$newval.'">'.$newval.'</option>';
-                	}
-                    ?>
-                </select>
-                <br class="unfloat" />
-              </div>
-            </div>
-          </section>
-
+	          <section id="selectDomain">
+	            <div class="fld select-domain required">
+	              <label trans="1"><?php echo $langs->trans("ChooseANameForYourApplication") ?></label>
+	              <div class="linked-flds">
+	                <span class="opacitymedium">https://</span>
+	                <input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="<?php echo $sldAndSubdomain; ?>" maxlength="29" />
+	                <select name="tldid" id="tldid" >
+	                	<?php
+	                	$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+	                	foreach($listofdomain as $val)
+	                	{
+	                		$newval=$val;
+	                		if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
+	                		print '<option value="'.$newval.'">'.$newval.'</option>';
+	                	}
+	                    ?>
+	                </select>
+	                <br class="unfloat" />
+	              </div>
+	            </div>
+	          </section>
+			<?php
+          	}
+			?>
 
 			<br>
 
@@ -407,7 +415,20 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 			}
 			?>
 	          <div class="form-actions center"">
-	              <input type="submit" name="submit" style="margin: 10px;" value="<?php echo $langs->trans("SignMeUp") ?>" class="btn btn-primary" id="submit" />
+	          	<?php
+	          	if ($productref != 'none')
+	          	{
+	          	?>
+	            	<input type="submit" name="submit" style="margin: 10px;" value="<?php echo $langs->trans("SignMeUp") ?>" class="btn btn-primary" id="submit" />
+	            <?php
+	          	}
+	          	else
+	          	{
+	          	?>
+	            	<input type="submit" name="submit" style="margin: 10px;" value="<?php echo $langs->trans("CreateMyAccount") ?>" class="btn btn-primary" id="submit" />
+	          	<?php
+	          	}
+	          	?>
 	          </div>
           </section>
 

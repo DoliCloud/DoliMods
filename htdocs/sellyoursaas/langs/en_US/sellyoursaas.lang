@@ -385,3 +385,4 @@ DeploymentIPVPNProba=Probability of using a VPN
 DeploymentIPVPNProbaDesc=When a subscription is done, a check is done on subscriber IP to http://check.getipintel.net/check.php?ip=IP&contact=%s&flag=f
 ListOfRegistrationLinks=List of registration links
 EnterVATHere=Enter your VAT or Sale tax number here...
+CreateMyAccount=Create my account

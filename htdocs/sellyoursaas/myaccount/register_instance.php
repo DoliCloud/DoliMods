@@ -108,10 +108,11 @@ $productid=GETPOST('service','int');
 $plan=GETPOST('plan','alpha');
 $productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):($plan?$plan:''));
 
-// Load main product
 $tmpproduct = new Product($db);
 $tmppackage = new Packages($db);
-if (empty($reusecontractid))
+
+// Load main product
+if (empty($reusecontractid) && $productref != 'none')
 {
 	$result = $tmpproduct->fetch($productid, $productref);
 	if (empty($tmpproduct->id))
@@ -174,13 +175,13 @@ elseif ($reusesocid)		// When we use the "Add another instance" from account bac
 	if (! preg_match('/partnerkey/i', $newurl)) $newurl.='&partnerkey='.urlencode($partnerkey);		// md5 of partner name alias
 	if (! preg_match('/origin/i', $newurl)) $newurl.='&origin='.urlencode($origin);
 
-	if (empty($sldAndSubdomain))
+	if ($productref != 'none' && empty($sldAndSubdomain))
 	{
 		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
 		header("Location: ".$newurl);
 		exit;
 	}
-	if (! preg_match('/^[a-zA-Z0-9\-]+$/', $sldAndSubdomain))
+	if ($productref != 'none' && ! preg_match('/^[a-zA-Z0-9\-]+$/', $sldAndSubdomain))
 	{
 		setEventMessages($langs->trans("ErrorOnlyCharAZAllowedFor", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
 		header("Location: ".$newurl);
@@ -212,13 +213,13 @@ else
 	if (! preg_match('/partnerkey/i', $newurl)) $newurl.='&partnerkey='.urlencode($partnerkey);		// md5 of partner name alias
 	if (! preg_match('/origin/i', $newurl)) $newurl.='&origin='.urlencode($origin);
 
-	if (empty($sldAndSubdomain))
+	if ($productref != 'none' && empty($sldAndSubdomain))
 	{
 		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
 		header("Location: ".$newurl);
 		exit;
 	}
-	if (! preg_match('/^[a-zA-Z0-9\-]+$/', $sldAndSubdomain))
+	if ($productref != 'none' && ! preg_match('/^[a-zA-Z0-9\-]+$/', $sldAndSubdomain))
 	{
 		setEventMessages($langs->trans("ErrorOnlyCharAZAllowedFor", $langs->transnoentitiesnoconv("NameForYourApplication")), null, 'errors');
 		header("Location: ".$newurl);
@@ -356,14 +357,17 @@ else
 
 	$fqdninstance = $sldAndSubdomain.$tldid;
 
-	$result = $contract->fetch(0, '', $fqdninstance);
-	if ($result > 0)
+	if ($productref != 'none')
 	{
-		setEventMessages($langs->trans("InstanceNameAlreadyExists", $fqdninstance), null, 'errors');
-		header("Location: ".$newurl);
-		exit;
+		$result = $contract->fetch(0, '', $fqdninstance);
+		if ($result > 0)
+		{
+			setEventMessages($langs->trans("InstanceNameAlreadyExists", $fqdninstance), null, 'errors');
+			header("Location: ".$newurl);
+			exit;
+		}
+		else dol_syslog("Contract name not already used. Good.");
 	}
-	else dol_syslog("Contract name not already used. Good.");
 
 
 	// Generate credentials
@@ -457,12 +461,34 @@ else
 		exit;
 	}
 
+	if ($productref == 'none')
+	{
+		if (! empty($conf->global->SELLYOURSAAS_DEFAULT_SUPPLIER_CATEG))
+		{
+			$result = $tmpthirdparty->setCategories(array($conf->global->SELLYOURSAAS_DEFAULT_SUPPLIER_CATEG => $conf->global->SELLYOURSAAS_DEFAULT_SUPPLIER_CATEG), 'customer');
+			if ($result < 0)
+			{
+				$db->rollback();
+				setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+				header("Location: ".$newurl);
+				exit;
+			}
+		}
+		else
+		{
+			dol_print_error_email('SETUPTAG', 'Setup of module not complete. The default supplier tag is not defined.', null, 'alert alert-error');
+			exit;
+		}
+	}
+
+	$object = $tmpthirdparty;
+
 	$date_start = $now;
 	$date_end = dol_time_plus_duree($date_start, $freeperioddays, 'd');
 
 	// Create contract/instance
 
-	if (! $error)
+	if (! $error && $productref != 'none')
 	{
 		dol_syslog("Create contract with deployment status 'Processing'");
 
@@ -533,10 +559,9 @@ else
 		}
 	}
 
-	$object = $tmpthirdparty;
 
 	// Create contract line for INSTANCE
-	if (! $error)
+	if (! $error && $productref != 'none')
 	{
 		dol_syslog("Add line to contract for INSTANCE with freeperioddays = ".$freeperioddays);
 
@@ -575,7 +600,7 @@ else
 	$j=1;
 
 	// Create contract line for other products
-	if (! $error)
+	if (! $error && $productref != 'none')
 	{
 		dol_syslog("Add line to contract for depending products (like USERS or options)");
 
@@ -623,7 +648,6 @@ else
 }
 
 
-
 // -----------------------------------------------------------------------------------------------------------------------
 // Create unix user and directories, DNS, virtual host and database
 //
@@ -639,7 +663,7 @@ else
 // With new method, call the deploy server
 // -----------------------------------------------------------------------------------------------------------------------
 
-if (! $error)
+if (! $error && $productref != 'none')
 {
 	dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 	$sellyoursaasutils = new SellYourSaasUtils($db);
@@ -654,16 +678,15 @@ if (! $error)
 }
 
 
-// Finish deployall
-if ($fromsocid) $comment = 'Activation after deployment from instance creation by reseller id='.$fromsocid;
-else $comment = 'Activation after deployment from online registration or dashboard';
-
-// Activate all lines
-if (! $error)
+// Finish deployall - Activate all lines
+if (! $error && $productref != 'none')
 {
 	dol_syslog("Activate all lines - by register_instance");
 
 	$contract->context['deployallwasjustdone']=1;		// Add a key so trigger into activateAll will know we have just made a "deployall"
+
+	if ($fromsocid) $comment = 'Activation after deployment from instance creation by reseller id='.$fromsocid;
+	else $comment = 'Activation after deployment from online registration or dashboard';
 
 	$result = $contract->activateAll($user, dol_now(), 1, $comment);			// This may execute the triggers
 	if ($result <= 0)
@@ -675,7 +698,7 @@ if (! $error)
 }
 
 // End of deployment is now OK / Complete
-if (! $error)
+if (! $error && $productref != 'none')
 {
 	$contract->array_options['options_deployment_status'] = 'done';
 	$contract->array_options['options_deployment_date_end'] = dol_now();
@@ -697,7 +720,6 @@ if (! $error)
 		//setEventMessages($contract->error, $contract->errors, 'errors');
 	}
 }
-
 
 
 // Go to dashboard with login session forced
@@ -725,8 +747,15 @@ if (! $error)
 	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 	$formmail=new FormMail($db);
 
-	$arraydefaultmessage=$formmail->getEMailTemplate($db, 'contract', $user, $langs, 0, 1, 'InstanceDeployed');		// Templates are init into data.sql
-
+	if ($productref != 'none')
+	{
+		$arraydefaultmessage=$formmail->getEMailTemplate($db, 'contract', $user, $langs, 0, 1, 'InstanceDeployed');				// Templates are init into data.sql
+	}
+	else
+	{
+		$arraydefaultmessage=$formmail->getEMailTemplate($db, 'thirdparty', $user, $langs, 0, 1, '(ChannelPartnerCreated)');	// Templates are init into data.sql
+	}
+	
 	$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $contract);
 	$substitutionarray['__PACKAGELABEL__']=$tmppackage->label;
 	$substitutionarray['__APPUSERNAME__']=$_SESSION['initialapplogin'];
