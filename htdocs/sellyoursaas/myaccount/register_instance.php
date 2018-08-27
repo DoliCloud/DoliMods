@@ -402,6 +402,11 @@ else
 	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
 	$tmpthirdparty->array_options['options_source']='REGISTERFORM'.($origin?'-'.$origin:'');
 	$tmpthirdparty->array_options['options_password'] = $password;
+	if ($productref == 'none')	// If reseller
+	{
+		$tmpthirdparty->fournisseur = 1;
+		$tmpthirdparty->array_options['options_commission'] = 20;
+	}
 
 	if ($country_code)
 	{
@@ -429,6 +434,10 @@ else
 		$langs = $langsen;
 
 		$tmpthirdparty->code_client = -1;
+		if ($productref == 'none')	// If reseller
+		{
+			$tmpthirdparty->code_fournisseur = -1;
+		}
 		if ($partner > 0) $tmpthirdparty->parent = $partner;		// Add link to parent/reseller
 
 		$result = $tmpthirdparty->create($user);
@@ -463,9 +472,10 @@ else
 
 	if ($productref == 'none')
 	{
-		if (! empty($conf->global->SELLYOURSAAS_DEFAULT_SUPPLIER_CATEG))
+		if (! empty($conf->global->SELLYOURSAAS_DEFAULT_RESELLER_CATEG))
 		{
-			$result = $tmpthirdparty->setCategories(array($conf->global->SELLYOURSAAS_DEFAULT_SUPPLIER_CATEG => $conf->global->SELLYOURSAAS_DEFAULT_SUPPLIER_CATEG), 'customer');
+			$tmpthirdparty->name_alias = dol_sanitizeFileName($tmpthirdparty->name);
+			$result = $tmpthirdparty->setCategories(array($conf->global->SELLYOURSAAS_DEFAULT_RESELLER_CATEG => $conf->global->SELLYOURSAAS_DEFAULT_RESELLER_CATEG), 'supplier');
 			if ($result < 0)
 			{
 				$db->rollback();
@@ -476,7 +486,7 @@ else
 		}
 		else
 		{
-			dol_print_error_email('SETUPTAG', 'Setup of module not complete. The default supplier tag is not defined.', null, 'alert alert-error');
+			dol_print_error_email('SETUPTAG', 'Setup of module not complete. The default reseller tag is not defined.', null, 'alert alert-error');
 			exit;
 		}
 	}
@@ -729,12 +739,17 @@ if (! $error)
 	// Deployement is complete and finished.
 	// First time we go at end of process, so we send en email.
 
+	if ($productref == 'none')
+	{
+		$fromsocid = $tmpthirdparty->id;
+	}
+
 	$newurl=$_SERVER["PHP_SELF"];
 	$newurl=preg_replace('/register_instance\.php/', 'index.php?welcomecid='.$contract->id.(($fromsocid > 0)?'&fromsocid='.$fromsocid:''), $newurl);
 
 	$anonymoususer=new User($db);
 	$anonymoususer->fetch($conf->global->SELLYOURSAAS_ANONYMOUSUSER);
-	$_SESSION['dol_login']=$anonymoususer->login;				// Set dol_login so next page index.php we found we are already logged.
+	$_SESSION['dol_login']=$anonymoususer->login;				// Set dol_login in session so for next page index.php we will load, we are already logged.
 
 	if ($fromsocid > 0) $_SESSION['dol_loginsellyoursaas']=$fromsocid;
 	else $_SESSION['dol_loginsellyoursaas']=$contract->thirdparty->id;
@@ -755,7 +770,7 @@ if (! $error)
 	{
 		$arraydefaultmessage=$formmail->getEMailTemplate($db, 'thirdparty', $user, $langs, 0, 1, '(ChannelPartnerCreated)');	// Templates are init into data.sql
 	}
-	
+
 	$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $contract);
 	$substitutionarray['__PACKAGELABEL__']=$tmppackage->label;
 	$substitutionarray['__APPUSERNAME__']=$_SESSION['initialapplogin'];
@@ -795,8 +810,14 @@ if ($reusecontractid > 0)
 
 
 // If we are here, there was an error
-
-$errormessages[] = 'Deployement of instance '.$sldAndSubdomain.$tldid.' started but failed.';
+if ($productref != 'none')
+{
+	$errormessages[] = 'Deployement of instance '.$sldAndSubdomain.$tldid.' started but failed.';
+}
+else
+{
+	$errormessages[] = 'Creation of account '.$email.' has failed.';
+}
 $errormessages[] = 'Our team was alerted. You will receive an email as soon as deployment is complete.';
 
 dol_syslog("Error in deployment", LOG_ERR);

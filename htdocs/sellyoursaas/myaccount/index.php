@@ -3150,7 +3150,7 @@ if ($mode == 'mycustomerinstances')
 
 	print '<br>';
 
-	if (count($listofcontractidreseller) == 0)				// Should not happen
+	if (count($listofcontractidreseller) == 0)
 	{
 		print '<span class="opacitymedium">'.$langs->trans("NoneF").'</span>';
 	}
@@ -3686,97 +3686,112 @@ if ($mode == 'mycustomerinstances')
 			    </div> <!-- END ROW -->';
 
 		}		// End loop contract
+	}
 
-		// Link to add new instance
-		print '
-		<!-- Add a new instance -->
-		<div class="portlet-body" style=""><br>
-		';
 
+	// Link to add new instance
+	print '
+	<!-- Add a new instance -->
+	<div class="portlet-body" style=""><br>
+	';
+
+	// Force flag to not be an external use to be able to see all thirdparties
+	$user->socid = 0;
+
+	$selectofthirdparties = $form->select_company('', 'reusesocid', 'parent = '.$mythirdpartyaccount->id, '1', 0, 1, array(), 0, 'centpercent');
+
+	if ($form->result['nbofthirdparties'] == 0)
+	{
+		print $langs->trans("YouDontHaveCustomersYet").'...<br>';
+	}
+	else
+	{
 		print '<a href="#addanotherinstance" id="addanotherinstance">';
 		print $langs->trans("AddAnotherInstance").'...<br>';
 		print '</a>';
-
-		print '<script type="text/javascript" language="javascript">
-		jQuery(document).ready(function() {
-			jQuery("#addanotherinstance").click(function() {
-				console.log("Click on addanotherinstance");
-				jQuery("#formaddanotherinstance").toggle();
-			});
-		});
-			</script>';
-
-		print '<br>';
-
-		print '<form id="formaddanotherinstance" class="form-group reposition" style="display: none;" action="register_instance.php" method="POST">';
-		print '<input type="hidden" name="action" value="deployall" />';
-		print '<input type="hidden" name="fromsocid" value="'.$mythirdpartyaccount->id.'" />';
-		//print '<input type="hidden" name="reusesocid" value="'.$socid.'" />';
-
-		print '<div class="row">
-		<div class="col-md-12">
-
-		<div class="portlet light">';
-
-		natcasesort($arrayofplans);
-
-		print '
-			<div class="group">
-			<div class="horizontal-fld">';
-
-		$savsocid = $user->socid;	// Save socid of user
-		$user->socid = 0;
-		print $langs->trans("Customer").' '.$form->select_company('', 'reusesocid', 'parent = '.$mythirdpartyaccount->id, '1', 0, 1, array(), 0, 'centpercent').'<br><br>';
-		$user->socid = $savsocid;	// Restore socid of user
-
-		print $langs->trans("Type").' '.$form->selectarray('service', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'centpercent').'<br><br>';
-		print '
-			</div>
-
-			<div class="horizontal-fld clearboth">
-			<div class="control-group required">
-			<label class="control-label" for="password" trans="1">'.$langs->trans("Password").'</label><input name="password" type="password" required />
-			</div>
-			</div>
-			<div class="horizontal-fld ">
-			<div class="control-group required">
-			<label class="control-label" for="password2" trans="1">'.$langs->trans("ConfirmPassword").'</label><input name="password2" type="password" required />
-			</div>
-			</div>
-			</div> <!-- end group -->
-
-			<section id="selectDomain">
-			<br>
-			<div class="fld select-domain required">
-			<label trans="1">'.$langs->trans("ChooseANameForYourApplication").'</label>
-			<div class="linked-flds">
-			<span class="opacitymedium">https://</span>
-			<input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="" maxlength="29" required />
-			<select name="tldid" id="tldid" >';
-				$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
-				foreach($listofdomain as $val)
-				{
-					$newval=$val;
-					if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
-					print '<option value="'.$newval.'">'.$newval.'</option>';
-				}
-			print '</select>
-			<br class="unfloat" />
-			</div>
-			</div>
-			</section>';
-
-		print '<br><input type="submit" class="btn btn-warning default change-plan-link" name="changeplan" value="'.$langs->trans("Create").'">';
-
-		print '</div></div></div>';
-
-		print '</form>';
-
 	}
 
+	print '<script type="text/javascript" language="javascript">
+	jQuery(document).ready(function() {
+		jQuery("#addanotherinstance").click(function() {
+			console.log("Click on addanotherinstance");
+			jQuery("#formaddanotherinstance").toggle();
+		});
+	});
+		</script>';
+
+	print '<br>';
+
+	print '<form id="formaddanotherinstance" class="form-group reposition" style="display: none;" action="register_instance.php" method="POST">';
+	print '<input type="hidden" name="action" value="deployall" />';
+	print '<input type="hidden" name="fromsocid" value="'.$mythirdpartyaccount->id.'" />';
+	//print '<input type="hidden" name="reusesocid" value="'.$socid.'" />';
+
+	print '<div class="row">
+	<div class="col-md-12">
+
+	<div class="portlet light">';
+
+	natcasesort($arrayofplans);
+
 	print '
-	    </div>
+		<div class="group">
+		<div class="horizontal-fld">';
+
+	$savsocid = $user->socid;	// Save socid of user
+	$user->socid = 0;
+	print $langs->trans("Customer").' '.$selectofthirdparties.'<br><br>';
+	$user->socid = $savsocid;	// Restore socid of user
+
+	print $langs->trans("Type").' '.$form->selectarray('service', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'centpercent').'<br><br>';
+	print '
 		</div>
+
+		<div class="horizontal-fld clearboth">
+		<div class="control-group required">
+		<label class="control-label" for="password" trans="1">'.$langs->trans("Password").'</label><input name="password" type="password" required />
+		</div>
+		</div>
+		<div class="horizontal-fld ">
+		<div class="control-group required">
+		<label class="control-label" for="password2" trans="1">'.$langs->trans("ConfirmPassword").'</label><input name="password2" type="password" required />
+		</div>
+		</div>
+		</div> <!-- end group -->
+
+		<section id="selectDomain">
+		<br>
+		<div class="fld select-domain required">
+		<label trans="1">'.$langs->trans("ChooseANameForYourApplication").'</label>
+		<div class="linked-flds">
+		<span class="opacitymedium">https://</span>
+		<input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="" maxlength="29" required />
+		<select name="tldid" id="tldid" >';
+			$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+			foreach($listofdomain as $val)
+			{
+				$newval=$val;
+				if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
+				print '<option value="'.$newval.'">'.$newval.'</option>';
+			}
+		print '</select>
+		<br class="unfloat" />
+		</div>
+		</div>
+		</section>';
+
+	print '<br><input type="submit" class="btn btn-warning default change-plan-link" name="changeplan" value="'.$langs->trans("Create").'">';
+
+	print '</div></div></div>';
+
+	print '</form>';
+
+	print '</div>';	// end Add a new instance
+
+
+
+	print '
+		</div></div>
 	';
 
 	if (GETPOST('tab','alpha'))
