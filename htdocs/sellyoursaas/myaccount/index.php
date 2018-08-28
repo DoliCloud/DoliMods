@@ -1826,7 +1826,10 @@ if ($mythirdpartyaccount->isareseller)
 $atleastonecontractwithtrialended = 0;
 $atleastonepaymentinerroronopeninvoice = 0;
 
+
 // Show warnings
+
+
 if (empty($welcomecid))
 {
 	$companypaymentmode = new CompanyPaymentMode($db);
@@ -1964,12 +1967,16 @@ if (empty($welcomecid))
 
 			if ($delayindays < 0)	// Expired
 			{
-				print '
-						<!-- XDaysAfterEndOfPeriodPaymentModeSet -->
-						<div class="note note-warning">
-						<h4 class="block">'.$langs->trans("XDaysAfterEndOfPeriodPaymentModeSet", $contract->ref_customer, abs($delayindays)).'</h4>
-						</div>
-					';
+				$hasOpenInvoice = sellyoursaasHasOpenInvoices($contract);
+				if (! $hasOpenInvoice)	// If there is open invoices, having end date not renewed is normal, so we do not show warning.
+				{
+					print '
+							<!-- XDaysAfterEndOfPeriodPaymentModeSet -->
+							<div class="note note-warning">
+							<h4 class="block">'.$langs->trans("XDaysAfterEndOfPeriodPaymentModeSet", $contract->ref_customer, abs($delayindays)).'</h4>
+							</div>
+						';
+				}
 			}
 		}
 	}

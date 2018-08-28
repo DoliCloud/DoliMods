@@ -182,6 +182,7 @@ function sellyoursaasIsPaymentKo($contract)
 		foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
 		{
 			if ($invoice->statut == Facture::STATUS_CLOSED) continue;
+
 			// The invoice is not paid, we check if there is at least one payment issue
 			$sql=' SELECT id FROM '.MAIN_DB_PREFIX."actioncomm WHERE elementtype = 'invoice' AND fk_element = ".$invoice->id." AND code='INVOICE_PAYMENT_ERROR'";
 			$resql=$db->query($sql);
