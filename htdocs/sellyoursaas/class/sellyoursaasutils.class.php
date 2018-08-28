@@ -948,6 +948,7 @@ class SellYourSaasUtils
 
 	    						$stripefailurecode='';
 	    						$stripefailuremessage='';
+	    						$stripefailuredeclinecode='';
 
 	    						dol_syslog("Create charge on card ".$stripecard->id, LOG_DEBUG);
 	    						try {
@@ -970,6 +971,7 @@ class SellYourSaasUtils
 
 	    							$stripefailurecode = $err['code'];
 	    							$stripefailuremessage = $err['message'];
+	    							$stripefailuredeclinecode = $err['decline_code'];
 	    						}
 	    						catch(Exception $e)
 	    						{
@@ -1220,7 +1222,9 @@ class SellYourSaasUtils
 	    						if (empty($charge) || $charge->status == 'failed')
 	    						{
 	    							$actioncode='PAYMENT_STRIPE_KO';
-	    							$extraparams=$stripefailurecode.' '.$stripefailuremessage;
+	    							$extraparams=$stripefailurecode;
+	    							$extraparams.=($extraparams && $stripefailuremessage)?' - ':'').$stripefailuremessage;
+	    							$extraparams.=($extraparams && $stripefailuredeclinecode)?' - ':'').$stripefailuredeclinecode;
 	    						}
 	    						else
 	    						{

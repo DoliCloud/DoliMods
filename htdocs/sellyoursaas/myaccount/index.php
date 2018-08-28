@@ -2002,7 +2002,7 @@ if (empty($welcomecid))
 			if (empty($labelerror)) $labelerror=$langs->trans("UnknownError");
 
 			// There is at least one payment error
-			if ($obj->extraparams == 'PAYMENT_ERROR_INSUFICIENT_FUNDS')
+			if (preg_match('/PAYMENT_ERROR_INSUFICIENT_FUNDS/i', $obj->extraparams))
 			{
 				print '
 						<div class="note note-warning">
