@@ -1463,7 +1463,7 @@ class SellYourSaasUtils
     					}
     					if ($someinvoicenotpaid)
     					{
-    						$this->output .= 'Contract '.$object->ref.' is qualified for renewal but there is '.$someinvoicenotpaid.' invoice(s) unpayed so we cancel renewal'."\n";
+    						$this->output .= 'Contract '.$object->ref.' is qualified for refresh but there is '.$someinvoicenotpaid.' invoice(s) unpayed so we cancel refresh'."\n";
     						$contractignored[$object->id]=$object->ref;
     						continue;
     					}
@@ -1482,7 +1482,7 @@ class SellYourSaasUtils
     					if ($protecti < 1000)	// If not, there is a pb
     					{
     						// We will update the end of date of contrat, so first we refresh contract data
-    						dol_syslog("We will update the end of date of contract with newdate=".dol_print_date($newdate, 'dayhourrfc')." but first, we update qty of resources by a remote action refresh.");
+    						dol_syslog("We update qty of resources by a remote action refresh.");
 
     						$this->db->begin();
 
