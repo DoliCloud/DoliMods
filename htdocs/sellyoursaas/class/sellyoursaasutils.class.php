@@ -1223,8 +1223,8 @@ class SellYourSaasUtils
 	    						{
 	    							$actioncode='PAYMENT_STRIPE_KO';
 	    							$extraparams=$stripefailurecode;
-	    							$extraparams.=($extraparams && $stripefailuremessage)?' - ':'').$stripefailuremessage;
-	    							$extraparams.=($extraparams && $stripefailuredeclinecode)?' - ':'').$stripefailuredeclinecode;
+	    							$extraparams.=(($extraparams && $stripefailuremessage)?' - ':'').$stripefailuremessage;
+	    							$extraparams.=(($extraparams && $stripefailuredeclinecode)?' - ':'').$stripefailuredeclinecode;
 	    						}
 	    						else
 	    						{
