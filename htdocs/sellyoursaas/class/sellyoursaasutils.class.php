@@ -1445,6 +1445,7 @@ class SellYourSaasUtils
     				// Test if there is pending invoice
     				$object->fetchObjectLinked();
 
+    				dol_syslog('Search if there is at least on open invoice', LOG_DEBUG);
     				if (is_array($object->linkedObjects['facture']) && count($object->linkedObjects['facture']) > 0)
     				{
     					usort($object->linkedObjects['facture'], "cmp");
@@ -1453,6 +1454,7 @@ class SellYourSaasUtils
     					$someinvoicenotpaid=0;
     					foreach($object->linkedObjects['facture'] as $idinvoice => $invoice)
     					{
+    						dol_syslog('eeeeee '.$invoice->status);
     						if ($invoice->status == Facture::STATUS_DRAFT) continue;	// Draft invoice are not invoice not paid
 
     						if (empty($invoice->paye))
