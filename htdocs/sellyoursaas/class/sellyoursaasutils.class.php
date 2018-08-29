@@ -1489,7 +1489,7 @@ class SellYourSaasUtils
     						$errorforlocaltransaction = 0;
 
     						// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines + linked template invoice
-    						$result = $this->sellyoursaasRemoteAction('refresh', $object);
+    						$result = $this->sellyoursaasRemoteAction('refresh', $object);	// This include add of event if qty has changed
     						if ($result <= 0)
     						{
     							$contracterror[$object->id]=$object->ref;
@@ -1502,44 +1502,6 @@ class SellYourSaasUtils
     						else
     						{
     							$contractprocessed[$object->id]=$object->ref;
-
-    							/*
-    							$sqlupdate = 'UPDATE '.MAIN_DB_PREFIX."contratdet SET date_fin_validite = '".$this->db->idate($newdate)."'";
-    							$sqlupdate.= ' WHERE fk_contrat = '.$object->id;
-    							$resqlupdate = $this->db->query($sqlupdate);
-
-    							if ($resqlupdate)
-    							{
-    								$contractprocessed[$object->id]=$object->ref;
-
-    								$action = 'RENEW_CONTRACT';
-    								$now = dol_now();
-
-    								// Create an event
-    								$actioncomm = new ActionComm($this->db);
-    								$actioncomm->type_code   = 'AC_OTH_AUTO';		// Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
-    								$actioncomm->code        = 'AC_'.$action;
-    								$actioncomm->label       = 'Renew of contrat '.$object->ref;
-    								$actioncomm->datep       = $now;
-    								$actioncomm->datef       = $now;
-    								$actioncomm->percentage  = -1;   // Not applicable
-    								$actioncomm->socid       = $contract->thirdparty->id;
-    								$actioncomm->authorid    = $user->id;   // User saving action
-    								$actioncomm->userownerid = $user->id;	// Owner of action
-    								$actioncomm->fk_element  = $object->id;
-    								$actioncomm->elementtype = 'contract';
-    								$actioncomm->note        = 'Contract renewed by doRefreshContracts';
-    								$ret=$actioncomm->create($user);       // User creating action
-    							}
-    							else
-    							{
-    								$contracterror[$object->id]=$object->ref;
-
-    								$error++;
-    								$errorforlocaltransaction++;
-    								$this->error = $this->db->lasterror();
-    							}
-    							*/
     						}
 
     						if (! $errorforlocaltransaction)
@@ -1579,8 +1541,8 @@ class SellYourSaasUtils
     /**
      * Action executed by scheduler
      * CAN BE A CRON TASK
-     * Loop on each contract. If it is a paid contract, and there is no unpaid invoice for contract, and end date < today + 2 days (so expired or soon expired),
-     * we update qty of contract + qty of linked template invoice + the running contract service end date to end at next period.
+     * Loop on each contract. If it is a paid contract, and there is no unpaid invoice for contract, and lines are not suspended and end date < today + 2 days (so expired or soon expired),
+     * we make a refresh (update qty of contract + qty of linked template invoice)ss + the running contract service end date to end at next period.
      *
      * @param	int		$thirdparty_id			Thirdparty id
      * @return	int								0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
@@ -1720,7 +1682,7 @@ class SellYourSaasUtils
 
     						$errorforlocaltransaction = 0;
 
-    						// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines + linked template invoice
+    						// First launch update of resources: This update status of install.lock+authorized key and update qty on contract lines and on linked template invoice. An event is added if qty is changed.
     						$result = $this->sellyoursaasRemoteAction('refresh', $object);
     						if ($result <= 0)
     						{
@@ -2532,6 +2494,7 @@ class SellYourSaasUtils
      * @param	string					$email			Initial email
      * @param	string					$password		Initial password
      * @param	string					$forceaddevent	'1'=Force to add event. If '0', add of event is done only for remoteaction = 'deploy','deployall','deployoption','rename','suspend','unsuspend','undeploy'
+     *													It is set by caller or when we detect qty has changed.
      * @return	int										<0 if KO, >0 if OK
      */
     function sellyoursaasRemoteAction($remoteaction, $object, $appusername='admin', $email='', $password='', $forceaddevent='0')

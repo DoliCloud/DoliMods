@@ -775,7 +775,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 			$sellyoursaasutils = new SellYourSaasUtils($db);
 
-			$result = $sellyoursaasutils->doRenewalContracts($mythirdpartyaccount->id);		// If contract was suspended (end of trial for example, this does nothing)
+			$result = $sellyoursaasutils->doRenewalContracts($mythirdpartyaccount->id);		// A refresh is also done if renewal is done
 			if ($result != 0)
 			{
 				$error++;
@@ -783,7 +783,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			}
 		}
 
-		// Create a recurring invoice (+real invoice + contract renawal) if there is no reccuring invoice yet
+		// Create a recurring invoice (+real invoice + contract renewal) if there is no reccuring invoice yet
 		if (! $error)
 		{
 			foreach ($listofcontractid as $contract)
@@ -1101,13 +1101,13 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					// Make renewals on contracts of customer
 					if (! $error)
 					{
-						dol_syslog("--- Now we make renewal of contracts for thirdpartyid=".$mythirdpartyaccount->id." if payments were ok (it also means contract are refreshed and even unsuspended)", LOG_DEBUG, 0);
+						dol_syslog("--- Now we make renewal of contracts for thirdpartyid=".$mythirdpartyaccount->id." if payments were ok and contract are not unsuspended", LOG_DEBUG, 0);
 
 						dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 
 						$sellyoursaasutils = new SellYourSaasUtils($db);
 
-						$result = $sellyoursaasutils->doRenewalContracts($mythirdpartyaccount->id);		// If contract was suspended (end of trial not yet unlocked for example, this does nothing)
+						$result = $sellyoursaasutils->doRenewalContracts($mythirdpartyaccount->id);		// A refresh is also done if renewal is done
 						if ($result != 0)
 						{
 							$error++;
