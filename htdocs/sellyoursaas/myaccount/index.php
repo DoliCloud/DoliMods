@@ -1592,10 +1592,21 @@ if ($welcomecid > 0)
 	}
 	else
 	{
-	print '<!-- message installation finished -->
+
+		$productref = $contract->array_options['options_plan'];
+		$productlabel = $productref;
+
+		$tmpproduct = new Product($db);
+		$resfetch = $tmpproduct->fetch($productref);
+		if ($resfetch > 0)
+		{
+			$productlabel = $tmpproduct->label;
+		}
+
+		print '<!-- message installation finished -->
 		<div class="portlet-body">
 		<p>
-		'.$langs->trans("YouCanAccessYourInstance", $contract->array_options['options_plan']).'&nbsp:
+		'.$langs->trans("YouCanAccessYourInstance", $productlabel).'&nbsp:
 		</p>
 		<p class="well">
 		'.$langs->trans("URL").' : <a href="https://'.$contract->ref_customer.'" target="_blank">'.$contract->ref_customer.'</a>';
@@ -1605,7 +1616,7 @@ if ($welcomecid > 0)
 		</p>
 		<p>
 		<a class="btn btn-primary" target="_blank" href="https://'.$contract->ref_customer.'?username='.$_SESSION['initialapplogin'].'">
-		'.$langs->trans("TakeMeTo", $contract->array_options['options_plan']).'
+		'.$langs->trans("TakeMeTo", $productlabel).'
 		</a>
 		</p>
 
