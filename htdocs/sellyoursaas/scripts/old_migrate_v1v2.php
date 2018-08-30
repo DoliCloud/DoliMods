@@ -33,10 +33,6 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 $version='1.0';
 $error=0;
 
-$oldinstance=isset($argv[1])?$argv[1]:'';
-$newinstance=isset($argv[2])?$argv[2]:'';
-$mode=isset($argv[3])?$argv[3]:'';
-
 // Include Dolibarr environment
 @set_time_limit(0);							// No timeout for this script
 define('EVEN_IF_ONLY_LOGIN_ALLOWED',1);		// Set this define to 0 if you want to lock your script when dolibarr setup is "locked to admin user only".
@@ -69,9 +65,15 @@ if ($db2->error)
 	exit(-1);
 }
 
-
 $objectv1 = new Dolicloud_customers($db,$db2);
 $objectv2 = new Contrat($db);
+
+$defaultproductref='DOLICLOUD-PACK-Dolibarr';
+
+$oldinstance=isset($argv[1])?$argv[1]:'';
+$newinstance=isset($argv[2])?$argv[2]:'';
+$mode=isset($argv[3])?$argv[3]:'';
+$productref=isset($argv[4])?$argv[4]:$defaultproductref;
 
 
 
@@ -84,7 +86,7 @@ print "***** ".$script_file." *****\n";
 if (empty($oldinstance) || empty($newinstance) || empty($mode))
 {
 	print "Migrate an old instance on new server. Script must be ran with root.\n";
-	print "Usage: $script_file oldinstance newinstance (test|confirm)\n";
+	print "Usage: ".$script_file." oldinstance newinstance (test|confirm) [".$defaultproductref."]\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);
 }
@@ -122,9 +124,9 @@ $newobject = new Contrat($db);
 $result=$newobject->fetch('', '', $newinstance);
 if ($result <= 0)
 {
-	print "Error: newinstance ".$newinstance." not found. Do you want to create new third party and instance ?\n";
+	print "Error: newinstance ".$newinstance." not found. Do you want to create new third party and instance";
 
-	$line = readline('y/N');
+	$line = readline('(y/N) ? ');
 	if ($line != 'y')
 	{
 		// Exit by default
@@ -135,7 +137,6 @@ if ($result <= 0)
 	$reusecontractid = 0;
 	$reusesocid = 0;
 	$productid = 0;
-	$productref = 'DOLICLOUD-PACK-Dolibarr';
 	$password = 'achanger';
 	$orgname = $oldobject->name;
 	$email = $oldobject->email;
