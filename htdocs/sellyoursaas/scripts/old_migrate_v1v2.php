@@ -134,7 +134,7 @@ $newobject = new Contrat($db);
 $result=$newobject->fetch('', '', $newinstance);
 if ($result <= 0)
 {
-	print "Error: newinstance ".$newinstance." not found. Do you want to create new third party and instance";
+	print "Error: newinstance ".$newinstance." not found. Do you want to create new instance (and thirdparty if required)";
 
 	$line = readline(' (y/N) ? ');
 	if (trim($line) != 'y')
@@ -191,6 +191,7 @@ if ($result <= 0)
 
 	$now = dol_now();
 
+
 	// Create thirdparty
 
 	$tmpthirdparty = new Societe($db);
@@ -202,8 +203,7 @@ if ($result <= 0)
 	}
 	else if ($result > 0)	// Found one record
 	{
-		print $langs->trans("AccountAlreadyExistsForEmail", $conf->global->SELLYOURSAAS_ACCOUNT_URL);
-		exit(-1);
+		$reusesocid = $tmpthirdparty->id;
 	}
 	else dol_syslog("Email not already used. Good.");
 
