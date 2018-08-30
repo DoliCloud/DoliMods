@@ -214,8 +214,6 @@ if ($result <= 0)
 
 	$db->begin();	// Start transaction
 
-	print "Create thirdparty\n";
-
 	$tmpthirdparty->oldcopy = dol_clone($tmpthirdparty);
 
 	$password_encoding = 'password_hash';
@@ -245,8 +243,9 @@ if ($result <= 0)
 			if ($result <= 0)
 			{
 				$db->rollback();
-				setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+				//setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
 				//header("Location: ".$newurl);
+				dol_print_error($db, $tmpthirdparty->error, $tmpthirdparty->errors);
 				exit(-1);
 			}
 		}
@@ -265,8 +264,9 @@ if ($result <= 0)
 		if ($result <= 0)
 		{
 			$db->rollback();
-			setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+			//setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
 			//header("Location: ".$newurl);
+			dol_print_error($db, $tmpthirdparty->error, $tmpthirdparty->errors);
 			exit(-1);
 		}
 
@@ -281,8 +281,9 @@ if ($result <= 0)
 		if ($result < 0)
 		{
 			$db->rollback();
-			setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
+			//setEventMessages($tmpthirdparty->error, $tmpthirdparty->errors, 'errors');
 			//header("Location: ".$newurl);
+			dol_print_error($db, $tmpthirdparty->error, $tmpthirdparty->errors);
 			exit(-1);
 		}
 	}
