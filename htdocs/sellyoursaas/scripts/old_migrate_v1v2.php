@@ -56,6 +56,7 @@ dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
 dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php');
+include_once(DOL_DOCUMENT_ROOT.'/product/class/product.class.php');
 
 
 $db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
@@ -126,7 +127,7 @@ if ($result <= 0)
 {
 	print "Error: newinstance ".$newinstance." not found. Do you want to create new third party and instance";
 
-	$line = readline('(y/N) ? ');
+	$line = readline(' (y/N) ? ');
 	if ($line != 'y')
 	{
 		// Exit by default
