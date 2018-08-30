@@ -59,6 +59,7 @@ include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/product/class/product.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php');
+include_once(DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php');
 
 $langs->loadLangs(array("main", "errors"));
 
