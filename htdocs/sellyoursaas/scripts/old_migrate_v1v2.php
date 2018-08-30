@@ -233,6 +233,8 @@ if ($result <= 0)
 	$tmpthirdparty->client = 2;
 	$tmpthirdparty->tva_assuj = 1;
 	$tmpthirdparty->default_lang = $langs->defaultlang;
+	$tmpthirdparty->array_options['options_firstname'] = $oldobject->name;
+	$tmpthirdparty->array_options['options_lastname'] = $oldobject->lastname;
 	$tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
 	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
 	$tmpthirdparty->array_options['options_source']='MIGRATIONV1';
@@ -528,8 +530,8 @@ if ($result <= 0)
 		$cookieregistrationa='DOLREGISTERA_'.$prefix;
 		$cookieregistrationb='DOLREGISTERB_'.$prefix;
 		$nbregistration = ((int) $_COOKIE[$cookieregistrationa] + 1);
-		setcookie($cookieregistrationa, $nbregistration, 0, "/", null, false, true);	// Cookie to count nb of registration from this computer
-		setcookie($cookieregistrationb, dol_encode($contract->ref_customer), 0, "/", null, false, true);					// Cookie to save previous registered instance
+		//setcookie($cookieregistrationa, $nbregistration, 0, "/", null, false, true);	// Cookie to count nb of registration from this computer
+		//setcookie($cookieregistrationb, dol_encode($contract->ref_customer), 0, "/", null, false, true);					// Cookie to save previous registered instance
 
 		$result = $contract->update($user);
 		if ($result < 0)
@@ -538,7 +540,6 @@ if ($result <= 0)
 			//setEventMessages($contract->error, $contract->errors, 'errors');
 		}
 	}
-
 
 }
 
