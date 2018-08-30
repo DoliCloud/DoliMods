@@ -142,9 +142,10 @@ if ($result <= 0)
 	$reusesocid = 0;
 	$productid = 0;
 	$password = 'achanger';
-	$orgname = $oldobject->name;
+	$orgname = $oldobject->organization;
 	$email = $oldobject->email;
 	$country_code = $oldobject->country_code;
+	// $oldobject->plan contains something like 'Dolibarr ERP & CRM Premium'
 	$partner = 0;
 
 	$tmpproduct = new Product($db);
