@@ -982,7 +982,7 @@ class SellYourSaasUtils
 	    						// Return $charge = array('id'=>'ch_XXXX', 'status'=>'succeeded|pending|failed', 'failure_code'=>, 'failure_message'=>...)
 	    						if (empty($charge) || $charge->status == 'failed')
 	    						{
-	    							dol_syslog('Failed to charge card '.$stripecard->id.' stripefailurecode='.$stripefailurecode.' stripefailuremessage='.$stripefailuremessage, LOG_WARNING);
+	    							dol_syslog('Failed to charge card '.$stripecard->id.' stripefailurecode='.$stripefailurecode.' stripefailuremessage='.$stripefailuremessage.' stripefailuredeclinecode='.$stripefailuredeclinecode, LOG_WARNING);
 
 	    							$error++;
 	    							$errmsg='Failed to charge card';
@@ -996,6 +996,7 @@ class SellYourSaasUtils
 	    							else
 	    							{
 	    								$errmsg.=': '.$stripefailurecode.' - '.$stripefailuremessage;
+	    								$errmsg.=($stripefailuredeclinecode?' - '.$stripefailuredeclinecode:'');
 	    							}
 
 	    							$description='Stripe payment ERROR from doTakePaymentStripeForThirdparty: '.$FULLTAG;
