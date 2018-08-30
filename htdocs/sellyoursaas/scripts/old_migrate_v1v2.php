@@ -214,6 +214,8 @@ if ($result <= 0)
 
 	$db->begin();	// Start transaction
 
+	print "Create thirdparty\n";
+
 	$tmpthirdparty->oldcopy = dol_clone($tmpthirdparty);
 
 	$password_encoding = 'password_hash';
@@ -238,6 +240,7 @@ if ($result <= 0)
 	{
 		if (empty($reusesocid))
 		{
+			print "Update thirdparty with id=".$tmpthirdparty->id."\n";
 			$result = $tmpthirdparty->update(0, $user);
 			if ($result <= 0)
 			{
@@ -257,6 +260,7 @@ if ($result <= 0)
 		$tmpthirdparty->code_client = -1;
 		if ($partner > 0) $tmpthirdparty->parent = $partner;		// Add link to parent/reseller
 
+		print "Create thirdparty\n";
 		$result = $tmpthirdparty->create($user);
 		if ($result <= 0)
 		{
@@ -272,6 +276,7 @@ if ($result <= 0)
 
 	if (! empty($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG))
 	{
+		print "Set category of customer ".$conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG."\n";
 		$result = $tmpthirdparty->setCategories(array($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG => $conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG), 'customer');
 		if ($result < 0)
 		{
@@ -283,6 +288,7 @@ if ($result <= 0)
 	}
 	else
 	{
+		$db->rollback();
 		dol_print_error_email('SETUPTAG', 'Setup of module not complete. The default customer tag is not defined.', null, 'alert alert-error');
 		exit(-1);
 	}
@@ -292,6 +298,7 @@ if ($result <= 0)
 
 	if (! $error)
 	{
+		print "Create contract with deployment status 'Processing'\n";
 		dol_syslog("Create contract with deployment status 'Processing'");
 
 		$contract->ref_customer = $newinstance;
@@ -356,6 +363,7 @@ if ($result <= 0)
 		$result = $contract->create($user);
 		if ($result <= 0)
 		{
+			$db->rollback();
 			dol_print_error_email('CREATECONTRACT', $contract->error, $contract->errors, 'alert alert-error');
 			exit(-1);
 		}
@@ -366,6 +374,7 @@ if ($result <= 0)
 	// Create contract line for INSTANCE
 	if (! $error)
 	{
+		print "Add line to contract for INSTANCE with freeperioddays = ".$freeperioddays."\n";
 		dol_syslog("Add line to contract for INSTANCE with freeperioddays = ".$freeperioddays);
 
 		if (empty($object->country_code))
@@ -391,6 +400,7 @@ if ($result <= 0)
 		$contractlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreate, $discount, $date_start, $date_end, 'HT', 0);
 		if ($contractlineid < 0)
 		{
+			$db->rollback();
 			dol_print_error_email('CREATECONTRACTLINE1', $contract->error, $contract->errors, 'alert alert-error');
 			exit(-1);
 		}
@@ -405,6 +415,7 @@ if ($result <= 0)
 	// Create contract line for other products
 	if (! $error)
 	{
+		print "Add line to contract for depending products (like USERS or options)\n";
 		dol_syslog("Add line to contract for depending products (like USERS or options)");
 
 		$prodschild = $tmpproduct->getChildsArbo($tmpproduct->id,1);
@@ -430,6 +441,7 @@ if ($result <= 0)
 				$contractlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $prodid, $discount, $date_start, $date_end, 'HT', 0);
 				if ($contractlineid < 0)
 				{
+					$db->rollback();
 					dol_print_error_email('CREATECONTRACTLINE'.$j, $contract->error, $contract->errors, 'alert alert-error');
 					exit(-1);
 				}
@@ -437,6 +449,7 @@ if ($result <= 0)
 		}
 	}
 
+	print "Reload all lines after creation (".$j." lines in contract) to have contract->lines ok\n";
 	dol_syslog("Reload all lines after creation (".$j." lines in contract) to have contract->lines ok");
 	$contract->fetch_lines();
 
@@ -450,6 +463,7 @@ if ($result <= 0)
 	}
 
 }
+
 $newobject->instance = $newinstance;
 $newobject->username_web = $newobject->array_options['options_username_os'];
 $newobject->password_web = $newobject->array_options['options_password_os'];
