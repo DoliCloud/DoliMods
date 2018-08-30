@@ -40,19 +40,19 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res) die("Include of main fails");
 
-require_once(DOL_DOCUMENT_ROOT . "/user/class/user.class.php");
-require_once(DOL_DOCUMENT_ROOT . '/fourn/class/paiementfourn.class.php');
-require_once(DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.facture.class.php');
-require_once(DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.class.php');
-require_once(DOL_DOCUMENT_ROOT . '/product/class/product.class.php');
-require_once(DOL_DOCUMENT_ROOT . '/projet/class/project.class.php');
-require_once(DOL_DOCUMENT_ROOT . "/core/lib/date.lib.php");
-require_once(DOL_DOCUMENT_ROOT . '/core/lib/fourn.lib.php');
-require_once(DOL_DOCUMENT_ROOT . "/core/lib/files.lib.php");
-require_once(DOL_DOCUMENT_ROOT . "/core/lib/admin.lib.php");
-require_once(DOL_DOCUMENT_ROOT . "/core/class/html.formfile.class.php");
-require_once(DOL_DOCUMENT_ROOT . "/core/class/html.formprojet.class.php");
-require_once(DOL_DOCUMENT_ROOT . "/compta/tva/class/tva.class.php");
+require_once DOL_DOCUMENT_ROOT . '/user/class/user.class.php';
+require_once DOL_DOCUMENT_ROOT . '/fourn/class/paiementfourn.class.php';
+require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.facture.class.php';
+require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.class.php';
+require_once DOL_DOCUMENT_ROOT . '/product/class/product.class.php';
+require_once DOL_DOCUMENT_ROOT . '/projet/class/project.class.php';
+require_once DOL_DOCUMENT_ROOT . '/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT . '/core/lib/fourn.lib.php';
+require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
+require_once DOL_DOCUMENT_ROOT . '/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT . '/core/class/html.formfile.class.php';
+require_once DOL_DOCUMENT_ROOT . '/core/class/html.formprojet.class.php';
+require_once DOL_DOCUMENT_ROOT . '/compta/tva/class/tva.class.php';
 
 require __DIR__ . '/includes/autoload.php';
 
@@ -95,7 +95,7 @@ if (!$datefrom) {
 // Init client if we must do an action (list invoice or import it)
 if (!empty($action)) {
     try {
-        require_once(DOL_DOCUMENT_ROOT . '/core/lib/functions2.lib.php');
+        require_once DOL_DOCUMENT_ROOT . '/core/lib/functions2.lib.php';
 
         $params = getSoapParams();
         ini_set('default_socket_timeout', $params['response_timeout']);
@@ -467,6 +467,7 @@ print '<br><br>';
 
 print '<div class="tabBar">';
 print '<table class="notopnoborder"><tr><td>';
+print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="checkbox" name="excludenullinvoice"' . ((!isset($_POST["excludenullinvoice"]) || GETPOST('excludenullinvoice')) ? ' checked="true"' : '') . '"> ' . $langs->trans("ExcludeNullInvoices") . '<br>';
 print $langs->trans("FromThe") . ': ';
 print $form->select_date($datefrom, 'datefrom');
@@ -571,11 +572,12 @@ if ($action == 'refresh') {
                 //print '<br>';
             }
             print '<input type="hidden" name="action" value="import">';
+            print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
             print '<input type="hidden" name="datefromday" value="' . dol_print_date($datefrom, '%d') . '">';
             print '<input type="hidden" name="datefrommonth" value="' . dol_print_date($datefrom, '%m') . '">';
             print '<input type="hidden" name="datefromyear" value="' . dol_print_date($datefrom, '%Y') . '">';
             print '<input type="hidden" id="excludenullinvoicehidden" name="excludenullinvoice" value="' . $excludenullinvoice . '">';
-            print ' <input type="submit" name="import" value="' . $langs->trans("ToImport") . '" class="button">';
+            print '<input type="submit" name="import" value="' . $langs->trans("ToImport") . '" class="button">';
             print '</div>';
 
             print '</div><div style="clear: both"></div><br>';
