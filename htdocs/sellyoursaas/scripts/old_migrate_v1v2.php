@@ -60,6 +60,7 @@ include_once(DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/product/class/product.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php');
 
+$langs->loadLangs(array("main", "errors"));
 
 $db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
 if ($db2->error)
@@ -81,6 +82,7 @@ $productref=isset($argv[4])?$argv[4]:$defaultproductref;
 
 $langsen = new Translate('', $conf);
 $langsen->setDefaultLang($mysoc->default_lang);
+$langsen->loadLangs(array("main", "errors"));
 
 
 /*
