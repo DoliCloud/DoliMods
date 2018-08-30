@@ -145,6 +145,7 @@ else
 }
 
 $instances=array();
+$instancesactivebutsuspended=array();
 $instancesbackuperror=array();
 $instancesupdateerror=array();
 
@@ -252,7 +253,11 @@ if ($resql)
 					{
 						$nbofactive++;
 
-						if (in_array($instance_status,array('SUSPENDED'))) $nbofactivesusp++;
+						if (in_array($instance_status,array('SUSPENDED')))
+						{
+							$nbofactivesusp++;
+							$instancesactivebutsuspended[$obj->id]=$instance;
+						}
 						else if (in_array($instance_status,array('CLOSE_QUEUED','CLOSURE_REQUESTED')) ) $nbofactiveclosurerequest++;
 						else if (in_array($payment_status,array('FAILURE','PAST_DUE'))) $nbofactivepaymentko++;
 						else $nbofactiveok++; // not suspended, not close request
@@ -561,7 +566,9 @@ $out = '';
 $out.= "Nb of paying instances (all time): ".$nbofalltime."\n";
 $out.= "Nb of paying instances (active with or without payment error, close request or not): ".$nbofactive."\n";
 $out.= "Nb of paying instances (active but close request): ".$nbofactiveclosurerequest."\n";
-$out.= "Nb of paying instances (active but suspended): ".$nbofactivesusp."\n";
+$out.= "Nb of paying instances (active but suspended): ".$nbofactivesusp;
+$out.= (count($instancesactivebutsuspended)?", suspension on ".join(', ',$instancesactivebutsuspended):"");
+$out.= "\n";
 $out.= "Nb of paying instances (active but payment ko, not yet suspended): ".$nbofactivepaymentko."\n";
 if ($action != 'updatestatsonly')
 {
