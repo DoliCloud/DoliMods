@@ -462,6 +462,14 @@ if ($result <= 0)
 	dol_syslog("Reload all lines after creation (".$j." lines in contract) to have contract->lines ok");
 	$contract->fetch_lines();
 
+	$result=$newobject->fetch('', '', $newinstance);
+	if ($result <= 0)
+	{
+		$db->rollback();
+		print "Error: newinstance ".$newinstance." still not found";
+		exit(-1);
+	}
+
 	if (! $error)
 	{
 		$db->commit();
@@ -470,6 +478,66 @@ if ($result <= 0)
 	{
 		$db->rollback();
 	}
+
+
+	if (! $error && $productref != 'none')
+	{
+		dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
+		$sellyoursaasutils = new SellYourSaasUtils($db);
+
+		$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $contract, 'admin', $email, $password);
+		if ($result <= 0)
+		{
+			$error++;
+			$errormessages=$sellyoursaasutils->errors;
+			if ($sellyoursaasutils->error) $errormessages[]=$sellyoursaasutils->error;
+		}
+	}
+
+
+	// Finish deployall - Activate all lines
+	if (! $error && $productref != 'none')
+	{
+		dol_syslog("Activate all lines - by register_instance");
+
+		$contract->context['deployallwasjustdone']=1;		// Add a key so trigger into activateAll will know we have just made a "deployall"
+
+		if ($fromsocid) $comment = 'Activation after deployment from migration for reseller id='.$fromsocid;
+		else $comment = 'Activation after deployment from migration';
+
+		$result = $contract->activateAll($user, dol_now(), 1, $comment);			// This may execute the triggers
+		if ($result <= 0)
+		{
+			$error++;
+			$errormessages[]=$contract->error;
+			$errormessages[]=array_merge($contract->errors, $errormessages);
+		}
+	}
+
+	// End of deployment is now OK / Complete
+	if (! $error && $productref != 'none')
+	{
+		$contract->array_options['options_deployment_status'] = 'done';
+		$contract->array_options['options_deployment_date_end'] = dol_now();
+		$contract->array_options['options_undeployment_date'] = '';
+		$contract->array_options['options_undeployment_ip'] = '';
+
+		// Set cookie to store last registered instance
+		$prefix=dol_getprefix('');
+		$cookieregistrationa='DOLREGISTERA_'.$prefix;
+		$cookieregistrationb='DOLREGISTERB_'.$prefix;
+		$nbregistration = ((int) $_COOKIE[$cookieregistrationa] + 1);
+		setcookie($cookieregistrationa, $nbregistration, 0, "/", null, false, true);	// Cookie to count nb of registration from this computer
+		setcookie($cookieregistrationb, dol_encode($contract->ref_customer), 0, "/", null, false, true);					// Cookie to save previous registered instance
+
+		$result = $contract->update($user);
+		if ($result < 0)
+		{
+			// We ignore errors. This should not happen in real life.
+			//setEventMessages($contract->error, $contract->errors, 'errors');
+		}
+	}
+
 
 }
 
@@ -483,7 +551,7 @@ $newobject->database_db  = $newobject->array_options['options_database_db'];
 
 if (empty($newobject->instance) || empty($newobject->username_web) || empty($newobject->password_web) || empty($newobject->database_db))
 {
-	print "Error: Some properties for instance ".$newinstance." was not registered into database.\n";
+	print "Error: Some properties for instance ".$newinstance." was not registered into database (missing instance, username_web, password_web or database_db.\n";
 	exit(-3);
 }
 
