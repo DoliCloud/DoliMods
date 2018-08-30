@@ -70,6 +70,7 @@ if ($db2->error)
 
 $objectv1 = new Dolicloud_customers($db,$db2);
 $objectv2 = new Contrat($db);
+$contract = new Contrat($db);
 
 $defaultproductref='DOLICLOUD-PACK-Dolibarr';
 
@@ -78,6 +79,8 @@ $newinstance=isset($argv[2])?$argv[2]:'';
 $mode=isset($argv[3])?$argv[3]:'';
 $productref=isset($argv[4])?$argv[4]:$defaultproductref;
 
+$langsen = new Translate('', $conf);
+$langsen->setDefaultLang($mysoc->default_lang);
 
 
 /*
