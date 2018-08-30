@@ -1186,16 +1186,20 @@ class SellYourSaasUtils
 		    							$invoicediroutput = $conf->facture->dir_output;
 		    							$fileparams = dol_most_recent_file($invoicediroutput . '/' . $invoice->ref, preg_quote($invoice->ref, '/').'[^\-]+');
 		    							$file = $fileparams['fullname'];
+										$file = '';		// Disable attachment of invoice in emails
 
-		    							$listofpaths=array($file);
-		    							$listofnames=array(basename($file));
-		    							$listofmimes=array(dol_mimetype($file));
+		    							if ($file)
+		    							{
+		    								$listofpaths=array($file);
+		    								$listofnames=array(basename($file));
+		    								$listofmimes=array(dol_mimetype($file));
+		    							}
 		    						}
 		    						$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
 
 		    						// Send email (substitutionarray must be done just before this)
 		    						include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-		    						$mailfile = new CMailFile($subjecttosend, $invoice->thirdparty->email, $from, $texttosend, $filename_list, $mimetype_list, $mimefilename_list, '', '', 0, -1);
+		    						$mailfile = new CMailFile($subjecttosend, $invoice->thirdparty->email, $from, $texttosend, $listofpaths, $listofmimes, $listofnames, '', '', 0, -1);
 		    						if ($mailfile->sendfile())
 		    						{
 		    							$result = 1;
@@ -1214,7 +1218,7 @@ class SellYourSaasUtils
 		    						}
 		    						else
 		    						{
-		    							if ($file) $postactionmessages[] = 'Email sent to thirdparty (with invoice document attached)';
+		    							if ($file) $postactionmessages[] = 'Email sent to thirdparty (with invoice document attached: '.$file.')';
 		    							else $postactionmessages[] = 'Email sent to thirdparty (without any attached document)';
 		    						}
 	    						}
