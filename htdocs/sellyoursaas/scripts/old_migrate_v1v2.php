@@ -296,7 +296,7 @@ if ($result <= 0)
 		$contract->date_contrat = $now;
 		$contract->note_private = 'Contract created from the online instance registration form';
 
-		$contract->array_options['options_plan'] = $tmppackage->ref;
+		$contract->array_options['options_plan'] = $tmpproduct->ref;
 		$contract->array_options['options_deployment_status'] = 'processing';
 		$contract->array_options['options_deployment_date_start'] = $now;
 		$contract->array_options['options_deployment_init_email'] = $email;

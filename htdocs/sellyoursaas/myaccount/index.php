@@ -2470,11 +2470,9 @@ if ($mode == 'instances')
 			$dbprefix = $contract->array_options['options_db_prefix'];
 			if (empty($dbprefix)) $dbprefix = 'llx_';
 
-
 			// Get info about PLAN of Contract
-			$package = new Packages($db);
-			$package->fetch(0, $planref);
-			$planlabel = ($package->label?$package->label:$planref);
+			$planlabel = $planref;			// By default, but we will take the name of service of type 'app' just after
+
 			$planid = 0;
 			$freeperioddays = 0;
 			$directaccess = 0;
@@ -2491,6 +2489,7 @@ if ($mode == 'instances')
 					$tmpproduct->fetch($line->fk_product);
 					if ($tmpproduct->array_options['options_app_or_option'] == 'app')
 					{
+						$planref = $tmpproduct->ref;			// Warning, ref is in language of user
 						$planlabel = $tmpproduct->label;		// Warning, label is in language of user
 						$planid = $tmpproduct->id;
 						$freeperioddays = $tmpproduct->array_options['options_freeperioddays'];
@@ -2537,7 +2536,7 @@ if ($mode == 'instances')
 						  //print '<a href="https://'.$contract->ref_customer.'" class="caption-subject bold uppercase font-green-sharp" title="'.$langs->trans("Contract").' '.$contract->ref.'" target="_blankinstance">';
 						  print '<span class="bold uppercase">'.$instancename.'</span>';
 						  //print '</a>';
-				          print'<span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->';
+				          print'<span class="caption-helper"> - '.$planlabel.'</span>	<!-- This is product ref -->';
 
 						  // Instance status
 				          print '<span class="caption-helper floatright clearboth">';
@@ -3197,11 +3196,9 @@ if ($mode == 'mycustomerinstances')
 			$dbprefix = $contract->array_options['options_db_prefix'];
 			if (empty($dbprefix)) $dbprefix = 'llx_';
 
-
 			// Get info about PLAN of Contract
-			$package = new Packages($db);
-			$package->fetch(0, $planref);
-			$planlabel = ($package->label?$package->label:$planref);
+			$planlabel = $planref;			// By default but we will take ref and label of service of type 'app' later
+
 			$planid = 0;
 			$freeperioddays = 0;
 			$directaccess = 0;
@@ -3218,6 +3215,7 @@ if ($mode == 'mycustomerinstances')
 					$tmpproduct->fetch($line->fk_product);
 					if ($tmpproduct->array_options['options_app_or_option'] == 'app')
 					{
+						$planref = $tmpproduct->ref;			// Warning, ref is in language of user
 						$planlabel = $tmpproduct->label;		// Warning, label is in language of user
 						$planid = $tmpproduct->id;
 						$freeperioddays = $tmpproduct->array_options['options_freeperioddays'];
@@ -3261,7 +3259,7 @@ if ($mode == 'mycustomerinstances')
 
 			// Instance name
 			print '<a href="https://'.$contract->ref_customer.'" class="caption-subject bold uppercase font-green-sharp" title="'.$langs->trans("Contract").' '.$contract->ref.'">'.$instancename.'</a>
-				          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->';
+				          <span class="caption-helper"> - '.$planlabel.'</span>	<!-- This is service -->';
 
 			// Instance status
 			print '<span class="caption-helper floatright clearboth">';
@@ -3851,8 +3849,8 @@ if ($mode == 'billing')
 				$statuslabel = $contract->array_options['options_deployment_status'];
 				$instancename = preg_replace('/\..*$/', '', $contract->ref_customer);
 
-				$package = new Packages($db);
-				$package->fetch(0, $planref);
+				// Get info about PLAN of Contract
+				$planlabel = $planref;
 
 				$color = "green";
 				if ($statuslabel == 'processing') $color = 'orange';
@@ -3869,7 +3867,7 @@ if ($mode == 'billing')
 
 		              <div class="col-md-6">
 				          <a href="https://'.$contract->ref_customer.'" class="caption-subject bold uppercase font-green-sharp" title="'.$langs->trans("Contract").' '.$contract->ref.'" target="_blankinstance">'.$instancename.'</a>
-				          <span class="caption-helper"> - '.($package->label?$package->label:$planref).'</span>	<!-- This is package, not PLAN -->
+				          <span class="caption-helper"><!-- - '.$planlabel.'--></span>	<!-- This is service -->
 		              </div><!-- END COL -->
 		              <div class="col-md-2 hideonsmartphone">
 		                '.$langs->trans("Date").'
@@ -4838,9 +4836,8 @@ if ($mode == 'support')
 								if (empty($dbprefix)) $dbprefix = 'llx_';
 
 								// Get info about PLAN of Contract
-								$package = new Packages($db);
-								$package->fetch(0, $planref);
-								$planlabel = ($package->label?$package->label:$planref);
+								$planlabel = $planref;		// By default but we will take ref and label of service of type 'app' later
+
 								$planid = 0;
 								$freeperioddays = 0;
 								$directaccess = 0;
@@ -4858,6 +4855,7 @@ if ($mode == 'support')
 										$tmpproduct->fetch($line->fk_product);
 										if ($tmpproduct->array_options['options_app_or_option'] == 'app')
 										{
+											$planref = $tmpproduct->ref;			// Warning, ref is in language of user
 											$planlabel = $tmpproduct->label;		// Warning, label is in language of user
 											$planid = $tmpproduct->id;
 											$freeperioddays = $tmpproduct->array_options['options_freeperioddays'];
