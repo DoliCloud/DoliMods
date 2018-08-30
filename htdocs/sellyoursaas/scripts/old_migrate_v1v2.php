@@ -84,6 +84,8 @@ $langsen = new Translate('', $conf);
 $langsen->setDefaultLang($mysoc->default_lang);
 $langsen->loadLangs(array("main", "errors"));
 
+$user->fetch($conf->global->SELLYOURSAAS_ANONYMOUSUSER);
+
 
 /*
  *	Main
