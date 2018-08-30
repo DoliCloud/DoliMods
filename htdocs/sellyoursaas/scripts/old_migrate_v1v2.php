@@ -149,7 +149,7 @@ if ($result <= 0)
 	$reusecontractid = 0;
 	$reusesocid = 0;
 	$productid = 0;
-	$password = 'achanger';
+	$password = 'tochange';
 	$orgname = $oldobject->organization;
 	$email = $oldobject->email;
 	$country_code = $oldobject->country_code;
@@ -684,7 +684,7 @@ foreach($output as $outputline)
 
 print "\n";
 
-print "-> Files were sync into dir of instance ".$newobject->ref_customer.": ".$targetdir."\n";
+print "-> Files owner were modified for instance ".$newobject->ref_customer.": ".$targetdir." to user ".$newlogin."\n";
 
 
 print '--- Dump database '.$oldobject->database_db.' into /tmp/mysqldump_'.$oldobject->database_db.'_'.gmstrftime('%d').".sql\n";
