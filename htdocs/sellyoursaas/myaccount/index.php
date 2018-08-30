@@ -1597,7 +1597,7 @@ if ($welcomecid > 0)
 		$productlabel = $productref;
 
 		$tmpproduct = new Product($db);
-		$resfetch = $tmpproduct->fetch($productref);
+		$resfetch = $tmpproduct->fetch(0, $productref);
 		if ($resfetch > 0)
 		{
 			$productlabel = $tmpproduct->label;
