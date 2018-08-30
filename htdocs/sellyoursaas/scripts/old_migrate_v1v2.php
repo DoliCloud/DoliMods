@@ -78,6 +78,8 @@ $newinstance=isset($argv[2])?$argv[2]:'';
 $mode=isset($argv[3])?$argv[3]:'';
 $productref=isset($argv[4])?$argv[4]:$defaultproductref;
 
+$langsen = new Translate('', $conf);
+$langsen->setDefaultLang($mysoc->default_lang);
 
 
 /*
