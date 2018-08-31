@@ -395,7 +395,7 @@ if (! empty($conf->global->OVH_OLDAPI))
             {
                 print '<div class="error">';
                 print 'Error '.$e->getMessage().'<br>';
-                print 'If this is an error to connect to OVH host, check your firewall does not block port required to reach OVH manager (for example port 1664).<br>';
+                print 'If there is an error to connect to OVH host, check your firewall does not block port required to reach OVH manager (for example port 443).<br>';
                 print '</div>';
 
                 // Write dump

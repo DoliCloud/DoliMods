@@ -293,7 +293,7 @@ class OvhServer extends CommonObject
 		}
 		catch(Exception $e)
 		{
-			$this->error = 'Error '.$e->getMessage().'<br>If this is an error to connect to OVH host, check your firewall does not block port required to reach OVH manager/api (for example port 1664 with old api, 443 for new api).';
+			$this->error = 'Error '.$e->getMessage().'<br>If there is an error to connect to OVH host, check your firewall does not block port required to reach OVH manager/api (for example port 443).';
 		}
 		return -1;
 	}
