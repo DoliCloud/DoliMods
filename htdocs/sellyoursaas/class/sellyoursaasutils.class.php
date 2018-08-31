@@ -102,66 +102,75 @@ class SellYourSaasUtils
 				{
 					dol_syslog("* Process invoice id=".$invoice->id." ref=".$invoice->ref);
 
-					// Search contract linked to invoice
-					$invoice->fetchObjectLinked();
-
-					if (is_array($invoice->linkedObjects['contrat']) && count($invoice->linkedObjects['contrat']) > 0)
+					$invoice->fetch_thirdparty();
+					
+					if ($invoice->thirdparty->array_options['manualcollection'])
 					{
-						//dol_sort_array($object->linkedObjects['facture'], 'date');
-						foreach($invoice->linkedObjects['contrat'] as $idcontract => $contract)
-						{
-							if (! empty($draftinvoiceprocessed[$invoice->id])) continue;	// If already processed, do nothing more
-
-							// We ignore $contract->nbofserviceswait +  and $contract->nbofservicesclosed
-							$nbservice = $contract->nbofservicesopened + $contract->nbofservicesexpired;
-							// If contract not undeployed and not suspended ?
-							// Note: If suspended, when unsuspened, the remaining draft invoice will be generated
-							// Note: if undeployed, this should not happen, because templates invoice should be disabled when an instance is undeployed
-							if ($nbservice && $contract->array_options['options_deployment_status'] != 'undeployed')
-							{
-								$result = $invoice->validate($user);
-								if ($result > 0)
-								{
-									$draftinvoiceprocessed[$invoice->id]=$invoice->ref;
-
-									// Now we build the invoice
-									$hidedetails = (GETPOST('hidedetails', 'int') ? GETPOST('hidedetails', 'int') : (! empty($conf->global->MAIN_GENERATE_DOCUMENTS_HIDE_DETAILS) ? 1 : 0));
-									$hidedesc = (GETPOST('hidedesc', 'int') ? GETPOST('hidedesc', 'int') : (! empty($conf->global->MAIN_GENERATE_DOCUMENTS_HIDE_DESC) ? 1 : 0));
-									$hideref = (GETPOST('hideref', 'int') ? GETPOST('hideref', 'int') : (! empty($conf->global->MAIN_GENERATE_DOCUMENTS_HIDE_REF) ? 1 : 0));
-
-									// Define output language
-									$outputlangs = $langs;
-									$newlang = '';
-									if ($conf->global->MAIN_MULTILANGS && empty($newlang) && GETPOST('lang_id','aZ09')) $newlang = GETPOST('lang_id','aZ09');
-									if ($conf->global->MAIN_MULTILANGS && empty($newlang))	$newlang = $invoice->thirdparty->default_lang;
-									if (! empty($newlang)) {
-										$outputlangs = new Translate("", $conf);
-										$outputlangs->setDefaultLang($newlang);
-										$outputlangs->load('products');
-									}
-									$model=$invoice->modelpdf;
-									$ret = $invoice->fetch($id); // Reload to get new records
-
-									$result = $invoice->generateDocument($model, $outputlangs, $hidedetails, $hidedesc, $hideref);
-								}
-								else
-								{
-									$error++;
-									$this->error = $invoice->error;
-									$this->errors = $invoice->errors;
-									break;
-								}
-							}
-							else
-							{
-								// Do nothing
-								dol_syslog("Number of open services (".$nbservice.") is zero or contract is undeployed, so we do nothing.");
-							}
-						}
+						dol_syslog("This thirdparty has manual collection on, so we don't validate invoice");
 					}
 					else
 					{
-						dol_syslog("No linked contract found on this invoice");
+						// Search contract linked to invoice
+						$invoice->fetchObjectLinked();
+
+						if (is_array($invoice->linkedObjects['contrat']) && count($invoice->linkedObjects['contrat']) > 0)
+						{
+							//dol_sort_array($object->linkedObjects['facture'], 'date');
+							foreach($invoice->linkedObjects['contrat'] as $idcontract => $contract)
+							{
+								if (! empty($draftinvoiceprocessed[$invoice->id])) continue;	// If already processed, do nothing more
+
+								// We ignore $contract->nbofserviceswait +  and $contract->nbofservicesclosed
+								$nbservice = $contract->nbofservicesopened + $contract->nbofservicesexpired;
+								// If contract not undeployed and not suspended ?
+								// Note: If suspended, when unsuspened, the remaining draft invoice will be generated
+								// Note: if undeployed, this should not happen, because templates invoice should be disabled when an instance is undeployed
+								if ($nbservice && $contract->array_options['options_deployment_status'] != 'undeployed')
+								{
+									$result = $invoice->validate($user);
+									if ($result > 0)
+									{
+										$draftinvoiceprocessed[$invoice->id]=$invoice->ref;
+
+										// Now we build the invoice
+										$hidedetails = (GETPOST('hidedetails', 'int') ? GETPOST('hidedetails', 'int') : (! empty($conf->global->MAIN_GENERATE_DOCUMENTS_HIDE_DETAILS) ? 1 : 0));
+										$hidedesc = (GETPOST('hidedesc', 'int') ? GETPOST('hidedesc', 'int') : (! empty($conf->global->MAIN_GENERATE_DOCUMENTS_HIDE_DESC) ? 1 : 0));
+										$hideref = (GETPOST('hideref', 'int') ? GETPOST('hideref', 'int') : (! empty($conf->global->MAIN_GENERATE_DOCUMENTS_HIDE_REF) ? 1 : 0));
+
+										// Define output language
+										$outputlangs = $langs;
+										$newlang = '';
+										if ($conf->global->MAIN_MULTILANGS && empty($newlang) && GETPOST('lang_id','aZ09')) $newlang = GETPOST('lang_id','aZ09');
+										if ($conf->global->MAIN_MULTILANGS && empty($newlang))	$newlang = $invoice->thirdparty->default_lang;
+										if (! empty($newlang)) {
+											$outputlangs = new Translate("", $conf);
+											$outputlangs->setDefaultLang($newlang);
+											$outputlangs->load('products');
+										}
+										$model=$invoice->modelpdf;
+										$ret = $invoice->fetch($id); // Reload to get new records
+
+										$result = $invoice->generateDocument($model, $outputlangs, $hidedetails, $hidedesc, $hideref);
+									}
+									else
+									{
+										$error++;
+										$this->error = $invoice->error;
+										$this->errors = $invoice->errors;
+										break;
+									}
+								}
+								else
+								{
+									// Do nothing
+									dol_syslog("Number of open services (".$nbservice.") is zero or contract is undeployed, so we do nothing.");
+								}
+							}
+						}
+						else
+						{
+							dol_syslog("No linked contract found on this invoice");
+						}
 					}
 				}
 				else
