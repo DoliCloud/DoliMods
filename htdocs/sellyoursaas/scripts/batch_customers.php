@@ -171,7 +171,7 @@ else
 	$object=new Contrat($db);
 
 	// Get list of instance
-	$sql = "SELECT c.rowid as id, c.ref_customer as instance,";
+	$sql = "SELECT c.rowid as id, c.ref, c.ref_customer as instance,";
 	$sql.= " ce.deployment_status as instance_status";
 	$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
 	$sql.= " WHERE c.ref_customer <> '' AND c.ref_customer IS NOT NULL";
@@ -256,7 +256,7 @@ if ($resql)
 						if (in_array($instance_status,array('SUSPENDED')))
 						{
 							$nbofactivesusp++;
-							$instancesactivebutsuspended[$obj->id]=$instance;
+							$instancesactivebutsuspended[$obj->id]=$obj->ref.' ('.$instance.')';
 						}
 						else if (in_array($instance_status,array('CLOSE_QUEUED','CLOSURE_REQUESTED')) ) $nbofactiveclosurerequest++;
 						else if (in_array($payment_status,array('FAILURE','PAST_DUE'))) $nbofactivepaymentko++;
