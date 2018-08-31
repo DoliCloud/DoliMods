@@ -15,8 +15,8 @@
   \null
   \begin{center}
     \begin{center}
-    { \color{teclib-color-purple} \Huge{\bf \mytitle} \par}%
-    { \color{teclib-color-purple} \large{\bf \DBKsubtitle} \par}%
+    { \color{mytemplate-color-purple} \Huge{\bf \mytitle} \par}%
+    { \color{mytemplate-color-purple} \large{\bf \DBKsubtitle} \par}%
     \end{center}
   \end{center}
 
@@ -28,12 +28,12 @@
 \newcommand{\colorsection}[1]{%
   \ifthenelse{\equal{\thesection}{0}}{%
     \begin{center}
-          \color{teclib-color-purple}\Large\bfseries #1%
+          \color{mytemplate-color-purple}\Large\bfseries #1%
     \end{center}
   }%
   {%
     \begin{center}
-          \color{teclib-color-purple}\Large\bfseries\thesection\ - #1%
+          \color{mytemplate-color-purple}\Large\bfseries\thesection\ - #1%
     \end{center}
   }
 }
@@ -47,23 +47,23 @@
 
 % subsection reformatting
 \newcommand{\colorsubsectiontext}[1]{%
-\textcolor{teclib-color-purple}{\textbf{#1}}
+\textcolor{mytemplate-color-purple}{\textbf{#1}}
 }
 
 \titleformat{\subsection}[hang]
   {\bfseries}%
-  {\textcolor{teclib-color-purple}{\thesubsection\hspace{0.2em}-}}%
+  {\textcolor{mytemplate-color-purple}{\thesubsection\hspace{0.2em}-}}%
   {0.2em}%
   {\colorsubsectiontext}%
 
 % subsubsection reformatting
 \newcommand{\colorsubsubsectiontext}[1]{%
-\textcolor{teclib-color-purple}{\textbf{#1}}
+\textcolor{mytemplate-color-purple}{\textbf{#1}}
 }
 
 \titleformat{\subsubsection}[hang]
   {\bfseries}%
-  {\textcolor{teclib-color-purple}{\thesubsubsection\hspace{0.2em}-}}%
+  {\textcolor{mytemplate-color-purple}{\thesubsubsection\hspace{0.2em}-}}%
   {0.2em}%
   {\colorsubsubsectiontext}%
 
@@ -80,13 +80,13 @@
 % Table of Contents
 \titlecontents{section} [0em]
     {\large\bfseries}
-    {\textcolor{teclib-color-purple}{\thecontentslabel\ - }}
+    {\textcolor{mytemplate-color-purple}{\thecontentslabel\ - }}
     {\hspace*{-2.3em}}
     {\normalsize\titlerule*[0.5pc]{.}\contentspage}
 
 \titlecontents{subsection} [2.5em]
     {\normalsize}
-    {\textcolor{teclib-color-purple}{\thecontentslabel\ - }}
+    {\textcolor{mytemplate-color-purple}{\thecontentslabel\ - }}
     {\hspace*{-2.3em}}
     {\normalsize\titlerule*[0.5pc]{.}\contentspage}
 

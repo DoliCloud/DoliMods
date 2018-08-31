@@ -26,7 +26,7 @@
 % redefine Header/Footer
 
 \def\footerRef{\footnotesize Référence de document : {\bf\DBKedition} | {\bf\DBKdate} }
-\def\footerInfo{\scriptsize\textit{\textbf{\href{http://www.dolibarr.org.com}{Dolibarr user guide}}}}
+\def\footerInfo{\scriptsize\textit{\textbf{\href{https://www.dolibarr.org}{Dolibarr - guide utilateur}}}}
 
 % Define page style of front page
 
@@ -40,7 +40,7 @@
     %\fancyhead[R]{\raisebox{-0.5\height}\customerlogo}
     \fancyhead[R]{\customerlogo}
     \fancyfoot[L]{
-        \colorbox{teclib-color-green-light}{%
+        \colorbox{mytemplate-color-green-light}{%
             \begin{minipage}{\linewidth-2\fboxsep}%
                 \footerInfo%
             \end{minipage}%
@@ -58,7 +58,7 @@
     \fancyhead[C]{\normalsize\bf{\mytitle}\\\footnotesize{\DBKsubtitle}}
     \fancyhead[R]{\customerlogo}
     \fancyfoot[L]{
-        \colorbox{teclib-color-green-light}{%
+        \colorbox{mytemplate-color-green-light}{%
             \begin{minipage}{\linewidth-2\fboxsep}%
                 \footerInfo%
                 \hfill\textsf{\thepage{}/\pageref*{LastPage}}%

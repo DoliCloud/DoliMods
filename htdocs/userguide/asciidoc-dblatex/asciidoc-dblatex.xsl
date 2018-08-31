@@ -9,7 +9,7 @@ Doc for dblatex syntax: http://dblatex.sourceforge.net/doc/manual/
   <xsl:param name="doc.layout">coverpage toc frontmatter mainmatter index </xsl:param>
 
   <!-- TOC links in the titles, and in blue. -->
-  <xsl:param name="latex.hyperparam">colorlinks,urlcolor=teclib-color-purple,linkcolor=teclib-color-purple,pdfstartview=FitH</xsl:param>
+  <xsl:param name="latex.hyperparam">colorlinks,urlcolor=mytemplate-color-purple,linkcolor=mytemplate-color-purple,pdfstartview=FitH</xsl:param>
 
   <!-- TOC visiblity and depth -->
   <xsl:param name="doc.toc.show">1</xsl:param>
@@ -26,8 +26,8 @@ Doc for dblatex syntax: http://dblatex.sourceforge.net/doc/manual/
 <!--  <xsl:param name="table.default.tabstyle">longtable</xsl:param>-->
   <xsl:param name="default.table.width">newtbl.autowidth</xsl:param>
   <xsl:param name="newtbl.use.hhline" select="'0'"/>
-  <xsl:param name="newtbl.format.thead">\color{teclib-color-purple}\bfseries</xsl:param>
-  <xsl:param name="newtbl.bgcolor.thead">teclib-color-green-light</xsl:param>
+  <xsl:param name="newtbl.format.thead">\color{mytemplate-color-purple}\bfseries</xsl:param>
+  <xsl:param name="newtbl.bgcolor.thead">mytemplate-color-green-light</xsl:param>
   <xsl:param name="newtbl.format.tbody"></xsl:param>
   <xsl:param name="newtbl.autowidth">0</xsl:param>
   <xsl:param name="table.default.position">b</xsl:param>
