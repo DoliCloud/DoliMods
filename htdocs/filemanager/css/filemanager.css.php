@@ -38,8 +38,8 @@ if (! empty($_GET["theme"])) $conf->theme=$_GET["theme"];  // If theme was force
 $langs->load("main",0,1);
 $right=($langs->trans("DIRECTION")=='rtl'?'left':'right');
 $left=($langs->trans("DIRECTION")=='rtl'?'right':'left');
-$fontsize=empty($conf->browser->phone)?'12':'12';
-$fontsizesmaller=empty($conf->browser->phone)?'11':'11';
+$fontsize='12';
+$fontsizesmaller='11';
 
 $fontlist='arial,tahoma,verdana,helvetica';
 //$fontlist='Verdana,Helvetica,Arial,sans-serif';
