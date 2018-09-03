@@ -182,7 +182,7 @@ do
 	fi
 done
 
-echo "***** Save osu unix account with very old undeployed database and without app dir and save into /tmp/osutoclean" 
+echo "***** Save osu unix account with very old undeployed database and with existing home dir and save into /tmp/osutoclean" 
 Q1="use $database; "
 Q2="SELECT ce.username_os FROM llx_contrat as c, llx_contrat_extrafields as ce WHERE c.rowid = ce.fk_object AND c.rowid IN ";
 Q3=" (SELECT fk_contrat FROM llx_contratdet as cd, llx_contrat_extrafields as ce2 WHERE cd.fk_contrat = ce2.fk_object AND cd.STATUT = 5 AND ce2.deployment_status = 'undeployed' AND ce2.undeployment_date < ADDDATE(NOW(), INTERVAL -1 MONTH)); ";
@@ -194,13 +194,10 @@ if [ -s /tmp/osutoclean-oldundeployed ]; then
 	for osusername in `cat /tmp/osutoclean-oldundeployed`
 	do
 		tmpvar1=`echo $osusername | awk -F ":" ' { print $1 } '`
-		if [ ! -d /home/jail/home/$osusername ]; then
-			echo User $tmpvar1 is an ^osu user in /tmp/osutoclean-oldundeployed but has no home dir so we will remove it
-			echo $tmpvar1 >> /tmp/osutoclean
-		else
+		if [ -d /home/jail/home/$osusername ]; then
 			nbdbn=`ls /home/jail/home/$osusername/ | grep ^dbn | wc -w`
 			if [[ "x$nbdbn" == "x0" ]]; then
-				echo User $tmpvar1 is an ^osu user in /tmp/osutoclean-oldundeployed but has no more dbn* dir so we will remove it
+				echo User $tmpvar1 is an ^osu user in /tmp/osutoclean-oldundeployed but has still a home dir with no more dbn* into so we will remove it
 				echo $tmpvar1 >> /tmp/osutoclean
 			fi
 		fi
