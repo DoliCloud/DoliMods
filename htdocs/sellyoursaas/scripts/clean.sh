@@ -189,9 +189,9 @@ Q3=" (SELECT fk_contrat FROM llx_contratdet as cd, llx_contrat_extrafields as ce
 SQL="${Q1}${Q2}${Q3}"
 
 echo "$MYSQL -usellyoursaas -e $SQL"
-$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" >> /tmp/osutoclean-oldundeployed
+$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep '^osu' >> /tmp/osutoclean-oldundeployed
 if [ -s /tmp/osutoclean-oldundeployed ]; then
-	for osusername in `cat /tmp/osutoclean-oldundeployed | grep '^osu'`
+	for osusername in `cat /tmp/osutoclean-oldundeployed`
 	do
 		tmpvar1=`echo $osusername | awk -F ":" ' { print $1 } '`
 		if [ ! -d /home/jail/home/$osusername ]; then
