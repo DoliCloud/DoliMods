@@ -41,7 +41,7 @@ if [ "x$2" == "x" ]; then
 	echo "Usage: ${0} [databasename] [test|confirm]"
 fi
 if [[ "x$1" == "x" || "x$2" == "x" ]]; then
-	exit
+	exit 1
 fi
 
 export database=$1
@@ -248,6 +248,9 @@ done < /tmp/instancefound
 
 echo "***** Loop on each user in /tmp/osutoclean to make a clean"
 if [ -s /tmp/osutoclean ]; then
+
+	export reloadapache=1
+	
 	cat /tmp/osutoclean | grep '^osu' | sort -u
 	for osusername in `grep '^osu' /tmp/osutoclean | sort -u`
 	do
@@ -395,19 +398,27 @@ if [ -s /tmp/osutoclean ]; then
 				if [[ "x$?" != "x0" ]]; then
 					echo Error when running apache2ctl configtest 
 				else 
-					echo "   ** Apache tasks finished with configtest ok, we reload apache."
-					echo service apache2 reload
-					if [[ $testorconfirm == "confirm" ]]; then
-						service apache2 reload
-						if [[ "x$?" != "x0" ]]; then
-							echo Error when running service apache2 reload 
-							exit 2
-						fi
-					fi 
+					echo "   ** Apache tasks finished with configtest ok"
 				fi
 			fi
 		fi
 		
 	done
+
+	# Restart apache one	
+	echo service apache2 reload
+	if [[ "x$reloadapache" == "x1" ]]; then
+		if [[ $testorconfirm == "confirm" ]]; then
+			service apache2 reload
+			if [[ "x$?" != "x0" ]]; then
+				echo "Error when running service apache2 reload. Exit 3"
+				exit 3
+			fi
+		fi
+	else
+		echo "An error was found with apache2ctl configtest so no service apache2 reload was done. Exit 2"
+		exit 2
+	fi
 fi
 
+exit 0
