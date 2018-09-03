@@ -103,7 +103,7 @@ class SellYourSaasUtils
 					dol_syslog("* Process invoice id=".$invoice->id." ref=".$invoice->ref);
 
 					$invoice->fetch_thirdparty();
-					
+
 					if ($invoice->thirdparty->array_options['manualcollection'])
 					{
 						dol_syslog("This thirdparty has manual collection on, so we don't validate invoice");
@@ -778,7 +778,7 @@ class SellYourSaasUtils
     	}
 
     	$this->output = count($invoiceprocessedok).' invoice(s) paid among '.count($invoiceprocessed).' qualified invoice(s) with a valid default payment mode processed'.(count($invoiceprocessed)>0 ? ' : '.join(',', $invoiceprocessed) : '').' (ran in mode '.$servicestatus.') (search done on SellYourSaas customers only)';
-    	$this->output .= ' - '.count($invoiceprocessedko).' discarded (missing stripe customer/card id, payment error or other reason)';
+    	$this->output .= ' - '.count($invoiceprocessedko).' discarded (missing stripe customer/card id, payment error or other reason)'.(count($invoiceprocessedko)>0 ? ' : '.join(',', $invoiceprocessedko) : '');
 
     	$this->db->commit();
 
