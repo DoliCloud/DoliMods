@@ -2606,8 +2606,7 @@ if ($mode == 'instances')
 								foreach($contract->linkedObjects['facturerec'] as $idtemplateinvoice => $templateinvoice)
 								{
 									$foundtemplate++;
-									if ($templateinvoice->suspended && $contract->array_options['options_deployment_status'] == 'undeployed') print '';
-									elseif ($templateinvoice->suspended && $contract->array_options['options_deployment_status'] != 'deployed') print $langs->trans("InvoicingSuspended");
+									if ($templateinvoice->suspended && $contract->array_options['options_deployment_status'] == 'undeployed') $pricetoshow = '';
 									else
 									{
 										if ($templateinvoice->unit_frequency == 'm' && $templateinvoice->frequency == 1)
@@ -2627,6 +2626,7 @@ if ($mode == 'instances')
 											$pricetoshow .= price($templateinvoice->total_ht, 1, $langs, 0, -1, -1, $conf->currency).' '.$langs->trans("HT");
 											$priceinvoicedht = $templateinvoice->total_ht;
 										}
+										if ($templateinvoice->suspended && $contract->array_options['options_deployment_status'] != 'deployed') $pricetoshow = $langs->trans("InvoicingSuspended"); // Replace price
 									}
 								}
 							}
@@ -3335,8 +3335,7 @@ if ($mode == 'mycustomerinstances')
 				foreach($contract->linkedObjects['facturerec'] as $idtemplateinvoice => $templateinvoice)
 				{
 					$foundtemplate++;
-					if ($templateinvoice->suspended && $contract->array_options['options_deployment_status'] == 'undeployed') print '';
-					elseif ($templateinvoice->suspended && $contract->array_options['options_deployment_status'] != 'deployed') print $langs->trans("InvoicingSuspended");
+					if ($templateinvoice->suspended && $contract->array_options['options_deployment_status'] == 'undeployed') $pricetoshow = '';
 					else
 					{
 						if ($templateinvoice->unit_frequency == 'm' && $templateinvoice->frequency == 1)
@@ -3356,6 +3355,7 @@ if ($mode == 'mycustomerinstances')
 							$pricetoshow .= price($templateinvoice->total_ht, 1, $langs, 0, -1, -1, $conf->currency).' '.$langs->trans("HT");
 							$priceinvoicedht = $templateinvoice->total_ht;
 						}
+						if ($templateinvoice->suspended && $contract->array_options['options_deployment_status'] != 'deployed') $pricetoshow = $langs->trans("InvoicingSuspended");	// Replace price
 					}
 				}
 			}
