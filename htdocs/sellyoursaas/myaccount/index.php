@@ -3525,7 +3525,10 @@ if ($mode == 'mycustomerinstances')
 				{
 					if ($priceinvoicedht != $contrat->total_ht)
 					{
-						print $langs->trans("FlatOrDiscountedPrice").' = ';
+						if ($pricetoshow != '')
+						{
+							print $langs->trans("FlatOrDiscountedPrice").' = ';
+						}
 					}
 					print '<span class="bold">'.$pricetoshow.'</span>';
 					if ($foundtemplate == 0)	// Same than ispaid
