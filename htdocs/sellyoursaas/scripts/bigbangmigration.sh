@@ -6,7 +6,7 @@
 
 # Build filetomigrate
 # select * from app_instance as a, customer as c 
-# where a.customer_id = c.id and a.access_enabled = 1 and a.status = 'DEPLOYED' and c.manual_collection <> 1;
+# where a.customer_id = c.id and a.access_enabled = 1 and a.status = 'DEPLOYED';
 # Keep the file
 
 
