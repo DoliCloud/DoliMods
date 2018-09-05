@@ -160,8 +160,8 @@ class modSellYourSaas extends DolibarrModules
 		// Cronjobs (List of cron jobs entries to add when module is enabled)
 		// unit_frequency must be 60 for minute, 3600 for hour, 86400 for day, 604800 for week
 		$statusatinstall=1;
-		$arraydate=dol_getdate(dol_now() + (3600 * 24));
-		$datestart=dol_mktime(0, 30, 0, $arraydate['mon'], $arraydate['mday'], $arraydate['year']);
+		$arraydate=dol_getdate(dol_now());
+		$datestart=dol_mktime(21, 30, 0, $arraydate['mon'], $arraydate['mday'], $arraydate['year']);
 
 		$this->cronjobs = array(
 		    // Generation of draft invoices is done with priority 50
