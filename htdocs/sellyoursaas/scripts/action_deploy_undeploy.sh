@@ -118,6 +118,9 @@ export SELLYOURSAAS_ACCOUNT_URL=${24}
 export instancenameold=${25}
 export domainnameold=${26}
 export customurl=${27}
+if [ "x$customurl" == "x-" ]; then
+	customurl=""
+fi
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
@@ -563,7 +566,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	fi
 
 	echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
-			  sed -e 's/__webAppAliases__/$instancename.$domainname/g' | \
+			  sed -e 's/__webAppAliases__/$instancename.$domainname $customurl/g' | \
 			  sed -e 's/__webAppLogName__/$instancename/g' | \
 			  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
 			  sed -e 's/__osUsername__/$osusername/g' | \
@@ -572,7 +575,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 			  sed -e 's;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g' | \
 			  sed -e 's;__webAppPath__;$instancedir;g' > $apacheconf"
 	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
-			  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
+			  sed -e "s/__webAppAliases__/$instancename.$domainname $customurl/g" | \
 			  sed -e "s/__webAppLogName__/$instancename/g" | \
 			  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
 			  sed -e "s/__osUsername__/$osusername/g" | \

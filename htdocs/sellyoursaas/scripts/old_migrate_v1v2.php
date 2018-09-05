@@ -336,6 +336,7 @@ if ($result <= 0)
 		$contract->array_options['options_port_db'] = $generateddbport;
 		$contract->array_options['options_username_db'] = $generateddbusername;
 		$contract->array_options['options_password_db'] = $generateddbpassword;
+		$contract->array_options['options_custom_url'] = $oldinstance;
 		//$contract->array_options['options_nb_users'] = 1;
 		//$contract->array_options['options_nb_gb'] = 0.01;
 

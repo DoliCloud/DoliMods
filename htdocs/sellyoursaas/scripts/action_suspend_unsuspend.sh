@@ -269,7 +269,7 @@ if [[ "$mode" == "suspend" ]]; then
 	fi
 
 	echo "cat $vhostfilesuspended | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
-			  sed -e 's/__webAppAliases__/$instancename.$domainname/g' | \
+			  sed -e 's/__webAppAliases__/$instancename.$domainname $customurl/g' | \
 			  sed -e 's/__webAppLogName__/$instancename/g' | \
 			  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
 			  sed -e 's/__osUsername__/$osusername/g' | \
@@ -278,7 +278,7 @@ if [[ "$mode" == "suspend" ]]; then
 			  sed -e 's;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g' | \
 			  sed -e 's;__webAppPath__;$instancedir;g' > $apacheconf"
 	cat $vhostfilesuspended | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
-			  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
+			  sed -e "s/__webAppAliases__/$instancename.$domainname $customurl/g" | \
 			  sed -e "s/__webAppLogName__/$instancename/g" | \
 			  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
 			  sed -e "s/__osUsername__/$osusername/g" | \
@@ -328,7 +328,7 @@ if [[ "$mode" == "unsuspend" ]]; then
 	fi
 
 	echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
-			  sed -e 's/__webAppAliases__/$instancename.$domainname/g' | \
+			  sed -e 's/__webAppAliases__/$instancename.$domainname $customurl/g' | \
 			  sed -e 's/__webAppLogName__/$instancename/g' | \
 			  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
 			  sed -e 's/__osUsername__/$osusername/g' | \
@@ -337,7 +337,7 @@ if [[ "$mode" == "unsuspend" ]]; then
 			  sed -e 's;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g' | \
 			  sed -e 's;__webAppPath__;$instancedir;g' > $apacheconf"
 	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
-			  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
+			  sed -e "s/__webAppAliases__/$instancename.$domainname $customurl/g" | \
 			  sed -e "s/__webAppLogName__/$instancename/g" | \
 			  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
 			  sed -e "s/__osUsername__/$osusername/g" | \
