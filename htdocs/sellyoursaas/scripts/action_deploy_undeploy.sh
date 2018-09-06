@@ -566,7 +566,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	fi
 
 	echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
-			  sed -e 's/__webAppAliases__/$instancename.$domainname $customurl/g' | \
+			  sed -e 's/__webAppAliases__/$instancename.$domainname/g' | \
 			  sed -e 's/__webAppLogName__/$instancename/g' | \
 			  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
 			  sed -e 's/__osUsername__/$osusername/g' | \
@@ -575,7 +575,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 			  sed -e 's;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g' | \
 			  sed -e 's;__webAppPath__;$instancedir;g' > $apacheconf"
 	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
-			  sed -e "s/__webAppAliases__/$instancename.$domainname $customurl/g" | \
+			  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
 			  sed -e "s/__webAppLogName__/$instancename/g" | \
 			  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
 			  sed -e "s/__osUsername__/$osusername/g" | \
@@ -590,13 +590,55 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	echo Enable conf with ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-online 
 	ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-online
 	
+	# Remove and recreate customurl
+	rm -f /etc/apache2/sellyoursaas-available/$fqn.custom.conf
+	rm -f /etc/apache2/sellyoursaas-online/$fqn.custom.conf
+	if [[ "x$customurl" != "x" ]]; then
+	
+		export apacheconf="/etc/apache2/sellyoursaas-available/$fqn.custom.conf"
+		echo `date +%Y%m%d%H%M%S`" ***** Create apache conf $apacheconf from $vhostfile"
+		if [[ -s $apacheconf ]]
+		then
+			echo "Apache conf $apacheconf already exists, we delete it since it may be a file from an old instance with same name"
+			rm -f $apacheconf
+		fi
+
+		echo "cat $vhostfile | sed -e 's/__webAppDomain__/$customurl/g' | \
+				  sed -e 's/__webAppAliases__/$customurl/g' | \
+				  sed -e 's/__webAppLogName__/$instancename/g' | \
+				  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
+				  sed -e 's/__osUsername__/$osusername/g' | \
+				  sed -e 's/__osGroupname__/$osusername/g' | \
+				  sed -e 's;__osUserPath__;/home/jail/home/$osusername/$dbname;g' | \
+				  sed -e 's;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g' | \
+				  sed -e 's;__webAppPath__;$instancedir;g' > $apacheconf"
+		cat $vhostfile | sed -e "s/__webAppDomain__/$customurl/g" | \
+				  sed -e "s/__webAppAliases__/$customurl/g" | \
+				  sed -e "s/__webAppLogName__/$instancename/g" | \
+				  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
+				  sed -e "s/__osUsername__/$osusername/g" | \
+				  sed -e "s/__osGroupname__/$osusername/g" | \
+				  sed -e "s;__osUserPath__;/home/jail/home/$osusername/$dbname;g" | \
+				  sed -e "s;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g" | \
+				  sed -e "s;__webAppPath__;$instancedir;g" > $apacheconf
+	
+	
+		#echo Enable conf with a2ensite $fqn.custom.conf
+		#a2ensite $fqn.custom.conf
+		echo Enable conf with ln -fs /etc/apache2/sellyoursaas-available/$fqn.custom.conf /etc/apache2/sellyoursaas-online 
+		ln -fs /etc/apache2/sellyoursaas-available/$fqn.custom.conf /etc/apache2/sellyoursaas-online
+	fi	
+	
+	
 	echo /usr/sbin/apache2ctl configtest
 	/usr/sbin/apache2ctl configtest
 	if [[ "x$?" != "x0" ]]; then
-		echo Error when running apache2ctl configtest 
+		echo Error when running apache2ctl configtest. We remove the new created virtual host /etc/apache2/sellyoursaas-online/$fqn.conf to hope to restore configtest ok.
+		rm -f /etc/apache2/sellyoursaas-online/$fqn.conf
+		rm -f /etc/apache2/sellyoursaas-online/$fqn.custom.conf
 		echo "Failed to deployall instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM
 		exit 1
-	fi 
+	fi
 	
 	echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. service apache2 reload"
 	service apache2 reload
@@ -618,6 +660,10 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		echo Disable conf with a2dissite $fqn.conf
 		#a2dissite $fqn.conf
 		rm /etc/apache2/sellyoursaas-online/$fqn.conf
+
+		echo Disable conf with a2dissite $fqn.custom.conf
+		#a2dissite $fqn.conf
+		rm /etc/apache2/sellyoursaas-online/$fqn.custom.conf
 		
 		/usr/sbin/apache2ctl configtest
 		if [[ "x$?" != "x0" ]]; then

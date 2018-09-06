@@ -154,8 +154,8 @@ if [[ "$mode" == "rename" ]]; then
 
 		export apacheconf="/etc/apache2/sellyoursaas-online/$fqn.conf"
 		if [ -f $apacheconf ]; then
-				echo "Error failed to rename. New name is already used." 
-				exit 1
+			echo "Error failed to rename. New name is already used." 
+			exit 1
 		fi
 	fi
 	
@@ -175,7 +175,7 @@ if [[ "$mode" == "rename" ]]; then
 	fi
 
 	echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
-			  sed -e 's/__webAppAliases__/$instancename.$domainname $customurl/g' | \
+			  sed -e 's/__webAppAliases__/$instancename.$domainname/g' | \
 			  sed -e 's/__webAppLogName__/$instancename/g' | \
 			  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
 			  sed -e 's/__osUsername__/$osusername/g' | \
@@ -184,7 +184,7 @@ if [[ "$mode" == "rename" ]]; then
 			  sed -e 's;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g' | \
 			  sed -e 's;__webAppPath__;$instancedir;g' > $apacheconf"
 	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
-			  sed -e "s/__webAppAliases__/$instancename.$domainname $customurl/g" | \
+			  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
 			  sed -e "s/__webAppLogName__/$instancename/g" | \
 			  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
 			  sed -e "s/__osUsername__/$osusername/g" | \
@@ -196,8 +196,53 @@ if [[ "$mode" == "rename" ]]; then
 
 	#echo Enable conf with a2ensite $fqn.conf
 	#a2ensite $fqn.conf
-	echo Enable conf with ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-enabled
-	ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-enabled
+	echo Enable conf with ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-online
+	ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-online
+
+
+	# Remove and recreate customurl
+	rm -f /etc/apache2/sellyoursaas-available/$fqn.custom.conf
+	rm -f /etc/apache2/sellyoursaas-online/$fqn.custom.conf
+	if [[ "x$customurl" != "x" ]]; then
+	
+		echo `date +%Y%m%d%H%M%S`" ***** For instance in /home/jail/home/$osusername/$dbname, create a new virtual name $fqn.custom"
+	
+		export apacheconf="/etc/apache2/sellyoursaas-available/$fqn.custom.conf"
+		echo `date +%Y%m%d%H%M%S`" ***** Create a new apache conf $apacheconf from $vhostfile"
+	
+		if [[ -s $apacheconf ]]
+		then
+			echo "Apache conf $apacheconf already exists, we delete it since it may be a file from an old instance with same name"
+			rm -f $apacheconf
+		fi
+	
+		echo "cat $vhostfile | sed -e 's/__webAppDomain__/$customurl/g' | \
+				  sed -e 's/__webAppAliases__/$customurl/g' | \
+				  sed -e 's/__webAppLogName__/$instancename/g' | \
+				  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
+				  sed -e 's/__osUsername__/$osusername/g' | \
+				  sed -e 's/__osGroupname__/$osusername/g' | \
+				  sed -e 's;__osUserPath__;/home/jail/home/$osusername/$dbname;g' | \
+				  sed -e 's;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g' | \
+				  sed -e 's;__webAppPath__;$instancedir;g' > $apacheconf"
+		cat $vhostfile | sed -e "s/__webAppDomain__/$customurl/g" | \
+				  sed -e "s/__webAppAliases__/$customurl/g" | \
+				  sed -e "s/__webAppLogName__/$instancename/g" | \
+				  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
+				  sed -e "s/__osUsername__/$osusername/g" | \
+				  sed -e "s/__osGroupname__/$osusername/g" | \
+				  sed -e "s;__osUserPath__;/home/jail/home/$osusername/$dbname;g" | \
+				  sed -e "s;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g" | \
+				  sed -e "s;__webAppPath__;$instancedir;g" > $apacheconf
+	
+	
+		#echo Enable conf with a2ensite $fqn.custom.conf
+		#a2ensite $fqn.custom.conf
+		echo Enable conf with ln -fs /etc/apache2/sellyoursaas-available/$fqn.custom.conf /etc/apache2/sellyoursaas-online
+		ln -fs /etc/apache2/sellyoursaas-available/$fqn.custom.conf /etc/apache2/sellyoursaas-online
+	
+	fi 
+
 	
 	echo /usr/sbin/apache2ctl configtest
 	/usr/sbin/apache2ctl configtest
@@ -226,7 +271,8 @@ if [[ "$mode" == "rename" ]]; then
 		
 			echo Disable conf with a2dissite $fqnold.conf
 			#a2dissite $fqn.conf
-			rm /etc/apache2/sellyoursaas-online/$fqnold.conf
+			rm -f /etc/apache2/sellyoursaas-online/$fqnold.conf
+			rm -f /etc/apache2/sellyoursaas-online/$fqnold.custom.conf
 			
 			/usr/sbin/apache2ctl configtest
 			if [[ "x$?" != "x0" ]]; then
@@ -267,7 +313,7 @@ if [[ "$mode" == "suspend" ]]; then
 	fi
 
 	echo "cat $vhostfilesuspended | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
-			  sed -e 's/__webAppAliases__/$instancename.$domainname $customurl/g' | \
+			  sed -e 's/__webAppAliases__/$instancename.$domainname/g' | \
 			  sed -e 's/__webAppLogName__/$instancename/g' | \
 			  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
 			  sed -e 's/__osUsername__/$osusername/g' | \
@@ -276,7 +322,7 @@ if [[ "$mode" == "suspend" ]]; then
 			  sed -e 's;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g' | \
 			  sed -e 's;__webAppPath__;$instancedir;g' > $apacheconf"
 	cat $vhostfilesuspended | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
-			  sed -e "s/__webAppAliases__/$instancename.$domainname $customurl/g" | \
+			  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
 			  sed -e "s/__webAppLogName__/$instancename/g" | \
 			  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
 			  sed -e "s/__osUsername__/$osusername/g" | \
@@ -291,11 +337,52 @@ if [[ "$mode" == "suspend" ]]; then
 	echo Enable conf with ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-online
 	ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-online
 	
+	
+	if [[ "x$customurl" != "x" ]]; then
+	
+		export apacheconf="/etc/apache2/sellyoursaas-available/$fqn.custom.conf"
+		echo "Create a suspended apache conf $apacheconf from $vhostfilesuspended"
+	
+		if [[ -s $apacheconf ]]
+		then
+			echo "Apache conf $apacheconf already exists, we delete it since it may be a file from an old instance with same name"
+			rm -f $apacheconf
+		fi
+	
+		echo "cat $vhostfilesuspended | sed -e 's/__webAppDomain__/$customurl/g' | \
+				  sed -e 's/__webAppAliases__/$customurl/g' | \
+				  sed -e 's/__webAppLogName__/$instancename/g' | \
+				  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
+				  sed -e 's/__osUsername__/$osusername/g' | \
+				  sed -e 's/__osGroupname__/$osusername/g' | \
+				  sed -e 's;__osUserPath__;/home/jail/home/$osusername/$dbname;g' | \
+				  sed -e 's;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g' | \
+				  sed -e 's;__webAppPath__;$instancedir;g' > $apacheconf"
+		cat $vhostfilesuspended | sed -e "s/__webAppDomain__/$customurl/g" | \
+				  sed -e "s/__webAppAliases__/$customurl/g" | \
+				  sed -e "s/__webAppLogName__/$instancename/g" | \
+				  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
+				  sed -e "s/__osUsername__/$osusername/g" | \
+				  sed -e "s/__osGroupname__/$osusername/g" | \
+				  sed -e "s;__osUserPath__;/home/jail/home/$osusername/$dbname;g" | \
+				  sed -e "s;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g" | \
+				  sed -e "s;__webAppPath__;$instancedir;g" > $apacheconf
+	
+	
+		#echo Enable conf with a2ensite $fqn.custom.conf
+		#a2ensite $fqn.custom.conf
+		echo Enable conf with ln -fs /etc/apache2/sellyoursaas-available/$fqn.custom.conf /etc/apache2/sellyoursaas-online
+		ln -fs /etc/apache2/sellyoursaas-available/$fqn.custom.conf /etc/apache2/sellyoursaas-online
+	
+	fi
+	
+	
 	echo /usr/sbin/apache2ctl configtest
 	/usr/sbin/apache2ctl configtest
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running apache2ctl configtest. We remove the new created virtual host /etc/apache2/sellyoursaas-online/$fqn.conf to hope to restore configtest ok.
 		rm -f /etc/apache2/sellyoursaas-online/$fqn.conf
+		rm -f /etc/apache2/sellyoursaas-online/$fqn.custom.conf
 		echo "Failed to suspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb when suspending $instancename.$domainname" $EMAILFROM 
 		exit 1
 	fi 
@@ -326,7 +413,7 @@ if [[ "$mode" == "unsuspend" ]]; then
 	fi
 
 	echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
-			  sed -e 's/__webAppAliases__/$instancename.$domainname $customurl/g' | \
+			  sed -e 's/__webAppAliases__/$instancename.$domainname/g' | \
 			  sed -e 's/__webAppLogName__/$instancename/g' | \
 			  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
 			  sed -e 's/__osUsername__/$osusername/g' | \
@@ -335,7 +422,7 @@ if [[ "$mode" == "unsuspend" ]]; then
 			  sed -e 's;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g' | \
 			  sed -e 's;__webAppPath__;$instancedir;g' > $apacheconf"
 	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
-			  sed -e "s/__webAppAliases__/$instancename.$domainname $customurl/g" | \
+			  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
 			  sed -e "s/__webAppLogName__/$instancename/g" | \
 			  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
 			  sed -e "s/__osUsername__/$osusername/g" | \
@@ -347,8 +434,49 @@ if [[ "$mode" == "unsuspend" ]]; then
 
 	#echo Enable conf with a2ensite $fqn.conf
 	#a2ensite $fqn.conf
-	echo Enable conf with ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-enabled
-	ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-enabled
+	echo Enable conf with ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-online
+	ln -fs /etc/apache2/sellyoursaas-available/$fqn.conf /etc/apache2/sellyoursaas-online
+	
+	
+	if [[ "x$customurl" != "x" ]]; then
+	
+		export apacheconf="/etc/apache2/sellyoursaas-available/$fqn.custom.conf"
+		echo "Create a new apache conf $apacheconf from $vhostfile"
+	
+		if [[ -s $apacheconf ]]
+		then
+			echo "Apache conf $apacheconf already exists, we delete it since it may be a file from an old instance with same name"
+			rm -f $apacheconf
+		fi
+	
+		echo "cat $vhostfile | sed -e 's/__webAppDomain__/$customurl/g' | \
+				  sed -e 's/__webAppAliases__/$customurl/g' | \
+				  sed -e 's/__webAppLogName__/$instancename/g' | \
+				  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
+				  sed -e 's/__osUsername__/$osusername/g' | \
+				  sed -e 's/__osGroupname__/$osusername/g' | \
+				  sed -e 's;__osUserPath__;/home/jail/home/$osusername/$dbname;g' | \
+				  sed -e 's;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g' | \
+				  sed -e 's;__webAppPath__;$instancedir;g' > $apacheconf"
+		cat $vhostfile | sed -e "s/__webAppDomain__/$customurl/g" | \
+				  sed -e "s/__webAppAliases__/$customurl/g" | \
+				  sed -e "s/__webAppLogName__/$instancename/g" | \
+				  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
+				  sed -e "s/__osUsername__/$osusername/g" | \
+				  sed -e "s/__osGroupname__/$osusername/g" | \
+				  sed -e "s;__osUserPath__;/home/jail/home/$osusername/$dbname;g" | \
+				  sed -e "s;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g" | \
+				  sed -e "s;__webAppPath__;$instancedir;g" > $apacheconf
+	
+	
+		#echo Enable conf with a2ensite $fqn.custom.conf
+		#a2ensite $fqn.custom.conf
+		echo Enable conf with ln -fs /etc/apache2/sellyoursaas-available/$fqn.custom.conf /etc/apache2/sellyoursaas-online
+		ln -fs /etc/apache2/sellyoursaas-available/$fqn.custom.conf /etc/apache2/sellyoursaas-online
+	
+	fi
+	
+	
 	
 	echo /usr/sbin/apache2ctl configtest
 	/usr/sbin/apache2ctl configtest

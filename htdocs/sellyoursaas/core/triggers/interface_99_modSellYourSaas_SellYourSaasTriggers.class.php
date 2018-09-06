@@ -202,6 +202,12 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         		&& ($object->oldcopy->ref_customer != $object->ref_customer
         		|| $object->oldcopy->array_options['options_custom_url'] != $object->array_options['options_custom_url']))
         		{
+        			if (preg_match('/\.with\./', $object->array_options['options_custom_url']))
+        			{
+        				$this->errors[]="Value of URL including .with. is not allowed as custom URL";
+        				return -1;
+        			}
+
         			dol_syslog("We found a change in ref_customer or into custom url, so we will call the remote action rename");
         			$remoteaction='rename';
 
