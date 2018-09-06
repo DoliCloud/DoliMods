@@ -149,14 +149,15 @@ testorconfirm="confirm"
 
 if [[ "$mode" == "rename" ]]; then
 
-	echo `date +%Y%m%d%H%M%S`" ***** For instance in /home/jail/home/$osusername/$dbname, check if new virtual host $fqn exists"
+	if [[ "$fqn" != "$fqnold" ]]; then
+		echo `date +%Y%m%d%H%M%S`" ***** For instance in /home/jail/home/$osusername/$dbname, check if new virtual host $fqn exists"
 
-	export apacheconf="/etc/apache2/sellyoursaas-online/$fqn.conf"
-	if [ -f $apacheconf ]; then
-			echo "Error failed to rename. New name is already used." 
-			exit 1
+		export apacheconf="/etc/apache2/sellyoursaas-online/$fqn.conf"
+		if [ -f $apacheconf ]; then
+				echo "Error failed to rename. New name is already used." 
+				exit 1
+		fi
 	fi
-	
 	
 	# TODO
 	# Add DNS entry for $fqn

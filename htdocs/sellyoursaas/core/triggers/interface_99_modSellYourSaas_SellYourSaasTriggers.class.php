@@ -204,6 +204,16 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         		{
         			dol_syslog("We found a change in ref_customer or into custom url, so we will call the remote action rename");
         			$remoteaction='rename';
+
+        			// Test new name not already used
+        			$nametotest = $object->ref_customer;
+
+        			// Test custom url not already used
+        			$nametotest = $object->array_options['options_custom_url'];
+
+
+        			// TODO
+
         		}
 
         		if (isset($object->oldcopy)	// We change end of trial
