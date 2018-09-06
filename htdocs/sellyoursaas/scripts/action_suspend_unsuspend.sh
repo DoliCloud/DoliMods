@@ -216,42 +216,39 @@ if [[ "$mode" == "rename" ]]; then
 	fi
 
 
-
-	echo `date +%Y%m%d%H%M%S`" ***** For instance in /home/jail/home/$osusername/$dbname, delete old virtual name $fqnold"
-
-	export apacheconf="/etc/apache2/sellyoursaas-online/$fqnold.conf"
-	echo `date +%Y%m%d%H%M%S`" ***** Remove apache conf $apacheconf"
-
-	if [ -f $apacheconf ]; then
+	if [[ "$fqn" != "$fqnold" ]]; then
+		echo `date +%Y%m%d%H%M%S`" ***** For instance in /home/jail/home/$osusername/$dbname, delete old virtual name $fqnold"
 	
-		echo Disable conf with a2dissite $fqnold.conf
-		#a2dissite $fqn.conf
-		rm /etc/apache2/sellyoursaas-online/$fqnold.conf
+		export apacheconf="/etc/apache2/sellyoursaas-online/$fqnold.conf"
+		echo `date +%Y%m%d%H%M%S`" ***** Remove apache conf $apacheconf"
+	
+		if [ -f $apacheconf ]; then
 		
-		/usr/sbin/apache2ctl configtest
-		if [[ "x$?" != "x0" ]]; then
-			echo Error when running apache2ctl configtest 
-			echo "Failed to delete virtual host with old name instance $instancenameold.$domainnameold with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in rename" $EMAILFROM
-			exit 1
+			echo Disable conf with a2dissite $fqnold.conf
+			#a2dissite $fqn.conf
+			rm /etc/apache2/sellyoursaas-online/$fqnold.conf
+			
+			/usr/sbin/apache2ctl configtest
+			if [[ "x$?" != "x0" ]]; then
+				echo Error when running apache2ctl configtest 
+				echo "Failed to delete virtual host with old name instance $instancenameold.$domainnameold with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in rename" $EMAILFROM
+				exit 1
+			fi
+			
+			echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. service apache2 reload"
+			service apache2 reload
+			if [[ "x$?" != "x0" ]]; then
+				echo Error when running service apache2 reload 
+				echo "Failed to delete virtual host with old name instance $instancenameold.$domainnameold with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in rename" $EMAILFROM
+				exit 2
+			fi
+		else
+			echo "Virtual host $apacheconf seems already disabled"
 		fi
-		
-		echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. service apache2 reload"
-		service apache2 reload
-		if [[ "x$?" != "x0" ]]; then
-			echo Error when running service apache2 reload 
-			echo "Failed to delete virtual host with old name instance $instancenameold.$domainnameold with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in rename" $EMAILFROM
-			exit 2
-		fi
-	else
-		echo "Virtual host $apacheconf seems already disabled"
+
+		# TODO
+		# Remove DNS entry for $fqnold
 	fi
-
-
-	# TODO
-	# Remove DNS entry for $fqnold
-
-
-
 
 fi
 
