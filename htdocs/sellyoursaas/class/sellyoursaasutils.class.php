@@ -2882,7 +2882,7 @@ class SellYourSaasUtils
     			$commandurl.= '&'.$conf->global->SELLYOURSAAS_ACCOUNT_URL;			// Param 24 in .sh
     			$commandurl.= '&'.$sldAndSubdomainold;
     			$commandurl.= '&'.$domainnameold;
-    			$commandurl.= '&'.$custom_url;
+    			$commandurl.= '&'.$customurl;
 				$commandurl.= '&'.$tmpobject->id;		// ID of line of contract
 
     			$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
