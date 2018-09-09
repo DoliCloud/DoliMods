@@ -24,7 +24,7 @@ echo $now" Try to detect lines 'AH00060: seg fault or similar nasty error detect
 #echo "# realname dir ---> $(dirname $(realpath ${0}))"
 
 export EMAILFROM=support@dolicloud.com
-export EMAILFROM=supervision@dolicloud.com
+export EMAILTO=supervision@dolicloud.com
 export PID=${$}
 export scriptdir=$(dirname $(realpath ${0}))
 
