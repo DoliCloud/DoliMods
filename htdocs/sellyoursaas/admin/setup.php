@@ -611,7 +611,7 @@ if (! empty($conf->global->SELLYOURSAAS_LOGO_MINI)) {
 	print '<a href="'.$_SERVER["PHP_SELF"].'?action=removelogo">'.img_delete($langs->trans("Delete")).'</a>';
 	if (file_exists($conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI)) {
 		print ' &nbsp; ';
-		print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI).'">';
+		print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI).'">';
 	}
 } else {
 	print '<img height="30" src="'.DOL_URL_ROOT.'/public/theme/common/nophoto.png">';
@@ -629,7 +629,7 @@ if (! empty($conf->global->SELLYOURSAAS_LOGO_MINI_BLACK)) {
 	print '<a href="'.$_SERVER["PHP_SELF"].'?action=removelogoblack">'.img_delete($langs->trans("Delete")).'</a>';
 	if (file_exists($conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI_BLACK)) {
 		print ' &nbsp; ';
-		print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI_BLACK).'">';
+		print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI_BLACK).'">';
 	}
 } else {
 	print '<img height="30" src="'.DOL_URL_ROOT.'/public/theme/common/nophoto.png">';

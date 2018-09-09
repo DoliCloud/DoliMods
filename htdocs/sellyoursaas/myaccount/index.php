@@ -1390,7 +1390,7 @@ if ($action == 'deleteaccount')
 
 				llxHeader($head, $langs->trans("MyAccount"), '', '', 0, 0, '', '', '', 'myaccount');
 
-				$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI);
+				$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI);
 
 				print '
 					<center>
@@ -1462,7 +1462,7 @@ var select2arrayoflanguage = {
 
 llxHeader($head, $langs->trans("MyAccount"), '', '', 0, 0, '', '', '', 'myaccount');
 
-$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI);
+$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI);
 
 print '
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
@@ -1481,7 +1481,7 @@ print '
 	  </form>
 
 	  <!-- Logo -->
-      <span class="navbar-brand"><img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI_BLACK).'" height="34px"></span>
+      <span class="navbar-brand"><img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI_BLACK).'" height="34px"></span>
 
 	  <!-- Menu -->
       <div class="collapse navbar-collapse" id="navbars">
