@@ -601,7 +601,7 @@ class ActionsSellyoursaas
     	$contract = $parameters['object'];
 
     	$parameters['substitutionarray']['sellyoursaas_version']=7;
-    	$parameters['substitutionarray']['sellyoursaas_signature_logo']=DOL_DATA_ROOT.'/mycompany/signature_owner.jpg';
+    	$parameters['substitutionarray']['sellyoursaas_signature_logo']=DOL_DATA_ROOT.'/mycompany/notdownloadable/signature_owner.jpg';
 
     	return 0;
     }
