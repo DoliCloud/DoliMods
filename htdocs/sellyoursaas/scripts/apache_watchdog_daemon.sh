@@ -24,6 +24,7 @@ echo $now" Try to detect lines 'AH00060: seg fault or similar nasty error detect
 #echo "# realname dir ---> $(dirname $(realpath ${0}))"
 
 export EMAILFROM=support@dolicloud.com
+export EMAILFROM=supervision@dolicloud.com
 export PID=${$}
 export scriptdir=$(dirname $(realpath ${0}))
 
@@ -37,5 +38,5 @@ while read ; do
 	echo "$now Now restart apache..." >> /var/log/apache_watchdog.log 2>&1
 	/etc/init.d/apache2 start >> /var/log/apache_watchdog.log 2>&1
 	
-	echo "Apache seg fault detected. Apache was killed and started." | mail -aFrom:$EMAILFROM -s "[Alert] Apache seg fault detected. Apache was killed and started." $EMAILFROM
+	echo "Apache seg fault detected. Apache was killed and started." | mail -aFrom:$EMAILFROM -s "[Alert] Apache seg fault detected. Apache was killed and started." $EMAILTO
 done
