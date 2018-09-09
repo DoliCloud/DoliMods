@@ -121,6 +121,7 @@ export customurl=${27}
 if [ "x$customurl" == "x-" ]; then
 	customurl=""
 fi
+export EMAILTO=$EMAILFROM
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
@@ -155,6 +156,7 @@ echo "SELLYOURSAAS_ACCOUNT_URL = $SELLYOURSAAS_ACCOUNT_URL"
 echo "instancenameold = $instancenameold" 
 echo "domainnameold = $domainnameold" 
 echo "customurl = $customurl" 
+echo "EMAILTO = $EMAILTO"
 
 echo `date +%Y%m%d%H%M%S`" calculated params:"
 echo "vhostfile = $vhostfile"
@@ -178,7 +180,7 @@ fi
 
 if [[ ! -d $archivedir ]]; then
 	echo Failed to find archive directory $archivedir
-	echo "Failed to $mode instance $instancename.$domainname with: Failed to find archive directory $archivedir" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deploy/undeploy" $EMAILFROM
+	echo "Failed to $mode instance $instancename.$domainname with: Failed to find archive directory $archivedir" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deploy/undeploy" $EMAILTO
 	exit 1
 fi
 
@@ -207,7 +209,7 @@ if [[ "$mode" == "deployall" ]]; then
 		useradd -m -d $targetdir/$osusername -p "$passcrypted" -s '/bin/secureBash' $osusername 
 		if [[ "$?x" != "0x" ]]; then
 			echo Error failed to create user $osusername 
-			echo "Failed to deployall instance $instancename.$domainname with: useradd -m -d $targetdir/$osusername -p $ospassword -s '/bin/secureBash' $osusername" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM
+			echo "Failed to deployall instance $instancename.$domainname with: useradd -m -d $targetdir/$osusername -p $ospassword -s '/bin/secureBash' $osusername" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILTO
 			exit 1
 		fi
 		chmod -R go-rwx /home/jail/home/$osusername
@@ -294,8 +296,8 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		echo "/bin/grep -e \"${NEEDLE}$\" /tmp/${ZONE}.$PID | /bin/sed -n \"s/^\s*\([0-9]*\)\s*;\s*${NEEDLE}\s*/\1/p\""
 		echo "Current bind counter during $mode is $curr"
 		if [ "x$curr" == "x" ]; then
-			echo Error when editing the DNS file during a deployment. Failed to find bind counter in file /tmp/${ZONE}.$PID. Sending email to $EMAILFROM
-			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. Failed to find bind counter in file /tmp/${ZONE}.$PID" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM
+			echo Error when editing the DNS file during a deployment. Failed to find bind counter in file /tmp/${ZONE}.$PID. Sending email to $EMAILTO
+			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. Failed to find bind counter in file /tmp/${ZONE}.$PID" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILTO
 			exit 1
 		fi
 		if [ ${#curr} -lt ${#DATE} ]; then
@@ -317,7 +319,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		named-checkzone $domainname /tmp/${ZONE}.$PID
 		if [[ "$?x" != "0x" ]]; then
 			echo Error when editing the DNS file during a deployment. File /tmp/${ZONE}.$PID is not valid. Sending email to $EMAILFROM
-			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM 
+			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILTO 
 			exit 1
 		fi
 		
@@ -335,7 +337,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		nslookup $fqn 127.0.0.1
 		if [[ "$?x" != "0x" ]]; then
 			echo Error after reloading DNS. nslookup of $fqn fails
-			echo "Failed to deployall instance $instancename.$domainname with: Error after reloading DNS. nslookup of $fqn fails" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM 
+			echo "Failed to deployall instance $instancename.$domainname with: Error after reloading DNS. nslookup of $fqn fails" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILTO 
 			exit 1
 		fi 
 	fi
@@ -387,7 +389,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		named-checkzone $domainname /tmp/${ZONE}.$PID
 		if [[ "$?x" != "0x" ]]; then
 			echo Error when editing the DNS file un undeployment. File /tmp/${ZONE}.$PID is not valid 
-			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM
+			echo "Failed to deployall instance $instancename.$domainname with: Error when editing the DNS file. File /tmp/${ZONE}.$PID is not valid" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILTO
 			exit 1
 		fi
 		
@@ -405,7 +407,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		#nslookup $fqn 127.0.0.1
 		#if [[ "$?x" != "0x" ]]; then
 		#	echo Error after reloading DNS. nslookup of $fqn fails. 
-		#	echo "Failed to deployall instance $instancename.$domainname with: Error after reloading DNS. nslookup of $fqn fails. " | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM
+		#	echo "Failed to deployall instance $instancename.$domainname with: Error after reloading DNS. nslookup of $fqn fails. " | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILTO
 		#	exit 1
 		#fi 
 	fi
@@ -636,7 +638,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		echo Error when running apache2ctl configtest. We remove the new created virtual host /etc/apache2/sellyoursaas-online/$fqn.conf to hope to restore configtest ok.
 		rm -f /etc/apache2/sellyoursaas-online/$fqn.conf
 		rm -f /etc/apache2/sellyoursaas-online/$fqn.custom.conf
-		echo "Failed to deployall instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM
+		echo "Failed to deployall instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILTO
 		exit 1
 	fi
 	
@@ -644,7 +646,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	service apache2 reload
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running service apache2 reload 
-		echo "Failed to deployall instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILFROM
+		echo "Failed to deployall instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILTO
 		exit 2
 	fi
 
@@ -668,7 +670,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		/usr/sbin/apache2ctl configtest
 		if [[ "x$?" != "x0" ]]; then
 			echo Error when running apache2ctl configtest 
-			echo "Failed to undeploy or undeployall instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in undeployment" $EMAILFROM
+			echo "Failed to undeploy or undeployall instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in undeployment" $EMAILTO
 			exit 1
 		fi 
 		
@@ -676,7 +678,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		service apache2 reload
 		if [[ "x$?" != "x0" ]]; then
 			echo Error when running service apache2 reload 
-			echo "Failed to undeploy or undeployall instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in undeployment" $EMAILFROM
+			echo "Failed to undeploy or undeployall instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in undeployment" $EMAILTO
 			exit 2
 		fi
 	else
@@ -780,7 +782,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		result=$?
 		if [[ "x$result" != "x0" ]]; then
 			echo Failed to load dump file $dumpfile
-			echo "Failed to $mode instance $instancename.$domainname with: Failed to load dump file $dumpfile" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deploy/undeploy" $EMAILFROM
+			echo "Failed to $mode instance $instancename.$domainname with: Failed to load dump file $dumpfile" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deploy/undeploy" $EMAILTO
 			exit 1
 		fi
 	done
@@ -820,7 +822,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 			. $cliafter
 			if [[ "x$?" != "x0" ]]; then
 				echo Error when running the CLI script $cliafter 
-				echo "Error when running the CLI script $cliafter" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in undeployment" $EMAILFROM
+				echo "Error when running the CLI script $cliafter" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in undeployment" $EMAILTO
 				exit 1
 			fi
 		fi
