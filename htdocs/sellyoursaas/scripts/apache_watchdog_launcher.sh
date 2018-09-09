@@ -49,14 +49,9 @@ if [ "x$1" == "xstart" ]; then
 		echo Switch on directory $scriptdir
 		cd $scriptdir
 		
-		./apache_watchdog_daemon
 		echo "apache_watchdog_daemon started"
+		./apache_watchdog_daemon.sh 2>&1
 		
-		echo "Now kicking apache..." >> /var/log/apache_watchdog.log
-        /etc/init.d/apache2 stop >> /var/log/apache_watchdog.log 2>&1
-        killall -9 apache2 >> /var/log/apache_watchdog.log 2>&1
-        /etc/init.d/apache2 start >> /var/log/apache_watchdog.log 2>&1
-        
 	else
 		echo apache_watchdog_daemon is already running with PID $pid
 	fi

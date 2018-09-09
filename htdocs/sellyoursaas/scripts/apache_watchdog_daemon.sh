@@ -40,3 +40,5 @@ while read ; do
 	
 	echo "Apache seg fault detected. Apache was killed and started." | mail -aFrom:$EMAILFROM -s "[Alert] Apache seg fault detected. Apache was killed and started." $EMAILTO
 done
+
+# This script never end
