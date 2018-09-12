@@ -164,6 +164,13 @@ if ($reusecontractid)		// When we use the "Restart deploy" after error from acco
 }
 elseif ($reusesocid)		// When we use the "Add another instance" from account backoffice
 {
+	if (empty($productref) && ! empty($service))
+	{
+		$tmpproduct = new Product($db);
+		$tmpproduct->fetch($service);
+		$productref = $tmpproduct->ref;
+	}
+
 	$newurl=preg_replace('/register_instance/', 'index', $newurl);
 	if (! preg_match('/\?/', $newurl)) $newurl.='?';
 	$newurl.='&reusesocid='.$reusesocid;
