@@ -544,7 +544,7 @@ else
 				-6 You did not provide any contact information with your query or the contact information is invalid.
 				If you exceed the number of allowed queries, you'll receive a HTTP 429 error.
 			 */
-			$vpnproba = $result['content'];
+			$vpnproba = price2num($result['content'], 2, 1);
 		}
 		$contract->array_options['options_deployment_vpn_proba'] = $vpnproba;
 
