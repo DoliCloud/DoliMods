@@ -342,22 +342,6 @@ if ($result <= 0)
 
 		$contract->array_options['options_deployment_ip'] = $_SERVER["REMOTE_ADDR"];
 		$vpnproba = '';
-		if (! empty($_SERVER["REMOTE_ADDR"]))
-		{
-			$emailforvpncheck='contact+checkcustomer@nltechno.com';	// TODO Use a parameter email
-			$url = 'http://check.getipintel.net/check.php?ip='.$_SERVER["REMOTE_ADDR"].'&contact='.urlencode($emailforvpncheck).'&flag=f';
-			$result = getURLContent($url);
-			/* The proxy check system will return negative values on error. For standard format (non-json), an additional HTTP 400 status code is returned
-			 -1 Invalid no input
-			 -2 Invalid IP address
-			 -3 Unroutable address / private address
-			 -4 Unable to reach database, most likely the database is being updated. Keep an eye on twitter for more information.
-			 -5 Your connecting IP has been banned from the system or you do not have permission to access a particular service. Did you exceed your query limits? Did you use an invalid email address? If you want more information, please use the contact links below.
-			 -6 You did not provide any contact information with your query or the contact information is invalid.
-			 If you exceed the number of allowed queries, you'll receive a HTTP 429 error.
-			 */
-			$vpnproba = $result['content'];
-		}
 		$contract->array_options['options_deployment_vpn_proba'] = $vpnproba;
 
 		$prefix=dol_getprefix('');
