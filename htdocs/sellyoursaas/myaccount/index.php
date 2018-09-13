@@ -804,15 +804,19 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 						continue;
 					}
 				}
+				if ($contract->array_options['options_deployment_status'] != 'done')
+				{
+					continue;							// This is a not valid contract (undeployed or not yet completely deployed), so we discard this contract to avoid to create template not expected
+				}
 
-				dol_syslog("--- No template invoice found for this contract contract_id = ".$contract->id.", so we refresh contract before creating template invoice + creating invoice (if template invoice date is already in past) + making contract renewal.", LOG_DEBUG, 0);
+				dol_syslog("--- No template invoice found for the contract contract_id = ".$contract->id.", so we refresh contract before creating template invoice + creating invoice (if template invoice date is already in past) + making contract renewal.", LOG_DEBUG, 0);
 
 
 				// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines
 				$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
 
 
-				dol_syslog("--- No template invoice found for this contract contract_id = ".$contract->id.", so we create it then create real invoice (if template invoice date is already in past) then make contract renewal.", LOG_DEBUG, 0);
+				dol_syslog("--- No template invoice found for the contract contract_id = ".$contract->id.", so we create it then create real invoice (if template invoice date is already in past) then make contract renewal.", LOG_DEBUG, 0);
 
 				// Now create invoice draft
 				$dateinvoice = $contract->array_options['options_date_endfreeperiod'];
@@ -1329,7 +1333,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 					}
 				}
 
-				// End of deployment is now OK / Complete
+				// End of undeployment is now OK / Complete
 				if (! $error)
 				{
 					$contract->array_options['options_deployment_status'] = 'undeployed';
