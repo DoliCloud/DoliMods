@@ -146,16 +146,14 @@ class ActionsGoogle
 					}
 	    		}
 
-
-
 	    		// HTML output to show into agenda views
+	    		$langs->load("google");
 	    		$this->resprints = '<div class="clearboth"></div><div class="googlerefreshcal">';
 	    		$this->resprints.= '<a href="'.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'&actiongoogle=refresh">';
 	    		$this->resprints.= $langs->trans("ClickToUpdateWithLastGoogleChanges", $userlogin);
 	    		$this->resprints.= ' '.dol_print_date($dateminsync, 'dayhour', 'tzserver', $langs);
 	    		$this->resprints.= $form->textwithtooltip(img_help(),$langs->trans("GoogleLimitBackTime",$notolderforsync));
 	    		$this->resprints.= '</a></div>';
-
     		}
     	}
 
