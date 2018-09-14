@@ -100,7 +100,7 @@ export targetdirwithsources3=${18}
 export cronfile=${19}
 export cliafter=${20}
 export targetdir=${21}
-export EMAILFROM=${22}
+export EMAILTO=${22}
 export REMOTEIP=${23}
 export SELLYOURSAAS_ACCOUNT_URL=${24}
 export instancenameold=${25}
@@ -109,7 +109,8 @@ export customurl=${27}
 if [ "x$customurl" == "x-" ]; then
 	customurl=""
 fi
-export EMAILTO=$EMAILFROM
+export contractlineid=${28}
+export EMAILFROM=${29}
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
@@ -125,13 +126,14 @@ echo "ospassword = XXXXXX"
 echo "instancename = $instancename"
 echo "domainname = $domainname"
 echo "targetdir = $targetdir"
-echo "EMAILFROM = $EMAILFROM"
+echo "EMAILTO = $EMAILTO"
 echo "REMOTEIP = $REMOTEIP"
 echo "SELLYOURSAAS_ACCOUNT_URL = $SELLYOURSAAS_ACCOUNT_URL" 
 echo "instancenameold = $instancenameold" 
-echo "domainnameold = $domainnameold" 
-echo "customurl = $customurl" 
-echo "EMAILTO = $EMAILTO"
+echo "domainnameold = $domainnameold"
+echo "customurl = $customurl"
+echo "contractlineid = $contractlineid" 
+echo "EMAILFROM = $EMAILFROM"
 
 echo `date +%Y%m%d%H%M%S`" calculated params:"
 echo "instancedir = $instancedir"

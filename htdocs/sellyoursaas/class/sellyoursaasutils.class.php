@@ -2884,6 +2884,7 @@ class SellYourSaasUtils
     			$commandurl.= '&'.$domainnameold;
     			$commandurl.= '&'.$customurl;
 				$commandurl.= '&'.$tmpobject->id;		// ID of line of contract
+				$commandurl.= '&'.$conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
 
     			$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 
