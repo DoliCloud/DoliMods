@@ -79,7 +79,6 @@ $defaultproductref='DOLICLOUD-PACK-Dolibarr';
 $oldinstance=isset($argv[1])?$argv[1]:'';
 $newinstance=isset($argv[2])?$argv[2]:'';
 $mode=isset($argv[3])?$argv[3]:'';
-$productref=isset($argv[4])?$argv[4]:$defaultproductref;
 
 $langsen = new Translate('', $conf);
 $langsen->setDefaultLang($mysoc->default_lang);
@@ -129,13 +128,25 @@ if (empty($oldobject->instance) || empty($oldobject->username_web) || empty($old
 	print "Error: Some properties for old instance ".$oldinstance." was not registered into database.\n";
 	exit(-3);
 }
+if (isset($argv[4])) $productref = $argv[4];
+else if ($oldobject->plan == 'Dolibarr ERP & CRM Basic')
+{
+	$productref='DOLICLOUD-PACK-Dolibarr';
+}
+else
+{
+	print 'Unknown plan '.$oldobject->plan."\n";
+	exit(-4);
+}
+
+$createthirdandinstance = 0;
 
 include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 $newobject = new Contrat($db);
 $result=$newobject->fetch('', '', $newinstance);
-if ($result <= 0)
+if ($result <= 0 || $newobject->statut == 0)
 {
-	print "Error: newinstance ".$newinstance." not found. Do you want to create new instance (and thirdparty if required)";
+	print "Error: newinstance ".$newinstance." with status <> 0 not found. Do you want to create new instance (and thirdparty if required)";
 
 	$line = readline(' (y/N) ? ');
 	if (trim($line) != 'y')
@@ -153,6 +164,7 @@ if ($result <= 0)
 	$orgname = $oldobject->organization;
 	$email = $oldobject->email;
 	$country_code = $oldobject->country_code;
+	$locale = $oldobject->locale;
 	// $oldobject->plan contains something like 'Dolibarr ERP & CRM Premium'
 	$partner = 0;
 
@@ -232,8 +244,8 @@ if ($result <= 0)
 	$tmpthirdparty->email = $email;
 	$tmpthirdparty->client = 2;
 	$tmpthirdparty->tva_assuj = 1;
-	$tmpthirdparty->default_lang = $langs->defaultlang;
-	$tmpthirdparty->array_options['options_firstname'] = $oldobject->name;
+	$tmpthirdparty->default_lang = ($locale ? $locale : $langs->defaultlang);
+	$tmpthirdparty->array_options['options_firstname'] = $oldobject->firstname;
 	$tmpthirdparty->array_options['options_lastname'] = $oldobject->lastname;
 	$tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
 	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
@@ -526,6 +538,11 @@ if ($result <= 0)
 		}
 	}
 
+	if ($error)
+	{
+		print join("\n", $errormessages);
+		exit(-8);
+	}
 }
 
 $newobject->instance = $newinstance;
@@ -580,7 +597,7 @@ if (! in_array($mode,array('confirm'))) $param[]="-n";
 if (! in_array($mode,array('diff','diffadd','diffchange'))) $param[]="-rlt";
 else { $param[]="-rlD"; $param[]="--modify-window=1000000000"; $param[]="--delete -n"; }
 $param[]="-v";
-$param[]="-u";
+if (empty($createthirdandinstance)) $param[]="-u";		// If we have just created instance, we overwrite file during rsync
 $param[]="--exclude .buildpath";
 $param[]="--exclude .git";
 $param[]="--exclude .gitignore";
