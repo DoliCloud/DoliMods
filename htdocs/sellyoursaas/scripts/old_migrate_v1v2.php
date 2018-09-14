@@ -785,4 +785,10 @@ else
 	print "Finished. DON'T FORGET TO DISABLE INVOICING ON OLD SYSTEM !!!\n";
 }
 
+
 exit($return_var + $return_varmysql);
+
+
+// Add end do something like
+// update record set address = '79.137.96.15' where address <> '79.137.96.15' AND domain_id IN (select id from domain where sld = 'testldr14') LIMIT 1;
+
