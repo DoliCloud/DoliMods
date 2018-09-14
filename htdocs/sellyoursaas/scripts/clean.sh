@@ -371,24 +371,32 @@ if [ -s /tmp/osutoclean ]; then
 				apacheconf=/etc/apache2/sellyoursaas-online/$instancename.conf
 				
 				if [ -f $apacheconf ]; then
-					# Remove apache virtual host
-					#echo "   ** Disable apache conf with a2dissite $instancename"
-					#a2dissite $instancename
-					echo "   ** Disable apache conf with rm /etc/apache2/sellyoursaas-online/$instancename.conf"
+					echo "   ** Disable apache conf with rm"
 					echo rm /etc/apache2/sellyoursaas-online/$instancename.conf
+					echo rm /etc/apache2/sellyoursaas-online/$instancename.custom.conf
 					if [[ $testorconfirm == "confirm" ]]; then
 						rm /etc/apache2/sellyoursaas-online/$instancename.conf
+						rm /etc/apache2/sellyoursaas-online/$instancename.custom.conf
 					fi
 				fi
 	
-				echo "   ** Remove apache conf /etc/apache2/sellyoursaas-available/$instancename"
-				if [[ -f /etc/apache2/sellyoursaas-available/$instancename ]]; then
-					echo rm /etc/apache2/sellyoursaas-available/$instancename
+				echo "   ** Remove apache conf /etc/apache2/sellyoursaas-available/$instancename.conf"
+				if [[ -f /etc/apache2/sellyoursaas-available/$instancename.conf ]]; then
+					echo rm /etc/apache2/sellyoursaas-available/$instancename.conf
 					if [[ $testorconfirm == "confirm" ]]; then
-						rm /etc/apache2/sellyoursaas-available/$instancename
+						rm /etc/apache2/sellyoursaas-available/$instancename.conf
 					fi
 				else
-					echo File /etc/apache2/sellyoursaas-available/$instancename already disabled
+					echo File /etc/apache2/sellyoursaas-available/$instancename.conf already deleted
+				fi
+				echo "   ** Remove apache conf /etc/apache2/sellyoursaas-online/$instancename.custom.conf"
+				if [[ -f /etc/apache2/sellyoursaas-online/$instancename.custom.conf ]]; then
+					echo rm /etc/apache2/sellyoursaas-online/$instancename.custom.conf
+					if [[ $testorconfirm == "confirm" ]]; then
+						rm /etc/apache2/sellyoursaas-online/$instancename.custom.conf
+					fi
+				else
+					echo File /etc/apache2/sellyoursaas-available/$instancename.custom.conf already deleted
 				fi
 			
 				/usr/sbin/apache2ctl configtest
