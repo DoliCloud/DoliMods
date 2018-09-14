@@ -182,7 +182,7 @@ do
 	fi
 done
 
-echo "***** Save osu unix account with very old undeployed database and with existing home dir and save into /tmp/osutoclean" 
+echo "***** Save osu unix account with very old undeployed database into /tmp/osutoclean-oldundeployed and search entries with existing home dir and without dbn* subdir, and save into /tmp/osutoclean" 
 Q1="use $database; "
 Q2="SELECT ce.username_os FROM llx_contrat as c, llx_contrat_extrafields as ce WHERE c.rowid = ce.fk_object AND c.rowid IN ";
 Q3=" (SELECT fk_contrat FROM llx_contratdet as cd, llx_contrat_extrafields as ce2 WHERE cd.fk_contrat = ce2.fk_object AND cd.STATUT = 5 AND ce2.deployment_status = 'undeployed' AND ce2.undeployment_date < ADDDATE(NOW(), INTERVAL -1 MONTH)); ";
