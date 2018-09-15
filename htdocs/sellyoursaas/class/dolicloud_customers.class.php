@@ -462,6 +462,7 @@ class Dolicloud_customers extends CommonObject
 		$sql.= " per.first_name as firstname,";
 		$sql.= " per.last_name as lastname,";
 		$sql.= " per.locale as locale,";
+		$sql.= " per.password as personpassword,";
 
 		$sql.= " cp.org_name as partner";
 
@@ -502,6 +503,7 @@ class Dolicloud_customers extends CommonObject
 				$this->organization = $obj->organization;
 				$this->email = $obj->email;
 				$this->locale = $obj->locale;
+				$this->personpassword = $obj->personpassword;
 
 				$this->package_id = $obj->package_id;
 				$this->package = $obj->package;

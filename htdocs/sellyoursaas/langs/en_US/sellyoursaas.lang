@@ -102,6 +102,7 @@ SellYourSaasMainEmail=Main email
 SellYourSaasSupervisionEmail=Supervision email (for issue alerts)
 SellYourSaasNoReplyEmail=No reply email
 DashboardPassword=Dashboard password
+OldDashboardPassword=Old Dashboard password
 NewService=New service
 ProductForInstance=Product for instance
 ProductForUsers=Product for users

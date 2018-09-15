@@ -251,6 +251,7 @@ if ($result <= 0 || $newobject->statut == 0)
 	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
 	$tmpthirdparty->array_options['options_source']='MIGRATIONV1';
 	$tmpthirdparty->array_options['options_password'] = $password;
+	$tmpthirdparty->array_options['options_oldpassword'] = $oldobject->personpassword;
 
 	if ($country_code)
 	{
@@ -585,8 +586,8 @@ $oldsftpconnectstring=$oldobject->username_web.'@'.$oldobject->hostname_web.':'.
 $newsftpconnectstring=$newobject->username_web.'@'.$newobject->hostname_web.':'.$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$newlogin.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$newdirdb);
 
 print '--- Synchro of files '.$sourcedir.' to '.$targetdir."\n";
-print 'SFTP connect string : '.$oldsftpconnectstring."\n";
-print 'SFTP connect string : '.$newsftpconnectstring."\n";
+print 'SFTP old connect string : '.$oldsftpconnectstring."\n";
+print 'SFTP new connect string : '.$newsftpconnectstring."\n";
 print 'SFTP old password '.$oldobject->password_web."\n";
 //print 'SFTP new password '.$newobject->password_web."\n";
 

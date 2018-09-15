@@ -514,6 +514,8 @@ if ($action == 'updatepassword')
 
 	$db->begin();	// Start transaction
 
+	$mythirdpartyaccount->oldcopy = dol_clone($mythirdpartyaccount);
+
 	$mythirdpartyaccount->array_options['options_password'] = $password;
 
 	$result = $mythirdpartyaccount->update($mythirdpartyaccount->id, $user);

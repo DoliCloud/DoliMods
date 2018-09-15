@@ -81,10 +81,15 @@ function check_user_password_sellyoursaas($usertotest, $passwordtotest, $entityt
 
 		/*var_dump($passwordtotest);
 		var_dump(dol_hash($passwordtotest));
-		var_dump($thirdparty->array_options['options_password']);*/
+		var_dump($thirdparty->array_options['options_password']);
+		var_dump($thirdparty->array_options['options_oldpassword']);
+		var_dump(hash('sha256', $passwordtotest));
+		*/
 
 		if (dol_verifyHash($passwordtotest, $thirdparty->array_options['options_password']) ||
-			$passwordtotest_crypted == $thirdparty->array_options['options_password'])			// For compatibility with old versions
+			$passwordtotest_crypted == $thirdparty->array_options['options_password'] ||			// For compatibility with old versions
+			hash('sha256', $passwordtotest) == $thirdparty->array_options['options_oldpassword']	// For compatibility with old versions
+			)
 		{
 			if (empty($conf->global->SELLYOURSAAS_ANONYMOUSUSER))
 			{

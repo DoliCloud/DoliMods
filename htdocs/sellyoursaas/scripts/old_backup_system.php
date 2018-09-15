@@ -124,7 +124,7 @@ if ($connection)
 			$output = stream_get_contents($stream);
 		}
 
-		print "Generate dump ".$filesys2.'.bz2'."\n";
+		/*print "Generate dump ".$filesys2.'.bz2'."\n";
 		if ($mode == 'confirm' || $mode == 'confirmrm')
 		{
 			$mysqldumpcommand="mysqldump -u $mysqluser -p$mysqlpassword -h 127.0.0.1 --single-transaction -K --tables -c -e --hex-blob --default-character-set=utf8 rm";
@@ -133,7 +133,7 @@ if ($connection)
 			stream_set_blocking($stream, true);
 			// The command may not finish properly if the stream is not read to end
 			$output = stream_get_contents($stream);
-		}
+		}*/
 
 		$sftp = ssh2_sftp($connection);
 
@@ -142,11 +142,11 @@ if ($connection)
 		{
 			ssh2_scp_recv($connection, $sourcedir.$filesys1.'.bz2', $targetdir.$filesys1.'.bz2');
 		}
-		print 'Get file '.$sourcedir.$filesys2.'.bz2 into '.$targetdir.$filesys2.'.bz2'."\n";
+		/*print 'Get file '.$sourcedir.$filesys2.'.bz2 into '.$targetdir.$filesys2.'.bz2'."\n";
 		if ($mode == 'confirm' || $mode == 'confirmrm')
 		{
 			ssh2_scp_recv($connection, $sourcedir.$filesys2.'.bz2', $targetdir.$filesys2.'.bz2');
-		}
+		}*/
 
 		if ($mode == 'confirm' || $mode == 'confirmsaasplex') dol_delete_file($targetdir.$filesys1);
 		$fullcommand="bzip2 -c -d ".$targetdir.$filesys1.".bz2 | mysql -u".$loginbase." -p".$passwordbase." -D dolicloud_saasplex";
@@ -160,7 +160,7 @@ if ($connection)
 			foreach($output as $line) print $line."\n";
 		}
 
-		if ($mode == 'confirm' || $mode == 'confirmrm') dol_delete_file($targetdir.$filesys1);
+		/*if ($mode == 'confirm' || $mode == 'confirmrm') dol_delete_file($targetdir.$filesys2);
 		$fullcommand="bzip2 -c -d ".$targetdir.$filesys2.".bz2 | mysql -u".$loginbase." -p".$passwordbase." -D dolicloud_rm";
 		print "Load dump with ".$fullcommand."\n";
 		if ($mode == 'confirm' || $mode == 'confirmrm')
@@ -170,7 +170,7 @@ if ($connection)
 			print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
 			exec($fullcommand, $output, $return_var);
 			foreach($output as $line) print $line."\n";
-		}
+		}*/
 
 		//ssh2_sftp_unlink($sftp, $fileinstalllock);
 		//print $output;
