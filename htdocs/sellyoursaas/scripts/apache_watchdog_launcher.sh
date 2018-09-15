@@ -50,7 +50,7 @@ if [ "x$1" == "xstart" ]; then
 		cd $scriptdir
 		
 		echo "apache_watchdog_daemon started"
-		./apache_watchdog_daemon.sh 2>&1
+		./apache_watchdog_daemon.sh 2>&1 &
 		
 	else
 		echo apache_watchdog_daemon is already running with PID $pid
