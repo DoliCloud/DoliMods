@@ -722,7 +722,7 @@ class SellYourSaasUtils
     	$sql.= " AND f.paye = 0 AND f.type = 0 AND f.fk_statut = ".Facture::STATUS_VALIDATED;
     	$sql.= " AND sr.status = ".$servicestatus;
     	$sql.= " AND f.fk_soc = se.fk_object AND se.dolicloud = 'yesv2'";
-    	$sql.= " ORDER BY f.datef ASC, sr.default_rib DESC, sr.tms DESC";		// Lines may be duplicated. Never mind, we wil exclude duplicated invoice later.
+    	$sql.= " ORDER BY f.datef ASC, sr.default_rib DESC, sr.tms DESC";		// Lines may be duplicated. Never mind, we will exclude duplicated invoice later.
     	//print $sql;exit;
 
     	$resql = $this->db->query($sql);
@@ -866,7 +866,7 @@ class SellYourSaasUtils
 
     							$result = $invoice->validate($user);
 
-    							// TODO Build PDF
+    							// We do not create PDF here, it will be done when the payment->create is called
 
     						}
     					}

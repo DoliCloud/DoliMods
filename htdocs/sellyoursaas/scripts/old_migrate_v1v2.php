@@ -133,6 +133,20 @@ else if ($oldobject->plan == 'Dolibarr ERP & CRM Basic')
 {
 	$productref='DOLICLOUD-PACK-Dolibarr';
 }
+else if ($oldobject->plan == 'Dolibarr ERP & CRM Basic (yearly)')
+{
+	$productref='DOLICLOUD-PACK-Dolibarr';
+	$overwriteperiod=12;
+}
+else if ($oldobject->plan == 'Dolibarr ERP & CRM Premium')
+{
+	$productref='DOLICLOUD-PACK-DolibarrPrem';
+}
+else if ($oldobject->plan == 'Dolibarr ERP & CRM Premium (yearly)')
+{
+	$productref='DOLICLOUD-PACK-DolibarrPrem';
+	$overwriteperiod=12;
+}
 else
 {
 	print 'Unknown plan '.$oldobject->plan."\n";
@@ -403,7 +417,10 @@ if ($result <= 0 || $newobject->statut == 0)
 		//var_dump($vat);exit(-1);
 
 		$price = $tmpproduct->price;
+		if (! empty($overwritepriceinstance)) $price = $overwritepriceinstance;
+
 		$discount = 0;
+		if (! empty($overwritediscount)) $discount = $overwritediscount;
 
 		$productidtocreate = $tmpproduct->id;
 
@@ -442,7 +459,10 @@ if ($result <= 0 || $newobject->statut == 0)
 			$localtax2_tx = get_default_localtax($mysoc, $object, 2, $prodid);
 
 			$price = $tmpsubproduct->price;
+			if (! empty($overwritepriceuser)) $price = $overwritepriceuser;
+
 			$discount = 0;
+			if (! empty($overwritediscount)) $discount = $overwritediscount;
 
 			if ($qty > 0)
 			{
