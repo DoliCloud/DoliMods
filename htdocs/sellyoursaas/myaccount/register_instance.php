@@ -756,18 +756,18 @@ if (! $error)
 	$newurl=$_SERVER["PHP_SELF"];
 	$newurl=preg_replace('/register_instance\.php/', 'index.php?welcomecid='.$contract->id.(($fromsocid > 0)?'&fromsocid='.$fromsocid:''), $newurl);
 
+	$anonymoususer=new User($db);
+	$anonymoususer->fetch($conf->global->SELLYOURSAAS_ANONYMOUSUSER);
+	$_SESSION['dol_login']=$anonymoususer->login;				// Set dol_login in session so for next page index.php we will load, we are already logged.
+
+	if ($fromsocid > 0) $_SESSION['dol_loginsellyoursaas']=$fromsocid;
+	else $_SESSION['dol_loginsellyoursaas']=$contract->thirdparty->id;
+
+	$_SESSION['initialapplogin']='admin';
+	$_SESSION['initialapppassword']=$password;
+
 	if (! GETPOST('disablecustomeremail','alpha'))	// In most cases this test is true
 	{
-		$anonymoususer=new User($db);
-		$anonymoususer->fetch($conf->global->SELLYOURSAAS_ANONYMOUSUSER);
-		$_SESSION['dol_login']=$anonymoususer->login;				// Set dol_login in session so for next page index.php we will load, we are already logged.
-
-		if ($fromsocid > 0) $_SESSION['dol_loginsellyoursaas']=$fromsocid;
-		else $_SESSION['dol_loginsellyoursaas']=$contract->thirdparty->id;
-
-		$_SESSION['initialapplogin']='admin';
-		$_SESSION['initialapppassword']=$password;
-
 		// Send deployment email
 		include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
 		include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
