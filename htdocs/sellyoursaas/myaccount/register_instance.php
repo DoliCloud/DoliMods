@@ -102,6 +102,7 @@ $partnerkey=GETPOST('partnerkey','alpha');		// md5 of partner name_alias
 $fromsocid=GETPOST('fromsocid','int');
 $reusecontractid = GETPOST('reusecontractid','int');
 $reusesocid = GETPOST('reusesocid','int');
+$disablecustomeremail = GETPOST('disablecustomeremail','alpha');
 
 $service=GETPOST('service','int');
 $productid=GETPOST('service','int');
@@ -181,6 +182,7 @@ elseif ($reusesocid)		// When we use the "Add another instance" from account bac
 	if (! preg_match('/partner/i', $newurl)) $newurl.='&partner='.urlencode($partner);
 	if (! preg_match('/partnerkey/i', $newurl)) $newurl.='&partnerkey='.urlencode($partnerkey);		// md5 of partner name alias
 	if (! preg_match('/origin/i', $newurl)) $newurl.='&origin='.urlencode($origin);
+	if (! preg_match('/disablecustomeremail/i', $newurl)) $newurl.='&disablecustomeremail='.urlencode($disablecustomeremail);
 
 	if ($productref != 'none' && empty($sldAndSubdomain))
 	{
@@ -743,7 +745,7 @@ if (! $error && $productref != 'none')
 
 if (! $error)
 {
-	// Deployement is complete and finished.
+	// Deployment is complete and finished.
 	// First time we go at end of process, so we send en email.
 
 	if ($productref == 'none')
@@ -754,48 +756,55 @@ if (! $error)
 	$newurl=$_SERVER["PHP_SELF"];
 	$newurl=preg_replace('/register_instance\.php/', 'index.php?welcomecid='.$contract->id.(($fromsocid > 0)?'&fromsocid='.$fromsocid:''), $newurl);
 
-	$anonymoususer=new User($db);
-	$anonymoususer->fetch($conf->global->SELLYOURSAAS_ANONYMOUSUSER);
-	$_SESSION['dol_login']=$anonymoususer->login;				// Set dol_login in session so for next page index.php we will load, we are already logged.
-
-	if ($fromsocid > 0) $_SESSION['dol_loginsellyoursaas']=$fromsocid;
-	else $_SESSION['dol_loginsellyoursaas']=$contract->thirdparty->id;
-
-	$_SESSION['initialapplogin']='admin';
-	$_SESSION['initialapppassword']=$password;
-
-	// Send deployment email
-	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
-	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-	$formmail=new FormMail($db);
-
-	if ($productref != 'none')
+	if (! GETPOST('disablecustomeremail','alpha'))	// In most cases this test is true
 	{
-		$arraydefaultmessage=$formmail->getEMailTemplate($db, 'contract', $user, $langs, 0, 1, 'InstanceDeployed');				// Templates are init into data.sql
+		$anonymoususer=new User($db);
+		$anonymoususer->fetch($conf->global->SELLYOURSAAS_ANONYMOUSUSER);
+		$_SESSION['dol_login']=$anonymoususer->login;				// Set dol_login in session so for next page index.php we will load, we are already logged.
+
+		if ($fromsocid > 0) $_SESSION['dol_loginsellyoursaas']=$fromsocid;
+		else $_SESSION['dol_loginsellyoursaas']=$contract->thirdparty->id;
+
+		$_SESSION['initialapplogin']='admin';
+		$_SESSION['initialapppassword']=$password;
+
+		// Send deployment email
+		include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
+		$formmail=new FormMail($db);
+
+		if ($productref != 'none')
+		{
+			$arraydefaultmessage=$formmail->getEMailTemplate($db, 'contract', $user, $langs, 0, 1, 'InstanceDeployed');				// Templates are init into data.sql
+		}
+		else
+		{
+			$arraydefaultmessage=$formmail->getEMailTemplate($db, 'thirdparty', $user, $langs, 0, 1, '(ChannelPartnerCreated)');	// Templates are init into data.sql
+		}
+
+		$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $contract);
+		$substitutionarray['__PACKAGELABEL__']=$tmppackage->label;
+		$substitutionarray['__APPUSERNAME__']=$_SESSION['initialapplogin'];
+		$substitutionarray['__APPPASSWORD__']=$password;
+
+		complete_substitutions_array($substitutionarray, $langs, $contract);
+
+		$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langs);
+		$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langs);
+		$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+		$to = $contract->thirdparty->email;
+
+		$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
+		$result = $cmail->sendfile();
+		if (! $result)
+		{
+			$error++;
+			setEventMessages($cmail->error, $cmail->errors, 'warning');
+		}
 	}
-	else
+	else	// In rare cases, we are here
 	{
-		$arraydefaultmessage=$formmail->getEMailTemplate($db, 'thirdparty', $user, $langs, 0, 1, '(ChannelPartnerCreated)');	// Templates are init into data.sql
-	}
-
-	$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $contract);
-	$substitutionarray['__PACKAGELABEL__']=$tmppackage->label;
-	$substitutionarray['__APPUSERNAME__']=$_SESSION['initialapplogin'];
-	$substitutionarray['__APPPASSWORD__']=$password;
-
-	complete_substitutions_array($substitutionarray, $langs, $contract);
-
-	$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langs);
-	$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langs);
-	$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
-	$to = $contract->thirdparty->email;
-
-	$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
-	$result = $cmail->sendfile();
-	if (! $result)
-	{
-		$error++;
-		setEventMessages($cmail->error, $cmail->errors, 'warning');
+		setEventMessages('NoEmailSent', null, 'warning');
 	}
 
 	dol_syslog("Deployment successful");
@@ -879,6 +888,7 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
           <input type="hidden" name="service" value="<?php echo dol_escape_htmltag($tmpproduct->ref); ?>" />
           <input type="hidden" name="package" value="<?php echo dol_escape_htmltag($tmppackage->ref); ?>" />
           <input type="hidden" name="partner" value="<?php echo dol_escape_htmltag($partner); ?>" />
+          <input type="hidden" name="disablecustomeremail" value="<?php echo dol_escape_htmltag($disablecustomeremail); ?>" />
 
           <section id="enterUserAccountDetails">
 

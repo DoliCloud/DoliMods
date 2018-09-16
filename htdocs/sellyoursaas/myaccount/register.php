@@ -75,6 +75,7 @@ $socid=GETPOST('socid','int')?GETPOST('socid','int'):GETPOST('reusesocid','int')
 $reusecontractid = GETPOST('reusecontractid','int');
 $reusesocid = GETPOST('reusesocid','int');
 $fromsocid = GETPOST('fromsocid','int');
+$disablecustomeremail = GETPOST('disablecustomeremail', 'alpha');
 
 $productid=GETPOST('service','int');
 $productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):'');
@@ -268,6 +269,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 	          <input type="hidden" name="reusecontractid" value="<?php echo dol_escape_htmltag($reusecontractid); ?>" />
 	          <input type="hidden" name="fromsocid" value="<?php echo dol_escape_htmltag($fromsocid); ?>" />
 	          <input type="hidden" name="origin" value="<?php echo dol_escape_htmltag($origin); ?>" />
+	          <input type="hidden" name="disablecustomeremail" value="<?php echo dol_escape_htmltag($disablecustomeremail); ?>" />
 
 	          <section id="enterUserAccountDetails">
 

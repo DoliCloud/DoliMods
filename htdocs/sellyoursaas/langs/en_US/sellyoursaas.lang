@@ -391,3 +391,4 @@ YouDontHaveCustomersYet=You don't have customers yet. Promote the link provided 
 ManualCollection=Manual collection of invoices
 NoEmailSentToInformCustomer=No email sent to inform user.
 EvilUser=Unfair user or spammer
+DisableEmailToCustomer=Do not send email to customer
