@@ -70,8 +70,6 @@ if ($db2->error)
 	exit(-1);
 }
 
-$objectv1 = new Dolicloud_customers($db,$db2);
-$objectv2 = new Contrat($db);
 $contract = new Contrat($db);
 
 $defaultproductref='DOLICLOUD-PACK-Dolibarr';
@@ -112,7 +110,7 @@ if (! empty($oldinstance) && ! preg_match('/\.on\.dolicloud\.com$/',$oldinstance
 }
 if (! empty($newinstance) && ! preg_match('/\.with\.dolicloud\.com$/',$newinstance) && ! preg_match('/\.home\.lan$/',$newinstance))
 {
-	// TODO Manage serveral domains
+	// TODO Manage several domains
 	$newinstance=$newinstance.".".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
 }
 
