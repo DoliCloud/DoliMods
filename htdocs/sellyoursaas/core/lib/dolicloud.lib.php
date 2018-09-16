@@ -151,7 +151,11 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
 
 	// SFTP
 	//$sftpconnectstring=$object->username_os.':'.$object->password_web.'@'.$object->hostname_os.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
-    $sftpconnectstring='sftp://'.$object->username_os.'@'.$object->hostname_os.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
+    $sftpconnectstring='sftp://'.$object->username_os.'@'.$object->hostname_os.$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
+    if ($instanceoldid)
+    {
+    	$sftpconnectstring='sftp://'.$object->username_os.'@'.$object->hostname_os.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
+    }
     $links.='SFTP connect string: ';
 	$links.='<input type="text" name="sftpconnectstring" id="sftpconnectstring" value="'.$sftpconnectstring.'" size="110"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect('sftpconnectstring');
