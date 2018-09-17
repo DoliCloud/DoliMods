@@ -604,18 +604,18 @@ class modSellYourSaas extends DolibarrModules
 
 
 		$this->menu[$r]=array(
-		    'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=dolicloud',
-		    'type'=>'left',
-		    'titre'=>'Instances (dolicloud old)',
-		    'mainmenu'=>'sellyoursaas',
-		    'leftmenu'=>'dolicloud_list',
-		    'url'=>'/sellyoursaas/backoffice/dolicloud_list.php',
-		    'langs'=>'sellyoursaas@sellyoursaas',
-		    'position'=>502,
-		    'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		    'perms'=>'$user->rights->sellyoursaas->read',
-		    'target'=>'',
-		    'user'=>0);
+		'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=dolicloud',
+		'type'=>'left',
+		'titre'=>'Instances (dolicloud old)',
+		'mainmenu'=>'sellyoursaas',
+		'leftmenu'=>'dolicloud_list',
+		'url'=>'/sellyoursaas/backoffice/dolicloud_list.php',
+		'langs'=>'sellyoursaas@sellyoursaas',
+		'position'=>502,
+		'enabled'=>'$conf->sellyoursaas->enabled && $conf->global->SELLYOURSAAS_DOLICLOUD_ON',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		'perms'=>'$user->rights->sellyoursaas->read',
+		'target'=>'',
+		'user'=>0);
 		$r++;
 
 
@@ -644,7 +644,7 @@ class modSellYourSaas extends DolibarrModules
 		'url'=>'/societe/card.php?action=create&type=f&options_dolicloud=no&suppcats[]=__[SELLYOURSAAS_DEFAULT_RESELLER_CATEG]__',
 		'langs'=>'sellyoursaas@sellyoursaas',
 		'position'=>602,
-		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
+		'enabled'=>'$conf->sellyoursaas->enabled && $conf->global->SELLYOURSAAS_ALLOW_RESELLER_PROGRAM',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 		'perms'=>'$user->rights->sellyoursaas->write',
 		'target'=>'',
 		'user'=>0);
