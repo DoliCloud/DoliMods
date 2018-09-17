@@ -165,7 +165,7 @@ if (empty($login) || empty($dirdb))
 	exit(-5);
 }
 
-$sftpconnectstring=$object->username_web.'@'.$object->hostname_web.':'.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
+$sftpconnectstring=$object->username_web.'@'.$server.':'.$targetdir;
 
 print 'Synchro of files '.$dirroot.' to '.$targetdir."\n";
 print 'SFTP connect string : '.$sftpconnectstring."\n";
