@@ -2761,6 +2761,7 @@ class SellYourSaasUtils
     			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
     			$contract = new Contrat($this->db);
     			$contract->fetch($tmpobject->fk_contrat);
+    			$contract->fetch_thirdparty();
 
     			$tmp=explode('.', $contract->ref_customer, 2);
     			$sldAndSubdomain=$tmp[0];
@@ -2778,7 +2779,17 @@ class SellYourSaasUtils
     			$domainnameold=$tmpold[1];
    				$serverdeployementold = $this->getRemoveServerDeploymentIp($domainnameold);
 
-    			$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
+   				$orgname = $contract->thirdparty->name;
+   				$countryid=0;
+   				$countrycode='';
+   				$countrylabel='';
+   				$countryidcodelabel='';
+   				if ($contract->thirdparty->country_id > 0 && $contract->thirdparty->country_code && $contract->thirdparty->country)
+   				{
+   					$countryidcodelabel=$contract->thirdparty->country_id.':'.$contract->thirdparty->country_code.':'.$contract->thirdparty->country;
+   				}
+
+   				$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
 
     			$generatedunixlogin   =$contract->array_options['options_username_os'];
     			$generatedunixpassword=$contract->array_options['options_password_os'];
@@ -2829,8 +2840,13 @@ class SellYourSaasUtils
     			'__DBPASSWORD__'=>$generateddbpassword,
     			'__PACKAGEREF__'=> $tmppackage->ref,
     			'__PACKAGENAME__'=> $tmppackage->label,
-    			'__APPUSERNAME__'=>$appusername,
+    			'__APPORGNAME__'=> $orgname,
+    			'__APPCOUNTRYID__'=> $countryid,
+    			'__APPCOUNTRYCODE__'=> $countrycode,
+    			'__APPCOUNTRYLABEL__'=> $countrylabel,
+    			'__APPCOUNTRYIDCODELABEL__'=> $countryidcodelabel,
     			'__APPEMAIL__'=>$email,
+    			'__APPUSERNAME__'=>$appusername,
     			'__APPPASSWORD__'=>$password,
     			'__APPPASSWORD0__'=>$password0,
     			'__APPPASSWORDMD5__'=>$passwordmd5,
@@ -2908,7 +2924,7 @@ class SellYourSaasUtils
 
     			if (! $error && in_array($remoteaction, array('deploy','deployall','deployoption')))
     			{
-			    	// Execute personalized SQL requests
+    				// Execute personalized SQL requests (sqlafter)
 			    	if (! $error)
 			    	{
 			    		$sqltoexecute = make_substitutions($tmppackage->sqlafter, $substitarray);
