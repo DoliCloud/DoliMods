@@ -224,10 +224,11 @@ class ActionsConcatPdf
         // Includes default models if no model selection
         if (empty($concatpdffile) && ! $formwassubmittedwithemptyselection)
         {
+        	//var_dump($conf->global->CONCATPDF_PRESELECTED_MODELS);
         	if ($preselected == -1 && ! empty($conf->global->CONCATPDF_PRESELECTED_MODELS))
         	{
 	        	// List of value key into setup -> value for modulepart
-	        	$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'commande_fournisseur', 'invoice_order'=>'facture_fournisseur');
+	        	$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'order_supplier', 'supplier_invoice'=>'invoice_supplier');
 
 	        	// $conf->global->CONCATPDF_PRESELECTED_MODELS may contains value of preselected model with format
 	        	// propal:model1a,model1b;invoice:model2;...
@@ -240,6 +241,7 @@ class ActionsConcatPdf
 	        	}
 	        	foreach($tmparray2 as $key => $val)
 	        	{
+	        		//var_dump($key.' - '.$altkey[$key].' - '.$val.' - '.$parameters['object']->element);
 	        		if ($parameters['object']->element == $key || $parameters['object']->element == $altkey[$key]) $concatpdffile[]=$val;
 	        	}
         	}
@@ -260,8 +262,7 @@ class ActionsConcatPdf
 
         $filetoconcat1=array($parameters['file']);
         $filetoconcat2=array();
-        //var_dump($parameters['object']->element); exit;
-        //var_dump($concatpdffile);
+
         if (! empty($concatpdffile) && $concatpdffile[0] != -1)
         {
         	foreach($concatpdffile as $concatfile)

@@ -1,6 +1,10 @@
 # ChangeLog MODULE CONCATPDF FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## Not released
+
+FIX: concat of file for supplier invoice/order was not done
+
 ## 6.0.1
 
 FIX: concat of file selected mut be done also without clicking generate
