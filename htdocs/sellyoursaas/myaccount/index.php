@@ -830,8 +830,12 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 				{
 					continue;							// This is a not valid contract (undeployed or not yet completely deployed), so we discard this contract to avoid to create template not expected
 				}
+				if ($contract->total_ht == 0)
+				{
+					continue;							// Amount is null, so we do not create recurring invoice for that. Note: This should not happen.
+				}
 
-				dol_syslog("--- No template invoice found for the contract contract_id = ".$contract->id.", so we refresh contract before creating template invoice + creating invoice (if template invoice date is already in past) + making contract renewal.", LOG_DEBUG, 0);
+				dol_syslog("--- No template invoice found for the contract contract_id = ".$contract->id." that is not null, so we refresh contract before creating template invoice + creating invoice (if template invoice date is already in past) + making contract renewal.", LOG_DEBUG, 0);
 
 
 				// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines

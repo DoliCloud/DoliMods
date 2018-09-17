@@ -1307,8 +1307,8 @@ class SellYourSaasUtils
     		else
     		{
     			$error++;
-    			dol_syslog("Remain to pay is null for this invoice".$customer->id.". Why is the invoice not classified 'Paid' ?", LOG_WARNING);
-    			$this->errors[]="Remain to pay is null for this invoice = ".$customer->id.". Why is the invoice not classified 'Paid' ?";
+    			dol_syslog("Remain to pay is null for the invoice ".$invoice->id." ".$invoice->ref.". Why is the invoice not classified 'Paid' ?", LOG_WARNING);
+    			$this->errors[]="Remain to pay is null for the invoice ".$invoice->id." ".$invoice->ref.". Why is the invoice not classified 'Paid' ?";
     		}
 		}
 
