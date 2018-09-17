@@ -443,9 +443,9 @@ class ActionsSellyoursaas
      */
     function addSearchEntry($parameters)
     {
-        global $langs, $user;
+        global $conf, $langs, $user;
 
-        if ($user->rights->sellyoursaas->read)
+        if (! empty($user->rights->sellyoursaas->read) && ! empty($conf->global->SELLYOURSAAS_DOLICLOUD_ON))
         {
         	$langs->load("sellyoursaas@sellyoursaas");
 	        $search_boxvalue = $parameters['search_boxvalue'];
