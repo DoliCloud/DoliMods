@@ -1832,7 +1832,7 @@ class SellYourSaasUtils
 
    	/**
    	 * Called by batch only: doSuspendExpiredTestInstances or doSuspendExpiredRealInstances
-   	 * It set the status of services to "offline" and send an email to wen the customer.
+   	 * It sets the status of services to "offline" and send an email to the customer.
    	 * Note: An instance can also be suspended from backoffice by setting service to "offline". In such a case, no email is sent.
    	 *
    	 * @param	string	$mode		'test' or 'paid'
@@ -1928,7 +1928,7 @@ class SellYourSaasUtils
 						continue;											// Discard if this is a test instance when we are in paid mode
 					}
 
-					// Suspend instance
+					// Get expiration date
 					dol_syslog('Call sellyoursaasGetExpirationDate', LOG_DEBUG, 1);
 					$tmparray = sellyoursaasGetExpirationDate($object);
 					dol_syslog('', 0, -1);
@@ -1936,13 +1936,10 @@ class SellYourSaasUtils
 
 					if ($expirationdate && $expirationdate < $now)
 					{
-						// If thirdparty has a default payment mode, create the template invoice.
+						// If thirdparty has a default payment mode, we will create the template invoice (test will move in a paid mode instead of paying suspended and instance with just a payment mode without template invoice will become an automatically paid instance).
 						$customerHasAPaymentMode = sellyoursaasThirdpartyHasPaymentMode($object->thirdparty->id);
 						if ($customerHasAPaymentMode)
 						{
-							// TODO
-							$contractconvertedintemplateinvoice[$object->id]=$object->ref;
-
 							// Portion of code similar to more complete code into index.php
 							// We set some parameter to be able to use same code
 							$sellyoursaasutils = $this;
@@ -2203,6 +2200,11 @@ class SellYourSaasUtils
 										{
 											$error++;
 											$this->errors[] = $oldinvoice->error;
+										}
+
+										if (! $error)
+										{
+											$contractconvertedintemplateinvoice[$object->id]=$object->ref;
 										}
 									}
 									else
