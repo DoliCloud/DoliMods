@@ -2801,6 +2801,8 @@ class SellYourSaasUtils
     			$generateddbpassword  =$contract->array_options['options_password_db'];
     			$generateddbprefix    =($contract->array_options['options_prefix_db']?$contract->array_options['options_prefix_db']:'llx_');
     			$customurl            =$contract->array_options['options_custom_url'];
+    			$CERTIFFORCUSTOMDOMAIN=$customurl;
+    			if (preg_match('/on\.dolicloud\.com$/', $CERTIFFORCUSTOMDOMAIN)) $CERTIFFORCUSTOMDOMAIN='on.dolicloud.com';
 
     			$savsalt = $conf->global->MAIN_SECURITY_SALT;
     			$savhashalgo = $conf->global->MAIN_SECURITY_HASH_ALGO;
@@ -2903,6 +2905,7 @@ class SellYourSaasUtils
     			$commandurl.= '&'.$customurl;
 				$commandurl.= '&'.$tmpobject->id;		// ID of line of contract
 				$commandurl.= '&'.$conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+				$commandurl.= '&'.$CERTIFFORCUSTOMDOMAIN;
 
     			$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 

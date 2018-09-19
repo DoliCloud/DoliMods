@@ -21,14 +21,19 @@ do
 		export fileshort=`basename $file`
 		export domain=$(echo $fileshort | /bin/sed "s/\.conf//g")
         
-        rm -f /etc/apache2/sellyoursaas-offline/$fileshort 2>/dev/null
+        rm -f /etc/apache2/sellyoursaas-offline/$domain.conf 2>/dev/null
+        rm -f /etc/apache2/sellyoursaas-offline/$domain.custom.conf 2>/dev/null
 		
-		echo Create file /etc/apache2/sellyoursaas-offline/$fileshort for domain $domain
+		echo Create file /etc/apache2/sellyoursaas-offline/$domain.conf for domain $domain
 		cat $realdir/scripts/templates/vhostHttps-sellyoursaas-offline.template | \
 			sed 's!__webAppDomain__!'$domain'!g' | \
 			sed 's!__webMyAccount__!'$1'!g' \
-			> /etc/apache2/sellyoursaas-offline/$fileshort
+			> /etc/apache2/sellyoursaas-offline/$domain.conf
 	
+		cat $realdir/scripts/templates/vhostHttps-sellyoursaas-offline.template | \
+			sed 's!__webAppDomain__!'$domain'!g' | \
+			sed 's!__webMyAccount__!'$1'!g' \
+			> /etc/apache2/sellyoursaas-offline/$domain.custom.conf
 done
 
 if [ "x$2" = "xoffline" ]; then
