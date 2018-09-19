@@ -3,6 +3,7 @@
 
 ## 6.0.1 unreleased
 
+- NEW Add 2 variables to hange TZ offset between Dolibarr and Google
 - FIX list of maps visible in widget.
 - FIX link in popup of addresses in map.
 - FIX Compatibility with multicompany module
