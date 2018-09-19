@@ -474,7 +474,7 @@ else
 	else print '<input class="flat" type="text" size="30" name="GOOGLE_LOGIN" value="'.$object->conf->GOOGLE_LOGIN.'">';
 	print "</td>";
 	print '<td>';
-	print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com, 'primary'<br>";
+	print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com<br>";
 	print $langs->trans("GoogleSetupHelp");
 	print '</td>';
 	print "</tr>";

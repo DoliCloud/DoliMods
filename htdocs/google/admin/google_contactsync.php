@@ -795,7 +795,7 @@ print "<td>";
 print '<input class="flat" type="text" size="24" name="GOOGLE_CONTACT_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_CONTACT_LOGIN.'">';
 print "</td>";
 print '<td>';
-print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com, 'primary'<br>";
+print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com<br>";
 //print $langs->trans("GoogleSetupHelp").'<br>';
 //print $langs->trans("KeepEmptyYoUseLoginPassOfEventUser");
 print '</td>';

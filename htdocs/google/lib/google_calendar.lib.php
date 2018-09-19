@@ -390,16 +390,16 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
 	    if (empty($object->fulldayevent))
 	    {
-	        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
-	        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef),"dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
+	        $startTime = dol_print_date(($tzfix*3600) + $object->datep, "dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
+	        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef), "dayhourrfc", 'gmt');	// we use gmt, tz is managed by the tzfix
 
 	        $start->setDateTime($startTime);	// '2011-06-03T10:00:00.000-07:00'
 			$end->setDateTime($endTime);		// '2011-06-03T10:25:00.000-07:00'
 	    }
 	    else
 	    {
-	        $startTime = dol_print_date(($tzfix*3600) + $object->datep,"dayrfc");
-	        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24,"dayrfc");	// For fulldayevent, into XML data, endTime must be day after
+	        $startTime = dol_print_date(($tzfix*3600) + $object->datep, "dayrfc");
+	        $endTime = dol_print_date(($tzfix*3600) + (empty($object->datef)?$object->datep:$object->datef) + 3600*24, "dayrfc");	// For fulldayevent, into XML data, endTime must be day after
 
 	        $start->setDate($startTime);	// '2011-06-03'
 			$end->setDate($endTime);		// '2011-06-03'
@@ -613,7 +613,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 	global $dolibarr_main_url_root;
 
 	$tzfix=0;
-	if (! empty($conf->global->GOOGLE_CAL_TZ_FIX) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
+	if (! empty($conf->global->GOOGLE_CAL_TZ_FIX_G2D) && is_numeric($conf->global->GOOGLE_CAL_TZ_FIX_G2D)) $tzfix=$conf->global->GOOGLE_CAL_TZ_FIX_G2D;
 
 	$nbinserted=0;
 	$nbupdated=0;
@@ -691,20 +691,20 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 
 						if ($datest)
 						{
-							// $datest = '2015-07-29T10:00:00+02:00' means 2015-07-29T08:00:00
+							// $datest = '2015-07-29T10:00:00+02:00' means 2015-07-29T12:00:00 in TZ +2
 							// We remove the TZ from string. tz will be managed by the ($tzfix*3600)
-							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\+([0-9]{2})/i',$datest,$reg))
+							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(\-|\+)([0-9]{2})/i',$datest,$reg))
 							{
 								$datest = $reg[1].'-'.$reg[2].'-'.$reg[3].'T'.$reg[4].':'.$reg[5].':'.$reg[6];
-								$tzs=(int) $reg[7];
+								$tzs=(int) ($reg[7].$reg[8]);
 							}
-							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\+([0-9]{2})/i',$dateet,$reg))
+							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(\-|\+)([0-9]{2})/i',$dateet,$reg))
 							{
 								$dateet = $reg[1].'-'.$reg[2].'-'.$reg[3].'T'.$reg[4].':'.$reg[5].':'.$reg[6];
-								$tze=(int) $reg[7];
+								$tze=(int) ($reg[7].$reg[8]);
 							}
-							$object->datep=(dol_stringtotime($datest,0) - ($tzfix*3600));
-							$object->datef=(dol_stringtotime($dateet,0) - ($tzfix*3600));
+							$object->datep=(dol_stringtotime($datest,1) - ($tzs*3600) - ($tzfix*3600));
+							$object->datef=(dol_stringtotime($dateet,1) - ($tze*3600) - ($tzfix*3600));
 							$object->fulldayevent=0;
 							if ($object->datep == $object->datef) $object->punctual=1;
 							//print dol_print_date($object->datep, 'dayhour', 'tzserver');
@@ -858,18 +858,18 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						{
 							// $datest = '2015-07-29T10:00:00+02:00' means 2015-07-29T08:00:00
 							// We remove the TZ from string. tz will be managed by the ($tzfix*3600)
-							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\+([0-9]{2})/i',$datest,$reg))
+							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(\-|\+)([0-9]{2})/i',$datest,$reg))
 							{
 								$datest = $reg[1].'-'.$reg[2].'-'.$reg[3].'T'.$reg[4].':'.$reg[5].':'.$reg[6];
-								$tzs=(int) $reg[7];
+								$tzs=(int) ($reg[7].$reg[8]);
 							}
-							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\+([0-9]{2})/i',$dateet,$reg))
+							if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(\-|\+)([0-9]{2})/i',$dateet,$reg))
 							{
 								$dateet = $reg[1].'-'.$reg[2].'-'.$reg[3].'T'.$reg[4].':'.$reg[5].':'.$reg[6];
-								$tze=(int) $reg[7];
+								$tze=(int) ($reg[7].$reg[8]);
 							}
-							$object->datep=(dol_stringtotime($datest,0) - ($tzfix*3600));
-							$object->datef=(dol_stringtotime($dateet,0) - ($tzfix*3600));
+							$object->datep=(dol_stringtotime($datest,1) - ($tzs*3600) - ($tzfix*3600));
+							$object->datef=(dol_stringtotime($dateet,1) - ($tze*3600) - ($tzfix*3600));
 							$object->fulldayevent=0;
 							if ($object->datep == $object->datef) $object->punctual=1;
 							//print dol_print_date($object->datep, 'dayhour', 'tzserver');

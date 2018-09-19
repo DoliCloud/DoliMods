@@ -101,6 +101,8 @@ if ($action == 'save')
 	if (! $res > 0) $error++;
 	$res=dolibarr_set_const($db,'GOOGLE_CAL_TZ_FIX',trim($_POST["GOOGLE_CAL_TZ_FIX"]),'chaine',0,'',$conf->entity);
 	if (! $res > 0) $error++;
+	$res=dolibarr_set_const($db,'GOOGLE_CAL_TZ_FIX_G2D',trim($_POST["GOOGLE_CAL_TZ_FIX_G2D"]),'chaine',0,'',$conf->entity);
+	if (! $res > 0) $error++;
 	$res=dolibarr_set_const($db,'GOOGLE_INCLUDE_AUTO_EVENT',trim($_POST["GOOGLE_INCLUDE_AUTO_EVENT"]),'chaine',0,'',$conf->entity);
 	if (! $res > 0) $error++;
 
@@ -493,16 +495,24 @@ print "<tr class=\"liste_titre\">";
 print '<td>'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
-// Google TZ fix
-print "<tr ".$bc[$var].">";
+// Google TZ fix Dolibarr -> Google
+print '<tr class="oddeven">';
 print '<td>'.$langs->trans("GOOGLE_FIX_TZ")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="4" name="GOOGLE_CAL_TZ_FIX" value="'.$conf->global->GOOGLE_CAL_TZ_FIX.'">';
 print ' &nbsp; '.$langs->trans("FillThisOnlyIfRequired");
 print "</td>";
 print "</tr>";
+// Google TZ fix Google -> Dolibarr
+print '<tr class="oddeven">';
+print '<td>'.$langs->trans("GOOGLE_FIX_TZ_G2D")."</td>";
+print "<td>";
+print '<input class="flat" type="text" size="4" name="GOOGLE_CAL_TZ_FIX_G2D" value="'.$conf->global->GOOGLE_CAL_TZ_FIX_G2D.'">';
+print ' &nbsp; '.$langs->trans("FillThisOnlyIfRequired");
+print "</td>";
+print "</tr>";
 // Include auto event
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print '<td>'.$langs->trans("GOOGLE_INCLUDE_AUTO_EVENT")."</td>";
 print "<td>";
 print $form->selectyesno("GOOGLE_INCLUDE_AUTO_EVENT", $conf->global->GOOGLE_INCLUDE_AUTO_EVENT, 1);
@@ -532,7 +542,7 @@ print "<td>";
 print '<input class="flat" type="text" size="24" name="GOOGLE_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_LOGIN.'">';
 print "</td>";
 print '<td>';
-print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com, 'primary'<br>";
+print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com<br>";
 print $langs->trans("GoogleSetupHelp").'<br>';
 print $langs->trans("KeepEmptyYoUseLoginPassOfEventUser").'<br>';
 if (empty($conf->global->GOOGLE_LOGIN))
