@@ -57,6 +57,8 @@ dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 dol_include_once('/sellyoursaas/class/packages.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php');
+include_once(DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php');
+include_once(DOL_DOCUMENT_ROOT.'/compta/facture/class/facture-rec.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/product/class/product.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php');
 include_once(DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php');
@@ -150,6 +152,7 @@ else
 	print 'Unknown plan '.$oldobject->plan."\n";
 	exit(-4);
 }
+//var_dump(dol_print_date($oldobject->date_current_period_end, 'dayhour'));
 
 $createthirdandinstance = 0;
 
@@ -557,11 +560,9 @@ if ($result <= 0 || $newobject->statut == 0)
 		}
 	}
 
-	// Create template invoice
+	// Create template invoice if there is not yet template invoice
 	if (! $error && $productref != 'none')
 	{
-		// TODO
-
 		dol_syslog("--- Create recurring invoice on contract if it does not have yet.", LOG_DEBUG, 0);
 
 		// Make a test to pass loop if there is already a template invoice
@@ -788,6 +789,7 @@ if ($result <= 0 || $newobject->statut == 0)
 			$invoice_rec->fk_project = 0;
 
 			$date_next_execution = dol_mktime($rehour, $remin, 0, $remonth, $reday, $reyear);
+			if (! empty($oldobject->date_current_period_end)) $date_next_execution = $oldobject->date_current_period_end;
 			$invoice_rec->date_when = $date_next_execution;
 
 			// Get first contract linked to invoice used to generate template
@@ -915,7 +917,10 @@ $fullcommand=$command." ".join(" ",$param);
 $output=array();
 $return_var=0;
 print $fullcommand."\n";
-exec($fullcommand, $output, $return_var);
+if ($mode != 'test')
+{
+	exec($fullcommand, $output, $return_var);
+}
 
 // Output result
 foreach($output as $outputline)
@@ -923,41 +928,7 @@ foreach($output as $outputline)
 	print $outputline."\n";
 }
 
-// Remove install.lock file if mode )) confirmunlock
-if ($mode == 'confirmunlock')
-{
-	// SFTP connect
-	if (! function_exists("ssh2_connect")) { dol_print_error('','ssh2_connect function does not exists'); exit(1); }
 
-	$newserver=$newobject->instance.'.with.dolicloud.com';
-	$connection = ssh2_connect($newserver, 22);
-	if ($connection)
-	{
-		//print $object->instance." ".$object->username_web." ".$object->password_web."<br>\n";
-		if (! @ssh2_auth_password($connection, $newobject->username_web, $newobject->password_web))
-		{
-			dol_syslog("Could not authenticate with username ".$username." . and password ".preg_replace('/./', '*', $password), LOG_ERR);
-			exit(-5);
-		}
-		else
-		{
-			$sftp = ssh2_sftp($connection);
-
-			// Check if install.lock exists
-			$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
-			$fileinstalllock=$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock';
-
-			print 'Remove file '.$fileinstalllock."\n";
-
-			ssh2_sftp_unlink($sftp, $fileinstalllock);
-		}
-	}
-	else
-	{
-		print 'Failed to connect to ssh2 to '.$server;
-		exit(-6);
-	}
-}
 
 print "-> Files were sync into dir of instance ".$newobject->ref_customer.": ".$targetdir."\n";
 print "\n";
@@ -1013,8 +984,11 @@ $fullcommand.=' > /tmp/mysqldump_'.$oldobject->database_db.'_'.gmstrftime('%d').
 $output=array();
 $return_varmysql=0;
 print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
-exec($fullcommand, $output, $return_varmysql);
-print strftime("%Y%m%d-%H%M%S").' mysqldump done (return='.$return_varmysql.')'."\n";
+if ($mode != 'test')
+{
+	exec($fullcommand, $output, $return_varmysql);
+	print strftime("%Y%m%d-%H%M%S").' mysqldump done (return='.$return_varmysql.')'."\n";
+}
 
 // Output result
 foreach($output as $outputline)
@@ -1031,7 +1005,7 @@ $fullcommanda='echo "drop table llx_accounting_account;" | mysql -u'.$newloginba
 $output=array();
 $return_var=0;
 print strftime("%Y%m%d-%H%M%S").' Drop table to prevent load error with '.$fullcommanda."\n";
-if ($mode == 'confirm' || $mode == 'confirmrm')
+if ($mode == 'confirm')
 {
 	exec($fullcommanda, $output, $return_var);
 	foreach($output as $line) print $line."\n";
@@ -1041,7 +1015,7 @@ $fullcommandb='echo "drop table llx_accounting_system;" | mysql -u'.$newloginbas
 $output=array();
 $return_var=0;
 print strftime("%Y%m%d-%H%M%S").' Drop table to prevent load error with '.$fullcommandb."\n";
-if ($mode == 'confirm' || $mode == 'confirmrm')
+if ($mode == 'confirm')
 {
 	exec($fullcommandb, $output, $return_var);
 	foreach($output as $line) print $line."\n";
@@ -1049,7 +1023,7 @@ if ($mode == 'confirm' || $mode == 'confirmrm')
 
 $fullcommand="cat /tmp/mysqldump_".$oldobject->database_db.'_'.gmstrftime('%d').".sql | mysql -u".$newloginbase." -p".$newpasswordbase." -D ".$newobject->database_db;
 print strftime("%Y%m%d-%H%M%S")." Load dump with ".$fullcommand."\n";
-if ($mode == 'confirm' || $mode == 'confirmrm')
+if ($mode == 'confirm')
 {
 	$output=array();
 	$return_var=0;
@@ -1062,7 +1036,7 @@ $fullcommandc='echo "UPDATE llx_const set value = \''.$newlogin.'\' WHERE name =
 $output=array();
 $return_var=0;
 print strftime("%Y%m%d-%H%M%S").' Update cron key '.$fullcommandc."\n";
-if ($mode == 'confirm' || $mode == 'confirmrm')
+if ($mode == 'confirm')
 {
 	exec($fullcommandc, $output, $return_var);
 	foreach($output as $line) print $line."\n";
@@ -1075,12 +1049,13 @@ print "\n";
 if ($mode == 'confirm')
 {
 	print '-> Dump loaded into database '.$newobject->database_db.'. You can test instance on URL https://'.$newobject->ref_customer."\n";
-	print "Finished.\n";
+	if (empty($createthirdandinstance)) print 'WARNING: The rsync was done with -u'."\n";
+	print "Finished. DON'T FORGET TO DISABLE INVOICING ON OLD SYSTEM AND CHANGE TEMPLATE INVOICE PRICE FOR SPECIFIC INVOICING !!!\n";
 }
 else
 {
 	print '-> Dump NOT loaded (test mode) into database '.$newobject->database_db.'. You can test instance on URL https://'.$newobject->ref_customer."\n";
-	print "Finished. DON'T FORGET TO DISABLE INVOICING ON OLD SYSTEM !!!\n";
+	print "Finished. DON'T FORGET TO DELETE CONTRACT AND TEMPLATE INVOICE AFTER THIS TEST !!!\n";
 }
 
 
