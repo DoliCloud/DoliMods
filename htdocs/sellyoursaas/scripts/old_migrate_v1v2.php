@@ -568,19 +568,22 @@ if ($result <= 0 || $newobject->statut == 0)
 		$result = $contract->fetchObjectLinked();
 		if ($result < 0)
 		{
-			continue;							// There is an error, so we discard this contract to avoid to create template twice
+			print 'Error in fetch object linked on contract, so we cancel migration.';
+			exit(1);							// There is an error, so we discard this contract to avoid to create template twice
 		}
 		if (! empty($contract->linkedObjectsIds['facturerec']))
 		{
 			$templateinvoice = reset($contract->linkedObjectsIds['facturerec']);
 			if ($templateinvoice > 0)			// There is already a template invoice, so we discard this contract to avoid to create template twice
 			{
-				continue;
+				print 'There is already a template invoice on target instance, so we cancel migration.';
+				exit(2);
 			}
 		}
 		if ($contract->array_options['options_deployment_status'] != 'done')
 		{
-			continue;							// This is a not valid contract (undeployed or not yet completely deployed), so we discard this contract to avoid to create template not expected
+			print 'Not a valid target instance (status not Done), so we cancel migration.';
+			exit(3);							// This is a not valid contract (undeployed or not yet completely deployed), so we discard this contract to avoid to create template not expected
 		}
 
 		dol_syslog("--- No template invoice found for the contract contract_id = ".$contract->id.", so we refresh contract before creating template invoice + creating invoice (if template invoice date is already in past) + making contract renewal.", LOG_DEBUG, 0);
