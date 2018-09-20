@@ -27,7 +27,6 @@ echo "# realname name --> $(basename $(realpath ${0}))"
 echo "# realname dir ---> $(dirname $(realpath ${0}))"
 
 export PID=${$}
-export archivedir="/home/jail/archives"
 export ZONES_PATH="/etc/bind/zones"
 export scriptdir=$(dirname $(realpath ${0}))
 export vhostfile="$scriptdir/templates/vhostHttps-sellyoursaas.template"
@@ -142,10 +141,6 @@ echo "instancedir = $instancedir"
 echo "fqn = $fqn"
 echo "fqnold = $fqnold"
 
-if [[ ! -d $archivedir ]]; then
-	echo Failed to find archive directory $archivedir
-	exit 1
-fi
 
 testorconfirm="confirm"
 

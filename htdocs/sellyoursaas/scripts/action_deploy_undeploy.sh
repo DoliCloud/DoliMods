@@ -33,7 +33,6 @@ echo "# realname name --> $(basename $(realpath ${0}))"
 echo "# realname dir ---> $(dirname $(realpath ${0}))"
 
 export PID=${$}
-export archivedir="/home/jail/archives"
 export scriptdir=$(dirname $(realpath ${0}))
 export vhostfile="$scriptdir/templates/vhostHttps-sellyoursaas.template"
 
@@ -124,6 +123,7 @@ fi
 export contractlineid=${28}
 export EMAILFROM=${29}
 export CERTIFFORCUSTOMDOMAIN=${30}
+export archivedir=${31}
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
@@ -163,6 +163,7 @@ echo "customurl = $customurl"
 echo "contractlineid = $contractlineid" 
 echo "EMAILFROM = $EMAILFROM"
 echo "CERTIFFORCUSTOMDOMAIN = $CERTIFFORCUSTOMDOMAIN"
+echo "archivedir = $archivedir"
 
 echo `date +%Y%m%d%H%M%S`" calculated params:"
 echo "vhostfile = $vhostfile"

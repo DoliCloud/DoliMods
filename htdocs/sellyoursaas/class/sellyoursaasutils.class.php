@@ -2726,7 +2726,7 @@ class SellYourSaasUtils
     		}
     	}
 
-    	// Loop on each line of contract
+    	// Loop on each line of contract ($tmpobject is a ContractLine)
     	foreach($listoflines as $tmpobject)
     	{
     		if (empty($tmpobject))
@@ -2765,6 +2765,8 @@ class SellYourSaasUtils
     			$contract->fetch($tmpobject->fk_contrat);
     			$contract->fetch_thirdparty();
 
+    			$ispaidinstance = sellyoursaasIsPaidInstance($contract);
+
     			$tmp=explode('.', $contract->ref_customer, 2);
     			$sldAndSubdomain=$tmp[0];
     			$domainname=$tmp[1];
@@ -2779,7 +2781,6 @@ class SellYourSaasUtils
     			$tmpold=explode('.', $object->oldcopy->ref_customer, 2);
     			$sldAndSubdomainold=$tmpold[0];
     			$domainnameold=$tmpold[1];
-   				$serverdeployementold = $this->getRemoveServerDeploymentIp($domainnameold);
 
    				$orgname = $contract->thirdparty->name;
    				$countryid=0;
@@ -2791,7 +2792,12 @@ class SellYourSaasUtils
    					$countryidcodelabel=$contract->thirdparty->country_id.':'.$contract->thirdparty->country_code.':'.$contract->thirdparty->country;
    				}
 
-   				$targetdir = $conf->global->DOLICLOUD_INSTANCES_PATH;
+   				$targetdir            = $conf->global->DOLICLOUD_INSTANCES_PATH;
+   				$archivedir           = $conf->global->SELLYOURSAAS_TEST_ARCHIVES_PATH;
+   				if ($ispaidinstance)
+   				{
+   					$archivedir = $conf->global->SELLYOURSAAS_PAID_ARCHIVES_PATH;
+   				}
 
     			$generatedunixlogin   =$contract->array_options['options_username_os'];
     			$generatedunixpassword=$contract->array_options['options_password_os'];
@@ -2804,7 +2810,7 @@ class SellYourSaasUtils
     			$CERTIFFORCUSTOMDOMAIN=$customurl;
     			if (preg_match('/on\.dolicloud\.com$/', $CERTIFFORCUSTOMDOMAIN)) $CERTIFFORCUSTOMDOMAIN='on.dolicloud.com';
 
-    			$savsalt = $conf->global->MAIN_SECURITY_SALT;
+				$savsalt = $conf->global->MAIN_SECURITY_SALT;
     			$savhashalgo = $conf->global->MAIN_SECURITY_HASH_ALGO;
 
     			$conf->global->MAIN_SECURITY_HASH_ALGO = empty($conf->global->SELLYOURSAAS_HASHALGOFORPASSWORD)?'':$conf->global->SELLYOURSAAS_HASHALGOFORPASSWORD;
@@ -2906,11 +2912,12 @@ class SellYourSaasUtils
 				$commandurl.= '&'.$tmpobject->id;		// ID of line of contract
 				$commandurl.= '&'.$conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
 				$commandurl.= '&'.$CERTIFFORCUSTOMDOMAIN;
+				$commandurl.= '&'.$archivedir;
 
     			$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 
 
-    			$conf->global->MAIN_USE_RESPONSE_TIMEOUT = 80;	// Timeout of call of external URL to make remote action
+    			$conf->global->MAIN_USE_RESPONSE_TIMEOUT = 90;	// Timeout of call of external URL to make remote action
 
     			// Execute remote action
     			if (! $error)

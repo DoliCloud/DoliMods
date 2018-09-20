@@ -96,6 +96,14 @@ if ($action == 'set')
 		if (! dol_is_dir($dir) && ! dol_is_link($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
 		dolibarr_set_const($db,"DOLICLOUD_BACKUP_PATH",GETPOST("DOLICLOUD_BACKUP_PATH"),'chaine',0,'',$conf->entity);
 
+		$dir=GETPOST("SELLYOURSAAS_TEST_ARCHIVES_PATH");
+		if (! dol_is_dir($dir) && ! dol_is_link($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
+		dolibarr_set_const($db,"SELLYOURSAAS_TEST_ARCHIVES_PATH",GETPOST("SELLYOURSAAS_TEST_ARCHIVES_PATH"),'chaine',0,'',$conf->entity);
+
+		$dir=GETPOST("SELLYOURSAAS_PAID_ARCHIVES_PATH");
+		if (! dol_is_dir($dir) && ! dol_is_link($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
+		dolibarr_set_const($db,"SELLYOURSAAS_PAID_ARCHIVES_PATH",GETPOST("SELLYOURSAAS_PAID_ARCHIVES_PATH"),'chaine',0,'',$conf->entity);
+
 		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_PRODUCT",GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT"),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS",GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS"),'chaine',0,'',$conf->entity);
 
@@ -432,11 +440,25 @@ print '</td>';
 print '<td>/home/jail/home</td>';
 print '</tr>';
 
-print '<tr class="oddeven"><td>'.$langs->trans("DirForDoliCloudBackupInstances").'</td>';
+print '<tr class="oddeven"><td>'.$langs->trans("DirForBackupInstances").'</td>';
 print '<td>';
 print '<input size="40" type="text" name="DOLICLOUD_BACKUP_PATH" value="'.$conf->global->DOLICLOUD_BACKUP_PATH.'">';
 print '</td>';
 print '<td>/home/jail/backup</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_TEST_ARCHIVES_PATH").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="SELLYOURSAAS_TEST_ARCHIVES_PATH" value="'.$conf->global->SELLYOURSAAS_TEST_ARCHIVES_PATH.'">';
+print '</td>';
+print '<td>/home/jail/archives-test</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_PAID_ARCHIVES_PATH").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="SELLYOURSAAS_PAID_ARCHIVES_PATH" value="'.$conf->global->SELLYOURSAAS_PAID_ARCHIVES_PATH.'">';
+print '</td>';
+print '<td>/home/jail/archives-paid</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("DefaultProductForInstances").'</td>';
