@@ -677,6 +677,8 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 
 					if ($result > 0)	// Found into dolibarr
 					{
+						$object->fetch_thirdparty();
+
 						//$event = new Google_Service_Calendar_Event();
 
 						// Create into dolibarr
@@ -717,7 +719,14 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						}
 						//$object->type_code='AC_OTH';
 						//$object->code='AC_OTH';
-						$object->label=$event->getSummary();
+
+						$newlabel=$event->getSummary();
+						// Remove the ' - thirdpartyname' added when synchronizing from Dolibarr to Google
+						$newlabel = preg_replace('/'.preg_quote(' - '.$object->thirdparty->name, '/').'$/', '', $newlabel);
+						//var_dump($object->thirdparty->name);var_dump($object->label); var_dump($newlabel);
+						$object->label = $newlabel;
+						//exit;
+
 						$object->transparency=((empty($transtmp) || $transtmp == 'opaque')?1:0);		// null or 'opaque' = busy = transparency to 1, 'transparent' = available
 						//$object->priority=0;
 						//$object->percentage=-1;
