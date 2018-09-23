@@ -8,7 +8,8 @@
 - FIX link in popup of addresses in map.
 - FIX Compatibility with multicompany module
 - FIX Process record by rowid order in the mass push feature
-
+- FIX The thirdparty added into label when pushing from Dolibarr to Google must be 
+  removed when pulling from Google to Dolibarr.
 
 ## 6.0
 
