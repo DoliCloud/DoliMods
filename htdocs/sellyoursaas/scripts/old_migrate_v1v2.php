@@ -998,6 +998,36 @@ foreach($output as $outputline)
 
 
 
+print '--- Disable new logins in '.$oldobject->database_db."\n";
+
+$command="mysql";
+$param=array();
+$param[]=$oldobject->database_db;
+$param[]="-h";
+$param[]=$oldserver;
+$param[]="-u";
+$param[]=$oldobject->username_db;
+$param[]='-p"'.str_replace(array('"','`'),array('\"','\`'),$oldobject->password_db).'"';
+
+$fullcommand=$command." ".join(" ",$param);
+$fullcommand.=' -e "REPLACE INTO llx_const (name, entity, value, type, visible) values(\'MAIN_ONLY_LOGIN_ALLOWED\', 0, \'nobody\', \'chaine\', 0);';	//  UPDATE llx_user SET statut = 0 where login=\'admin\'"
+$output=array();
+$return_varmysql=0;
+print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
+if ($mode != 'test')
+{
+	exec($fullcommand, $output, $return_varmysql);
+	print strftime("%Y%m%d-%H%M%S").' mysql done (return='.$return_varmysql.')'."\n";
+}
+
+// Output result
+foreach($output as $outputline)
+{
+	print $outputline."\n";
+}
+
+
+
 print '--- Load database '.$newobject->database_db.' from /tmp/mysqldump_'.$oldobject->database_db.'_'.gmstrftime('%d').".sql\n";
 //print "If the load fails, try to run mysql -u".$newloginbase." -p".$newpasswordbase." -D ".$newobject->database_db."\n";
 
@@ -1050,7 +1080,10 @@ if ($mode == 'confirm')
 {
 	print '-> Dump loaded into database '.$newobject->database_db.'. You can test instance on URL https://'.$newobject->ref_customer."\n";
 	if (empty($createthirdandinstance)) print 'WARNING: The rsync was done with -u'."\n";
-	print "Finished. DON'T FORGET TO DISABLE INVOICING ON OLD SYSTEM AND CHANGE TEMPLATE INVOICE PRICE FOR SPECIFIC INVOICING !!!\n";
+	print "Finished. DON'T FORGET TO\n";
+	print " - SET INVOICING ON OLD SYSTEM FOR ".$oldinstance." TO MANUAL COLLECTION\n";
+	print " - CHANGE TEMPLATE INVOICE PRICE IF SPECIFIC INVOICING\n";
+	print " - CHANGE DNS OF ".$newobject->ref_customer." TO ".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP." AND THEN rndc reload ".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES."\n";
 }
 else
 {
