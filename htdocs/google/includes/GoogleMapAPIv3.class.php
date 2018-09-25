@@ -331,12 +331,12 @@ class GoogleMapAPI
 	public function geocoding($address)
 	{
 	    global $conf;
-	    
+
 		$encodeAddress = urlencode($this->withoutSpecialChars($address));
 		// URL to geoencode
 		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
 		if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=".$conf->global->GOOGLE_API_SERVERKEY;
-	   
+
 		ini_set("allow_url_open", "1");
 		$data = file_get_contents($url);
 
@@ -456,7 +456,7 @@ class GoogleMapAPI
 			// ajout de la modification des icones en fonction du tiers et de son status
 			if (! empty($conf->global->GOOGLE_CAN_USE_PROSPECT_ICONS))
 			{
-				if ((empty($mode) || $mode == 'company' || $mode == 'thirdparty') and (GOOGLE_ENABLE_GMAPS_TICON == 1))  {
+				if ((empty($mode) || $mode == 'company' || $mode == 'thirdparty') and ($conf->global->GOOGLE_ENABLE_GMAPS_TICON == 1))  {
 					switch ($elem->client) {
 						case 0:
 							$icon = DOL_URL_ROOT.'/custom/google/images/red-dot.png';
@@ -511,7 +511,7 @@ class GoogleMapAPI
 			if (versioncompare(versiondolibarrarray(),array(3,7,-3)) >= 0)	// >= 0 if we are 3.6.0 alpha or +
 			{
 				$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
-				
+
 				if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
 				elseif ($mode == 'contact') $html.= '<a href="'.DOL_URL_ROOT.'/contact/card.php?id='.$elem->id.'">';
 				elseif ($mode == 'member') $html.= '<a href="'.DOL_URL_ROOT.'/adherents/card.php?rowid='.$elem->id.'">';
@@ -521,7 +521,7 @@ class GoogleMapAPI
 			else
 			{
 				$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
-				
+
 				if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
 				elseif ($mode == 'contact') $html.= '<a href="'.DOL_URL_ROOT.'/contact/fiche.php?id='.$elem->id.'">';
 				elseif ($mode == 'member') $html.= '<a href="'.DOL_URL_ROOT.'/adherents/fiche.php?rowid='.$elem->id.'">';
@@ -639,7 +639,7 @@ class GoogleMapAPI
 	public function init()
 	{
 	    global $conf;
-	    
+
 		// Google map DIV
 		if (($this->width != '') && ($this->height != '')) {
 			$this->content .= "\t" . '<div id="' . $this->googleMapId . '" style="width:' . $this->width . ';height:' . $this->height . '"></div>' . "\n";
@@ -656,7 +656,7 @@ class GoogleMapAPI
 		$url = "https://maps.googleapis.com/maps/api/js?language=" . $this->lang;
 		if (empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&sensor=true";
 		else $url.="&key=".$conf->global->GOOGLE_API_SERVERKEY;
-		
+
 		$this->content .= '<!-- GoogleMapAPIv3.init(): Include Google javascript map -->'."\n";
 		$this->content .= '<script type="text/javascript" src="'.$url.'">';
 		$this->content .= '</script>' . "\n";
@@ -697,7 +697,7 @@ class GoogleMapAPI
 		// We do not use the marker with the shadow, if we do so, we must set position of the sprite we want to extract from the image
 		if (! empty($conf->global->GOOGLE_CAN_USE_PROSPECT_ICONS))
 		{
-			if ((empty($mode) || $mode == 'company' || $mode == 'thirdparty') and (GOOGLE_ENABLE_GMAPS_TICON == 1))  {
+			if ((empty($mode) || $mode == 'company' || $mode == 'thirdparty') and ($conf->global->GOOGLE_ENABLE_GMAPS_TICON == 1))  {
 				//$this->content .= "\t\t\t" . 'icon:  new google.maps.MarkerImage(icon, new google.maps.Size(' . $this->iconWidth . ',' . $this->iconHeight . ')),' . "\n";
 			}
 		}

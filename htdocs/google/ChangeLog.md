@@ -10,6 +10,7 @@
 - FIX Process record by rowid order in the mass push feature
 - FIX The thirdparty added into label when pushing from Dolibarr to Google must be 
   removed when pulling from Google to Dolibarr.
+- FIX option GOOGLE_ENABLE_GMAPS_TICON
 
 ## 6.0
 
