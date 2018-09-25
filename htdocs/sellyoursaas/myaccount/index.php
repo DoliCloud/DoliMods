@@ -4138,10 +4138,10 @@ if ($mode == 'billing')
 						{
 							print '<tr>';
 							print '<td>';
-							print img_picto('', 'bank', '',  false, 0, 0, '', 'fa-2x');
+							print img_picto('', 'bank', '',  false, 0, 0, '', '');
 							print '</td>';
 							print '<td class="wordbreak" style="word-break: break-word" colspan="2">';
-							print $langs->trans("WithdrawalReceipt");
+							print $langs->trans("PaymentTypeShortPRE");
 							print '</td>';
 							print '</tr>';
 
