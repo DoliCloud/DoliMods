@@ -4609,7 +4609,7 @@ if ($mode == 'mycustomerbilling')
 
 			<div class="portlet light">
 	          <div class="portlet-title">
-	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("MyCommissionsReceived").'</div>
+	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("MyCommissionsReceived").' ('.$conf->currency.')</div>
 	          </div>
 							'.$langs->trans("SoonAvailable").'
 	        </div>
@@ -4622,9 +4622,7 @@ if ($mode == 'mycustomerbilling')
 
 	        <div class="portlet light">
 	          <div class="portlet-title">
-	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("MyCommissionsEarned").'</div>
-
-
+	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("MyCommissionsEarned").' ('.$conf->currency.')</div>
 ';
 
 	print '
@@ -4656,6 +4654,20 @@ if ($mode == 'mycustomerbilling')
 
 				</tr>
 		';
+
+		if (preg_match('/Commissions old system = ([a-zA-Z0-9\.\,]+)/i', $mythirdpartyaccount->note_private, $reg))
+		{
+			$commoldystem = price2num($reg[1]);
+			print '<tr>';
+			print '<td>'.$langs->trans("CommissionsOnOldSystem").'</td>';
+			print '<td></td>';
+			print '<td></td>';
+			print '<td></td>';
+			print '<td></td>';
+			print '<td></td>';
+			print '<td align="right">'.price($commoldystem).'</td>';
+			print '</tr>';
+		}
 
 
 		$sql ='SELECT f.rowid, f.facnumber as ref, f.fk_soc, f.datef, total as total_ht, total_ttc, f.paye, f.fk_statut, fe.commission';
@@ -4791,7 +4803,7 @@ if ($mode == 'mycustomerbilling')
 		}
 
 		print '<tr class="liste_title"><td colspan="6">'.$langs->trans("Total").'</td>';
-		print '<td align="right"><strong>'.price($totalamountcommission).'</strong></td>';
+		print '<td align="right"><strong>'.price($commoldystem + $totalamountcommission).'</strong></td>';
 		print '</tr>';
 
 		print '</table>
