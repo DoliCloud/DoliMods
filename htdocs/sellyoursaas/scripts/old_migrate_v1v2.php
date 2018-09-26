@@ -257,7 +257,7 @@ if ($result <= 0 || $newobject->statut == 0)
 
 	$tmpthirdparty->name = $orgname;
 	$tmpthirdparty->email = $email;
-	$tmpthirdparty->client = 2;
+	$tmpthirdparty->client = 3;
 	$tmpthirdparty->tva_assuj = 1;
 	$tmpthirdparty->default_lang = ($locale ? $locale : $langs->defaultlang);
 	$tmpthirdparty->array_options['options_firstname'] = $oldobject->firstname;
