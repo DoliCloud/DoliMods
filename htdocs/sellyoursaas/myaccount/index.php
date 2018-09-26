@@ -5436,19 +5436,6 @@ print '
 	-->
 ';
 
-// Show conversion tracker
-if (! empty($_SESSION['showconversiontracker']))
-{
-	print '<!-- Conversion tracker -->';
-	print $conf->global->SELLYOURSAAS_CONVERSION_FOOTER;
-	$_SESSION['showconversiontracker'] = 0;
-	unset($_SESSION['showconversiontracker']);
-}
-
-print '
-	</body>
-</html>
-';
 
 llxFooter();
 

@@ -470,6 +470,19 @@ if (! function_exists("llxFooter"))
 		print "\n<!-- A div to allow dialog popup -->\n";
 		print '<div id="dialogforpopup" style="display: none;"></div>'."\n";
 
+		// Show conversion tracker
+		if (! empty($_SESSION['showconversiontracker']))
+		{
+			print "\n".'<!-- Conversion tracker -->'."\n";
+			print $conf->global->SELLYOURSAAS_CONVERSION_FOOTER;
+			$_SESSION['showconversiontracker'] = 0;
+			unset($_SESSION['showconversiontracker']);
+		}
+		else
+		{
+			print "\n".'<!-- No conversion tracker on this page -->'."\n";
+		}
+
 		print "</body>\n";
 		print "</html>\n";
 	}
