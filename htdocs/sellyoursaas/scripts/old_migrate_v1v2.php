@@ -275,7 +275,7 @@ if ($result <= 0 || $newobject->statut == 0)
 
 	if ($tmpthirdparty->id > 0)
 	{
-		if (empty($reusesocid))
+		if (empty($reusesocid) || $tmpthirdparty->oldcopy->array_options['options_dolicloud'] = 'yesv1')
 		{
 			print "Update thirdparty with id=".$tmpthirdparty->id."\n";
 			$result = $tmpthirdparty->update(0, $user);
