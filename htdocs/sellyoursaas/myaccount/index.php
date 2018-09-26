@@ -3891,6 +3891,12 @@ if ($mode == 'billing')
 	          </div>
 ';
 
+		if (! empty($conf->global->SELLYOURSAAS_DOLICLOUD_ON) && $mythirdpartyaccount->array_options['options_source'] == 'MIGRATIONV1')
+		{
+			print $langs->trans('InvoiceBeforeAreAvailableOnDemandAt', dol_print_date($mythirdpartyaccount->array_options['options_date_registration'], 'day'), $conf->global->SELLYOURSAAS_MAIN_EMAIL);
+			print '<br>';
+		}
+
 		if (count($listofcontractid) > 0)
 		{
 			foreach ($listofcontractid as $id => $contract)

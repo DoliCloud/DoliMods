@@ -366,3 +366,4 @@ ManualCollection=Collecte manuelle des factures
 NoEmailSentToInformCustomer=Aucun email a été envoyé pour informer l'utilisateur
 EvilUser=Utilisateur déloyal ou spammeur
 CommissionsOnOldSystem=Commissions sur l'ancienne plateforme
+InvoiceBeforeAreAvailableOnDemandAt=Les factures d'avant le %s sont disponibles par demande email à %s
