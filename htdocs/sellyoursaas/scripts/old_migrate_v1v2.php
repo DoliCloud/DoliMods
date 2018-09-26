@@ -1083,7 +1083,7 @@ if ($mode == 'confirm')
 	print "Finished. DON'T FORGET TO\n";
 	print " - SET INVOICING ON OLD SYSTEM FOR ".$oldinstance." TO MANUAL COLLECTION\n";
 	print " - CHANGE TEMPLATE INVOICE PRICE IF SPECIFIC INVOICING\n";
-	print " - CHANGE DNS OF ".$newobject->ref_customer." TO ".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP." AND THEN rndc reload ".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES."\n";
+	print " - CHANGE DNS /etc/bind/on.dolicloud.com.hosts OF ".$newobject->ref_customer." TO ".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP." AND THEN rndc reload ".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES."\n";
 }
 else
 {
