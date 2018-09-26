@@ -11,6 +11,7 @@
 - FIX The thirdparty added into label when pushing from Dolibarr to Google must be 
   removed when pulling from Google to Dolibarr.
 - FIX option GOOGLE_ENABLE_GMAPS_TICON
+- FIX Try to remove gContact:groupMembershipInfo during update of contact
 
 ## 6.0
 

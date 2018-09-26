@@ -428,19 +428,27 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 	if ($result['curl_error_no'] == '404')
 	{
 		// Not found error.
-		dol_syslog('Failed to get record with ref='.$newcontactid.' '.$result['curl_error_msg'], LOG_WARNING);
+		dol_syslog('Failed to get Google record with ref='.$newcontactid.' '.$result['curl_error_msg'], LOG_WARNING);
+		$object->error = 'Failed to get Google record with ref='.$newcontactid.', contactId='.$contactId;
 		return 0;
 	}
 	elseif ($result['curl_error_no'])
 	{
-		dol_syslog('Failed to get record with ref='.$newcontactid.' '.$result['curl_error_msg'], LOG_WARNING);
+		dol_syslog('Failed to get Google record with ref='.$newcontactid.' '.$result['curl_error_msg'], LOG_WARNING);
+		$object->error = 'Failed to get Google record with ref='.$newcontactid.', contactId='.$contactId;
 		return -1;
 	}
-
+	elseif (is_string($xmlStr) && $xmlStr == 'Contact not found.')
+	{
+		// Not found error.
+		//print 'Failed to get record with ref='.$newcontactid.' '.$result['curl_error_msg'];exit;
+		dol_syslog('Failed to get Google record with ref='.$newcontactid, LOG_WARNING);
+		$object->error = 'Failed to get Google record with ref='.$newcontactid.', contactId='.$contactId;
+		return 0;
+	}
 	$id = '';
 
 	try {
-	    //var_dump($xmlStr);
 		$xmlgcontact = simplexml_load_string($xmlStr, null, 0, 'gContact', true);
 	    $xmlgd = simplexml_load_string($xmlStr, null, 0, 'gd', true);
 		$xml = simplexml_load_string($xmlStr);
@@ -518,7 +526,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 		// We don't change this
 
 		// Birthday (in namespace gdContact)
-		if ($xmlgcontact->birthday->asXml())  // If entry found into current remote record, we can update it
+		if (isset($xmlgcontact) && isset($xmlgcontact->birthday) && $xmlgcontact->birthday->asXml())  // If entry found into current remote record, we can update it
 		{
 		    if ($object->birthday) $xml->birthday['when'] = dol_print_date($object->birthday,'dayrfc');
 		    else { unset($xml->birthday); }
@@ -531,14 +539,18 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 
 
 		$xmlStr=$xml->saveXML();
-		//print_r($xml);exit;
+
+
+		// Remove <gContact:groupMembershipInfo
+		//print dol_escape_htmltag($xmlStr);
+		$xmlStr = preg_replace('/<gContact:groupMembershipInfo[^>]*/', '', $xmlStr);
+		//print dol_escape_htmltag($xmlStr);exit;
 
 
 		// Convert xml into DOM so we can use dom function to add website element
 		$doc  = new DOMDocument("1.0", "utf-8");
 		$doc->loadXML($xmlStr);
 		$entries = $doc->getElementsByTagName('entry');
-
 
 		// Birthday (in namespace gdContact)
 		if (! $xmlgcontact->birthday->asXml() && $object->birthday)    // Not into current remote record, we add it if defined
@@ -815,7 +827,7 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail='d
 
 /* HERE AN EXAMPLE STRING */
 
-// Exemple of group: https://www.google.com/m8/feeds/groups/eldy10%40gmail.com/base/766e9f670b5f327a
+// Exemple of a group id: https://www.google.com/m8/feeds/groups/eldy10%40gmail.com/base/766e9f670b5f327a
 /*
 $xmlStr = <<<END
 <?xml version="1.0" encoding="utf-8"?>
