@@ -121,6 +121,7 @@ if ($action == 'set')
 		dolibarr_set_const($db,"SELLYOURSAAS_STATUS_URL",GETPOST("SELLYOURSAAS_STATUS_URL",'alpha'),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_MYACCOUNT_FOOTER",GETPOST("SELLYOURSAAS_MYACCOUNT_FOOTER",'none'),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"SELLYOURSAAS_CONVERSION_FOOTER",GETPOST("SELLYOURSAAS_CONVERSION_FOOTER",'none'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_PUBLIC_KEY",GETPOST("SELLYOURSAAS_PUBLIC_KEY",'none'),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_ANONYMOUSUSER",GETPOST("SELLYOURSAAS_ANONYMOUSUSER",'none'),'chaine',0,'',$conf->entity);
@@ -543,6 +544,13 @@ print '<td>';
 print '<textarea name="SELLYOURSAAS_MYACCOUNT_FOOTER" class="quatrevingtpercent" rows="3">'.$conf->global->SELLYOURSAAS_MYACCOUNT_FOOTER.'</textarea>';
 print '</td>';
 print '<td>&lt;script&gt;Your google analytics code&lt;/script&gt;</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("ConversionContent").'</td>';
+print '<td>';
+print '<textarea name="SELLYOURSAAS_CONVERSION_FOOTER" class="quatrevingtpercent" rows="3">'.$conf->global->SELLYOURSAAS_CONVERSION_FOOTER.'</textarea>';
+print '</td>';
+print '<td>&lt;script&gt;Your conversion trackers&lt;/script&gt;</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SSHPublicKey").'</td>';

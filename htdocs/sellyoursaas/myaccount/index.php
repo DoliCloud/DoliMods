@@ -1154,6 +1154,8 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 			$db->commit();
 
+			$_SESSION['showconversiontracker']=1;
+
 			$url=$_SERVER["PHP_SELF"];
 			if ($backurl) $url=$backurl;
 			header('Location: '.$url);
@@ -5432,7 +5434,18 @@ print '
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 	-->
+';
 
+// Show conversion tracker
+if (! empty($_SESSION['showconversiontracker']))
+{
+	print '<!-- Conversion tracker -->';
+	print $conf->global->SELLYOURSAAS_CONVERSION_FOOTER;
+	$_SESSION['showconversiontracker'] = 0;
+	unset($_SESSION['showconversiontracker']);
+}
+
+print '
 	</body>
 </html>
 ';
