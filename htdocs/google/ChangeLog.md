@@ -1,7 +1,7 @@
 # ChangeLog GOOGLE MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a> 
 
 
-## 6.0.1 unreleased
+## 6.0.1
 
 - NEW Add 2 variables to hange TZ offset between Dolibarr and Google
 - FIX list of maps visible in widget.
