@@ -436,6 +436,8 @@ class GoogleMapAPI
 	 */
 	public function addArrayMarker($tabAddresses, $langs, $mode)
 	{
+		global $conf;
+
 		$this->langs = $langs;
 
 		// Detect if we use https
@@ -454,39 +456,47 @@ class GoogleMapAPI
 			*/
 
 			// ajout de la modification des icones en fonction du tiers et de son status
-			if (! empty($conf->global->GOOGLE_CAN_USE_PROSPECT_ICONS))
+			if (! empty($conf->global->GOOGLE_ENABLE_GMAPS_TICON))
 			{
-				if ((empty($mode) || $mode == 'company' || $mode == 'thirdparty') and ($conf->global->GOOGLE_ENABLE_GMAPS_TICON == 1))  {
+				if (empty($mode) || $mode == 'company' || $mode == 'thirdparty')  {
+
 					switch ($elem->client) {
 						case 0:
 							$icon = DOL_URL_ROOT.'/custom/google/images/red-dot.png';
 							break;
 						case 1:
-							$icon = DOL_URL_ROOT.'/custom/google/images/green-dot.png';
+							$icon = DOL_URL_ROOT.'/custom/google/images/blue-dot.png';	// customer
 							break;
 						case 2:
-							switch ($elem->statusprospet) {
-								case -1:
-									$icon = DOL_URL_ROOT.'/custom/google/images/stcomm-1.png';
-									break;
-								case 0:
-									$icon = DOL_URL_ROOT.'/custom/google/images/stcomm0.png';
-									break;
-								case 1:
-									$icon = DOL_URL_ROOT.'/custom/google/images/stcomm1.png';
-									break;
-								case 2:
-									$icon = DOL_URL_ROOT.'/custom/google/images/stcomm2.png';
-									break;
-								case 3:
-									$icon = DOL_URL_ROOT.'/custom/google/images/stcomm3.png';
-									break;
-								case 4:
-									$icon = DOL_URL_ROOT.'/custom/google/images/stcomm4.png';
-									break;
-								default:
-									$icon = DOL_URL_ROOT.'/custom/google/images/stcomm0.png';
-									break;
+							if (! empty($conf->global->GOOGLE_CAN_USE_PROSPECT_ICONS))
+							{
+								switch ($elem->statusprospet) {
+									case -1:
+										$icon = DOL_URL_ROOT.'/custom/google/images/stcomm-1.png';
+										break;
+									case 0:
+										$icon = DOL_URL_ROOT.'/custom/google/images/stcomm0.png';
+										break;
+									case 1:
+										$icon = DOL_URL_ROOT.'/custom/google/images/stcomm1.png';
+										break;
+									case 2:
+										$icon = DOL_URL_ROOT.'/custom/google/images/stcomm2.png';
+										break;
+									case 3:
+										$icon = DOL_URL_ROOT.'/custom/google/images/stcomm3.png';
+										break;
+									case 4:
+										$icon = DOL_URL_ROOT.'/custom/google/images/stcomm4.png';
+										break;
+									default:
+										$icon = DOL_URL_ROOT.'/custom/google/images/stcomm0.png';
+										break;
+								}
+							}
+							else
+							{
+								$icon = DOL_URL_ROOT.'/custom/google/images/blue-dot.png';
 							}
 							break;
 						case 3:
@@ -695,10 +705,10 @@ class GoogleMapAPI
 		$this->content .= "\t\t\t" . 'map: map,' . "\n";
 		$this->content .= "\t\t\t" . 'title : title,' . "\n";
 		// We do not use the marker with the shadow, if we do so, we must set position of the sprite we want to extract from the image
-		if (! empty($conf->global->GOOGLE_CAN_USE_PROSPECT_ICONS))
+		if (! empty($conf->global->GOOGLE_ENABLE_GMAPS_TICON))
 		{
-			if ((empty($mode) || $mode == 'company' || $mode == 'thirdparty') and ($conf->global->GOOGLE_ENABLE_GMAPS_TICON == 1))  {
-				//$this->content .= "\t\t\t" . 'icon:  new google.maps.MarkerImage(icon, new google.maps.Size(' . $this->iconWidth . ',' . $this->iconHeight . ')),' . "\n";
+			if ((empty($mode) || $mode == 'company' || $mode == 'thirdparty'))  {
+				$this->content .= "\t\t\t" . 'icon:  new google.maps.MarkerImage(icon, new google.maps.Size(' . $this->iconWidth . ',' . $this->iconHeight . ')),' . "\n";
 			}
 		}
 		$this->content .= "\t\t\t" . 'position: latlng' . "\n";

@@ -1,9 +1,11 @@
 # ChangeLog GOOGLE MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a> 
 
 
-## 6.0.1
+## 6.1
 
 - NEW Add 2 variables to hange TZ offset between Dolibarr and Google
+- NEW Add option GOOGLE_ENABLE_GMAPS_TICON to use different picto for customers and vendors
+- NEW Add option GOOGLE_CAN_USE_PROSPECT_ICONS to use different picto for each prospect status
 - FIX list of maps visible in widget.
 - FIX link in popup of addresses in map.
 - FIX Compatibility with multicompany module

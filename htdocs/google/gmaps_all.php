@@ -142,7 +142,7 @@ if (empty($mode) || $mode=='thirdparty')
 	$title=$langs->trans("MapOfThirdparties");
 	$picto='company';
 	$type='company';
-	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town, s.url, s.email, s.phone,";
+	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town, s.url, s.email, s.phone, s.client as client, s.fk_stcomm as statusprospet,";
 	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label, g.tms";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
@@ -296,6 +296,8 @@ if ($resql)
 		$object->url = $obj->url;
 		$object->email = $obj->email;
 		$object->phone = $obj->phone;
+		$object->client = $obj->client;
+		$object->statusprospet = $obj->statusprospet;
 
 		$geoencodingtosearch=false;
 		if ($obj->gaddress != $addresstosearch) $geoencodingtosearch=true;
