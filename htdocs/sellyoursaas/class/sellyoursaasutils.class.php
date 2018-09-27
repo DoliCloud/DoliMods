@@ -1938,7 +1938,9 @@ class SellYourSaasUtils
 					{
 						$wemustsuspendinstance = false;
 
-						// If thirdparty has a default payment mode, we will create the template invoice (= test instance will move in a paid mode instead of being suspended, and instance with just a payment mode without template invoice will become an automatically paid instance).
+						// If thirdparty has a default payment mode,
+						//   if no template invoice yet (for example a second instance for existing customer), we will create the template invoice (= test instance will move in a paid mode instead of being suspended).
+						//   if already a template invoice exists, we will suspend instance
 						$customerHasAPaymentMode = sellyoursaasThirdpartyHasPaymentMode($object->thirdparty->id);
 						if ($customerHasAPaymentMode)
 						{
@@ -2219,7 +2221,7 @@ class SellYourSaasUtils
 								}
 							}
 						}
-						else	// Customer does not have payment mode
+						else	// Third party has no payment mode defined, we suspend it.
 						{
 							$wemustsuspendinstance = true;
 						}
