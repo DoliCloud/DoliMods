@@ -438,7 +438,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
     		{
 	    		dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 	    		$sellyoursaasutils = new SellYourSaasUtils($this->db);
-	    		$result = $sellyoursaasutils->sellyoursaasRemoteAction($remoteaction, $object);
+	    		$result = $sellyoursaasutils->sellyoursaasRemoteAction($remoteaction, $object);	// No events added
 				if ($result <= 0)
 				{
 					$error++;
