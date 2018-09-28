@@ -264,15 +264,19 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 				break;
         	case 'BILL_CANCEL':
         	case 'BILL_PAYED':
-        		// Loop on contract of invoice
-        		$object->fetchObjectLinked();
+        		$object->fetchObjectLinked(null,'',null,'','OR',0,'sourcetype',0);
 
         		if ($object->type != Facture::TYPE_CREDIT_NOTE  && ! empty($object->linkedObjectsIds['contrat']))
         		{
+        			// Get the first contract of the paid invoice
         			$contractid = reset($object->linkedObjectsIds['contrat']);
         			dol_syslog("The cancel/paid invoice ".$object->ref." is linked to contract id ".$contractid.", we check if we have to unsuspend it.");
         			$contract = new Contrat($this->db);
         			$contract->fetch($contractid);
+
+        			// TODO Check there is no other unpaid invoices for the case of several pending invoices on same contract
+        			// (in such a case, we may decide to no activate the linked contract)
+        			// $contract->fetchObjectLinked();
 
         			$result = $contract->activateAll($user);
         			if ($result < 0)
@@ -282,7 +286,10 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         				$this->errors = $contract->errors;
         			}
         		}
-
+				else
+				{
+					dol_syslog("The cancel/paid invoice ".$object->ref." is a credit note, or has no linked contract to check to unsuspend.");
+				}
         		break;
 
         	case 'COMPANY_MODIFY':
