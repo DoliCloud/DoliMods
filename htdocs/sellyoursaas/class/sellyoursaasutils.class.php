@@ -813,6 +813,7 @@ class SellYourSaasUtils
     	dol_syslog("doTakePaymentStripeForThirdparty thirdparty_id=".$thirdparty_id);
 
     	$this->stripechargedone = 0;
+    	$this->stripechargeerror = 0;
     	$now = dol_now();
 
     	// Check parameters
@@ -850,7 +851,7 @@ class SellYourSaasUtils
     			$num = $this->db->num_rows($resql);
 
     			$i=0;
-    			while ($i < $num)
+    			while ($i < $num)		// Loop on each invoice to pay and validate them if they are draft
     			{
     				$obj = $this->db->fetch_object($resql);
     				if ($obj)
@@ -895,7 +896,7 @@ class SellYourSaasUtils
 
 		dol_syslog("We found ".count($invoices).' qualified invoices to process payment on (ran in mode '.$servicestatus.').');
 
-		// Loop on each invoice
+		// Loop on each invoice to pay
 		foreach($invoices as $invoice)
 		{
 			dol_syslog("--- Process invoice thirdparty_id = ".$thirdparty_id.", id=".$invoice->id.", ref=".$invoice->ref, LOG_DEBUG);
@@ -959,7 +960,9 @@ class SellYourSaasUtils
 	    						$stripefailuremessage='';
 	    						$stripefailuredeclinecode='';
 
-	    						dol_syslog("Create charge on card ".$stripecard->id, LOG_DEBUG);
+	    						dol_syslog("Create charge on card ".$stripecard->id.", amountstripe=".$amountstripe.", FULLTAG=".$FULLTAG, LOG_DEBUG);
+
+	    						$charge = null;		// Force reset of $charge, so, if already set from a previous fetch, it will be empty even if there is an exception at next step
 	    						try {
 		    						$charge = \Stripe\Charge::create(array(
 			    						'amount'   => price2num($amountstripe, 'MU'),
@@ -992,6 +995,9 @@ class SellYourSaasUtils
 	    						if (empty($charge) || $charge->status == 'failed')
 	    						{
 	    							dol_syslog('Failed to charge card '.$stripecard->id.' stripefailurecode='.$stripefailurecode.' stripefailuremessage='.$stripefailuremessage.' stripefailuredeclinecode='.$stripefailuredeclinecode, LOG_WARNING);
+
+	    							// Save a stripe payment was in error
+	    							$this->stripechargeerror++;
 
 	    							$error++;
 	    							$errmsg='Failed to charge card';
@@ -1072,7 +1078,7 @@ class SellYourSaasUtils
 	    							{
 	    								dol_syslog('Create payment');
 
-	    								$paiement_id = $paiement->create($user, 1);    // This include closing invoices and regenerating documents
+	    								$paiement_id = $paiement->create($user, 1);    // This include closing invoices to 'paid' (and trigger including unsuspending) and regenerating documents
 	    								if ($paiement_id < 0)
 	    								{
 	    									$postactionmessages[] = $paiement->error.' '.join("<br>\n", $paiement->errors);
