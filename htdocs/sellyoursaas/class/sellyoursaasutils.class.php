@@ -2229,7 +2229,7 @@ class SellYourSaasUtils
 						if ($wemustsuspendinstance)
 						{
 							//$object->array_options['options_deployment_status'] = 'suspended';
-							$result = $object->closeAll($user, 0, 'Closed by batch doSuspendInstances the '.dol_print_date($now, 'dayhourrfc'));			// This may execute trigger that make remote actions to suspend instance
+							$result = $object->closeAll($user, 0, 'Closed by batch doSuspendInstances (mode='.$mode.') the '.dol_print_date($now, 'dayhourrfc'));			// This may execute trigger that make remote actions to suspend instance
 							if ($result < 0)
 							{
 								$error++;
@@ -2252,6 +2252,8 @@ class SellYourSaasUtils
 								{
 									$labeltemplate = 'CustomerAccountSuspended';
 								}
+
+								dol_syslog("Now we will send an email to customer with label ".$labeltemplate);
 
 								// Send deployment email
 								include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
