@@ -567,13 +567,13 @@ function sellyoursaas_calculate_stats($db, $datelim)
 							{
 								if (! $templateinvoice->suspended)
 								{
-									if ($templateinvoice->unit_frequency == 'm' && $templateinvoice->frequency == 1)
+									if ($templateinvoice->unit_frequency == 'm' && $templateinvoice->frequency >= 1)
 									{
-										$price += $templateinvoice->total_ht;
+										$price += $templateinvoice->total_ht / $templateinvoice->frequency;
 									}
-									elseif ($templateinvoice->unit_frequency == 'y' && $templateinvoice->frequency == 1)
+									elseif ($templateinvoice->unit_frequency == 'y' && $templateinvoice->frequency >= 1)
 									{
-										$price += ($templateinvoice->total_ht / 12);
+										$price += ($templateinvoice->total_ht / (12 * $templateinvoice->frequency));
 									}
 									else
 									{
