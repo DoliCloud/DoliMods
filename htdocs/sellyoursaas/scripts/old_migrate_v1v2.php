@@ -180,6 +180,8 @@ if ($result <= 0 || $newobject->statut == 0)
 	$email = $oldobject->email;
 	$country_code = $oldobject->country_code;
 	$locale = $oldobject->locale;
+	if (strlen($locale) == 2) $locale = $locale.'_'.strtoupper($locale);
+
 	// $oldobject->plan contains something like 'Dolibarr ERP & CRM Premium'
 	$partner = 0;
 
