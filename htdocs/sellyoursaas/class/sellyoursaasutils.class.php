@@ -2993,6 +2993,8 @@ class SellYourSaasUtils
     		if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
     			$remoteaction == 'refresh')
     		{
+    			dol_syslog("Start refresh of nb of resources for a customer");
+
     			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
     			dol_include_once('/sellyoursaas/class/packages.class.php');
 
