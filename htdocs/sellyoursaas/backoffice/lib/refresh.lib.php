@@ -1,11 +1,9 @@
 <?php
 // Files with some lib
+global $conf;
 
 // Show totals
-$serverlocation=185.9;	// Price dollar
-$dollareuro=0.78;		// Price euro
-$serverprice=price2num($serverlocation * $dollareuro, 'MT');
-$part=0.3;	// 30%
+$serverprice = empty($conf->global->SELLYOURSAAS_INFRA_COST)?'100':$conf->global->SELLYOURSAAS_INFRA_COST;
 
 
 include_once(DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php');

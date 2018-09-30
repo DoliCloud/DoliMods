@@ -140,6 +140,8 @@ $totalcommissions=0;
 
 $rep=dolicloud_calculate_stats($db2,'');	// $datelastday is last day of current month
 
+$part=0.3;	// 30%
+
 $total=$rep['total'];
 $totalcommissions=$rep['totalcommissions'];
 $totalinstancespaying=$rep['totalinstancespaying'];

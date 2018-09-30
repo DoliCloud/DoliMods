@@ -502,14 +502,17 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 						print "Calculate and update stats for ".$statkey." x=".$x.' datelastday='.dol_print_date($datelastday, 'dayhour', 'gmt');
 
 						$rep = null;
+						$part = 0;
 
 						if ($v == 1)
 						{
 							$rep=dolicloud_calculate_stats($db2,$datelastday);
+							$part = 0.3;
 						}
 						else
 						{
 							$rep=sellyoursaas_calculate_stats($db,$datelastday);	// Get qty and amount into template invoices linked to active contracts
+							$part = 0;
 						}
 
 						if ($rep)
