@@ -473,9 +473,9 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 
 		$tmp=dol_getdate(dol_now('tzserver'));
 		$endyear=$tmp['year'];
-		if (empty($serverlocation))
+		if (empty($serverprice))
 		{
-			print 'ERROR Value of variable $serverlocation is not defined.';
+			print 'ERROR Value of variable $serverprice is not defined.';
 			exit;
 		}
 
@@ -524,7 +524,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 							$totalusers=$rep['totalusers'];
 							$totalcustomerspaying=$rep['totalcustomerspaying'];
 							$totalcustomers=$rep['totalcustomers'];
-							$benefit=($total * (1 - $part) - $serverlocation - $totalcommissions);
+							$benefit=($total * (1 - $part) - $serverprice - $totalcommissions);
 
 							$y=0;
 							if ($statkey == 'total') $y=$total;

@@ -244,7 +244,7 @@ print '</td></tr>';
 print '<tr class="liste_total"><td class="wrapimp wordwrap wordbreak">';
 print $langs->trans("BenefitDoliCloud");
 print '<br>(';
-//print price($total,1).' - '.($part*100).'% - '.price($serverlocation).'$= ';
+//print price($total,1).' - '.($part*100).'% - ';
 print price($total,1).' - '.($part ? ($part*100).'% - ' : '').price($serverprice).'€ - '.price($totalcommissions).'€ = '.price($total * (1 - $part)).'€ - '.price($serverprice).'€ - '.price($totalcommissions).'€';
 print ')</td><td align="right">';
 print '<font size="+2">'.price($benefit,1).' </font>';
