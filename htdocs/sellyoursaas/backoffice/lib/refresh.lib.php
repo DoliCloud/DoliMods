@@ -64,7 +64,7 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors, $printoutput=0,
 
 				$dir=preg_replace('/_([a-zA-Z0-9]+)$/','',$database_db);
 				//$file="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/htdocs/conf/conf.php';
-				$file="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/'.$dir.'/htdocs/conf/conf.php';    // With PHP 5.6.27+
+				//$file="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/'.$dir.'/htdocs/conf/conf.php';    // With PHP 5.6.27+
 
 				// Update ssl certificate
 				// Dir .ssh must have rwx------ permissions
@@ -72,7 +72,7 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors, $printoutput=0,
 
 				// Check if authorized_key exists
 				//$filecert="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/.ssh/authorized_keys';
-				$filecert="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/.ssh/authorized_keys';
+				$filecert="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/.ssh/authorized_keys';    // With PHP 5.6.27+
 				$fstat=@ssh2_sftp_stat($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/.ssh/authorized_keys');
 				// Create authorized_keys file
 				if (empty($fstat['atime']))
@@ -110,7 +110,7 @@ function dolicloud_files_refresh($conf, $db, &$object, &$errors, $printoutput=0,
 
 				// Check if install.lock exists
 				//$fileinstalllock="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock';
-				$fileinstalllock="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/'.$dir.'/documents/install.lock';
+				//$fileinstalllock="ssh2.sftp://".intval($sftp).$conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/'.$dir.'/documents/install.lock';    // With PHP 5.6.27+
 				$fstatlock=@ssh2_sftp_stat($sftp, $conf->global->DOLICLOUD_EXT_HOME.'/'.$username_web.'/'.$dir.'/documents/install.lock');
 				$object->filelock=(empty($fstatlock['atime'])?'':$fstatlock['atime']);
 
