@@ -2904,15 +2904,15 @@ class SellYourSaasUtils
     			$tmppackage->targetsrcfile3 = make_substitutions($tmppackage->targetsrcfile3, $substitarray);
 
     			dol_syslog("Create conf file ".$tmppackage->srcconffile1);
-    			dol_delete_file($tmppackage->srcconffile1, 0, 1);
+    			dol_delete_file($tmppackage->srcconffile1, 0, 1, 0, null, false, 0);
     			file_put_contents($tmppackage->srcconffile1, str_replace("\r", '', $conffile));
 
     			dol_syslog("Create cron file ".$tmppackage->srccronfile1);
-    			dol_delete_file($tmppackage->srccronfile, 0, 1);
+    			dol_delete_file($tmppackage->srccronfile, 0, 1, 0, null, false, 0);
     			file_put_contents($tmppackage->srccronfile, str_replace("\r", '', $cronfile));
 
     			dol_syslog("Create cli file ".$tmppackage->srccliafter);
-    			dol_delete_file($tmppackage->srccliafter, 0, 1);
+    			dol_delete_file($tmppackage->srccliafter, 0, 1, 0, null, false, 0);
     			file_put_contents($tmppackage->srccliafter, str_replace("\r", '', $cliafter));
 
     			// Remote action : unsuspend
