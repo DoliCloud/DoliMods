@@ -280,7 +280,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         			// (in such a case, we may decide to no activate the linked contract)
         			// $contract->fetchObjectLinked();
 
-        			$result = $contract->activateAll($user);
+        			$result = $contract->activateAll($user);		// This will activate line if not already activated and set status of contrat to 1 if not already set
         			if ($result < 0)
         			{
         				$error++;
