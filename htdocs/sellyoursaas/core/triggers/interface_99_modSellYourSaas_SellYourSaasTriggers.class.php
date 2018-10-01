@@ -271,6 +271,8 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         			// Get the first contract of the paid invoice
         			$contractid = reset($object->linkedObjectsIds['contrat']);
         			dol_syslog("The cancel/paid invoice ".$object->ref." is linked to contract id ".$contractid.", we check if we have to unsuspend it.");
+
+        			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
         			$contract = new Contrat($this->db);
         			$contract->fetch($contractid);
 
