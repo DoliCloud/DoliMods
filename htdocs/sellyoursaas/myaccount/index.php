@@ -1158,6 +1158,8 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 			$url=$_SERVER["PHP_SELF"];
 			if ($backurl) $url=$backurl;
+			$url.=(preg_match('/\?/', $url) ? '&' : '?' ).'paymentrecorded=1';
+
 			header('Location: '.$url);
 			exit;
 		}
