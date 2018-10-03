@@ -901,6 +901,7 @@ else { $param[]="-rlD"; $param[]="--modify-window=1000000000"; $param[]="--delet
 $param[]="-v";
 if (empty($createthirdandinstance)) $param[]="-u";		// If we have just created instance, we overwrite file during rsync
 $param[]="--exclude .buildpath";
+$param[]="--exclude dolibarr.log";
 $param[]="--exclude .git";
 $param[]="--exclude .gitignore";
 $param[]="--exclude .settings";
