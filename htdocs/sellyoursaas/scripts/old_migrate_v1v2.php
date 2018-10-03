@@ -1012,7 +1012,7 @@ $param[]=$oldobject->username_db;
 $param[]='-p"'.str_replace(array('"','`'),array('\"','\`'),$oldobject->password_db).'"';
 
 $fullcommand=$command." ".join(" ",$param);
-$fullcommand.=' -e "REPLACE INTO llx_const (name, entity, value, type, visible) values(\'MAIN_ONLY_LOGIN_ALLOWED\', 0, \'nobody\', \'chaine\', 0);';	//  UPDATE llx_user SET statut = 0 where login=\'admin\'"
+$fullcommand.=' -e "REPLACE INTO llx_const (name, entity, value, type, visible) values(\'MAIN_ONLY_LOGIN_ALLOWED\', 0, \'nobody\', \'chaine\', 0);"';	//  UPDATE llx_user SET statut = 0 where login=\'admin\'"
 $output=array();
 $return_varmysql=0;
 print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
