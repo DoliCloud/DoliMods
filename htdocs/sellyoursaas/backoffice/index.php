@@ -203,10 +203,13 @@ print $form->textwithpicto($langs->trans("NbOfInstancesActivePaying"), $langs->t
 print ' / '.$langs->trans("NbOfActiveInstances").' ';
 print '</td><td align="right">';
 print '<font size="+2">'.$totalinstancespaying.' / '.$totalinstances.'</font>';
-print '<!--'."\n";
-foreach($rep['listofinstancepaying'] as $arrayofcontract)
+print '<!-- List of instances : '."\n";
+if (is_array($rep['listofinstancespaying']))
 {
-	print $arrayofcontract['thirdparty_name'].' - '.$arrayofcontract['contract_ref']."\n";
+	foreach($rep['listofinstancespaying'] as $arrayofcontract)
+	{
+		print $arrayofcontract['thirdparty_name'].' - '.$arrayofcontract['contract_ref']."\n";
+	}
 }
 print "\n".'-->';
 print '</td></tr>';

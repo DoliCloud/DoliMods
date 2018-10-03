@@ -619,6 +619,6 @@ function sellyoursaas_calculate_stats($db, $datelim)
 		'totalinstancespaying'=>(int) $totalinstancespaying, 'totalinstancessuspended'=>(int) $totalinstancessuspended, 'totalinstancesexpired'=>(int) $totalinstancesexpired, 'totalinstances'=>(int) $totalinstances,
 		'totalusers'=>(int) $totalusers,
 		'totalcustomerspaying'=>(int) count($listofcustomerspaying), 'totalcustomers'=>(int) count($listofcustomers),
-		'listofinstancepaying'=>$listofinstancespaying
+		'listofinstancespaying'=>$listofinstancespaying
 	);
 }
