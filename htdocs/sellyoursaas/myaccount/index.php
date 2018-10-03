@@ -4002,7 +4002,7 @@ if ($mode == 'billing')
 									if (! $paymentinerroronthisinvoice)
 									{
 										$s = $invoice->getLibStatut(2, $alreadypayed + $amount_credit_notes_included);
-										if ($s == $langs->trans("BillShortStatusPaidBackOrConverted")) $s=$langs->trans("Refunded");
+										$s = preg_replace('/'.$langs->trans("BillShortStatusPaidBackOrConverted").'/', $langs->trans("Refunded"), $s);
 										print $s;
 									}
 									print '
@@ -4774,7 +4774,7 @@ if ($mode == 'mycustomerbilling')
                 ';
                 //$s = $tmpinvoice->getLibStatut(2, $alreadypayed + $amount_credit_notes_included);
              	$s = $tmpinvoice->getLibStatut(2, -1);
-             	if ($s == $langs->trans("BillShortStatusPaidBackOrConverted")) $s=$langs->trans("Refunded");
+             	$s = preg_replace('/'.$langs->trans("BillShortStatusPaidBackOrConverted").'/', $langs->trans("Refunded"), $s);
                 print $s;
                 print '
               </td>
