@@ -3991,7 +3991,7 @@ if ($mode == 'billing')
 											// There is at least one payment error
 											if ($obj->extraparams == 'PAYMENT_ERROR_INSUFICIENT_FUNDS')
 											{
-												print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/statut8.png"> '.$langs->trans("PaymentError");
+												print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/statut8.png" alt="Insuficient funds"> '.$langs->trans("PaymentError");
 											}
 											else
 											{
@@ -4001,7 +4001,9 @@ if ($mode == 'billing')
 									}
 									if (! $paymentinerroronthisinvoice)
 									{
-										print $invoice->getLibStatut(2, $alreadypayed + $amount_credit_notes_included);
+										$s = $invoice->getLibStatut(2, $alreadypayed + $amount_credit_notes_included);
+										if ($s == $langs->trans("BillShortStatusPaidBackOrConverted")) $s=$langs->trans("Refunded");
+										print $s;
 									}
 									print '
 					              </div>
@@ -4732,7 +4734,7 @@ if ($mode == 'mycustomerbilling')
 			$obj = $db->fetch_object($resql);
 			if (empty($obj)) break;		// Should not happen
 
-			$tmpthirdparty->fetch($obj->fk_soc);	// To get current efault commission of this customer
+			$tmpthirdparty->fetch($obj->fk_soc);	// To get current default commission of this customer
 			$tmpinvoice->fetch($obj->rowid);
 
 			if ($tmpinvoice->statut == Facture::STATUS_DRAFT) continue;
@@ -4769,7 +4771,12 @@ if ($mode == 'mycustomerbilling')
                 '.price(price2num($obj->total_ttc), 1, $langs, 0, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency).'
               </td>
               <td>
-                '.Facture::LibStatut($obj->paye, $obj->fk_statut).'
+                ';
+                //$s = $tmpinvoice->getLibStatut(2, $alreadypayed + $amount_credit_notes_included);
+             	$s = $tmpinvoice->getLibStatut(2, -1);
+             	if ($s == $langs->trans("BillShortStatusPaidBackOrConverted")) $s=$langs->trans("Refunded");
+                print $s;
+                print '
               </td>
               <td align="right">
                 '.($commissionpercent?$commissionpercent:0).'
