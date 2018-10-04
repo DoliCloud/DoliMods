@@ -2916,15 +2916,26 @@ if ($mode == 'instances')
 
 							<!-- tab domain -->
 				            <div class="tab-pane" id="tab_domain_'.$contract->id.'">
-				                <div class="opacitymedium" style="padding: 15px">'.$langs->trans("TheURLDomainOfYourInstance").' :</div>
 								<form class="form-group" action="'.$_SERVER["PHP_SELF"].'" method="POST">
-								<div class="col-md-9">
-									<input type="text" class="urlofinstance" disabled="disabled" value="'.$contract->ref_customer.'">
 									<input type="hidden" name="mode" value="instances"/>
 									<input type="hidden" name="action" value="updateurl" />
 									<input type="hidden" name="contractid" value="'.$contract->id.'" />
 									<input type="hidden" name="tab" value="domain_'.$contract->id.'" />
+
+								<div class="col-md-9">
+					                <div class="opacitymedium" style="padding-top: 5px">'.$langs->trans("TheURLDomainOfYourInstance").' :</div>
+									<input type="text" class="urlofinstance" disabled="disabled" value="'.$contract->ref_customer.'">
 								';
+
+				            	if (! empty($contract->array_options['options_custom_url']))
+				            	{
+					            	print '
+										<br><br>
+										<div class="opacitymedium" style="padding-top: 5px">'.$langs->trans("YourCustomUrl").' :</div>
+										<input type="text" class="urlofinstancecustom" disabled="disabled" value="'.$contract->array_options['options_custom_url'].'">
+									';
+				            	}
+
 								//print '<input type="submit" class="btn btn-warning default change-domain-link" name="changedomain" value="'.$langs->trans("ChangeDomain").'">';
 								print '
 								</div>
