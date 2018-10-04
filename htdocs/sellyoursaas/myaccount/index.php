@@ -2924,7 +2924,7 @@ if ($mode == 'instances')
 
 								<div class="col-md-9">
 					                <div class="opacitymedium" style="padding-top: 5px">'.$langs->trans("TheURLDomainOfYourInstance").' :</div>
-									<input type="text" class="urlofinstance" disabled="disabled" value="'.$contract->ref_customer.'">
+									<input type="text" class="urlofinstance" disabled="disabled" value="https://'.$contract->ref_customer.'">
 								';
 
 				            	if (! empty($contract->array_options['options_custom_url']))
@@ -2932,7 +2932,7 @@ if ($mode == 'instances')
 					            	print '
 										<br><br>
 										<div class="opacitymedium" style="padding-top: 5px">'.$langs->trans("YourCustomUrl").' :</div>
-										<input type="text" class="urlofinstancecustom" disabled="disabled" value="'.$contract->array_options['options_custom_url'].'">
+										<input type="text" class="urlofinstancecustom" disabled="disabled" value="https://'.$contract->array_options['options_custom_url'].'">
 									';
 				            	}
 
