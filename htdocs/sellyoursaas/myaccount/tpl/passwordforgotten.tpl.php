@@ -156,7 +156,6 @@ if (empty($asknewpass) && 1) {
 	<!-- Captcha -->
 	<tr>
 	<td class="nowrap none center">
-	<br>
 
 	<table class="login_table_securitycode centpercent"><tr>
 	<td>

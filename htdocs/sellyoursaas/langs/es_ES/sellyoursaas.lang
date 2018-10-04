@@ -338,3 +338,4 @@ RetryNow=Inténtalo nuevamente ahora
 ClickToCheckAgain=Haga clic aquí para verificar nuevamente
 LogIn=Conectarse
 CreateMyAccount=Crear mi cuenta
+MyAcountDesc=Este espacio está dedicado a la gestión de sus suscripciones <a href="%s">%s</a>. Puede crear nuevas instancias de aplicaciones, elegir opciones, recuperar sus facturas de suscripción o cerrar su cuenta.

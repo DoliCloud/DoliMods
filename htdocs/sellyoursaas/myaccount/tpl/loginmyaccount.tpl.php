@@ -100,6 +100,7 @@ $(document).ready(function () {
 
         <header class="inverse">
           <h1><?php echo dol_escape_htmltag($title); ?></h1>
+          <span class="opacitymedium" style="font-size: 0.85em; margin-top: 4px; line-height: 1;"><?php echo $langs->trans("MyAcountDesc", 'https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME, $conf->global->SELLYOURSAAS_NAME); ?></span>
         </header>
 
 
