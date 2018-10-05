@@ -934,6 +934,7 @@ foreach($output as $outputline)
 
 
 print "-> Files were sync into dir of instance ".$newobject->ref_customer.": ".$targetdir."\n";
+print "Using ".$fullcommand."\n";
 print "\n";
 
 
