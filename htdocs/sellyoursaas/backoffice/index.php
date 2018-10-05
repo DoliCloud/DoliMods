@@ -182,8 +182,10 @@ else
 	$totalusers = $_SESSION['stats_totalusers'];
 }
 
+$total = price2num($total, 'MT');
+$totalcommissions = price2num($totalcommissions, 'MT');
 $part = 0.015;
-$benefit=($total * (1 - $part) - $serverprice - $totalcommissions);
+$benefit=price2num(($total * (1 - $part) - $serverprice - $totalcommissions), 'MT');
 
 // Show totals
 print '<table class="noborder" width="100%">';
