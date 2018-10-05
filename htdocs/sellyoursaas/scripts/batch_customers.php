@@ -502,7 +502,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 						print "Calculate and update stats for ".$statkey." x=".$x.' datelastday='.dol_print_date($datelastday, 'dayhour', 'gmt');
 
 						$rep = null;
-						$part = 0.015;
+						$part = 0;
 
 						if ($v == 1)
 						{
@@ -512,7 +512,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 						else
 						{
 							$rep=sellyoursaas_calculate_stats($db,$datelastday);	// Get qty and amount into template invoices linked to active contracts
-							$part = 0.015;
+							$part = (empty($conf->global->SELLYOURSAAS_PERCENTAGE_FEE) ? 0 : $conf->global->SELLYOURSAAS_PERCENTAGE_FEE);
 						}
 
 						if ($rep)

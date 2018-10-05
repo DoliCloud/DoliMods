@@ -184,7 +184,7 @@ else
 
 $total = price2num($total, 'MT');
 $totalcommissions = price2num($totalcommissions, 'MT');
-$part = 0.015;
+$part = (empty($conf->global->SELLYOURSAAS_PERCENTAGE_FEE) ? 0 : $conf->global->SELLYOURSAAS_PERCENTAGE_FEE);
 $benefit=price2num(($total * (1 - $part) - $serverprice - $totalcommissions), 'MT');
 
 // Show totals
