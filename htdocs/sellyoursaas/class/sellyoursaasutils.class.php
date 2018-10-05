@@ -1113,7 +1113,7 @@ class SellYourSaasUtils
 	    									}
 	    									else
 	    									{
-	    										$postactionmessages[] = 'Bank entry of payment created';
+	    										$postactionmessages[] = 'Bank transaction of payment created (by doTakePaymentStripeForThirdparty)';
 	    									}
 	    								}
 	    								else
@@ -1153,7 +1153,7 @@ class SellYourSaasUtils
 	    						if (empty($charge) || $charge->status == 'failed')
 	    						{
 	    							$labeltouse = 'InvoicePaymentFailure';
-	    							if ($noemailtocustomeriferror) $sendemailtocustomer = 0;
+	    							if ($noemailtocustomeriferror) $sendemailtocustomer = 0;		// $noemailtocustomeriferror is set when error already reported on myaccount screen
 	    						}
 	    						else
 	    						{
