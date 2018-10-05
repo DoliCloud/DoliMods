@@ -33,12 +33,14 @@ while read ; do
 	export now=`date '+%Y-%m-%d %H:%M:%S'`
 	echo "$now Found a segfault, now kicking apache..." >> /var/log/apache_watchdog.log 2>&1
 	/etc/init.d/apache2 stop >> /var/log/apache_watchdog.log 2>&1
+	sleep 2
 	killall -9 apache2 >> /var/log/apache_watchdog.log 2>&1
 	export now=`date '+%Y-%m-%d %H:%M:%S'`
 	echo "$now Now restart apache..." >> /var/log/apache_watchdog.log 2>&1
 	/etc/init.d/apache2 start >> /var/log/apache_watchdog.log 2>&1
 	
 	echo "Apache seg fault detected. Apache was killed and started." | mail -aFrom:$EMAILFROM -s "[Alert] Apache seg fault detected. Apache was killed and started." $EMAILTO
+	sleep 1
 done
 
 # This script never end

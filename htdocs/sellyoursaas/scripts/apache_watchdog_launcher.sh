@@ -59,13 +59,20 @@ fi
 
 if [ "x$1" == "xstop" ]; then
 	
-	pid=`ps ax | grep 'apache_watchdog_daemon' | grep -v grep | awk ' { print $1 } '`
-	if [ "x$pid" == "x" ]; then
-		echo apache_watchdog_daemon not started
-	else
-		echo Launch kill to stop apache_watchdog_daemon with PID $pid
-		kill $pid
-	fi
+        pid=`ps ax | grep 'tail' | grep 'error.log' | grep -v grep | awk ' { print $1 } '`
+        if [ "x$pid" == "x" ]; then
+                echo apache_watchdog_daemon "tail" process not started
+        else
+                echo Launch kill to stop "tail" process with PID $pid
+                kill $pid
+        fi
+        pid=`ps ax | grep 'apache_watchdog_daemon' | grep -v grep | awk ' { print $1 } '`
+        if [ "x$pid" == "x" ]; then
+                echo apache_watchdog_daemon not started
+        else
+                echo Launch kill to stop apache_watchdog_daemon with PID $pid
+                kill $pid
+        fi
 fi
 
 if [ "x$1" == "xstatus" ]; then
