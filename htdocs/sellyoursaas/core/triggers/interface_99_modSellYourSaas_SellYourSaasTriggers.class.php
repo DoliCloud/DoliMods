@@ -225,17 +225,20 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         		if (isset($object->oldcopy)	// We change end of trial
         			&& $object->oldcopy->array_options['options_date_endfreeperiod'] != $object->array_options['options_date_endfreeperiod'])
         		{
-        			dol_syslog("We found a change in date of end of trial, so we will call the remote action rename");
+        			dol_syslog("We found a change in date of end of trial, so we check if you can and, if yes, we make the update of contract");
 
-        			// Check there is no recurring invoice. If yes, we refuse to change this.
-        			$object->fetchObjectLinked();
-        			//var_dump($object->linkedObjects);
-        			if (is_array($object->linkedObjects['facturerec']))
+        			if ($object->oldcopy->array_options['options_date_endfreeperiod'] < $object->array_options['options_date_endfreeperiod'])
         			{
-        				if (count($object->linkedObjects['facturerec']) > 0)
+	        			// Check there is no recurring invoice. If yes, we refuse to increase value.
+    	    			$object->fetchObjectLinked();
+        				//var_dump($object->linkedObjects);
+        				if (is_array($object->linkedObjects['facturerec']))
         				{
-        					$this->errors[]="ATemplateInvoiceExistsNoWayToChangeTrial";
-        					return -1;
+        					if (count($object->linkedObjects['facturerec']) > 0)
+        					{
+	        					$this->errors[]="ATemplateInvoiceExistsNoWayToChangeTrial";
+    	    					return -1;
+        					}
         				}
         			}
 
@@ -246,7 +249,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 	        				$line->date_end = $object->array_options['options_date_endfreeperiod'];
 	        				$line->date_fin_validite = $object->array_options['options_date_endfreeperiod'];
 	        				$line->update($user);
-	        				break;	// No need to loop on all, there is also trigger that update all other when we update one
+	        				break;	// No need to loop on all, there is also a trigger that update all other when we update one
 	        			}
 	        		}
         		}

@@ -199,7 +199,7 @@ class SellYourSaasUtils
 
     /**
      * Action executed by scheduler for job SellYourSaasAlertSoftEndTrial
-     * Search contracts of sellyoursaas customers that are about to expired (date = end date - SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_SOFT_ALERT) and send email remind
+     * Search contracts of sellyoursaas customers that are deployed + with open lines + about to expired (= date between (end date - SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_SOFT_ALERT) and (end date - SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_SOFT_ALERT + 7)) + not yet already warned (date_softalert_endfreeperiod is null), then send email remind
      * CAN BE A CRON TASK
      *
      * @return	int			0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
@@ -246,7 +246,7 @@ class SellYourSaasUtils
     	$sql.= " AND ce.date_softalert_endfreeperiod IS NULL";
     	$sql.= " AND cd.date_fin_validite <= '".$this->db->idate($date_limit_expiration)."'";
     	$sql.= " AND cd.date_fin_validite >= '".$this->db->idate($date_limit_expiration - 7 * 24 * 3600)."'";	// Protection: We dont' go higher than 5 days late to avoid to resend to much warning when update of date_softalert_endfreeperiod fails
-    	$sql.= " AND cd.statut = 4";
+    	$sql.= " AND cd.statut = 4";	// 4 = ContratLigne::STATUS_OPEN
     	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
     	//print $sql;
 
