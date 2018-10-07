@@ -138,6 +138,8 @@ if (empty($mode) || $mode=='thirdparty')
 	$search_tag_customer=GETPOST('search_tag_customer');
 	$search_tag_supplier=GETPOST('search_tag_supplier');
 	$search_departement = GETPOST("state_id","int");
+	$search_customer = GETPOST('search_customer','alpha');
+	$search_supplier = GETPOST('search_supplier','alpha');
 
 	$title=$langs->trans("MapOfThirdparties");
 	$picto='company';
@@ -156,8 +158,17 @@ if (empty($mode) || $mode=='thirdparty')
 	if ($search_sale > 0)          $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$search_sale;
 	if ($search_departement != '' && $search_departement > 0) $sql.= " AND s.fk_departement = dp.rowid AND dp.rowid = ".$db->escape($search_departement);
 	if ($socid) $sql.= " AND s.rowid = ".$socid;	// protect for external user
-	if ($search_tag_customer > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_societe as cs WHERE fk_categorie = ".$search_tag_customer.")";
-	if ($search_tag_supplier > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_fournisseur as cs WHERE fk_categorie = ".$search_tag_supplier.")";
+	if ($search_tag_customer > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_societe as cs WHERE fk_categorie = ".$db->escape($search_tag_customer).")";
+	if ($search_tag_supplier > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_fournisseur as cs WHERE fk_categorie = ".$db->escape($search_tag_supplier).")";
+	if ($search_customer != '' && $search_customer != '-1')
+	{
+		$filterclient = '1,2,3';
+		if ($search_customer == 2) $filterclient= '2,3';
+		if ($search_customer == 1) $filterclient= '1,3';
+		$sql.= " AND s.client IN (".$filterclient.")";
+	}
+	if ($search_supplier != '' && $search_supplier != '-1')               $sql.= " AND s.fournisseur IN (".$db->escape($search_supplier).")";
+
 	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
 	//print $search_sale.'-'.$sql;
 }
@@ -232,6 +243,23 @@ if ($user->rights->societe->client->voir && empty($socid))
     {
     	$langs->load("commercial");
     	print '<form name="formsearch" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+
+    	print fieldLabel('ProspectCustomer','customerprospect'). ' : ';
+
+    	$selected=$search_customer;
+    	print '<select class="flat" name="search_customer" id="customerprospect">';
+    	print '<option value="-1">&nbsp;</option>';
+    	if (empty($conf->global->SOCIETE_DISABLE_PROSPECTS)) print '<option value="2"'.($selected==2?' selected':'').'>'.$langs->trans('Prospect').'</option>';
+    	if (empty($conf->global->SOCIETE_DISABLE_CUSTOMERS)) print '<option value="1"'.($selected==1?' selected':'').'>'.$langs->trans('Customer').'</option>';
+    	print '</select></td>';
+
+    	if (! empty($conf->fournisseur->enabled) && ! empty($user->rights->fournisseur->lire))
+    	{
+    		print ' &nbsp; &nbsp; &nbsp; '.fieldLabel('Supplier','fournisseur').' : ';
+    		print $form->selectyesno("search_supplier", ($search_supplier!='' ? $search_supplier : ''), 1, false, 1);
+    	}
+
+    	print '<br>';
 
     	print $langs->trans('ThirdPartiesOfSaleRepresentative'). ': ';
     	print $formother->select_salesrepresentatives($search_sale,'search_sale',$user, 0, 1, 'maxwidth300');

@@ -1,6 +1,11 @@
 # ChangeLog GOOGLE MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a> 
 
 
+## 6.1.1 Not released
+
+- NEW Add filter on type of thirdparty (customer/prospect/supplier) on maps.
+
+
 ## 6.1
 
 - NEW Add 2 variables to hange TZ offset between Dolibarr and Google
@@ -14,6 +19,7 @@
   removed when pulling from Google to Dolibarr.
 - FIX option GOOGLE_ENABLE_GMAPS_TICON
 - FIX Remove error gContact:groupMembershipInfo during update of thirdparty or contact
+
 
 ## 6.0
 
