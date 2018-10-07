@@ -823,6 +823,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					$templateinvoice = reset($contract->linkedObjectsIds['facturerec']);
 					if ($templateinvoice > 0)			// There is already a template invoice, so we discard this contract to avoid to create template twice
 					{
+						dol_syslog("--- There is already a recurring invoice on this contract.", LOG_DEBUG, 0);
 						continue;
 					}
 				}
@@ -1091,7 +1092,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 						if (empty($user->rights->facture->invoice_advance)) $user->rights->facture->invoice_advance=new stdClass();
 						$user->rights->facture->invoice_advance->validate = 1;
 
-						$result = $facturerec->createRecurringInvoices($invoicerecid, 1);
+						$result = $facturerec->createRecurringInvoices($invoicerecid, 1);		// Generate real invoice from pending recurring invoices
 						if ($result != 0)
 						{
 							$error++;
