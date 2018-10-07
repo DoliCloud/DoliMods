@@ -256,7 +256,7 @@ if ($user->rights->societe->client->voir && empty($socid))
     	if (! empty($conf->fournisseur->enabled) && ! empty($user->rights->fournisseur->lire))
     	{
     		print ' &nbsp; &nbsp; &nbsp; '.fieldLabel('Supplier','fournisseur').' : ';
-    		print $form->selectyesno("search_supplier", ($search_supplier!='' ? $search_supplier : ''), 1, false, 1);
+    		print $form->selectyesno("search_supplier", $search_supplier, 1, false, 1);
     	}
 
     	print '<br>';
