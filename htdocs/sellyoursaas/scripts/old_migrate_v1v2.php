@@ -337,6 +337,7 @@ if ($result <= 0 || $newobject->statut == 0)
 
 	$date_start = $now;
 	$date_end = dol_time_plus_duree($date_start, $freeperioddays, 'd');
+	$date_endfreeperiod = $oldobject->date_endfreeperiod;
 
 	if (! $error)
 	{
@@ -355,7 +356,7 @@ if ($result <= 0 || $newobject->statut == 0)
 		$contract->array_options['options_deployment_date_start'] = $now;
 		$contract->array_options['options_deployment_init_email'] = $email;
 		$contract->array_options['options_deployment_init_adminpass'] = $password;
-		$contract->array_options['options_date_endfreeperiod'] = $date_end;
+		$contract->array_options['options_date_endfreeperiod'] = $date_endfreeperiod;
 		$contract->array_options['options_undeployment_date'] = '';
 		$contract->array_options['options_undeployment_ip'] = '';
 		$contract->array_options['options_hostname_os'] = $generatedunixhostname;
