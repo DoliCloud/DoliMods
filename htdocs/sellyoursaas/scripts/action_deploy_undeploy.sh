@@ -771,6 +771,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	Q1="GRANT CREATE,CREATE TEMPORARY TABLES,CREATE VIEW,DROP,DELETE,INSERT,SELECT,UPDATE,ALTER,INDEX,LOCK TABLES,REFERENCES,SHOW VIEW ON $dbname.* TO '$dbusername'@'localhost'; "
 	Q2="GRANT CREATE,CREATE TEMPORARY TABLES,CREATE VIEW,DROP,DELETE,INSERT,SELECT,UPDATE,ALTER,INDEX,LOCK TABLES,REFERENCES,SHOW VIEW ON $dbname.* TO '$dbusername'@'%'; "
 	Q3="UPDATE mysql.user SET Password=PASSWORD('$dbpassword') WHERE User='$dbusername'; "
+	#Q3="SET PASSWORD FOR '$dbusername' = PASSWORD('$dbpassword'); "
 	Q4="FLUSH PRIVILEGES; "
 	SQL="${Q1}${Q2}${Q3}${Q4}"
 	echo "$MYSQL -A -usellyoursaas -e \"$SQL\""
