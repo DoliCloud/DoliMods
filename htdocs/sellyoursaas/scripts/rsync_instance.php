@@ -115,6 +115,7 @@ else
 	include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 	$object = new Contrat($db);
 	$result=$object->fetch('', '', $instance);
+	$result=$object->fetch_thirdparty();
 }
 
 if ($result <= 0)
@@ -260,11 +261,19 @@ if ($mode != 'test')
 	$user->fetch('', 'ldestailleur');
 
 	$actioncomm=new ActionComm($db);
+	if (is_object($object->thirdparty)) $actioncomm->socid=$object->thirdparty->id;
 	$actioncomm->datep=dol_now('tzserver');
 	$actioncomm->percentage=100;
 	$actioncomm->label='Upgrade instance='.$instance.' dirroot='.$dirroot.' mode='.$mode;
 	$actioncomm->fk_element=$object->id;
-	$actioncomm->elementtype='dolicloudcustomers';
+	if ($v != 1)
+	{
+		$actioncomm->elementtype='contract';
+	}
+	else
+	{
+		$actioncomm->elementtype='dolicloudcustomers';
+	}
 	$actioncomm->type_code='AC_OTH_AUTO';
 	$actioncomm->userassigned[$user->id]=array('id'=>$user->id);
 	$actioncomm->userownerid=$user->id;
