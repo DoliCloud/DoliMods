@@ -535,6 +535,7 @@ function print_user_table($newdb)
 
 	// Nb of users
 	print '<tr class="liste_titre">';
+	print '<td>#</td>';
 	print '<td>'.$langs->trans("Login").'</td>';
 	print '<td>'.$langs->trans("Lastname").'</td>';
 	print '<td>'.$langs->trans("Firstname").'</td>';
@@ -587,6 +588,9 @@ function print_user_table($newdb)
 					$url='https://'.$object->instance.'.on.dolicloud.com?username='.$obj->login.'&amp;password='.$obj->pass;
 				}
 				print '<tr class="oddeven">';
+				print '<td>';
+				print ($i+1);
+				print '</td>';
 				print '<td>';
 				print $obj->login;
 				print ' <a target="_customerinstance" href="'.$url.'">'.img_object('', 'globe').'</a>';
