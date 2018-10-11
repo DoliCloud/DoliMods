@@ -343,9 +343,14 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		echo `date +%Y%m%d%H%M%S`" **** nslookup $fqn 127.0.0.1"
 		nslookup $fqn 127.0.0.1
 		if [[ "$?x" != "0x" ]]; then
-			echo Error after reloading DNS. nslookup of $fqn fails
-			echo "Failed to deployall instance $instancename.$domainname with: Error after reloading DNS. nslookup of $fqn fails" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILTO 
-			exit 1
+			echo Error after reloading DNS. nslookup of $fqn fails on first try. We wait a little bit to make another try.
+			sleep 3
+			nslookup $fqn 127.0.0.1
+			if [[ "$?x" != "0x" ]]; then
+				echo Error after reloading DNS. nslookup of $fqn fails on second try too.
+				echo "Failed to deployall instance $instancename.$domainname with: Error after reloading DNS. nslookup of $fqn fails of 2 tries." | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILTO 
+				exit 1
+			fi
 		fi 
 	fi
 fi
