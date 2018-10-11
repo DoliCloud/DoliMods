@@ -5152,7 +5152,7 @@ if ($mode == 'becomereseller')
 		if (preg_match('/high/', GETPOST('supportchannel','alpha'))) $email = preg_replace('/@/', '+premium@', $email);
 		$subject = (GETPOST('subject','none')?GETPOST('subject','none'):(preg_match('/fr/i', $langs->defaultlang)?$langs->trans("BecomeReseller"):$langsen->trans("BecomeReseller")).' - '.$email);
 
-		$commissiondefault = 20;
+		$commissiondefault = (empty($conf->global->SELLYOURSAAS_DEFAULT_COMMISSION) ? 25 : $conf->global->SELLYOURSAAS_DEFAULT_COMMISSION);
 
 		print '<input type="hidden" name="to" value="'.$email.'">';
 		print $langs->trans("MailFrom").' : <input type="text" required name="from" value="'.(GETPOST('from','none')?GETPOST('from','none'):$mythirdpartyaccount->email).'"><br><br>';
