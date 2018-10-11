@@ -237,6 +237,10 @@ if [[ "$mode" == "undeployall" ]]; then
 	
 	echo rm -f /home/jail/home/$osusername/$dbname/*.log
 	rm -f /home/jail/home/$osusername/$dbname/*.log >/dev/null 2>&1 
+	echo rm -f /home/jail/home/$osusername/$dbname/*.log.*
+	rm -f /home/jail/home/$osusername/$dbname/*.log.* >/dev/null 2>&1 
+	
+	echo "undeployall $instancename.$domainname" >> $archivedir/$osusername/undeployall-$instancename.$domainname.txt
 	
 	echo deluser --remove-home --backup --backup-to $archivedir $osusername
 	if [[ $testorconfirm == "confirm" ]]

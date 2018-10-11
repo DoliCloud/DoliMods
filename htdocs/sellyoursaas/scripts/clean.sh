@@ -283,6 +283,10 @@ if [ -s /tmp/osutoclean ]; then
 			if [[ "x$osusername" != "xNULL" ]]; then
 				echo rm -f $targetdir/$osusername/$dbname/*.log
 				rm -f $targetdir/$osusername/$dbname/*.log >/dev/null 2>&1 
+				echo rm -f $targetdir/$osusername/$dbname/*.log.*
+				rm -f $targetdir/$osusername/$dbname/*.log.* >/dev/null 2>&1 
+				
+				echo "clean $instancename" >> $archivedir/$osusername/clean-$instancename.txt
 				
 				echo deluser --remove-home --backup --backup-to $archivedir $osusername
 				if [[ $testorconfirm == "confirm" ]]; then
