@@ -5159,6 +5159,7 @@ if ($mode == 'becomereseller')
 		print $langs->trans("MailTopic").' : <input type="text" required class="minwidth500" name="subject" value="'.$subject.'"><br><br>';
 
 		$texttouse = GETPOST('content','none');
+		// Text is in french or english (no other language for resellers)
 		if (! $texttouse) $texttouse = (preg_match('/fr/i', $langs->defaultlang)?$langs->trans("YourTextBecomeReseller", $conf->global->SELLYOURSAAS_NAME, $commissiondefault):$langsen->trans("YourTextBecomeReseller", $conf->global->SELLYOURSAAS_NAME, $commissiondefault));
 		$texttouse=preg_replace('/\\\\n/',"\n",$texttouse);
 		print '<textarea rows="6" required style="border: 1px solid #888" name="content" class="centpercent">';

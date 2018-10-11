@@ -326,7 +326,7 @@ SummaryOld=Resumen (DoliCloud old)
 BecomeReseller=Convertirse en revendedor
 SELLYOURSAAS_ALLOW_RESELLER_PROGRAM=Activar las funciones de "Revendedores"
 BecomeResellerDesc=Usted va a pedir convertirse en revendedor %s. Primero compruebe en el menú 'Mi cuenta' que ha rellenado toda la información. Luego, lea la siguiente página para asegurarse de que comprende lo que significa: <a href="%s" target="_blank">Convertirse en revendedor %s</a>
-YourTextBecomeReseller=Entendí el principio del programa de revendedor %s y me gustaría formar parte de él, por favor activenme las características de revendedor. \nTengo previsto encontrar ___ clientes nuevos al año. \nEntiendo que no tengo trabajo para proporcionar excepto para promocionar mi URL personalizada para registrar nuevos clientes. Mi tasa de comisión inicial será de %s %% (pero puede aumentar con la cantidad de clientes).
+YourTextBecomeReseller=My web site: ________________________ (the email will be discarded if this information is not provided)\n\nEntendí el principio del programa de revendedor %s y me gustaría formar parte de él, por favor activenme las características de revendedor. \nTengo previsto encontrar ___ clientes nuevos al año. \nEntiendo que no tengo trabajo para proporcionar excepto para promocionar mi URL personalizada para registrar nuevos clientes. Mi tasa de comisión inicial será de %s %% (pero puede aumentar con la cantidad de clientes).
 NbOfResellers=Nº de revendedores
 AvailableForResellers=Aplicación disponible para revendedores
 PaymentWillBeProcessedSoon=El pago debe hacerse pronto ...
