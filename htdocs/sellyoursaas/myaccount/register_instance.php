@@ -836,9 +836,16 @@ else
 }
 $errormessages[] = 'Our team was alerted. You will receive an email as soon as deployment is complete.';
 
-dol_syslog("Error in deployment", LOG_ERR);
-$email = new CMailFile('[Alert] Registration/deployment error - '.dol_print_date(dol_now(), 'dayrfc'), $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL, $conf->global->SELLYOURSAAS_NOREPLY_EMAIL, join("\n",$errormessages)."\n\nParameters of command used:\n".$commandurl, array(), array(), array(), '', '', 0, 0, '', '', '', '', 'emailing');
-$email->sendfile();
+
+// Send email to customer
+if (is_object($contract->thirdparty))
+{
+	dol_syslog("Error in deployment, send email to customer", LOG_ERR);
+
+	$to = $contract->thirdparty->email;
+	$email = new CMailFile('['.$conf->global->SELLYOURSAAS_NAME.'] Registration/deployment temporary error - '.dol_print_date(dol_now(), 'dayhourrfc'), $to, $conf->global->SELLYOURSAAS_NOREPLY_EMAIL, join("\n",$errormessages)."\n", array(), array(), array(), $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL, '', 0, 0, '', '', '', '', 'emailing');
+	$email->sendfile();
+}
 
 
 $conf->dol_hide_topmenu = 1;
