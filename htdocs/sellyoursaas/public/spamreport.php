@@ -44,7 +44,7 @@ $date = strftime("%Y-%m-%d %H:%M:%S" ,time());
 file_put_contents($tmpfile, "\n***** Spam report received ".$date."*****\n", FILE_APPEND);
 file_put_contents($tmpfile, var_export($_SERVER, true), FILE_APPEND);
 
-echo "Spam report received at ".$date;
+echo "Spam report received at ".$date."\n";
 
 $body = file_get_contents('php://input');
 file_put_contents($tmpfile, $body, FILE_APPEND);
