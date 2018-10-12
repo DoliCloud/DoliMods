@@ -751,6 +751,12 @@ class ActionsSellyoursaas
     		}
     	}
 
+    	// Same logo
+    	if ($conf->global->SELLYOURSAAS_LOGO_SMALL == $conf->global->SOCIETE_LOGO_SMALL)
+    	{
+    		return 0;
+    	}
+
     	// If this is a customer of SellYourSaas, we add logo of SellYourSaas
     	$outputlangs=$langs;
 
