@@ -59,8 +59,8 @@ file_put_contents($tmpfile, "Now be send an email to supervisor\n", FILE_APPEND)
 
 
 // Send email
-$headers = 'From: '.$conf->global->SELLYOURSAAS_NOREPLY_EMAIL."\r\n";
-$success=mail($conf->global->SELLYOURSAAS_SUPERVISION_EMAIL, 'Spam report received', 'Spam was reported by sendgrid'."\r\n", $headers);
+$headers = 'From: <'.$conf->global->SELLYOURSAAS_NOREPLY_EMAIL.">\r\n";
+$success=mail($conf->global->SELLYOURSAAS_SUPERVISION_EMAIL, '[Alert] Spam report received from SendGrid', 'Spam was reported by SendGrid:'."\r\n".$body, $headers);
 if (!$success) {
 	$errorMessage = error_get_last()['message'];
 	print $errorMessage;
