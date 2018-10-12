@@ -726,6 +726,90 @@ class ActionsSellyoursaas
     	return 0;
     }
 
+
+    /**
+     * Execute action
+     *
+     * @param	array	$parameters		Array of parameters
+     * @param   Object	$pdfhandler   	PDF builder handler
+     * @param   string	$action     	'add', 'update', 'view'
+     * @return  int 		        	<0 if KO,
+     *                          		=0 if OK but we want to process standard actions too,
+     *  	                            >0 if OK and we want to replace standard actions.
+     */
+    function afterPDFCreation($parameters,&$pdfhandler,&$action)
+    {
+    	global $conf,$langs;
+    	global $hookmanager;
+
+    	// If not a selyoursaas user, we leave
+    	if (is_object($parameters['object']->thirdparty))
+    	{
+    		if (empty($parameters['object']->thirdparty->array_options['options_dolicloud']) || $parameters['object']->thirdparty->array_options['options_dolicloud'] == 'no')
+    		{
+				return 0;
+    		}
+    	}
+
+    	// If this is a customer of SellYourSaas, we add logo of SellYourSaas
+    	$outputlangs=$langs;
+
+    	$this->marge_haute =isset($conf->global->MAIN_PDF_MARGIN_TOP)?$conf->global->MAIN_PDF_MARGIN_TOP:10;
+
+    	//var_dump($parameters['object']);
+
+    	$ret=0;
+    	dol_syslog(get_class($this).'::executeHooks action='.$action);
+
+    	if (! is_object($parameters['object']))
+    	{
+    		dol_syslog("Trigger afterPDFCreation was called but parameter 'object' was not set by caller.", LOG_WARNING);
+    		return 0;
+    	}
+
+    	$file = $parameters['file'];
+
+    	// Create empty PDF
+    	$pdf=pdf_getInstance();
+    	if (class_exists('TCPDF'))
+    	{
+    		$pdf->setPrintHeader(false);
+    		$pdf->setPrintFooter(false);
+    	}
+    	$pdf->SetFont(pdf_getPDFFont($outputlangs));
+
+    	if ($conf->global->MAIN_DISABLE_PDF_COMPRESSION) $pdf->SetCompression(false);
+    	//$pdf->SetCompression(false);
+
+    	$pagecounttmp = $pdf->setSourceFile($file);
+    	if ($pagecounttmp)
+    	{
+    		$tplidx = $pdf->ImportPage(1);
+    		$s = $pdf->getTemplatesize($tplidx);
+    		$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
+    		$pdf->useTemplate($tplidx);
+
+    		$logo = $dirforimage=$conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL;
+
+    		$height=pdf_getHeightForLogo($logo);
+    		$pdf->Image($logo, 80, $this->marge_haute, 0, 10);	// width=0 (auto)
+    	}
+    	else
+    	{
+    		dol_syslog("Error: Can't read PDF content with setSourceFile, for file ".$file, LOG_ERR);
+    	}
+
+    	if ($pagecounttmp)
+    	{
+    		$pdf->Output($file,'F');
+    		if (! empty($conf->global->MAIN_UMASK))
+    		{
+    			@chmod($file, octdec($conf->global->MAIN_UMASK));
+    		}
+    	}
+
+    	return $ret;
+    }
 }
 
 

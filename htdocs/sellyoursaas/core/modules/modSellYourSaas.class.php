@@ -79,7 +79,7 @@ class modSellYourSaas extends DolibarrModules
 									'css' => array(),
 									'hooks' => array('thirdpartycard','thirdpartycomm','thirdpartycontact','contactthirdparty','thirdpartyticket','thirdpartynote','thirdpartydocument',
 													'projectthirdparty','consumptionthirdparty','thirdpartybancard','thirdpartymargins','ticketlist','thirdpartynotification','agendathirdparty',
-													'thirdpartydao','formmail','searchform','thirdpartylist','customerlist','prospectlist','contractcard','contractlist','odtgeneration'));
+													'thirdpartydao','formmail','searchform','thirdpartylist','customerlist','prospectlist','contractcard','contractlist','pdfgeneration','odtgeneration'));
 
 		// Constants
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
