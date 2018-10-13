@@ -243,7 +243,7 @@ elseif (! empty($asknewpass) && $asknewpass == 1)
 
 <div class="center login_main_home divpasswordmessagedesc paddingtopbottom<?php echo empty($conf->global->MAIN_LOGIN_BACKGROUND)?'':' backgroundsemitransparent'; ?>" style="max-width: 70%">
 <?php if ($mode == 'dolibarr' || ! $disabled) { ?>
-	<span class="passwordmessagedesc">
+	<span class="passwordmessagedesc opacitymedium">
 	<?php
 	if (empty($asknewpass) && ! preg_match('/class="ok"/', $message)) {
 		echo $langs->trans('SendNewPasswordDesc');
