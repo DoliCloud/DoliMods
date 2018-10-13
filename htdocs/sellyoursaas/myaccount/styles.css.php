@@ -227,9 +227,6 @@ print "
 			border: 1px solid #caa;
 			padding: 10px;
 		}
-		.divpasswordmessagedesc {
-			text-align: justify;
-		}
 
 		/* Error message */
 		font.error {
