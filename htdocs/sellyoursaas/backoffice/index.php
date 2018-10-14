@@ -143,8 +143,8 @@ $totalcommissions=0;
 $totalresellers=0;
 $serverprice = empty($conf->global->SELLYOURSAAS_INFRA_COST)?'100':$conf->global->SELLYOURSAAS_INFRA_COST;
 
-$sql = 'SELECT COUNT(*) as nb FROM '.MAIN_DB_PREFIX.'societe as s, llx_categorie_fournisseur as c';
-$sql.= ' WHERE c.fk_soc = s.rowid AND statut = 0 AND c.fk_categorie = '.$conf->global->SELLYOURSAAS_DEFAULT_RESELLER_CATEG;
+$sql = 'SELECT COUNT(*) as nb FROM '.MAIN_DB_PREFIX.'societe as s, '.MAIN_DB_PREFIX.'categorie_fournisseur as c';
+$sql.= ' WHERE c.fk_soc = s.rowid AND s.status = 0 AND c.fk_categorie = '.$conf->global->SELLYOURSAAS_DEFAULT_RESELLER_CATEG;
 $resql = $db->query($sql);
 if ($resql)
 {
