@@ -351,7 +351,6 @@ if ($action == 'pushallevents')
 	{
 		setEventMessage($errors, 'errors');
 	}
-
 }
 
 // Import last 50 modified events
@@ -408,35 +407,13 @@ print '<input type="hidden" name="id" value="'.$id.'">';
 
 
 $title = $langs->trans("User");
-dol_fiche_head($head, 'gsetup', $title, 0, 'user');
+dol_fiche_head($head, 'gsetup', $title, -1, 'user');
 
-if (function_exists('dol_banner_tab')) // 3.9+
-{
-    dol_banner_tab($object,'id','',$user->rights->user->user->lire || $user->admin);
-}
-else
-{
-    print '<table class="border" width="100%">';
+dol_banner_tab($object,'id','',$user->rights->user->user->lire || $user->admin);
 
-    // Ref
-    print '<tr><td class="titlefield">'.$langs->trans("Ref").'</td>';
-    print '<td colspan="2">';
-    print $form->showrefnav($object,'id','',$user->rights->user->user->lire || $user->admin);
-    print '</td>';
-    print '</tr>';
+print '<div class="underbanner clearboth"></div>';
 
-    // Lastname
-    print '<tr><td>'.$langs->trans("LastName").'</td>';
-    print '<td colspan="2">'.$object->lastname.'</td>';
-    print "</tr>\n";
-
-    // Firstname
-    print '<tr><td>'.$langs->trans("FirstName").'</td>';
-    print '<td colspan="2">'.$object->firstname.'</td>';
-    print "</tr>\n";
-
-    print '</table><br>';
-}
+print '<br>';
 
 $userlogin = $conf->global->GOOGLE_LOGIN;
 
