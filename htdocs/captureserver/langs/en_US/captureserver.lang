@@ -1,0 +1,53 @@
+# Copyright (C) 2018 Alice Adminson <testldr9@dolicloud.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+#
+# Generic
+#
+
+# Module label 'ModuleCaptureServerName'
+ModuleCaptureServerName = CaptureServer
+# Module description 'ModuleCaptureServerDesc'
+ModuleCaptureServerDesc = CaptureServer description
+
+#
+# Admin page
+#
+CaptureServerSetup = CaptureServer setup
+Settings = Settings
+CaptureServerSetupPage = CaptureServer setup page
+CAPTURESERVER_MYPARAM1 = My param 1
+CAPTURESERVER_MYPARAM1Tooltip = My param 1 tooltip
+CAPTURESERVER_MYPARAM2=My param 2
+CAPTURESERVER_MYPARAM2Tooltip=My param 2 tooltip
+
+
+#
+# About page
+#
+About = About
+CaptureServerAbout = About CaptureServer
+CaptureServerAboutPage = CaptureServer about page
+
+#
+# Sample page
+#
+MyPageName = My page name
+
+#
+# Sample widget
+#
+MyWidget = My widget
+MyWidgetDescription = My widget description
