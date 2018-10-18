@@ -4,6 +4,7 @@
 ## 4.0.1 Unreleased
 
 * Support several OVH projects
+* Fix blank page with Dolidroid
 
 
 ## 4.0

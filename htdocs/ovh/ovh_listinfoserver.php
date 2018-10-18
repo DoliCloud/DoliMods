@@ -145,6 +145,8 @@ if ($action == 'createsnapshot' && $user->admin)
  * View
  */
 
+$form = new Form($db);
+
 $morejs = '';
 llxHeader('', $langs->trans('OvhServers'), '', '', '', '', $morejs, '', 0, 0);
 
