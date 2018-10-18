@@ -267,8 +267,8 @@ else
     		print '<div class="underbanner clearboth"></div>';
 
     		print '<table class="border centpercent">'."\n";
-        	print '<tr><td class="titlefield">'.$langs->trans("Id").'</td><td> ' . $server . '</td></tr>';
 
+    		print '<tr><td class="titlefield">'.$langs->trans("Id").'</td><td class="wrap wordbreak"> ' . $server . '</td></tr>';
     	    print '<tr><td>'.$langs->trans("Ref").'</td><td>' . $resultinfo->name . '</td></tr>';
             print '<tr><td>'.$langs->trans("Created").'</td><td>' . $resultinfo->created . '</td></tr>';
             print '<tr><td>'.$langs->trans("Region").'</td><td>' . $resultinfo->flavor->region . '</td></tr>';
@@ -280,7 +280,7 @@ else
             print '<tr><td>'.$langs->trans("Ram").'</td><td>' . $resultinfo->flavor->ram . '</td></tr>';
             print '<tr><td>'.$langs->trans("inboundBandwidth").'</td><td>' . $resultinfo->flavor->inboundBandwidth . '</td></tr>';
             print '<tr><td>'.$langs->trans("outboundBandwidth").'</td><td>' . $resultinfo->flavor->outboundBandwidth . '</td></tr>';
-            print '<tr><td>'.$langs->trans("SSHKey").'</td><td>' . dol_trunc($resultinfo->sshKey->publicKey, 80, 'middle') . '</td></tr>';
+            print '<tr><td>'.$langs->trans("SSHKey").'</td><td class="wrap wordbreak">' . dol_trunc($resultinfo->sshKey->publicKey, 80, 'middle') . '</td></tr>';
             print '<tr><td>'.$langs->trans("monthlyBilling").'</td><td>' . $resultinfo->monthlyBilling->status . ' ('.$resultinfo->monthlyBilling->since.')</td></tr>';
             print '<tr><td>'.$langs->trans("IPAddresses").'</td><td>';
    	        if (is_array($resultinfo->ipAddresses))
