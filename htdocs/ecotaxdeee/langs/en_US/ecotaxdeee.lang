@@ -22,3 +22,4 @@ EcoTaxAddedIfDescOld=An Eco tax WEEE line will be automaticaly calculated and ad
 AddPageWithWEEEUnitPrices=The module can also add automatically a page to generated PDF to show unit prices of Eco tax WEEE as an annex. In this case, just fill here lines/categories with unit prices you want to show.
 ECOTAXDEEE_PRODUCT_OR_LABEL_LINE=Product/Service to use as Eco Tax WEEE line
 OrLabelOfAFreeLine=or just a label to use 
+WEEE_DISABLE_VAT_ON_ECOTAX=Disable VAT on Eco Tax line (In most cases, the Eco Tax needs a VAT like any other service)

@@ -154,6 +154,16 @@ print '<input type="text" class="flat" name="ECOTAXDEEE_LABEL_LINE" value="'.$se
 print "</td>";
 print "</tr>";
 
+/*
+print '<tr class="oddeven">';
+print "<td>".$langs->trans("WEEE_DISABLE_VAT_ON_ECOTAX")."</td>";
+print "<td>";
+$selectedvalue=$conf->global->WEEE_DISABLE_VAT_ON_ECOTAX;
+print $form->selectyesno("WEEE_DISABLE_VAT_ON_ECOTAX",$selectedvalue,1);
+print "</td>";
+print "</tr>";
+*/
+
 // ECOTAXDEEE_DOC_FOOTER
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_DOC_FOOTER")." (Dolibarr 3.6+)</td>";

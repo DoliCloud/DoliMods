@@ -260,7 +260,7 @@ class InterfaceEcotaxdeee
         $nboflineswithpossibleecotax=0;
 		foreach($lines as $key => $line)
 		{
-			$ecocateg='NOCATEG';
+			$ecocateg='NOCATEG';	// TODO For a future feature
 
 			if ($line->special_code == 2)				// This line is an already existing service line ecotax
 			{
@@ -370,19 +370,19 @@ class InterfaceEcotaxdeee
 			}
 			else	// If ecotax line does not yet exists for ecocateg and we need it
 			{
+				$product_id = 0;
+				if (! empty($conf->global->WEEE_PRODUCT_ID)) $product_id = $conf->global->WEEE_PRODUCT_ID;
+
 				// Insert line
 				$rang = count($lines) + 1;
 				$special_code = 2;
 				$txtva = 0;
 				if (empty($conf->global->WEEE_DISABLE_VAT_ON_ECOTAX))	// This option should not be set.
 				{
-					$txtva=get_default_tva($seller, $buyer, 0, 0);	// Get default VAT for generic product id=0 (highest vat rate)
+					$txtva=get_default_tva($seller, $buyer, $product_id, 0);	// Get default VAT Eco Tax product (if defined) or for generic product id=0 (highest vat rate) if no predefined product set for Eco Tax line
 				}
 
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-
-				$product_id = 0;
-				if (! empty($conf->global->WEEE_PRODUCT_ID)) $product_id = $conf->global->WEEE_PRODUCT_ID;
 
 				// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $date_start='', $date_end='', $ventil=0, $info_bits=0, $fk_remise_except='', $price_base_type='HT', $pu_ttc=0, $type=0, $rang=-1, $special_code=0, $origin='', $origin_id=0, $fk_parent_line=0, $fk_fournprice=null, $pa_ht=0, $label='',$array_options=0)
 				if ($parentobject->table_element == 'facture')  $result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, 0, 0, $product_id, 0, '', '', 0, 0, '', 'HT', 0, 1, $rang, $special_code, '', 0, 0, null, 0, '', 0);
