@@ -794,7 +794,9 @@ if (! $error)
 		$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
 		$to = $contract->thirdparty->email;
 
-		$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
+		$trackid = 'thi'.$_SESSION['dol_loginsellyoursaas'];
+
+		$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1, '', '', $trackid);
 		$result = $cmail->sendfile();
 		if (! $result)
 		{
