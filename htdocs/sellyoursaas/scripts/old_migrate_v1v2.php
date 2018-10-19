@@ -857,20 +857,20 @@ if ($result <= 0 || $newobject->statut == 0)
 				if (! $error && $result < 0)
 				{
 					$error++;
-					setEventMessages($db->lasterror(), null, 'errors');
+					$errormessages[]=$db->lasterror();
 				}
 
 				$result=$oldinvoice->delete($user, 1);
 				if (! $error && $result < 0)
 				{
 					$error++;
-					setEventMessages($oldinvoice->error, $oldinvoice->errors, 'errors');
+					$errormessages[]=$oldinvoice->errors;
 				}
 			}
 			else
 			{
 				$error++;
-				setEventMessages($invoice_rec->error, $invoice_rec->errors, 'errors');
+				$errormessages[]=$invoice_rec->errors;
 			}
 		}
 	}
