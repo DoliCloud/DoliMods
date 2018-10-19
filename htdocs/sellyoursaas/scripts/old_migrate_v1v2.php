@@ -302,7 +302,7 @@ if ($result <= 0 || $newobject->statut == 0)
 	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
 	$tmpthirdparty->array_options['options_source']='MIGRATIONV1';
 	$tmpthirdparty->array_options['options_password'] = $password;
-	$tmpthirdparty->array_options['options_oldpassword'] = $oldobject->personpassword;
+	$tmpthirdparty->array_options['options_oldpassword'] = $oldobject->personpassword;	// Come from  person.password (search is possible in table with email)
 
 	if ($country_code)
 	{
