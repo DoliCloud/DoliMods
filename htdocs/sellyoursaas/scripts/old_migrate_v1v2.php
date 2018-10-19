@@ -147,6 +147,11 @@ else if ($oldobject->plan == 'Dolibarr ERP & CRM Premium (yearly)')
 	$productref='DOLICLOUD-PACK-DolibarrPrem';
 	$overwritefrequencyunit='y';
 }
+else if ($oldobject->plan == 'DoliPos Basic')
+{
+	$productref='DOLICLOUD-PACK-DoliPos';
+	$overwritefrequencyunit='y';
+}
 else
 {
 	print 'Unknown plan '.$oldobject->plan."\n";
