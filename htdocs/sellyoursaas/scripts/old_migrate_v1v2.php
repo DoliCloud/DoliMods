@@ -203,6 +203,7 @@ if ($result <= 0 || $newobject->statut == 0)
 		exit(-2);
 	}
 
+	$errormessages = array();
 	$idofinstancecreated = 0;
 	$createthirdandinstance = 1;
 	$reusecontractid = 0;
@@ -547,7 +548,7 @@ if ($result <= 0 || $newobject->statut == 0)
 		if ($result <= 0)
 		{
 			$error++;
-			$errormessages=$sellyoursaasutils->errors;
+			$errormessages[]=$sellyoursaasutils->errors;
 			if ($sellyoursaasutils->error) $errormessages[]=$sellyoursaasutils->error;
 		}
 	}
@@ -876,7 +877,7 @@ if ($result <= 0 || $newobject->statut == 0)
 
 	if ($error)
 	{
-		print join("\n", $errormessages);
+		print 'Error '.join("\n", $errormessages);
 		exit(-8);
 	}
 }
