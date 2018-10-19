@@ -167,7 +167,7 @@ $sql = "SELECT c.rowid, c.statut";
 $sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
 $sql.= "  WHERE c.entity IN (".getEntity('contract').")";
 $sql.= " AND c.statut > 0";
-$sql.= " AND c.ref_customer = '".$this->db->escape($newinstance)."'";
+$sql.= " AND c.ref_customer = '".$db->escape($newinstance)."'";
 //$sql.= " AND ce.deployement_status = 'deployed'";
 $resql = $db->query($sql);
 if (! $resql)
