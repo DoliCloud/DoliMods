@@ -203,6 +203,7 @@ if ($result <= 0 || $newobject->statut == 0)
 		exit(-2);
 	}
 
+	$idofinstancecreated = 0;
 	$createthirdandinstance = 1;
 	$reusecontractid = 0;
 	$reusesocid = 0;
@@ -420,8 +421,8 @@ if ($result <= 0 || $newobject->statut == 0)
 			$contract->array_options['options_cookieregister_previous_instance'] = dol_decode($_COOKIE[$cookieregistrationb]);
 		}
 
-		$result = $contract->create($user);
-		if ($result <= 0)
+		$idofinstancecreated = $contract->create($user);
+		if ($idofinstancecreated <= 0)
 		{
 			$db->rollback();
 			dol_print_error_email('CREATECONTRACT', $contract->error, $contract->errors, 'alert alert-error');
@@ -519,7 +520,7 @@ if ($result <= 0 || $newobject->statut == 0)
 	dol_syslog("Reload all lines after creation (".$j." lines in contract) to have contract->lines ok");
 	$contract->fetch_lines();
 
-	$result=$newobject->fetch('', '', $newinstance);
+	$result=$newobject->fetch($idofinstancecreated);
 	if ($result <= 0)
 	{
 		$db->rollback();
