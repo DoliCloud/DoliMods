@@ -161,9 +161,35 @@ else
 
 $createthirdandinstance = 0;
 
+$idofinstancefound = 0;
+
+$sql = "SELECT c.rowid, c.statut";
+$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
+$sql.= "  WHERE c.entity IN (".getEntity('contract').")";
+$sql.= " AND c.statut > 0";
+$sql.= " AND c.ref_customer = '".$this->db->escape($newinstance)."'";
+//$sql.= " AND ce.deployement_status = 'deployed'";
+$resql = $db->query($sql);
+if (! $resql)
+{
+	dol_print_error($resql);
+	exit(-2);
+}
+$num_rows = $db->num_rows($resql);
+if ($num_rows > 1)
+{
+	print 'Error: several instance with this name found'."\n";
+	exit(-2);
+}
+else
+{
+	$obj = $db->fetch_object($resql);
+	if ($obj) $idofinstancefound = $obj->rowid;
+}
+
 include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 $newobject = new Contrat($db);
-$result=$newobject->fetch('', '', $newinstance);
+$result=$newobject->fetch($idofinstancefound);
 if ($result <= 0 || $newobject->statut == 0)
 {
 	print "Error: newinstance ".$newinstance." with status <> 0 not found. Do you want to create new instance (and thirdparty if required)";
