@@ -373,6 +373,14 @@ if ($result <= 0 || $newobject->statut == 0)
 		exit(-1);
 	}
 
+	// Date new payment for recurring invoice
+	$date_next_execution = 0;
+	if (! empty($oldobject->date_current_period_end)) 
+	{
+		$date_next_execution = $oldobject->date_current_period_end;
+		if ($date_next_execution < (dol_now() + 3600 * 24 * 7)) $date_next_execution = dol_time_plus_duree($date_next_execution, 1, 'm');
+	}
+	
 	$date_start = $now;
 	$date_end = dol_time_plus_duree($date_start, $freeperioddays, 'd');
 	$date_endfreeperiod = $oldobject->date_endfreeperiod;
@@ -705,89 +713,84 @@ if ($result <= 0 || $newobject->statut == 0)
 
 				// Date start
 				$date_start = false;
-				if ($lines[$i]->date_debut_prevue)
-					$date_start = $lines[$i]->date_debut_prevue;
-					if ($lines[$i]->date_debut_reel)
-						$date_start = $lines[$i]->date_debut_reel;
-						if ($lines[$i]->date_start)
-							$date_start = $lines[$i]->date_start;
+				if ($lines[$i]->date_debut_prevue) $date_start = $lines[$i]->date_debut_prevue;
+				if ($lines[$i]->date_debut_reel) $date_start = $lines[$i]->date_debut_reel;
+				if ($lines[$i]->date_start) $date_start = $lines[$i]->date_start;
 
-							// Date end
-							$date_end = false;
-							if ($lines[$i]->date_fin_prevue)
-								$date_end = $lines[$i]->date_fin_prevue;
-								if ($lines[$i]->date_fin_reel)
-									$date_end = $lines[$i]->date_fin_reel;
-									if ($lines[$i]->date_end)
-										$date_end = $lines[$i]->date_end;
+				// Date end
+				$date_end = false;
+				if ($lines[$i]->date_fin_prevue) $date_end = $lines[$i]->date_fin_prevue;
+				if ($lines[$i]->date_fin_reel) $date_end = $lines[$i]->date_fin_reel;
+				if ($lines[$i]->date_end) $date_end = $lines[$i]->date_end;
 
-										// If date start is in past, we set it to now
-										$now = dol_now();
-										if ($date_start < $now)
-										{
-											dol_syslog("--- Date start is in past, so we take current date as date start and update also end date of contract", LOG_DEBUG, 0);
-											$tmparray = sellyoursaasGetExpirationDate($srcobject);
-											$duration_value = $tmparray['duration_value'];
-											$duration_unit = $tmparray['duration_unit'];
+				// If date start is in past, we set it to now
+				$now = dol_now();
+				if ($date_start < $now)
+				{
+					dol_syslog("--- Date start is in past, so we take current date as date start and update also end date of contract", LOG_DEBUG, 0);
+					$tmparray = sellyoursaasGetExpirationDate($srcobject);
+					$duration_value = $tmparray['duration_value'];
+					$duration_unit = $tmparray['duration_unit'];
 
-											$date_start = $now;
-											$date_end = dol_time_plus_duree($now, $duration_value, $duration_unit) - 1;
+					$date_start = $now;
+					$date_end = dol_time_plus_duree($now, $duration_value, $duration_unit) - 1;
+					if (! empty($date_next_execution)) $date_end = $date_next_execution;
 
-											// BecauseWe update the end date planned of contract too
-											$sqltoupdateenddate = 'UPDATE '.MAIN_DB_PREFIX."contratdet SET date_fin_validite = '".$db->idate($date_end)."' WHERE fk_contrat = ".$srcobject->id;
-											$resqltoupdateenddate = $db->query($sqltoupdateenddate);
-										}
+					// BecauseWe update the end date planned of contract too
+					$sqltoupdateenddate = 'UPDATE '.MAIN_DB_PREFIX."contratdet SET date_fin_validite = '".$db->idate($date_end)."' WHERE fk_contrat = ".$srcobject->id;
+					$resqltoupdateenddate = $db->query($sqltoupdateenddate);
+				}
 
-										// Reset fk_parent_line for no child products and special product
-										if (($lines[$i]->product_type != 9 && empty($lines[$i]->fk_parent_line)) || $lines[$i]->product_type == 9) {
-											$fk_parent_line = 0;
-										}
+				// Reset fk_parent_line for no child products and special product
+				if (($lines[$i]->product_type != 9 && empty($lines[$i]->fk_parent_line)) || $lines[$i]->product_type == 9) {
+					$fk_parent_line = 0;
+				}
 
-										// Discount
-										$discount = $lines[$i]->remise_percent;
+				// Discount
+				$discount = $lines[$i]->remise_percent;
 
-										// Extrafields
-										if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED) && method_exists($lines[$i], 'fetch_optionals')) {
-											$lines[$i]->fetch_optionals($lines[$i]->rowid);
-											$array_options = $lines[$i]->array_options;
-										}
+				// Extrafields
+				if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED) && method_exists($lines[$i], 'fetch_optionals')) {
+					$lines[$i]->fetch_optionals($lines[$i]->rowid);
+					$array_options = $lines[$i]->array_options;
+				}
 
-										$tva_tx = $lines[$i]->tva_tx;
-										if (! empty($lines[$i]->vat_src_code) && ! preg_match('/\(/', $tva_tx)) $tva_tx .= ' ('.$lines[$i]->vat_src_code.')';
+				$tva_tx = $lines[$i]->tva_tx;
+				if (! empty($lines[$i]->vat_src_code) && ! preg_match('/\(/', $tva_tx)) $tva_tx .= ' ('.$lines[$i]->vat_src_code.')';
 
-										// View third's localtaxes for NOW and do not use value from origin.
-										$localtax1_tx = get_localtax($tva_tx, 1, $invoice_draft->thirdparty);
-										$localtax2_tx = get_localtax($tva_tx, 2, $invoice_draft->thirdparty);
+				// View third's localtaxes for NOW and do not use value from origin.
+				$localtax1_tx = get_localtax($tva_tx, 1, $invoice_draft->thirdparty);
+				$localtax2_tx = get_localtax($tva_tx, 2, $invoice_draft->thirdparty);
 
-										//$price_invoice_template_line = $lines[$i]->subprice * GETPOST('frequency_multiple','int');
-										$price_invoice_template_line = $lines[$i]->subprice;
+				//$price_invoice_template_line = $lines[$i]->subprice * GETPOST('frequency_multiple','int');
+				$price_invoice_template_line = $lines[$i]->subprice;
 
-										// For yearly subscription, increase price by factor 12.
-										if (! empty($overwritefrequencyunit) && $overwritefrequencyunit = 'y') $price_invoice_template_line = 12 * $price_invoice_template_line;
+				// For yearly subscription, increase price by factor 12.
+				if (! empty($overwritefrequencyunit) && $overwritefrequencyunit = 'y') $price_invoice_template_line = 12 * $price_invoice_template_line;
 
-										$result = $invoice_draft->addline($desc, $price_invoice_template_line, $lines[$i]->qty, $tva_tx, $localtax1_tx, $localtax2_tx, $lines[$i]->fk_product, $discount, $date_start, $date_end, 0, $lines[$i]->info_bits, $lines[$i]->fk_remise_except, 'HT', 0, $product_type, $lines[$i]->rang, $lines[$i]->special_code, $invoice_draft->origin, $lines[$i]->rowid, $fk_parent_line, $lines[$i]->fk_fournprice, $lines[$i]->pa_ht, $label, $array_options, $lines[$i]->situation_percent, $lines[$i]->fk_prev_id, $lines[$i]->fk_unit);
+				$result = $invoice_draft->addline($desc, $price_invoice_template_line, $lines[$i]->qty, $tva_tx, $localtax1_tx, $localtax2_tx, $lines[$i]->fk_product, $discount, $date_start, $date_end, 0, $lines[$i]->info_bits, $lines[$i]->fk_remise_except, 'HT', 0, $product_type, $lines[$i]->rang, $lines[$i]->special_code, $invoice_draft->origin, $lines[$i]->rowid, $fk_parent_line, $lines[$i]->fk_fournprice, $lines[$i]->pa_ht, $label, $array_options, $lines[$i]->situation_percent, $lines[$i]->fk_prev_id, $lines[$i]->fk_unit);
 
-										if ($result > 0) {
-											$lineid = $result;
-										} else {
-											$lineid = 0;
-											$error++;
-											break;
-										}
+				if ($result > 0) {
+					$lineid = $result;
+				} else {
+					$lineid = 0;
+					$error++;
+					break;
+				}
 
-										// Defined the new fk_parent_line
-										if ($result > 0 && $lines[$i]->product_type == 9) {
-											$fk_parent_line = $result;
-										}
+				// Defined the new fk_parent_line
+				if ($result > 0 && $lines[$i]->product_type == 9) {
+					$fk_parent_line = $result;
+				}
 
-										$tmpproduct->fetch($lines[$i]->fk_product);
+				$tmpproduct->fetch($lines[$i]->fk_product);
 
-										dol_syslog("--- Read frequency for product id=".$tmpproduct->id, LOG_DEBUG, 0);
-										if ($tmpproduct->array_options['options_app_or_option'] == 'app')
-										{
-											$frequency = $tmpproduct->duration_value;
-											$frequency_unit = $tmpproduct->duration_unit;
-										}
+				dol_syslog("--- Read frequency for product id=".$tmpproduct->id, LOG_DEBUG, 0);
+				if ($tmpproduct->array_options['options_app_or_option'] == 'app')
+				{
+					$frequency = $tmpproduct->duration_value;
+					$frequency_unit = $tmpproduct->duration_unit;
+				}
 			}
 		}
 
@@ -829,8 +832,7 @@ if ($result <= 0 || $newobject->statut == 0)
 
 			$invoice_rec->fk_project = 0;
 
-			$date_next_execution = dol_mktime($rehour, $remin, 0, $remonth, $reday, $reyear);
-			if (! empty($oldobject->date_current_period_end)) $date_next_execution = $oldobject->date_current_period_end;
+			if (empty($date_next_execution)) $date_next_execution = dol_mktime($rehour, $remin, 0, $remonth, $reday, $reyear);
 			$invoice_rec->date_when = $date_next_execution;
 
 			// Get first contract linked to invoice used to generate template
