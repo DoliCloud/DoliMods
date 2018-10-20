@@ -221,7 +221,7 @@ if ($result <= 0 || $newobject->statut == 0)
 	if (strlen($locale) == 2) $locale = $locale.'_'.strtoupper($locale);
 
 	// $oldobject->plan contains something like 'Dolibarr ERP & CRM Premium'
-	$partner = 0;
+	$partner = ($overwritefksoc ? $overwritefksoc : 0);
 
 	$tmpproduct = new Product($db);
 	$tmppackage = new Packages($db);
@@ -307,7 +307,6 @@ if ($result <= 0 || $newobject->statut == 0)
 	$tmpthirdparty->array_options['options_source']='MIGRATIONV1';
 	$tmpthirdparty->array_options['options_password'] = $password;
 	$tmpthirdparty->array_options['options_oldpassword'] = $oldobject->personpassword;	// Come from  person.password (search is possible in table with email)
-	if (! empty($overwritefksoc)) $tmpthirdparty->fk_soc = $overwritefksoc;
 
 	if ($country_code)
 	{
