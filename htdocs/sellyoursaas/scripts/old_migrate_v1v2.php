@@ -167,7 +167,7 @@ $sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat
 $sql.= "  WHERE c.entity IN (".getEntity('contract').")";
 $sql.= " AND c.statut > 0";
 $sql.= " AND c.ref_customer = '".$db->escape($newinstance)."'";
-$sql.= " AND ce.deployment_status = 'deployed'";
+$sql.= " AND ce.deployment_status = 'done'";
 $resql = $db->query($sql);
 if (! $resql)
 {

@@ -131,7 +131,7 @@ else
 	$sql.= "  WHERE c.entity IN (".getEntity('contract').")";
 	//$sql.= " AND c.statut > 0";
 	$sql.= " AND c.ref_customer = '".$db->escape($instance)."'";
-	$sql.= " AND ce.deployment_status = 'deployed'";
+	$sql.= " AND ce.deployment_status = 'done'";
 	$resql = $db->query($sql);
 	if (! $resql)
 	{
