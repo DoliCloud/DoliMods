@@ -151,6 +151,11 @@ else if ($oldobject->plan == 'DoliPos Basic')
 {
 	$productref='DOLICLOUD-PACK-DoliPos';
 }
+else if ($oldobject->plan == 'Dolibarr ERP & CRM 2Byte Basic')
+{
+	$productref='DOLICLOUD-PACK-Dolibarr';
+	$overwritefksoc=414;
+}
 else
 {
 	print 'Unknown plan '.$oldobject->plan."\n";
@@ -302,6 +307,7 @@ if ($result <= 0 || $newobject->statut == 0)
 	$tmpthirdparty->array_options['options_source']='MIGRATIONV1';
 	$tmpthirdparty->array_options['options_password'] = $password;
 	$tmpthirdparty->array_options['options_oldpassword'] = $oldobject->personpassword;	// Come from  person.password (search is possible in table with email)
+	if (! empty($overwritefksoc)) $tmpthirdparty->fk_soc = $overwritefksoc;
 
 	if ($country_code)
 	{
