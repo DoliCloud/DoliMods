@@ -118,9 +118,42 @@ if ($v == 1)
 }
 else
 {
+	/*include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+	$object = new Contrat($db);
+
+	$result=$object->fetch('', '', $instance);
+	*/
+
+	$idofinstancefound = 0;
+
+	$sql = "SELECT c.rowid, c.statut";
+	$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
+	$sql.= "  WHERE c.entity IN (".getEntity('contract').")";
+	//$sql.= " AND c.statut > 0";
+	$sql.= " AND c.ref_customer = '".$db->escape($instance)."'";
+	$sql.= " AND ce.deployment_status = 'deployed'";
+	$resql = $db->query($sql);
+	if (! $resql)
+	{
+		dol_print_error($resql);
+		exit(-2);
+	}
+	$num_rows = $db->num_rows($resql);
+	if ($num_rows > 1)
+	{
+		print 'Error: several instance '.$instance.' for v'.$v.' found'."\n";
+		exit(-2);
+	}
+	else
+	{
+		$obj = $db->fetch_object($resql);
+		if ($obj) $idofinstancefound = $obj->rowid;
+	}
+
 	include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 	$object = new Contrat($db);
-	$result=$object->fetch('', '', $instance);
+	$result=0;
+	if ($idofinstancefound) $result=$object->fetch($idofinstancefound);
 }
 
 if ($result <= 0)
