@@ -132,6 +132,7 @@ if ($idforfetch > 0)
 		exit;
 	}
 }
+
 if ($idforfetch <= 0 || empty($mythirdpartyaccount->status))
 {
 	$_SESSION=array();
@@ -285,7 +286,6 @@ if (! empty($conf->paypal->enabled))
 }
 
 $initialaction = $action;
-
 
 /*
  * Action
@@ -493,6 +493,8 @@ if ($action == 'updatemythirdpartylogin')
 	}
 
 	$db->begin();	// Start transaction
+
+	$mythirdpartyaccount->oldcopy = dol_clone($mythirdpartyaccount);
 
 	$mythirdpartyaccount->email = $email;
 	$mythirdpartyaccount->array_options['options_firstname'] = $firstname;
