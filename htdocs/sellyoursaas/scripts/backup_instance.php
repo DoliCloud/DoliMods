@@ -266,6 +266,8 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	$param[]="--exclude '*/temp/'";
 	$param[]="--exclude '*/documents/admin/backup/'";
 	$param[]="--exclude '*/_source/*'";
+	$param[]="--exclude '*.pdf_preview.png'";
+
 	if ($RSYNCDELETE)
 	{
 		$param[]="--backup --suffix=.old --delete --delete-excluded";
