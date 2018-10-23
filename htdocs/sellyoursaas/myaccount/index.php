@@ -2915,7 +2915,7 @@ if ($mode == 'instances')
 										}
 										elseif ($datenextinvoice)
 										{
-											print '<br>'.$langs->trans("NextInvoice").': <span class="bold">'.dol_print_date($datenextinvoice, 'day').'</span>';
+											print '<br><span class="opacitymedium">'.$langs->trans("NextInvoice").'</span> : <span class="bold">'.dol_print_date($datenextinvoice, 'day').'</span>';
 										}
 									}
 									print '</span>';
