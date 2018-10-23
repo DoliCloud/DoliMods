@@ -265,7 +265,7 @@ if ($mode != 'test')
 	$actioncomm->datep=dol_now('tzserver');
 	$actioncomm->percentage=100;
 	$actioncomm->label='Upgrade instance='.$instance.' dirroot='.$dirroot.' mode='.$mode;
-	$actioncomm->note_public='Upgrade instance='.$instance.' dirroot='.$dirroot.' mode='.$mode;
+	$actioncomm->note_private='Upgrade instance='.$instance.' dirroot='.$dirroot.' mode='.$mode;
 	$actioncomm->fk_element=$object->id;
 	if ($v != 1)
 	{
