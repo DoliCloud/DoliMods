@@ -90,7 +90,7 @@ else
 {
 	$v=2;
 	// Force $v according to hard coded values (keep v2 in default case)
-	if (! empty($instance) && ! preg_match('/(\.on|\.with)\.dolicloud\.com$/',$instance) && ! preg_match('/\.home\.lan$/',$instance))
+	if (! empty($instance) && ! preg_match('/(\.on\.|\.with\.)/',$instance) && ! preg_match('/\.home\.lan$/',$instance))
 	{
 		// TODO Manage several domains
 		$instance=$instance.".".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
