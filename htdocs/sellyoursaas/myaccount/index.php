@@ -2635,7 +2635,7 @@ if ($mode == 'instances')
 							// Calculate price on invoicing
 							$contract->fetchObjectLinked();
 
-							$foundtemplate=0;
+							$foundtemplate=0; $datenextinvoice='';
 							$pricetoshow = ''; $priceinvoicedht = 0;
 							$freqlabel = array('d'=>$langs->trans('Day'), 'm'=>$langs->trans('Month'), 'y'=>$langs->trans('Year'));
 							if (is_array($contract->linkedObjects['facturerec']))
@@ -2663,7 +2663,11 @@ if ($mode == 'instances')
 											$pricetoshow .= price($templateinvoice->total_ht, 1, $langs, 0, -1, -1, $conf->currency).' '.$langs->trans("HT");
 											$priceinvoicedht = $templateinvoice->total_ht;
 										}
-										if ($templateinvoice->suspended && $contract->array_options['options_deployment_status'] != 'deployed') $pricetoshow = $langs->trans("InvoicingSuspended"); // Replace price
+										if ($templateinvoice->suspended && $contract->array_options['options_deployment_status'] != 'done') $pricetoshow = $langs->trans("InvoicingSuspended"); // Replace price
+									}
+									if ((! $templateinvoice->suspended) && $contract->array_options['options_deployment_status'] == 'done')
+									{
+										$datenextinvoice = $templateinvoice->date_when;
 									}
 								}
 							}
@@ -2865,7 +2869,7 @@ if ($mode == 'instances')
 											if ($pricetoshow != '') print $langs->trans("FlatOrDiscountedPrice").' = ';
 										}
 										print '<span class="bold">'.$pricetoshow.'</span>';
-										if ($foundtemplate == 0)	// Same than ispaid
+										if ($foundtemplate == 0)	// foundtemplate is same than ispaid
 										{
 											if ($contract->array_options['options_date_endfreeperiod'] < $now) $color='orange';
 
@@ -2908,6 +2912,10 @@ if ($mode == 'instances')
 													}
 												}
 											}
+										}
+										elseif ($datenextinvoice)
+										{
+											print '<br>'.$langs->trans("NextInvoice").': <span class="bold">'.dol_print_date($datenextinvoice, 'day').'</span>';
 										}
 									}
 									print '</span>';
@@ -3410,7 +3418,7 @@ if ($mode == 'mycustomerinstances')
 							$pricetoshow .= price($templateinvoice->total_ht, 1, $langs, 0, -1, -1, $conf->currency).' '.$langs->trans("HT");
 							$priceinvoicedht = $templateinvoice->total_ht;
 						}
-						if ($templateinvoice->suspended && $contract->array_options['options_deployment_status'] != 'deployed') $pricetoshow = $langs->trans("InvoicingSuspended");	// Replace price
+						if ($templateinvoice->suspended && $contract->array_options['options_deployment_status'] != 'done') $pricetoshow = $langs->trans("InvoicingSuspended");	// Replace price
 					}
 				}
 			}
