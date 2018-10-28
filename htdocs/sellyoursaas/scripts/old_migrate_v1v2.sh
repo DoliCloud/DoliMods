@@ -72,11 +72,11 @@ done
 echo "----- Disable V1 by switching to manual collection"
 for instancename in `cat $scriptdir/filetomigrate.txt | grep -v '#'`
 do
-	sql="UPDATE dolicloud_saasplex set manual_collection = true where id IN SELECT customer_id FROM app_package WHERE name IN ("
+	sql="UPDATE customer set manual_collection = true where id IN (SELECT customer_id FROM app_instance WHERE name IN ("
 	if [[ "x$instancename" != "x" ]]; then
 		sql="$sql'$instancename'," 
 	fi
-	sql="$sql'bidon');"
+	sql="$sql'bidon'));"
 	echo $sql
 done
 
