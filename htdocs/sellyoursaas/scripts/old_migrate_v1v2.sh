@@ -66,11 +66,11 @@ do
 		echo "cat /etc/bind/${ZONE} | grep -v '^$instancename ' > /tmp/${ZONE}.$PID"
 		cat /etc/bind/${ZONE} | grep -v "^$instancename " > /tmp/${ZONE}.$PID
 
-		echo `date +%Y%m%d%H%M%S`" ***** Add $instancename A $REMOTEIP into tmp host file"
+		echo `date +%Y%m%d%H%M%S`" ***** Add $instancename A $REMOTEIP into tmp host file /tmp/${ZONE}.$PID"
 		echo $instancename A $REMOTEIP >> /tmp/${ZONE}.$PID  
 
 		echo `date +%Y%m%d%H%M%S`" **** Move new host file with mv -fu /tmp/${ZONE}.$PID /etc/bind/${ZONE}"
-		#mv -fu /tmp/${ZONE}.$PID /etc/bind/${ZONE}
+		mv -fu /tmp/${ZONE}.$PID /etc/bind/${ZONE}
 
 	fi
 done
