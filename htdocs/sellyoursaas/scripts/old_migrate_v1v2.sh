@@ -3,7 +3,6 @@
 export now=`date +%Y%m%d%H%M%S`
 
 echo
-echo
 echo "####################################### ${0} ${1}"
 echo "${0} ${@}"
 echo "# user id --------> $(id -u)"
@@ -20,16 +19,24 @@ echo "# realname dir ---> $(dirname $(realpath ${0}))"
 
 export PID=${$}
 export scriptdir=$(dirname $(realpath ${0}))
-
-
 export ZONE="on.dolicloud.com.hosts" 
 
-
-if [[ ! -f $scriptdir/filetomigrate.txt ]]; then
-	echo Failed to find file $scriptdir/filetomigrate.txt with list of instances to migrate.
+if [ "$(id -u)" != "0" ]; then
+	echo "This script must be run as root" 1>&2
 	exit 1
 fi
 
+if [ "x$1" == "x" ]; then
+	echo "You must select instances first with this and run then with option confirm:"
+	sql="SELECT name as '#name' from app_instance where status = 'DEPLOYED' AND access_enabled = true AND customer_id IN (select id from customer where manual_collection = false) ORDER BY deployed_date LIMIT 2" 
+	echo "echo \"$sql\" | mysql -Dsaasplex -udebian-sys-maint -pxxx > $scriptdir/filetomigrate.txt"
+	echo "where xxx can be found with:  sudo cat /etc/mysql/debian.cnf |grep password | sort -u | awk ' { print \$3; }'"
+	exit 1
+fi
+
+if [[ ! -f $scriptdir/filetomigrate.txt ]]; then
+	echo Error failed to find file $scriptdir/filetomigrate.txt with list of instances to migrate.
+fi
 
 # Make migration
 echo "----- Make migration"
@@ -77,7 +84,8 @@ do
 		sql="$sql'$instancename'," 
 	fi
 	sql="$sql'bidon'));"
-	echo $sql
+	echo "echo \"$sql\" | mysql -Dsaasplex -udebian-sys-maint -pxxx"
+	echo "where xxx can be found with:  sudo cat /etc/mysql/debian.cnf |grep password | sort -u | awk ' { print \$3; }'"
 done
 
 
