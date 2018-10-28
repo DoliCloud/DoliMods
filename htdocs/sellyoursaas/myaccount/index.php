@@ -1771,7 +1771,7 @@ if ($mythirdpartyaccount->isareseller)
 	print '</a><br>';
 	if (is_array($arrayofplans) && count($arrayofplans) > 1)
 	{
-		print '<div class="opacitymedium">('.$langs->trans("whereXXXcanbe").' '.join(', ', $arrayofplanscode).')</div><br>';
+		print '<div class="opacitymedium">('.$langs->trans("whereXXXcanbe").' '.join(', ', $arrayofplanscode).')</div>';
 	}
 	$urformycustomerinstances = '<strong>'.$langs->transnoentitiesnoconv("MyCustomersBilling").'</strong>';
 	print $langs->trans("YourCommissionsAppearsInMenu", $mythirdpartyaccount->array_options['options_commission'], $urformycustomerinstances);
