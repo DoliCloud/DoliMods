@@ -82,7 +82,7 @@ for instancename in `cat $scriptdir/filetomigrate.txt | grep -v '#'`
 do
 	sql="UPDATE customer set manual_collection = true where id IN (SELECT customer_id FROM app_instance WHERE name IN ("
 	if [[ "x$instancename" != "x" ]]; then
-		sql="$sql'$instancename'," 
+		sql="$sql'$instancename.on.dolicloud.com'," 
 	fi
 	sql="$sql'bidon'));"
 	echo "echo \"$sql\" | mysql -Dsaasplex -udebian-sys-maint -pxxx"
