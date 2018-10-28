@@ -257,7 +257,8 @@ print $langs->trans("BenefitDoliCloud");
 print '<br>(';
 print price($total,1).' - '.($part ? ($part*100).'% - ' : '').price($serverprice).'€ - '.price($totalcommissions).'€ = '.price($total * (1 - $part)).'€ - '.price($serverprice).'€ - '.price($totalcommissions).'€';
 print ')</td><td align="right">';
-print '<font size="+2">'.price($benefit,1).' </font>';
+if (! empty($_SESSION['stats_totalusers'])) print '<font size="+2">'.price($benefit,1).' </font>';
+else print '<span class="opacitymedium">'.$langs->trans("ClickToRefresh").'</span>';
 print '</td></tr>';
 print '</table>';
 
