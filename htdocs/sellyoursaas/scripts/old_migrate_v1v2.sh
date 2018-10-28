@@ -20,6 +20,7 @@ echo "# realname dir ---> $(dirname $(realpath ${0}))"
 export PID=${$}
 export scriptdir=$(dirname $(realpath ${0}))
 export ZONE="on.dolicloud.com.hosts" 
+export REMOTEIP='79.137.96.15'
 
 if [ "$(id -u)" != "0" ]; then
 	echo "This script must be run as root" 1>&2
@@ -58,9 +59,9 @@ do
 	echo `date +%Y%m%d%H%M%S`" **** Archive file with cp /etc/bind/${ZONE} /etc/bind/archives/${ZONE}-$now"
 	cp /etc/bind/${ZONE} /etc/bind/archives/${ZONE}-$now
 
-	if [[ "x$instance" != "x" ]]; then
+	if [[ "x$instancename" != "x" ]]; then
 		
-		echo Remove and add DNS for $instance
+		echo Remove and add DNS for $instancename
 		
 		echo "cat /etc/bind/${ZONE} | grep -v '^$instancename ' > /tmp/${ZONE}.$PID"
 		cat /etc/bind/${ZONE} | grep -v "^$instancename " > /tmp/${ZONE}.$PID
