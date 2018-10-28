@@ -206,7 +206,7 @@ print $form->textwithpicto($langs->trans("NbOfInstancesActivePaying"), $langs->t
 print ' / '.$langs->trans("NbOfActiveInstances").' ';
 print '</td><td align="right">';
 if (! empty($_SESSION['stats_totalusers'])) print '<font size="+2">'.$totalinstancespaying.' / '.$totalinstances.'</font>';
-else print '<span class="opacitymedium">'.$langs->trans("ClickRefresh").'</span>';
+else print '<span class="opacitymedium">'.$langs->trans("ClickToRefresh").'</span>';
 print '<!-- List of instances : '."\n";
 if (is_array($rep['listofinstancespaying']))
 {
@@ -222,25 +222,25 @@ print $langs->trans("NbOfSuspendedInstances").' ';
 print ' + '.$langs->trans("NbOfExpiredInstances").' ';
 print '</td><td align="right">';
 if (! empty($_SESSION['stats_totalusers'])) print '<font size="+2">'.$totalinstancessuspended.' + '.$totalinstancesexpired.'</font>';
-else print '<span class="opacitymedium">'.$langs->trans("ClickRefresh").'</span>';
+else print '<span class="opacitymedium">'.$langs->trans("ClickToRefresh").'</span>';
 print '</td></tr>';
 print '<tr class="oddeven"><td>';
 print $langs->trans("NbOfUsers").' ';
 print '</td><td align="right" class="wordwrap wordbreak">';
 if (! empty($_SESSION['stats_totalusers'])) print '<font size="+2">'.$totalusers.'</font>';
-else print '<span class="opacitymedium">'.$langs->trans("ClickRefresh").'</span>';
+else print '<span class="opacitymedium">'.$langs->trans("ClickToRefresh").'</span>';
 print '</td></tr>';
 print '<tr class="oddeven"><td class="wordwrap wordbreak">';
 print $langs->trans("AverageRevenuePerInstance");
 print '</td><td align="right">';
 if (! empty($_SESSION['stats_totalusers'])) print '<font size="+2">'.($totalinstancespaying?price(price2num($total/$totalinstancespaying,'MT'),1):'0').' </font>';
-else print '<span class="opacitymedium">'.$langs->trans("ClickRefresh").'</span>';
+else print '<span class="opacitymedium">'.$langs->trans("ClickToRefresh").'</span>';
 print '</td></tr>';
 print '<tr class="oddeven"><td class="wordwrap wordbreak">';
 print $langs->trans("RevenuePerMonth").' ('.$langs->trans("HT").')';
 print '</td><td align="right">';
 if (! empty($_SESSION['stats_totalusers'])) print '<font size="+2">'.price($total,1).' </font>';
-else print '<span class="opacitymedium">'.$langs->trans("ClickRefresh").'</span>';
+else print '<span class="opacitymedium">'.$langs->trans("ClickToRefresh").'</span>';
 print '</td></tr>';
 print '<tr class="oddeven"><td class="wordwrap wordbreak">';
 print $langs->trans("CommissionPerMonth").' ('.$langs->trans("HT").')';
