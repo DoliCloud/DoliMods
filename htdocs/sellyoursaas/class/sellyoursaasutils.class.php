@@ -1211,10 +1211,13 @@ class SellYourSaasUtils
 		    							}
 		    						}
 		    						$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
-
+		    						
+		    						$trackid='inv'.$invoice->id;
+									$moreinheader='X-Dolibarr-Info: doTakeStripePaymentForThirdParty'."\r\n";
+		    						
 		    						// Send email (substitutionarray must be done just before this)
 		    						include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-		    						$mailfile = new CMailFile($subjecttosend, $invoice->thirdparty->email, $from, $texttosend, $listofpaths, $listofmimes, $listofnames, '', '', 0, -1);
+		    						$mailfile = new CMailFile($subjecttosend, $invoice->thirdparty->email, $from, $texttosend, $listofpaths, $listofmimes, $listofnames, '', '', 0, -1, '', '', $trackid, $moreinheader);
 		    						if ($mailfile->sendfile())
 		    						{
 		    							$result = 1;
