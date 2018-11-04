@@ -375,12 +375,12 @@ if ($result <= 0 || $newobject->statut == 0)
 
 	// Date new payment for recurring invoice
 	$date_next_execution = 0;
-	if (! empty($oldobject->date_current_period_end)) 
+	if (! empty($oldobject->date_current_period_end))
 	{
 		$date_next_execution = $oldobject->date_current_period_end;
 		if ($date_next_execution < (dol_now() + 3600 * 24 * 7)) $date_next_execution = dol_time_plus_duree($date_next_execution, 1, 'm');
 	}
-	
+
 	$date_start = $now;
 	$date_end = dol_time_plus_duree($date_start, $freeperioddays, 'd');
 	$date_endfreeperiod = $oldobject->date_endfreeperiod;
@@ -1128,7 +1128,7 @@ if ($mode == 'confirm')
 	print "Finished. DON'T FORGET TO\n";
 	print " - SET INVOICING ON OLD SYSTEM FOR ".$oldinstance." TO MANUAL COLLECTION\n";
 	print " - CHANGE TEMPLATE INVOICE PRICE IF SPECIFIC INVOICING\n";
-	print " - CHANGE DNS /etc/bind/on.dolicloud.com.hosts OF ".$newobject->ref_customer." TO ".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP." AND THEN rndc reload ".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES."\n";
+	print " - CHANGE DNS /etc/bind/on.dolicloud.com.hosts OF ".$newobject->ref_customer." TO ".$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP." AND THEN rndc reload on.dolicloud.com\n";
 }
 else
 {
