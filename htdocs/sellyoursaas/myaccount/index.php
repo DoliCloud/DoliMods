@@ -59,6 +59,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture-rec.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
@@ -4644,8 +4645,131 @@ if ($mode == 'mycustomerbilling')
 			<div class="portlet light">
 	          <div class="portlet-title">
 	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("MyCommissionsReceived").' ('.$conf->currency.')</div>
-	          </div>
-							'.$langs->trans("SoonAvailable").'
+	          </div>';
+
+
+			print '
+					<div class="div-table-responsive-no-min">
+						<table class="noborder centpercent tablecommission">
+						<tr class="liste_titre">
+
+			              <td style="min-width: 100px">
+			                '.$langs->trans("Date").'
+			              </td>
+			              <td>
+			                '.$langs->trans("Invoice").'
+			              </td>
+			              <td>
+			                '.$langs->trans("Amount").'
+			              </td>
+			              <td>
+			                '.$langs->trans("Status").'
+			              </td>
+
+						</tr>
+						';
+
+						$sql ='SELECT f.rowid, f.ref as ref, f.fk_soc, f.datef, total as total_ht, total_ttc, f.paye, f.fk_statut';
+						$sql.= ' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
+						//$sql.=' WHERE fe.reseller IN ('.join(',', $listofcustomeridreseller).')';
+						$sql.=' WHERE f.fk_soc = '.$mythirdpartyaccount->id;
+
+						//$sql.=$db->order($sortfield,$sortorder);
+
+						// Count total nb of records
+						$nbtotalofrecords = '';
+						$resql = $db->query($sql);
+						$nbtotalofrecords = $db->num_rows($resql);
+
+						// if total resultset is smaller then paging size (filtering), goto and load page 0
+						if (($page * $limit) > $nbtotalofrecords)
+						{
+							$page = 0;
+							$offset = 0;
+						}
+						// if total resultset is smaller than the limit, no need to do paging.
+						if (is_numeric($nbtotalofrecords) && $limit > $nbtotalofrecords)
+						{
+							$num = $nbtotalofrecords;
+						}
+						else
+						{
+							$sql.= $db->plimit($limit+1, $offset);
+
+							$resql=$db->query($sql);
+							if (! $resql)
+							{
+								dol_print_error($db);
+								exit;
+							}
+
+							$num = $db->num_rows($resql);
+						}
+
+						include_once DOL_DOCUMENT_ROOT.'/ecm/class/ecmfiles.class.php';
+
+						$tmpthirdparty = new Societe($db);
+						$tmpinvoice = new FactureFournisseur($db);
+						$ecmfile = new EcmFiles($db);
+
+
+						// Loop on record
+						// --------------------------------------------------------------------
+						$i=0;
+						while ($i < min($num, $limit))
+						{
+							$obj = $db->fetch_object($resql);
+							if (empty($obj)) break;		// Should not happen
+
+							$tmpthirdparty->fetch($obj->fk_soc);	// To get current default commission of this customer
+							$tmpinvoice->fetch($obj->rowid);
+
+							if ($tmpinvoice->statut == FactureFournisseur::STATUS_DRAFT) continue;
+
+							print '
+									<tr>
+					              <td>
+					                '.dol_print_date($obj->datef, 'dayrfc', $langs).'
+					              </td>
+					              <td>
+					                '.img_mime('pdf.pdf').' '.$obj->ref;
+							$publicurltodownload = $tmpinvoice->getLastMainDocLink($tmpinvoice->element, 0, 1);
+							// Define $urlwithroot
+							//$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+							//$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+							//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
+							/*var_dump($conf->global->SELLYOURSAAS_ACCOUNT_URL);
+							 var_dump(DOL_URL_ROOT);
+							 var_dump($publicurltodownload);*/
+							$urltouse=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/'.(DOL_URL_ROOT?DOL_URL_ROOT.'/':'').$publicurltodownload;
+							//print '<br><a href="'.$urltouse.'" target="_download">'.$langs->trans("Download").'</a>';
+
+							print '
+					              </td>
+					              <td>
+					                '.price(price2num($obj->total_ht), 1, $langs, 0, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency).'
+					              </td>
+					              <td>
+					                ';
+							//$s = $tmpinvoice->getLibStatut(2, $alreadypayed + $amount_credit_notes_included);
+							$s = $tmpinvoice->getLibStatut(2, -1);
+							//$s = preg_replace('/'.$langs->trans("BillShortStatusPaidBackOrConverted").'/', $langs->trans("Refunded"), $s);
+							print $s;
+							print '
+							    </tr>
+						        ';
+
+							$i++;
+						}
+
+						//print '<tr class="liste_title"><td colspan="6">'.$langs->trans("Total").'</td>';
+						//print '<td align="right"><strong>'.price($commoldystem + $totalamountcommission).'</strong></td>';
+						//print '</tr>';
+
+						print '</table></div>';
+
+
+			print '
 	        </div>
 		  </div>
 	    </div> <!-- END ROW -->
@@ -4703,7 +4827,6 @@ if ($mode == 'mycustomerbilling')
 			print '<td align="right">'.price($commoldystem).'</td>';
 			print '</tr>';
 		}
-
 
 		$sql ='SELECT f.rowid, f.facnumber as ref, f.fk_soc, f.datef, total as total_ht, total_ttc, f.paye, f.fk_statut, fe.commission';
 		$sql.= ' FROM '.MAIN_DB_PREFIX.'facture as f LEFT JOIN '.MAIN_DB_PREFIX.'facture_extrafields as fe ON fe.fk_object = f.rowid';
