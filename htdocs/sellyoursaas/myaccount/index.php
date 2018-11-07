@@ -4672,7 +4672,7 @@ if ($mode == 'mycustomerbilling')
 						</tr>
 						';
 
-						$sql ='SELECT f.rowid, f.ref as ref, f.fk_soc, f.datef, f.total as total_ht, f.total_ttc, f.paye, f.fk_statut';
+						$sql ='SELECT f.rowid, f.ref as ref, f.fk_soc, f.datef, f.total_ht, f.total_ttc, f.paye, f.fk_statut';
 						$sql.= ' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
 						//$sql.=' WHERE fe.reseller IN ('.join(',', $listofcustomeridreseller).')';
 						$sql.=' WHERE f.fk_soc = '.$mythirdpartyaccount->id;
