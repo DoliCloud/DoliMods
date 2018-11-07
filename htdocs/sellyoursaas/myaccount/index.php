@@ -4659,10 +4659,10 @@ if ($mode == 'mycustomerbilling')
 			              <td>
 			                '.$langs->trans("Invoice").'
 			              </td>
-			              <td>
+			              <td align="right">
 			                '.$langs->trans("AmountHT").'
 			              </td>
-			              <td>
+			              <td align="right">
 			                '.$langs->trans("AmountTTC").'
 			              </td>
 			              <td>
@@ -4751,10 +4751,10 @@ if ($mode == 'mycustomerbilling')
 
 							print '
 					              </td>
-					              <td>
+					              <td align="right">
 					                '.price(price2num($obj->total_ht), 1, $langs, 0, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency).'
 					              </td>
-					              <td>
+					              <td align="right">
 					                '.price(price2num($obj->total_ttc), 1, $langs, 0, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency).'
 					              </td>
 					              <td>
@@ -4806,7 +4806,7 @@ if ($mode == 'mycustomerbilling')
 	              <td>
 	                '.$langs->trans("Invoice").'
 	              </td>
-	              <td>
+	              <td align="right">
 	                '.$langs->trans("AmountHT").'
 	              </td>
 	              <td>
@@ -4932,7 +4932,7 @@ if ($mode == 'mycustomerbilling')
 
              print '
               </td>
-              <td>
+              <td align="right">
                 '.price(price2num($obj->total_ht), 1, $langs, 0, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency).'
               </td>
               <td>
