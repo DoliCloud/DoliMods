@@ -4764,7 +4764,7 @@ if ($mode == 'mycustomerbilling')
 
 			$currentcommissionpercent = $tmpthirdparty->array_options['options_commission'];
 			$commissionpercent = $obj->commission;
-			if ($obj->paye) $commission = price2num($obj->total * $commissionpercent / 100, 'MT');
+			if ($obj->paye) $commission = price2num($obj->total_ht * $commissionpercent / 100, 'MT');
 			else $commission = 0;
 
 			print '
@@ -4791,7 +4791,7 @@ if ($mode == 'mycustomerbilling')
              print '
               </td>
               <td>
-                '.price(price2num($obj->total), 1, $langs, 0, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency).'
+                '.price(price2num($obj->total_ht), 1, $langs, 0, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency).'
               </td>
               <td>
                 ';
