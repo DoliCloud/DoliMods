@@ -4640,7 +4640,7 @@ if ($mode == 'mycustomerbilling')
 
 	    <div class="row">
 	      <div class="col-md-12">
-
+			<!-- my commissions received -->
 			<div class="portlet light">
 	          <div class="portlet-title">
 	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("MyCommissionsReceived").' ('.$conf->currency.')</div>
@@ -4654,6 +4654,7 @@ if ($mode == 'mycustomerbilling')
 	    <div class="row">
 	      <div class="col-md-12">
 
+			<!-- my commissions earned -->
 	        <div class="portlet light">
 	          <div class="portlet-title">
 	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("MyCommissionsEarned").' ('.$conf->currency.')</div>
@@ -4722,7 +4723,7 @@ if ($mode == 'mycustomerbilling')
 			$page = 0;
 			$offset = 0;
 		}
-		// if total resultset is smaller the limit, no need to do paging.
+		// if total resultset is smaller than the limit, no need to do paging.
 		if (is_numeric($nbtotalofrecords) && $limit > $nbtotalofrecords)
 		{
 			$num = $nbtotalofrecords;
@@ -4763,7 +4764,7 @@ if ($mode == 'mycustomerbilling')
 
 			$currentcommissionpercent = $tmpthirdparty->array_options['options_commission'];
 			$commissionpercent = $obj->commission;
-			if ($obj->paye) $commission = price2num($obj->total_ttc * $commissionpercent / 100, 'MT');
+			if ($obj->paye) $commission = price2num($obj->total * $commissionpercent / 100, 'MT');
 			else $commission = 0;
 
 			print '
@@ -4790,7 +4791,7 @@ if ($mode == 'mycustomerbilling')
              print '
               </td>
               <td>
-                '.price(price2num($obj->total_ttc), 1, $langs, 0, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency).'
+                '.price(price2num($obj->total), 1, $langs, 0, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency).'
               </td>
               <td>
                 ';
