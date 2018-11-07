@@ -4660,7 +4660,10 @@ if ($mode == 'mycustomerbilling')
 			                '.$langs->trans("Invoice").'
 			              </td>
 			              <td>
-			                '.$langs->trans("Amount").'
+			                '.$langs->trans("AmountHT").'
+			              </td>
+			              <td>
+			                '.$langs->trans("AmountTTC").'
 			              </td>
 			              <td>
 			                '.$langs->trans("Status").'
@@ -4669,7 +4672,7 @@ if ($mode == 'mycustomerbilling')
 						</tr>
 						';
 
-						$sql ='SELECT f.rowid, f.ref as ref, f.fk_soc, f.datef, total as total_ht, total_ttc, f.paye, f.fk_statut';
+						$sql ='SELECT f.rowid, f.ref as ref, f.fk_soc, f.datef, f.total as total_ht, f.total_ttc, f.paye, f.fk_statut';
 						$sql.= ' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
 						//$sql.=' WHERE fe.reseller IN ('.join(',', $listofcustomeridreseller).')';
 						$sql.=' WHERE f.fk_soc = '.$mythirdpartyaccount->id;
@@ -4750,6 +4753,9 @@ if ($mode == 'mycustomerbilling')
 					                '.price(price2num($obj->total_ht), 1, $langs, 0, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency).'
 					              </td>
 					              <td>
+					                '.price(price2num($obj->total_ttc), 1, $langs, 0, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency).'
+					              </td>
+					              <td>
 					                ';
 							//$s = $tmpinvoice->getLibStatut(2, $alreadypayed + $amount_credit_notes_included);
 							$s = $tmpinvoice->getLibStatut(2, -1);
@@ -4762,7 +4768,7 @@ if ($mode == 'mycustomerbilling')
 							$i++;
 						}
 
-						//print '<tr class="liste_title"><td colspan="6">'.$langs->trans("Total").'</td>';
+						//print '<tr class="liste_title"><td colspan="7">'.$langs->trans("Total").'</td>';
 						//print '<td align="right"><strong>'.price($commoldystem + $totalamountcommission).'</strong></td>';
 						//print '</tr>';
 
