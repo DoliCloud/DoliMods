@@ -4816,7 +4816,7 @@ if ($mode == 'mycustomerbilling')
 	                '.$langs->trans("Commission").' (%)
 	              </td>
 	              <td align="right">
-	                '.$langs->trans("Commission").' ('.$langs->trans("AmountHT").')
+	                '.$langs->trans("Commission").'<br>('.$langs->trans("AmountHT").')
 	              </td>
 
 				</tr>
@@ -4825,8 +4825,7 @@ if ($mode == 'mycustomerbilling')
 		if ($totalpaidht)
 		{
 			print '<tr style="background-color: #f0f0F0;">';
-			print '<td>'.$langs->trans("AlreadyPaid").'</td>';
-			print '<td></td>';
+			print '<td colspan="2">'.$langs->trans("AlreadyPaid").'</td>';
 			print '<td></td>';
 			print '<td></td>';
 			print '<td></td>';
@@ -4839,8 +4838,7 @@ if ($mode == 'mycustomerbilling')
 		{
 			$commoldystem = price2num($reg[1]);
 			print '<tr style="background-color: #f0f0F0;">';
-			print '<td>'.$langs->trans("CommissionsOnOldSystem").'</td>';
-			print '<td></td>';
+			print '<td colspan="2">'.$langs->trans("CommissionsOnOldSystem").'</td>';
 			print '<td></td>';
 			print '<td></td>';
 			print '<td></td>';
