@@ -4807,7 +4807,7 @@ if ($mode == 'mycustomerbilling')
 	                '.$langs->trans("Invoice").'
 	              </td>
 	              <td>
-	                '.$langs->trans("Amount").'
+	                '.$langs->trans("AmountHT").'
 	              </td>
 	              <td>
 	                '.$langs->trans("Status").'
@@ -4816,7 +4816,7 @@ if ($mode == 'mycustomerbilling')
 	                '.$langs->trans("Commission").' (%)
 	              </td>
 	              <td align="right">
-	                '.$langs->trans("Commission").' ('.$langs->trans("Amount").')
+	                '.$langs->trans("Commission").' ('.$langs->trans("AmountHT").')
 	              </td>
 
 				</tr>
