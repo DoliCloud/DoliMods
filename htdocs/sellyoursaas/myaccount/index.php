@@ -4718,7 +4718,7 @@ if ($mode == 'mycustomerbilling')
 
 						// Loop on record
 						// --------------------------------------------------------------------
-						$i=0;
+						$i=0; $totalpaidht = 0;
 						while ($i < min($num, $limit))
 						{
 							$obj = $db->fetch_object($resql);
@@ -4746,6 +4746,8 @@ if ($mode == 'mycustomerbilling')
 							 var_dump($publicurltodownload);*/
 							$urltouse=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/'.(DOL_URL_ROOT?DOL_URL_ROOT.'/':'').$publicurltodownload;
 							//print '<br><a href="'.$urltouse.'" target="_download">'.$langs->trans("Download").'</a>';
+
+							$totalpaidht+=$obj->total_ht;
 
 							print '
 					              </td>
@@ -4819,6 +4821,19 @@ if ($mode == 'mycustomerbilling')
 
 				</tr>
 		';
+
+		if ($totalpaidht)
+		{
+			print '<tr>';
+			print '<td>'.$langs->trans("AlreadyPaid").'</td>';
+			print '<td></td>';
+			print '<td></td>';
+			print '<td></td>';
+			print '<td></td>';
+			print '<td></td>';
+			print '<td align="right">'.price($totalpaidht).'</td>';
+			print '</tr>';
+		}
 
 		if (preg_match('/Commissions old system = ([a-zA-Z0-9\.\,]+)/i', $mythirdpartyaccount->note_private, $reg))
 		{
@@ -4972,7 +4987,7 @@ if ($mode == 'mycustomerbilling')
 		}
 
 		print '<tr class="liste_title"><td colspan="6">'.$langs->trans("Total").'</td>';
-		print '<td align="right"><strong>'.price($commoldystem + $totalamountcommission).'</strong></td>';
+		print '<td align="right"><strong>'.price($totalpaidht + $commoldystem + $totalamountcommission).'</strong></td>';
 		print '</tr>';
 
 		print '</table>
