@@ -4770,7 +4770,7 @@ if ($mode == 'mycustomerbilling')
 							$i++;
 						}
 
-						//print '<tr class="liste_title"><td colspan="7">'.$langs->trans("Total").'</td>';
+						//print '<tr class="liste_titre"><td colspan="7">'.$langs->trans("Total").'</td>';
 						//print '<td align="right"><strong>'.price($commoldystem + $totalamountcommission).'</strong></td>';
 						//print '</tr>';
 
@@ -4986,7 +4986,7 @@ if ($mode == 'mycustomerbilling')
 			$totalamountcommission=$obj->total;
 		}
 
-		print '<tr class="liste_title"><td colspan="6">'.$langs->trans("Total").'</td>';
+		print '<tr class="liste_titre"><td colspan="6">'.$langs->trans("Total").'</td>';
 		print '<td align="right"><strong>'.price($totalpaidht + $commoldystem + $totalamountcommission).'</strong></td>';
 		print '</tr>';
 
