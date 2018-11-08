@@ -1990,9 +1990,12 @@ if (empty($welcomecid))
 
 		if ($isASuspendedContract)
 		{
-			if (empty($messageforinstance[$contract->ref_customer])		// If warning for expired trial alreay shown
+			if (empty($messageforinstance[$contract->ref_customer])		// If warning for 'expired trial' not already shown
 				&& $delaybeforeendoftrial <= 0)							// If trial has expired
 			{
+				$delaybeforeexpiration = ($expirationdate - $now);
+				$delayindays = round($delaybeforeexpiration / 3600 / 24);
+
 				print ' <!-- XDaysAfterEndOfPeriodInstanceSuspended -->
 						<div class="note note-warning">
 							<h4 class="block">'.$langs->trans("XDaysAfterEndOfPeriodInstanceSuspended", $contract->ref_customer, abs($delayindays));
