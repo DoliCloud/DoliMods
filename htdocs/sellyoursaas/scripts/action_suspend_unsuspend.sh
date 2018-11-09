@@ -238,6 +238,8 @@ if [[ "$mode" == "rename" ]]; then
 				  sed -e "s/__osGroupname__/$osusername/g" | \
 				  sed -e "s/SSLEngine on/SSLEngine $SSLON/ig" | \
 				  sed -e "s/SSLEngine off/SSLEngine $SSLON/ig" | \
+				  sed -e "s/RewriteEngine on/RewriteEngine $SSLON/ig" | \
+				  sed -e "s/RewriteEngine off/RewriteEngine $SSLON/ig" | \
 				  sed -e "s;__osUserPath__;/home/jail/home/$osusername/$dbname;g" | \
 				  sed -e "s;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g" | \
 				  sed -e "s;__webAppPath__;$instancedir;g" | sed -e "s/with\.sellyoursaas\.com/$CERTIFFORCUSTOMDOMAIN/g" > $apacheconf
