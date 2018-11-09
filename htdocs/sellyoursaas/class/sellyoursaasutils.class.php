@@ -2843,6 +2843,7 @@ class SellYourSaasUtils
 	    			if (! file_exists('/etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt'))
 	    			{
 	    				$CERTIFFORCUSTOMDOMAIN='on.dolicloud.com';
+	    				//$CERTIFFORCUSTOMDOMAIN='with.novafirstcloud.com';
 	    			}
     			}
 
