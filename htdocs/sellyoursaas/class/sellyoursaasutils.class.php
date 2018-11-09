@@ -2828,6 +2828,7 @@ class SellYourSaasUtils
     			$generateddbpassword  =$contract->array_options['options_password_db'];
     			$generateddbprefix    =($contract->array_options['options_prefix_db']?$contract->array_options['options_prefix_db']:'llx_');
     			$customurl            =$contract->array_options['options_custom_url'];
+    			$SSLON='On';
     			$CERTIFFORCUSTOMDOMAIN=$customurl;
     			if ($CERTIFFORCUSTOMDOMAIN)
     			{
@@ -2842,8 +2843,9 @@ class SellYourSaasUtils
 	    			}
 	    			if (! file_exists('/etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt'))
 	    			{
-	    				$CERTIFFORCUSTOMDOMAIN='on.dolicloud.com';
+	    				//$CERTIFFORCUSTOMDOMAIN='on.dolicloud.com';
 	    				//$CERTIFFORCUSTOMDOMAIN='with.novafirstcloud.com';
+	    				$SSLON='Off';
 	    			}
     			}
 
@@ -2950,6 +2952,7 @@ class SellYourSaasUtils
 				$commandurl.= '&'.$conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
 				$commandurl.= '&'.$CERTIFFORCUSTOMDOMAIN;
 				$commandurl.= '&'.$archivedir;
+				$commandurl.= '&'.$SSLON;
 
     			$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 

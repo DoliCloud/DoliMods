@@ -111,6 +111,8 @@ fi
 export contractlineid=${28}
 export EMAILFROM=${29}
 export CERTIFFORCUSTOMDOMAIN=${30}
+export archivedir=${31}
+export SSLON=${32}
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
@@ -135,6 +137,8 @@ echo "customurl = $customurl"
 echo "contractlineid = $contractlineid" 
 echo "EMAILFROM = $EMAILFROM"
 echo "CERTIFFORCUSTOMDOMAIN = $CERTIFFORCUSTOMDOMAIN"
+echo "archivedir = $archivedir"
+echo "SSLON = $SSLON"
 
 echo `date +%Y%m%d%H%M%S`" calculated params:"
 echo "instancedir = $instancedir"
@@ -232,6 +236,8 @@ if [[ "$mode" == "rename" ]]; then
 				  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
 				  sed -e "s/__osUsername__/$osusername/g" | \
 				  sed -e "s/__osGroupname__/$osusername/g" | \
+				  sed -e "s/SSLEngine on/SSLEngine $SSLON/ig" | \
+				  sed -e "s/SSLEngine off/SSLEngine $SSLON/ig" | \
 				  sed -e "s;__osUserPath__;/home/jail/home/$osusername/$dbname;g" | \
 				  sed -e "s;__webMyAccount__;$SELLYOURSAAS_ACCOUNT_URL;g" | \
 				  sed -e "s;__webAppPath__;$instancedir;g" | sed -e "s/with\.sellyoursaas\.com/$CERTIFFORCUSTOMDOMAIN/g" > $apacheconf
