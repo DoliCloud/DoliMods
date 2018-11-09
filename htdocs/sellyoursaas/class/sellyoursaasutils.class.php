@@ -1211,10 +1211,10 @@ class SellYourSaasUtils
 		    							}
 		    						}
 		    						$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
-		    						
+
 		    						$trackid='inv'.$invoice->id;
 									$moreinheader='X-Dolibarr-Info: doTakeStripePaymentForThirdParty'."\r\n";
-		    						
+
 		    						// Send email (substitutionarray must be done just before this)
 		    						include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 		    						$mailfile = new CMailFile($subjecttosend, $invoice->thirdparty->email, $from, $texttosend, $listofpaths, $listofmimes, $listofnames, '', '', 0, -1, '', '', $trackid, $moreinheader);
@@ -2829,7 +2829,22 @@ class SellYourSaasUtils
     			$generateddbprefix    =($contract->array_options['options_prefix_db']?$contract->array_options['options_prefix_db']:'llx_');
     			$customurl            =$contract->array_options['options_custom_url'];
     			$CERTIFFORCUSTOMDOMAIN=$customurl;
-    			if (preg_match('/on\.dolicloud\.com$/', $CERTIFFORCUSTOMDOMAIN)) $CERTIFFORCUSTOMDOMAIN='on.dolicloud.com';
+    			if ($CERTIFFORCUSTOMDOMAIN)
+    			{
+	    			if (preg_match('/on\.dolicloud\.com$/', $CERTIFFORCUSTOMDOMAIN))
+	    			{
+	    				$CERTIFFORCUSTOMDOMAIN='on.dolicloud.com';
+	    			}
+	    			// If SSL certificate does not exist, we try to save it
+	    			if (! file_exists('/etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt'))
+	    			{
+						// TODO Save SSL certificate in /etc/apache2
+	    			}
+	    			if (! file_exists('/etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt'))
+	    			{
+	    				$CERTIFFORCUSTOMDOMAIN='on.dolicloud.com';
+	    			}
+    			}
 
 				$savsalt = $conf->global->MAIN_SECURITY_SALT;
     			$savhashalgo = $conf->global->MAIN_SECURITY_HASH_ALGO;
