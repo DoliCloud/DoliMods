@@ -2843,8 +2843,11 @@ class SellYourSaasUtils
 	    			}
 	    			if (! file_exists('/etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt'))
 	    			{
-	    				//$CERTIFFORCUSTOMDOMAIN='on.dolicloud.com';
-	    				//$CERTIFFORCUSTOMDOMAIN='with.novafirstcloud.com';
+	    				$CERTIFFORCUSTOMDOMAIN='on.dolicloud.com';
+	    				if ($domainname == 'with.novafirstcloud.com')
+	    				{
+	    					$CERTIFFORCUSTOMDOMAIN='with.novafirstcloud.com';
+	    				}
 	    				$SSLON='Off';
 	    			}
     			}
