@@ -2836,19 +2836,23 @@ class SellYourSaasUtils
 	    			{
 	    				$CERTIFFORCUSTOMDOMAIN='on.dolicloud.com';
 	    			}
-	    			// If SSL certificate does not exist, we try to save it
-	    			if (! file_exists('/etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt'))
+	    			else
 	    			{
-						// TODO Save SSL certificate in /etc/apache2
-	    			}
-	    			if (! file_exists('/etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt'))
-	    			{
-	    				$CERTIFFORCUSTOMDOMAIN='on.dolicloud.com';
-	    				if ($domainname == 'with.novafirstcloud.com')
-	    				{
-	    					$CERTIFFORCUSTOMDOMAIN='with.novafirstcloud.com';
-	    				}
-	    				$SSLON='Off';
+		    			// If SSL certificate does not exist, we try to save it
+	    				// FIXME Detection of /etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt' fails due to basedir
+		    			if (! file_exists('/etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt'))
+		    			{
+							// TODO Save SSL certificate in /etc/apache2
+		    			}
+		    			if (! file_exists('/etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt'))
+		    			{
+		    				$CERTIFFORCUSTOMDOMAIN='on.dolicloud.com';
+		    				if ($domainname == 'with.novafirstcloud.com')
+		    				{
+		    					$CERTIFFORCUSTOMDOMAIN='with.novafirstcloud.com';
+		    				}
+		    				$SSLON='Off';
+		    			}
 	    			}
     			}
 
