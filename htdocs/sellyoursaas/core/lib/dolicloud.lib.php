@@ -128,7 +128,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
 	$links.='<br>';
 
 	// Home
-	$homestring=$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
+	$homestring=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
 	$links.='Home dir: ';
 	$links.='<input type="text" name="homestring" id="homestring" value="'.$homestring.'" size="110"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect('homestring');
