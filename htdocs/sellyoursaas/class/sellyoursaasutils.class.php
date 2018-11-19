@@ -1072,7 +1072,7 @@ class SellYourSaasUtils
 	    							}
 	    							$paiement->paiementid   = $paymentTypeId;
 	    							$paiement->num_paiement = '';
-	    							$paiement->note_public  = 'Online payment '.dol_print_date($now, 'standard').' using '.$paymentmethod.' from '.$ipaddress.' - Transaction ID = '.$TRANSACTIONID;
+	    							$paiement->note_public  = 'Online payment '.dol_print_date($now, 'standard').' using '.$paymentmethod.($ipaddress?' from ip '.$ipaddress:'').' - Transaction ID = '.$TRANSACTIONID;
 
 	    							if (! $error)
 	    							{
