@@ -75,7 +75,7 @@ class SellYourSaasUtils
 
 		$now = dol_now();
 
-		dol_syslog(__METHOD__." search and validate draft invoices", LOG_DEBUG);
+		dol_syslog(__METHOD__." search and validate draft invoices. langs->defaultlang=".$langs->defaultlang, LOG_DEBUG);
 
     	$error = 0;
     	$this->output = '';
