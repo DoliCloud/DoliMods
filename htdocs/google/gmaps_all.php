@@ -188,6 +188,8 @@ else if ($mode=='contact')
 }
 else if ($mode=='member')
 {
+	$search_tag_member=GETPOST('search_tag_member');
+
 	$title=$langs->trans("MapOfMembers");
 	$picto='user';
 	$type='member';
@@ -199,6 +201,7 @@ else if ($mode=='member')
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.statut = 1";
 	$sql.= " AND s.entity IN (".getEntity('adherent', 1).")";
+	if ($search_tag_member > 0)           $sql.= " AND s.rowid IN (SELECT fk_member FROM ".MAIN_DB_PREFIX."categorie_member as cs WHERE fk_categorie = ".$db->escape($search_tag_member).")";
 	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
 }
 else if ($mode=='patient')
@@ -239,48 +242,59 @@ dol_fiche_head(array(), 'gmaps', '', 0);
 // If the user can view prospects other than his'
 if ($user->rights->societe->client->voir && empty($socid))
 {
-    if (empty($mode) || $mode=='thirdparty' || $mode=='patient')
+    if (empty($mode) || $mode=='thirdparty' || $mode=='patient' || $mode == 'member')
     {
     	$langs->load("commercial");
+
     	print '<form name="formsearch" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+    	print '<input type="hidden" name="mode" value="'.$mode.'">';
 
-    	print fieldLabel('ProspectCustomer','customerprospect'). ' : ';
-
-    	$selected=$search_customer;
-    	print '<select class="flat" name="search_customer" id="customerprospect">';
-    	print '<option value="-1">&nbsp;</option>';
-    	if (empty($conf->global->SOCIETE_DISABLE_PROSPECTS)) print '<option value="2"'.($selected==2?' selected':'').'>'.$langs->trans('Prospect').'</option>';
-    	if (empty($conf->global->SOCIETE_DISABLE_CUSTOMERS)) print '<option value="1"'.($selected==1?' selected':'').'>'.$langs->trans('Customer').'</option>';
-    	print '</select></td>';
-
-    	if (! empty($conf->fournisseur->enabled) && ! empty($user->rights->fournisseur->lire))
+    	if ($mode != 'member')
     	{
-    		print ' &nbsp; &nbsp; &nbsp; '.fieldLabel('Supplier','fournisseur').' : ';
-    		print $form->selectyesno("search_supplier", $search_supplier, 1, false, 1);
+	    	print fieldLabel('ProspectCustomer','customerprospect'). ' : ';
+
+	    	$selected=$search_customer;
+	    	print '<select class="flat" name="search_customer" id="customerprospect">';
+	    	print '<option value="-1">&nbsp;</option>';
+	    	if (empty($conf->global->SOCIETE_DISABLE_PROSPECTS)) print '<option value="2"'.($selected==2?' selected':'').'>'.$langs->trans('Prospect').'</option>';
+	    	if (empty($conf->global->SOCIETE_DISABLE_CUSTOMERS)) print '<option value="1"'.($selected==1?' selected':'').'>'.$langs->trans('Customer').'</option>';
+	    	print '</select></td>';
+
+	    	if (! empty($conf->fournisseur->enabled) && ! empty($user->rights->fournisseur->lire))
+	    	{
+	    		print ' &nbsp; &nbsp; &nbsp; '.fieldLabel('Supplier','fournisseur').' : ';
+	    		print $form->selectyesno("search_supplier", $search_supplier, 1, false, 1);
+	    	}
+
+	    	print '<br>';
+
+	    	print $langs->trans('ThirdPartiesOfSaleRepresentative'). ': ';
+	    	print $formother->select_salesrepresentatives($search_sale,'search_sale',$user, 0, 1, 'maxwidth300');
+
+	    	if (! empty($conf->global->GOOGLE_MAPS_SEARCH_ON_STATE))
+	    	{
+	    		print ' &nbsp; &nbsp; &nbsp; ';
+	    		print $langs->trans("State").': ';
+	    		print $formcompany->select_state($search_departement,0,'state_id');
+	    	}
+
+			print ' &nbsp; &nbsp; &nbsp; ';
+			print $langs->trans("CustomersCategoriesShort").': ';
+			print $formother->select_categories(2, $search_tag_customer, 'search_tag_customer');
+
+			if (empty($mode) || $mode=='thirdparty')
+			{
+	    		print ' &nbsp; &nbsp; &nbsp; ';
+	    		print $langs->trans("SuppliersCategoriesShort").': ';
+	    		print $formother->select_categories(1, $search_tag_supplier, 'search_tag_supplier');
+			}
     	}
-
-    	print '<br>';
-
-    	print $langs->trans('ThirdPartiesOfSaleRepresentative'). ': ';
-    	print $formother->select_salesrepresentatives($search_sale,'search_sale',$user, 0, 1, 'maxwidth300');
-
-    	if (! empty($conf->global->GOOGLE_MAPS_SEARCH_ON_STATE))
+    	else
     	{
-    		print ' &nbsp; &nbsp; &nbsp; ';
-    		print $langs->trans("State").': ';
-    		print $formcompany->select_state($search_departement,0,'state_id');
+
+    		print $langs->trans("MembersCategoriesShort").': ';
+    		print $formother->select_categories(3, $search_tag_member, 'search_tag_member');
     	}
-
-		print ' &nbsp; &nbsp; &nbsp; ';
-		print $langs->trans("CustomersCategoriesShort").': ';
-		print $formother->select_categories(2, $search_tag_customer, 'search_tag_customer');
-
-		if (empty($mode) || $mode=='thirdparty')
-		{
-    		print ' &nbsp; &nbsp; &nbsp; ';
-    		print $langs->trans("SuppliersCategoriesShort").': ';
-    		print $formother->select_categories(1, $search_tag_supplier, 'search_tag_supplier');
-		}
 
     	print ' &nbsp; &nbsp; &nbsp; ';
 

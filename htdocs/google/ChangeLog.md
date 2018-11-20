@@ -4,6 +4,7 @@
 ## 6.1.1 Not released
 
 - NEW Add filter on type of thirdparty (customer/prospect/supplier) on maps.
+- NEW Add filter on categories for members too.
 - Need Dolibarr 3.9+
 
 ## 6.1
