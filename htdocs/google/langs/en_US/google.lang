@@ -126,3 +126,4 @@ ClickToUpdateWithLastGoogleChanges=Click to refresh agenda database with last ch
 GoogleLimitBackTime=Due to a Google limit, requests are limited to %s days max in the past
 ResetGeoEncodingErrors=Reset geoencoding errors table
 RecordInGeoEncodingErrorDeleted=All records with geoencoding errors were reset for another geoencoding try.
+IconTiers=Use a different picto for prospect, customer and supplier

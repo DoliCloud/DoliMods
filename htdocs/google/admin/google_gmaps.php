@@ -200,7 +200,7 @@ print "</div>";
 print "</form>\n";
 
 
-print '<a href="'.$_SERVER["PHP_SELF"].'?action=gmap_deleteerrors">'.$langs->trans("ResetGeoEncodingErrors").'</a><br>';
+print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=gmap_deleteerrors">'.$langs->trans("ResetGeoEncodingErrors").'</a><br>';
 
 
 dol_htmloutput_mesg($mesg);
