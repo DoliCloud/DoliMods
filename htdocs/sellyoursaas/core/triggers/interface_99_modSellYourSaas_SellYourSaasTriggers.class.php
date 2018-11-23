@@ -220,9 +220,12 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         			// Test custom url not already used
         			$nametotest = $object->array_options['options_custom_url'];
 
-
-        			// TODO
-
+        			// Change hostname OS and hostname DB
+        			if ($object->oldcopy->ref_customer != $object->ref_customer)
+        			{
+        				$object->array_options['options_hostname_os'] = $object->ref_customer;
+        				$object->array_options['options_hostname_db'] = $object->ref_customer;
+        			}
         		}
 
         		if (isset($object->oldcopy)	// We change end of trial
