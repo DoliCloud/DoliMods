@@ -208,24 +208,38 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         				return -1;
         			}
 
-        			if ($object->oldcopy->array_options['options_deployment_status'] != 'undeployed')
-        			{
-        				dol_syslog("We found a change in ref_customer or into custom url for a not undeployed instance, so we will call the remote action rename");
-        				$remoteaction='rename';
-        			}
+        			$testok = 1;
 
         			// Test new name not already used
         			$nametotest = $object->ref_customer;
+					// @TODO
 
         			// Test custom url not already used
-        			$nametotest = $object->array_options['options_custom_url'];
+	       			$nametotest = $object->array_options['options_custom_url'];
+					// @TODO
 
-        			// Change hostname OS and hostname DB
-        			if ($object->oldcopy->ref_customer != $object->ref_customer)
-        			{
-        				$object->array_options['options_hostname_os'] = $object->ref_customer;
-        				$object->array_options['options_hostname_db'] = $object->ref_customer;
-        			}
+	       			if ($testok)
+	       			{
+		       			if ($object->oldcopy->array_options['options_deployment_status'] != 'undeployed')
+		       			{
+		       				dol_syslog("We found a change in ref_customer or into custom url for a not undeployed instance, so we will call the remote action rename");
+		       				$remoteaction='rename';
+		       			}
+
+	        			// Change hostname OS and hostname DB
+	        			if ($object->oldcopy->ref_customer != $object->ref_customer)
+	        			{
+	        				$object->array_options['options_hostname_os'] = $object->ref_customer;
+	        				$object->updateExtraField('hostname_os', null, $user);
+	        				$object->array_options['options_hostname_db'] = $object->ref_customer;
+	        				$object->updateExtraField('hostname_db', null, $user);
+	        			}
+	       			}
+	       			else
+	       			{
+	       				$this->errors[]="Name already used";
+	       				return -1;
+	       			}
         		}
 
         		if (isset($object->oldcopy)	// We change end of trial
