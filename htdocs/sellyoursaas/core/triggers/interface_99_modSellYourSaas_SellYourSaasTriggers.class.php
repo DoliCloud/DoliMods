@@ -208,8 +208,11 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         				return -1;
         			}
 
-        			dol_syslog("We found a change in ref_customer or into custom url, so we will call the remote action rename");
-        			$remoteaction='rename';
+        			if ($object->oldcopy->array_options['options_deployment_status'] != 'undeployed')
+        			{
+        				dol_syslog("We found a change in ref_customer or into custom url for a not undeployed instance, so we will call the remote action rename");
+        				$remoteaction='rename';
+        			}
 
         			// Test new name not already used
         			$nametotest = $object->ref_customer;
