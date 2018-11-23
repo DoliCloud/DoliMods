@@ -2533,10 +2533,11 @@ class SellYourSaasUtils
      * @param	string					$email			Initial email
      * @param	string					$password		Initial password
      * @param	string					$forceaddevent	'1'=Force to add event. If '0', add of event is done only for remoteaction = 'deploy','deployall','deployoption','rename','suspend','unsuspend','undeploy'
-     *													It is set by caller or when we detect qty has changed.
+     *													$forceaddevent is set by caller but is overwrote to on when we detect qty has changed.
+     * @param	string					$comment		Comment
      * @return	int										<0 if KO, >0 if OK
      */
-    function sellyoursaasRemoteAction($remoteaction, $object, $appusername='admin', $email='', $password='', $forceaddevent='0')
+    function sellyoursaasRemoteAction($remoteaction, $object, $appusername='admin', $email='', $password='', $forceaddevent='0', $comment='')
     {
     	global $conf, $langs, $user;
 
@@ -3272,9 +3273,10 @@ class SellYourSaasUtils
     		$actioncomm->userownerid = $user->id;	// Owner of action
     		$actioncomm->fk_element  = $object->id;
     		$actioncomm->elementtype = 'contract';
+    		$actioncomm->note_private = $comment;
     		if (! is_numeric($forceaddevent))
     		{
-    			$actioncomm->note    = $forceaddevent;
+    			$actioncomm->note_private = dol_concatdesc($actioncomm->note_private, $forceaddevent);
     		}
     		$ret=$actioncomm->create($user);       // User creating action
     	}

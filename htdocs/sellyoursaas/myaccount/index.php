@@ -1241,11 +1241,13 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 				}
 			}
 
+			$comment = 'Services closed after an undeploy request from Customer dashboard';
+
 			if (! $error)
 			{
 				dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 				$sellyoursaasutils = new SellYourSaasUtils($db);
-				$result = $sellyoursaasutils->sellyoursaasRemoteAction('suspend', $contract);
+				$result = $sellyoursaasutils->sellyoursaasRemoteAction('suspend', $contract, 'admin', '', '', 0, $comment);
 				if ($result < 0)
 				{
 					$error++;
@@ -1255,13 +1257,11 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 
 			// Finish undeploy
 
-			$comment = 'Services closed after an undeploy request from Customer dashboard';
-
 			if (! $error)
 			{
 				dol_syslog("--- Unactivate all lines - undeploy process from myaccount", LOG_DEBUG, 0);
 
-				$result = $contract->closeAll($user, 1, $comment);
+				$result = $contract->closeAll($user, 1, $comment);	// Triggers disabled by call (suspend were done just before)
 				if ($result < 0)
 				{
 					$error++;
