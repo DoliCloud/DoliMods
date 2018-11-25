@@ -60,8 +60,8 @@ if [[ ! -f $scriptdir/filetomigrate.txt ]]; then
 fi
 
 # Make migration
-echo "----- Make migration"
-for instancename in `cat $scriptdir/filetomigrate.txt | grep -v '#'`
+echo "----- Make migration. Loop on $scriptdir/filetomigrate.txt"
+for instancename in `cat $scriptdir/filetomigrate.txt | sed -e 's!.on.dolicloud.com!!g' | grep -v '#'`
 do
 	if [[ "x$instancename" != "x" ]]; then
 		echo Try to migrate $instance with php old_migrate_v1v2.php $instancename $instancename confirm
@@ -79,7 +79,7 @@ done
 
 # Fix DNS
 echo "----- Change DNS"
-for instancename in `cat $scriptdir/filetomigrate.ok | grep -v '#'`
+for instancename in `cat $scriptdir/filetomigrate.ok | sed -e 's!.on.dolicloud.com!!g' | grep -v '#'`
 do
 	echo `date +%Y%m%d%H%M%S`" **** Archive file with cp /etc/bind/${ZONE} /etc/bind/archives/${ZONE}-$now"
 	cp /etc/bind/${ZONE} /etc/bind/archives/${ZONE}-$now
@@ -104,7 +104,7 @@ done
 # Disable V1
 echo "----- Disable V1 by switching to manual collection"
 sql="UPDATE customer set manual_collection = true where id IN (SELECT customer_id FROM app_instance WHERE name IN ("
-for instancename in `cat $scriptdir/filetomigrate.ok | grep -v '#'`
+for instancename in `cat $scriptdir/filetomigrate.ok | sed -e 's!.on.dolicloud.com!!g' | grep -v '#'`
 do
 	if [[ "x$instancename" != "x" ]]; then
 		sql="$sql'$instancename.on.dolicloud.com'," 
