@@ -125,6 +125,7 @@ export EMAILFROM=${29}
 export CERTIFFORCUSTOMDOMAIN=${30}
 export archivedir=${31}
 export SSLON=${32}
+export apachereload=${33}
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
@@ -166,6 +167,7 @@ echo "EMAILFROM = $EMAILFROM"
 echo "CERTIFFORCUSTOMDOMAIN = $CERTIFFORCUSTOMDOMAIN"
 echo "archivedir = $archivedir"
 echo "SSLON = $SSLON"
+echo "apachereload = $apachereload"
 
 echo `date +%Y%m%d%H%M%S`" calculated params:"
 echo "vhostfile = $vhostfile"

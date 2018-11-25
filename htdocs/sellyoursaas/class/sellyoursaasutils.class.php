@@ -2006,7 +2006,7 @@ class SellYourSaasUtils
 									$invoice_draft->number				= '';
 									$invoice_draft->date				= $dateinvoice;
 
-									$invoice_draft->note_private		= 'Template invoice created by doSuspendInstances because expired and a payment mode exists for customer';
+									$invoice_draft->note_private		= 'Template invoice created by batch doSuspendInstances because expired and a payment mode exists for customer';
 									$invoice_draft->mode_reglement_id	= dol_getIdFromCode($db, 'CB', 'c_paiement', 'code', 'id', 1);
 									$invoice_draft->cond_reglement_id	= dol_getIdFromCode($db, 'RECEP', 'c_payment_term', 'code', 'rowid', 1);
 									$invoice_draft->fk_account          = $conf->global->STRIPE_BANK_ACCOUNT_FOR_PAYMENTS;	// stripe
@@ -2054,7 +2054,7 @@ class SellYourSaasUtils
 										$desc=(! empty($lines[$i]->desc)?$lines[$i]->desc:$lines[$i]->libelle);
 										if ($invoice_draft->situation_counter == 1) $lines[$i]->situation_percent =  0;
 
-										// Positive line
+										// Product type of line
 										$product_type = ($lines[$i]->product_type ? $lines[$i]->product_type : 0);
 
 										// Date start
@@ -2239,8 +2239,9 @@ class SellYourSaasUtils
 
 						if ($wemustsuspendinstance)
 						{
-							//$object->array_options['options_deployment_status'] = 'suspended';
-							$result = $object->closeAll($user, 0, 'Closed by batch doSuspendInstances (mode='.$mode.') the '.dol_print_date($now, 'dayhourrfc'));			// This may execute trigger that make remote actions to suspend instance
+							$object->noapachereload = 1;
+
+							$result = $object->closeAll($user, 0, 'Closed by batch doSuspendInstances (mode='.$mode.') the '.dol_print_date($now, 'dayhourrfc').' (noapachereload='.$object->noapachereload.)');			// This may execute trigger that make remote actions to suspend instance
 							if ($result < 0)
 							{
 								$error++;
@@ -2963,6 +2964,7 @@ class SellYourSaasUtils
 				$commandurl.= '&'.$CERTIFFORCUSTOMDOMAIN;
 				$commandurl.= '&'.$archivedir;
 				$commandurl.= '&'.$SSLON;
+				$commandurl.= '&'.($object->noapachereload?'noapachereload':'apachereload');
 
     			$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 
