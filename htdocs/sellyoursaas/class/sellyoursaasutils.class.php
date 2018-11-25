@@ -2241,7 +2241,7 @@ class SellYourSaasUtils
 						{
 							$object->noapachereload = 1;
 
-							$result = $object->closeAll($user, 0, 'Closed by batch doSuspendInstances (mode='.$mode.') the '.dol_print_date($now, 'dayhourrfc').' (noapachereload='.$object->noapachereload.)');			// This may execute trigger that make remote actions to suspend instance
+							$result = $object->closeAll($user, 0, 'Closed by batch doSuspendInstances (mode='.$mode.') the '.dol_print_date($now, 'dayhourrfc').' (noapachereload='.$object->noapachereload.')');			// This may execute trigger that make remote actions to suspend instance
 							if ($result < 0)
 							{
 								$error++;
