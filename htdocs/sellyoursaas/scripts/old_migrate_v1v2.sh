@@ -68,9 +68,9 @@ do
 		php old_migrate_v1v2.php $instancename $instancename confirm
 		result=$?
 		if [[ "x$result" == "x0" ]]; then
-			echo $instancename > $scriptdir/filetomigrate.ok
+			echo $instancename >> $scriptdir/filetomigrate.ok
 		else
-			echo $instancename > $scriptdir/filetomigrate.ko
+			echo $instancename >> $scriptdir/filetomigrate.ko
 		fi
 		echo Result = $result
 	fi
@@ -78,7 +78,7 @@ done
 
 
 # Fix DNS
-echo "----- Change DNS"
+echo "----- Change DNS of file into $scriptdir/filetomigrate.ok"
 for instancename in `cat $scriptdir/filetomigrate.ok | sed -e 's!.on.dolicloud.com!!g' | grep -v '#'`
 do
 	echo `date +%Y%m%d%H%M%S`" **** Archive file with cp /etc/bind/${ZONE} /etc/bind/archives/${ZONE}-$now"
@@ -113,5 +113,6 @@ done
 sql="$sql'bidon'));"
 echo "WARNING !!! Now you must flag all successfuly migrated instances as migrated on source with:"
 echo "echo \"$sql\" | mysql -Dsaasplex -uxxx -pyyy -hzzz"
-
+echo "WARNING !!! You must increase serial of DNS file /etc/bind/on.dolicloud.com.hosts and restart with:"
+echo "rndc reload on.dolicloud.com"
 
