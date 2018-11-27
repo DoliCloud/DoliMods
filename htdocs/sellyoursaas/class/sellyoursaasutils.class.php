@@ -828,8 +828,9 @@ class SellYourSaasUtils
     	$currency = $conf->currency;
     	$cardstripe = $companypaymentmode->stripe_ref_card;
 
+    	// Get list of pending invoices (may also validate pending draft if $includedraft is set)
     	$invoices=array();
-    	if (empty($invoice))
+    	if (empty($invoice))	// If all invoices of thirdparty
     	{
     		$sql = 'SELECT f.rowid, f.fk_statut';
     		$sql.= ' FROM '.MAIN_DB_PREFIX.'facture as f, '.MAIN_DB_PREFIX.'societe as s';
