@@ -605,6 +605,8 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 		$companypaymentmode->type            = 'card';
 		$companypaymentmode->country_code    = $mythirdpartyaccount->country_code;
 		$companypaymentmode->status          = $servicestatusstripe;
+		$companypaymentmode->comment         = 'Credit card created from customer cashboard';
+		$companypaymentmode->ipaddress       = getUserRemoteIP();
 		// field $companypaymentmode->stripe_card_ref is filled later
 
 		$db->begin();
@@ -643,7 +645,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 							$metadata = array(
 								'dol_version'=>DOL_VERSION,
 								'dol_entity'=>$conf->entity,
-								'ipaddress'=>(empty($_SERVER['REMOTE_ADDR'])?'':$_SERVER['REMOTE_ADDR'])
+								'ipaddress'=>getUserRemoteIP();	// ip of visitor used to create card
 							);
 							//if (! empty($dol_id))        			$metadata["dol_id"] = $dol_id;
 							//if (! empty($dol_type))      			$metadata["dol_type"] = $dol_type;
