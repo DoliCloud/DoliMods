@@ -902,8 +902,9 @@ class SellYourSaasUtils
 		// Loop on each invoice to pay
 		foreach($invoices as $invoice)
 		{
-			dol_syslog("--- Process invoice thirdparty_id = ".$thirdparty_id.", id=".$invoice->id.", ref=".$invoice->ref, LOG_DEBUG);
 			$invoice->fetch_thirdparty();
+
+			dol_syslog("--- Process invoice thirdparty_id=".$thirdparty_id.", thirdparty_name=".$invoice->thirdparty->name." id=".$invoice->id.", ref=".$invoice->ref, LOG_DEBUG);
 
 			$alreadypayed = $invoice->getSommePaiement();
     		$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
