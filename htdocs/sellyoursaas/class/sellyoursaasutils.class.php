@@ -801,7 +801,7 @@ class SellYourSaasUtils
      * @param	int		$invoice					null=All invoices of thirdparty, Invoice=Only this invoice
      * @param	int		$includedraft				Include draft invoices
      * @param	int		$noemailtocustomeriferror	1=No email sent to customer if there is a payment error (can be used when error is already reported on screen)
-     * @param	int		$nocancelifpaymenterror		1=Do not cancel payment if there is a recent payment error
+     * @param	int		$nocancelifpaymenterror		1=Do not cancel payment if there is a recent payment error AC_PAYMENT_STRIPE_KO (used to charge from user console)
      * @return	int									0 if no error, >0 if error
      */
     function doTakePaymentStripeForThirdparty($service, $servicestatus, $thirdparty_id, $companypaymentmode, $invoice=null, $includedraft=0, $noemailtocustomeriferror=0, $nocancelifpaymenterror=0)
@@ -932,10 +932,10 @@ class SellYourSaasUtils
 
     				if ($resultthirdparty > 0 && ! empty($customer))
     				{
-
-    					// Test if last event is an old error lower than 24h
+    					// Test if last AC_PAYMENT_STRIPE_KO event is an old error lower than $nbhoursbetweentries hours.
+    					$nbhoursbetweentries = 48;
     					$recentfailedpayment = false;
-    					$sqlonevents = 'SELECT COUNT(*) as nb FROM '.MAIN_DB_PREFIX.'actioncomm WHERE fk_soc = '.$thirdparty->id." AND code ='AC_PAYMENT_STRIPE_KO' AND datep > '".$this->db->idate($now - (24 * 3600) - 3600)."'";
+    					$sqlonevents = 'SELECT COUNT(*) as nb FROM '.MAIN_DB_PREFIX.'actioncomm WHERE fk_soc = '.$thirdparty->id." AND code ='AC_PAYMENT_STRIPE_KO' AND datep > '".$this->db->idate($now - ($nbhoursbetweentries * 3600) - 3600)."'";
 						$resqlonevents = $this->db->query($sqlonevents);
 						if ($resqlonevents)
 						{
@@ -943,9 +943,9 @@ class SellYourSaasUtils
 							if ($obj && $obj->nb > 0) $recentfailedpayment = true;
 						}
 
-						if ($recentfailedpayment && empty($nocancelifpaymenterror))
+						if ($recentfailedpayment && empty($nocancelifpaymenterror))	// If we are not in a mode that ask to avoid cancelation, we cancel payment.
 						{
-							$errmsg='Payment try was canceled (recent payment in error for this customer)';
+							$errmsg='Payment try was canceled (recent payment, in last '.$nbhoursbetweentries.' hours, with error AC_PAYMENT_STRIPE_KO for this customer)';
 							dol_syslog($errmsg, LOG_DEBUG);
 
 							$error++;

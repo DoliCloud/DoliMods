@@ -763,7 +763,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 		$erroronstripecharge = 0;
 
 
-		// Loop on each pending invoices of the thirdparty and try to pay them with payment = invoice remain amount.
+		// Loop on each pending invoices of the thirdparty and try to pay them with payment = remain amount of invoice.
 		// Note that it may have no pending invoice yet when contract is in trial mode (running or suspended)
 		if (! $error)
 		{
