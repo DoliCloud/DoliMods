@@ -953,7 +953,7 @@ class SellYourSaasUtils
 							$error++;
 							$this->errors[]=$errmsg;
 						}
-						elseif ($invoice->datef < ($now - ($nbdaysbeforeendoftries * 24 * 3600)))
+						elseif (($invoice->datef < ($now - ($nbdaysbeforeendoftries * 24 * 3600))) && empty($nocancelifpaymenterror))
 						{
 							$errmsg='Payment try was canceled (invoice date is older than '.$nbdaysbeforeendoftries.' days)';
 							dol_syslog($errmsg, LOG_DEBUG);
