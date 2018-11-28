@@ -1,5 +1,8 @@
 #!/bin/bash
 # Purge data
+#
+# Put the following entry into your root cron
+#40 4 4 * * /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/clean.sh databasename confirm
 
 #set -e
 
@@ -288,9 +291,9 @@ if [ -s /tmp/osutoclean ]; then
 				
 				echo "clean $instancename" >> $archivedir/$osusername/clean-$instancename.txt
 				
-				echo deluser --remove-home --backup --backup-to $archivedir $osusername
+				echo deluser --remove-home --backup --backup-to $archivedir/$osusername $osusername
 				if [[ $testorconfirm == "confirm" ]]; then
-					deluser --remove-home --backup --backup-to $archivedir $osusername
+					deluser --remove-home --backup --backup-to $archivedir/$osusername $osusername
 				fi
 				
 				echo deluser --group $osusername
