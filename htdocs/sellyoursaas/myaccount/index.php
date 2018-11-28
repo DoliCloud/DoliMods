@@ -645,7 +645,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 							$metadata = array(
 								'dol_version'=>DOL_VERSION,
 								'dol_entity'=>$conf->entity,
-								'ipaddress'=>getUserRemoteIP();	// ip of visitor used to create card
+								'ipaddress'=>getUserRemoteIP()	// ip of visitor used to create card
 							);
 							//if (! empty($dol_id))        			$metadata["dol_id"] = $dol_id;
 							//if (! empty($dol_type))      			$metadata["dol_type"] = $dol_type;
