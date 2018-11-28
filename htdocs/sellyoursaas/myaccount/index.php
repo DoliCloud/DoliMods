@@ -2282,9 +2282,15 @@ if ($mode == 'dashboard')
 							{
 								$nbinvoicenotpayed++;
 							}
-							$alreadypayed = $invoice->getSommePaiement();
-							$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
-							$amountdue = $invoice->total_ttc - $alreadypayed - $amount_credit_notes_included;
+							print '<!--';
+							print $invoice->ref.'-'.$invoice->total_ht."-".$invoice->type."-status=".$invoice->statut."-paye=".$invoice->paye."\n";
+							print '-->';
+							if (! $invoice->paye)
+							{
+								$alreadypayed = $invoice->getSommePaiement();
+								$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
+								$amountdue = $invoice->total_ttc - $alreadypayed - $amount_credit_notes_included;
+							}
 						}
 					}
 				}
