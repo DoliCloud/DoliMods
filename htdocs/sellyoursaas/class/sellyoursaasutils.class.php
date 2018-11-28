@@ -904,7 +904,7 @@ class SellYourSaasUtils
 		{
 			$invoice->fetch_thirdparty();
 
-			dol_syslog("--- Process invoice thirdparty_id=".$thirdparty_id.", thirdparty_name=".$invoice->thirdparty->name." id=".$invoice->id.", ref=".$invoice->ref, LOG_DEBUG);
+			dol_syslog("--- Process invoice thirdparty_id=".$thirdparty_id.", thirdparty_name=".$invoice->thirdparty->name." id=".$invoice->id.", ref=".$invoice->ref.", datef=".dol_print_date($invoice->date, 'dayhour'), LOG_DEBUG);
 
 			$alreadypayed = $invoice->getSommePaiement();
     		$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
@@ -954,7 +954,7 @@ class SellYourSaasUtils
 							$error++;
 							$this->errors[]=$errmsg;
 						}
-						elseif (($invoice->datef < ($now - ($nbdaysbeforeendoftries * 24 * 3600))) && empty($nocancelifpaymenterror))
+						elseif (($invoice->date < ($now - ($nbdaysbeforeendoftries * 24 * 3600))) && empty($nocancelifpaymenterror))
 						{
 							$errmsg='Payment try was canceled (invoice date is older than '.$nbdaysbeforeendoftries.' days)';
 							dol_syslog($errmsg, LOG_DEBUG);
