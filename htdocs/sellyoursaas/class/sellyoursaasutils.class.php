@@ -931,8 +931,8 @@ class SellYourSaasUtils
 
     				$customer = $stripe->customerStripe($thirdparty, $stripeacc, $servicestatus, 0);
 
-    				$nbhoursbetweentries = 48;
-    				$nbdaysbeforeendoftries = 20;
+    				$nbhoursbetweentries    = (empty($conf->global->SELLYOURSAAS_NBHOURSBETWEENTRIES) ? 48 : $conf->global->SELLYOURSAAS_NBHOURSBETWEENTRIES);				// Must have more that 48 hours + 1 between each try (so 1 try every 3 daily batch)
+    				$nbdaysbeforeendoftries = (empty($conf->global->SELLYOURSAAS_NBDAYSBEFOREENDOFTRIES) ? 40 : $conf->global->SELLYOURSAAS_NBDAYSBEFOREENDOFTRIES);
 
     				if ($resultthirdparty > 0 && ! empty($customer))
     				{
