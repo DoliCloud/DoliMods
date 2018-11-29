@@ -843,9 +843,9 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 				dol_syslog("--- No template invoice found for the contract contract_id = ".$contract->id." that is not null, so we refresh contract before creating template invoice + creating invoice (if template invoice date is already in past) + making contract renewal.", LOG_DEBUG, 0);
 
-
+				$comment = 'Refresh contract '.$contract->ref.' after entering a payment mode because we need to create a template invoice';
 				// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines
-				$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
+				$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract, 'admin', '', '', '0', $comment);
 
 
 				dol_syslog("--- No template invoice found for the contract contract_id = ".$contract->id.", so we create it then create real invoice (if template invoice date is already in past) then make contract renewal.", LOG_DEBUG, 0);
@@ -1243,7 +1243,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 				}
 			}
 
-			$comment = 'Services closed after an undeploy request from Customer dashboard';
+			$comment = 'Services for '.$contract->ref.' closed after an undeploy request from Customer dashboard';
 
 			if (! $error)
 			{
@@ -1261,7 +1261,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 
 			if (! $error)
 			{
-				dol_syslog("--- Unactivate all lines - undeploy process from myaccount", LOG_DEBUG, 0);
+				dol_syslog("--- Unactivate all lines of '.$contract->ref.' - undeploy process from myaccount", LOG_DEBUG, 0);
 
 				$result = $contract->closeAll($user, 1, $comment);	// Triggers disabled by call (suspend were done just before)
 				if ($result < 0)
@@ -1312,7 +1312,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 			{
 				$object = $contract;
 
-				dol_syslog("--- Start undeploy after a confirmation from email for ".$contract->ref_customer, LOG_DEBUG, 0);
+				dol_syslog("--- Start undeploy of '.$contract->ref.' after a confirmation from email for ".$contract->ref_customer, LOG_DEBUG, 0);
 
 				// SAME CODE THAN INTO ACTION_SELLYOURSAAS.CLASS.PHP
 
@@ -1340,11 +1340,13 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 					}
 				}
 
+				$comment = 'Contract for '.$contract->ref.' is undeployed after a click on the undeploy confirmation request (sent by email from customer dashboard)';
+
 				if (! $error)
 				{
 					dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 					$sellyoursaasutils = new SellYourSaasUtils($db);
-					$result = $sellyoursaasutils->sellyoursaasRemoteAction('undeploy', $contract);
+					$result = $sellyoursaasutils->sellyoursaasRemoteAction('undeploy', $contract, 'admin', '', '', 0, $comment);
 					if ($result < 0)
 					{
 						$error++;
@@ -1354,12 +1356,12 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 
 				// Finish deploy all
 
-				$comment = 'Services closed after click on confirmation request (sent by email from customer dashboard) to undeploy';
+				$comment = 'Services for '.$contract->ref.' closed after a click on the undeploy confirmation request (sent by email from customer dashboard)';
 
 				// Unactivate all lines
 				if (! $error)
 				{
-					dol_syslog("--- Unactivate all lines - undeployconfirmed process from myaccount", LOG_DEBUG, 0);
+					dol_syslog("--- Unactivate all lines of '.$contract->ref.' - undeployconfirmed process from myaccount", LOG_DEBUG, 0);
 
 					$result = $object->closeAll($user, 1, $comment);
 					if ($result <= 0)

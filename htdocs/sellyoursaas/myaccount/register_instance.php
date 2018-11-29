@@ -687,7 +687,9 @@ if (! $error && $productref != 'none')
 	dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 	$sellyoursaasutils = new SellYourSaasUtils($db);
 
-	$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $contract, 'admin', $email, $password);
+	$comment = 'Deploy instance '.$contract->ref;
+
+	$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $contract, 'admin', $email, $password, '0', $comment);
 	if ($result <= 0)
 	{
 		$error++;
