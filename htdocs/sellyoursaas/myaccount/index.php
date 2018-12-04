@@ -1211,6 +1211,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 	if (! $error)
 	{
 		$hash = dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$contract->thirdparty->email.dol_print_date($now, 'dayrfc'));
+		dol_syslog("Hash generated to allow immediate deletion: ".$hash);
 
 		// Send confirmation email
 		if ($action == 'undeploy')
@@ -1303,6 +1304,8 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 		// Force to close services and launch "undeploy"
 		if (! $error && $action == 'undeployconfirmed')
 		{
+			dol_syslog("Hash received = ".GETPOST('hash','alpha'));
+
 			if ($hash != GETPOST('hash','alpha'))
 			{
 				$error++;
@@ -1396,7 +1399,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 		else
 		{
 			setEventMessages($langs->trans("InstanceWasUndeployed"), null, 'mesgs');
-			setEventMessages($langs->trans("InstanceWasUndeployedToConfirm"), null, 'mesgs');
+			setEventMessages($langs->trans("InstanceWasUndeployedToConfirm"), null, 'warnings');
 		}
 		$db->commit();
 		header('Location: '.$_SERVER["PHP_SELF"].'?modes=instances&tab=resources_'.$contract->id);
