@@ -1210,7 +1210,9 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 
 	if (! $error)
 	{
-		$hash = dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$contract->thirdparty->email.dol_print_date($now, 'dayrfc'));
+		$stringtohash = $conf->global->SELLYOURSAAS_KEYFORHASH.$contract->thirdparty->email.dol_print_date($now, 'dayrfc');
+
+		$hash = dol_hash($stringtohash);
 		dol_syslog("Hash generated to allow immediate deletion: ".$hash);
 
 		// Send confirmation email
@@ -1304,9 +1306,11 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 		// Force to close services and launch "undeploy"
 		if (! $error && $action == 'undeployconfirmed')
 		{
-			dol_syslog("Hash received = ".GETPOST('hash','alpha'));
+			$hash = GETPOST('hash','alpha');
 
-			if ($hash != GETPOST('hash','alpha'))
+			dol_syslog("Hash received = ".$hash.' to compare to '.$stringtohash);
+
+			if (! dol_verifyHash($stringtohash, $hash))
 			{
 				$error++;
 				setEventMessages('InvalidLinkImmediateDestructionCanceled', null, 'warnings');
