@@ -1306,7 +1306,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 		// Force to close services and launch "undeploy"
 		if (! $error && $action == 'undeployconfirmed')
 		{
-			$hash = GETPOST('hash','alpha');
+			$hash = GETPOST('hash','none');
 
 			dol_syslog("Hash received = ".$hash.' to compare to '.$stringtohash);
 
