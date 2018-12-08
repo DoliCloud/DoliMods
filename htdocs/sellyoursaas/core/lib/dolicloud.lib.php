@@ -194,7 +194,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
 
 	// Mysql Restore
 	$mysqlresotrecommand='mysql -C -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db.' < '.$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db).'/documents/admin/backup/filetorestore';
-	$links.='Mysql overwrite database:<br>';
+	$links.='Mysql restore database:<br>';
 	$links.='<input type="text" id="mysqlrestorecommand" name="mysqlrestorecommand" value="'.$mysqlresotrecommand.'" class="quatrevingtpercent"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("mysqlrestorecommand", 0);
 	$links.='<br>';
