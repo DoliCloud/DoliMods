@@ -1,7 +1,7 @@
 # ChangeLog MODULE EXTERNALBACKUP FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
-## 4.1.1 Unreleased
+## 4.1.1
 
 - Use the VAT rate of the eco tax product instead of highest vat rate when a predefined product
   is defined for the eco tax line.
