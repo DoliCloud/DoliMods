@@ -186,7 +186,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
 	$purgestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/../dev/initdata/dev/purge-data.php test xxx mysqli '.$object->hostname_db.' '.$object->username_db.' '.$object->password_db.' '.$object->database_db.' '.($object->database_port?$object->database_port:3306);
 
 	// Mysql Backup
-	$mysqlbackupcommand='mysqldump -C -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' '.$object->database_db.' > '.$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db).'/documents/admin/backup/mysqldump_'.$object->database_db.'_'.dol_print_date(dol_now(),'dayhourrfc').'.sql';
+	$mysqlbackupcommand='mysqldump -C -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' '.$object->database_db.' > '.$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db).'/documents/admin/backup/mysqldump_'.$object->database_db.'_'.dol_print_date(dol_now(),'dayhourlog').'.sql';
 	$links.='Mysql backup database:<br>';
 	$links.='<input type="text" id="mysqlbackupcommand" name="mysqlbackupcommand" value="'.$mysqlbackupcommand.'" class="quatrevingtpercent"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("mysqlbackupcommand", 0);
