@@ -39,7 +39,7 @@ if [ "x$1" == "x" ]; then
 	echo "echo \"$sql\" | mysql -Dsaasplex -uxxx -pyyy -hzzz > $scriptdir/filetomigrate.txt"
 	#echo "where xxx can be found with:  sudo cat /etc/mysql/debian.cnf |grep password | sort -u | awk ' { print \$3; }'"
 	echo
-	echo There is currently `cat $scriptdir/filetomigrate.txt | grep -v '#name' | wc -l` records in filetomigrate.txt
+	echo There is currently `cat $scriptdir/filetomigrate.txt | grep -v '#' | wc -l` records in filetomigrate.txt
 	echo
 	echo "Usage: $0 confirm"
 	exit 1
