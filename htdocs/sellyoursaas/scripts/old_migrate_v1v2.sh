@@ -35,7 +35,7 @@ fi
 
 if [ "x$1" == "x" ]; then
 	echo "You must select instances first with this and run then with option confirm:"
-	sql="SELECT name as '#name' from app_instance where status = 'DEPLOYED' AND access_enabled = true AND customer_id IN (select id from customer where manual_collection = false) ORDER BY deployed_date LIMIT 2" 
+	sql="SELECT name as '#name' from app_instance where status = 'DEPLOYED' AND access_enabled = true AND customer_id IN (select customer.id from customer, address where manual_collection = false and customer.address_id = address.id and address.country = 'XX') ORDER BY deployed_date LIMIT 5" 
 	echo "echo \"$sql\" | mysql -Dsaasplex -uxxx -pyyy -hzzz > $scriptdir/filetomigrate.txt"
 	#echo "where xxx can be found with:  sudo cat /etc/mysql/debian.cnf |grep password | sort -u | awk ' { print \$3; }'"
 	echo
@@ -49,7 +49,7 @@ if [[ ! -f $scriptdir/filetomigrate.txt ]]; then
 	echo Error failed to find file $scriptdir/filetomigrate.txt with list of instances to migrate.
 	echo
 	echo "You must select instances first with this and run then with option confirm:"
-	sql="SELECT name as '#name' from app_instance where status = 'DEPLOYED' AND access_enabled = true AND customer_id IN (select id from customer where manual_collection = false) ORDER BY deployed_date LIMIT 2" 
+	sql="SELECT name as '#name' from app_instance where status = 'DEPLOYED' AND access_enabled = true AND customer_id IN (select customer.id from customer, address where manual_collection = false and customer.address_id = address.id and address.country = 'XX') ORDER BY deployed_date LIMIT 5" 
 	echo "echo \"$sql\" | mysql -Dsaasplex -uxxx -pyyy -hzzz > $scriptdir/filetomigrate.txt"
 	#echo "where xxx can be found with:  sudo cat /etc/mysql/debian.cnf |grep password | sort -u | awk ' { print \$3; }'"
 	echo
