@@ -30,9 +30,6 @@ if [ "$(id -u)" != "0" ]; then
 	exit 1
 fi
 
-> $scriptdir/filetomigrate.ok
-> $scriptdir/filetomigrate.ko
-
 if [ "x$1" == "x" ]; then
 	echo "You must select instances first with this and run then with option confirm:"
 	sql="SELECT name as '#name' from app_instance where status = 'DEPLOYED' AND access_enabled = true AND customer_id IN (select customer.id from customer, address where manual_collection = false and customer.address_id = address.id and address.country = 'XX') ORDER BY deployed_date LIMIT 5" 
@@ -58,6 +55,11 @@ if [[ ! -f $scriptdir/filetomigrate.txt ]]; then
 	echo "Usage: $0 confirm"
 	exit 1
 fi
+
+
+> $scriptdir/filetomigrate.ok
+> $scriptdir/filetomigrate.ko
+
 
 # Make migration
 if [ "x$1" == "xconfirm" -o "x$1" == "xmigrate" ]; then
