@@ -56,10 +56,11 @@ if [[ ! -f $scriptdir/filetomigrate.txt ]]; then
 	exit 1
 fi
 
-
-> $scriptdir/filetomigrate.ok
-> $scriptdir/filetomigrate.ko
-
+if [ "x$1" == "xconfirm" -o "x$1" == "xmigrate" ]; then
+	echo "Purge filetomigrate.ok|ko"
+	> $scriptdir/filetomigrate.ok
+	> $scriptdir/filetomigrate.ko
+fi
 
 # Make migration
 if [ "x$1" == "xconfirm" -o "x$1" == "xmigrate" ]; then
