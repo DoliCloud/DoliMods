@@ -1,9 +1,11 @@
 # ChangeLog MODULE CONCATPDF FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
-## Not released
+## 6.0.2
 
+FIX: Can generate with empty selection
 FIX: concat of file for supplier invoice/order was not done
+FIX: Look and feel v8 in setup page
 
 ## 6.0.1
 

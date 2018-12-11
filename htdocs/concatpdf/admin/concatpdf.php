@@ -212,7 +212,14 @@ $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
 
-dol_fiche_head($head, 'tabsetup', '');
+if ((float) DOL_VERSION < 8.0)
+{
+	dol_fiche_head($head, 'tabsetup', '');
+}
+else
+{
+	dol_fiche_head($head, 'tabsetup', '', -1);
+}
 
 
 /*
