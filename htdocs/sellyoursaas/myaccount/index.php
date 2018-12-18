@@ -5279,9 +5279,9 @@ if ($mode == 'support')
 if ($mode == 'becomereseller')
 {
 	// Print warning to read FAQ before
-	$url = 'https://www.dolicloud.com/en-become-a-dolicloud-reseller.php';
-	if (preg_match('/^fr/i', $langs->defaultlang)) $url = 'https://www.dolicloud.com/fr-become-a-dolicloud-reseller.php';
-	if (preg_match('/^es/i', $langs->defaultlang)) $url = 'https://www.dolicloud.com/es-become-a-dolicloud-reseller.php';
+	$url = $conf->global->SELLYOURSAAS_RESELLER_URL;
+	if (preg_match('/^fr/i', $langs->defaultlang)) $url = preg_replace('/en-/','fr-',$url);
+	if (preg_match('/^es/i', $langs->defaultlang)) $url = preg_replace('/en-/','es-',$url);
 	print '
 		<div class="alert alert-success note note-success">
 		<h4 class="block">'.$langs->trans("BecomeResellerDesc", $conf->global->SELLYOURSAAS_NAME, $url, $conf->global->SELLYOURSAAS_NAME).'</h4>

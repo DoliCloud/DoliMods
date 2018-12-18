@@ -119,6 +119,7 @@ if ($action == 'set')
 		dolibarr_set_const($db,"SELLYOURSAAS_ACCOUNT_URL",GETPOST("SELLYOURSAAS_ACCOUNT_URL",'alpha'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_PRICES_URL",GETPOST("SELLYOURSAAS_PRICES_URL",'alpha'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_STATUS_URL",GETPOST("SELLYOURSAAS_STATUS_URL",'alpha'),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"SELLYOURSAAS_RESELLER_URL",GETPOST("SELLYOURSAAS_RESELLER_URL",'alpha'),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_MYACCOUNT_FOOTER",GETPOST("SELLYOURSAAS_MYACCOUNT_FOOTER",'none'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_CONVERSION_FOOTER",GETPOST("SELLYOURSAAS_CONVERSION_FOOTER",'none'),'chaine',0,'',$conf->entity);
@@ -537,6 +538,13 @@ print '<td>';
 print '<input class="minwidth300" type="text" name="SELLYOURSAAS_STATUS_URL" value="'.$conf->global->SELLYOURSAAS_STATUS_URL.'">';
 print '</td>';
 print '<td>https://status.mysaas.com</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasResellerUrl").'</td>';
+print '<td>';
+print '<input class="minwidth300" type="text" name="SELLYOURSAAS_RESELLER_URL" value="'.$conf->global->SELLYOURSAAS_RESELLER_URL.'">';
+print '</td>';
+print '<td>https://www.mysaas.com/en-become-a-dolicloud-reseller.php</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("FooterContent").'</td>';
