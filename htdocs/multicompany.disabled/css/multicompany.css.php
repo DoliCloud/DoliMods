@@ -32,7 +32,7 @@ if (! defined('NOREQUIREMENU'))   define('NOREQUIREMENU',1);
 if (! defined('NOREQUIREHTML'))   define('NOREQUIREHTML',1);
 if (! defined('NOREQUIREAJAX'))   define('NOREQUIREAJAX','1');
 
-session_cache_limiter(FALSE);
+session_cache_limiter('public');
 
 $res=@include '../../main.inc.php';					// For "root" directory
 if (! $res && file_exists($_SERVER['DOCUMENT_ROOT']."/main.inc.php"))
@@ -44,7 +44,7 @@ if (! $res) $res=@include '../../../main.inc.php';	// For "custom" directory
 header('Content-type: text/css');
 // Important: Following code is to avoid page request by browser and PHP CPU at
 // each Dolibarr page access.
-if (empty($dolibarr_nocache)) header('Cache-Control: max-age=3600, public, must-revalidate');
+if (empty($dolibarr_nocache)) header('Cache-Control: max-age=10800, public, must-revalidate');
 else header('Cache-Control: no-cache');
 ?>
 
