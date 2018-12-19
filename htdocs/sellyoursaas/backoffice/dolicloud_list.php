@@ -46,8 +46,14 @@ $langs->load("sellyoursaas@sellyoursaas");
 
 // Get parameters
 $id			= GETPOST('id','int');
-$action		= GETPOST('action','alpha');
 $myparam	= GETPOST('myparam','alpha');
+
+$action=GETPOST('action','alpha');
+$massaction=GETPOST('massaction','alpha');
+$show_files=GETPOST('show_files','int');
+$confirm=GETPOST('confirm','alpha');
+$toselect = GETPOST('toselect', 'array');
+$contextpage= GETPOST('contextpage','aZ')?GETPOST('contextpage','aZ'):'contractlist';   // To manage different context of search
 
 $search_all = GETPOST('sall','alpha');
 $search_dolicloud = GETPOST("search_dolicloud");	// Search from index page
@@ -69,7 +75,7 @@ $limit = GETPOST('limit','int')?GETPOST('limit','int'):$conf->liste_limit;
 $sortfield = GETPOST('sortfield','alpha');
 $sortorder = GETPOST('sortorder','alpha');
 $page = GETPOST('page','int');
-if ($page == -1) { $page = 0; }
+if (empty($page) || $page == -1) { $page = 0; }     // If $page is not defined, or '' or -1
 $offset = $limit * $page;
 $pageprev = $page - 1;
 $pagenext = $page + 1;
@@ -81,6 +87,8 @@ if ($user->societe_id > 0)
 {
 	//accessforbidden();
 }
+
+$diroutputmassaction=$conf->contrat->dir_output . '/temp/massgeneration/'.$user->id;
 
 // List of fields to search into when doing a "search in all"
 $fieldstosearchall = array(
@@ -105,13 +113,24 @@ if ($db2->error)
     exit;
 }
 
+$object = new Dolicloud_customers($db,$db2);
 
 
-/*******************************************************************
-* ACTIONS
-*
-* Put here all code to do according to value of "action" parameter
-********************************************************************/
+
+/*
+ * Action
+ */
+
+if (GETPOST('cancel','alpha')) { $action='list'; $massaction=''; }
+if (! GETPOST('confirmmassaction','alpha') && $massaction != 'presend' && $massaction != 'confirm_presend') { $massaction=''; }
+
+$parameters=array();
+$reshook=$hookmanager->executeHooks('doActions',$parameters,$object,$action);    // Note that $action and $object may have been modified by some hooks
+if ($reshook < 0) setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+
+include DOL_DOCUMENT_ROOT.'/core/actions_changeselectedfields.inc.php';
+
+// Purge search criteria
 if (GETPOST("button_removefilter_x") || GETPOST("button_removefilter.x") ||GETPOST("button_removefilter")) // All test are required to be compatible with all browsers
 {
 	$search_dolicloud = '';
@@ -132,34 +151,11 @@ if (GETPOST("button_removefilter_x") || GETPOST("button_removefilter.x") ||GETPO
 
 
 
-/***************************************************
-* VIEW
-*
-* Put here all code to build page
-****************************************************/
+/*
+ * View
+ */
 
 $arraystatus=Dolicloud_customers::$listOfStatusNewShort;
-
-llxHeader('',$langs->transnoentitiesnoconv('DoliCloudInstances'),'');
-
-$form=new Form($db);
-$dolicloudcustomerstaticnew = new Dolicloud_customers($db,$db2);
-
-$now=dol_now();
-
-print '<script type="text/javascript" language="javascript">
-jQuery(document).ready(function() {
-	function init_myfunc()
-	{
-		jQuery("#myid").removeAttr(\'disabled\');
-		jQuery("#myid").attr(\'disabled\',\'disabled\');
-	}
-	init_myfunc();
-	jQuery("#mybutton").click(function() {
-		init_needroot();
-	});
-});
-</script>';
 
 
 $sql = "SELECT";
@@ -303,11 +299,50 @@ $var=false;
 //print $sql;
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
 $resql=$db2->query($sql);
+
+
+
+
+llxHeader('',$langs->transnoentitiesnoconv('DoliCloudInstances'),'');
+
+$arrayofselected=is_array($toselect)?$toselect:array();
+
+$form=new Form($db);
+$dolicloudcustomerstaticnew = new Dolicloud_customers($db,$db2);
+
+$now=dol_now();
+
+print '<script type="text/javascript" language="javascript">
+jQuery(document).ready(function() {
+	function init_myfunc()
+	{
+		jQuery("#myid").removeAttr(\'disabled\');
+		jQuery("#myid").attr(\'disabled\',\'disabled\');
+	}
+	init_myfunc();
+	jQuery("#mybutton").click(function() {
+		init_needroot();
+	});
+});
+</script>';
+
+
+
 if ($resql)
 {
     $num = $db2->num_rows($resql);
 
-    print_barre_liste($langs->trans('DoliCloudInstances'),$page,$_SERVER["PHP_SELF"],$param,$sortfield,$sortorder,'',$num,$nbtotalofrecords);
+    // List of mass actions available
+    $arrayofmassactions =  array(
+    'generate_doc'=>$langs->trans("GenerateList"),
+    //'presend'=>$langs->trans("SendByMail"),
+    //'builddoc'=>$langs->trans("PDFMerge"),
+    );
+    if (in_array($massaction, array('presend','predelete'))) $arrayofmassactions=array();
+    $massactionbutton=$form->selectMassAction('', $arrayofmassactions);
+
+
+    print_barre_liste($langs->trans('DoliCloudInstances'),$page,$_SERVER["PHP_SELF"],$param,$sortfield,$sortorder, $massactionbutton, $num, $nbtotalofrecords, 'title_commercial.png', 0, $newcardbutton, '', $limit);
 
     if ($search_multi)
     {
@@ -319,29 +354,12 @@ if ($resql)
     // Lignes des champs de filtre
     print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 
+    $varpage=empty($contextpage)?$_SERVER["PHP_SELF"]:$contextpage;
+    $selectedfields=$form->multiSelectArrayWithCheckbox('selectedfields', $arrayfields, $varpage);	// This also change content of $arrayfields
+    if ($massactionbutton) $selectedfields.=$form->showCheckAddButtons('checkforselect', 1);
+
     print '<div class="div-table-responsive">';		// You can use div-table-responsive-no-min if you dont need reserved height for your table
     print '<table class="liste" width="100%">';
-    print '<tr class="liste_titre">';
-    print_liste_field_titre($langs->trans('Instance'),$_SERVER['PHP_SELF'],'i.name','',$param,'align="left"',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('AccessEnabled'),$_SERVER['PHP_SELF'],'i.access_enabled','',$param,'align="left"',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('ManualCollection'),$_SERVER['PHP_SELF'],'c.manual_collection','',$param,'align="left"',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('Organization'),$_SERVER['PHP_SELF'],'c.organization','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('EMail'),$_SERVER['PHP_SELF'],'per.username','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('VATIntra'),$_SERVER['PHP_SELF'],'c.tax_identification_number','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('Country'),$_SERVER['PHP_SELF'],'a.country','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('Plan'),$_SERVER['PHP_SELF'],'pl.plan','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('Partner'),$_SERVER['PHP_SELF'],'cc.partner','',$param,'',$sortfield,$sortorder);
-    //print_liste_field_titre($langs->trans('Source'),$_SERVER['PHP_SELF'],'t.source','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('DateRegistration'),$_SERVER['PHP_SELF'],'t.date_registration','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('DateNextBilling'),$_SERVER['PHP_SELF'],'c.past_due_start','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'im.last_updated','',$param,'',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'im.value','',$param,'align="right"',$sortfield,$sortorder);
-    //print_liste_field_titre($langs->trans('LastLogin'),$_SERVER['PHP_SELF'],'t.lastlogin','',$param,'align="center"',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('DateLastLogin'),$_SERVER['PHP_SELF'],'t.date_lastlogin','',$param,'align="center"',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('Revenue'),$_SERVER['PHP_SELF'],'','',$param,' align="right"',$sortfield,$sortorder);
-    print_liste_field_titre($langs->trans('CustStatus'),$_SERVER['PHP_SELF'],'c.status','',$param,'align="right"',$sortfield,$sortorder);
-    print_liste_field_titre('');
-    print '</tr>';
 
     print '<tr class="liste_titre">';
     print '<td class="liste_titre"><input type="text" name="search_instance" size="4" value="'.$search_instance.'"></td>';
@@ -369,6 +387,28 @@ if ($resql)
     $searchpitco=$form->showFilterAndCheckAddButtons(0);
     print $searchpitco;
     print '</td>';
+    print '</tr>';
+
+    print '<tr class="liste_titre">';
+    print_liste_field_titre($langs->trans('Instance'),$_SERVER['PHP_SELF'],'i.name','',$param,'align="left"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('AccessEnabled'),$_SERVER['PHP_SELF'],'i.access_enabled','',$param,'align="left"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('ManualCollection'),$_SERVER['PHP_SELF'],'c.manual_collection','',$param,'align="left"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Organization'),$_SERVER['PHP_SELF'],'c.organization','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('EMail'),$_SERVER['PHP_SELF'],'per.username','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('VATIntra'),$_SERVER['PHP_SELF'],'c.tax_identification_number','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Country'),$_SERVER['PHP_SELF'],'a.country','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Plan'),$_SERVER['PHP_SELF'],'pl.plan','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Partner'),$_SERVER['PHP_SELF'],'cc.partner','',$param,'',$sortfield,$sortorder);
+    //print_liste_field_titre($langs->trans('Source'),$_SERVER['PHP_SELF'],'t.source','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('DateRegistration'),$_SERVER['PHP_SELF'],'t.date_registration','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('DateNextBilling'),$_SERVER['PHP_SELF'],'c.past_due_start','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('DateLastCheck'),$_SERVER['PHP_SELF'],'im.last_updated','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('NbOfUsers'),$_SERVER['PHP_SELF'],'im.value','',$param,'align="right"',$sortfield,$sortorder);
+    //print_liste_field_titre($langs->trans('LastLogin'),$_SERVER['PHP_SELF'],'t.lastlogin','',$param,'align="center"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('DateLastLogin'),$_SERVER['PHP_SELF'],'t.date_lastlogin','',$param,'align="center"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Revenue'),$_SERVER['PHP_SELF'],'','',$param,' align="right"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('CustStatus'),$_SERVER['PHP_SELF'],'c.status','',$param,'align="right"',$sortfield,$sortorder);
+    print_liste_field_titre($selectedfields, $_SERVER["PHP_SELF"],"",'','','align="center"',$sortfield,$sortorder,'maxwidthsearch ');
     print '</tr>';
 
 
@@ -452,7 +492,15 @@ if ($resql)
                 print '<td align="right">';
                 print $dolicloudcustomerstaticnew->getLibStatut(5,$form);
                 print '</td>';
-                print '<td></td>';
+                // Action column
+                print '<td class="nowrap" align="center">';
+                if ($massactionbutton || $massaction)   // If we are in select mode (massactionbutton defined) or if we have already selected and sent an action ($massaction) defined
+                {
+                	$selected=0;
+                	if (in_array($obj->id, $arrayofselected)) $selected=1;
+                	print '<input id="cb'.$obj->id.'" class="flat checkforselect" type="checkbox" name="toselect[]" value="'.$obj->id.'"'.($selected?' checked="checked"':'').'>';
+                }
+                print '</td>';
                 print '</tr>';
             }
             $i++;
