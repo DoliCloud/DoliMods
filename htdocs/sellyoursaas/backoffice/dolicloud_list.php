@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2007-2014 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2007-2018 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,11 +53,14 @@ $search_all = GETPOST('sall','alpha');
 $search_dolicloud = GETPOST("search_dolicloud");	// Search from index page
 $search_multi = GETPOST("search_multi");
 $search_instance = GETPOST("search_instance");
+$search_access_enabled = GETPOST("search_access_enabled");
+$search_manual_collection = GETPOST("search_manual_collection");
 $search_organization = GETPOST("search_organization");
 $search_plan = GETPOST("search_plan");
 $search_partner = GETPOST("search_partner");
 $search_source = GETPOST("search_source");
 $search_email = GETPOST("search_email");
+$search_country = GETPOST("search_country");
 $search_lastlogin = GETPOST("search_lastlogin");
 $search_status = GETPOST('search_status');
 
@@ -114,11 +117,14 @@ if (GETPOST("button_removefilter_x") || GETPOST("button_removefilter.x") ||GETPO
 	$search_dolicloud = '';
 	$search_multi = '';
 	$search_instance = '';
+	$search_access_enabled = '';
+	$search_manual_collection = '';
 	$search_organization = '';
 	$search_plan = '';
 	$search_partner = '';
 	$search_source = '';
 	$search_email = '';
+	$search_country = '';
 	$search_lastlogin = '';
 	$search_status = '';
 }
@@ -207,6 +213,9 @@ $sql.= " c.status as status,";
 $sql.= " c.past_due_start,";
 $sql.= " c.suspension_date,";
 $sql.= " c.tax_identification_number as tax_identification_number,";
+$sql.= " c.manual_collection,";
+
+$sql.= " a.country,";
 
 $sql.= " s.payment_status,";
 $sql.= " s.status as subscription_status,";
@@ -223,20 +232,26 @@ $sql.= " customer as c";
 $sql.= " LEFT JOIN channel_partner_customer as cc ON cc.customer_id = c.id";
 $sql.= " LEFT JOIN channel_partner as cp ON cc.channel_partner_id = cp.id";
 $sql.= " LEFT JOIN person as per ON c.primary_contact_id = per.id,";
+$sql.= " address as a,";
 $sql.= " subscription as s, plan as pl";
 $sql.= " LEFT JOIN plan_add_on as pao ON pl.id=pao.plan_id and pao.meter_id = 1,";	// meter_id = 1 = users
 $sql.= " app_package as p";
-$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id AND s.plan_id = pl.id AND pl.app_package_id = p.id";
+$sql.= " WHERE c.address_id = a.id AND i.customer_id = c.id AND c.id = s.customer_id AND s.plan_id = pl.id AND pl.app_package_id = p.id";
 if ($search_dolicloud) $sql.='';
 if ($search_all) $sql.=natural_search(array("i.name","c.org_name","per.username"), $search_all);
 if ($search_multi) $sql.= natural_search(array_keys($fieldstosearchall), $search_multi);
 if ($search_instance) $sql.= natural_search("i.name", $search_instance);
+if ($search_access_enabled == '1') $sql.= " AND i.access_enabled IS TRUE";
+if ($search_access_enabled == '0') $sql.= " AND i.access_enabled IS FALSE";
+if ($search_manual_collection == '1') $sql.= " AND c.manual_collection IS TRUE";
+if ($search_manual_collection == '0') $sql.= " AND c.manual_collection IS FALSE";
 if ($search_organization) $sql.= natural_search("c.org_name", $search_organization);
 if ($search_vat) $sql.= natural_search("c.tax_identification_number", $search_vat);
 if ($search_plan) $sql.= natural_search("p.name", $search_plan);
 if ($search_partner) $sql.= natural_search("cp.org_name", $search_partner);
 if ($search_source) $sql.= natural_search("t.source", $search_source);
 if ($search_email) $sql.= natural_search("per.username", $search_email);
+if ($search_country) $sql.= natural_search("a.country", $search_country);
 if ($search_lastlogin) $sql.= natural_search("i.last_login", $search_lastlogin);
 if (! empty($search_status) && ! is_numeric($search_status))
 {
@@ -267,11 +282,14 @@ $param='';
 if ($month)              	$param.='&month='.urlencode($month);
 if ($year)               	$param.='&year=' .urlencode($year);
 if ($search_instance)    	$param.='&search_instance='.urlencode($search_instance);
+if ($search_access_enabled) $param.='&search_access_enabled='.urlencode($search_access_enabled);
+if ($search_manual_collection) $param.='&search_manual_collection='.urlencode($search_manual_collection);
 if ($search_organization) 	$param.='&search_organization='.urlencode($search_organization);
 if ($search_vat)		 	$param.='&search_vat='.urlencode($search_vat);
 if ($search_plan) 			$param.='&search_plan='.urlencode($search_plan);
 if ($search_partner) 		$param.='&search_partner='.urlencode($search_partner);
 if ($search_source) 		$param.='&search_source='.urlencode($search_source);
+if ($search_country)		$param.='&search_country='.urlencode($search_country);
 if ($search_email) 			$param.='&search_email='.urlencode($search_email);
 if ($search_lastlogin) 		$param.='&search_lastlogin='.urlencode($search_lastlogin);
 if ($search_status)      	$param.='&search_status='.urlencode($search_status);
@@ -305,9 +323,12 @@ if ($resql)
     print '<table class="liste" width="100%">';
     print '<tr class="liste_titre">';
     print_liste_field_titre($langs->trans('Instance'),$_SERVER['PHP_SELF'],'i.name','',$param,'align="left"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('AccessEnabled'),$_SERVER['PHP_SELF'],'i.access_enabled','',$param,'align="left"',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('ManualCollection'),$_SERVER['PHP_SELF'],'c.manual_collection','',$param,'align="left"',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Organization'),$_SERVER['PHP_SELF'],'c.organization','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('EMail'),$_SERVER['PHP_SELF'],'per.username','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('VATIntra'),$_SERVER['PHP_SELF'],'c.tax_identification_number','',$param,'',$sortfield,$sortorder);
+    print_liste_field_titre($langs->trans('Country'),$_SERVER['PHP_SELF'],'a.country','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Plan'),$_SERVER['PHP_SELF'],'pl.plan','',$param,'',$sortfield,$sortorder);
     print_liste_field_titre($langs->trans('Partner'),$_SERVER['PHP_SELF'],'cc.partner','',$param,'',$sortfield,$sortorder);
     //print_liste_field_titre($langs->trans('Source'),$_SERVER['PHP_SELF'],'t.source','',$param,'',$sortfield,$sortorder);
@@ -324,9 +345,12 @@ if ($resql)
 
     print '<tr class="liste_titre">';
     print '<td class="liste_titre"><input type="text" name="search_instance" size="4" value="'.$search_instance.'"></td>';
+    print '<td class="liste_titre"><input type="text" name="search_access_enabled" size="1" value="'.$search_access_enabled.'"></td>';
+    print '<td class="liste_titre"><input type="text" name="search_manual_collection" size="1" value="'.$search_manual_collection.'"></td>';
     print '<td class="liste_titre"><input type="text" name="search_organization" size="4" value="'.$search_organization.'"></td>';
     print '<td class="liste_titre"><input type="text" name="search_email" size="4" value="'.$search_email.'"></td>';
     print '<td class="liste_titre"><input type="text" name="search_vat" size="4" value="'.$search_vat.'"></td>';
+    print '<td class="liste_titre"><input type="text" name="search_country" size="2" value="'.$search_country.'"></td>';
     print '<td class="liste_titre"><input type="text" name="search_plan" size="4" value="'.$search_plan.'"></td>';
     print '<td class="liste_titre"><input type="text" name="search_partner" size="4" value="'.$search_partner.'"></td>';
     //print '<td class="liste_titre"><input type="text" name="search_source" size="4" value="'.$search_source.'"></td>';
@@ -372,19 +396,27 @@ if ($resql)
                 $status=$dolicloudcustomerstaticnew->getLibStatut(1,$form);
 
                 // You can use here results
-                print '<tr class="oddeven"><td align="left" nowrap="nowrap">';
+                print '<tr class="oddeven">';
+                print '<td align="left" nowrap="nowrap">';
                 //print $dolicloudcustomerstaticnew->status.'/'.$dolicloudcustomerstaticnew->instance_status.'/'.$dolicloudcustomerstaticnew->payment_status.'=>'.$status.'<br>';
                 $dolicloudcustomerstaticnew->id=$obj->id;
                 $dolicloudcustomerstaticnew->ref=$instance;
                 $dolicloudcustomerstaticnew->status=$obj->status;
                 print $dolicloudcustomerstaticnew->getNomUrl(1,'',0,'_new');
-                print '</td><td>';
+                print '</td>';
+                print '<td>'.yn($obj->access_enabled).'</td>';
+                print '<td>'.yn($obj->manual_collection).'</td>';
+                print '<td>';
                 print $obj->organization;
                 print '</td><td>';
                 print $obj->email;
                 print '</td><td>';
                 print $obj->tax_identification_number;
-                print '</td><td>';
+                print '</td>';
+                print '<td>';
+                print $obj->country;
+                print '</td>';
+                print '<td>';
                 if (empty($obj->planid)) print 'ERROR Bad value for Plan';
               	else print $obj->plan;
                 print '</td><td>';

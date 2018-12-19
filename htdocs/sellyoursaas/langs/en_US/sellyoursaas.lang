@@ -400,3 +400,4 @@ InvoiceBeforeAreAvailableOnDemandAt=Invoices before the %s are available on emai
 MyAcountDesc=This area is dedicated to managing your subscriptions to <a href="%s" target="dolicloud">%s</a>. You can create new instances of applications, choose options, get your subscription invoices or cancel your account.
 YourCustomUrl=Your custom URL
 NextInvoice=Next invoice
+AccessEnabled=Access enabled
