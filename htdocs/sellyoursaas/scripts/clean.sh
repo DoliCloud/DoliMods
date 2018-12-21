@@ -434,8 +434,8 @@ if [ -s /tmp/osutoclean ]; then
 fi
 
 # Now clean also old dir in archives-test
-echo Now clean also old dir in archives-test
+echo Now clean also old dir in archives-test (10 days after being archived)
 cd $archivedir
-find $archivedir -maxdepth 1 -type d -mtime +28 -exec rm -fr {} \;
+find $archivedir -maxdepth 1 -type d -mtime +10 -exec rm -fr {} \;
 
 exit 0
