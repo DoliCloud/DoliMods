@@ -446,7 +446,11 @@ if (empty($instanceoldid))
 
 	if ($action == 'resetpassword') {
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
-		$formquestion[] = array('type' => 'text','name' => 'newpassword','label' => $langs->trans("NewPassword"),'value' => getRandomPassword(false));
+
+		$newpasswordforcustomerinstance = getRandomPassword(false);	// TODO Use setup of customer instance instead of backoffice instance
+
+		$formquestion=array();
+		$formquestion[] = array('type' => 'text','name' => 'newpassword','label' => $langs->trans("NewPassword"),'value' => $newpasswordforcustomerinstance);
 
 		print $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id . '&remoteid=' . GETPOST('remoteid','int'), $langs->trans('ResetPassword'), $langs->trans('ConfirmResetPassword'), 'confirm_resetpassword', $formquestion, 0, 1);
 	}

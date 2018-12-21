@@ -95,7 +95,6 @@ $tldid = trim(GETPOST('tldid','alpha'));
 $domainname = preg_replace('/^\./', '', $tldid);
 $remoteip = $_SERVER['REMOTE_ADDRESS'];
 $origin = GETPOST('origin','aZ09');
-$generateduniquekey=getRandomPassword(true);
 $partner=GETPOST('partner','int');
 $partnerkey=GETPOST('partnerkey','alpha');		// md5 of partner name_alias
 
@@ -316,7 +315,7 @@ if ($reusecontractid)
 	$tmpthirdparty = $contract->thirdparty;
 
 	$email = $tmpthirdparty->email;
-	$password = substr(getRandomPassword(true), 0, 9);		// Password is no more known (no more in memory) when we make a retry/restart of deply
+	$password = substr(getRandomPassword(true, array('I')), 0, 9);		// Password is no more known (no more in memory) when we make a retry/restart of deploy
 
 	$generatedunixhostname = $contract->array_options['options_hostname_os'];
 	$generatedunixlogin = $contract->array_options['options_username_os'];
@@ -381,12 +380,12 @@ else
 
 	// Generate credentials
 
-	$generatedunixlogin = strtolower('osu'.substr(getRandomPassword(true), 0, 9));		// Must be lowercase as it can be used for default email
-	$generatedunixpassword = substr(getRandomPassword(true), 0, 10);
+	$generatedunixlogin = strtolower('osu'.substr(getRandomPassword(true, array('I')), 0, 9));		// Must be lowercase as it can be used for default email
+	$generatedunixpassword = substr(getRandomPassword(true, array('I')), 0, 10);
 
-	$generateddbname = 'dbn'.substr(getRandomPassword(true), 0, 8);
-	$generateddbusername = 'dbu'.substr(getRandomPassword(true), 0, 9);
-	$generateddbpassword = substr(getRandomPassword(true), 0, 10);
+	$generateddbname = 'dbn'.substr(getRandomPassword(true, array('I')), 0, 8);
+	$generateddbusername = 'dbu'.substr(getRandomPassword(true, array('I')), 0, 9);
+	$generateddbpassword = substr(getRandomPassword(true, array('I')), 0, 10);
 	$generateddbhostname = $sldAndSubdomain.'.'.$domainname;
 	$generateddbport = 3306;
 	$generatedunixhostname = $sldAndSubdomain.'.'.$domainname;

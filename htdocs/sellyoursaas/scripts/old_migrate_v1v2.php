@@ -275,12 +275,12 @@ if ($result <= 0 || $newobject->statut == 0)
 	}
 	else dol_syslog("Email not already used. Good.");
 
-	$generatedunixlogin = strtolower('osu'.substr(getRandomPassword(true), 0, 9));		// Must be lowercase as it can be used for default email
-	$generatedunixpassword = substr(getRandomPassword(true), 0, 10);
+	$generatedunixlogin = strtolower('osu'.substr(getRandomPassword(true, array('I')), 0, 9));		// Must be lowercase as it can be used for default email
+	$generatedunixpassword = substr(getRandomPassword(true, array('I')), 0, 10);
 
-	$generateddbname = 'dbn'.substr(getRandomPassword(true), 0, 8);
-	$generateddbusername = 'dbu'.substr(getRandomPassword(true), 0, 9);
-	$generateddbpassword = substr(getRandomPassword(true), 0, 10);
+	$generateddbname = 'dbn'.substr(getRandomPassword(true, array('I')), 0, 8);
+	$generateddbusername = 'dbu'.substr(getRandomPassword(true, array('I')), 0, 9);
+	$generateddbpassword = substr(getRandomPassword(true, array('I')), 0, 10);
 	$generateddbhostname = $newinstance;
 	$generateddbport = 3306;
 	$generatedunixhostname = $newinstance;
