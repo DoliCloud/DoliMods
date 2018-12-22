@@ -52,6 +52,7 @@ $action=GETPOST('action','alpha');
 $massaction=GETPOST('massaction','alpha');
 $show_files=GETPOST('show_files','int');
 $confirm=GETPOST('confirm','alpha');
+$cancel     = GETPOST('cancel', 'alpha');												// We click on a Cancel button
 $toselect = GETPOST('toselect', 'array');
 $contextpage= GETPOST('contextpage','aZ')?GETPOST('contextpage','aZ'):'contractlist';   // To manage different context of search
 
@@ -148,7 +149,33 @@ if (GETPOST("button_removefilter_x") || GETPOST("button_removefilter.x") ||GETPO
 	$search_status = '';
 }
 
+if ($massaction == 'generate_doc')
+{
+	$filecontent='';
+	foreach($toselect as $val)
+	{
+		$result = $object->fetch($val);
+		if ($result > 0)
+		{
+			$filecontent.=$object->instance."\n";
+		}
+	}
+	print '<pre>';
+	print $filecontent;
+	print '</pre>';
+	print '<br>';
+	print 'Add this content into file:'."<br>";
+	print '<pre>';
+	print 'sudo vi /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/filetomigrate.txt';
+	print '</pre>';
+	print '<br>';
+	print 'To launch migration:'."<br>";
+	print '<pre>';
+	print 'sudo /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/old_migrate_v1v2.sh confirm';
+	print '</pre>';
+	exit;
 
+}
 
 
 /*
@@ -342,6 +369,17 @@ if ($resql)
     $massactionbutton=$form->selectMassAction('', $arrayofmassactions);
 
 
+    // Lignes des champs de filtre
+    print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+    if ($optioncss != '') print '<input type="hidden" name="optioncss" value="'.$optioncss.'">';
+    print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    print '<input type="hidden" name="formfilteraction" id="formfilteraction" value="list">';
+    print '<input type="hidden" name="action" value="list">';
+    print '<input type="hidden" name="sortfield" value="'.$sortfield.'">';
+    print '<input type="hidden" name="sortorder" value="'.$sortorder.'">';
+    print '<input type="hidden" name="page" value="'.$page.'">';
+    print '<input type="hidden" name="contextpage" value="'.$contextpage.'">';
+
     print_barre_liste($langs->trans('DoliCloudInstances'),$page,$_SERVER["PHP_SELF"],$param,$sortfield,$sortorder, $massactionbutton, $num, $nbtotalofrecords, 'title_commercial.png', 0, $newcardbutton, '', $limit);
 
     if ($search_multi)
@@ -350,9 +388,6 @@ if ($resql)
         print '<div class="divsearchfieldfilter">'.$langs->trans("FilterOnInto", $search_multi) . join(', ',$fieldstosearchall).'</div>';
     }
 
-
-    // Lignes des champs de filtre
-    print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 
     $varpage=empty($contextpage)?$_SERVER["PHP_SELF"]:$contextpage;
     $selectedfields=$form->multiSelectArrayWithCheckbox('selectedfields', $arrayfields, $varpage);	// This also change content of $arrayfields
