@@ -5077,15 +5077,14 @@ if ($mode == 'support')
 
 						print '<select id="supportchannel" name="supportchannel" class="maxwidth500 minwidth500" style="width: auto">';
 						print '<option value=""></option>';
-						if (count($listofcontractid) == 0)				// Should not happen
+						if (count($listofcontractid) == 0)
 						{
-
-
-
+							// Should not happen
 						}
 						else
 						{
 							$atleastonehigh=0;
+							$atleastonefound=0;
 
 							foreach ($listofcontractid as $id => $contract)
 							{
@@ -5173,13 +5172,16 @@ if ($mode == 'support')
 									print ')';
 									print '</option>';
 									//print ajax_combobox('supportchannel');
+
+									$atleastonefound++;
 								}
 							}
 						}
 
+						if (! $atleastonefound) $labelother = $langs->trans("Miscellaneous");
+						else $labelother = $langs->trans("Other");
 
-						//print '<option value="low_other"'.(GETPOST('supportchannel','alpha') == 'low_other' ? ' selected="selected"':'').'>'.$langs->trans("Other").' ('.$langs->trans("Priority").': '.$langs->trans("Low").')</option>';
-						print '<option value="low_other"'.(GETPOST('supportchannel','alpha') == 'low_other' ? ' selected="selected"':'').'>'.$langs->trans("Other").'</option>';
+						print '<option value="low_other"'.(GETPOST('supportchannel','alpha') == 'low_other' ? ' selected="selected"':'').'>'.$labelother.'</option>';
 						if (empty($atleastonehigh))
 						{
 							print '<option value="high_premium" disabled="disabled">'.$langs->trans("PremiumSupport").' ('.$langs->trans("Priority").': '.$langs->trans("High").') - '.$langs->trans("NoPremiumPlan").'</option>';
