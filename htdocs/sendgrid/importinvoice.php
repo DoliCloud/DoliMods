@@ -572,7 +572,8 @@ if ($action == 'refresh')
 				{
 					$sql="SELECT rowid ";
 					$sql.=' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
-					$sql.=" WHERE facnumber = '".$db->escape($r['billnum'])."' and fk_soc = ".$sendgridthirdparty->id;
+					if ((float) DOL_VERSION < 10) $sql.=" WHERE facnumber = '".$db->escape($r['billnum'])."' and fk_soc = ".$sendgridthirdparty->id;
+					else $sql.=" WHERE ref = '".$db->escape($r['billnum'])."' and fk_soc = ".$sendgridthirdparty->id;
 	            }
 	            dol_syslog("Seach if invoice exists sql=".$sql);
 	            $resql = $db->query($sql);

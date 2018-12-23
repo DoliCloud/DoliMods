@@ -4864,7 +4864,7 @@ if ($mode == 'mycustomerbilling')
 			print '</tr>';
 		}
 
-		$sql ='SELECT f.rowid, f.facnumber as ref, f.fk_soc, f.datef, total as total_ht, total_ttc, f.paye, f.fk_statut, fe.commission';
+		$sql ='SELECT f.rowid, f.ref as ref, f.fk_soc, f.datef, total as total_ht, total_ttc, f.paye, f.fk_statut, fe.commission';
 		$sql.= ' FROM '.MAIN_DB_PREFIX.'facture as f LEFT JOIN '.MAIN_DB_PREFIX.'facture_extrafields as fe ON fe.fk_object = f.rowid';
 		//$sql.=' WHERE fe.reseller IN ('.join(',', $listofcustomeridreseller).')';
 		$sql.=' WHERE fe.reseller = '.$mythirdpartyaccount->id;
