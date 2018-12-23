@@ -5096,6 +5096,11 @@ if ($mode == 'support')
 								$dbprefix = $contract->array_options['options_db_prefix'];
 								if (empty($dbprefix)) $dbprefix = 'llx_';
 
+								if ($statuslabel == 'undeployed')
+								{
+									continue;
+								}
+
 								// Get info about PLAN of Contract
 								$planlabel = $planref;		// By default but we will take ref and label of service of type 'app' later
 
