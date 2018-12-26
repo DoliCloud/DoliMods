@@ -164,9 +164,10 @@ if ($massaction == 'generate_doc')
 	print $filecontent;
 	print '</pre>';
 	print '<br>';
-	print 'Add this content into file:'."<br>";
 	print '<pre>';
-	print 'sudo vi /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/filetomigrate.txt';
+	file_put_contents('/home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/filetomigrate.txt', $filecontent);
+	print 'This content was added into file /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/filetomigrate.txt'."<br>";
+	//print 'sudo vi /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/filetomigrate.txt';
 	print '</pre>';
 	print '<br>';
 	print 'To launch migration:'."<br>";
