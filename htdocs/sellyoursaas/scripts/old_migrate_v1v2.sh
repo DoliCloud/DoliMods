@@ -57,6 +57,8 @@ if [[ ! -f $scriptdir/filetomigrate.txt ]]; then
 fi
 
 if [ "x$1" == "xconfirm" -o "x$1" == "xmigrate" ]; then
+	echo There is currently `cat $scriptdir/filetomigrate.txt | grep -v '#' | wc -l` records in filetomigrate.txt
+	echo
 	echo "Purge filetomigrate.ok|ko"
 	> $scriptdir/filetomigrate.ok
 	> $scriptdir/filetomigrate.ko
