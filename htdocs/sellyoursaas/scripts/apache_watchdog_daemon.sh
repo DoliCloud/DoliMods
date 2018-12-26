@@ -39,7 +39,7 @@ while read ; do
 	echo "$now Now restart apache..." >> /var/log/apache_watchdog.log 2>&1
 	/etc/init.d/apache2 start >> /var/log/apache_watchdog.log 2>&1
 	
-	echo "Apache seg fault detected. Apache was killed and started." | mail -aFrom:$EMAILFROM -s "[Alert] Apache seg fault detected. Apache was killed and started." $EMAILTO
+	echo "Apache seg fault detected. Apache was killed and started." | mail -aFrom:$EMAILFROM -s "[Alert] Apache seg fault detected on "`hostname`". Apache was killed and started." $EMAILTO
 	sleep 1
 done
 
