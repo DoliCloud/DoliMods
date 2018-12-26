@@ -454,7 +454,7 @@ if ($resql)
     $i = 0;
     if ($num)
     {
-        while ($i < min($num,$conf->liste_limit))
+        while ($i < min($num, $limit))
         {
             $obj = $db2->fetch_object($resql);
             if ($obj)
