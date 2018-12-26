@@ -35,6 +35,7 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res) die("Include of main fails");
 
+require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 dol_include_once("/sellyoursaas/class/dolicloudcustomer.class.php");
 dol_include_once("/sellyoursaas/class/dolicloud_customers.class.php");
@@ -165,6 +166,8 @@ if ($massaction == 'generate_doc')
 	print '</pre>';
 	print '<br>';
 	print '<pre>';
+	dol_delete_file('/home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/filetomigrate.old');
+	rename('/home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/filetomigrate.txt', '/home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/filetomigrate.old');
 	file_put_contents('/home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/filetomigrate.txt', $filecontent);
 	print 'This content was added into file /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/filetomigrate.txt'."<br>";
 	//print 'sudo vi /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/filetomigrate.txt';
