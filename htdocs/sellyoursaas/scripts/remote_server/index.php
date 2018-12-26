@@ -17,12 +17,12 @@ $tmparray[]='127.0.0.1';
 
 if (empty($listofips) || ! in_array($_SERVER['REMOTE_ADDR'], $tmparray))
 {
-	fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call done with bad ip '.$_SERVER['REMOTE_ADDR']." : Not into file ".realpath('.').'/allowed_hosts.txt'.".\n");
+	fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call done with bad ip '.$_SERVER['REMOTE_ADDR']." : Not into 'allowed_hosts'.\n");
 	fclose($fh);
 
 	http_response_code(403);
 
-	print 'IP address '.$_SERVER['REMOTE_ADDR'].' is not allowed to access this remote server agent. Check file ./allowed_hosts.txt'."\n";
+	print 'IP address '.$_SERVER['REMOTE_ADDR']." is not allowed to access this remote server agent. Check 'allowed_hosts'.\n";
 
 	exit();
 }
