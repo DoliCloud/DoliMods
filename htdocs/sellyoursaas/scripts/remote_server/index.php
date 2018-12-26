@@ -10,12 +10,31 @@ if (empty($fh))
 	exit();
 }
 
-// Set array of allowed ips
-$listofips = file_get_contents('./allowed_hosts.txt');
-$tmparray=explode(',', trim($listofips));
-$tmparray[]='127.0.0.1';
+$tmparray = array();
 
-if (empty($listofips) || ! in_array($_SERVER['REMOTE_ADDR'], $tmparray))
+// Set array of allowed ips
+$fp = @fopen('./sellyoursaas.conf', 'r');
+// Add each line to an array
+if ($fp) {
+	$array = explode("\n", fread($fp, filesize('./sellyoursaas.conf')));
+	foreach($array as $val)
+	{
+		$tmpline=explode("=", $val);
+		if ($tmpline[0] == 'allowed_hosts')
+		{
+			$tmparray = explode(",", $tmpline[1]);
+		}
+	}
+}
+else
+{
+	print "Failed to open sellyoursaas.conf file\n";
+	exit;
+}
+if (! in_array('127.0.0.1', $tmparray)) $tmparray[]='127.0.0.1';	// Add localhost if not present
+
+
+if (empty($tmparray) || ! in_array($_SERVER['REMOTE_ADDR'], $tmparray))
 {
 	fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call done with bad ip '.$_SERVER['REMOTE_ADDR']." : Not into 'allowed_hosts'.\n");
 	fclose($fh);
