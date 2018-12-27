@@ -222,6 +222,7 @@ if ($result <= 0 || $newobject->statut == 0)
 	$email = $oldobject->email;
 	$country_code = $oldobject->country_code;
 	$locale = $oldobject->locale;
+	$taxid = $oldobject->vat_number;
 	if (strlen($locale) == 2) $locale = $locale.'_'.strtoupper($locale);
 
 	// $oldobject->plan contains something like 'Dolibarr ERP & CRM Premium'
@@ -303,6 +304,7 @@ if ($result <= 0 || $newobject->statut == 0)
 	$tmpthirdparty->email = $email;
 	$tmpthirdparty->client = 3;
 	$tmpthirdparty->tva_assuj = 1;
+	$tmpthirdparty->tva_intra = $taxid;
 	$tmpthirdparty->default_lang = ($locale ? $locale : $langs->defaultlang);
 	$tmpthirdparty->array_options['options_firstname'] = $oldobject->firstname;
 	$tmpthirdparty->array_options['options_lastname'] = $oldobject->lastname;
