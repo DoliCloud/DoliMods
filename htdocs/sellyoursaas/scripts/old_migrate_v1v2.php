@@ -199,7 +199,11 @@ if ($result <= 0 || $newobject->statut == 0)
 {
 	print "Error: newinstance ".$newinstance." with status <> 0 not found. Do you want to create new instance (and thirdparty if required)";
 
-	$line = readline(' (y/N) ? ');
+	$line = '';
+	while (strtolower(trim($line)) != 'y' && strtolower(trim($line)) != 'n')
+	{
+		$line = readline(' (y/N) ? ');
+	}
 	if (trim($line) != 'y')
 	{
 		// Exit by default
