@@ -36,7 +36,7 @@
 function numberwords_completesubstitutionarray(&$substitutionarray,$langs,$object)
 {
 	global $conf;
-	if (is_object($object))
+	if (is_object($object) && $object->id > 0)	// We do not add substitution entries if object is not instantiated (->id not > 0)
 	{
 		$numbertext=$langs->getLabelFromNumber($object->total_ttc,1);
 		$substitutionarray['__TOTAL_TTC_WORDS__']=$numbertext;    	// deprecated
