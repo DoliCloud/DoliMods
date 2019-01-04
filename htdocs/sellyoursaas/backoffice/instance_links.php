@@ -120,6 +120,7 @@ if (empty($reshook))
 		exit;
 	}
 
+	// Add action to create file, etc...
 	include 'refresh_action.inc.php';
 
 	$action = 'view';
@@ -363,6 +364,52 @@ if ($id > 0 || $instanceoldid > 0)
 }
 
 print '<br>';
+
+
+// Some data of instance
+
+print '<div class="fichecenter">';
+
+print '<table class="noborder" width="100%">';
+
+// Nb of users
+print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td><font size="+2">'.round($object->nbofusers).'</font></td>';
+print '<td></td><td></td>';
+print '</tr>';
+
+// Version
+print '<tr>';
+print '<td>'.$langs->trans("Version").'</td><td>'.$object->version.'</td>';
+print '<td></td><td></td>';
+print '</tr>';
+
+// Modules
+print '<tr>';
+print '<td>'.$langs->trans("Modules").'</td><td>'.join(', ',explode(',',$object->modulesenabled)).'</td>';
+print '<td></td><td></td>';
+print '</tr>';
+
+// Authorized key file
+print '<tr>';
+print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td>'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?'.(empty($instanceoldid)?'id=':'instanceoldid=').$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
+print ($object->fileauthorizedkey?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?'.(empty($instanceoldid)?'id=':'instanceoldid=').$object->id.'&action=delauthorizedkey">'.$langs->trans("Delete").'</a>)':'');
+print '</td>';
+print '<td></td><td></td>';
+print '</tr>';
+
+// Install.lock file
+print '<tr>';
+print '<td>'.$langs->trans("LockfileInstalled").'</td><td>'.($object->filelock?$langs->trans("Yes").' - '.dol_print_date($object->filelock,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?'.(empty($instanceoldid)?'id=':'instanceoldid=').$object->id.'&action=addinstalllock">'.$langs->trans("Create").'</a>)';
+print ($object->filelock?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?'.(empty($instanceoldid)?'id=':'instanceoldid=').$object->id.'&action=delinstalllock">'.$langs->trans("Delete").'</a>)':'');
+print '</td>';
+print '<td></td><td></td>';
+print '</tr>';
+
+print "</table><br>";
+
+print "</div>";	//  End fiche=center
 
 
 print getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid);
