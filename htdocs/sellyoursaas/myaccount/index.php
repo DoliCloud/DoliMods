@@ -24,7 +24,7 @@
 //if (! defined('NOREQUIREDB'))    define('NOREQUIREDB','1');
 //if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
 //if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1');
-//if (! defined('NOCSRFCHECK'))    define('NOCSRFCHECK','1');			// Do not check anti CSRF attack test
+if (! defined('NOCSRFCHECK'))    define('NOCSRFCHECK','1');			    // Do not check anti CSRF attack test (we can go on this page after a stripe payment recording)
 if (! defined('NOIPCHECK'))      define('NOIPCHECK','1');				// Do not check IP defined into conf $dolibarr_main_restrict_ip
 //if (! defined('NOSTYLECHECK'))   define('NOSTYLECHECK','1');			// Do not check style html tag into posted data
 //if (! defined('NOTOKENRENEWAL')) define('NOTOKENRENEWAL','1');		// Do not check anti POST attack test
