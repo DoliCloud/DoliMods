@@ -128,12 +128,6 @@ ErrorOnlyCharAZAllowedFor=Seuls les caractères a-z, 0-9 ou - sont autorisés po
 NameForYourApplication=nom d'adresse
 AccountAlreadyExistsForEmail=Un compte existe déjà pour cet email. Si vous avez déjà un compte client et voulez créer une seconde instance sur le même compte, logguez vous simplement sur votre <a href="%s" target="_myaccount">espace client</a> pour créer votre instance suplémentaire.
 AnonymousUser=Utilisateur anonyme
-YourYearlyPaymentRequest=Votre demande de paiement annuel pour votre abonnement __[SELLYOURSAAS_NAME]__
-YourYearlyPaymentRequestWasRecorded=Votre demande de paiement annuel pour l'abonnement au service __[SELLYOURSAAS_NAME]__ a été enregistrée. A la prochaine échance, le paiement se fera pour une année entière.<br>Dans le cas de paiement par carte, vous recevrez un mail, peu après le début de la nouvelle période annuelle pour réaliser le paiement en ligne.<br>Si vous avez fait une demande de paiement SEPA (europe uniquement), le prélèvement bancaire sera automatique.
-YourLinkForYourPayment=Requête pour le paiement de votre abonnement __[SELLYOURSAAS_NAME]__
-YourLinkForYourPaymentContent=Une nouvelle période démarre pour votre abonnement au service __[SELLYOURSAAS_NAME]__. Voici le lien à utiliser pour télécharger votre facture et réaliser le paiement en ligne (la période couverte apparait sur la facture). Nous vous recommandons de payer dans un délai de 15 jours pour éviter toute suspension de service ultérieure.<br>Note: Si vous avez choisi de payer par virement SEPA, vous pouvez ignorer cet email, le prélèvement bancaire sera fait automatiquement.
-YourPaymentRemind=Relance paiement abonnement  __[SELLYOURSAAS_NAME]__
-YourPaymentRemindContent=Sauf erreur de notre part, la facture __REF__ pour votre abonnement au service __[SELLYOURSAAS_NAME]__ n'a pas encore été payée. Voici un rappel du lien permettant de télécharger la facure et réaliser le paiement en ligne (la période couverte apparait sur la facture). Nous vous recommandons de réaliser le paiement dans un délai de 7 jours afin d'éviter la suspension du service.  
 InstanceNameAlreadyExists=Une instance avec le nom d'adresse <strong>%s</strong> existe déjà. Merci d'en choisir un autre...
 Registration=Inscription
 RegistrationAsReseller=Inscription revendeur

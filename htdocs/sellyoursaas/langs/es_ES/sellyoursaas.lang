@@ -122,12 +122,6 @@ ErrorOnlyCharAZAllowedFor=Solo están permitidos los caracteres a-z, 0-9 o - par
 NameForYourApplication=nombre de dirección
 AccountAlreadyExistsForEmail=Ya existe una cuenta para este e-mail. Si ya tiene una cuenta de cliente y quiere crear una segunda instancia en la misma cuenta, inicie sesión en su <a href="%s" target="_myaccount">área cliente</a> para crear su instancia adicional.
 AnonymousUser=Usuario anónimo
-YourYearlyPaymentRequest=Su solicitud de pago anual para su suscripción __[SELLYOURSAAS_NAME]__
-YourYearlyPaymentRequestWasRecorded=Su solicitud de pago anual para su suscripción al servicio __[SELLYOURSAAS_NAME]__ ha sido registrado. En el próximo vencimiento, el pago será por un año completo..<br>En el caso del pago con tarjeta, recibirá un e-mail, poco después del comienzo del nuevo período anual para realizar el pago en línea.<br>Si ha realizado una solicitud de pago de SEPA (solo en Europa), el domiciliación será automática.
-YourLinkForYourPayment=Solicitud de pago de su suscripción __[SELLYOURSAAS_NAME]__
-YourLinkForYourPaymentContent=Comienza un nuevo período para su suscripción al servicio __[SELLYOURSAAS_NAME]__. Aquí está el enlace para descargar su factura y realizar el pago en línea (el período cubierto aparece en la factura). Le recomendamos que pague dentro de los 15 días para evitar la suspensión del servicio.<br>Nota: Si ha realizado una solicitud de pago de SEPA (solo en Europa), el domiciliación será automática.
-YourPaymentRemind=Pago de renovación de su suscripción a  __[SELLYOURSAAS_NAME]__
-YourPaymentRemindContent=Salvo error por nuestra parte, la factura __REF__ de su suscripción al servicio __[SELLYOURSAAS_NAME]__ aún no ha sido pagada. Aquí hay un recordatorio del enlace para descargar la facutura y hacer el pago en línea (el período cubierto aparece en la factura). Le recomendamos que realice el pago dentro de los 7 días para evitar la suspensión del servicio.
 InstanceNameAlreadyExists=Ya existe una instancia con el nombre de dirección <strong>%s</strong>. Elija otro...
 Registration=Inscripción
 RegistrationAsReseller=Inscripción revendedor
