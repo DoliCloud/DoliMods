@@ -67,10 +67,12 @@ fi
 # Make migration
 if [ "x$1" == "xconfirm" -o "x$1" == "xmigrate" ]; then
 	echo "----- Make migration. Loop on $scriptdir/filetomigrate.txt"
+	export i=0
 	for instancename in `cat $scriptdir/filetomigrate.txt | sed -e 's!.on.dolicloud.com!!g' | grep -v '#'`
 	do
 		if [[ "x$instancename" != "x" ]]; then
-			echo Try to migrate $instance with php old_migrate_v1v2.php $instancename $instancename confirm
+		    export i=$(($i + 1))
+			echo Try $i to migrate $instance with php old_migrate_v1v2.php $instancename $instancename confirm
 			php old_migrate_v1v2.php $instancename $instancename confirm
 			result=$?
 			if [[ "x$result" == "x0" ]]; then
