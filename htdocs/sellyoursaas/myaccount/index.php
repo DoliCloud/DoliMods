@@ -3075,7 +3075,7 @@ if ($mode == 'instances')
 					                    '.$langs->trans("PleaseBeSure", $contract->ref_customer).'
 					                </p>
 									<p class="center" style="padding-bottom: 15px">
-										<input type="text" class="center urlofinstancetodestroy" name="urlofinstancetodestroy" value="'.GETPOST('urlofinstancetodestroy','alpha').'" placeholder="">
+										<input type="text" class="center urlofinstancetodestroy" name="urlofinstancetodestroy" value="'.GETPOST('urlofinstancetodestroy','alpha').'" placeholder="" autofocus>
 									</p>';
 								}
 								print '
