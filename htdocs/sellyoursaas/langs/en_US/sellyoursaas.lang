@@ -395,3 +395,6 @@ MyAcountDesc=This area is dedicated to managing your subscriptions to <a href="%
 YourCustomUrl=Your custom URL
 NextInvoice=Next invoice
 AccessEnabled=Access enabled
+OtherOptionsAndParameters=Other options and parameters
+YouCanUseCSSParameter=You can define an external CSS to use. The URL must be a HTTPS link and this value must be an URL that is encoded to be a valid HTTP parameter
+ToForcePlan=To force subscription plan

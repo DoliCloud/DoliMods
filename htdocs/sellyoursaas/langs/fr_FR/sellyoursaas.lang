@@ -364,3 +364,7 @@ InvoiceBeforeAreAvailableOnDemandAt=Les factures d'avant le %s sont disponibles 
 MyAcountDesc=Cet espace est dédié à la gestion de vos abonnements <a href="%s" target="dolicloud">%s</a>. Vous pouvez créer de nouvelles instances d'applications, choisir des options, récupérer vos factures d'abonnement ou fermer votre compte.
 YourCustomUrl=Votre URL personnalisée
 NextInvoice=Prochaine facture
+AccessEnabled=Accèss activé
+OtherOptionsAndParameters=Autres options et paramètres
+YouCanUseCSSParameter=Vou spouvez définir un CSS externe à utiliser. L'URL doit être un lien HTTPS et cette valeur doit être une URL encodée pour être un paramètre HTTP valide
+ToForcePlan=Pour forcer la formule d'abonnement

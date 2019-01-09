@@ -186,10 +186,17 @@ $conf->dol_hide_leftmenu = 1;
 $head='<link rel="icon" href="img/favicon.ico">
 <!-- Bootstrap core CSS -->
 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">-->
-<link href="dist/css/bootstrap.css" rel="stylesheet">
-<link href="dist/css/myaccount.css" rel="stylesheet">';
+<link href="dist/css/bootstrap.css" rel="stylesheet">';
+if (GETPOST('extcss','alpha'))
+{
+    $head.='<link href="'.GETPOST('extcss','alpha').'" rel="stylesheet">';
+}
+else
+{
+    $head.='<link href="dist/css/myaccount.css" rel="stylesheet">';
+}
 
-llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(), array('../dist/css/myaccount.css'), '', 'register');
+llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(), array(), '', 'register');
 
 $prefix=dol_getprefix('');
 $cookieregistrationa='DOLREGISTERA_'.$prefix;

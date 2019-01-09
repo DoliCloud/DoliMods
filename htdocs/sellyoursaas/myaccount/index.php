@@ -1164,7 +1164,15 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 			$url=$_SERVER["PHP_SELF"];
 			if ($backurl) $url=$backurl;
-			$url.=(preg_match('/\?/', $url) ? '&' : '?' ).'paymentrecorded=1';
+
+			if (sellyoursaasThirdpartyHasPaymentMode($mythirdpartyaccount->id))
+			{
+			    $url.=(preg_match('/\?/', $url) ? '&' : '?' ).'paymentmodified=1';
+			}
+			else
+			{
+			    $url.=(preg_match('/\?/', $url) ? '&' : '?' ).'paymentrecorded=1';
+			}
 
 			header('Location: '.$url);
 			exit;
@@ -1779,14 +1787,32 @@ if ($mythirdpartyaccount->isareseller)
 	print $langs->trans("YourURLToCreateNewInstance").' : ';
 	$urlforpartner = $conf->global->SELLYOURSAAS_ACCOUNT_URL.'/register.php?partner='.$mythirdpartyaccount->id.'&partnerkey='.md5($mythirdpartyaccount->name_alias);
 	print '<a class="wordbreak" href="'.$urlforpartner.'" target="_blankinstance">'.$urlforpartner;
-	if (is_array($arrayofplans) && count($arrayofplans) > 1) print '&plan=XXX';
 	print '</a><br>';
+
+	print '<script type="text/javascript" language="javascript">
+	jQuery(document).ready(function() {
+		jQuery("#spanmorereselleroptions").click(function() {
+			console.log("Click on spanmorereselleroptions");
+			jQuery("#divmorereselleroptions").toggle();
+		});
+        jQuery("#divmorereselleroptions").toggle();
+	});
+		</script>';
+
+	print '<a id="spanmorereselleroptions" href="#" style="color: #666">'.$langs->trans("OtherOptionsAndParameters").' <span class="fa fa-angle-down"></span></a><br>';
+	print '<div id="divmorereselleroptions" style="display: hidden">';
+	print '&extcss=mycssurl : <span class="opacitymedium">'.$langs->trans("YouCanUseCSSParameter").'</span>';
 	if (is_array($arrayofplans) && count($arrayofplans) > 1)
 	{
-		print '<div class="opacitymedium">('.$langs->trans("whereXXXcanbe").' '.join(', ', $arrayofplanscode).')</div>';
+	    print '<br>&plan=XXX : ';
+	    print '<span class="opacitymedium">'.$langs->trans("ToForcePlan").', '.$langs->trans("whereXXXcanbe").' '.join(', ', $arrayofplanscode).'</span>';
 	}
+	print '</div>';
+    print '<br>';
+
 	$urformycustomerinstances = '<strong>'.$langs->transnoentitiesnoconv("MyCustomersBilling").'</strong>';
 	print $langs->trans("YourCommissionsAppearsInMenu", $mythirdpartyaccount->array_options['options_commission'], $urformycustomerinstances);
+
 	print '
 		</div>
 	';
