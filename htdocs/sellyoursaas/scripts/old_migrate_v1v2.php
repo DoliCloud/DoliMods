@@ -197,7 +197,7 @@ $result=0;
 if ($idofinstancefound) $result=$newobject->fetch($idofinstancefound);
 if ($result <= 0 || $newobject->statut == 0)
 {
-	print "Error: newinstance ".$newinstance." with status <> 0 not found. Do you want to create new instance (and thirdparty if required)";
+	print "newinstance ".$newinstance." with status > 0 not found. Do you want to create new instance (and thirdparty if required)";
 
 	$line = '';
 	while (strtolower(trim($line)) != 'y' && strtolower(trim($line)) != 'n')
@@ -894,7 +894,7 @@ if ($result <= 0 || $newobject->statut == 0)
 	}
 }
 else {
-    print 'Error: instance already exists'."\n";
+    print 'Error: instance '.$newinstance.' with id '.$idofinstancefound.' already exists'."\n";
     exit(-9);
 }
 
