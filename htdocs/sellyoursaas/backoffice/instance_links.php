@@ -220,7 +220,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db?$port_db:3306);
 
 	$confinstance = new Conf();
-	
+
 	if (is_object($newdb) && $newdb->connected)
 	{
 		// Get user/pass of last admin user
@@ -239,10 +239,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 			setEventMessages('Success to connect to server, but failed to switch on database.'.$newdb->lasterror(), null, 'errors');
 		}
 
-		if ($newdb->connected)
-		{
-		    $confinstance->setValues($newdb);
-		}
+	    $confinstance->setValues($newdb);
 	}
 
 
@@ -407,7 +404,18 @@ print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td>'.($object->file
 print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?'.(empty($instanceoldid)?'id=':'instanceoldid=').$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
 print ($object->fileauthorizedkey?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?'.(empty($instanceoldid)?'id=':'instanceoldid=').$object->id.'&action=delauthorizedkey">'.$langs->trans("Delete").'</a>)':'');
 print '</td>';
-print '<td></td><td></td>';
+print '<td></td><td>';
+$i=0;
+foreach($confinstance->global as $key => $val)
+{
+    if (preg_match('/^MAIN_MODULE_[^_]+$/',$key) && ! empty($val))
+    {
+        if ($i > 0) print ', ';
+        print preg_replace('/^MAIN_MODULE_/','',$key);
+        $i++;
+    }
+}
+print '</td>';
 print '</tr>';
 
 // Install.lock file
