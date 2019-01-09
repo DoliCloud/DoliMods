@@ -893,6 +893,10 @@ if ($result <= 0 || $newobject->statut == 0)
 		exit(-8);
 	}
 }
+else {
+    print 'Error: instance already exists'."\n";
+    exit(-9);
+}
 
 $newobject->instance = $newinstance;
 $newobject->username_web = $newobject->array_options['options_username_os'];
