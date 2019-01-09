@@ -388,23 +388,14 @@ print '</tr>';
 
 // Version
 print '<tr>';
-print '<td>'.$langs->trans("Version").'</td><td>'.$confinstance->version.'</td>';
-print '<td></td><td></td>';
+print '<td>'.$langs->trans("Version").'</td>';
+print '<td colspan="3">MAIN_VERSION_LAST_INSTALL='.$confinstance->global->MAIN_VERSION_LAST_INSTALL.' / MAIN_VERSION_LAST_UPGRADE='.$confinstance->global->MAIN_VERSION_LAST_UPGRADE.'</td>';
 print '</tr>';
 
 // Modules
 print '<tr>';
-print '<td>'.$langs->trans("Modules").'</td><td>'.join(', ',explode(',',$object->modulesenabled)).'</td>';
-print '<td></td><td></td>';
-print '</tr>';
-
-// Authorized key file
-print '<tr>';
-print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td>'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
-print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?'.(empty($instanceoldid)?'id=':'instanceoldid=').$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
-print ($object->fileauthorizedkey?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?'.(empty($instanceoldid)?'id=':'instanceoldid=').$object->id.'&action=delauthorizedkey">'.$langs->trans("Delete").'</a>)':'');
-print '</td>';
-print '<td></td><td>';
+print '<td>'.$langs->trans("Modules").'</td>';
+print '<td colspan="3">';
 $i=0;
 foreach($confinstance->global as $key => $val)
 {
@@ -415,6 +406,16 @@ foreach($confinstance->global as $key => $val)
         $i++;
     }
 }
+print '</td>';
+print '</tr>';
+
+// Authorized key file
+print '<tr>';
+print '<td>'.$langs->trans("Authorized_keyInstalled").'</td><td>'.($object->fileauthorizedkey?$langs->trans("Yes").' - '.dol_print_date($object->fileauthorizedkey,'%Y-%m-%d %H:%M:%S','tzuser'):$langs->trans("No"));
+print ' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?'.(empty($instanceoldid)?'id=':'instanceoldid=').$object->id.'&action=addauthorizedkey">'.$langs->trans("Create").'</a>)';
+print ($object->fileauthorizedkey?' &nbsp; (<a href="'.$_SERVER["PHP_SELF"].'?'.(empty($instanceoldid)?'id=':'instanceoldid=').$object->id.'&action=delauthorizedkey">'.$langs->trans("Delete").'</a>)':'');
+print '</td>';
+print '<td></td><td>';
 print '</td>';
 print '</tr>';
 

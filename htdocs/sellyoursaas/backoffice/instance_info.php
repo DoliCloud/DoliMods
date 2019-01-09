@@ -614,8 +614,8 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		 */
 		// Version
 		print '<tr>';
-		print '<td>'.$langs->trans("Version").'</td><td colspan="3">MAIN_VERSION_LAST_INSTALL='.$confinstance->global->MAIN_VERSION_LAST_INSTALL.' / MAIN_VERSION_LAST_UPGRADE='.$confinstance->global->MAIN_VERSION_LAST_UPGRADE.'</td>';
-		print '</td>';
+		print '<td>'.$langs->trans("Version").'</td>';
+		print '<td colspan="3">MAIN_VERSION_LAST_INSTALL='.$confinstance->global->MAIN_VERSION_LAST_INSTALL.' / MAIN_VERSION_LAST_UPGRADE='.$confinstance->global->MAIN_VERSION_LAST_UPGRADE.'</td>';
 		print '</tr>';
 
 		// Modules
