@@ -1067,12 +1067,12 @@ $param[]='-p"'.str_replace(array('"','`'),array('\"','\`'),$oldobject->password_
 $fullcommand=$command." ".join(" ",$param);
 $fullcommand.=' -e "REPLACE INTO llx_const (name, entity, value, type, visible) values(\'MAIN_ONLY_LOGIN_ALLOWED\', 0, \'nobody\', \'chaine\', 0);"';	//  UPDATE llx_user SET statut = 0 where login=\'admin\'"
 $output=array();
-$return_varmysql=0;
+$return_varmysql2=0;
 print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
 if ($mode != 'test')
 {
-	exec($fullcommand, $output, $return_varmysql);
-	print strftime("%Y%m%d-%H%M%S").' mysql done (return='.$return_varmysql.')'."\n";
+	exec($fullcommand, $output, $return_varmysql2);
+	print strftime("%Y%m%d-%H%M%S").' mysql done (return='.$return_varmysql2.')'."\n";
 }
 
 // Output result
@@ -1088,21 +1088,21 @@ print '--- Load database '.$newobject->database_db.' from /tmp/mysqldump_'.$oldo
 
 $fullcommanda='echo "drop table llx_accounting_account;" | mysql -u'.$newloginbase.' -p'.$newpasswordbase.' -D '.$newobject->database_db;
 $output=array();
-$return_var=0;
+$return_varload=0;
 print strftime("%Y%m%d-%H%M%S").' Drop table to prevent load error with '.$fullcommanda."\n";
 if ($mode == 'confirm')
 {
-	exec($fullcommanda, $output, $return_var);
+    exec($fullcommanda, $output, $return_varload);
 	foreach($output as $line) print $line."\n";
 }
 
 $fullcommandb='echo "drop table llx_accounting_system;" | mysql -u'.$newloginbase.' -p'.$newpasswordbase.' -D '.$newobject->database_db;
 $output=array();
-$return_var=0;
+$return_varload=0;
 print strftime("%Y%m%d-%H%M%S").' Drop table to prevent load error with '.$fullcommandb."\n";
 if ($mode == 'confirm')
 {
-	exec($fullcommandb, $output, $return_var);
+    exec($fullcommandb, $output, $return_varload);
 	foreach($output as $line) print $line."\n";
 }
 
@@ -1111,19 +1111,19 @@ print strftime("%Y%m%d-%H%M%S")." Load dump with ".$fullcommand."\n";
 if ($mode == 'confirm')
 {
 	$output=array();
-	$return_var=0;
+	$return_varload=0;
 	print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
-	exec($fullcommand, $output, $return_var);
+	exec($fullcommand, $output, $return_varload);
 	foreach($output as $line) print $line."\n";
 }
 
 $fullcommandc='echo "UPDATE llx_const set value = \''.$newlogin.'\' WHERE name = \'CRON_KEY\';" | mysql -u'.$newloginbase.' -p'.$newpasswordbase.' -D '.$newobject->database_db;
 $output=array();
-$return_var=0;
+$return_varload=0;
 print strftime("%Y%m%d-%H%M%S").' Update cron key '.$fullcommandc."\n";
 if ($mode == 'confirm')
 {
-	exec($fullcommandc, $output, $return_var);
+    exec($fullcommandc, $output, $return_varload);
 	foreach($output as $line) print $line."\n";
 }
 
@@ -1147,7 +1147,7 @@ else
 }
 
 
-exit($return_var + $return_varmysql);
+exit($return_var + $return_varchmod + $return_varmysql + $return_varmysql2 + $return_varload);
 
 
 // Add end do something like
