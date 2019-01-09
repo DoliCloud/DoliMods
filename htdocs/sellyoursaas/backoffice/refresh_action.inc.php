@@ -454,7 +454,7 @@ if ($action == 'delinstalllock')
 // We make a refresh of status of install.lock + authorized key, this does not update the qty (this is done in makeRenewal.
 if ($action == 'refresh' || $action == 'setdate')
 {
-	dol_include_once("/sellyoursaas/core/backoffice/lib/refresh.lib.php");
+	dol_include_once("/sellyoursaas/backoffice/lib/refresh.lib.php");
 
 	$object->oldcopy=dol_clone($object, 1);
 
