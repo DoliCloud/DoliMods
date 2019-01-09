@@ -151,7 +151,7 @@ if (empty($instanceoldid) && $action != 'create')
 	$head = contract_prepare_head($object);
 
 	$title = $langs->trans("Contract");
-	dol_fiche_head($head, 'backup', $title, -1, 'contract');
+	dol_fiche_head($head, 'backup', $title, 0, 'contract');
 }
 else
 {
@@ -159,7 +159,7 @@ else
 	$head = dolicloud_prepare_head($object);
 
 	$title = $langs->trans("Contract");
-	dol_fiche_head($head, 'backup', $title, -1, 'contract');
+	dol_fiche_head($head, 'backup', $title, 0, 'contract');
 }
 
 
@@ -275,8 +275,17 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	if (empty($instanceoldid)) $nodbprefix=0;
 	else $nodbprefix=1;
 
-	dol_banner_tab($object, ($instanceoldid?'refold':'ref'), $linkback, 1, ($instanceoldid?'name':'ref'), 'ref', $morehtmlref, '', $nodbprefix, '', '', 0);
+	dol_banner_tab($object, ($instanceoldid?'refold':'ref'), $linkback, 1, ($instanceoldid?'name':'ref'), 'ref', $morehtmlref, '', $nodbprefix, '', '', 1);
+}
 
+if ($id > 0 || $instanceoldid > 0)
+{
+    dol_fiche_end();
+}
+
+if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
+{
+    print '<br>';
 
 	if (is_object($object->db2))
 	{
@@ -304,7 +313,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	print '<strong>INSTANCE BACKUP</strong><br>';
 
 	print '<div class="underbanner clearboth"></div>';
-	print '<table class="border" width="100%">';
+	print '<table class="noborder" width="100%">';
 
 	// Backup dir
 	print '<tr class="oddeven">';
@@ -355,10 +364,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 */
 }
 
-if ($id > 0 || $instanceoldid > 0)
-{
-	dol_fiche_end();
-}
+
 
 
 // Upgrade link

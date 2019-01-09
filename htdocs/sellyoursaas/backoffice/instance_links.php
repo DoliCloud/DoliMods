@@ -160,9 +160,9 @@ else
 
 if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 {
-	/*
-	 * Fiche en mode visualisation
-	*/
+    /*
+     * Fiche en mode visualisation
+     */
 
 	$instance = 'xxxx';
 	$type_db = $conf->db->type;
@@ -219,6 +219,8 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db?$port_db:3306);
 
+	$confinstance = new Conf();
+	
 	if (is_object($newdb) && $newdb->connected)
 	{
 		// Get user/pass of last admin user
@@ -235,6 +237,11 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		else
 		{
 			setEventMessages('Success to connect to server, but failed to switch on database.'.$newdb->lasterror(), null, 'errors');
+		}
+
+		if ($newdb->connected)
+		{
+		    $confinstance->setValues($newdb);
 		}
 	}
 
@@ -374,12 +381,17 @@ print '<table class="noborder" width="100%">';
 
 // Nb of users
 print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td><font size="+2">'.round($object->nbofusers).'</font></td>';
-print '<td></td><td></td>';
+print '<td></td><td>';
+if (! $object->user_id && $user->rights->sellyoursaas->write)
+{
+    print ' <a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refresh">'.img_picto($langs->trans("Refresh"),'refresh').'</a>';
+}
+print '</td>';
 print '</tr>';
 
 // Version
 print '<tr>';
-print '<td>'.$langs->trans("Version").'</td><td>'.$object->version.'</td>';
+print '<td>'.$langs->trans("Version").'</td><td>'.$confinstance->version.'</td>';
 print '<td></td><td></td>';
 print '</tr>';
 
