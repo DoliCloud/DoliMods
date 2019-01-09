@@ -87,7 +87,7 @@ fi
 
 # Fix DNS
 if [ "x$1" == "xconfirm" -o "x$1" == "xdns" ]; then
-	echo "----- Change DNS of file into $scriptdir/filetomigrate.ok"
+	echo "----- Change DNS for entries into $scriptdir/filetomigrate.ok"
 	for instancename in `cat $scriptdir/filetomigrate.ok | sed -e 's!.on.dolicloud.com!!g' | grep -v '#'`
 	do
 		echo `date +%Y%m%d%H%M%S`" **** Archive file with cp /etc/bind/${ZONE} /etc/bind/archives/${ZONE}-$now"
