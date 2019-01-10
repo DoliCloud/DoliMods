@@ -74,7 +74,13 @@ file_put_contents($tmpfile, "Now we send report to DataDog\n", FILE_APPEND);
 
 dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
 
-$statsd = new DogStatsd();
+$arrayconfig=array();
+if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+{
+    $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+}
+
+$statsd = new DogStatsd($arrayconfig);
 
 $arraytags=null;
 //$arraytags = array('instance'=>);
