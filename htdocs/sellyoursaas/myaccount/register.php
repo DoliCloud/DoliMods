@@ -76,6 +76,7 @@ $reusecontractid = GETPOST('reusecontractid','int');
 $reusesocid = GETPOST('reusesocid','int');
 $fromsocid = GETPOST('fromsocid','int');
 $disablecustomeremail = GETPOST('disablecustomeremail', 'alpha');
+$extcss=GETPOST('extcss','alpha');
 
 $productid=GETPOST('service','int');
 $productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):'');
@@ -187,9 +188,9 @@ $head='<link rel="icon" href="img/favicon.ico">
 <!-- Bootstrap core CSS -->
 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">-->
 <link href="dist/css/bootstrap.css" rel="stylesheet">';
-if (GETPOST('extcss','alpha'))
+if ($extcss)
 {
-    $head.='<link href="'.GETPOST('extcss','alpha').'" rel="stylesheet">';
+    $head.='<link href="'.$extcss.'" rel="stylesheet">';
 }
 else
 {
@@ -268,6 +269,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 	    	  <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
 	          <input type="hidden" name="service" value="<?php echo dol_escape_htmltag($tmpproduct->id); ?>" />
 	          <input type="hidden" name="productref" value="<?php echo ($productref == 'none' ? 'none' : dol_escape_htmltag($tmpproduct->ref)); ?>" />
+	          <input type="hidden" name="extcss" value="<?php echo dol_escape_htmltag($extcss); ?>" />
 	          <input type="hidden" name="package" value="<?php echo dol_escape_htmltag($tmppackage->ref); ?>" />
 	          <input type="hidden" name="partner" value="<?php echo dol_escape_htmltag($partner); ?>" />
 	          <input type="hidden" name="partnerkey" value="<?php echo dol_escape_htmltag($partnerkey); ?>" />

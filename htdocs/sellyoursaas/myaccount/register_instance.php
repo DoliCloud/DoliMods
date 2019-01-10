@@ -107,6 +107,7 @@ $service=GETPOST('service','int');
 $productid=GETPOST('service','int');
 $plan=GETPOST('plan','alpha');
 $productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):($plan?$plan:''));
+$extcss=GETPOST('extcss','alpha');
 
 $tmpproduct = new Product($db);
 $tmppackage = new Packages($db);
@@ -896,6 +897,7 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
         <div class="form-content">
     	  <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />
           <input type="hidden" name="service" value="<?php echo dol_escape_htmltag($tmpproduct->ref); ?>" />
+          <input type="hidden" name="extcss" value="<?php echo dol_escape_htmltag($extcss); ?>" />
           <input type="hidden" name="package" value="<?php echo dol_escape_htmltag($tmppackage->ref); ?>" />
           <input type="hidden" name="partner" value="<?php echo dol_escape_htmltag($partner); ?>" />
           <input type="hidden" name="disablecustomeremail" value="<?php echo dol_escape_htmltag($disablecustomeremail); ?>" />
