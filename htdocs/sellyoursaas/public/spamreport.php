@@ -38,6 +38,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societeaccount.class.php';
 
+
 $tmpfile = '/tmp/spamreport.log';
 $date = strftime("%Y-%m-%d %H:%M:%S" ,time());
 
@@ -55,14 +56,29 @@ echo $body;
 file_put_contents($tmpfile, "\n", FILE_APPEND);
 echo "\n";
 
-file_put_contents($tmpfile, "Now be send an email to supervisor\n", FILE_APPEND);
 
 
 // Send email
+file_put_contents($tmpfile, "Now we send an email to supervisor\n", FILE_APPEND);
+
 $headers = 'From: <'.$conf->global->SELLYOURSAAS_NOREPLY_EMAIL.">\r\n";
 $success=mail($conf->global->SELLYOURSAAS_SUPERVISION_EMAIL, '[Alert] Spam report received from SendGrid', 'Spam was reported by SendGrid:'."\r\n".$body, $headers);
 if (!$success) {
 	$errorMessage = error_get_last()['message'];
 	print $errorMessage;
 }
+
+
+// Send to datadog
+file_put_contents($tmpfile, "Now we send report to DataDog\n", FILE_APPEND);
+
+dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+
+$statsd = new DogStatsd();
+
+$arraytags=null;
+//$arraytags = array('instance'=>);
+
+$statsd->increment('sellyoursaas.spamreported', 1, $arraytags);
+
 
