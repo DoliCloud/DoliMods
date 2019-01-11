@@ -90,7 +90,14 @@ if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
     $arraytags=null;
     //$arraytags = array('instance'=>);
 
-    $statsd->increment('sellyoursaas.spamreported', 1, $arraytags);
+    //$statsd->increment('sellyoursaas.spamreported', 1, $arraytags);
+
+    $statsd->event('sellyoursaas.spamevent',
+        array(
+            'text'       => 'A Spam was reported by SendGrid',
+            'alert_type' => 'warning'
+        )
+    );
 
     echo "Ping sent to DataDog<br>\n";
 }
