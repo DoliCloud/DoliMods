@@ -70,21 +70,22 @@ if (!$success) {
 
 
 // Send to datadog
-file_put_contents($tmpfile, "Now we send report to DataDog\n", FILE_APPEND);
-
-dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
-
-$arrayconfig=array();
-if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
 {
-    $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+    file_put_contents($tmpfile, "Now we send report to DataDog\n", FILE_APPEND);
+
+    dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+
+    $arrayconfig=array();
+    if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+    {
+        $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+    }
+
+    $statsd = new DogStatsd($arrayconfig);
+
+    $arraytags=null;
+    //$arraytags = array('instance'=>);
+
+    $statsd->increment('sellyoursaas.spamreported', 1, $arraytags);
 }
-
-$statsd = new DogStatsd($arrayconfig);
-
-$arraytags=null;
-//$arraytags = array('instance'=>);
-
-$statsd->increment('sellyoursaas.spamreported', 1, $arraytags);
-
-
