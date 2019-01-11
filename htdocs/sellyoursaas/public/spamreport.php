@@ -85,7 +85,7 @@ if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
         $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
     }
 
-    $statsd = new DogStatsd($arrayconfig);
+    $statsd = new DataDog\DogStatsd($arrayconfig);
 
     $arraytags=null;
     //$arraytags = array('instance'=>);
