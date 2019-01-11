@@ -235,6 +235,8 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
         	$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL);
         }
 
+        if (! GETPOST('noheader','int'))
+        {
         ?>
 		<div class="page-header-top">
 		    <div class="container">
@@ -255,13 +257,20 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 
 		    </div>
 		  </div>
-
+		  <?php
+          }
+          ?>
       <div class="block medium center">
-
+		<?php
+        if (! GETPOST('noheader','int'))
+        {
+        ?>
         <header class="invers">
           <h1><?php echo $langs->trans("Registration") ?> <small><?php echo ($tmpproduct->label?'('.$tmpproduct->label.')':''); ?></small></h1>
         </header>
-
+		<?php
+        }
+        ?>
 		<div class="signup2 centpercent">
 
 	      <form action="register_instance.php" method="post" id="formregister">

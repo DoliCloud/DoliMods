@@ -98,7 +98,7 @@ function top_httphead_sellyoursaas($contenttype='text/html', $forcenocache=0)
 	if ($contenttype == 'text/html' ) header("Content-Type: text/html; charset=".$conf->file->character_set_client);
 	else header("Content-Type: ".$contenttype);
 	header("X-Content-Type-Options: nosniff");
-	header("X-Frame-Options: SAMEORIGIN");
+	header("X-Frame-Options: ALLOWALL");           // So we can include page into an IFRAME
 	if (! empty($conf->global->MAIN_HTTP_CONTENT_SECURITY_POLICY))
 	{
 		// For example, to restrict script, object, frames or img to some domains
