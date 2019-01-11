@@ -71,7 +71,7 @@ else
     echo "Email sent to ".$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL."<br>\n";
 }
 
-// Send to datadog
+// Send to datadog (metric + event)
 if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
 {
     file_put_contents($tmpfile, "Now we send ping to DataDog\n", FILE_APPEND);
@@ -88,13 +88,12 @@ if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
     $statsd = new DataDog\DogStatsd($arrayconfig);
 
     $arraytags=null;
-    //$arraytags = array('instance'=>);
 
-    //$statsd->increment('sellyoursaas.spamreported', 1, $arraytags);
+    $statsd->increment('sellyoursaas.spamreported', 1, $arraytags);
 
-    $statsd->event('sellyoursaas.spamevent',
+    $statsd->event($conf->global->SELLYOURSAAS_NAME.' - Spam of a customer detected',
         array(
-            'text'       => 'A Spam was reported by SendGrid',
+            'text'       => $conf->global->SELLYOURSAAS_NAME.' - Spam of a customer detected',
             'alert_type' => 'warning'
         )
     );
