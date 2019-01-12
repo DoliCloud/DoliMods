@@ -539,9 +539,11 @@ if [[ "$mode" == "suspend" ]]; then
 		rm -f /var/spool/cron/crontabs.disabled/$osusername
 		echo cp /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername
 		cp /var/spool/cron/crontabs/$osusername /var/spool/cron/crontabs.disabled/$osusername
+		echo "cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp"
 		cat /var/spool/cron/crontabs/$osusername | grep -v $dbname > /tmp/$dbname.tmp
 		#echo rm -f /var/spool/cron/crontabs/$osusername
 		echo cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
+		cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
 	else
 		echo cron file /var/spool/cron/crontabs/$osusername already removed or empty
 	fi 
