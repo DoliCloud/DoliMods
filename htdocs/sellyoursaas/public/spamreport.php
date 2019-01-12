@@ -71,32 +71,38 @@ else
     echo "Email sent to ".$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL."<br>\n";
 }
 
-// Send to datadog (metric + event)
+// Send to DataDog (metric + event)
 if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
 {
-    file_put_contents($tmpfile, "Now we send ping to DataDog\n", FILE_APPEND);
-    echo "Now we send ping to DataDog<br>\n";
+    try {
+        file_put_contents($tmpfile, "Now we send ping to DataDog\n", FILE_APPEND);
+        echo "Now we send ping to DataDog<br>\n";
 
-    dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+        dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
 
-    $arrayconfig=array();
-    if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
-    {
-        $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+        $arrayconfig=array();
+        if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+        {
+            $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+        }
+
+        $statsd = new DataDog\DogStatsd($arrayconfig);
+
+        $arraytags=null;
+
+        $statsd->increment('sellyoursaas.spamreported', 1, $arraytags);
+
+        $statsd->event('[Alert] '.$conf->global->SELLYOURSAAS_NAME.' - Spam of a customer detected',
+            array(
+                'text'       => '[Alert] '.$conf->global->SELLYOURSAAS_NAME.' - Spam of a customer detected: '.var_export($_SERVER, true),
+                'alert_type' => 'warning'
+            )
+        );
+
+        echo "Ping sent to DataDog<br>\n";
     }
+    catch(Exception $e)
+    {
 
-    $statsd = new DataDog\DogStatsd($arrayconfig);
-
-    $arraytags=null;
-
-    $statsd->increment('sellyoursaas.spamreported', 1, $arraytags);
-
-    $statsd->event($conf->global->SELLYOURSAAS_NAME.' - Spam of a customer detected',
-        array(
-            'text'       => $conf->global->SELLYOURSAAS_NAME.' - Spam of a customer detected',
-            'alert_type' => 'warning'
-        )
-    );
-
-    echo "Ping sent to DataDog<br>\n";
+    }
 }

@@ -2577,7 +2577,7 @@ class SellYourSaasUtils
 
     	include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
-		// Action 'refresh', 'deletelock', 'recreatelock' for contract, check install.lock file
+		// Action 'refresh', 'recreateauthorizedkeys', 'deletelock', 'recreatelock' for contract, check install.lock file
     	if (empty($object->context['fromdolicloudcustomerv1']) && in_array($remoteaction, array('refresh','recreateauthorizedkeys','deletelock','recreatelock')) && get_class($object) == 'Contrat')
     	{
     		// SFTP refresh
@@ -3298,6 +3298,32 @@ class SellYourSaasUtils
     		}
     		$ret=$actioncomm->create($user);       // User creating action
     	}
+
+
+    	// Send to DataDog (metric + event)
+    	if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
+    	{
+    	    try {
+        	    dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+
+        	    $arrayconfig=array();
+        	    if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+        	    {
+        	        $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+        	    }
+
+        	    $statsd = new DataDog\DogStatsd($arrayconfig);
+
+        	    $arraytags=array('remoteaction'=>$remoteaction, 'result'=>($error ? 'ko' : 'ok'));
+
+        	    $statsd->increment('sellyoursaas.remoteaction', 1, $arraytags);
+    	    }
+    	    catch(Exception $e)
+    	    {
+
+    	    }
+    	}
+
 
     	dol_syslog("* sellyoursaasRemoteAction END (remoteaction=".$remoteaction." email=".$email." password=".$password." error=".$error.")", LOG_DEBUG, -1);
 
