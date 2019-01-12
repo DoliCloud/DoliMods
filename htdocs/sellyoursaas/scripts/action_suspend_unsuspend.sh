@@ -520,7 +520,7 @@ if [[ "$mode" == "unsuspend" ]]; then
 		echo "cat $cronfile >> /tmp/$dbname.tmp"
 		cat $cronfile >> /tmp/$dbname.tmp
 		echo cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
-		cat /tmp/$dbname.tmp cp $cronfile /var/spool/cron/crontabs/$osusername
+		cp /tmp/$dbname.tmp /var/spool/cron/crontabs/$osusername
 	else
 		echo cron file /var/spool/cron/crontabs/$osusername does not exists yet
 		echo cp $cronfile /var/spool/cron/crontabs/$osusername
