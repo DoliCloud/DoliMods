@@ -236,7 +236,9 @@ print "
 		div.error {
 		  background: #EFCFCF;
 		}
-
+        div#card-errors {
+            color: #c80;
+        }
 ";
 
 print "</head>\n\n";
