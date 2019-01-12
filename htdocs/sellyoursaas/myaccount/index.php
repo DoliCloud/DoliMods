@@ -1168,10 +1168,63 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			if (sellyoursaasThirdpartyHasPaymentMode($mythirdpartyaccount->id))
 			{
 			    $url.=(preg_match('/\?/', $url) ? '&' : '?' ).'paymentmodified=1';
+
+			    // Send to DataDog (metric + event)
+			    if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
+			    {
+			        try {
+			            dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+
+			            $arrayconfig=array();
+			            if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+			            {
+			                $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+			            }
+
+			            $statsd = new DataDog\DogStatsd($arrayconfig);
+
+			            $arraytags=null;
+			            $statsd->increment('sellyoursaas.paymentmodemodified', 1, $arraytags);
+			        }
+			        catch(Exception $e)
+			        {
+
+			        }
+			    }
 			}
 			else
 			{
 			    $url.=(preg_match('/\?/', $url) ? '&' : '?' ).'paymentrecorded=1';
+
+			    // Send to DataDog (metric + event)
+			    if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
+			    {
+			        try {
+			            dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+
+			            $arrayconfig=array();
+			            if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+			            {
+			                $arrayconfig=array('apiKey' => $conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+			            }
+
+			            $statsd = new DataDog\DogStatsd($arrayconfig);
+
+			            $arraytags=null;
+			            $statsd->increment('sellyoursaas.paymentmodeadded', 1, $arraytags);
+
+			            $statsd->event($conf->global->SELLYOURSAAS_NAME.' - New customer',
+			                array(
+			                    'text'       =>  $conf->global->SELLYOURSAAS_NAME.' - New customer : '.$mythirdpartyaccount->name,
+			                    'alert_type' => 'info'
+			                )
+			                );
+			        }
+			        catch(Exception $e)
+			        {
+
+			        }
+			    }
 			}
 
 			header('Location: '.$url);

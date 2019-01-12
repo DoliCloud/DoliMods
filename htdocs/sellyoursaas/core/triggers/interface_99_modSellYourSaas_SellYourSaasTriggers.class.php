@@ -317,6 +317,38 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 				}
         		break;
 
+        	case 'PAYMENT_CUSTOMER_CREATE':
+        	    // Send to DataDog (metric + event)
+        	    if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
+        	    {
+        	        try {
+        	            dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+
+        	            $arrayconfig=array();
+        	            if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+        	            {
+        	                $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+        	            }
+
+        	            $statsd = new DataDog\DogStatsd($arrayconfig);
+
+        	            $totalamount = 0;
+        	            foreach ($object->amounts as $key => $amount)
+        	            {
+        	                $totalamount+=$amount;
+        	            }
+        	            $totalamount+=price2num($totalamount);
+
+        	            $arraytags=null;
+        	            $statsd->increment('sellyoursaas.payment', 1, $arraytags, $totalamount);
+        	        }
+        	        catch(Exception $e)
+        	        {
+
+        	        }
+        	    }
+        	    break;
+
         	case 'COMPANY_MODIFY':
         		/*var_dump($object->oldcopy->array_options['options_date_endfreeperiod']);
         		 var_dump($object->array_options['options_date_endfreeperiod']);
@@ -411,10 +443,10 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         				}
         			}
         			else dol_print_error($this->db);
-
         		}
-
+                break;
         }
+
     	if ($remoteaction)
     	{
     		$okforremoteaction = 1;

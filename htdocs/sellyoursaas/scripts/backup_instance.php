@@ -385,6 +385,29 @@ if (empty($return_var) && empty($return_varmysql))
 			$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
 			$object->array_options['options_latestbackup_status']='OK';
 			$object->update(null);
+
+			// Send to DataDog (metric + event)
+			if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
+			{
+			    try {
+			        dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+
+			        $arrayconfig=array();
+			        if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+			        {
+			            $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+			        }
+
+			        $statsd = new DataDog\DogStatsd($arrayconfig);
+
+			        $arraytags=array('result'=>'ok');
+			        $statsd->increment('sellyoursaas.backup', 1, $arraytags);
+			    }
+			    catch(Exception $e)
+			    {
+
+			    }
+			}
 		}
 	}
 }
@@ -407,6 +430,29 @@ else
 			$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
 			$object->array_options['options_latestbackup_status']='KO';
 			$object->update($user);
+
+			// Send to DataDog (metric + event)
+			if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
+			{
+			    try {
+			        dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+
+			        $arrayconfig=array();
+			        if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+			        {
+			            $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+			        }
+
+			        $statsd = new DataDog\DogStatsd($arrayconfig);
+
+			        $arraytags=array('result'=>'ko');
+			        $statsd->increment('sellyoursaas.backup', 1, $arraytags);
+			    }
+			    catch(Exception $e)
+			    {
+
+			    }
+			}
 		}
 	}
 

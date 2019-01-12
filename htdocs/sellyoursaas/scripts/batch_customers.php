@@ -611,6 +611,36 @@ else
 		include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 		$cmail = new CMailFile('[Alert] Error in backups - '.dol_print_date(dol_now(), 'dayrfc'), $to, $from, $msg, array(), array(), array(), '', '', 0, 0, '', '', '', '', 'emailing');
 		$result = $cmail->sendfile();
+
+		// Send to DataDog (metric + event)
+		if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
+		{
+		    try {
+		        dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+
+		        $arrayconfig=array();
+		        if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+		        {
+		            $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+		        }
+
+		        $statsd = new DataDog\DogStatsd($arrayconfig);
+
+		        //$arraytags=array('result'=>'ko');
+		        //$statsd->increment('sellyoursaas.backup', 1, $arraytags);
+
+		        $statsd->event('[Warning] '.$conf->global->SELLYOURSAAS_NAME.' - Backup in error',
+		            array(
+		                'text'       => '[Warning] '.$conf->global->SELLYOURSAAS_NAME.' - Backup in error : '.$msg,
+		                'alert_type' => 'warning'
+		            )
+		            );
+		    }
+		    catch(Exception $e)
+		    {
+
+		    }
+		}
 	}
 }
 
