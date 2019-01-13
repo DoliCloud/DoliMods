@@ -197,7 +197,7 @@ $result=0;
 if ($idofinstancefound) $result=$newobject->fetch($idofinstancefound);
 if ($result <= 0 || $newobject->statut == 0)
 {
-	print "newinstance ".$newinstance." with status > 0 not found. Do you want to create new instance (and thirdparty with email '.$email.' if required)";
+    print "newinstance ".$newinstance." with status > 0 not found. Do you want to create new instance (and thirdparty with email ".$oldobject->email." if required)";
 
 	$line = '';
 	while (strtolower(trim($line)) != 'y' && strtolower(trim($line)) != 'n')
