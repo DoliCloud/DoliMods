@@ -197,7 +197,7 @@ $result=0;
 if ($idofinstancefound) $result=$newobject->fetch($idofinstancefound);
 if ($result <= 0 || $newobject->statut == 0)
 {
-	print "newinstance ".$newinstance." with status > 0 not found. Do you want to create new instance (and thirdparty if required)";
+	print "newinstance ".$newinstance." with status > 0 not found. Do you want to create new instance (and thirdparty with email '.$email.' if required)";
 
 	$line = '';
 	while (strtolower(trim($line)) != 'y' && strtolower(trim($line)) != 'n')
@@ -277,8 +277,14 @@ if ($result <= 0 || $newobject->statut == 0)
 	else if ($result > 0)	// Found one record
 	{
 		$reusesocid = $tmpthirdparty->id;
+
+		dol_print_error_email('FETCHTP'.$email, 'Thirdparty already exists', null, 'alert alert-error');
+		exit(-2);
 	}
-	else dol_syslog("Email not already used. Good.");
+	else
+	{
+	    dol_syslog("Email not already used. Good.");
+	}
 
 	$generatedunixlogin = strtolower('osu'.substr(getRandomPassword(true, array('I')), 0, 9));		// Must be lowercase as it can be used for default email
 	$generatedunixpassword = substr(getRandomPassword(true, array('I')), 0, 10);
