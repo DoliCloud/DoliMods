@@ -94,7 +94,8 @@ if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
 
         $statsd->event('[Alert] '.$conf->global->SELLYOURSAAS_NAME.' - Spam of a customer detected',
             array(
-                'text'       => "Spam of a customer detected.\n@".$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL."\n\n".var_export($_SERVER, true),
+                //'text'       => "Spam of a customer detected.\n@".$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL."\n\n".var_export($_SERVER, true),
+                'text'       => "Spam of a customer detected.\n@supervision@nltechno.com\n\n".var_export($_SERVER, true),
                 'alert_type' => 'warning'
             )
         );
