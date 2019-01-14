@@ -960,6 +960,7 @@ $param[]="-v";
 if (empty($createthirdandinstance)) $param[]="-u";		// If we have just created instance, we overwrite file during rsync
 $param[]="--exclude .buildpath";
 $param[]="--exclude dolibarr.log";
+$param[]="--exclude *.comdolibarrSSL";
 $param[]="--exclude .git";
 $param[]="--exclude .gitignore";
 $param[]="--exclude .settings";
@@ -1153,7 +1154,7 @@ else
 	print "Finished. DON'T FORGET TO DELETE CONTRACT AND TEMPLATE INVOICE AFTER THIS TEST !!!\n";
 }
 
-echo "return detail is : $return_var + $return_varchmod + $return_varmysql + $return_varmysql2 + $return_varload + $return_varcron";
+echo "return detail is : $return_var + $return_varchmod + $return_varmysql + $return_varmysql2 + $return_varload + $return_varcron\n";
 exit($return_var + $return_varchmod + $return_varmysql + $return_varmysql2 + $return_varload + $return_varcron);
 
 
