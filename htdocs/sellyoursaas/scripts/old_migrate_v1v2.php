@@ -1125,11 +1125,11 @@ if ($mode == 'confirm')
 
 $fullcommandc='echo "UPDATE llx_const set value = \''.$newlogin.'\' WHERE name = \'CRON_KEY\';" | mysql -u'.$newloginbase.' -p'.$newpasswordbase.' -D '.$newobject->database_db;
 $output=array();
-$return_varload=0;
+$return_varcron=0;
 print strftime("%Y%m%d-%H%M%S").' Update cron key '.$fullcommandc."\n";
 if ($mode == 'confirm')
 {
-    exec($fullcommandc, $output, $return_varload);
+    exec($fullcommandc, $output, $return_varcron);
 	foreach($output as $line) print $line."\n";
 }
 
@@ -1152,8 +1152,8 @@ else
 	print "Finished. DON'T FORGET TO DELETE CONTRACT AND TEMPLATE INVOICE AFTER THIS TEST !!!\n";
 }
 
-
-exit($return_var + $return_varchmod + $return_varmysql + $return_varmysql2 + $return_varload);
+echo "return detail is : $return_var + $return_varchmod + $return_varmysql + $return_varmysql2 + $return_varload + $return_varcron";
+exit($return_var + $return_varchmod + $return_varmysql + $return_varmysql2 + $return_varload + $return_varcron);
 
 
 // Add end do something like
