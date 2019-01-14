@@ -278,8 +278,9 @@ if ($result <= 0 || $newobject->statut == 0)
 	{
 		$reusesocid = $tmpthirdparty->id;
 
-		dol_print_error_email('FETCHTP'.$email, 'Thirdparty already exists', null, 'alert alert-error');
-		exit(-2);
+		// Comment this to accept existing thirdparties
+		//dol_print_error_email('FETCHTP'.$email, 'Thirdparty already exists', null, 'alert alert-error');
+		//exit(-2);
 	}
 	else
 	{
