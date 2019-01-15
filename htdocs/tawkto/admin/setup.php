@@ -70,13 +70,23 @@ if ((float) DOL_VERSION < 7.0)
 	{
 		$db->begin();
 
-		$ok=True;
+		$error=0;
+
 		foreach($arrayofparameters as $key => $val)
 		{
-			$result=dolibarr_set_const($db,$key,GETPOST($key, 'alpha'),'chaine',0,'',$conf->entity);
+		    $value = GETPOST($key, 'alpha');
+
+		    if ($key == 'TAWKTO_ID' && preg_match('/http/', $value))
+		    {
+		        setEventMessages('Value must be a valid ID Site', null, 'errors');
+		        $error++;
+		        break;
+		    }
+
+		    $result=dolibarr_set_const($db,$key, $value,'chaine',0,'',$conf->entity);
 			if ($result < 0)
 			{
-				$ok=False;
+				$error++;
 				break;
 			}
 		}
@@ -93,8 +103,18 @@ if ((float) DOL_VERSION < 7.0)
 		}
 	}
 }
+else
+{
+	$idsite = GETPOST('TAWKTO_ID', 'alpha');
+	if (preg_match('/http/', $idsite))
+	{
+    	setEventMessages('Value must be a valid ID Site', null, 'errors');
+	    $error++;
+	}
+}
 
 include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
+
 
 
 /*
@@ -134,13 +154,17 @@ if ($action == 'edit')
 	print '<input type="hidden" name="action" value="update">';
 
 	print '<table class="noborder" width="100%">';
-	print '<tr class="liste_titre"><td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td></tr>';
+	print '<tr class="liste_titre"><td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td><td></td></tr>';
 
 	foreach($arrayofparameters as $key => $val)
 	{
 		print '<tr class="oddeven"><td>';
 		print $form->textwithpicto($langs->trans($key),$langs->trans($key.'Tooltip'));
-		print '</td><td><input name="'.$key.'" class="flat '.(empty($val['css'])?'minwidth200':$val['css']).'" value="' . $conf->global->$key . '"></td></tr>';
+		print '</td><td><input name="'.$key.'" class="flat '.(empty($val['css'])?'minwidth200':$val['css']).'" value="' . $conf->global->$key . '"></td>';
+		print '<td>';
+		if ($key == 'TAWKTO_ID') print $langs->trans("Example").': 66e2d01e4851b82f32fa55e2';
+		print '</td>';
+		print '</tr>';
 	}
 
 	print '</table>';
@@ -155,13 +179,17 @@ if ($action == 'edit')
 else
 {
 	print '<table class="noborder" width="100%">';
-	print '<tr class="liste_titre"><td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td></tr>';
+	print '<tr class="liste_titre"><td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td><td></td></tr>';
 
 	foreach($arrayofparameters as $key => $val)
 	{
 		print '<tr class="oddeven"><td>';
 		print $form->textwithpicto($langs->trans($key),$langs->trans($key.'Tooltip'));
-		print '</td><td>' . $conf->global->$key . '</td></tr>';
+		print '</td><td>' . $conf->global->$key . '</td>';
+		print '<td>';
+		if ($key == 'TAWKTO_ID') print $langs->trans("Example").': 66e2d01e4851b82f32fa55e2';
+		print '</td>';
+		print '</tr>';
 	}
 
 	print '</table>';
