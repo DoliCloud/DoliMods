@@ -588,6 +588,8 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 	if (! $error)
 	{
+	    $thirdpartyhadalreadyapaymentmode = sellyoursaasThirdpartyHasPaymentMode($mythirdpartyaccount->id);    // Check if customer has already a payment mode or not
+
 		// Ajout
 		$companypaymentmode = new CompanyPaymentMode($db);
 
@@ -1165,7 +1167,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			$url=$_SERVER["PHP_SELF"];
 			if ($backurl) $url=$backurl;
 
-			if (sellyoursaasThirdpartyHasPaymentMode($mythirdpartyaccount->id))
+			if ($thirdpartyhadalreadyapaymentmode > 0)
 			{
 			    $url.=(preg_match('/\?/', $url) ? '&' : '?' ).'paymentmodified=1';
 
