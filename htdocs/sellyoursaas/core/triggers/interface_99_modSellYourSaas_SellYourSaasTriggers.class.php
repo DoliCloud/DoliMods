@@ -318,6 +318,9 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         		break;
 
         	case 'PAYMENT_CUSTOMER_CREATE':
+
+        	    dol_syslog("We trap trigger PAYMENT_CUSTOMER_CREATE for id = ".$object->id);
+
         	    // Send to DataDog (metric + event)
         	    if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
         	    {
@@ -337,7 +340,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         	            {
         	                $totalamount+=$amount;
         	            }
-        	            $totalamount+=price2num($totalamount);
+        	            $totalamount=price2num($totalamount);
 
         	            $arraytags=null;
         	            $statsd->increment('sellyoursaas.payment', 1, $arraytags, $totalamount);
