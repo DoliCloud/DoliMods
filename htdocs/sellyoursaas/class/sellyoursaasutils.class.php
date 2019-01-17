@@ -2958,7 +2958,7 @@ class SellYourSaasUtils
 
     			dol_syslog("Create cron file ".$tmppackage->srccronfile1);
     			dol_delete_file($tmppackage->srccronfile, 0, 1, 0, null, false, 0);
-    			file_put_contents($tmppackage->srccronfile, str_replace("\r", '', $cronfile));
+    			file_put_contents($tmppackage->srccronfile, str_replace("\r", '', $cronfile)."\n");  // A cron file must have at least one new line before end of file
     			chmod($tmppackage->srcconffile1, 0664);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data')
 
     			dol_syslog("Create cli file ".$tmppackage->srccliafter);
