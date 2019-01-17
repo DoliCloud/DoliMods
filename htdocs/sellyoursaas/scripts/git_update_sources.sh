@@ -19,9 +19,15 @@ for dir in `ls -d $1/*`
 do
         echo -- Process dir $dir
         cd $dir
+        git reset --hard HEAD
         git pull
         echo Result of git pull = $?
 
+		echo "Clean some dirs to save disk spaces"
+		rm -fr build/debian build/exe build/pad dev/ test/ doc/ htdocs/incluldes/ckeditor/ckeditor/adapters htdocs/incluldes/ckeditor/ckeditor/samples
+		rm -fr htdocs/includes/sabre/sabre/dav/tests
+		rm -fr htdocs/includes/tecnickcom/tcpdf/fonts/dejavu-fonts-ttf-* htdocs/includes/tecnickcom/tcpdf/fonts/freefont-* htdocs/includes/tecnickcom/tcpdf/fonts/ae_fonts_*
+		
         if [ -s build/generate_filelist_xml.php ]; then
                 echo "Found generate_filelist_xml.php"
                 php build/generate_filelist_xml.php release=auto-dolicloud
