@@ -132,6 +132,7 @@ else
 	//$sql.= " AND c.statut > 0";
 	$sql.= " AND c.ref_customer = '".$db->escape($instance)."'";
 	$sql.= " AND ce.deployment_status = 'done'";
+
 	$resql = $db->query($sql);
 	if (! $resql)
 	{
