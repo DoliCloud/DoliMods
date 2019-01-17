@@ -24,7 +24,7 @@ do
         echo Result of git pull = $?
 
 		echo "Clean some dirs to save disk spaces"
-		rm -fr build/debian build/exe build/pad dev/ test/ doc/ htdocs/incluldes/ckeditor/ckeditor/adapters htdocs/incluldes/ckeditor/ckeditor/samples
+		rm -fr build/debian build/exe build/pad dev/ test/ doc/ htdocs/includes/ckeditor/ckeditor/adapters htdocs/includes/ckeditor/ckeditor/samples
 		rm -fr htdocs/includes/sabre/sabre/dav/tests
 		rm -fr htdocs/includes/tecnickcom/tcpdf/fonts/dejavu-fonts-ttf-* htdocs/includes/tecnickcom/tcpdf/fonts/freefont-* htdocs/includes/tecnickcom/tcpdf/fonts/ae_fonts_*
 		
