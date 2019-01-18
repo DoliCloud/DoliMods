@@ -257,17 +257,21 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	$param[]="--exclude .project";
 	$param[]="--exclude '*.com*SSL'";
 	$param[]="--exclude '*.log'";
-	//$param[]="--exclude '*.old'";
-	$param[]="--exclude '*/build/'";
-	$param[]="--exclude '*/doc/images/'";	// To keep files into htdocs/core/module/xxx/doc/ dir
-	$param[]="--exclude '*/doc/install/'";	// To keep files into htdocs/core/module/xxx/doc/ dir
-	$param[]="--exclude '*/doc/user/'";		// To keep files into htdocs/core/module/xxx/doc/ dir
-	$param[]="--exclude '*/dev/'";
-	$param[]="--exclude '*/test/'";
+	$param[]="--exclude '*.pdf_preview.png'";
+	//$param[]="--exclude '*/build/'";
+	//$param[]="--exclude '*/doc/images/'";	// To keep files into htdocs/core/module/xxx/doc/ dir
+	//$param[]="--exclude '*/doc/install/'";	// To keep files into htdocs/core/module/xxx/doc/ dir
+	//$param[]="--exclude '*/doc/user/'";		// To keep files into htdocs/core/module/xxx/doc/ dir
+	//$param[]="--exclude '*/dev/'";
+	//$param[]="--exclude '*/test/'";
 	$param[]="--exclude '*/temp/'";
 	$param[]="--exclude '*/documents/admin/backup/'";
+	$param[]="--exclude '*/htdocs/install/filelist-*.xml'";
+	$param[]="--exclude '*/htdocs/includes/tecnickcom/tcpdf/font/ae_fonts_*'";
+	$param[]="--exclude '*/htdocs/includes/tecnickcom/tcpdf/font/dejavu-fonts-ttf-*'";
+	$param[]="--exclude '*/htdocs/includes/tecnickcom/tcpdf/font/freefont-*'";
+	// For old versions
 	$param[]="--exclude '*/_source/*'";
-	$param[]="--exclude '*.pdf_preview.png'";
 
 	if ($RSYNCDELETE)
 	{
