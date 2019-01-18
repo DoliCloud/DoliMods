@@ -183,6 +183,8 @@ print "
 
 		.large { margin: 0 auto; padding-top: 20px;}
 
+        .nowrap { white-space: nowrap; }
+
 		.signup { margin: 0 auto; max-width: 700px; padding-top: 20px;}
 
 		.signup2 { max-width: 700px; display: inline-block; text-align: initial; }

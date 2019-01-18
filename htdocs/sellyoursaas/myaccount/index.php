@@ -2405,7 +2405,7 @@ if ($mode == 'dashboard')
 				else print $langs->trans("RemainderToPay");
 				print '</div>
 				<div class="col-md-3 right"><h2>';
-				if ($amountdue > 0) print '<font style="color: orange">';
+				if ($amountdue > 0) print '<font style="color: orange; white-space: nowrap;">';
 				print price($amountdue, 1, $langs, 0, -1, $conf->global->MAIN_MAX_DECIMALS_TOT, $conf->currency);
 				if ($amountdue > 0) print '</font>';
 				print '</h2></div>
@@ -2456,7 +2456,7 @@ if ($mode == 'dashboard')
 					'.$langs->trans("NbOfOpenTickets").'
 	              </div>
 	              <div class="col-md-3 right"><h2>';
-					if ($nbofopentickets > 0) print '<font style="color: orange">';
+					if ($nbofopentickets > 0) print '<font style="color: orange;">';
 					print $nbofopentickets;
 					if ($nbofopentickets > 0) print '</font>';
 	                print '</h2>
