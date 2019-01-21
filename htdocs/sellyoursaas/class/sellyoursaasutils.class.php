@@ -240,14 +240,14 @@ class SellYourSaasUtils
 
     	$date_limit_expiration = dol_time_plus_duree($now, abs($delayindaysshort), 'd');
 
-    	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid, cd.date_fin_validite';
+    	$sql = 'SELECT DISTINCT c.rowid, c.ref_customer';
     	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce,';
     	$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafields as se';
     	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
     	$sql.= " AND ce.deployment_status = 'done'";
     	$sql.= " AND ce.date_softalert_endfreeperiod IS NULL";
     	$sql.= " AND cd.date_fin_validite <= '".$this->db->idate($date_limit_expiration)."'";
-    	$sql.= " AND cd.date_fin_validite >= '".$this->db->idate($date_limit_expiration - 7 * 24 * 3600)."'";	// Protection: We dont' go higher than 7 days late to avoid to resend to much warning when update of date_softalert_endfreeperiod fails
+    	$sql.= " AND cd.date_fin_validite >= '".$this->db->idate($date_limit_expiration - 7 * 24 * 3600)."'";	// Protection: We dont' go higher than 7 days late to avoid to resend too much warnings when update of date_softalert_endfreeperiod has failed
     	$sql.= " AND cd.statut = 4";	// 4 = ContratLigne::STATUS_OPEN
     	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
     	//print $sql;
