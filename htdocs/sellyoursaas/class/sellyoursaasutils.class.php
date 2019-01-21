@@ -261,7 +261,7 @@ class SellYourSaasUtils
     		include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
     		$formmail=new FormMail($this->db);
 
-    		$MAXPERCALL=5;
+    		$MAXPERCALL=10;
     		$nbsending = 0;
 
     		$i=0;
@@ -340,6 +340,10 @@ class SellYourSaasUtils
 
 	    					$contractprocessed[$object->id]=$object->ref;
     					}
+    				}
+    				else
+    				{
+
     				}
     			}
     			$i++;
