@@ -677,7 +677,7 @@ class ActionsSellyoursaas
 
 		if ($parameters['currentcontext'] == 'contractlist' && in_array($contextpage, array('sellyoursaasinstances','sellyoursaasinstancesvtwo')))
     	{
-    		if (empty($conf->global->SELLYOURSAAS_DISABLE_TRIAL_OR_PAID))
+    		if (empty($conf->global->SELLYOURSAAS_DISABLE_TRIAL_OR_PAID)) // Field "Mode paid or free" not hidden
     		{
     			global $contractmpforloop;
 	    		if (! is_object($contractmpforloop))
@@ -705,7 +705,7 @@ class ActionsSellyoursaas
 
 	    		print '</td>';
     		}
-    		if (empty($conf->global->SELLYOURSAAS_DISABLE_PAYMENT_MODE_SAVED))
+    		if (empty($conf->global->SELLYOURSAAS_DISABLE_PAYMENT_MODE_SAVED))    // Field "Payment mode recorded" not hidden
     		{
     			global $companytmpforloop;
     			if (! is_object($companytmpforloop))
