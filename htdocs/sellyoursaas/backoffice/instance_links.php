@@ -370,6 +370,26 @@ if ($id > 0 || $instanceoldid > 0)
 print '<br>';
 
 
+if ($object->nbofusers == 0)
+{
+    // Try to get data
+    if (is_object($newdb) && $newdb->connected)
+    {
+        $sql="SELECT COUNT(login) as nbofusers FROM llx_user WHERE statut <> 0 AND login <> '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."'";
+        $resql=$newdb->query($sql);
+        if ($resql)
+        {
+            $obj = $newdb->fetch_object($resql);
+            $object->nbofusers	= $obj->nbofusers;
+        }
+        else
+        {
+            setEventMessages('Failed to read remote customer instance: '.$newdb->lasterror(),'','warnings');
+        }
+    }
+}
+
+
 // Some data of instance
 
 print '<div class="fichecenter">';
