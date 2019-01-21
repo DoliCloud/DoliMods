@@ -243,6 +243,7 @@ SuspendWillBeDoneSoon=La suspension sera bientôt effective
 CompanyAliasIsRequiredWhenWeSetResellerTag=Le nom alternatif est obligatoire si vous positionnez le tag Revendeur
 CommissionIsRequiredWhenWeSetResellerTag=Le taux de commissions est obligatoire si vous positionnez le tag Revendeur
 ContactUsByEmail=Contactez nous à l'adresse email <strong>%s</strong> pour cette opération
+ContactUsBySupport=Contactez nous via le menu 'Autre - Support' de votre espace client pour cette opération
 SubjectNewPasswordForYouCustomerDashboard=Nouveau mot de passe pour votre espace client
 DeploymentInitPassword=Mot de passe initial au déploiement
 RefreshRemoteData=Rafraichir données distantes

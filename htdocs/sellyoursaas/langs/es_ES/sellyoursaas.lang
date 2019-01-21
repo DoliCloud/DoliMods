@@ -226,6 +226,7 @@ SuspendWillBeDoneSoon=La suspensión será efectiva pronto
 CompanyAliasIsRequiredWhenWeSetResellerTag=Si configura la etiqueta de revendedor es obligatorio el nombre alternativo
 CommissionIsRequiredWhenWeSetResellerTag=Si configura la etiqueta de revendedor es obligatoria la tarifa de comisiones
 ContactUsByEmail=Para esta operación, póngase en contacto con nosotros a través de <strong>%s</strong>
+ContactUsBySupport=Póngase en contacto con nosotros a través del menú 'Otros - Soporte' de su área de cliente para esta operación
 SubjectNewPasswordForYouCustomerDashboard=Nueva contraseña para su área de cliente
 DeploymentInitPassword=Contraseña inicial para el despliegue
 RefreshRemoteData=Actualizar datos remotos
