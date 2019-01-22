@@ -344,6 +344,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 
         	            $arraytags=null;
         	            $statsd->increment('sellyoursaas.payment', 1, $arraytags, $totalamount);
+        	            $statsd->increment('sellyoursaas.paymentdone', 1, $arraytags);
         	        }
         	        catch(Exception $e)
         	        {
