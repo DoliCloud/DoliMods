@@ -629,11 +629,13 @@ else
 		        //$arraytags=array('result'=>'ko');
 		        //$statsd->increment('sellyoursaas.backup', 1, $arraytags);
 
-		        $statsd->event('[Warning] '.$conf->global->SELLYOURSAAS_NAME.' - Backup in error',
+		        $titleofevent = '[Warning] '.$conf->global->SELLYOURSAAS_NAME.' - Backup in error';
+		        $statsd->event($titleofevent,
 		            array(
-		                'text'       => '[Warning] '.$conf->global->SELLYOURSAAS_NAME.' - Backup in error : '.$msg,
-		                'alert_type' => 'warning'
-		            )
+		                'text'       => $titleofevent.' : '.$msg,
+		                'alert_type' => 'warning',
+		                'source_type_name' => $conf->global->SELLYOURSAAS_NAME
+		                )
 		            );
 		    }
 		    catch(Exception $e)
