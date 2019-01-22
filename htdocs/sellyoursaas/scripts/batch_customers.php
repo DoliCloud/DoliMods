@@ -634,7 +634,7 @@ else
 		            array(
 		                'text'       => $titleofevent.' : '.$msg,
 		                'alert_type' => 'warning',
-		                'source_type_name' => $conf->global->SELLYOURSAAS_NAME
+		                'source_type_name' => 'API'
 		                )
 		            );
 		    }

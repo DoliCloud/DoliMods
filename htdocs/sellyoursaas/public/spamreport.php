@@ -97,7 +97,7 @@ if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
             array(
                 'text'       => "Spam of a customer detected.\n@".$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL."\n\n".var_export($_SERVER, true),
                 'alert_type' => 'warning',
-                'source_type_name' => $conf->global->SELLYOURSAAS_NAME
+                'source_type_name' => 'API'
             )
         );
 

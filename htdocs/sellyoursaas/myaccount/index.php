@@ -1220,7 +1220,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			                array(
 			                    'text'       =>  $titleofevent.' - Payment mode added from '.getUserRemoteIP(),
 			                    'alert_type' => 'info',
-			                    'source_type_name' => $conf->global->SELLYOURSAAS_NAME
+			                    'source_type_name' => 'API'
     			                )
 			                );
 			        }
