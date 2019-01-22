@@ -968,7 +968,7 @@ class Dolicloud_customers extends CommonObject
 
 	    $result='';
 
-	    $url = dol_buildpath('/sellyoursaas/backoffice/instance_info.php',1).'?instanceoldid='.$this->id;
+	    $url = dol_buildpath('/sellyoursaas/backoffice/instance_links.php',1).'?instanceoldid='.$this->id;
 
 	    if ($option != 'nolink')
 	    {

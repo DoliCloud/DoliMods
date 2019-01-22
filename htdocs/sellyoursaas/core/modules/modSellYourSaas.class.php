@@ -137,7 +137,6 @@ class modSellYourSaas extends DolibarrModules
 		// 'thirdparty'       to add a tab in third party view
 		// 'user'             to add a tab in user view
 		$this->tabs = array();
-		$this->tabs[] = array('data'=>'contract:+infoinstance:InfoInstance:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->read&&$conf->global->SELLYOURSAAS_DOLICLOUD_ON:/sellyoursaas/backoffice/instance_info.php?id=__ID__');
 		$this->tabs[] = array('data'=>'contract:+upgrade:UsefulLinks:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->read:/sellyoursaas/backoffice/instance_links.php?id=__ID__');
 		$this->tabs[] = array('data'=>'contract:+users:Users:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->read:/sellyoursaas/backoffice/instance_users.php?id=__ID__');
 		$this->tabs[] = array('data'=>'contract:+backup:BackupInstance:sellyoursaas@sellyoursaas:$user->rights->sellyoursaas->read:/sellyoursaas/backoffice/instance_backup.php?id=__ID__');

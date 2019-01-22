@@ -47,7 +47,7 @@ class ActionsSellyoursaas
 
 
     /**
-     *    Execute action
+     *    Return URL formated
      *
      *    @param	array			$parameters		Array of parameters
      *    @param	CommonObject    $object         The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
@@ -89,6 +89,37 @@ class ActionsSellyoursaas
     	return 0;
     }
 
+    /**
+     *    Return ref customer formated
+     *
+     *    @param	array			$parameters		Array of parameters
+     *    @param	CommonObject    $object         The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
+     *    @param    string			$action      	'add', 'update', 'view'
+     *    @return   int         					<0 if KO,
+     *                              				=0 if OK but we want to process standard actions too,
+     *                              				>0 if OK and we want to replace standard actions.
+     */
+    function getFormatedCustomerRef($parameters,&$object,&$action)
+    {
+        global $conf;
+
+        if (! empty($parameters['objref']))
+        {
+            $isanurlofasellyoursaasinstance=false;
+            $tmparray=explode(',',$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+            foreach($tmparray as $tmp)
+            {
+                if (preg_match('/'.preg_quote($tmp,'/').'$/', $parameters['objref'])) $isanurlofasellyoursaasinstance=true;
+            }
+            if ($isanurlofasellyoursaasinstance)
+            {
+                $this->results['objref'] = $parameters['objref'].' <a href="https://'.$parameters['objref'].'" target="_blank">'.img_picto('https://'.$parameters['objref'], 'object_globe').'</a>';
+                return 1;
+            }
+        }
+
+        return 0;
+    }
 
     /**
      *    Execute action
