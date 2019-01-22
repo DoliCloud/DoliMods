@@ -5637,7 +5637,7 @@ if ($mode == 'myaccount')
 
 
 			';
-			if (! GETPOST('deleteaccount')) print '<div class="center"><br><a href="#deletemyaccountarea" class="deletemyaccountclick">'.$langs->trans("DeleteMyAccount").'<br><br></a></div>';
+			if (! GETPOST('deleteaccount')) print '<div class="center"><br><a href="#deletemyaccountarea" class="deletemyaccountclick">'.$langs->trans("DeleteMyAccount").'...<br><br></a></div>';
 
 			print '
 			<script type="text/javascript" language="javascript">
