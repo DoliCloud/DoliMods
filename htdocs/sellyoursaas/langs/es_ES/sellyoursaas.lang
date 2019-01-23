@@ -263,6 +263,8 @@ WarningFoundMoreThanOneInvoicingTemplate=Advertencia, hay más de una factura re
 ContractMustHaveStatusDone=El contrato debe tener 'Estado de despliegue' a 'Desplegado'
 ContractMustHaveStatusProcessingOrUndeployed=El contrato debe tener 'Estado de despliegue' a  'En curso' o 'Desinstalado'
 AnnounceOnCustomerDashboard=Anuncio en la interfaz del Área del cliente
+AnnouceMajorOutage=Actualmente nos enfrentamos a un problema técnico importante que afecta el acceso a ciertas instancias. Estamos trabajando en su resolución y el servicio se restaurará de la manera más rápida y segura posible. Gracias por su paciencia...
+AnnouceMinorOutage=Actualmente estamos enfrentando un problema técnico menor que afecta el acceso a ciertas instancias. Puede experimentar dificultades temporales para acceder o desconectar nuestros servicios. Actualmente estamos trabajando en la solución del problema para recuperar nuestro nivel de servicio habitual. Gracias por su paciencia...
 CommandToManageRemoteDeploymentAgent=Orden de detención/reinicio del despliegue
 InstanceWasDeployed=La instancia ha sido desplegada
 YourPaymentModeWillExpireFixItSoon=Su método de pago está a punto de caducar. Agradeceríamos <a href="%s">actualice su método de pago</a> para evitar interrupciones en el servicio.

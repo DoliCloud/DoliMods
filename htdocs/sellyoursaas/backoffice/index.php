@@ -115,11 +115,17 @@ print '<form method="post" action="'.dol_buildpath('/sellyoursaas/backoffice/ind
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<table class="noborder nohover" width="100%">';
 print '<tr class="liste_titre">';
-print '<td>'.$langs->trans("AnnounceOnCustomerDashboard").'</td></tr>';
-print '<tr class="oddeven"><td><textarea class="flat inputsearch centpercent" type="text" name="SELLYOURSAAS_ANNOUNCE">';
+print '<td>';
+print $langs->trans("AnnounceOnCustomerDashboard");
+if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE)) print img_warning('MessageOn');
+print '</td></tr>';
+print '<tr class="oddeven"><td>';
+print '<span class="opacitymedium">'.$langs->trans("Example").': (AnnounceMajorOutage), (AnnounceMinorOutage), Any text...</span><br>';
+print '<textarea class="flat inputsearch centpercent" type="text" name="SELLYOURSAAS_ANNOUNCE">';
 print $conf->global->SELLYOURSAAS_ANNOUNCE;
 print '</textarea>';
-print '<br><input type="submit" name="saveannounce" class="button" value="'.$langs->trans("Save").'"></td></tr>';
+print '<br><input type="submit" name="saveannounce" class="button" value="'.$langs->trans("Save").'">';
+print '</td></tr>';
 print "</table></form><br>";
 
 print '<table class="noborder nohover" width="100%">';

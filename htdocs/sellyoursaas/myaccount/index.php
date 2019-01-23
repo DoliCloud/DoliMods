@@ -1750,8 +1750,17 @@ if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE))
 {
 
 	print '
-		<div class="note note-warning">
-		<h4 class="block">'.$langs->trans($conf->global->SELLYOURSAAS_ANNOUNCE).'</h4>
+		<div class="note note-warning">';
+	   $reg=array();
+	   if (preg_match('/^\((.*)\)$/', $conf->global->SELLYOURSAAS_ANNOUNCE, $reg))
+	   {
+	       $texttoshow = $reg[1];
+	   }
+	   else
+	   {
+	       $texttoshow = $conf->global->SELLYOURSAAS_ANNOUNCE;
+	   }
+	print '<h4 class="block">'.$texttoshow.'</h4>
 		</div>
 	';
 }

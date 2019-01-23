@@ -294,7 +294,9 @@ Domain=Domain name
 WarningFoundMoreThanOneInvoicingTemplate=Warning, more than one active recurring invoice found for this instance, please contact us at %s
 ContractMustHaveStatusDone=Contract must have 'Deployment status' to 'Done'
 ContractMustHaveStatusProcessingOrUndeployed=Contract must have 'Deployment status' to 'Processing' or 'Undeployed'
-AnnounceOnCustomerDashboard=Announce on customers dashboard
+AnnounceOnCustomerDashboard=Announce on portal and/or customers dashboard
+AnnouceMajorOutage=We are currently experiencing major technical outages impacting access to some instances. We are engaged in restoration efforts and service will be restored as safely and quickly as possible.
+AnnouceMinorOutage=We are currently experiencing minor technical troubles impacting access to some instances. Your may experience slow access or disconnecting troubles on our services. We are engaged in restoration efforts and service will be restored as safely and quickly as possible.
 CommandToManageRemoteDeploymentAgent=Command to start/stop remote deployment agent
 InstanceWasDeployed=Instance was deployed
 YourPaymentModeWillExpireFixItSoon=Your payment mode is about to expire. Please <a href="%s">update your payment mode</a> to avoid any interruption of service.
