@@ -52,6 +52,7 @@ require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 
 
 $instance=$_GET['instance'];	// example: testldr3.with.dolicloud.com
+$messageonly=$_GET['messageonly'];	// example: testldr3.with.dolicloud.com
 
 // SEarch instance
 $contract = new Contrat($db);
@@ -68,26 +69,66 @@ $langsen->setDefaultLang('en_US');
 $langs->loadLangs(array("main","companies","sellyoursaas@sellyoursaas","errors"));
 $langsen->loadLangs(array("main","companies","sellyoursaas@sellyoursaas","errors"));
 
+if (empty($messageonly))
+{
+    top_htmlhead('', 'OffLine Page');
 
-top_htmlhead('', 'OffLine Page');
+    print '
+    <body id="offline" style="font-size: 1.2em">
 
-?>
+    <br><br><br>
+    <div style="text-align: center">
+    <span class="fa fa-desktop" style="font-size: 40px; opacity: 0.3"></span><br><br>
 
-<body id="offline" style="font-size: 1.2em">
+    ';
+}
 
-<br><br><br>
-<div style="text-align: center">
-<span class="fa fa-desktop" style="font-size: 40px; opacity: 0.3"></span><br><br>
-<?php
-print $langs->trans("SorryInstancesAreOffLine", $instance).'<br>';
-print '<br>';
-print '<br>';
-print '<a href="https://'.$instance.'">'.$langs->trans("RetryNow").'</a><br>';
-print '<br>';
-print '<br>';
-//print $langs->trans("GoOnYourDashboardToGetMoreInfo", $_SERVER['SERVER_NAME'], $_SERVER['SERVER_NAME']);
-?>
-<br><br><br>
-</div>
+// Show global announce
+if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE))
+{
+    $sql = "SELECT tms from ".MAIN_DB_PREFIX."const where name = 'SELLYOURSAAS_ANNOUNCE'";
+    $resql=$db->query($sql);
+    if ($resql)
+    {
+        $obj = $db->fetch_object($resql);
+        $datemessage = $db->jdate($obj->tms);
 
-</body>
+    	print '<div class="note note-warning">';
+    	print '<b>'.dol_print_date($datemessage, 'dayhour').'</b> : ';
+    	   $reg=array();
+    	   if (preg_match('/^\((.*)\)$/', $conf->global->SELLYOURSAAS_ANNOUNCE, $reg))
+    	   {
+    	       $texttoshow = $langs->trans($reg[1]);
+    	   }
+    	   else
+    	   {
+    	       $texttoshow = $conf->global->SELLYOURSAAS_ANNOUNCE;
+    	   }
+    	print '<h4 class="block">'.$texttoshow.'</h4></div>';
+    }
+    else
+    {
+        dol_print_error($db);
+    }
+}
+
+if (empty($messageonly))
+{
+    print $langs->trans("SorryInstancesAreOffLine", $instance).'<br>';
+    print '<br>';
+    print '<br>';
+    if ($instance)
+    {
+        print '<a href="https://'.$instance.'">'.$langs->trans("RetryNow").'</a><br>';
+        print '<br>';
+    }
+    print '<br>';
+
+    //print $langs->trans("GoOnYourDashboardToGetMoreInfo", $_SERVER['SERVER_NAME'], $_SERVER['SERVER_NAME']);
+    print '<br><br>'."\n";
+
+    print '</div>
+
+    </body>';
+
+}

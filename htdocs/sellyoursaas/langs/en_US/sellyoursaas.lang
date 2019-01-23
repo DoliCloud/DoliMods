@@ -295,8 +295,8 @@ WarningFoundMoreThanOneInvoicingTemplate=Warning, more than one active recurring
 ContractMustHaveStatusDone=Contract must have 'Deployment status' to 'Done'
 ContractMustHaveStatusProcessingOrUndeployed=Contract must have 'Deployment status' to 'Processing' or 'Undeployed'
 AnnounceOnCustomerDashboard=Announce on portal and/or customers dashboard
-AnnounceMajorOutage=We are currently experiencing major technical outages impacting access to some instances. We are engaged in restoration efforts and service will be restored as safely and quickly as possible.
-AnnounceMinorOutage=We are currently experiencing minor technical troubles impacting access to some instances. Your may experience slow access or disconnecting troubles on our services. We are engaged in restoration efforts and service will be restored as safely and quickly as possible.
+AnnounceMajorOutage=We are currently experiencing major technical outages impacting access to some instances.<br>We are engaged in restoration efforts and service will be restored as safely and quickly as possible.
+AnnounceMinorOutage=We are currently experiencing minor technical troubles impacting access to some instances. Your may experience slow access or disconnecting troubles on our services.<br>We are engaged in restoration efforts and service will be restored as safely and quickly as possible.
 CommandToManageRemoteDeploymentAgent=Command to start/stop remote deployment agent
 InstanceWasDeployed=Instance was deployed
 YourPaymentModeWillExpireFixItSoon=Your payment mode is about to expire. Please <a href="%s">update your payment mode</a> to avoid any interruption of service.
