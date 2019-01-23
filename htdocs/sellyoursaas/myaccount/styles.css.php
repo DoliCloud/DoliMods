@@ -241,6 +241,23 @@ print "
         div#card-errors {
             color: #c80;
         }
+
+        .note.note-warning {
+            background-color: #fcf8e3;
+            border-color: #f2cf87;
+            color: #8a6d3b;
+        }
+
+        .note {
+            margin: 0 0 30px 0;
+            padding: 15px 30px 15px 15px;
+            border-left: 5px solid #eee;
+            -webkit-border-radius: 0 4px 4px 0;
+            -moz-border-radius: 0 4px 4px 0;
+            -ms-border-radius: 0 4px 4px 0;
+            -o-border-radius: 0 4px 4px 0;
+            border-radius: 0 4px 4px 0;
+        }
 ";
 
 print "</head>\n\n";

@@ -1748,21 +1748,33 @@ if ($welcomecid > 0)
 // Show global announce
 if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE))
 {
+    $sql = "SELECT tms from ".MAIN_DB_PREFIX."const where name = 'SELLYOURSAAS_ANNOUNCE'";
+    $resql=$db->query($sql);
+    if ($resql)
+    {
+        $obj = $db->fetch_object($resql);
+        $datemessage = $db->jdate($obj->tms);
 
-	print '
-		<div class="note note-warning">';
-	   $reg=array();
-	   if (preg_match('/^\((.*)\)$/', $conf->global->SELLYOURSAAS_ANNOUNCE, $reg))
-	   {
-	       $texttoshow = $reg[1];
-	   }
-	   else
-	   {
-	       $texttoshow = $conf->global->SELLYOURSAAS_ANNOUNCE;
-	   }
-	print '<h4 class="block">'.$texttoshow.'</h4>
-		</div>
-	';
+    	print '
+    		<div class="note note-warning">';
+    	print '<b>'.dol_print_date($datemessage, 'dayhour').'</b> : ';
+    	   $reg=array();
+    	   if (preg_match('/^\((.*)\)$/', $conf->global->SELLYOURSAAS_ANNOUNCE, $reg))
+    	   {
+    	       $texttoshow = $langs->trans($reg[1]);
+    	   }
+    	   else
+    	   {
+    	       $texttoshow = $conf->global->SELLYOURSAAS_ANNOUNCE;
+    	   }
+    	print '<h4 class="block">'.$texttoshow.'</h4>
+    		</div>
+    	';
+    }
+    else
+    {
+        dol_print_error($db);
+    }
 }
 
 

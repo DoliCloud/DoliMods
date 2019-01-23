@@ -96,6 +96,40 @@ $(document).ready(function () {
 <img alt="" src="<?php echo $urllogo; ?>" id="logo" />
 </div>
 
+<?php
+// Show global announce
+if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE))
+{
+    $sql = "SELECT tms from ".MAIN_DB_PREFIX."const where name = 'SELLYOURSAAS_ANNOUNCE'";
+    $resql=$db->query($sql);
+    if ($resql)
+    {
+        $obj = $db->fetch_object($resql);
+        $datemessage = $db->jdate($obj->tms);
+
+    	print '
+    		<div class="containermessage"><br><div class="note note-warning">';
+    	print '<b>'.dol_print_date($datemessage, 'dayhour').'</b> : ';
+    	   $reg=array();
+    	   if (preg_match('/^\((.*)\)$/', $conf->global->SELLYOURSAAS_ANNOUNCE, $reg))
+    	   {
+    	       $texttoshow = $langs->trans($reg[1]);
+    	   }
+    	   else
+    	   {
+    	       $texttoshow = $conf->global->SELLYOURSAAS_ANNOUNCE;
+    	   }
+    	print '<h5 class="block">'.$texttoshow.'</h5>
+    		</div></div>
+    	';
+    }
+    else
+    {
+        dol_print_error($db);
+    }
+}
+?>
+
 <div class="block medium">
 
         <header class="inverse">
