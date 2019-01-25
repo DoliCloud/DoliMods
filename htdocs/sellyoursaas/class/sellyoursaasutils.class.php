@@ -3345,7 +3345,7 @@ class SellYourSaasUtils
      * Return IP of server to deploy to
      *
      * @param	string		$domainname		Domain name to select remote ip to deploy to
-     * @return	string						'' if KO, ip if OK
+     * @return	string						'' if KO, IP if OK
      */
     function getRemoveServerDeploymentIp($domainname)
     {
