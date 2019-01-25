@@ -499,7 +499,7 @@ class ActionsSellyoursaas
      * @param	CommonObject    $object         The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
      * @return	int								1=Replace standard code, 0=Continue standard code
      */
-    function moreHtmlStatus($parameters)
+    function moreHtmlStatus($parameters, $object=null, $action='')
     {
     	global $conf, $langs, $user;
     	global $object;
@@ -511,8 +511,36 @@ class ActionsSellyoursaas
     			dol_include_once('sellyoursaas/lib/sellyoursaas.lib.php');
 				$ret = '<br><br><div class="right bold">';
 				$ispaid = sellyoursaasIsPaidInstance($object);
-				if ($ispaid) $ret .= '<span class="badge" style="font-size: 1em; background-color: green">'.$langs->trans("PayedMode").'</span>';
-				else $ret .= '<span class="badge" style="font-size: 1em">'.$langs->trans("TrialMode").'</span>';
+				if ($ispaid && $object->array_options['options_deployment_status'] == 'done')
+				{
+				    $ret .= '<span class="badge" style="font-size: 1em; background-color: green">'.$langs->trans("PayedMode").'</span>';
+				    // nbofserviceswait, nbofservicesopened, nbofservicesexpired and nbofservicesclosed
+				    if ($object->nbofservicesexpired)
+				    {
+				        $daysafterexpiration = $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_SUSPEND;
+				        $ret.=' Service will be suspended<br>'.$daysafterexpiration.' days after expiration';
+				    }
+				    if ($object->nbofservicesclosed)
+				    {
+				        $daysafterexpiration = $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT;
+				        $ret.=' Service will be undeployed<br>'.$daysafterexpiration.' days after expiration';
+				    }
+				}
+				else
+				{
+				    $ret .= '<span class="badge" style="font-size: 1em">'.$langs->trans("TrialMode").'</span>';
+				    // nbofserviceswait, nbofservicesopened, nbofservicesexpired and nbofservicesclosed
+				    if ($object->nbofservicesexpired)
+				    {
+				        $daysafterexpiration = $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_SUSPEND;
+				        $ret.=' Service will be suspended<br>'.$daysafterexpiration.' days after expiration';
+				    }
+				    if ($object->nbofservicesclosed)
+				    {
+				        $daysafterexpiration = $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT;
+				        $ret.=' Service will be undeployed<br>'.$daysafterexpiration.' days after expiration';
+				    }
+				}
 				$ret .= '</div>';
 
 				$this->resprints = $ret;

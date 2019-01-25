@@ -518,6 +518,14 @@ else
 		$contract->date_contrat = $now;
 		$contract->note_private = 'Contract created from the online instance registration form';
 
+		$tmp=explode('.', $contract->ref_customer, 2);
+		$sldAndSubdomain=$tmp[0];
+		$domainname=$tmp[1];
+
+		dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
+		$sellyoursaasutils = new SellYourSaasUtils($db);
+		$serverdeployement = SellYourSaasUtils::getRemoveServerDeploymentIp($domainname);
+
 		$contract->array_options['options_plan'] = $productref;
 		$contract->array_options['options_deployment_status'] = 'processing';
 		$contract->array_options['options_deployment_date_start'] = $now;
@@ -526,6 +534,7 @@ else
 		$contract->array_options['options_date_endfreeperiod'] = $date_end;
 		$contract->array_options['options_undeployment_date'] = '';
 		$contract->array_options['options_undeployment_ip'] = '';
+		$contract->array_options['options_deployment_host'] = $serverdeployement;
 		$contract->array_options['options_hostname_os'] = $generatedunixhostname;
 		$contract->array_options['options_username_os'] = $generatedunixlogin;
 		$contract->array_options['options_password_os'] = $generatedunixpassword;
