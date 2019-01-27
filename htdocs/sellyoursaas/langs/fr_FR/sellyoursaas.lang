@@ -133,6 +133,7 @@ DeploymentDateStart=Date début déploiement
 DeploymentDateEnd=Date fin déploiement
 DeploymentStatus=Status déploiement
 DeploymentIP=IP déploiement
+DeploymentHost=Serveur d'accueil instance
 HostServer=Serveur d'accueil
 UndeploymentDate=Date désinstallation
 UndeploymentIP=IP désinstallation

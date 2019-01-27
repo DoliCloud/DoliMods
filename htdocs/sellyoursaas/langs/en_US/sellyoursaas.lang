@@ -141,6 +141,7 @@ DeploymentDateStart=Deployment start date
 DeploymentDateEnd=Deployment end date
 DeploymentStatus=Deployment status
 DeploymentIP=Deployment IP
+DeploymentHost=Host server of instance
 HostServer=Host server
 UndeploymentDate=Undeployment date
 UndeploymentIP=Undeployment IP
