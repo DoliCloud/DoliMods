@@ -57,13 +57,19 @@ echo "Do a dump of database $dbname"
 export dbname="mysql" 
 echo "$MYSQLDUMP $dbname | bzip2 > $targetdir/$dbname.sql.bz2"
 $MYSQLDUMP $dbname | bzip2 > $targetdir/$dbname.sql.bz2
+chown root.admin $targetdir/$dbname.sql.bz2
+chmod o-rwx $targetdir/$dbname.sql.bz2
 
 export dbname="dolibarr" 
 echo "$MYSQLDUMP $dbname | bzip2 > $targetdir/$dbname.sql.bz2"
 $MYSQLDUMP $dbname | bzip2 > $targetdir/$dbname.sql.bz2
+chown root.admin $targetdir/$dbname.sql.bz2
+chmod o-rwx $targetdir/$dbname.sql.bz2
 
 export dbname="nltechno_dolibarr" 
 echo "$MYSQLDUMP $dbname | bzip2 > $targetdir/$dbname.sql.bz2"
 $MYSQLDUMP $dbname | bzip2 > $targetdir/$dbname.sql.bz2
+chown root.admin $targetdir/$dbname.sql.bz2
+chmod o-rwx $targetdir/$dbname.sql.bz2
 
 exit 0
