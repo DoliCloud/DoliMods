@@ -858,7 +858,7 @@ class ActionsSellyoursaas
     		$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
     		$pdf->useTemplate($tplidx);
 
-    		$logo = $dirforimage=$conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL;
+    		$logo = $conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL;
 
     		$height=pdf_getHeightForLogo($logo);
     		$pdf->Image($logo, 80, $this->marge_haute, 0, 10);	// width=0 (auto)
