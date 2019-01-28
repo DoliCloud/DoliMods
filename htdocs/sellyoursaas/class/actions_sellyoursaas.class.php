@@ -463,6 +463,56 @@ class ActionsSellyoursaas
 
         }
 
+        if (in_array($parameters['currentcontext'], array('thirdpartybancard')) && $action == 'sellyoursaastakepayment' && GETPOST('companymodeid','int') > 0)
+        {
+            // Define environment of payment modes
+            $servicestatusstripe = 0;
+            if (! empty($conf->stripe->enabled))
+            {
+                $service = 'StripeTest';
+                $servicestatusstripe = 0;
+                if (! empty($conf->global->STRIPE_LIVE) && ! GETPOST('forcesandbox','alpha') && empty($conf->global->SELLYOURSAAS_FORCE_STRIPE_TEST))
+                {
+                    $service = 'StripeLive';
+                    $servicestatusstripe = 1;
+                }
+            }
+
+            dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
+            $sellyoursaasutils = new SellYourSaasUtils($db);
+            //var_dump($service);var_dump($servicestatusstripe);
+
+            include_once DOL_DOCUMENT_ROOT.'/societe/class/companypaymentmode.class.php';
+            $companypaymentmode = new CompanyPaymentMode($db);
+            $companypaymentmode->fetch(GETPOST('companymodeid','int'));
+
+            if ($companypaymentmode->id > 0)
+            {
+                $result = $sellyoursaasutils->doTakePaymentStripeForThirdparty($service, $servicestatusstripe, $object->id, $companypaymentmode, null, 0, 1, 1);
+                if ($result > 0)
+                {
+                    $error++;
+                    $this->error=$sellyoursaasutils->error;
+                    $this->errors=$sellyoursaasutils->errors;
+                    setEventMessages($sellyoursaasutils->description, null, 'errors');
+                    setEventMessages($this->error, $this->errors, 'errors');
+                }
+                else
+                {
+                    setEventMessages($langs->trans("PaymentDoneOn".ucfirst($service)), null, 'mesgs');
+
+
+                }
+            }
+            else
+            {
+                $error++;
+                $this->error='Failed to fetch company payment mode for id '.GETPOST('companymodeid','int');
+                $this->errors=null;
+                setEventMessages($this->error, $this->errors, 'errors');
+            }
+        }
+
         dol_syslog(get_class($this).'::doActions end');
         return 0;
     }
@@ -693,6 +743,11 @@ class ActionsSellyoursaas
     		if (empty($conf->global->SELLYOURSAAS_DISABLE_PAYMENT_MODE_SAVED))
     			print_liste_field_titre("PaymentModeSaved",$_SERVER["PHP_SELF"],'','',$param,' align="center"',$sortfield,$sortorder);
     	}
+    	if ($parameters['currentcontext'] == 'thirdpartybancard' && $parameters['linetype'] == 'stripetitle')
+    	{
+    	    $langs->load("sellyoursaas@sellyoursaas");
+   	        print_liste_field_titre("",$_SERVER["PHP_SELF"],'','',$param,' align="center"',$sortfield,$sortorder);
+    	}
 
     	return 0;
     }
@@ -784,6 +839,17 @@ class ActionsSellyoursaas
     			if ($atleastonepaymentmode) print $langs->trans("Yes");
     			print '</td>';
     		}
+    	}
+
+    	if ($parameters['currentcontext'] == 'thirdpartybancard')
+    	{
+    	    print '<td class="center">';
+    	    if (! empty($parameters['obj']->rowid) && $parameters['linetype'] == 'stripecard')
+    	    {
+    	        $langs->load("sellyoursaas@sellyoursaas");
+    	        print '<a class="button" href="'.$_SERVER["PHP_SELF"].'?socid='.$object->id.'&action=sellyoursaastakepayment&companymodeid='.$parameters['obj']->rowid.'">'.$langs->trans("PayBalance").'</a>';
+    	    }
+    	    print '</td>';
     	}
 
     	return 0;

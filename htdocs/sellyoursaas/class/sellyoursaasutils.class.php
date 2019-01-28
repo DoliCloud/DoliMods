@@ -816,7 +816,7 @@ class SellYourSaasUtils
 
     	$langs->load("agenda");
 
-    	dol_syslog("doTakePaymentStripeForThirdparty thirdparty_id=".$thirdparty_id);
+    	dol_syslog("doTakePaymentStripeForThirdparty service=".$service." servicestatus=".$servicestatus." thirdparty_id=".$thirdparty_id);
 
     	$this->stripechargedone = 0;
     	$this->stripechargeerror = 0;
@@ -1013,6 +1013,8 @@ class SellYourSaasUtils
 	    							$stripefailuremessage=$e->getMessage();
 	    						}
 
+	    						$postactionmessages=array();
+
 	    						// Return $charge = array('id'=>'ch_XXXX', 'status'=>'succeeded|pending|failed', 'failure_code'=>, 'failure_message'=>...)
 	    						if (empty($charge) || $charge->status == 'failed')
 	    						{
@@ -1049,7 +1051,6 @@ class SellYourSaasUtils
 	    							$this->stripechargedone++;
 
 	    							$description='Stripe payment OK from doTakePaymentStripeForThirdparty: '.$FULLTAG;
-	    							$postactionmessages=array();
 
 	    							$db=$this->db;
 	    							$ipaddress = (empty($_SERVER['REMOTE_ADDR'])?'':$_SERVER['REMOTE_ADDR']);
@@ -1103,7 +1104,7 @@ class SellYourSaasUtils
 	    								$paiement_id = $paiement->create($user, 1);    // This include closing invoices to 'paid' (and trigger including unsuspending) and regenerating documents
 	    								if ($paiement_id < 0)
 	    								{
-	    									$postactionmessages[] = $paiement->error.' '.join("<br>\n", $paiement->errors);
+	    								    $postactionmessages[] = $paiement->error.($paiement->error?' ':'').join("<br>\n", $paiement->errors);
 	    									$ispostactionok = -1;
 	    									$error++;
 	    								}
@@ -1129,7 +1130,7 @@ class SellYourSaasUtils
 	    									$result=$paiement->addPaymentToBank($user, 'payment', $label, $bankaccountid, $emetteur_name, '');
 	    									if ($result < 0)
 	    									{
-	    										$postactionmessages[] = $paiement->error.' '.joint("<br>\n", $paiement->errors);
+	    									    $postactionmessages[] = $paiement->error.($paiement->error?' ':'').join("<br>\n", $paiement->errors);
 	    										$ispostactionok = -1;
 	    										$error++;
 	    									}
@@ -1310,6 +1311,9 @@ class SellYourSaasUtils
 	    						$actioncomm->extraparams = $extraparams;
 
 	    						$actioncomm->create($user);
+
+	    						$this->description=$description;
+	    						$this->postactionmessages=$postactionmessages;
 	    					}
 	    					else
 	    					{
