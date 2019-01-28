@@ -112,7 +112,13 @@ class SellYourSaasUtils
 					}
 					else
 					{
-						// Search contract linked to invoice
+					    $tmparray = $invoice->thirdparty->getOutstandingBills('customer');
+                        if ($tmparray['opened'] > 0)
+                        {
+                            dol_syslog("This thirdparty has already opened invoices, so we don't validate any other invoices");     // So only 1 invoice is validated per thirdparty and pass
+                        }
+
+					    // Search contract linked to invoice
 						$invoice->fetchObjectLinked();
 
 						if (is_array($invoice->linkedObjects['contrat']) && count($invoice->linkedObjects['contrat']) > 0)
@@ -120,7 +126,7 @@ class SellYourSaasUtils
 							//dol_sort_array($object->linkedObjects['facture'], 'date');
 							foreach($invoice->linkedObjects['contrat'] as $idcontract => $contract)
 							{
-								if (! empty($draftinvoiceprocessed[$invoice->id])) continue;	// If already processed, do nothing more
+								if (! empty($draftinvoiceprocessed[$invoice->id])) continue;	// If already processed because of a previous contract line, do nothing more
 
 								// We ignore $contract->nbofserviceswait +  and $contract->nbofservicesclosed
 								$nbservice = $contract->nbofservicesopened + $contract->nbofservicesexpired;
