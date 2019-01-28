@@ -960,11 +960,11 @@ class SellYourSaasUtils
 						}
 						elseif (
 						    ($invoice->date < ($now - ($nbdaysbeforeendoftries * 24 * 3600)))                                 // We try until we reach $nbdaysbeforeendoftries
-						    && ($invoice->date < ($now - (51 * 24 * 3600)) || $invoice->date > ($now - (50 * 24 * 3600)))     // or when we have 50 days
-						    && ($invoice->date < ($now - (101 * 24 * 3600)) || $invoice->date > ($now - (100 * 24 * 3600)))   // or when we have 100 days
+						    && ($invoice->date < ($now - (62 * 24 * 3600)) || $invoice->date > ($now - (60 * 24 * 3600)))     // or when we have 60 days
+						    && ($invoice->date < ($now - (92 * 24 * 3600)) || $invoice->date > ($now - (90 * 24 * 3600)))     // or when we have 90 days
 						    && empty($nocancelifpaymenterror))
 						{
-							$errmsg='Payment try was canceled (invoice date is older than '.$nbdaysbeforeendoftries.' days and not 50 days old and not 100 days old)';
+							$errmsg='Payment try was canceled (invoice date is older than '.$nbdaysbeforeendoftries.' days and not 60 days old and not 90 days old)';
 							dol_syslog($errmsg, LOG_DEBUG);
 
 							$error++;
