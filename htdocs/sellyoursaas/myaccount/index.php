@@ -152,7 +152,10 @@ if (preg_match('/dolicloud\.com/', $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
 {
 	$urlfaq='https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/'.$langcode.'/faq';
 }
-
+else
+{
+    $urlfaq='https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/faq-'.$langcode.'.php';
+}
 $urlstatus=$conf->global->SELLYOURSAAS_STATUS_URL;
 $now =dol_now();
 $tmp=dol_getdate($now);
