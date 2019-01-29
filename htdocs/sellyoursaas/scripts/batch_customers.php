@@ -629,12 +629,13 @@ else
 		        //$arraytags=array('result'=>'ko');
 		        //$statsd->increment('sellyoursaas.backup', 1, $arraytags);
 
-		        $titleofevent = '[Warning] '.$conf->global->SELLYOURSAAS_NAME.' - Backup in error';
+		        $titleofevent =  dol_trunc('[Warning] '.$conf->global->SELLYOURSAAS_NAME.' - '.gethostname().' - Backup in error', 90);
 		        $statsd->event($titleofevent,
 		            array(
-		                'text'       => $titleofevent.' : '.$msg,
+		                'text'       => $titleofevent." : \n".$msg,
 		                'alert_type' => 'warning',
-		                'source_type_name' => 'API'
+		                'source_type_name' => 'API',
+		                'host'       => gethostname()
 		                )
 		            );
 		    }

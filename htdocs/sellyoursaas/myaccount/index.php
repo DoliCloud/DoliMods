@@ -1218,12 +1218,13 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			            $arraytags=null;
 			            $statsd->increment('sellyoursaas.paymentmodeadded', 1, $arraytags);
 
-			            $titleofevent = dol_trunc($conf->global->SELLYOURSAAS_NAME.' - '.$langs->trans("NewCustomer").': '.$mythirdpartyaccount->name, 90);
+			            $titleofevent = dol_trunc($conf->global->SELLYOURSAAS_NAME.' - '.gethostname().' - '.$langs->trans("NewCustomer").': '.$mythirdpartyaccount->name, 90);
 			            $statsd->event($titleofevent,
 			                array(
-			                    'text'       =>  $titleofevent.' - Payment mode added from '.getUserRemoteIP(),
+			                    'text'       =>  $titleofevent.' - Payment mode added from '.getUserRemoteIP()."\n\n"."URL: ".$url,
 			                    'alert_type' => 'info',
-			                    'source_type_name' => 'API'
+			                    'source_type_name' => 'API',
+			                    'host'       => gethostname()
     			                )
 			                );
 			        }

@@ -92,12 +92,13 @@ if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
 
         $statsd->increment('sellyoursaas.spamreported', 1, $arraytags);
 
-        $titleofevent = '[Alert] '.$conf->global->SELLYOURSAAS_NAME.' - Spam of a customer detected';
+        $titleofevent =  dol_trunc('[Alert] '.$conf->global->SELLYOURSAAS_NAME.' - '.gethostname().' - Spam of a customer detected', 90);
         $statsd->event($titleofevent,
             array(
                 'text'       => "Spam of a customer detected.\n@".$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL."\n\n".var_export($_SERVER, true),
                 'alert_type' => 'warning',
-                'source_type_name' => 'API'
+                'source_type_name' => 'API',
+                'host'       => gethostname()
             )
         );
 
