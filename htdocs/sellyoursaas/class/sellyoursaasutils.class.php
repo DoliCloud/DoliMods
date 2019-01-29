@@ -1200,9 +1200,17 @@ class SellYourSaasUtils
 		    						}
 
 		    						$substitutionarray=getCommonSubstitutionArray($outputlangs, 0, null, $object);
+		    						dol_syslog('__DIRECTDOWNLOAD_URL_INVOICE__='.$substitutionarray['__DIRECTDOWNLOAD_URL_INVOICE__']);
 
 		    						$tmpforurl=preg_replace('/.*document.php/', '', $substitutionarray['__DIRECTDOWNLOAD_URL_INVOICE__']);
-		    						$substitutionarray['__DIRECTDOWNLOAD_URL_INVOICE__']=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/source/document.php'.$tmpforurl;
+		    						if ($tmpforurl)
+		    						{
+		    						    $substitutionarray['__DIRECTDOWNLOAD_URL_INVOICE__']=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/source/document.php'.$tmpforurl;
+		    						}
+		    						else
+		    						{
+		    						    $substitutionarray['__DIRECTDOWNLOAD_URL_INVOICE__']=$conf->global->SELLYOURSAAS_ACCOUNT_URL;
+		    						}
 
 		    						$substitutionarray['__SELLYOURSAAS_PAYMENT_ERROR_DESC__']=$stripefailurecode.' '.$stripefailuremessage;
 		    						complete_substitutions_array($substitutionarray, $outputlangs, $object);
