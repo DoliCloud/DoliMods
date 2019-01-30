@@ -337,6 +337,8 @@ if ($reusecontractid)
 else
 {
     // Check number of instance with same IP
+    $MAXDEPLOYMENTPERIP = 25;
+
     $nbofinstancewithsameip=-1;
     $select = 'SELECT COUNT(*) as nb FROM '.MAIN_DB_PREFIX."contrat_extrafields WHERE deployment_ip = '".$db->escape($remoteip)."'";
     $resselect = $db->query($select);
@@ -345,10 +347,13 @@ else
         $objselect = $db->fetch_object($resselect);
         if ($objselect) $nbofinstancewithsameip = $objselect->nb;
     }
-    if ($nbofinstancewithsameip < 0 || $nbofinstancewithsameip > 10)
+    if ($remoteip != '127.0.0.1' && ($nbofinstancewithsameip < 0 || $nbofinstancewithsameip > $MAXDEPLOYMENTPERIP))
     {
-        dol_print_error_email('TOOMANYINSTANCES', $langs->trans("TooManyInstances"), null, 'alert alert-error');
+        setEventMessages($langs->trans("TooManyInstancesForSameIp"), null, 'errors');
+        header("Location: ".$newurl);
         exit;
+        //dol_print_error_email('TOOMANYINSTANCES', $langs->trans("TooManyInstances"), null, 'alert alert-error');
+        //exit;
     }
 
 	$tmpthirdparty=new Societe($db);
@@ -430,7 +435,7 @@ else
 	if ($productref == 'none')	// If reseller
 	{
 		$tmpthirdparty->fournisseur = 1;
-		$tmpthirdparty->array_options['options_commission'] = 20;
+		$tmpthirdparty->array_options['options_commission'] = (empty($conf->global->SELLYOURSAAS_DEFAULT_COMMISSION) ? 25 : $conf->global->SELLYOURSAAS_DEFAULT_COMMISSION);
 	}
 
 	if ($country_code)
