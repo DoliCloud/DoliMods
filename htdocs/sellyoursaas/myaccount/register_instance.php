@@ -93,7 +93,6 @@ $country_code = trim(GETPOST('address_country','alpha'));
 $sldAndSubdomain = trim(GETPOST('sldAndSubdomain','alpha'));
 $tldid = trim(GETPOST('tldid','alpha'));
 $domainname = preg_replace('/^\./', '', $tldid);
-$remoteip = $_SERVER['REMOTE_ADDRESS'];
 $origin = GETPOST('origin','aZ09');
 $partner=GETPOST('partner','int');
 $partnerkey=GETPOST('partnerkey','alpha');		// md5 of partner name_alias
@@ -108,6 +107,8 @@ $productid=GETPOST('service','int');
 $plan=GETPOST('plan','alpha');
 $productref=(GETPOST('productref','alpha')?GETPOST('productref','alpha'):($plan?$plan:''));
 $extcss=GETPOST('extcss','alpha');
+
+$remoteip = getUserRemoteIP();
 
 $tmpproduct = new Product($db);
 $tmppackage = new Packages($db);
@@ -335,6 +336,21 @@ if ($reusecontractid)
 }
 else
 {
+    // Check number of instance with same IP
+    $nbofinstancewithsameip=-1;
+    $select = 'SELECT COUNT(*) as nb FROM '.MAIN_DB_PREFIX."contrat_extrafields WHERE deployment_ip = '".$db->escape($remoteip)."'";
+    $resselect = $db->query($select);
+    if ($resselect)
+    {
+        $objselect = $db->fetch_object($resselect);
+        if ($objselect) $nbofinstancewithsameip = $objselect->nb;
+    }
+    if ($nbofinstancewithsameip < 0 || $nbofinstancewithsameip > 10)
+    {
+        dol_print_error_email('TOOMANYINSTANCES', $langs->trans("TooManyInstances"), null, 'alert alert-error');
+        exit;
+    }
+
 	$tmpthirdparty=new Societe($db);
 	if ($reusesocid > 0)
 	{
@@ -546,12 +562,12 @@ else
 		//$contract->array_options['options_nb_users'] = 1;
 		//$contract->array_options['options_nb_gb'] = 0.01;
 
-		$contract->array_options['options_deployment_ip'] = $_SERVER["REMOTE_ADDR"];
+		$contract->array_options['options_deployment_ip'] = $remoteip;
 		$vpnproba = '';
 		if (! empty($_SERVER["REMOTE_ADDR"]))
 		{
 			$emailforvpncheck='contact+checkcustomer@nltechno.com';	// TODO Use a parameter email
-			$url = 'http://check.getipintel.net/check.php?ip='.$_SERVER["REMOTE_ADDR"].'&contact='.urlencode($emailforvpncheck).'&flag=f';
+			$url = 'http://check.getipintel.net/check.php?ip='.$remoteip.'&contact='.urlencode($emailforvpncheck).'&flag=f';
 			$result = getURLContent($url);
 			/* The proxy check system will return negative values on error. For standard format (non-json), an additional HTTP 400 status code is returned
 				-1 Invalid no input
