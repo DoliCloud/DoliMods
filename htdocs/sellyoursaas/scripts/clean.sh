@@ -28,7 +28,11 @@ export scriptdir=$(dirname $(realpath ${0}))
 export targetdir="/home/jail/home"				
 export archivedir="/mnt/diskbackup/archives-test"
 export ZONES_PATH="/etc/bind/zones"
-export ZONE="with.dolicloud.com.hosts" 
+
+export DOMAIN="dolicloud.com"
+
+export ZONENOHOST="with.$DOMAIN" 
+export ZONE="with.$DOMAIN.hosts" 
 
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
@@ -96,7 +100,7 @@ fi
 
 
 echo "***** Clean available virtualhost that are not enabled hosts"
-for fic in `ls /etc/apache2/sellyoursaas-available/*.*.dolicloud.com.conf /etc/apache2/sellyoursaas-available/*.home.lan 2>/dev/null`
+for fic in `ls /etc/apache2/sellyoursaas-available/*.*.$DOMAIN.conf /etc/apache2/sellyoursaas-available/*.home.lan 2>/dev/null`
 do
 	basfic=`basename $fic` 
 	if [ ! -L /etc/apache2/sellyoursaas-online/$basfic ]; then
@@ -352,14 +356,14 @@ if [ -s /tmp/osutoclean ]; then
 				    /bin/sed -i -e "s/^\(\s*\)[0-9]\{0,\}\(\s*;\s*${NEEDLE}\)$/\1${serial}\2/" /tmp/${ZONE}.$PID
 				    
 				    echo Test temporary file /tmp/${ZONE}.$PID
-					named-checkzone with.dolicloud.com /tmp/${ZONE}.$PID
+					named-checkzone ${ZONENOHOST} /tmp/${ZONE}.$PID
 					if [[ "$?x" != "0x" ]]; then
 						echo Error when editing the DNS file during clean.sh. File /tmp/${ZONE}.$PID is not valid 
 						exit 1
 					fi 
 					
 					echo "   ** Archive file with cp /etc/bind/${ZONE} /etc/bind/archives/${ZONE}-$now"
-					cp /etc/bind/with.dolicloud.com.hosts /etc/bind/archives/${ZONE}-$now
+					cp /etc/bind/${ZONE} /etc/bind/archives/${ZONE}-$now
 					
 					echo "   ** Move new host file"
 					echo mv -fu /tmp/${ZONE}.$PID /etc/bind/${ZONE}
@@ -367,9 +371,9 @@ if [ -s /tmp/osutoclean ]; then
 						mv -fu /tmp/${ZONE}.$PID /etc/bind/${ZONE}
 					fi
 					
-					echo "   ** Reload dns"
+					echo "   ** Reload dns with rndc reload ${ZONENOHOST}"
 					if [[ $testorconfirm == "confirm" ]]; then
-						rndc reload with.dolicloud.com
+						rndc reload ${ZONENOHOST}
 						#/etc/init.d/bind9 reload
 					fi
 				fi
