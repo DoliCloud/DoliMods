@@ -168,10 +168,6 @@ echo grep '^osu' /etc/passwd | cut -f 1 -d ':'
 for osusername in `grep '^osu' /etc/passwd | cut -f 1 -d ':'`
 do
 	if [ ! -d $targetdir/$osusername ]; then
-		#echo User $osusername has no home
-		#echo $osusername >> /tmp/osutoclean
-		#echo $osusername >> /tmp/osutoclean-withouthome
-
 		echo User $osusername has no home. Should not happen.
 		exit 12
 	else
@@ -185,10 +181,6 @@ for osusername in `ls -d $targetdir/osu* 2>/dev/null`
 do
 	export osusername=`basename $osusername`
 	if ! grep "$osusername" /etc/passwd; then
-		#echo User $osusername is not inside /etc/passwd, we add it to users to clean
-		#echo $osusername >> /tmp/osutoclean
-		#echo $osusername >> /tmp/osutoclean-inhomebutnotinetcpasswd
-		
 		echo User $osusername is not inside /etc/passwd. Should not happen.
 		exit 11
 	else
@@ -228,8 +220,7 @@ fi
 #	do
 #		tmpvar1=`echo $osusername | awk -F ":" ' { print $1 } '`
 #		echo User $tmpvar1 is an ^osu user in /etc/passwd but has no available instance in /tmp/instancefound
-#		echo $tmpvar1 >> /tmp/osutoclean
-#		echo $tmpvar1 >> /tmp/osutoclean-inetcpasswdbutnotinactivedb
+#		exit 12
 #	done
 #fi
 
