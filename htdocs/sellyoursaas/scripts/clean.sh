@@ -212,7 +212,7 @@ if [ -s /tmp/osutoclean-oldundeployed ]; then
 		if [ -d /home/jail/home/$osusername ]; then
 			nbdbn=`ls /home/jail/home/$osusername/ | grep ^dbn | wc -w`
 			if [[ "x$nbdbn" == "x0" ]]; then
-				echo User $tmpvar1 is an ^osu user in /tmp/osutoclean-oldundeployed but has still a home dir with no more dbn* into so we will remove it
+				echo "User $tmpvar1 is an ^osu user in /tmp/osutoclean-oldundeployed but has still a home dir with no more dbn... into so we will remove it"
 				echo $tmpvar1 >> /tmp/osutoclean
 			fi
 		fi
