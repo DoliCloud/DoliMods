@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-/* Copyright (C) 2007-2018 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2007-2019 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,10 +20,7 @@
 /**
  *      \file       sellyoursaas/scripts/deploy_sshkey.php
  *		\ingroup    sellyoursaas
- *      \brief      Main master SellYouSaas batch
- *      			backup_instance.php (payed customers rsync + databases backup)
- *      			update database info for customer
- *      			update stats
+ *      \brief      Script to deploy public key on authorized_keys of customers
  */
 
 $sapi_type = php_sapi_name();
