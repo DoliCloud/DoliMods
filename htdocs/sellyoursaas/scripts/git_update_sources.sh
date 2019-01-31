@@ -25,7 +25,7 @@ do
 
 		echo "Clean some dirs to save disk spaces"
 		rm -fr build/debian build/exe build/pad dev/ test/ doc/ htdocs/includes/ckeditor/ckeditor/adapters htdocs/includes/ckeditor/ckeditor/samples
-		rm -fr htdocs/includes/sabre/sabre/dav/tests
+		rm -fr htdocs/includes/sabre/sabre/*/tests htdocs/includes/stripe/tests
 		rm -fr htdocs/includes/tecnickcom/tcpdf/fonts/dejavu-fonts-ttf-* htdocs/includes/tecnickcom/tcpdf/fonts/freefont-* htdocs/includes/tecnickcom/tcpdf/fonts/ae_fonts_*
 		
         if [ -s build/generate_filelist_xml.php ]; then
