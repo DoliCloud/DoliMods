@@ -162,32 +162,40 @@ if [ "x$?" != "x0" ]; then
 fi
 
 
-echo "***** Search osu unix account without home in $targetdir"
+
+echo "***** Search osu unix account without home in $targetdir (should never happen)"
 echo grep '^osu' /etc/passwd | cut -f 1 -d ':'
 for osusername in `grep '^osu' /etc/passwd | cut -f 1 -d ':'`
 do
 	if [ ! -d $targetdir/$osusername ]; then
-		echo User $osusername has no home
-		echo $osusername >> /tmp/osutoclean
-		echo $osusername >> /tmp/osutoclean-withouthome
+		#echo User $osusername has no home
+		#echo $osusername >> /tmp/osutoclean
+		#echo $osusername >> /tmp/osutoclean-withouthome
+
+		echo User $osusername has no home. Should not happen.
+		exit 12
 	else
 		echo User $osusername has a home $targetdir/$osusername
 	fi
 done
 
-echo "***** Search home in $targetdir without osu unix account and save into /tmp/osutoclean"
+echo "***** Search home in $targetdir without osu unix account (should never happen)"
 echo "ls -d $targetdir/osu*";
 for osusername in `ls -d $targetdir/osu* 2>/dev/null`
 do
 	export osusername=`basename $osusername`
 	if ! grep "$osusername" /etc/passwd; then
-		echo User $osusername is not inside /etc/passwd, we add it to users to clean
-		echo $osusername >> /tmp/osutoclean
-		echo $osusername >> /tmp/osutoclean-inhomebutnotinetcpasswd
+		#echo User $osusername is not inside /etc/passwd, we add it to users to clean
+		#echo $osusername >> /tmp/osutoclean
+		#echo $osusername >> /tmp/osutoclean-inhomebutnotinetcpasswd
+		
+		echo User $osusername is not inside /etc/passwd. Should not happen.
+		exit 11
 	else
 		echo $osusername is inside /etc/passwd
 	fi
 done
+
 
 echo "***** Save osu unix account with very old undeployed database into /tmp/osutoclean-oldundeployed and search entries with existing home dir and without dbn* subdir, and save into /tmp/osutoclean" 
 Q1="use $database; "
@@ -231,19 +239,20 @@ while read bidon osusername dbname deploymentstatus; do
 	if [[ "x$osusername" != "xusername_os" && "x$osusername" != "xunknown" && "x$osusername" != "xNULL" && "x$dbname" != "xNULL" ]]; then
     	id $osusername >/dev/null 2>/dev/null
     	if [[ "x$?" == "x1" ]]; then
-    		echo Line $bidon $osusername $dbname $deploymentstatus is for a user that does not exists
-    		
-			echo "Do a dump of database $dbname - may fails if already removed"
-			mkdir -p $archivedir/$osusername
-			echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2"
-			$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2
+    		#echo Line $bidon $osusername $dbname $deploymentstatus is for a user that does not exists. Should not happen.
+			#echo "Do a dump of database $dbname - may fails if already removed"
+			#mkdir -p $archivedir/$osusername
+			#echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2"
+			#$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2
 
-			echo "Now drop the database"
-			echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname"
-			if [[ $testorconfirm == "confirm" ]]; then
-				echo "DROP DATABASE $dbname;" | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname
-			fi	
+			#echo "Now drop the database"
+			#echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname"
+			#if [[ $testorconfirm == "confirm" ]]; then
+			#	echo "DROP DATABASE $dbname;" | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname
+			#fi	
     	
+			echo Line $bidon $osusername $dbname $deploymentstatus is for a user that does not exists. Should not happen.
+    		exit 10
     	fi
     
     fi
