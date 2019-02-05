@@ -820,7 +820,18 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 		{
 			foreach ($listofcontractid as $contract)
 			{
-				dol_syslog("--- Create recurring invoice on contract if it does not have yet.", LOG_DEBUG, 0);
+			    dol_syslog("--- Create recurring invoice on contract contract_id = ".$contract->id." if it does not have yet.", LOG_DEBUG, 0);
+
+				if ($contract->array_options['options_deployment_status'] != 'done')
+				{
+				    dol_syslog("--- Deployment status is not 'done', we discard this contract", LOG_DEBUG, 0);
+				    continue;							// This is a not valid contract (undeployed or not yet completely deployed), so we discard this contract to avoid to create template not expected
+				}
+				if ($contract->total_ht == 0)
+				{
+				    dol_syslog("--- Amount is null, we discard this contract", LOG_DEBUG, 0);
+				    continue;							// Amount is null, so we do not create recurring invoice for that. Note: This should not happen.
+				}
 
 				// Make a test to pass loop if there is already a template invoice
 				$result = $contract->fetchObjectLinked();
@@ -836,14 +847,6 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 						dol_syslog("--- There is already a recurring invoice on this contract.", LOG_DEBUG, 0);
 						continue;
 					}
-				}
-				if ($contract->array_options['options_deployment_status'] != 'done')
-				{
-					continue;							// This is a not valid contract (undeployed or not yet completely deployed), so we discard this contract to avoid to create template not expected
-				}
-				if ($contract->total_ht == 0)
-				{
-					continue;							// Amount is null, so we do not create recurring invoice for that. Note: This should not happen.
 				}
 
 				dol_syslog("--- No template invoice found for the contract contract_id = ".$contract->id." that is not null, so we refresh contract before creating template invoice + creating invoice (if template invoice date is already in past) + making contract renewal.", LOG_DEBUG, 0);
