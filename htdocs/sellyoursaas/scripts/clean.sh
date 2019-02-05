@@ -446,7 +446,7 @@ find $archivedir -maxdepth 1 -type d -mtime +10 -exec rm -fr {} \;
 # Now clean also old files in $archivedirbind
 echo "Now clean also old files in $archivedirbind - 10 days after being archived"
 cd $archivedirbind
-find $archivedirbind -maxdepth 1 -type d -mtime +10 -exec rm -fr {} \;
+find $archivedirbind -maxdepth 1 -type f -mtime +10 -exec rm -fr {} \;
 
 # Clean database users
 echo "We should also clean mysql record for"
