@@ -27,6 +27,7 @@ export PID=${$}
 export scriptdir=$(dirname $(realpath ${0}))
 export targetdir="/home/jail/home"				
 export archivedir="/mnt/diskbackup/archives-test"
+export archivedirbind="/etc/bind/archives"
 export ZONES_PATH="/etc/bind/zones"
 
 export DOMAIN="dolicloud.com"
@@ -438,9 +439,14 @@ if [ -s /tmp/osutoclean ]; then
 fi
 
 # Now clean also old dir in archives-test
-echo "Now clean also old dir in archives-test - 10 days after being archived"
+echo "Now clean also old dir in $archivedir - 10 days after being archived"
 cd $archivedir
 find $archivedir -maxdepth 1 -type d -mtime +10 -exec rm -fr {} \;
+
+# Now clean also old files in $archivedirbind
+echo "Now clean also old files in $archivedirbind - 10 days after being archived"
+cd $archivedirbind
+find $archivedirbind -maxdepth 1 -type d -mtime +10 -exec rm -fr {} \;
 
 # Clean database users
 echo "We should also clean mysql record for"
