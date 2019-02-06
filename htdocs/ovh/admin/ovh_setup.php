@@ -87,7 +87,7 @@ if (! empty($conf->global->MAIN_ENABLE_EXCEPTION))
 //$urlexample='https://www.ovh.com/soapi/soapi-re-1.32.wsdl';
 $urlexample='http://www.ovh.com/soapi/soapi-re-latest.wsdl';
 
-$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;
+$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;    // Can be "soyoustart-eu" or "kimsufi-eu"
 
 
 
@@ -110,6 +110,11 @@ if ($action == 'setvalue' && $user->admin)
         $result=dolibarr_set_const($db, "OVHAPPKEY",trim(GETPOST("OVHAPPKEY")),'chaine',0,'',$conf->entity);
         $result=dolibarr_set_const($db, "OVHAPPSECRET",trim(GETPOST("OVHAPPSECRET")),'chaine',0,'',$conf->entity);
         $result=dolibarr_set_const($db, "OVHCONSUMERKEY",trim(GETPOST("OVHCONSUMERKEY")),'chaine',0,'',$conf->entity);
+
+        $result=dolibarr_set_const($db, "OVHAPPNAME2",trim(GETPOST("OVHAPPNAME2")),'chaine',0,'',$conf->entity);
+        $result=dolibarr_set_const($db, "OVHAPPKEY2",trim(GETPOST("OVHAPPKEY2")),'chaine',0,'',$conf->entity);
+        $result=dolibarr_set_const($db, "OVHAPPSECRET2",trim(GETPOST("OVHAPPSECRET2")),'chaine',0,'',$conf->entity);
+        $result=dolibarr_set_const($db, "OVHCONSUMERKEY2",trim(GETPOST("OVHCONSUMERKEY2")),'chaine',0,'',$conf->entity);
     }
 
     if ($result >= 0)
@@ -136,12 +141,18 @@ if ($action == 'setvalue_account' && $user->admin)
     }
 }
 
-if ($action == 'requestcredential')
+if ($action == 'requestcredential' || $action == 'requestcredential2')
 {
     // Informations about your application
     $applicationKey = $conf->global->OVHAPPKEY;
     $applicationSecret = $conf->global->OVHAPPSECRET;
     $redirect_uri=dol_buildpath('/ovh/admin/ovh_setup.php?action=backfromauth', 2);
+    if ($action == 'requestcredential2')
+    {
+        $applicationKey = $conf->global->OVHAPPKEY2;
+        $applicationSecret = $conf->global->OVHAPPSECRET2;
+        $redirect_uri=dol_buildpath('/ovh/admin/ovh_setup.php?action=backfromauth2', 2);
+    }
 
     // Information about API and rights asked
     $rights = array(
@@ -184,10 +195,13 @@ if ($action == 'requestcredential')
     }
 }
 
-if ($action == 'backfromauth' && ! empty($_SESSION["ovh_consumer_key"]))
+if (($action == 'backfromauth' || $action == 'backfromauth2') && ! empty($_SESSION["ovh_consumer_key"]))
 {
+    $keytosave = "OVHCONSUMERKEY";
+    if ($action == 'backfromauth2') $keytosave="OVHCONSUMERKEY2";
+
     // Save
-    $result=dolibarr_set_const($db, "OVHCONSUMERKEY",$_SESSION["ovh_consumer_key"],'chaine',0,'',$conf->entity);
+    $result=dolibarr_set_const($db, $keytosave, $_SESSION["ovh_consumer_key"], 'chaine', 0, '', $conf->entity);
 
     if ($result >= 0)
     {
@@ -235,10 +249,11 @@ if (empty($conf->global->OVH_OLDAPI))
     print $langs->trans("ListOfExistingAPIApp", 'https://eu.api.ovh.com/console/#/me/api/application#GET', 'https://eu.api.ovh.com/console/#/me/api/application#GET').' (first log in on top right corner)<br><br>';
 }
 
-print '<table class="noborder" width="100%">';
 
 if (! empty($conf->global->OVH_OLDAPI))
 {
+    print '<table class="noborder" width="100%">';
+
     // Old API
 
     print '<tr class="liste_titre">';
@@ -247,65 +262,51 @@ if (! empty($conf->global->OVH_OLDAPI))
     print '<td></td>';
     print "</tr>\n";
 
-    $var=!$var;
-    print '<tr '.$bc[$var].'><td width="200px" class="fieldrequired">';
+    print '<tr class="oddeven"><td width="200px" class="fieldrequired">';
     print $langs->trans("OvhSmsNick").'</td><td>';
     print '<input size="64" type="text" name="OVHSMS_NICK" value="'.$conf->global->OVHSMS_NICK.'">';
     print '</td><td>'.$langs->trans("Example").': AA123-OVH';
     print '</td></tr>';
 
-    $var=!$var;
-    print '<tr '.$bc[$var].'><td class="fieldrequired">';
+    print '<tr class="oddeven"><td class="fieldrequired">';
     print $langs->trans("OvhSmsPass").'</td><td>';
     print '<input size="64" type="password" name="OVHSMS_PASS" value="'.$conf->global->OVHSMS_PASS.'">';
     print '</td><td></td></tr>';
 
-    $var=!$var;
-    print '<tr '.$bc[$var].'><td class="fieldrequired">';
+    print '<tr class="oddeven"><td class="fieldrequired">';
     print $langs->trans("OvhSmsSoapUrl").'</td><td>';
     print '<input size="64" type="text" name="OVHSMS_SOAPURL" value="'.$conf->global->OVHSMS_SOAPURL.'">';
     print '</td><td>'.$langs->trans("Example").': '.$urlexample;
     print '</td></tr>';
+
+    print '</table>';
 }
 else
 {
+    print '<table class="noborder" width="100%">';
+
     // New API
 
-    $var=!$var;
-    print '<tr '.$bc[$var].'><td class="titlefield fieldrequired">';
+    print '<tr class="oddeven"><td class="titlefield fieldrequired">';
     print $langs->trans("OvhApplicationName").'</td><td>';
     print '<input size="64" type="text" name="OVHAPPNAME" value="'.$conf->global->OVHAPPNAME.'">';
     print '</td><td>'.$langs->trans("Example").': My App';
     print '</td></tr>';
 
-    /*
-    $var=!$var;
-    print '<tr '.$bc[$var].'><td>';
-    print $langs->trans("OvhApplicationDescription").'</td><td>';
-    print '<input size="64" type="text" name="OVHAPPDESC" value="'.$conf->global->OVHAPPDESC.'">';
-    print '</td><td>'.$langs->trans("Example").': My App description';
-    print '</td></tr>';
-    */
-
-    $var=!$var;
-    print '<tr '.$bc[$var].'><td class="fieldrequired">';
+    print '<tr class="oddeven"><td class="fieldrequired">';
     print $langs->trans("OvhApplicationKey").'</td><td>';
     print '<input size="64" type="text" name="OVHAPPKEY" value="'.$conf->global->OVHAPPKEY.'">';
     print '</td><td>'.$langs->trans("Example").': Ld9GQ3AfaXDyZdsM';
     print '</td></tr>';
 
-    $var=!$var;
-    print '<tr '.$bc[$var].'><td class="fieldrequired">';
+    print '<tr class="oddeven"><td class="fieldrequired">';
     print $langs->trans("OvhApplicationSecret").'</td><td>';
     print '<input size="64" type="text" name="OVHAPPSECRET" value="'.$conf->global->OVHAPPSECRET.'">';
     print '</td><td>'.$langs->trans("Example").': V3dTtzY4PCMUYp2dURlGyIkI67C54S67';
     print '</td></tr>';
 
-
-    $var=!$var;
-    print '<tr '.$bc[$var].'><td class="fieldrequired">';
+    print '<tr  class="oddeven"><td class="fieldrequired">';
     print $langs->trans("OvhConsumerkey").'</td><td>';
-
     if (! empty($conf->global->OVHAPPNAME) && ! empty($conf->global->OVHAPPKEY) && ! empty($conf->global->OVHAPPSECRET))
     {
         print '<input size="64" type="text" name="OVHCONSUMERKEY" value="'.$conf->global->OVHCONSUMERKEY.'">';
@@ -322,9 +323,60 @@ else
         //print '<br>'.info_admin($langs->trans('OVHURLMustNotBeLocal'));   Can work with a local URL.
     }
     print '</td></tr>';
+
+    print '</table>';
+
+
+    if (! empty($conf->global->OVH_USE_2_ACCOUNTS))
+    {
+        print "<br><br>\n";
+        print $langs->trans("Account").' 2<br>';
+
+        print '<table class="noborder" width="100%">';
+
+        // New API
+
+        print '<tr class="oddeven"><td class="titlefield fieldrequired">';
+        print $langs->trans("OvhApplicationName").'</td><td>';
+        print '<input size="64" type="text" name="OVHAPPNAME2" value="'.$conf->global->OVHAPPNAME2.'">';
+        print '</td><td>'.$langs->trans("Example").': My App';
+        print '</td></tr>';
+
+        print '<tr class="oddeven"><td class="fieldrequired">';
+        print $langs->trans("OvhApplicationKey").'</td><td>';
+        print '<input size="64" type="text" name="OVHAPPKEY2" value="'.$conf->global->OVHAPPKEY2.'">';
+        print '</td><td>'.$langs->trans("Example").': Ld9GQ3AfaXDyZdsM';
+        print '</td></tr>';
+
+        print '<tr class="oddeven"><td class="fieldrequired">';
+        print $langs->trans("OvhApplicationSecret").'</td><td>';
+        print '<input size="64" type="text" name="OVHAPPSECRET2" value="'.$conf->global->OVHAPPSECRET2.'">';
+        print '</td><td>'.$langs->trans("Example").': V3dTtzY4PCMUYp2dURlGyIkI67C54S67';
+        print '</td></tr>';
+
+        print '<tr  class="oddeven"><td class="fieldrequired">';
+        print $langs->trans("OvhConsumerkey").'</td><td>';
+        if (! empty($conf->global->OVHAPPNAME2) && ! empty($conf->global->OVHAPPKEY2) && ! empty($conf->global->OVHAPPSECRET2))
+        {
+            print '<input size="64" type="text" name="OVHCONSUMERKEY2" value="'.$conf->global->OVHCONSUMERKEY2.'">';
+        }
+        else
+        {
+            print $langs->trans("PleaseFillOtherFieldFirst");
+        }
+        print '</td><td>';
+        if (! empty($conf->global->OVHAPPNAME2) && ! empty($conf->global->OVHAPPKEY2) && ! empty($conf->global->OVHAPPSECRET2))
+        {
+            if (empty($conf->global->OVHCONSUMERKEY2)) print img_warning().' ';
+            print $langs->trans("ClickHereToLoginAndGetYourConsumerKey", $_SERVER["PHP_SELF"].'?action=requestcredential2');
+            //print '<br>'.info_admin($langs->trans('OVHURLMustNotBeLocal'));   Can work with a local URL.
+        }
+        print '</td></tr>';
+
+        print '</table>';
+    }
 }
 
-print '</table>';
 
 dol_fiche_end();
 

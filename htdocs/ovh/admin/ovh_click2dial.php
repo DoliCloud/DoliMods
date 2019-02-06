@@ -67,7 +67,7 @@ if ($user->societe_id > 0)
 
 $urlexample='http://www.ovh.com/soapi/soapi-re-latest.wsdl';
 
-$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;
+$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;    // Can be "soyoustart-eu" or "kimsufi-eu"
 
 //$conf->global->OVH_OLDAPI =1;
 

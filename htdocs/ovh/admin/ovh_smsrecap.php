@@ -57,7 +57,7 @@ if (!$user->admin) accessforbidden();
 // Get parameters
 $account = GETPOST("account");
 
-$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;
+$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;    // Can be "soyoustart-eu" or "kimsufi-eu"
 
 
 

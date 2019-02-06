@@ -65,7 +65,7 @@ $langs->load("ovh@ovh");
 
 $url_pdf = "https://www.ovh.com/cgi-bin/order/facture.pdf";
 
-$endpoint = empty($conf->global->OVH_ENDPOINT) ? 'ovh-eu' : $conf->global->OVH_ENDPOINT;
+$endpoint = empty($conf->global->OVH_ENDPOINT) ? 'ovh-eu' : $conf->global->OVH_ENDPOINT;    // Can be "soyoustart-eu" or "kimsufi-eu"
 
 
 $action = GETPOST('action', 'aZ09');
@@ -86,7 +86,6 @@ $datefrom = dol_mktime(0, 0, 0, GETPOST('datefrommonth'), GETPOST('datefromday')
 if (!$datefrom) {
     $datefrom = dol_time_plus_duree($now, -6, 'm');
 }
-
 
 /*
  * Actions
@@ -120,13 +119,24 @@ if (!empty($action)) {
             dol_syslog("billingGetAccessByNic successfull = " . join(',', $result));
             //print "GetAccessByNic: ".join(',',$result)."<br>\n";
         } else {
-            if (empty($conf->global->OVHCONSUMERKEY)) {
-                print 'Error: ' . $langs->trans("ModuleSetupNotComplete") . "\n";
-                exit;
-            }
+            if (GETPOST('compte','alpha') == 2)
+            {
+                if (empty($conf->global->OVHCONSUMERKEY2)) {
+                    print 'Error: ' . $langs->trans("ModuleSetupNotComplete") . "\n";
+                    exit;
+                }
 
-            $conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint,
-                $conf->global->OVHCONSUMERKEY);
+                $conn = new Api($conf->global->OVHAPPKEY2, $conf->global->OVHAPPSECRET2, $endpoint, $conf->global->OVHCONSUMERKEY2);
+            }
+            else
+            {
+                if (empty($conf->global->OVHCONSUMERKEY)) {
+                    print 'Error: ' . $langs->trans("ModuleSetupNotComplete") . "\n";
+                    exit;
+                }
+
+                $conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
+            }
         }
     } catch (SoapFault $fault) {
         setEventMessage('SoapFault Exception: ' . $fault->getMessage() . ' - ' . $fault->getTraceAsString(), 'errors');
@@ -467,11 +477,24 @@ print '<br><br>';
 
 print '<div class="tabBar">';
 print '<table class="notopnoborder"><tr><td>';
-print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="checkbox" name="excludenullinvoice"' . ((!isset($_POST["excludenullinvoice"]) || GETPOST('excludenullinvoice')) ? ' checked="true"' : '') . '"> ' . $langs->trans("ExcludeNullInvoices") . '<br>';
 print $langs->trans("FromThe") . ': ';
 print $form->select_date($datefrom, 'datefrom');
-print '<br>';
+if (! empty($conf->global->OVH_USE_2_ACCOUNTS))
+{
+    print '<br>';
+    print $langs->trans("Account") . ': ';
+    $liste_opt='<select name="compte" class="flat">';
+    $liste_opt.='<option value="1">';
+    $liste_opt.='1-'.$conf->global->OVHAPPNAME;
+    $liste_opt.='</option>';
+    $liste_opt.='<option value="2">';
+    $liste_opt.='2-'.$conf->global->OVHAPPNAME2;
+    $liste_opt.='</option>';
+    $liste_opt.="</select>";
+    print $liste_opt;
+    print '<br><br>';
+}
 print '<input type="hidden" name="action" value="refresh">';
 print ' <input type="submit" name="import" value="' . $langs->trans("ScanOvhInvoices") . '" class="button">';
 print '</td></tr></table>';
@@ -576,8 +599,11 @@ if ($action == 'refresh') {
             print '<input type="hidden" name="datefromday" value="' . dol_print_date($datefrom, '%d') . '">';
             print '<input type="hidden" name="datefrommonth" value="' . dol_print_date($datefrom, '%m') . '">';
             print '<input type="hidden" name="datefromyear" value="' . dol_print_date($datefrom, '%Y') . '">';
+
+			print '<input type="hidden" name="compte" value="' .GETPOST("compte",'alpha'). '">';
+
             print '<input type="hidden" id="excludenullinvoicehidden" name="excludenullinvoice" value="' . $excludenullinvoice . '">';
-            print '<input type="submit" name="import" value="' . $langs->trans("ToImport") . '" class="button">';
+            print ' <input type="submit" name="import" value="' . $langs->trans("ToImport") . '" class="button">';
             print '</div>';
 
             print '</div><div style="clear: both"></div><br>';
@@ -641,7 +667,7 @@ if ($action == 'refresh') {
                 $facid = 0;
 
                 $version = preg_split('/[\.-]/', DOL_VERSION);
-                if (versioncompare($version, array(3, 4, -3)) >= 0)    // For dolibarr 3.4.*
+                if (versioncompare($version, array(3, 4, -3)) >= 0)    // For dolibarr >= 3.4.*
                 {
                     $sql = "SELECT rowid ";
                     $sql .= ' FROM ' . MAIN_DB_PREFIX . 'facture_fourn as f';
@@ -649,8 +675,7 @@ if ($action == 'refresh') {
                 } else {
                     $sql = "SELECT rowid ";
                     $sql .= ' FROM ' . MAIN_DB_PREFIX . 'facture_fourn as f';
-                    if ((float) DOL_VERSION < 10) $sql .= " WHERE facnumber = '" . $db->escape($r['billnum']) . "' and fk_soc = " . $ovhthirdparty->id;
-                    else $sql .= " WHERE ref = '" . $db->escape($r['billnum']) . "' and fk_soc = " . $ovhthirdparty->id;
+                    $sql .= " WHERE facnumber = '" . $db->escape($r['billnum']) . "' and fk_soc = " . $ovhthirdparty->id;
                 }
                 dol_syslog("Seach if invoice exists sql=" . $sql);
                 $resql = $db->query($sql);
@@ -672,8 +697,7 @@ if ($action == 'refresh') {
                         $facfou->fetch($facid);
 
                         $ref = dol_sanitizeFileName($facfou->ref);
-                        $upload_dir = $conf->fournisseur->facture->dir_output . '/' . get_exdir($facfou->id, 2, 0, 0,
-                                $facfou, 'invoice_supplier') . $ref;
+                        $upload_dir = $conf->fournisseur->facture->dir_output . '/' . get_exdir($facfou->id, 2, 0, 0, $facfou, 'invoice_supplier') . $ref;
                         //var_dump($upload_dir);
                         $file_name = ($upload_dir . "/" . $facfou->ref_supplier . ".pdf");
                         $file_name_bis = ($upload_dir . "/" . $facfou->ref . '-' . $facfou->ref_supplier . ".pdf");
@@ -685,7 +709,7 @@ if ($action == 'refresh') {
                             print $langs->trans("InvoicePDFFoundIntoDolibarr") . " " . $facfou->getNomUrl(1) . "\n";
                             //echo "<br>File ".dol_basename($file_name)." also already exists\n";
                         } else {
-                            print $langs->trans("InvoiceFoundIntoDolibarr", $facfou->getNomUrl(1)) . "\n";
+                            print $langs->transnoentities("InvoiceFoundIntoDolibarr", $facfou->getNomUrl(1)) . "\n";
                             if (!is_dir($upload_dir)) {
                                 dol_mkdir($upload_dir);
                             }

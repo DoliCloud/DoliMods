@@ -85,7 +85,7 @@ if (! empty($conf->global->MAIN_ENABLE_EXCEPTION))
     set_error_handler('traitementErreur');
 }
 
-$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;
+$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;    // Can be "soyoustart-eu" or "kimsufi-eu"
 
 
 /*
