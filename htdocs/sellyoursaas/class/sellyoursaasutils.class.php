@@ -2579,7 +2579,8 @@ class SellYourSaasUtils
 
 
     /**
-     * Make a remote action on a contract (deploy/undeploy/suspend/unsuspend/rename/...)
+     * Make a remote action on a contract (deploy/undeploy/suspend/unsuspend/rename/...).
+     * This function is called on Master but remote action is done on remote agent.
      *
      * @param	string					$remoteaction	Remote action ('suspend/unsuspend/rename'=change apache virtual file, 'deploy/undeploy'=create/delete database, 'refresh'=update status of install.lock+authorized key + loop on each line and read remote data and update qty of metrics)
      * @param 	Contrat|ContratLigne	$object			Object contract or contract line
@@ -2792,6 +2793,8 @@ class SellYourSaasUtils
     						}
     					}
     				}
+
+    				ssh2_disconnect($connection);
     			}
     			else {
     				$this->errors[]='Failed to connect to ssh2 to '.$server;
@@ -3080,8 +3083,7 @@ class SellYourSaasUtils
     		}
 
     		// remoteaction = refresh => update the qty for this line if it is a line that is a metric
-    		if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
-    			$remoteaction == 'refresh')
+    		if (empty($tmpobject->context['fromdolicloudcustomerv1']) && $remoteaction == 'refresh')
     		{
     			dol_syslog("Start refresh of nb of resources for a customer");
 
@@ -3215,6 +3217,32 @@ class SellYourSaasUtils
     							$this->errors[] = $dbinstance->lasterror();
     						}
     					}
+    				}
+    				elseif ($tmparray[0] == 'BASH')
+    				{
+    				    $bashformula = make_substitutions($tmparray[1], $substitarray);
+
+    				    // SFTP refresh
+    				    if (function_exists("ssh2_connect"))
+    				    {
+    				        $server=$object->array_options['options_hostname_os'];
+
+    				        $connection = @ssh2_connect($server, 22);
+    				        if ($connection)
+    				        {
+    				            dol_syslog("Get resource BASH ".$bashformula);
+
+    				            // TODO
+
+
+                                ssh2_disconnect($connection);
+    				        }
+    				        else
+    				        {
+    				            $error++;
+    				            $this->error = 'ssh2_connect function not supported by your PHP';
+    				        }
+    				    }
     				}
     				else
     				{
