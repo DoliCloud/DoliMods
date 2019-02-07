@@ -5033,7 +5033,7 @@ if ($mode == 'mycustomerbilling')
 		// Loop on record
 		// --------------------------------------------------------------------
 		$i=0;
-		while ($i < min($num, $limit))
+		while ($i < min($num, $limit2))
 		{
 			$obj = $db->fetch_object($resql);
 			if (empty($obj)) break;		// Should not happen
@@ -5094,12 +5094,12 @@ if ($mode == 'mycustomerbilling')
 			$i++;
 		}
 
-		if ($nbtotalofrecords > $limit)
+		if ($nbtotalofrecords > $limit2)
 		{
 			print '<tr><td colspan="6" class="center">';
-			if ($page > 0) print '<a href="'.$_SERVER["PHP_SEFL"].'?mode='.$mode.'&limit='.$limit.'&page='.($page-1).'">'.$langs->trans("Previous").'</a>';
-			if ($page > 0 && (($page + 1) * $limit) <= $nbtotalofrecords) print ' &nbsp; ... &nbsp; ';
-			if ((($page + 1) * $limit) <= $nbtotalofrecords) print '<a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&limit='.$limit.'&page='.($page+1).'">'.$langs->trans("Next").'</a>';
+			if ($page2 > 0) print '<a href="'.$_SERVER["PHP_SEFL"].'?mode='.$mode2.'&limit='.$limit2.'&page='.($page2-1).'">'.$langs->trans("Previous").'</a>';
+			if ($page2 > 0 && (($page2 + 1) * $limit2) <= $nbtotalofrecords) print ' &nbsp; ... &nbsp; ';
+			if ((($page2 + 1) * $limit2) <= $nbtotalofrecords) print '<a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&limit='.$limit2.'&page='.($page2+1).'">'.$langs->trans("Next").'</a>';
 			print '<br><br>';
 			print '</td>';
 			print '<td class="right">...<br><br></td>';
