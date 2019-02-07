@@ -4747,6 +4747,13 @@ if ($mode == 'registerpaymentmode')
 
 if ($mode == 'mycustomerbilling')
 {
+    // TODO separate 2 and 1
+    $page2 = $page;
+    $offset2 = $offset;
+    $sortfield2 = $sortfield;
+    $sortorder2 = $sortorder;
+    $limit2 = $limit;
+
 	print '
 	<div class="page-content-wrapper">
 			<div class="page-content">
@@ -4800,12 +4807,14 @@ if ($mode == 'mycustomerbilling')
 						</tr>
 						';
 
+			            $sortfield = 'f.datef';
+			            $sortorder = 'DESC';
+
 						$sql ='SELECT f.rowid, f.ref as ref, f.fk_soc, f.datef, f.total_ht, f.total_ttc, f.paye, f.fk_statut';
-						$sql.= ' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
-						//$sql.=' WHERE fe.reseller IN ('.join(',', $listofcustomeridreseller).')';
+						$sql.=' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
 						$sql.=' WHERE f.fk_soc = '.$mythirdpartyaccount->id;
 
-						//$sql.=$db->order($sortfield,$sortorder);
+						$sql.=$db->order($sortfield,$sortorder);
 
 						// Count total nb of records
 						$nbtotalofrecords = '';
@@ -4975,12 +4984,14 @@ if ($mode == 'mycustomerbilling')
 			print '</tr>';
 		}
 
+		$sortfield = 'f.datef';
+		$sortorder = 'DESC';
+
 		$sql ='SELECT f.rowid, f.ref as ref, f.fk_soc, f.datef, total as total_ht, total_ttc, f.paye, f.fk_statut, fe.commission';
 		$sql.= ' FROM '.MAIN_DB_PREFIX.'facture as f LEFT JOIN '.MAIN_DB_PREFIX.'facture_extrafields as fe ON fe.fk_object = f.rowid';
-		//$sql.=' WHERE fe.reseller IN ('.join(',', $listofcustomeridreseller).')';
 		$sql.=' WHERE fe.reseller = '.$mythirdpartyaccount->id;
 
-		$sql.=$db->order($sortfield,$sortorder);
+		$sql.=$db->order($sortfield2,$sortorder2);
 
 		// Count total nb of records
 		$nbtotalofrecords = '';
@@ -4988,19 +4999,19 @@ if ($mode == 'mycustomerbilling')
 		$nbtotalofrecords = $db->num_rows($resql);
 
 		// if total resultset is smaller then paging size (filtering), goto and load page 0
-		if (($page * $limit) > $nbtotalofrecords)
+		if (($page2 * $limit2) > $nbtotalofrecords)
 		{
-			$page = 0;
-			$offset = 0;
+			$page2 = 0;
+			$offset2 = 0;
 		}
 		// if total resultset is smaller than the limit, no need to do paging.
-		if (is_numeric($nbtotalofrecords) && $limit > $nbtotalofrecords)
+		if (is_numeric($nbtotalofrecords) && $limit2 > $nbtotalofrecords)
 		{
 			$num = $nbtotalofrecords;
 		}
 		else
 		{
-			$sql.= $db->plimit($limit+1, $offset);
+			$sql.= $db->plimit($limit2+1, $offset2);
 
 			$resql=$db->query($sql);
 			if (! $resql)
