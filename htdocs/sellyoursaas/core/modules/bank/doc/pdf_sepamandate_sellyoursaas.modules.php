@@ -32,12 +32,21 @@ require_once DOL_DOCUMENT_ROOT.'/core/modules/bank/doc/pdf_sepamandate.modules.p
 
 
 /**
- *	Classe to generate SEPA mandate for SellyourSaas
+ *	Class to generate SEPA mandate for SellyourSaas
  */
 class pdf_sepamandate_sellyoursaas extends pdf_sepamandate
 {
-	var $emetteur;	// Objet societe qui emet
-	var $version = 'dolibarr';
+    /**
+     * Issuer
+     * @var Societe
+     */
+    public $emetteur;
+    
+    /**
+     * Dolibarr version of the loaded document
+     * @public string
+     */
+    public $version = 'dolibarr';
 
 	/**
 	 *	Constructor
@@ -48,10 +57,8 @@ class pdf_sepamandate_sellyoursaas extends pdf_sepamandate
 	{
 		global $conf,$langs,$mysoc;
 
-		$langs->load("main");
-		$langs->load("bank");
-		$langs->load("withdrawals");
-		$langs->load("companies");
+		// Translations
+		$langs->loadLangs(array("main", "bank", "withdrawals", "companies"));
 
 		$this->db = $db;
 		$this->name = "sepamandate_sellyoursaas";
@@ -86,6 +93,7 @@ class pdf_sepamandate_sellyoursaas extends pdf_sepamandate
 	}
 
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.NotCamelCaps
 	/**
 	 *	Fonction generant le projet sur le disque
 	 *
@@ -100,18 +108,15 @@ class pdf_sepamandate_sellyoursaas extends pdf_sepamandate
 	 */
 	function write_file($object, $outputlangs, $srctemplatepath='', $hidedetails=0, $hidedesc=0, $hideref=0, $moreparams=null)
 	{
-		global $conf, $hookmanager, $langs, $user, $mysoc;
+	    // phpcs:enable
+	    global $conf, $hookmanager, $langs, $user, $mysoc;
 
 		if (! is_object($outputlangs)) $outputlangs=$langs;
 		// For backward compatibility with FPDF, force output charset to ISO, because FPDF expect text to be encoded in ISO
 		if (! empty($conf->global->MAIN_USE_FPDF)) $outputlangs->charset_output='ISO-8859-1';
 
-		$outputlangs->load("main");
-		$outputlangs->load("dict");
-		$outputlangs->load("companies");
-		$outputlangs->load("projects");
-		$outputlangs->load("withdrawals");
-		$outputlangs->load("bills");
+		// Load traductions files requiredby by page
+		$outputlangs->loadLangs(array("main", "dict", "withdrawals", "companies", "projects", "bills"));
 
 		if (! empty($conf->bank->dir_output))
 		{
@@ -159,7 +164,8 @@ class pdf_sepamandate_sellyoursaas extends pdf_sepamandate
                 $heightforinfotot = 50;	// Height reserved to output the info and total part
 		        $heightforfreetext= (isset($conf->global->MAIN_PDF_FREETEXT_HEIGHT)?$conf->global->MAIN_PDF_FREETEXT_HEIGHT:5);	// Height reserved to output the free text on last page
 	            $heightforfooter = $this->marge_basse + 8;	// Height reserved to output the footer (value include bottom margin)
-                $pdf->SetAutoPageBreak(1,0);
+	            if ($conf->global->MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS >0) $heightforfooter+= 6;
+	            $pdf->SetAutoPageBreak(1,0);
 
                 if (class_exists('TCPDF'))
                 {
@@ -440,8 +446,8 @@ class pdf_sepamandate_sellyoursaas extends pdf_sepamandate
 
 		// Logo
 		$logo=$conf->mycompany->dir_output.'/logos/'.$mysoc->logo;
-		$paramlogo='ONLINE_PAYMENT_LOGO_dolicloud';
-		if (! empty($conf->global->$paramlogo)) $logo=$conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->$paramlogo;
+		//$paramlogo='ONLINE_PAYMENT_LOGO_dolicloud';
+		//if (! empty($conf->global->$paramlogo)) $logo=$conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->$paramlogo;
 		if ($mysoc->logo)
 		{
 			if (is_readable($logo))
