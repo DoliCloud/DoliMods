@@ -2795,6 +2795,7 @@ class SellYourSaasUtils
     				}
 
     				if (function_exists('ssh2_disconnect')) ssh2_disconnect($connection);
+    				else unset($connection);
     			}
     			else {
     				$this->errors[]='Failed to connect to ssh2 to '.$server;
@@ -3236,6 +3237,7 @@ class SellYourSaasUtils
 
 
                                 if (function_exists('ssh2_disconnect')) ssh2_disconnect($connection);
+                                else unset($connection);
     				        }
     				        else
     				        {
