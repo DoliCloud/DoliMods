@@ -319,7 +319,7 @@ class ActionsConcatPdf
 
         		$pagecount = $this->concat($pdf, $filetoconcat);
 
-        		if ($pagecount)
+        		if ($pagecount > 0)
         		{
         			$pdf->Output($filetoconcat1[0],'F');
         			if (! empty($conf->global->MAIN_UMASK))
@@ -334,6 +334,10 @@ class ActionsConcatPdf
         					dol_delete_dir_recursive($dirtemp);
         				}
         			}
+        		}
+        		if ($pagecount < 0)
+        		{
+                    return -1;
         		}
 
         		// Save selected files into extraparams
@@ -367,10 +371,20 @@ class ActionsConcatPdf
 			{
 				for ($i = 1; $i <= $pagecounttmp; $i++)
 				{
-					$tplidx = $pdf->ImportPage($i);
-					$s = $pdf->getTemplatesize($tplidx);
-					$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
-					$pdf->useTemplate($tplidx);
+				    try {
+    					$tplidx = $pdf->ImportPage($i);
+    					$s = $pdf->getTemplatesize($tplidx);
+    					$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
+    					$pdf->useTemplate($tplidx);
+				    }
+				    catch(Exception $e)
+				    {
+				        dol_syslog("Error when manipulating some PDF by concatpdf: ".$e->getMessage(), LOG_ERR);
+				        $this->error = $e->getMessage();
+				        $this->errors[] = $e->getMessage();
+				        dol_print_error('', $this->error);  // Remove this when dolibarr is able to report on screen errors reported by this hook.
+				        return -1;
+				    }
 				}
 				$pagecount += $pagecounttmp;
 			}
