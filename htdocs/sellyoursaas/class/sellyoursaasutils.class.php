@@ -1937,16 +1937,19 @@ class SellYourSaasUtils
     	$sql.= " AND cd.statut = 4";												// Not yet suspended
     	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
 		$sql.= $this->db->order('c.rowid','ASC');
-    	$sql.= $this->db->plimit(25);	// To avoid to reach quota of emails sent
+    	//$sql.= $this->db->plimit(25);	// Limit is managed into loop
 
     	$resql = $this->db->query($sql);
     	if ($resql)
     	{
-    		$num = $this->db->num_rows($resql);
+    		$numofexpiredcontractlines = $this->db->num_rows($resql);
 
-    		$i=0;
-    		while ($i < $num)
+    		$somethingdoneoncontract = 0;
+    		$ifetchservice = 0;
+    		while ($ifetchservice < $numofexpiredcontractlines)
     		{
+    		    $ifetchservice++;
+
 				$obj = $this->db->fetch_object($resql);
 
 				if ($obj)
@@ -1965,7 +1968,7 @@ class SellYourSaasUtils
 						continue;
 					}
 
-					dol_syslog("* Process contract id=".$object->id." ref=".$object->ref." ref_customer=".$object->ref_customer);
+					dol_syslog("* Process fetch line nb ".$ifetchservice." - contract id=".$object->id." ref=".$object->ref." ref_customer=".$object->ref_customer);
 
 					dol_syslog('Call sellyoursaasIsPaidInstance', LOG_DEBUG, 1);
 					$isAPayingContract = sellyoursaasIsPaidInstance($object);
@@ -1987,8 +1990,15 @@ class SellYourSaasUtils
 					dol_syslog('', 0, -1);
 					$expirationdate = $tmparray['expirationdate'];
 
-					if ($expirationdate && $expirationdate < $now)	// If contract expired
+					if ($expirationdate && $expirationdate < $now)	// If contract expired (we already had a test into main select, this is a security)
 					{
+					    if ($somethingdoneoncontract >= 25)
+					    {
+					        dol_syslog("Too much contracts processed (".$somethingdoneoncontract."), we quit loop for this batch run to avoid to reach quota.", LOG_WARNING);
+                            break;
+					    }
+					    $somethingdoneoncontract++;
+
 						$wemustsuspendinstance = false;
 
 						// If thirdparty has a default payment mode,
@@ -2347,7 +2357,7 @@ class SellYourSaasUtils
 						}
 					}
 				}
-    			$i++;
+    			$ifetchservice++;
     		}
     	}
     	else
@@ -2359,15 +2369,16 @@ class SellYourSaasUtils
    		if (! $error)
    		{
    			$this->db->commit();
-   			$this->output = count($contractprocessed).' '.$mode.' running contract(s) with end date before '.dol_print_date($datetotest, 'dayhourrfc').' suspended'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
-   			$this->output.='. '.count($contractconvertedintemplateinvoice).' '.$mode.' running contract(s) with end date before '.dol_print_date($datetotest, 'dayhourrfc').' converted into template invoice'.(count($contractconvertedintemplateinvoice)>0 ? ' : '.join(',', $contractconvertedintemplateinvoice) : '');
+   			$this->output = $numofexpiredcontractlines.' expired contract lines found';
+   			$this->output.= ' - '.count($contractprocessed).' '.$mode.' running contract(s) with service end date before '.dol_print_date($datetotest, 'dayhourrfc').' suspended'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
+   			$this->output.= '. '.count($contractconvertedintemplateinvoice).' '.$mode.' running contract(s) with service end date before '.dol_print_date($datetotest, 'dayhourrfc').' converted into template invoice'.(count($contractconvertedintemplateinvoice)>0 ? ' : '.join(',', $contractconvertedintemplateinvoice) : '');
    			if ($erroremail) $this->output.='. Got errors when sending some email : '.$erroremail;
    		}
    		else
    		{
    			$this->db->rollback();
-   			$this->output = count($contractprocessed).' '.$mode.' running contract(s) with end date before '.dol_print_date($datetotest, 'dayhourrfc').' to suspend'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
-   			$this->output.='. '.count($contractconvertedintemplateinvoice).' '.$mode.' running contract(s) with end date before '.dol_print_date($datetotest, 'dayhourrfc').' to convert into template invoice'.(count($contractconvertedintemplateinvoice)>0 ? ' : '.join(',', $contractconvertedintemplateinvoice) : '');
+   			$this->output = count($contractprocessed).' '.$mode.' running contract(s) with service end date before '.dol_print_date($datetotest, 'dayhourrfc').' to suspend'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '').' (search done on contracts of SellYourSaas customers only)';
+   			$this->output.='. '.count($contractconvertedintemplateinvoice).' '.$mode.' running contract(s) with service end date before '.dol_print_date($datetotest, 'dayhourrfc').' to convert into template invoice'.(count($contractconvertedintemplateinvoice)>0 ? ' : '.join(',', $contractconvertedintemplateinvoice) : '');
    			if ($erroremail) $this->output.='. Got errors when sending some email : '.$erroremail;
    		}
 
