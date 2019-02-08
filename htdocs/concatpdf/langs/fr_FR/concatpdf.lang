@@ -17,3 +17,4 @@ MoreCloudHosting=Pour une utilisation en ligne de Dolibarr, optez pour l'héberg
 MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Cliquez ici pour plus d'information</a>
 CompatibleWithDoliDroid=Ce module est aussi compatible avec DoliDroid, l'application Android pour Dolibarr.
 ErrorFileMustBeAPdf=Erreur, le fichier doit être un fichier PDF
+WarningConcatPDFIsNotCompatibleWithOptionReadOnlyPDF=Concat PDF n'est pas compatible avec l'option PDF : %s

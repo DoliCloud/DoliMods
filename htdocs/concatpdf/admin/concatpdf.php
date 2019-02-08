@@ -221,6 +221,10 @@ else
 	dol_fiche_head($head, 'tabsetup', '', -1);
 }
 
+if (! empty($conf->global->PDF_SECURITY_ENCRYPTION))
+{
+    print info_admin($langs->trans("WarningConcatPDFIsNotCompatibleWithOptionReadOnlyPDF", $langs->transnoentities("ProtectAndEncryptPdfFiles")), 0, 0, '1', 'error');
+}
 
 /*
  * Confirmation suppression fichier
