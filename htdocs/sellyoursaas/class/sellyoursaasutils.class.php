@@ -346,6 +346,11 @@ class SellYourSaasUtils
 
 	    					$contractprocessed[$object->id]=$object->ref;
     					}
+    					else
+    					{
+    					    dol_syslog("We reach the limit of ".$MAXPERCALL." contract processed per batch, so we quit loop for this batch doAlertSoftTrial to avoid to reach email quota.", LOG_WARNING);
+    					    break;
+    					}
     				}
     				else
     				{
@@ -1895,6 +1900,8 @@ class SellYourSaasUtils
    	{
     	global $conf, $langs, $user;
 
+    	$MAXPERCALL = 25;
+
     	if ($mode != 'test' && $mode != 'paid')
     	{
     		$this->error = 'Function doSuspendInstances called with bad value for parameter $mode';
@@ -1932,12 +1939,11 @@ class SellYourSaasUtils
     	$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafields as se';
     	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
     	$sql.= " AND ce.deployment_status = 'done'";
-    	//$sql.= " AND cd.date_fin_validite < '".$this->db->idate(dol_time_plus_duree($now, 1, 'd'))."'";
     	$sql.= " AND cd.date_fin_validite < '".$this->db->idate($datetotest)."'";
     	$sql.= " AND cd.statut = 4";												// Not yet suspended
     	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
 		$sql.= $this->db->order('c.rowid','ASC');
-    	//$sql.= $this->db->plimit(25);	// Limit is managed into loop
+    	// Limit is managed into loop later
 
     	$resql = $this->db->query($sql);
     	if ($resql)
@@ -1992,9 +1998,9 @@ class SellYourSaasUtils
 
 					if ($expirationdate && $expirationdate < $now)	// If contract expired (we already had a test into main select, this is a security)
 					{
-					    if ($somethingdoneoncontract >= 25)
+					    if ($somethingdoneoncontract >= $MAXPERCALL)
 					    {
-					        dol_syslog("Too much contracts processed (".$somethingdoneoncontract."), we quit loop for this batch run to avoid to reach quota.", LOG_WARNING);
+					        dol_syslog("We reach the limit of ".$MAXPERCALL." contract processed, so we quit loop for this batch doSuspendInstances to avoid to reach email quota.", LOG_WARNING);
                             break;
 					    }
 					    $somethingdoneoncontract++;
@@ -2866,7 +2872,7 @@ class SellYourSaasUtils
     			$serverdeployement = $this->getRemoveServerDeploymentIp($domainname);
     			if (empty($serverdeployement))	// Failed to get remote ip
     			{
-    				dol_syslog($this->error, LOG_WARNING);
+    				dol_syslog($this->error, LOG_ERR);
     				$error++;
     				break;
     			}
