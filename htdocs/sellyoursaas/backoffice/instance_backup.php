@@ -1,23 +1,23 @@
 <?php
-/* Copyright (C) 2004-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2004-2019 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 3 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program. If not, see <http://www.gnu.org/licenses/>.
-*/
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /**
  *       \file       htdocs/sellyoursaas/backoffice/instance_backup.php
- *       \ingroup    societe
+ *       \ingroup    sellyoursaas
  *       \brief      Card of a contact
  */
 
@@ -106,6 +106,22 @@ if (! empty($instanceoldid))
 else
 {
 	$backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/backup_instance.php '.$object->ref_customer.' '.$conf->global->DOLICLOUD_BACKUP_PATH;
+
+	if (sellyoursaasIsPaidInstance($object))
+	{
+	    if ($object->array_options['options_deployment_status'] == 'undeployed')
+	    {
+	        $restorestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/restore_instance.php '.$object->ref_customer.' '.$conf->global->SELLYOURSAAS_PAID_ARCHIVES_PATH.'/'.$object->array_options['options_username_os'];
+	    }
+	    else
+	    {
+	        $restorestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/restore_instance.php '.$object->ref_customer.' '.$conf->global->DOLICLOUD_BACKUP_PATH.'/'.$object->array_options['options_username_os'].'|'.$conf->global->SELLYOURSAAS_PAID_ARCHIVES_PATH.'/'.$object->array_options['options_username_os'];
+	    }
+	}
+	else
+	{
+	    $restorestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/restore_instance.php '.$object->ref_customer.' '.$conf->global->SELLYOURSAAS_TEST_ARCHIVES_PATH.'/'.$object->array_options['options_username_os'];
+	}
 }
 
 
@@ -364,14 +380,22 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 */
 }
 
+print '<br>';
 
 
-
-// Upgrade link
+// Backup link
 $backupstringtoshow=$backupstring.' testrsync|testdatabase|confirmrsync|confirmdatabase|confirm';
 print 'Backup command line string<br>';
 print '<input type="text" name="backupstring" id="backupstring" value="'.$backupstringtoshow.'" size="160"><br>';
 print ajax_autoselect('backupstring');
+
+print '<br>';
+
+// Restore link
+$restorestringtoshow=$restorestring.' testrsync|testdatabase|confirmrsync|confirmdatabase|confirm';
+print 'Restore command line string<br>';
+print '<input type="text" name="restorestring" id="restorestring" value="'.$restorestringtoshow.'" size="160"><br>';
+print ajax_autoselect('restorestring');
 
 
 llxFooter();
