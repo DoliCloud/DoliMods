@@ -231,6 +231,8 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	$param[]="--exclude .gitignore";
 	$param[]="--exclude .settings";
 	$param[]="--exclude .project";
+	//$param[]="--exclude '*last_mysqlrestore_*'";
+	//$param[]="--exclude '*last_rsyncrestore_*'";
 	$param[]="--exclude '*.com*SSL'";
 	$param[]="--exclude '*.log'";
 	$param[]="--exclude '*.pdf_preview.png'";
@@ -262,7 +264,7 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 
 	//var_dump($param);
 	//print "- Backup documents dir ".$dirroot."/".$instance."\n";
-	$param[]=$dirroot;
+	$param[]=$dirroot.'/*';
 	$param[]=(in_array($server, array('127.0.0.1','localhost')) ? '' : $login.'@'.$server.":") . $targetdir;
 	$fullcommand=$command." ".join(" ",$param);
 	$output=array();
