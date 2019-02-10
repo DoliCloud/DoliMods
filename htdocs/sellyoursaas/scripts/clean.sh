@@ -62,6 +62,7 @@ export testorconfirm=$2
 # For debug
 echo "database = $database"
 echo "testorconfirm = $testorconfirm"
+echo "DOMAIN = $DOMAIN"
 
 
 MYSQL=`which mysql`
