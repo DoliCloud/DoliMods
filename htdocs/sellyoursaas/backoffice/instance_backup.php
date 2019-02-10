@@ -109,9 +109,9 @@ else
 
 	if (sellyoursaasIsPaidInstance($object))
 	{
-	    if ($object->array_options['options_deployment_status'] == 'undeployed')
+	    if ($object->array_options['options_deployment_status'] != 'undeployed')
 	    {
-	        $restorestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/restore_instance.php '.$conf->global->SELLYOURSAAS_PAID_ARCHIVES_PATH.'/'.$object->array_options['options_username_os'].'/'.$object->array_options['options_database_db'].' 31 '.$object->ref_customer;
+	        $restorestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/restore_instance.php '.$conf->global->DOLICLOUD_BACKUP_PATH.'/'.$object->array_options['options_username_os'].'/'.$object->array_options['options_database_db'].' 31 '.$object->ref_customer;
 	    }
 	    else
 	    {
