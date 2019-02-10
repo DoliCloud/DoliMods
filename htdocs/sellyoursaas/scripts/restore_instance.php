@@ -40,10 +40,11 @@ $version='1.0';
 $error=0;
 $RSYNCDELETE=0;
 
-$instance=isset($argv[1])?$argv[1]:'';
-$dirroot=isset($argv[2])?$argv[2]:'';
-$mode=isset($argv[3])?$argv[3]:'';
-$v=isset($argv[4])?$argv[4]:'';
+$dirroot=isset($argv[1])?$argv[1]:'';
+$dayofmysqldump=isset($argv[2])?$argv[2]:'';
+$instance=isset($argv[3])?$argv[3]:'';
+$mode=isset($argv[4])?$argv[4]:'';
+$v=isset($argv[5])?$argv[5]:'';
 
 @set_time_limit(0);							// No timeout for this script
 define('EVEN_IF_ONLY_LOGIN_ALLOWED',1);		// Set this define to 0 if you want to lock your script when dolibarr setup is "locked to admin user only".
@@ -73,8 +74,8 @@ dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
-	print "Usage:   $script_file instance    backup_dir  [testrsync|testdatabase|confirmrsync|confirmdatabase|confirm]  (old)\n";
-	print "Example: $script_file myinstance  ".$conf->global->DOLICLOUD_BACKUP_PATH."  testrsync\n";
+	print "Usage:   $script_file backup_dir  instance  dayofmysqldump  [testrsync|testdatabase|confirmrsync|confirmdatabase|confirm]  (old)\n";
+	print "Example: $script_file ".$conf->global->DOLICLOUD_BACKUP_PATH."/osu123456  myinstance  31  testrsync\n";
 	print "Note:    ssh keys must be authorized to have testrsync and confirmrsync working\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);
@@ -189,12 +190,12 @@ $login=$object->username_web;
 $password=$object->password_web;
 if ($v != 1)
 {
-	$sourcedir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$login.'/'.$dirdb;
+	$targetdir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$login.'/'.$dirdb;
 	$server=$object->array_options['options_hostname_os'];
 }
 else
 {
-	$sourcedir=$conf->global->DOLICLOUD_EXT_HOME.'/'.$login.'/'.$dirdb;
+	$targetdir=$conf->global->DOLICLOUD_EXT_HOME.'/'.$login.'/'.$dirdb;
 	$server=$object->instance.'.on.dolicloud.com';
 }
 
@@ -204,42 +205,17 @@ if (empty($login) || empty($dirdb))
 	exit(-5);
 }
 
-print 'Restore instance '.$instance.' to '.$dirroot.'/'.$login."\n";
+print 'Restore instance '.$instance.' from '.$dirroot." to ".$targetdir."\n";
 print 'SFTP password '.$object->password_web."\n";
 print 'Database password '.$object->password_db."\n";
 
-//$listofdir=array($dirroot.'/'.$login, $dirroot.'/'.$login.'/documents', $dirroot.'/'.$login.'/system', $dirroot.'/'.$login.'/htdocs', $dirroot.'/'.$login.'/scripts');
-if ($mode == 'confirm' || $mode == 'confirmrsync' || $mode == 'confirmdatabase')
-{
-	$listofdir=array();
-	$listofdir[]=$dirroot.'/'.$login;
-	/*if ($mode == 'confirm' || $mode == 'confirmdatabase')
-	{
-		$listofdir[]=$dirroot.'/'.$login.'/documents';
-		$listofdir[]=$dirroot.'/'.$login.'/documents/admin';
-		$listofdir[]=$dirroot.'/'.$login.'/documents/admin/backup';
-	}*/
-	foreach($listofdir as $dirtocreate)
-	{
-		if (! is_dir($dirtocreate))
-		{
-			$res=@mkdir($dirtocreate);
-			if (! $res)
-			{
-				print 'Failed to create dir '.$dirtocreate."\n";
-				exit(-6);
-			}
-		}
-	}
-}
 
 // Backup files
 if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 {
-	$result = dol_mkdir($dirroot.'/'.$login);
-	if ($result < 0)
+	if (! is_dir($dirroot))
 	{
-		print "ERROR failed to create target dir ".$dirroot.'/'.$login."\n";
+		print "ERROR failed to find source dir ".$dirroot."\n";
 		exit(1);
 	}
 
@@ -286,8 +262,8 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 
 	//var_dump($param);
 	//print "- Backup documents dir ".$dirroot."/".$instance."\n";
-	$param[]=(in_array($server, array('127.0.0.1','localhost')) ? '' : $login.'@'.$server.":") . $sourcedir;
-	$param[]=$dirroot.'/'.$login;
+	$param[]=$dirroot;
+	$param[]=(in_array($server, array('127.0.0.1','localhost')) ? '' : $login.'@'.$server.":") . $targetdir;
 	$fullcommand=$command." ".join(" ",$param);
 	$output=array();
 	$return_var=0;
@@ -304,10 +280,10 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	// Add file tag
 	if ($mode == 'confirm' || $mode == 'confirmrsync')
 	{
-		$handle=fopen($dirroot.'/'.$login.'/last_rsync_'.$instance.'.txt','w');
+		$handle=fopen($dirroot.'/last_rsyncrestore_'.$instance.'.txt','w');
 		if ($handle)
 		{
-			fwrite($handle,'File created after rsync of '.$instance.". return_var=".$return_var."\n");
+			fwrite($handle,'File created after rsync for restore of '.$instance.". return_var=".$return_var."\n");
 			fclose($handle);
 		}
 		else
@@ -320,7 +296,7 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 // Backup database
 if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 {
-	$command="mysqldump";
+	$command="mysql";
 	$param=array();
 	$param[]=$object->database_db;
 	$param[]="-h";
@@ -328,19 +304,13 @@ if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 	$param[]="-u";
 	$param[]=$object->username_db;
 	$param[]='-p"'.str_replace(array('"','`'),array('\"','\`'),$object->password_db).'"';
-	$param[]="--compress";
-	$param[]="-l";
-	$param[]="--single-transaction";
-	$param[]="-K";
-	$param[]="--tables";
-	$param[]="-c";
-	$param[]="-e";
-	$param[]="--hex-blob";
-	$param[]="--default-character-set=utf8";
+
+	// TODO Get more recent file
+	$dateselected=sprintf("%02s", $dayofmysqldump);
 
 	$fullcommand=$command." ".join(" ",$param);
-	if ($mode == 'testdatabase') $fullcommand.=" | bzip2 > /dev/null";
-	else $fullcommand.=" | bzip2 > ".$dirroot.'/'.$login.'/mysqldump_'.$object->database_db.'_'.gmstrftime('%d').'.sql.bz2';
+	if ($mode == 'testdatabase') $fullcommand="cat ".$dirroot.'/../mysqldump_'.$object->database_db.'_'.$dateselected.".sql.bz2 | bzip2 -d > /dev/null";
+	else $fullcommand="cat ".$dirroot.'/../mysqldump_'.$object->database_db.'_'.$dateselected.'.sql.bz2 | bzip2 -d | '.$fullcommand;
 	$output=array();
 	$return_varmysql=0;
 	print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
@@ -356,15 +326,15 @@ if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 	// Add file tag
 	if ($mode == 'confirm' || $mode == 'confirmdatabase')
 	{
-		$handle=fopen($dirroot.'/'.$login.'/last_mysqldump_'.$instance.'.txt','w');
+		$handle=fopen($dirroot.'/last_mysqlrestore_'.$instance.'.txt','w');
 		if ($handle)
 		{
-			fwrite($handle,'File created after mysqldump of '.$instance.". return_varmysql=".$return_varmysql."\n");
+			fwrite($handle,'File created after mysql of '.$instance.". return_varmysql=".$return_varmysql."\n");
 			fclose($handle);
 		}
 		else
 		{
-			print strftime("%Y%m%d-%H%M%S").' Warning: Failed to create file last_mysqldump_'.$instance.'.txt'."\n";
+			print strftime("%Y%m%d-%H%M%S").' Warning: Failed to create file last_mysqlrestore_'.$instance.'.txt'."\n";
 		}
 	}
 }
@@ -379,40 +349,31 @@ if (empty($return_var) && empty($return_varmysql))
 		print 'Update date of full backup (rsync+dump) for instance '.$object->instance.' to '.$now."\n";
 
 		// Update database
-		if ($v == 1)
+		/*$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
+		$object->array_options['options_latestbackup_status']='OK';
+		$object->update(null);*/
+
+		// Send to DataDog (metric + event)
+		if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
 		{
-			$object->date_lastrsync=$now;	// date latest files and database rsync backup
-			$object->backup_status='OK';
-			$object->update(null);
-		}
-		else
-		{
-			$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
-			$object->array_options['options_latestbackup_status']='OK';
-			$object->update(null);
+		    try {
+		        dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
 
-			// Send to DataDog (metric + event)
-			if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
-			{
-			    try {
-			        dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+		        $arrayconfig=array();
+		        if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+		        {
+		            $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+		        }
 
-			        $arrayconfig=array();
-			        if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
-			        {
-			            $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
-			        }
+		        $statsd = new DataDog\DogStatsd($arrayconfig);
 
-			        $statsd = new DataDog\DogStatsd($arrayconfig);
+		        $arraytags=array('result'=>'ok');
+		        $statsd->increment('sellyoursaas.restore', 1, $arraytags);
+		    }
+		    catch(Exception $e)
+		    {
 
-			        $arraytags=array('result'=>'ok');
-			        $statsd->increment('sellyoursaas.backup', 1, $arraytags);
-			    }
-			    catch(Exception $e)
-			    {
-
-			    }
-			}
+		    }
 		}
 	}
 }
@@ -423,41 +384,27 @@ else
 
 	if ($mode == 'confirm')
 	{
-		// Update database
-		if ($v == 1)
+		// Send to DataDog (metric + event)
+		if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
 		{
-			//$object->date_lastrsync=$now;	// date latest files and database rsync backup
-			$object->backup_status='KO '.strftime("%Y%m%d-%H%M%S");
-			$object->update($user);
-		}
-		else
-		{
-			$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
-			$object->array_options['options_latestbackup_status']='KO';
-			$object->update($user);
+		    try {
+		        dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
 
-			// Send to DataDog (metric + event)
-			if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
-			{
-			    try {
-			        dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+		        $arrayconfig=array();
+		        if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+		        {
+		            $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+		        }
 
-			        $arrayconfig=array();
-			        if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
-			        {
-			            $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
-			        }
+		        $statsd = new DataDog\DogStatsd($arrayconfig);
 
-			        $statsd = new DataDog\DogStatsd($arrayconfig);
+		        $arraytags=array('result'=>'ko');
+		        $statsd->increment('sellyoursaas.backup', 1, $arraytags);
+		    }
+		    catch(Exception $e)
+		    {
 
-			        $arraytags=array('result'=>'ko');
-			        $statsd->increment('sellyoursaas.backup', 1, $arraytags);
-			    }
-			    catch(Exception $e)
-			    {
-
-			    }
-			}
+		    }
 		}
 	}
 
