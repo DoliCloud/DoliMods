@@ -282,7 +282,7 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 	// Add file tag
 	if ($mode == 'confirm' || $mode == 'confirmrsync')
 	{
-		$handle=fopen($dirroot.'/last_rsyncrestore_'.$instance.'.txt','w');
+		$handle=fopen($dirroot.'/../last_rsyncrestore_'.$instance.'.txt','w');
 		if ($handle)
 		{
 			fwrite($handle,'File created after rsync for restore of '.$instance.". return_var=".$return_var."\n");
@@ -336,7 +336,7 @@ if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 	// Add file tag
 	if ($mode == 'confirm' || $mode == 'confirmdatabase')
 	{
-		$handle=fopen($dirroot.'/last_mysqlrestore_'.$instance.'.txt','w');
+		$handle=fopen($dirroot.'/../last_mysqlrestore_'.$instance.'.txt','w');
 		if ($handle)
 		{
 			fwrite($handle,'File created after mysql of '.$instance.". return_varmysql=".$return_varmysql."\n");
