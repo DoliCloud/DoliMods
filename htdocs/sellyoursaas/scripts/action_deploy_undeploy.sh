@@ -250,6 +250,7 @@ if [[ "$mode" == "undeployall" ]]; then
 	if [[ $testorconfirm == "confirm" ]]
 	then
 		deluser --remove-home --backup --backup-to $archivedir $osusername
+		chmod -R ug+r $archivedir/$osusername/*.bz2
 	fi
 	
 	echo deluser --group $osusername
@@ -789,9 +790,9 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	SQL="${Q1}${Q2}${Q3}${Q4}"
 	echo "$MYSQL -A -usellyoursaas -e \"$SQL\""
 	$MYSQL -A -usellyoursaas -p$passsellyoursaas -e "$SQL"
-	
+
 	echo "You can test with mysql $dbname -h remotehost -u $dbusername -p$dbpassword"
-	
+
 	# Load dump file
 	echo Search dumpfile into $dirwithdumpfile
 	for dumpfile in `ls $dirwithdumpfile/*.sql 2>/dev/null`
