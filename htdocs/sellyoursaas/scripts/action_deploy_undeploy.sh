@@ -519,6 +519,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 			then
 				mkdir $archivedir/$osusername
 				mv -f $targetdir/$osusername/$dbname $archivedir/$osusername/$dbname
+				chown -R root.root /mnt/diskbackup/archives-test/$osusername/$dbname
 			fi
 		fi
 	else
