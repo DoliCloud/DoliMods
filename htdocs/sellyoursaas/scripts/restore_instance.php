@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-/* Copyright (C) 2012 Laurent Destailleur	<eldy@users.sourceforge.net>
+/* Copyright (C) 2012-2019 Laurent Destailleur	<eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -74,7 +74,7 @@ dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
-	print "Usage:   $script_file backup_dir  instance  dayofmysqldump  [testrsync|testdatabase|confirmrsync|confirmdatabase|confirm]  (old)\n";
+	print "Usage:   $script_file backup_dir  instance  dumpfile|dayofmysqldump  [testrsync|testdatabase|confirmrsync|confirmdatabase|confirm]  (old)\n";
 	print "Example: $script_file ".$conf->global->DOLICLOUD_BACKUP_PATH."/osu123456  myinstance  31  testrsync\n";
 	print "Note:    ssh keys must be authorized to have testrsync and confirmrsync working\n";
 	print "Return code: 0 if success, <>0 if error\n";
@@ -307,12 +307,20 @@ if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 	$param[]=$object->username_db;
 	$param[]='-p"'.str_replace(array('"','`'),array('\"','\`'),$object->password_db).'"';
 
-	// TODO Get more recent file
-	$dateselected=sprintf("%02s", $dayofmysqldump);
+	// Define filename
+	if (is_numeric($dayofmysqldump))
+	{
+	    $dateselected=sprintf("%02s", $dayofmysqldump);
+	    $dumpfiletoload='mysqldump_'.$object->database_db.'_'.$dateselected.".sql.bz2";
+	}
+	else
+	{
+	    $dumpfiletoload=$dayofmysqldump;
+	}
 
 	$fullcommand=$command." ".join(" ",$param);
-	if ($mode == 'testdatabase') $fullcommand="cat ".$dirroot.'/../mysqldump_'.$object->database_db.'_'.$dateselected.".sql.bz2 | bzip2 -d > /dev/null";
-	else $fullcommand="cat ".$dirroot.'/../mysqldump_'.$object->database_db.'_'.$dateselected.'.sql.bz2 | bzip2 -d | '.$fullcommand;
+	if ($mode == 'testdatabase') $fullcommand='cat '.$dirroot.'/../'.$dumpfiletoload.' | bzip2 -d > /dev/null';
+	else $fullcommand='cat '.$dirroot.'/../'.$dumpfiletoload.' | bzip2 -d | '.$fullcommand;
 	$output=array();
 	$return_varmysql=0;
 	print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
