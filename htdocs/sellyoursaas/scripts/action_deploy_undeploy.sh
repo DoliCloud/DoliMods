@@ -778,7 +778,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	#Q2="CREATE USER IF NOT EXISTS '$dbusername'@'%' IDENTIFIED BY '$dbpassword'; "
 	Q2="CREATE USER '$dbusername'@'%' IDENTIFIED BY '$dbpassword'; "
 	SQL="${Q1}${Q2}"
-	echo "$MYSQL -A -usellyoursaas -pXXXXXXX -e \"$SQL\""
+	echo "$MYSQL -A -usellyoursaas -pXXXXXX -e \"$SQL\""
 	$MYSQL -A -usellyoursaas -p$passsellyoursaas -e "$SQL"
 	
 	Q1="GRANT CREATE,CREATE TEMPORARY TABLES,CREATE VIEW,DROP,DELETE,INSERT,SELECT,UPDATE,ALTER,INDEX,LOCK TABLES,REFERENCES,SHOW VIEW ON $dbname.* TO '$dbusername'@'localhost'; "

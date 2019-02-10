@@ -439,14 +439,14 @@ if [ -s /tmp/osutoclean ]; then
 fi
 
 # Now clean also old dir in archives-test
-echo "Now clean also old dir in $archivedir - 10 days after being archived"
+echo "Now clean also old dir in $archivedir - 15 days after being archived"
 cd $archivedir
-find $archivedir -maxdepth 1 -type d -mtime +10 -exec rm -fr {} \;
+find $archivedir -maxdepth 1 -type d -mtime +15 -exec rm -fr {} \;
 
 # Now clean also old files in $archivedirbind
-echo "Now clean also old files in $archivedirbind - 10 days after being archived"
+echo "Now clean also old files in $archivedirbind - 15 days after being archived"
 cd $archivedirbind
-find $archivedirbind -maxdepth 1 -type f -mtime +10 -exec rm -f {} \;
+find $archivedirbind -maxdepth 1 -type f -mtime +15 -exec rm -f {} \;
 
 # Clean database users
 echo "We should also clean mysql record for"
