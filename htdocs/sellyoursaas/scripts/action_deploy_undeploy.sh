@@ -519,7 +519,9 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 			then
 				mkdir $archivedir/$osusername
 				mv -f $targetdir/$osusername/$dbname $archivedir/$osusername/$dbname
-				chown -R root.root $archivedir/$osusername/$dbname
+				chown -R root $archivedir/$osusername/$dbname
+				#find $archivedir/$osusername/$dbname -type d -exec chmod -g+rx {} \;
+				#find $archivedir/$osusername/$dbname -type f -exec chmod -g+x {} \;
 			fi
 		fi
 	else

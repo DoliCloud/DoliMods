@@ -30,13 +30,17 @@ export archivedir="/mnt/diskbackup/archives-test"
 export archivedirbind="/etc/bind/archives"
 export ZONES_PATH="/etc/bind/zones"
 
-export DOMAIN="dolicloud.com"
+export DOMAIN=`grep 'domain=' $scriptdir/sellyoursaas.conf | cut -d '=' -f 2`
 
 export ZONENOHOST="with.$DOMAIN" 
 export ZONE="with.$DOMAIN.hosts" 
 
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
+   exit 1
+fi
+if [ "x$DOMAIN" == "x" ]; then
+   echo "Failed to find the DOMAIN by reading entry 'domain=' into file $scriptdir/sellyoursaas.conf" 1>&2
    exit 1
 fi
 
@@ -315,6 +319,9 @@ if [ -s /tmp/osutoclean ]; then
 						mv -f $targetdir/$osusername $archivedir 2>/dev/null
 						cp -pr $targetdir/$osusername $archivedir
 						rm -fr $targetdir/$osusername
+						chown -R root $archivedir/$osusername
+						#find $archivedir/$osusername -type d -exec chmod -g+rx {} \;
+						#find $archivedir/$osusername -type f -exec chmod -g+x {} \;
 					fi
 				fi
 			fi
