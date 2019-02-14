@@ -18,11 +18,13 @@
  *
  * FEATURE
  *
- * Make a backup of files (rsync) or database (mysqdump) of remote instance. There is no
- * report/tracking done into any database. This must be done by a parent script.
+ * Make a backup of files (rsync) or database (mysqdump) of a remote instance.
+ * There is no report/tracking done into any database. This must be done by a parent script.
+ * This script is run from the Master but backups are done for remote instances.
  *
- * ssh keys must be authorized to have testrsync and confirmrsync working
- * no requirement for testdatabase or confirmdatabase
+ * Note:
+ * ssh keys must be authorized to have testrsync and confirmrsync working.
+ * remote access to database must be granted for testdatabase or confirmdatabase.
  */
 
 $sapi_type = php_sapi_name();
@@ -76,6 +78,7 @@ if (empty($dirroot) || empty($instance) || empty($mode))
 	print "Usage:   $script_file instance    backup_dir  [testrsync|testdatabase|confirmrsync|confirmdatabase|confirm]  (old)\n";
 	print "Example: $script_file myinstance  ".$conf->global->DOLICLOUD_BACKUP_PATH."  testrsync\n";
 	print "Note:    ssh keys must be authorized to have testrsync and confirmrsync working\n";
+	print "         remote access to database must be granted for testdatabase or confirmdatabase.\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);
 }
@@ -92,7 +95,7 @@ else
 	// Force $v according to hard coded values (keep v2 in default case)
 	if (! empty($instance) && ! preg_match('/(\.on\.|\.with\.)/',$instance) && ! preg_match('/\.home\.lan$/',$instance))
 	{
-		// TODO Manage several domains
+		// Note, we use main domain of service. Other domains are aliases.
 		$instance=$instance.".".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
 	}
 	if (! empty($instance) && preg_match('/\.on\.dolicloud\.com$/',$instance)) {
@@ -118,18 +121,11 @@ if ($v == 1)
 }
 else
 {
-	/*include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-	$object = new Contrat($db);
-
-	$result=$object->fetch('', '', $instance);
-	*/
-
 	$idofinstancefound = 0;
 
 	$sql = "SELECT c.rowid, c.statut";
 	$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
 	$sql.= "  WHERE c.entity IN (".getEntity('contract').")";
-	//$sql.= " AND c.statut > 0";
 	$sql.= " AND c.ref_customer = '".$db->escape($instance)."'";
 	$sql.= " AND ce.deployment_status = 'done'";
 
@@ -142,7 +138,7 @@ else
 	$num_rows = $db->num_rows($resql);
 	if ($num_rows > 1)
 	{
-		print 'Error: several instance '.$instance.' for v'.$v.' found'."\n";
+		print 'Error: several instance '.$instance.' found.'."\n";
 		exit(-2);
 	}
 	else
@@ -165,12 +161,13 @@ if ($result <= 0)
 
 if ($v != 1)
 {
-	$object->instance = $object->ref_customer;
-	$object->username_web = $object->array_options['options_username_os'];
-	$object->password_web = $object->array_options['options_password_os'];
-	$object->username_db = $object->array_options['options_username_db'];
-	$object->password_db = $object->array_options['options_password_db'];
-	$object->database_db = $object->array_options['options_database_db'];
+	$object->instance        = $object->ref_customer;
+	$object->username_web    = $object->array_options['options_username_os'];
+	$object->password_web    = $object->array_options['options_password_os'];
+	$object->username_db     = $object->array_options['options_username_db'];
+	$object->password_db     = $object->array_options['options_password_db'];
+	$object->database_db     = $object->array_options['options_database_db'];
+	$object->deployment_host = $object->array_options['options_deployment_host'];
 }
 
 if (empty($object->instance) && empty($object->username_web) && empty($object->password_web) && empty($object->database_db))
@@ -190,7 +187,7 @@ $password=$object->password_web;
 if ($v != 1)
 {
 	$sourcedir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$login.'/'.$dirdb;
-	$server=$object->array_options['options_hostname_os'];
+	$server=$object->deployment_host;
 }
 else
 {
@@ -204,7 +201,7 @@ if (empty($login) || empty($dirdb))
 	exit(-5);
 }
 
-print 'Backup instance '.$instance.' to '.$dirroot.'/'.$login."\n";
+print 'Backup instance '.$instance.' from '.(in_array($server, array('127.0.0.1','localhost')) ? '' : $login.'@'.$server.":").' to '.$dirroot.'/'.$login."\n";
 print 'SFTP password '.$object->password_web."\n";
 print 'Database password '.$object->password_db."\n";
 
