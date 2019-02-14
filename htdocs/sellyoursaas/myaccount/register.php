@@ -68,7 +68,6 @@ $partnerkey=GETPOST('partnerkey','alpha');
 $plan=GETPOST('plan','alpha');
 $sldAndSubdomain=GETPOST('sldAndSubdomain','alpha');
 $tldid=GETPOST('tldid','alpha');
-$remoteip = $_SERVER['REMOTE_ADDRESS'];
 $origin = GETPOST('origin','aZ09');
 
 $socid=GETPOST('socid','int')?GETPOST('socid','int'):GETPOST('reusesocid','int');
