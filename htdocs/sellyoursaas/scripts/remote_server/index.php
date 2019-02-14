@@ -11,6 +11,8 @@ if (empty($fh))
 }
 
 $tmparray = array();
+$dnsserver = '';
+$instanceserver = '';
 
 // Set array of allowed ips
 $fp = @fopen('./sellyoursaas.conf', 'r');
@@ -24,6 +26,14 @@ if ($fp) {
 		{
 			$tmparray = explode(",", $tmpline[1]);
 		}
+		if ($tmpline[0] == 'dnsserver')
+		{
+		    $dnsserver = $tmpline[1];
+		}
+		if ($tmpline[0] == 'instanceserver')
+		{
+		    $instanceserver = $tmpline[1];
+		}
 	}
 }
 else
@@ -36,12 +46,12 @@ if (! in_array('127.0.0.1', $tmparray)) $tmparray[]='127.0.0.1';	// Add localhos
 
 if (empty($tmparray) || ! in_array($_SERVER['REMOTE_ADDR'], $tmparray))
 {
-	fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call done with bad ip '.$_SERVER['REMOTE_ADDR']." : Not into 'allowed_hosts'.\n");
+	fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call done with bad ip '.$_SERVER['REMOTE_ADDR']." : Not into 'allowed_hosts' of sellyoursaas.conf.\n");
 	fclose($fh);
 
 	http_response_code(403);
 
-	print 'IP address '.$_SERVER['REMOTE_ADDR']." is not allowed to access this remote server agent. Check 'allowed_hosts'.\n";
+	print 'IP address '.$_SERVER['REMOTE_ADDR']." is not allowed to access this remote server agent. Check 'allowed_hosts' into sellyoursaas.conf.\n";
 
 	exit();
 }
@@ -69,6 +79,8 @@ $return_var=0;
 
 if ($DEBUG) fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call for action '.$tmparray[0].' by '.$_SERVER['REMOTE_ADDR'].' URI='.$_SERVER['REQUEST_URI']."\n");
 else fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call for action '.$tmparray[0]." by ".$_SERVER['REMOTE_ADDR']."\n");
+
+fwrite($fh, "\n".date('Y-m-d H:i:s').' dnsserver='.$dnsserver.", instanceserver=".$instanceserver."\n");
 
 if (in_array($tmparray[0], array('deploy', 'undeploy', 'deployall', 'undeployall')))
 {
