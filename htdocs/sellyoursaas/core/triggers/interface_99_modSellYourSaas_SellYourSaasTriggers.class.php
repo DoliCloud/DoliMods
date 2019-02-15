@@ -353,6 +353,37 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         	    }
         	    break;
 
+        	case 'PAYMENT_CUSTOMER_DELETE':
+
+        	    dol_syslog("We trap trigger PAYMENT_CUSTOMER_DELETE for id = ".$object->id);
+
+        	    // Send to DataDog (metric + event)
+        	    if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
+        	    {
+        	        try {
+        	            dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+
+        	            $arrayconfig=array();
+        	            if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+        	            {
+        	                $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+        	            }
+
+        	            $statsd = new DataDog\DogStatsd($arrayconfig);
+
+        	            $totalamount=price2num(-1 * $object->amount);
+
+        	            $arraytags=null;
+        	            $statsd->increment('sellyoursaas.payment', 1, $arraytags, $totalamount);   // total amount is negative
+        	            //$statsd->increment('sellyoursaas.paymentdone', 1, $arraytags);
+        	        }
+        	        catch(Exception $e)
+        	        {
+
+        	        }
+        	    }
+        	    break;
+
         	case 'COMPANY_MODIFY':
         		/*var_dump($object->oldcopy->array_options['options_date_endfreeperiod']);
         		 var_dump($object->array_options['options_date_endfreeperiod']);
