@@ -27,7 +27,7 @@ require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php');
 $form=new Form($db);
 $formfile=new FormFile($db);
 
-$arrayofcss=array('https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css');
+$arrayofcss=array('/facturx/styles.css');
 
 llxHeader('','FacturX','','',0,0,'',$arrayofcss);
 
@@ -141,7 +141,7 @@ include_once './includes/setasign/fpdf/fpdf.php';
                                         </div>
                                     </div>
                                     <div class="card-footer text-center">
-                                        <input class="btn btn-primary" type="submit" value="Submit">
+                                        <input class="btn btn-primary button" type="submit" value="Submit">
                                     </div>
                                 </div>
                             </form>
@@ -157,7 +157,7 @@ include_once './includes/setasign/fpdf/fpdf.php';
                                         </div>
                                     </div>
                                     <div class="card-footer text-center">
-                                        <input class="btn btn-primary" type="submit" value="Submit">
+                                        <input class="btn btn-primary button" type="submit" value="Submit">
                                     </div>
                                 </div>
                             </form>
@@ -173,7 +173,7 @@ include_once './includes/setasign/fpdf/fpdf.php';
                                         </div>
                                     </div>
                                     <div class="card-footer text-center">
-                                        <input class="btn btn-primary" type="submit" value="Submit">
+                                        <input class="btn btn-primary button" type="submit" value="Submit">
                                     </div>
                                 </div>
                             </form>
