@@ -458,8 +458,8 @@ find $archivedirbind -maxdepth 1 -type f -mtime +15 -exec rm -f {} \;
 
 # Clean database users
 echo "We should also clean mysql record for"
-echo "select * from db where Db NOT IN (SELECT schema_name FROM information_schema.schemata) and Db like 'dbn%';"
-echo "select * from user where User NOT IN (SELECT User from db) and User like 'dbu%';"
+echo "delete from db where Db NOT IN (SELECT schema_name FROM information_schema.schemata) and Db like 'dbn%';"
+echo "delete from user where User NOT IN (SELECT User from db) and User like 'dbu%';"
 
 
 exit 0
