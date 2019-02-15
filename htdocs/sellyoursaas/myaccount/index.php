@@ -5051,8 +5051,10 @@ if ($mode == 'mycustomerbilling')
 			print '
 				<tr>
               <td>
-		         '.$tmpthirdparty->name.' '.$form->textwithpicto('', $langs->trans("CurrentCommission").': '.($commissionpercent?$commissionpercent:0).'%', 1).'
-              </td>
+		         ';
+		    print $tmpthirdparty->name;
+		    //.' '.$form->textwithpicto('', $langs->trans("CurrentCommission").': '.($commissionpercent?$commissionpercent:0).'%', 1).'
+            print '</td>
               <td>
                 '.dol_print_date($obj->datef, 'dayrfc', $langs).'
               </td>
