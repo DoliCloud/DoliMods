@@ -31,6 +31,7 @@ $arrayofcss=array('https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootst
 
 llxHeader('','FacturX','','',0,0,'',$arrayofcss);
 
+mkdir($conf->facturx->dir_temp);
 
 include_once './includes/autoloader.php';
 include_once DOL_DOCUMENT_ROOT.'/includes/tecnickcom/tcpdf/tcpdf_parser.php';
@@ -96,13 +97,13 @@ include_once './includes/setasign/fpdf/fpdf.php';
                         );
                     }
                     $result = $facturx->generateFacturxFromFiles($pdf, $facturx_xml,
-                        'autodetect', true, __DIR__.'/', $attachment_files, true);
+                        'autodetect', true, $conf->facturx->dir_temp.'/', $attachment_files, true);
                 } catch (Exception $e) {
                     $resultBodyHtml = 'Error while generating the Factur-X :<pre>' . $e.'</pre>';
                 }
                 if (!empty($result)) {
                     $resultHeaderClass = 'success';
-                    $resultBodyHtml = '<div class="alert alert-success">Factur-X PDF file successfully generated.</div>';
+                    $resultBodyHtml = '<div class="alert alert-success">Factur-X PDF file '.$conf->facturx->dir_temp.'/ successfully generated.</div>';
                 } else {
                     $resultBodyHtml = '<div class="alert alert-warning">Impossible to generate the Factur-X PDF file.</div>'.$resultBodyHtml;
                 }
