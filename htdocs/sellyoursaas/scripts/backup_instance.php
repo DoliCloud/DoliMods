@@ -187,7 +187,7 @@ $password=$object->password_web;
 if ($v != 1)
 {
 	$sourcedir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$login.'/'.$dirdb;
-	$server=$object->deployment_host;
+	$server=($object->deployment_host ? $object->deployment_host : $object->array_options['options_hostname_os']);
 }
 else
 {
