@@ -4747,7 +4747,7 @@ if ($mode == 'registerpaymentmode')
 
 if ($mode == 'mycustomerbilling')
 {
-    // TODO separate 2 and 1
+    // TODO separate select 2 (commission earned) and select 1 (commissions received)
     $page2 = $page;
     $offset2 = $offset;
     $sortfield2 = $sortfield;
@@ -4984,8 +4984,8 @@ if ($mode == 'mycustomerbilling')
 			print '</tr>';
 		}
 
-		$sortfield = 'f.datef';
-		$sortorder = 'DESC';
+		$sortfield2 = 'f.datef';
+		$sortorder2 = 'DESC';
 
 		$sql ='SELECT f.rowid, f.ref as ref, f.fk_soc, f.datef, total as total_ht, total_ttc, f.paye, f.fk_statut, fe.commission';
 		$sql.= ' FROM '.MAIN_DB_PREFIX.'facture as f LEFT JOIN '.MAIN_DB_PREFIX.'facture_extrafields as fe ON fe.fk_object = f.rowid';
