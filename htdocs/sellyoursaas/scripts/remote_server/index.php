@@ -55,7 +55,9 @@ if (empty($tmparray) || ! in_array($_SERVER['REMOTE_ADDR'], $tmparray))
 
 	exit();
 }
+$allowed_hosts=join(',', $tmparray);
 
+// Build param string
 $param = preg_replace('/^\//', '', $_SERVER['REQUEST_URI']);
 $tmparray=explode('?', $param, 2);
 
@@ -80,7 +82,7 @@ $return_var=0;
 if ($DEBUG) fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call for action '.$tmparray[0].' by '.$_SERVER['REMOTE_ADDR'].' URI='.$_SERVER['REQUEST_URI']."\n");
 else fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call for action '.$tmparray[0]." by ".$_SERVER['REMOTE_ADDR']."\n");
 
-fwrite($fh, "\n".date('Y-m-d H:i:s').' dnsserver='.$dnsserver.", instanceserver=".$instanceserver."\n");
+fwrite($fh, "\n".date('Y-m-d H:i:s').' dnsserver='.$dnsserver.", instanceserver=".$instanceserver.", allowed_hosts=".$allowed_hosts."\n");
 
 if (in_array($tmparray[0], array('deploy', 'undeploy', 'deployall', 'undeployall')))
 {
