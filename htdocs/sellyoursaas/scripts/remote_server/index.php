@@ -15,10 +15,10 @@ $dnsserver = '';
 $instanceserver = '';
 
 // Set array of allowed ips
-$fp = @fopen('./sellyoursaas.conf', 'r');
+$fp = @fopen('/etc/sellyoursaas.conf', 'r');
 // Add each line to an array
 if ($fp) {
-	$array = explode("\n", fread($fp, filesize('./sellyoursaas.conf')));
+	$array = explode("\n", fread($fp, filesize('/etc/sellyoursaas.conf')));
 	foreach($array as $val)
 	{
 		$tmpline=explode("=", $val);
@@ -38,7 +38,7 @@ if ($fp) {
 }
 else
 {
-	print "Failed to open sellyoursaas.conf file\n";
+	print "Failed to open /etc/sellyoursaas.conf file\n";
 	exit;
 }
 if (! in_array('127.0.0.1', $tmparray)) $tmparray[]='127.0.0.1';	// Add localhost if not present
@@ -46,12 +46,12 @@ if (! in_array('127.0.0.1', $tmparray)) $tmparray[]='127.0.0.1';	// Add localhos
 
 if (empty($tmparray) || ! in_array($_SERVER['REMOTE_ADDR'], $tmparray))
 {
-	fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call done with bad ip '.$_SERVER['REMOTE_ADDR']." : Not into 'allowed_hosts' of sellyoursaas.conf.\n");
+	fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call done with bad ip '.$_SERVER['REMOTE_ADDR']." : Not into 'allowed_hosts' of /etc/sellyoursaas.conf.\n");
 	fclose($fh);
 
 	http_response_code(403);
 
-	print 'IP address '.$_SERVER['REMOTE_ADDR']." is not allowed to access this remote server agent. Check 'allowed_hosts' into sellyoursaas.conf.\n";
+	print 'IP address '.$_SERVER['REMOTE_ADDR']." is not allowed to access this remote server agent. Check 'allowed_hosts' into /etc/sellyoursaas.conf.\n";
 
 	exit();
 }
