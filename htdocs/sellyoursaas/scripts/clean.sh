@@ -280,7 +280,7 @@ if [ -s /tmp/osutoclean ]; then
 			if [[ "x$dbname" != "xNULL" ]]; then	
 				echo "Do a dump of database $dbname - may fails if already removed"
 				mkdir -p $archivedir/$osusername
-				echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2"
+				echo "$MYSQLDUMP -usellyoursaas -pxxxxxx $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2"
 				$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2
 	
 				echo "Now drop the database"
@@ -458,9 +458,12 @@ cd $archivedirbind
 find $archivedirbind -maxdepth 1 -type f -mtime +15 -exec rm -f {} \;
 
 # Clean database users
-echo "We should also clean mysql record for"
-echo "delete from db where Db NOT IN (SELECT schema_name FROM information_schema.schemata) and Db like 'dbn%';"
-echo "delete from user where User NOT IN (SELECT User from db) and User like 'dbu%';"
-
+echo "We should also clean mysql record for permission on old database and old users"
+SQL="use mysql; delete from db where Db NOT IN (SELECT schema_name FROM information_schema.schemata) and Db like 'dbn%';"
+echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL'"
+#$MYSQL -usellyoursaas -pxxxxxx -e "$SQL"
+SQL="use mysql; delete from user where User NOT IN (SELECT User from db) and User like 'dbu%';"
+echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL'"
+#$MYSQL -usellyoursaas -pxxxxxx -e "$SQL"
 
 exit 0
