@@ -30,7 +30,7 @@ export archivedir="/mnt/diskbackup/archives-test"
 export archivedirbind="/etc/bind/archives"
 export ZONES_PATH="/etc/bind/zones"
 
-export DOMAIN=`grep 'domain=' $scriptdir/sellyoursaas.conf | cut -d '=' -f 2`
+export DOMAIN=`grep 'domain=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 
 export ZONENOHOST="with.$DOMAIN" 
 export ZONE="with.$DOMAIN.hosts" 
@@ -40,7 +40,7 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 if [ "x$DOMAIN" == "x" ]; then
-   echo "Failed to find the DOMAIN by reading entry 'domain=' into file $scriptdir/sellyoursaas.conf" 1>&2
+   echo "Failed to find the DOMAIN by reading entry 'domain=' into file /etc/sellyoursaas.conf" 1>&2
    exit 1
 fi
 

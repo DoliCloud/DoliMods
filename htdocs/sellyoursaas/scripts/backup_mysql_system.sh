@@ -28,6 +28,8 @@ export scriptdir=$(dirname $(realpath ${0}))
 export targetdir="/home/admin/backup/mysql"				
 export targetdir2="/home/admin/backup/conf"				
 
+export DATABASE=`grep 'database=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
+
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
    exit 1
@@ -71,13 +73,7 @@ echo "Do a dump of database $dbname"
 #chown root.admin $targetdir/${dbname}_`date +%d`.sql.bz2
 #chmod o-rwx $targetdir/${dbname}_`date +%d`.sql.bz2
 
-export dbname="dolibarr" 
-echo "$MYSQLDUMP $dbname | bzip2 > $targetdir/${dbname}_"`date +%d`".sql.bz2"
-$MYSQLDUMP $dbname | bzip2 > $targetdir/${dbname}_`date +%d`.sql.bz2
-chown root.admin $targetdir/${dbname}_`date +%d`.sql.bz2
-chmod o-rwx $targetdir/${dbname}_`date +%d`.sql.bz2
-
-export dbname="nltechno_dolibarr" 
+export dbname=$DATABASE 
 echo "$MYSQLDUMP $dbname | bzip2 > $targetdir/${dbname}_"`date +%d`".sql.bz2"
 $MYSQLDUMP $dbname | bzip2 > $targetdir/${dbname}_`date +%d`.sql.bz2
 chown root.admin $targetdir/${dbname}_`date +%d`.sql.bz2
