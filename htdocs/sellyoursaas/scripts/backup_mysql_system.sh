@@ -65,11 +65,11 @@ chown root.admin $targetdir2/conffiles.tar.bz2
 chmod o-rwx $targetdir2/conffiles.tar.bz2
 
 echo "Do a dump of database $dbname"
-export dbname="mysql" 
-echo "$MYSQLDUMP --quick --skip-extended-insert $dbname | bzip2 > $targetdir/${dbname}_"`date +%d`".sql.bz2"
-$MYSQLDUMP --quick --skip-extended-insert $dbname | bzip2 > $targetdir/${dbname}_`date +%d`.sql.bz2
-chown root.admin $targetdir/${dbname}_`date +%d`.sql.bz2
-chmod o-rwx $targetdir/${dbname}_`date +%d`.sql.bz2
+#export dbname="mysql" 
+#echo "$MYSQLDUMP --quick --skip-extended-insert $dbname | bzip2 > $targetdir/${dbname}_"`date +%d`".sql.bz2"
+#$MYSQLDUMP --quick --skip-extended-insert $dbname | bzip2 > $targetdir/${dbname}_`date +%d`.sql.bz2
+#chown root.admin $targetdir/${dbname}_`date +%d`.sql.bz2
+#chmod o-rwx $targetdir/${dbname}_`date +%d`.sql.bz2
 
 export dbname="dolibarr" 
 echo "$MYSQLDUMP $dbname | bzip2 > $targetdir/${dbname}_"`date +%d`".sql.bz2"
