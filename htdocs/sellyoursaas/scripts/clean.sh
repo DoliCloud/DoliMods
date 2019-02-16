@@ -1,8 +1,9 @@
 #!/bin/bash
-# Purge data
+# Purge data.
+# This script can be run on master or agent servers.
 #
 # Put the following entry into your root cron
-#40 4 4 * * /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/clean.sh databasename confirm
+#40 4 4 * * /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/clean.sh confirm
 
 #set -e
 
@@ -31,6 +32,7 @@ export archivedirbind="/etc/bind/archives"
 export ZONES_PATH="/etc/bind/zones"
 
 export DOMAIN=`grep 'domain=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
+export database=`grep 'database=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 
 export ZONENOHOST="with.$DOMAIN" 
 export ZONE="with.$DOMAIN.hosts" 
@@ -44,20 +46,19 @@ if [ "x$DOMAIN" == "x" ]; then
    exit 1
 fi
 
+if [ "x$database" == "x" ]; then
+    echo "Failed to find the DATABASE by reading entry 'database=' into file /etc/sellyoursaas.conf" 1>&2
+	echo "Usage: ${0} [test|confirm]"
+fi
+
+
 if [ "x$1" == "x" ]; then
-	echo "Missing parameter 1 - sellyoursaas admin database name (user 'sellyoursaas' must exists)" 1>&2
-	echo "Usage: ${0} [databasename] [test|confirm]"
-fi
-if [ "x$2" == "x" ]; then
-	echo "Missing parameter 2 - test|confirm" 1>&2
-	echo "Usage: ${0} [databasename] [test|confirm]"
-fi
-if [[ "x$1" == "x" || "x$2" == "x" ]]; then
+	echo "Missing parameter - test|confirm" 1>&2
+	echo "Usage: ${0} [test|confirm]"
 	exit 1
 fi
 
-export database=$1
-export testorconfirm=$2
+export testorconfirm=$1
 
 # For debug
 echo "database = $database"
