@@ -1,10 +1,10 @@
 #!/bin/bash
 #---------------------------------------------------------
-# Script to make all instances offline
+# Script to make all instances offline. Virtual hosts redirect to another URL.
 #---------------------------------------------------------
 
 if [ "x$2" == "x" ]; then
-   echo "Usage:   $0  newurl  test|offline|online"
+   echo "Usage:   $0  urlwhenoffline  test|offline|online"
    echo "Example: $0  https://myaccount.dolicloud.com/offline.php  test"
    exit 1
 fi

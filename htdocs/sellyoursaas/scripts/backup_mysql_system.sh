@@ -61,6 +61,8 @@ fi
 echo "Do a tar of config files"
 echo "tar -cv /home/*/.ssh /etc /var/spool/cron/crontabs | bzip2 > $targetdir2/conffiles.tar.bz2"
 tar -cv /home/*/.ssh /etc /var/spool/cron/crontabs | bzip2 > $targetdir2/conffiles.tar.bz2
+chown root.admin $targetdir2/conffiles.tar.bz2
+chmod o-rwx $targetdir2/conffiles.tar.bz2
 
 echo "Do a dump of database $dbname"
 export dbname="mysql" 
