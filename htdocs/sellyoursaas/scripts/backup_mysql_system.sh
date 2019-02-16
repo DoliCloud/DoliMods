@@ -26,6 +26,7 @@ echo "# realname dir ---> $(dirname $(realpath ${0}))"
 export PID=${$}
 export scriptdir=$(dirname $(realpath ${0}))
 export targetdir="/home/admin/backup/mysql"				
+export targetdir2="/home/admin/backup/conf"				
 
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
@@ -52,6 +53,14 @@ if [[ ! -d $targetdir ]]; then
 	echo Failed to find archive directory $targetdir
 	exit 1
 fi
+if [[ ! -d $targetdir2 ]]; then
+	echo Failed to find archive directory $targetdir2
+	exit 1
+fi
+
+echo "Do a tar of config files"
+echo "tar -cv /home/*/.ssh /etc /var/spool/cron/crontabs | bzip2 > $targetdir2/conffiles.tar.bz2"
+tar -cv /home/*/.ssh /etc /var/spool/cron/crontabs | bzip2 > $targetdir2/conffiles.tar.bz2
 
 echo "Do a dump of database $dbname"
 export dbname="mysql" 
