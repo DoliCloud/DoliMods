@@ -1,7 +1,11 @@
 #!/bin/bash
 #---------------------------------------------------------
-# Script to make all instances offline. Virtual hosts redirect to another URL.
+# Script to make all instances offline or back online.
+# Virtual hosts redirect to another URL.
 #---------------------------------------------------------
+
+
+echo "***** $0 *****"
 
 if [ "x$2" == "x" ]; then
    echo "Usage:   $0  urlwhenoffline  test|offline|online"
@@ -9,9 +13,14 @@ if [ "x$2" == "x" ]; then
    exit 1
 fi
 
+if [ "x$2" != "xtest" -a "x$2" != "xoffline" -a "x$2" != "xonline" ]; then
+   echo "Parameter 2 must be test|offline|online"
+   exit 1
+fi
+
 realdir=$(dirname $(dirname $(realpath ${0})))
 
-echo "Loop on each enabled virtual host, create a new one and switch it"
+echo "Loop on each enabled virtual host of customer instances, create a new one and switch it"
 echo "Path for template is $realdir"
 mkdir /etc/apache2/sellyoursaas-offline 2>/dev/null
 
@@ -19,21 +28,27 @@ for file in `ls /etc/apache2/sellyoursaas-online/*`
 do
         echo -- Process file $file
 		export fileshort=`basename $file`
-		export domain=$(echo $fileshort | /bin/sed "s/\.conf//g")
-        
-        rm -f /etc/apache2/sellyoursaas-offline/$domain.conf 2>/dev/null
-        rm -f /etc/apache2/sellyoursaas-offline/$domain.custom.conf 2>/dev/null
+		export domain=$(echo $fileshort | /bin/sed 's/\.conf$//g' | /bin/sed 's/\.custom$//g')
+		#echo fileshort=$fileshort domain=$domain 
 		
-		echo Create file /etc/apache2/sellyoursaas-offline/$domain.conf for domain $domain
-		cat $realdir/scripts/templates/vhostHttps-sellyoursaas-offline.template | \
-			sed 's!__webAppDomain__!'$domain'!g' | \
-			sed 's!__webMyAccount__!'$1'!g' \
-			> /etc/apache2/sellyoursaas-offline/$domain.conf
-	
-		cat $realdir/scripts/templates/vhostHttps-sellyoursaas-offline.template | \
-			sed 's!__webAppDomain__!'$domain'!g' | \
-			sed 's!__webMyAccount__!'$1'!g' \
-			> /etc/apache2/sellyoursaas-offline/$domain.custom.conf
+		if [[ $fileshort == *".custom."* ]]; then
+	        rm -f /etc/apache2/sellyoursaas-offline/$domain.custom.conf 2>/dev/null
+			export domain=$(cat /etc/apache2/sellyoursaas-online/$domain.custom.conf | grep ServerName | sed -s 's/^ *//' | cut --delimiter=' '  -f2)
+        
+			echo Create file /etc/apache2/sellyoursaas-offline/$fileshort for domain $domain
+			cat $realdir/scripts/templates/vhostHttps-sellyoursaas-offline.template | \
+				sed 's!__webAppDomain__!'${domain}'!g' | \
+				sed 's!__webMyAccount__!'$1'!g' \
+				> /etc/apache2/sellyoursaas-offline/$fileshort
+		else
+	        rm -f /etc/apache2/sellyoursaas-offline/$domain.conf 2>/dev/null
+			
+			echo Create file /etc/apache2/sellyoursaas-offline/$fileshort for domain $domain
+			cat $realdir/scripts/templates/vhostHttps-sellyoursaas-offline.template | \
+				sed 's!__webAppDomain__!'${domain}'!g' | \
+				sed 's!__webMyAccount__!'$1'!g' \
+				> /etc/apache2/sellyoursaas-offline/$fileshort
+		fi
 done
 
 if [ "x$2" = "xoffline" ]; then

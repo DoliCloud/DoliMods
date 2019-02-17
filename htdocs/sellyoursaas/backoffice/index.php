@@ -116,23 +116,43 @@ print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<table class="noborder nohover" width="100%">';
 print '<tr class="liste_titre">';
 print '<td>';
-print $langs->trans("AnnounceOnCustomerDashboard");
-if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE)) print img_warning('MessageOn');
+print $langs->trans('Website').' & '.$langs->trans('CustomerAccountArea');
+if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE)) print img_warning($langs->trans('MessageOn'));
 print '</td></tr>';
 print '<tr class="oddeven"><td>';
-print '<span class="opacitymedium">'.$langs->trans("Example").': (AnnounceMajorOutage), (AnnounceMinorOutage), Any text...</span><br>';
+print $langs->trans("AnnounceOnCustomerDashboard").' - ';
+print '<span class="opacitymedium">';
+print $langs->trans("Example").': (AnnounceMajorOutage), (AnnounceMinorOutage), Any text...</span><br>';
 print '<textarea class="flat inputsearch centpercent" type="text" name="SELLYOURSAAS_ANNOUNCE">';
 print $conf->global->SELLYOURSAAS_ANNOUNCE;
 print '</textarea>';
-print '<br><input type="submit" name="saveannounce" class="button" value="'.$langs->trans("Save").'">';
+print '<div class="center"><input type="submit" name="saveannounce" class="button" value="'.$langs->trans("Save").'"></center>';
+print '</td></tr>';
+print '<tr class="oddeven"><td>';
+print $langs->trans("EnableNewInstance");
+
 print '</td></tr>';
 print "</table></form><br>";
 
 print '<table class="noborder nohover" width="100%">';
 print '<tr class="liste_titre">';
-print '<td>'.$langs->trans("CommandToManageRemoteDeploymentAgent").'</td></tr>';
-print '<tr class="oddeven"><td><textarea class="flat inputsearch centpercent" type="text" name="SELLYOURSAAS_ANNOUNCE">';
+print '<td>'.$langs->trans('DeploymentServers').'</td></tr>';
+print '<tr class="oddeven">';
+print '<td>'.$langs->trans('SellYourSaasSubDomainsIP').': <strong>'.$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP.'</strong> for domain name <strong>'.$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES.'</strong></td></tr>';
+print '<tr class="oddeven"><td>';
+print $langs->trans("CommandToManageRemoteDeploymentAgent");
+print '<textarea class="flat inputsearch centpercent" type="text" name="SELLYOURSAAS_ANNOUNCE">';
 print 'sudo '.$conf->global->DOLICLOUD_SCRIPTS_PATH.'/remote_server_launcher.sh start|status|stop';
+print '</textarea>';
+print '</td></tr>';
+print '<tr class="oddeven"><td class="center">';
+print '<a href="'.$_SERVER["PHP_SELF"].'?action=makeoffline">'.$langs->trans("PutAllInstancesOffLine").'</a>';
+print ' &nbsp; - &nbsp; ';
+print '<a href="'.$_SERVER["PHP_SELF"].'?action=makeonline">'.$langs->trans("PutAllInstancesOnLine").'</a>';
+print '</td></tr>';
+print '<tr class="oddeven"><td>';
+print '<textarea class="flat inputsearch centpercent" type="text" name="SELLYOURSAAS_ANNOUNCE">';
+print 'sudo '.$conf->global->DOLICLOUD_SCRIPTS_PATH.'/make_instances_offline.sh '.$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/offline.php test|offline|online';
 print '</textarea>';
 print '</td></tr>';
 print "</table><br>";
@@ -197,7 +217,7 @@ $benefit=price2num(($total * (1 - $part) - $serverprice - $totalcommissions), 'M
 // Show totals
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
-print '<td class="wordwrap wordbreak"><span class="valignmiddle">'.$langs->trans("Statistics").'</span>';
+print '<td class="wordwrap wordbreak"><span class="valignmiddle">'.$langs->trans('MasterServer').' - '.$langs->trans("Statistics").'</span>';
 print '<a href="'.$_SERVER["PHP_SELF"].'?mode=refreshstats">'.img_picto('', 'refresh', '', false, 0, 0, '', 'valignmiddle').'</a>';
 print '</td>';
 print '<td></td>';
@@ -442,14 +462,17 @@ if (! $mesg)
 print '<div class="fichecenter"><br></div>';
 
 //print '<hr>';
-print '<div class="fichecenter liste_titre" style="height: 20px;">'.$langs->trans("Graphics").'</div>';
+//print '<div class="fichecenter liste_titre" style="height: 20px;">'.$langs->trans("Graphics").'</div>';
 
-print '<div class="fichecenter"><div class="impair"><center>';
+print '<div class="fichecenter center"><center>';
+print '<div class="inline-block nohover">';
 print $px1->show();
-print '</center></div></div>';
-print '<div class="fichecenter"><div class="impair"><center>';
+//print '</div></div>';
+//print '<div class="fichecenter">';
+print '</div>';
+print '<div class="inline-block nohover">';
 print $px2->show();
-print '</center></div></div>';
+print '</div></center></div>';
 
 
 print '<br><hr><br>';
