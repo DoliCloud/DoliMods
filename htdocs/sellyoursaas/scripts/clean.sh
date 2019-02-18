@@ -31,9 +31,6 @@ export archivedir="/mnt/diskbackup/archives-test"
 export archivedirbind="/etc/bind/archives"
 export ZONES_PATH="/etc/bind/zones"
 
-export DOMAIN=`grep 'domain=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
-export database=`grep 'database=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
-
 export ZONENOHOST="with.$DOMAIN" 
 export ZONE="with.$DOMAIN.hosts" 
 
@@ -41,6 +38,10 @@ if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
    exit 1
 fi
+
+export DOMAIN=`grep 'domain=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
+export database=`grep 'database=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
+
 if [ "x$DOMAIN" == "x" ]; then
    echo "Failed to find the DOMAIN by reading entry 'domain=' into file /etc/sellyoursaas.conf" 1>&2
    exit 1
@@ -50,7 +51,6 @@ if [ "x$database" == "x" ]; then
     echo "Failed to find the DATABASE by reading entry 'database=' into file /etc/sellyoursaas.conf" 1>&2
 	echo "Usage: ${0} [test|confirm]"
 fi
-
 
 if [ "x$1" == "x" ]; then
 	echo "Missing parameter - test|confirm" 1>&2
@@ -68,11 +68,11 @@ echo "DOMAIN = $DOMAIN"
 
 MYSQL=`which mysql`
 MYSQLDUMP=`which mysqldump`
-echo "Search sellyoursaas database credential in /root/sellyoursaas"
-passsellyoursaas=`cat /root/sellyoursaas`		# First seach into root
+echo "Search sellyoursaas database credential in /etc/sellyoursaas.conf"
+passsellyoursaas=`grep 'databasepass=' /etc/sellyoursaas.conf | cut -d '=' -f 2`		# First seach into root
 if [[ "x$passsellyoursaas" == "x" ]]; then
 	echo Search sellyoursaas credential 2
-	passsellyoursaas=`cat /tmp/sellyoursaas`	# Then search into /tmp
+	passsellyoursaas=`grep 'databasepass=' /tmp/sellyoursaas.conf | cut -d '=' -f 2`	# Then search into /tmp
 	if [[ "x$passsellyoursaas" == "x" ]]; then
 		echo Failed to get password for mysql user sellyoursaas 
 		exit 1

@@ -86,6 +86,13 @@ if (GETPOST('saveannounce','alpha'))
 	dolibarr_set_const($db,"SELLYOURSAAS_ANNOUNCE",GETPOST("SELLYOURSAAS_ANNOUNCE", 'none'),'chaine',0,'',$conf->entity);
 }
 
+if ($action == 'setSELLYOURSAAS_DISABLE_NEW_INSTANCES')
+{
+    if (GETPOST('value')) dolibarr_set_const($db, 'SELLYOURSAAS_DISABLE_NEW_INSTANCES', 1, 'chaine', 0, '', $conf->entity);
+    else dolibarr_set_const($db, 'SELLYOURSAAS_DISABLE_NEW_INSTANCES', 0, 'chaine', 0, '', $conf->entity);
+}
+
+
 
 /***************************************************
 * VIEW
@@ -123,14 +130,29 @@ print '<tr class="oddeven"><td>';
 print $langs->trans("AnnounceOnCustomerDashboard").' - ';
 print '<span class="opacitymedium">';
 print $langs->trans("Example").': (AnnounceMajorOutage), (AnnounceMinorOutage), Any text...</span><br>';
-print '<textarea class="flat inputsearch centpercent" type="text" name="SELLYOURSAAS_ANNOUNCE">';
+print '<textarea class="flat inputsearch  inline-block" type="text" name="SELLYOURSAAS_ANNOUNCE">';
 print $conf->global->SELLYOURSAAS_ANNOUNCE;
 print '</textarea>';
-print '<div class="center"><input type="submit" name="saveannounce" class="button" value="'.$langs->trans("Save").'"></center>';
+print '<div class="center valigntop inline-block"><input type="submit" name="saveannounce" class="button" value="'.$langs->trans("Save").'"></center>';
 print '</td></tr>';
 print '<tr class="oddeven"><td>';
 print $langs->trans("EnableNewInstance");
-
+$enabledisablehtml='';
+if (! empty($conf->global->SELLYOURSAAS_DISABLE_NEW_INSTANCES))
+{
+    // Button off, click to enable
+    $enabledisablehtml.='<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setSELLYOURSAAS_DISABLE_NEW_INSTANCES&value=0'.$param.'">';
+    $enabledisablehtml.=img_picto($langs->trans("Disabled"), 'switch_off');
+    $enabledisablehtml.='</a>';
+}
+else
+{
+    // Button on, click to disable
+    $enabledisablehtml.='<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setSELLYOURSAAS_DISABLE_NEW_INSTANCES&value=1'.$param.'">';
+    $enabledisablehtml.=img_picto($langs->trans("Activated"), 'switch_on');
+    $enabledisablehtml.='</a>';
+}
+print $enabledisablehtml;
 print '</td></tr>';
 print "</table></form><br>";
 
@@ -146,9 +168,9 @@ print 'sudo '.$conf->global->DOLICLOUD_SCRIPTS_PATH.'/remote_server_launcher.sh 
 print '</textarea>';
 print '</td></tr>';
 print '<tr class="oddeven"><td class="center">';
-print '<a href="'.$_SERVER["PHP_SELF"].'?action=makeoffline">'.$langs->trans("PutAllInstancesOffLine").'</a>';
+print '<a class="button" href="'.$_SERVER["PHP_SELF"].'?action=makeoffline">'.$langs->trans("PutAllInstancesOffLine").'</a>';
 print ' &nbsp; - &nbsp; ';
-print '<a href="'.$_SERVER["PHP_SELF"].'?action=makeonline">'.$langs->trans("PutAllInstancesOnLine").'</a>';
+print '<a class="button" href="'.$_SERVER["PHP_SELF"].'?action=makeonline">'.$langs->trans("PutAllInstancesOnLine").'</a>';
 print '</td></tr>';
 print '<tr class="oddeven"><td>';
 print '<textarea class="flat inputsearch centpercent" type="text" name="SELLYOURSAAS_ANNOUNCE">';

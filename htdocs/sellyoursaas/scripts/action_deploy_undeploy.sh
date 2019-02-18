@@ -178,11 +178,11 @@ echo "fqnold = $fqnold"
 
 MYSQL=`which mysql`
 MYSQLDUMP=`which mysqldump`
-echo "Search sellyoursaas database credential in /root/sellyoursaas"
-passsellyoursaas=`cat /root/sellyoursaas`		# First seach into root
+echo "Search sellyoursaas database credential in /etc/sellyoursaas.conf"
+passsellyoursaas=`grep 'databasepass=' /etc/sellyoursaas.conf | cut -d '=' -f 2`	# First seach into root
 if [[ "x$passsellyoursaas" == "x" ]]; then
 	echo Search sellyoursaas credential 2
-	passsellyoursaas=`cat /tmp/sellyoursaas`	# Then search into /tmp
+	passsellyoursaas=`grep 'databasepass=' /tmp/sellyoursaas.conf | cut -d '=' -f 2`	# Then search into /tmp
 	if [[ "x$passsellyoursaas" == "x" ]]; then
 		echo Failed to get password for mysql user sellyoursaas 
 		exit 1

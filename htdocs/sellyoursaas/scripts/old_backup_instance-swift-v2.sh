@@ -42,7 +42,7 @@ User="$1"
 Password="$2"
 
 echo Search sellyoursaas credential
-passsellyoursaas=`cat /root/sellyoursaas`
+passsellyoursaas=`grep 'databasepass=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 if [[ "x$passsellyoursaas" == "x" ]]; then
 	echo Search sellyoursaas credential 2
 	passsellyoursaas=`cat /tmp/sellyoursaas`

@@ -28,12 +28,13 @@ export scriptdir=$(dirname $(realpath ${0}))
 export targetdir="/home/admin/backup/mysql"				
 export targetdir2="/home/admin/backup/conf"				
 
-export DATABASE=`grep 'database=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
    exit 1
 fi
+
+export DATABASE=`grep 'database=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 
 if [ "x$1" == "x" ]; then
 	echo "Missing parameter 1 - test|confirm" 1>&2

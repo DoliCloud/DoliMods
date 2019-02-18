@@ -1,5 +1,8 @@
 <?php
-/* Server agent for SellYourSaas */
+/*
+ * Server agent for SellYourSaas
+ * This script is called by a tiny web server and run as root.
+ */
 
 $DEBUG = 1;
 
