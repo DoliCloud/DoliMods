@@ -292,6 +292,15 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 
 
 			<?php
+			$disabled='';
+			if (! empty($conf->global->SELLYOURSAAS_DISABLE_NEW_INSTANCES))
+			{
+			    $disabled=' disabled';
+			    print '<div class="alert alert-warning">';
+			    print $langs->trans("RegistrationSuspendedForTheMomentPleaseTryLater");
+			    print '</div>';
+			}
+
 			if (isset($_SESSION['dol_events']['errors'])) {
 				print '<div class="alert alert-error">';
 				if (is_array($_SESSION['dol_events']['errors']))
@@ -316,7 +325,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
             <div class="control-group  required">
             	<label class="control-label" for="username" trans="1"><?php echo $langs->trans("Email") ?></label>
             	<div class="controls">
-            		<input type="text" name="username" autofocus value="<?php echo GETPOST('username','alpha'); ?>" required="" id="username" />
+            		<input type="text"<?php echo $disabled; ?> name="username" autofocus value="<?php echo GETPOST('username','alpha'); ?>" required="" id="username" />
 
             	</div>
             </div>
@@ -324,7 +333,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
             <div class="control-group  required">
             	<label class="control-label" for="orgName" trans="1"><?php echo $langs->trans("NameOfCompany") ?></label>
             	<div class="controls">
-            		<input type="text" name="orgName" value="<?php echo GETPOST('orgName','alpha'); ?>" required="" maxlength="250" id="orgName" />
+            		<input type="text"<?php echo $disabled; ?> name="orgName" value="<?php echo GETPOST('orgName','alpha'); ?>" required="" maxlength="250" id="orgName" />
             	</div>
             </div>
 			<?php
@@ -339,7 +348,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
                 	<label class="control-label" for="password" trans="1"><?php echo $langs->trans("Password") ?></label>
                 	<div class="controls">
 
-                        <input name="password" type="password" required />
+                        <input<?php echo $disabled; ?> name="password" type="password" required />
 
                 	</div>
                 </div>
@@ -349,7 +358,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
                   <div class="control-group required">
                     <label class="control-label" for="password2" trans="1"><?php echo $langs->trans("ConfirmPassword") ?></label>
                     <div class="controls">
-                      <input name="password2" type="password" required />
+                      <input<?php echo $disabled; ?> name="password2" type="password" required />
                     </div>
                   </div>
                 </div>
@@ -370,7 +379,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 			print '<!-- Autodetected IP/Country: '.$_SERVER["REMOTE_ADDR"].'/'.$countryselected.' -->'."\n";
 			if (empty($countryselected)) $countryselected='US';
 			if (GETPOST('address_country','alpha')) $countryselected=GETPOST('address_country','alpha');
-			print $form->select_country($countryselected, 'address_country', 'optionsValue="name"', 0, 'minwidth300', 'code2', 1, 1);
+			print $form->select_country($countryselected, 'address_country', 'optionsValue="name"'.$disabled, 0, 'minwidth300', 'code2', 1, 1);
 			?>
 				</div>
 			</div>
@@ -393,8 +402,8 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 	              <label trans="1"><?php echo $langs->trans("ChooseANameForYourApplication") ?></label>
 	              <div class="linked-flds">
 	                <span class="opacitymedium">https://</span>
-	                <input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="<?php echo $sldAndSubdomain; ?>" maxlength="29" />
-	                <select name="tldid" id="tldid" >
+	                <input<?php echo $disabled; ?> class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="<?php echo $sldAndSubdomain; ?>" maxlength="29" />
+	                <select<?php echo $disabled; ?> name="tldid" id="tldid" >
 	                	<?php
 	                	$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
 	                	foreach($listofdomain as $val)
@@ -438,13 +447,13 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 	          	if ($productref != 'none')
 	          	{
 	          	?>
-	            	<input type="submit" name="submit" style="margin: 10px;" value="<?php echo $langs->trans("SignMeUp") ?>" class="btn btn-primary" id="submit" />
+	            	<input type="submit"<?php echo $disabled; ?> name="submit" style="margin: 10px;" value="<?php echo $langs->trans("SignMeUp") ?>" class="btn btn-primary" id="submit" />
 	            <?php
 	          	}
 	          	else
 	          	{
 	          	?>
-	            	<input type="submit" name="submit" style="margin: 10px;" value="<?php echo $langs->trans("CreateMyAccount") ?>" class="btn btn-primary" id="submit" />
+	            	<input type="submit"<?php echo $disabled; ?> name="submit" style="margin: 10px;" value="<?php echo $langs->trans("CreateMyAccount") ?>" class="btn btn-primary" id="submit" />
 	          	<?php
 	          	}
 	          	?>

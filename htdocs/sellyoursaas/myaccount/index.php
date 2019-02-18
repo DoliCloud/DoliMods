@@ -3229,57 +3229,66 @@ if ($mode == 'instances')
 	$MAXINSTANCES = 4;
 	if (count($listofcontractid) < $MAXINSTANCES)
 	{
-		print '<div class="group">';
+	    if (! empty($conf->global->SELLYOURSAAS_DISABLE_NEW_INSTANCES))
+	    {
+	        print '<div class="alert alert-warning" style="margin-bottom: 0px">';
+	        print $langs->trans("RegistrationSuspendedForTheMomentPleaseTryLater");
+	        print '</div>';
+	    }
+	    else
+	    {
+    		print '<div class="group">';
 
-		print '<div class="horizontal-fld centpercent marginbottomonly">';
-		print '<strong>'.$langs->trans("YourSubscriptionPlan").'</strong> ';
-		print $form->selectarray('service', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth500');
-		print '<br>';
-		print '</div>';
-		//print ajax_combobox('service');
+    		print '<div class="horizontal-fld centpercent marginbottomonly">';
+    		print '<strong>'.$langs->trans("YourSubscriptionPlan").'</strong> ';
+    		print $form->selectarray('service', $arrayofplans, $planid, 0, 0, 0, '', 0, 0, 0, '', 'minwidth500');
+    		print '<br>';
+    		print '</div>';
+    		//print ajax_combobox('service');
 
-		print '
+    		print '
 
-			<div class="horizontal-fld clearboth margintoponly">
-			<div class="control-group required">
-			<label class="control-label" for="password" trans="1">'.$langs->trans("Password").'</label><input name="password" type="password" required />
-			</div>
-			</div>
-			<div class="horizontal-fld margintoponly">
-			<div class="control-group required">
-			<label class="control-label" for="password2" trans="1">'.$langs->trans("ConfirmPassword").'</label><input name="password2" type="password" required />
-			</div>
-			</div>
-			</div> <!-- end group -->
+    			<div class="horizontal-fld clearboth margintoponly">
+    			<div class="control-group required">
+    			<label class="control-label" for="password" trans="1">'.$langs->trans("Password").'</label><input name="password" type="password" required />
+    			</div>
+    			</div>
+    			<div class="horizontal-fld margintoponly">
+    			<div class="control-group required">
+    			<label class="control-label" for="password2" trans="1">'.$langs->trans("ConfirmPassword").'</label><input name="password2" type="password" required />
+    			</div>
+    			</div>
+    			</div> <!-- end group -->
 
-			<section id="selectDomain margintoponly" style="margin-top: 20px;">
-			<div class="fld select-domain required">
-			<label trans="1">'.$langs->trans("ChooseANameForYourApplication").'</label>
-			<div class="linked-flds">
-			<span class="opacitymedium">https://</span>
-			<input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="" maxlength="29" required />
-			<select name="tldid" id="tldid" >';
-				$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
-				foreach($listofdomain as $val)
-				{
-					$newval=$val;
-					if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
-					print '<option value="'.$newval.'">'.$newval.'</option>';
-				}
-			print '</select>
-			<br class="unfloat" />
-			</div>
-			</div>
-			</section>';
+    			<section id="selectDomain margintoponly" style="margin-top: 20px;">
+    			<div class="fld select-domain required">
+    			<label trans="1">'.$langs->trans("ChooseANameForYourApplication").'</label>
+    			<div class="linked-flds">
+    			<span class="opacitymedium">https://</span>
+    			<input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="" maxlength="29" required />
+    			<select name="tldid" id="tldid" >';
+    				$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+    				foreach($listofdomain as $val)
+    				{
+    					$newval=$val;
+    					if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
+    					print '<option value="'.$newval.'">'.$newval.'</option>';
+    				}
+    			print '</select>
+    			<br class="unfloat" />
+    			</div>
+    			</div>
+    			</section>';
 
-		if (GETPOST('admin','alpha'))
-		{
-			print '<div class="horizontal-fld clearboth margintoponly">';
-			print '<input type="checkbox" name="disablecustomeremail" /> '.$langs->trans("DisableEmailToCustomer");
-			print '</div>';
-		}
+    		if (GETPOST('admin','alpha'))
+    		{
+    			print '<div class="horizontal-fld clearboth margintoponly">';
+    			print '<input type="checkbox" name="disablecustomeremail" /> '.$langs->trans("DisableEmailToCustomer");
+    			print '</div>';
+    		}
 
-		print '<br><input type="submit" class="btn btn-warning default change-plan-link" name="changeplan" value="'.$langs->trans("Create").'">';
+    		print '<br><input type="submit" class="btn btn-warning default change-plan-link" name="changeplan" value="'.$langs->trans("Create").'">';
+	    }
 	}
 	else
 	{

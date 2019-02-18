@@ -412,3 +412,4 @@ DeploymentServers=Deployment servers
 PutAllInstancesOnLine=Put all instance online
 PutAllInstancesOffLine=Put all instance offline
 MessageOn=A message is currently on !
+RegistrationSuspendedForTheMomentPleaseTryLater=Registration of new instances are suspended for the moment for maintenance purpose. Please try later...

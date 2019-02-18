@@ -382,3 +382,4 @@ AccessEnabled=Accèss activé
 OtherOptionsAndParameters=Autres options et paramètres
 YouCanUseCSSParameter=Vous pouvez définir un CSS externe à utiliser. L'URL doit être un lien HTTPS et cette valeur doit être une URL encodée pour être un paramètre HTTP valide
 ToForcePlan=Pour forcer la formule d'abonnement
+RegistrationSuspendedForTheMomentPleaseTryLater=L'enregistrement de nouvelles instances est suspendue pour le moment pour raison de maintenance. Merci de réessayer plus tard...

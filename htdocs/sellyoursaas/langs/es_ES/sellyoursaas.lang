@@ -342,3 +342,4 @@ ManualCollection=Facturación manual
 MyAcountDesc=Este espacio está dedicado a la gestión de sus suscripciones <a href="%s" target="dolicloud">%s</a>. Puede crear nuevas instancias de aplicaciones, elegir opciones, recuperar sus facturas de suscripción o cerrar su cuenta.
 YourCustomUrl=Su URL personalizada
 NextInvoice=Siguiente factura
+RegistrationSuspendedForTheMomentPleaseTryLater=El registro de nuevas instancias se suspende por el momento debido al mantenimiento. Por favor intente de nuevo más tarde ...

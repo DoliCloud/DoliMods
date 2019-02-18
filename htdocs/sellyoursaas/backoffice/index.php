@@ -142,7 +142,7 @@ if (! empty($conf->global->SELLYOURSAAS_DISABLE_NEW_INSTANCES))
 {
     // Button off, click to enable
     $enabledisablehtml.='<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setSELLYOURSAAS_DISABLE_NEW_INSTANCES&value=0'.$param.'">';
-    $enabledisablehtml.=img_picto($langs->trans("Disabled"), 'switch_off');
+    $enabledisablehtml.=img_picto($langs->trans("Disabled"), 'switch_off', '', false, 0, 0, '', 'error');
     $enabledisablehtml.='</a>';
 }
 else
