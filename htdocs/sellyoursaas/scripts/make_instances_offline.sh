@@ -53,6 +53,8 @@ done
 
 if [ "x$2" = "xoffline" ]; then
 	rm /etc/apache2/sellyoursaas-enabled
+	echo --
+	echo Create link /etc/apache2/sellyoursaas-enabled pointing to /etc/apache2/sellyoursaas-offline
 	ln -fs /etc/apache2/sellyoursaas-offline /etc/apache2/sellyoursaas-enabled
 	
 	echo Reload Apache
@@ -61,6 +63,8 @@ fi
 
 if [ "x$2" = "xonline" ]; then
 	rm /etc/apache2/sellyoursaas-enabled
+	echo --
+	echo Create link /etc/apache2/sellyoursaas-enabled pointing to /etc/apache2/sellyoursaas-online
 	ln -fs /etc/apache2/sellyoursaas-online /etc/apache2/sellyoursaas-enabled
 	
 	echo Reload Apache
