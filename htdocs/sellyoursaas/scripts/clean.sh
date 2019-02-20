@@ -31,9 +31,6 @@ export archivedir="/mnt/diskbackup/archives-test"
 export archivedirbind="/etc/bind/archives"
 export ZONES_PATH="/etc/bind/zones"
 
-export ZONENOHOST="with.$DOMAIN" 
-export ZONE="with.$DOMAIN.hosts" 
-
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
    exit 1
@@ -46,6 +43,9 @@ if [ "x$DOMAIN" == "x" ]; then
    echo "Failed to find the DOMAIN by reading entry 'domain=' into file /etc/sellyoursaas.conf" 1>&2
    exit 1
 fi
+
+export ZONENOHOST="with.$DOMAIN" 
+export ZONE="with.$DOMAIN.hosts" 
 
 if [ "x$database" == "x" ]; then
     echo "Failed to find the DATABASE by reading entry 'database=' into file /etc/sellyoursaas.conf" 1>&2
