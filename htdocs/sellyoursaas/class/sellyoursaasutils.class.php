@@ -3001,9 +3001,10 @@ class SellYourSaasUtils
     			'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname
     			);
 
-    			$tmppackage->srcconffile1 = '/tmp/conf.php.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
-    			$tmppackage->srccronfile = '/tmp/cron.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
-    			$tmppackage->srccliafter = '/tmp/cliafter.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
+    			$dirfortmpfiles = '/tmp';
+    			$tmppackage->srcconffile1 = $dirfortmpfiles.'/conf.php.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
+    			$tmppackage->srccronfile  = $dirfortmpfiles.'/cron.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
+    			$tmppackage->srccliafter  = $dirfortmpfiles.'/cliafter.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
 
     			$conffile = make_substitutions($tmppackage->conffile1, $substitarray);
     			$cronfile = make_substitutions($tmppackage->crontoadd, $substitarray);
@@ -3019,19 +3020,41 @@ class SellYourSaasUtils
     			$tmppackage->targetsrcfile3 = make_substitutions($tmppackage->targetsrcfile3, $substitarray);
 
     			dol_syslog("Create conf file ".$tmppackage->srcconffile1);
-    			dol_delete_file($tmppackage->srcconffile1, 0, 1, 0, null, false, 0);
-    			file_put_contents($tmppackage->srcconffile1, str_replace("\r", '', $conffile));
-    			@chmod($tmppackage->srcconffile1, 0664);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data')
+    			if ($tmppackage->srcconffile1 && $conffile)
+    			{
+        			dol_delete_file($tmppackage->srcconffile1, 0, 1, 0, null, false, 0);
+        			$result = file_put_contents($tmppackage->srcconffile1, str_replace("\r", '', $conffile));
+        			@chmod($tmppackage->srcconffile1, 0660);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data')
+    			}
+    			else
+    			{
+    			    dol_syslog("No conf file to create or no content");
+    			}
 
     			dol_syslog("Create cron file ".$tmppackage->srccronfile);
-    			dol_delete_file($tmppackage->srccronfile, 0, 1, 0, null, false, 0);
-    			file_put_contents($tmppackage->srccronfile, str_replace("\r", '', $cronfile)."\n");  // A cron file must have at least one new line before end of file
-    			@chmod($tmppackage->srccronfile, 0664);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data')
+    			if ($tmppackage->srccronfile && $cronfile)
+    			{
+        			dol_delete_file($tmppackage->srccronfile, 0, 1, 0, null, false, 0);
+        			$result = file_put_contents($tmppackage->srccronfile, str_replace("\r", '', $cronfile)."\n");  // A cron file must have at least one new line before end of file
+    	       		@chmod($tmppackage->srccronfile, 0660);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data')
+    			}
+    			else
+    			{
+    			    dol_syslog("No cron file to create or no content");
+    			}
 
-    			dol_syslog("Create cli file ".$tmppackage->srccliafter);
-    			dol_delete_file($tmppackage->srccliafter, 0, 1, 0, null, false, 0);
-    			file_put_contents($tmppackage->srccliafter, str_replace("\r", '', $cliafter));
-    			@chmod($tmppackage->srccliafter, 0664);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data')
+    			if ($tmppackage->srccliafter && $cliafter)
+    			{
+    			    dol_syslog("Create cli file ".$tmppackage->srccliafter);
+    			    dol_delete_file($tmppackage->srccliafter, 0, 1, 0, null, false, 0);
+        			$result = file_put_contents($tmppackage->srccliafter, str_replace("\r", '', $cliafter));
+    	       		@chmod($tmppackage->srccliafter, 0660);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data')
+    	       		var_dump(realpath($tmppackage->srccliafter).' '.$tmppackage->srccliafter.' '.$result.' '.file_exists($tmppackage->srccliafter));die();
+    			}
+    			else
+    			{
+    			    dol_syslog("No cli file to create or no content");
+    			}
 
     			// Remote action : unsuspend
     			$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;

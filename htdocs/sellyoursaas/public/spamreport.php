@@ -39,7 +39,7 @@ require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societeaccount.class.php';
 
 
-$tmpfile = '/tmp/spamreport.log';
+$tmpfile = '/var/log/sellyoursaas_spamreport.log';
 $date = strftime("%Y-%m-%d %H:%M:%S" ,time());
 
 file_put_contents($tmpfile, "\n***** Spam report received ".$date."*****\n", FILE_APPEND);
