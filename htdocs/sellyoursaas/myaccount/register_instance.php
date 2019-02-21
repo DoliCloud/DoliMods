@@ -336,24 +336,63 @@ if ($reusecontractid)
 }
 else
 {
-    // Check number of instance with same IP
-    $MAXDEPLOYMENTPERIP = 25;
+    // Check number of instance with same IP deployed (Rem: for partners, ip are the one of their customer)
+    $MAXDEPLOYMENTPERIP = 20;
 
     $nbofinstancewithsameip=-1;
     $select = 'SELECT COUNT(*) as nb FROM '.MAIN_DB_PREFIX."contrat_extrafields WHERE deployment_ip = '".$db->escape($remoteip)."'";
+    $select.= " AND deployment_status IN ('processing', 'done')";
     $resselect = $db->query($select);
     if ($resselect)
     {
         $objselect = $db->fetch_object($resselect);
         if ($objselect) $nbofinstancewithsameip = $objselect->nb;
     }
-    if ($remoteip != '127.0.0.1' && ($nbofinstancewithsameip < 0 || $nbofinstancewithsameip > $MAXDEPLOYMENTPERIP))
+    dol_syslog("nbofinstancewithsameip = ".$nbofinstancewithsameip." for ip ".$remoteip." (must be lower or equal than ".$MAXDEPLOYMENTPERIP.")");
+    if ($remoteip != '127.0.0.1' && (($nbofinstancewithsameip < 0) || ($nbofinstancewithsameip > $MAXDEPLOYMENTPERIP)))
     {
         setEventMessages($langs->trans("TooManyInstancesForSameIp"), null, 'errors');
         header("Location: ".$newurl);
         exit;
-        //dol_print_error_email('TOOMANYINSTANCES', $langs->trans("TooManyInstances"), null, 'alert alert-error');
-        //exit;
+    }
+
+    // Check number of instance with same IP on same hour
+    $MAXDEPLOYMENTPERIPPERHOUR = 10;
+
+    $nbofinstancewithsameip=-1;
+    $select = 'SELECT COUNT(*) as nb FROM '.MAIN_DB_PREFIX."contrat_extrafields WHERE deployment_ip = '".$db->escape($remoteip)."'";
+    $select.= " AND deployment_date_start > '".$db->idate(dol_now() - 3600)."'";
+    $resselect = $db->query($select);
+    if ($resselect)
+    {
+        $objselect = $db->fetch_object($resselect);
+        if ($objselect) $nbofinstancewithsameip = $objselect->nb;
+    }
+    dol_syslog("nbofinstancewithsameipperhour = ".$nbofinstancewithsameip." for ip ".$remoteip." (must be lower or equal than ".$MAXDEPLOYMENTPERIPPERHOUR.")");
+    if ($remoteip != '127.0.0.1' && (($nbofinstancewithsameip < 0) || ($nbofinstancewithsameip > $MAXDEPLOYMENTPERIP)))
+    {
+        setEventMessages($langs->trans("TooManyInstancesForSameIpThisHour"), null, 'errors');
+        header("Location: ".$newurl);
+        exit;
+    }
+
+    // Check if some deployment are already in process and ask to wait
+    $MAXDEPLOYMENTPARALLEL = 2;
+    $nbofinstanceindeployment=-1;
+    $select = 'SELECT COUNT(*) as nb FROM '.MAIN_DB_PREFIX."contrat_extrafields WHERE deployment_ip = '".$db->escape($remoteip)."'";
+    $select.= " AND deployment_status IN ('processing')";
+    $resselect = $db->query($select);
+    if ($resselect)
+    {
+        $objselect = $db->fetch_object($resselect);
+        if ($objselect) $nbofinstanceindeployment = $objselect->nb;
+    }
+    dol_syslog("nbofinstanceindeployment = ".$nbofinstanceindeployment." for ip ".$remoteip." (must be lower or equal than ".$MAXDEPLOYMENTPARALLEL.")");
+    if ($remoteip != '127.0.0.1' && (($nbofinstanceindeployment < 0) || ($nbofinstanceindeployment > $MAXDEPLOYMENTPARALLEL)))
+    {
+        setEventMessages($langs->trans("TooManyRequestPleaseTryLater"), null, 'errors');
+        header("Location: ".$newurl);
+        exit;
     }
 
 	$tmpthirdparty=new Societe($db);
