@@ -348,7 +348,7 @@ else
         $objselect = $db->fetch_object($resselect);
         if ($objselect) $nbofinstancewithsameip = $objselect->nb;
     }
-    dol_syslog("nbofinstancewithsameip = ".$nbofinstancewithsameip." for ip ".$remoteip." (must be lower or equal than ".$MAXDEPLOYMENTPERIP.")");
+    dol_syslog("nbofinstancewithsameip = ".$nbofinstancewithsameip." for ip ".$remoteip." (must be lower or equal than ".$MAXDEPLOYMENTPERIP." except if ip is 127.0.0.1)");
     if ($remoteip != '127.0.0.1' && (($nbofinstancewithsameip < 0) || ($nbofinstancewithsameip > $MAXDEPLOYMENTPERIP)))
     {
         setEventMessages($langs->trans("TooManyInstancesForSameIp"), null, 'errors');
@@ -368,7 +368,7 @@ else
         $objselect = $db->fetch_object($resselect);
         if ($objselect) $nbofinstancewithsameip = $objselect->nb;
     }
-    dol_syslog("nbofinstancewithsameipperhour = ".$nbofinstancewithsameip." for ip ".$remoteip." (must be lower or equal than ".$MAXDEPLOYMENTPERIPPERHOUR.")");
+    dol_syslog("nbofinstancewithsameipperhour = ".$nbofinstancewithsameip." for ip ".$remoteip." (must be lower or equal than ".$MAXDEPLOYMENTPERIPPERHOUR." except if ip is 127.0.0.1)");
     if ($remoteip != '127.0.0.1' && (($nbofinstancewithsameip < 0) || ($nbofinstancewithsameip > $MAXDEPLOYMENTPERIP)))
     {
         setEventMessages($langs->trans("TooManyInstancesForSameIpThisHour"), null, 'errors');
@@ -387,7 +387,7 @@ else
         $objselect = $db->fetch_object($resselect);
         if ($objselect) $nbofinstanceindeployment = $objselect->nb;
     }
-    dol_syslog("nbofinstanceindeployment = ".$nbofinstanceindeployment." for ip ".$remoteip." (must be lower or equal than ".$MAXDEPLOYMENTPARALLEL.")");
+    dol_syslog("nbofinstanceindeployment = ".$nbofinstanceindeployment." for ip ".$remoteip." (must be lower or equal than ".$MAXDEPLOYMENTPARALLEL." except if ip is 127.0.0.1)");
     if ($remoteip != '127.0.0.1' && (($nbofinstanceindeployment < 0) || ($nbofinstanceindeployment > $MAXDEPLOYMENTPARALLEL)))
     {
         setEventMessages($langs->trans("TooManyRequestPleaseTryLater"), null, 'errors');
