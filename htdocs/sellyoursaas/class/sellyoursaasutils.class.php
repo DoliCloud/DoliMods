@@ -3049,7 +3049,6 @@ class SellYourSaasUtils
     			    dol_delete_file($tmppackage->srccliafter, 0, 1, 0, null, false, 0);
         			$result = file_put_contents($tmppackage->srccliafter, str_replace("\r", '', $cliafter));
     	       		@chmod($tmppackage->srccliafter, 0660);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data')
-    	       		var_dump(realpath($tmppackage->srccliafter).' '.$tmppackage->srccliafter.' '.$result.' '.file_exists($tmppackage->srccliafter));die();
     			}
     			else
     			{
