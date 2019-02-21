@@ -24,32 +24,34 @@ echo "Loop on each enabled virtual host of customer instances, create a new one 
 echo "Path for template is $realdir"
 mkdir /etc/apache2/sellyoursaas-offline 2>/dev/null
 
-for file in `ls /etc/apache2/sellyoursaas-online/*`
-do
-        echo -- Process file $file
-		export fileshort=`basename $file`
-		export domain=$(echo $fileshort | /bin/sed 's/\.conf$//g' | /bin/sed 's/\.custom$//g')
-		#echo fileshort=$fileshort domain=$domain 
-		
-		if [[ $fileshort == *".custom."* ]]; then
-	        rm -f /etc/apache2/sellyoursaas-offline/$domain.custom.conf 2>/dev/null
-			export domain=$(cat /etc/apache2/sellyoursaas-online/$domain.custom.conf | grep ServerName | sed -s 's/^ *//' | cut --delimiter=' '  -f2)
-        
-			echo Create file /etc/apache2/sellyoursaas-offline/$fileshort for domain $domain
-			cat $realdir/scripts/templates/vhostHttps-sellyoursaas-offline.template | \
-				sed 's!__webAppDomain__!'${domain}'!g' | \
-				sed 's!__webMyAccount__!'$1'!g' \
-				> /etc/apache2/sellyoursaas-offline/$fileshort
-		else
-	        rm -f /etc/apache2/sellyoursaas-offline/$domain.conf 2>/dev/null
+if [ "x$2" != "xonline" ]; then
+	for file in `ls /etc/apache2/sellyoursaas-online/*`
+	do
+	        echo -- Process file $file to create its offline virtual host
+			export fileshort=`basename $file`
+			export domain=$(echo $fileshort | /bin/sed 's/\.conf$//g' | /bin/sed 's/\.custom$//g')
+			#echo fileshort=$fileshort domain=$domain 
 			
-			echo Create file /etc/apache2/sellyoursaas-offline/$fileshort for domain $domain
-			cat $realdir/scripts/templates/vhostHttps-sellyoursaas-offline.template | \
-				sed 's!__webAppDomain__!'${domain}'!g' | \
-				sed 's!__webMyAccount__!'$1'!g' \
-				> /etc/apache2/sellyoursaas-offline/$fileshort
-		fi
-done
+			if [[ $fileshort == *".custom."* ]]; then
+		        rm -f /etc/apache2/sellyoursaas-offline/$domain.custom.conf 2>/dev/null
+				export domain=$(cat /etc/apache2/sellyoursaas-online/$domain.custom.conf | grep ServerName | sed -s 's/^ *//' | cut --delimiter=' '  -f2)
+	        
+				echo Create file /etc/apache2/sellyoursaas-offline/$fileshort for domain $domain
+				cat $realdir/scripts/templates/vhostHttps-sellyoursaas-offline.template | \
+					sed 's!__webAppDomain__!'${domain}'!g' | \
+					sed 's!__webMyAccount__!'$1'!g' \
+					> /etc/apache2/sellyoursaas-offline/$fileshort
+			else
+		        rm -f /etc/apache2/sellyoursaas-offline/$domain.conf 2>/dev/null
+				
+				echo Create file /etc/apache2/sellyoursaas-offline/$fileshort for domain $domain
+				cat $realdir/scripts/templates/vhostHttps-sellyoursaas-offline.template | \
+					sed 's!__webAppDomain__!'${domain}'!g' | \
+					sed 's!__webMyAccount__!'$1'!g' \
+					> /etc/apache2/sellyoursaas-offline/$fileshort
+			fi
+	done
+fi
 
 if [ "x$2" = "xoffline" ]; then
 	rm /etc/apache2/sellyoursaas-enabled
