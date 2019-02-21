@@ -20,11 +20,11 @@ fi
 
 realdir=$(dirname $(dirname $(realpath ${0})))
 
-echo "Loop on each enabled virtual host of customer instances, create a new one and switch it"
-echo "Path for template is $realdir"
-mkdir /etc/apache2/sellyoursaas-offline 2>/dev/null
-
 if [ "x$2" != "xonline" ]; then
+	echo "Loop on each enabled virtual host of customer instances, create a new one and switch it"
+	echo "Path for template is $realdir"
+	mkdir /etc/apache2/sellyoursaas-offline 2>/dev/null
+
 	for file in `ls /etc/apache2/sellyoursaas-online/*`
 	do
 	        echo -- Process file $file to create its offline virtual host
@@ -51,11 +51,11 @@ if [ "x$2" != "xonline" ]; then
 					> /etc/apache2/sellyoursaas-offline/$fileshort
 			fi
 	done
+	echo --
 fi
 
 if [ "x$2" = "xoffline" ]; then
 	rm /etc/apache2/sellyoursaas-enabled
-	echo --
 	echo Create link /etc/apache2/sellyoursaas-enabled pointing to /etc/apache2/sellyoursaas-offline
 	ln -fs /etc/apache2/sellyoursaas-offline /etc/apache2/sellyoursaas-enabled
 	
@@ -65,7 +65,6 @@ fi
 
 if [ "x$2" = "xonline" ]; then
 	rm /etc/apache2/sellyoursaas-enabled
-	echo --
 	echo Create link /etc/apache2/sellyoursaas-enabled pointing to /etc/apache2/sellyoursaas-online
 	ln -fs /etc/apache2/sellyoursaas-online /etc/apache2/sellyoursaas-enabled
 	
