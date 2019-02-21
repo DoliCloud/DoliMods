@@ -258,6 +258,7 @@ else print '<span class="opacitymedium">'.$langs->trans("ClickToRefresh").'</spa
 print '<!-- List of instances : '."\n";
 if (is_array($rep['listofinstancespaying']))
 {
+    $rep['listofinstancespaying'] = dol_sort_array($rep['listofinstancespaying'], 'thirdparty_name');
 	foreach($rep['listofinstancespaying'] as $arrayofcontract)
 	{
 		print $arrayofcontract['thirdparty_name'].' - '.$arrayofcontract['contract_ref']."\n";
