@@ -255,11 +255,12 @@ if ($mode == 'testrsync' || $mode == 'test' || $mode == 'confirmrsync' || $mode 
 
 	if ($RSYNCDELETE)
 	{
-		$param[]="--backup --suffix=.old --delete --delete-excluded";
+		//$param[]="--backup --suffix=.old --delete --delete-excluded";
+	    $param[]="--delete --delete-excluded";
 	}
 	else
 	{
-		$param[]="--backup --suffix=.old";
+		//$param[]="--backup --suffix=.old";
 	}
 	$param[]="--stats";
 	$param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o PasswordAuthentication=no'";
