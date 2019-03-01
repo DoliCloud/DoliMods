@@ -286,6 +286,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         		}
 				break;
         	case 'BILL_CANCEL':
+        	    break;
         	case 'BILL_PAYED':
         		$object->fetchObjectLinked(null,'',null,'','OR',0,'sourcetype',0);
 
@@ -303,12 +304,15 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         			// (in such a case, we may decide to no activate the linked contract)
         			// $contract->fetchObjectLinked();
 
-        			$result = $contract->activateAll($user);		// This will activate line if not already activated and set status of contrat to 1 if not already set
-        			if ($result < 0)
+        			if ($contract->array_options['options_deployment_status'] == 'done')
         			{
-        				$error++;
-        				$this->error = $contract->error;
-        				$this->errors = $contract->errors;
+            			$result = $contract->activateAll($user);		// This will activate line if not already activated and set status of contrat to 1 if not already set
+            			if ($result < 0)
+            			{
+            				$error++;
+            				$this->error = $contract->error;
+            				$this->errors = $contract->errors;
+            			}
         			}
         		}
 				else
