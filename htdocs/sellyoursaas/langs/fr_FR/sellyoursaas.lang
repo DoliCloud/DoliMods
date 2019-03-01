@@ -387,3 +387,4 @@ TooManyInstancesForSameIp=Vous avez atteint la limite du nombre d'instances cré
 TooManyInstancesForSameIpThisHour=Vous avez atteint le nombre maxium d'instance créées dans la même heur par la même organisation. Merci de réessayer plus tard.
 TooManyRequestPleaseTryLater=Trop de demandes actuellement. Merci de réessayer plus tard.
 RegistrationSuspendedForTheMomentPleaseTryLater=L'enregistrement de nouvelles instances est suspendue pour le moment pour raison de maintenance. Merci de réessayer plus tard...
+ChangeCustomer=Changer compte client

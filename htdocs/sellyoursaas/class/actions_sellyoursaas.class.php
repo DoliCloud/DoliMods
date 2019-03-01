@@ -187,6 +187,8 @@ class ActionsSellyoursaas
 	    		{
 	    			print '<a class="butActionRefused" href="#" title="'.$langs->trans("ContractMustHaveStatusDone").'">' . $langs->trans('Undeploy') . '</a>';
 	    		}
+
+	    		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=changecustomer" title="'.$langs->trans("ChangeCustomer").'">' . $langs->trans('ChangeCustomer') . '</a>';
 	    	}
     	}
 
@@ -208,6 +210,8 @@ class ActionsSellyoursaas
     function doActions($parameters,&$object,&$action)
     {
         global $db,$langs,$conf,$user;
+
+        $error = 0;
 
         dol_syslog(get_class($this).'::doActions action='.$action);
         $langs->load("sellyoursaas@sellyoursaas");
@@ -440,6 +444,73 @@ class ActionsSellyoursaas
 				}
 			}
 
+			if ($action == 'confirm_changecustomer')
+			{
+			    $db->begin();
+
+			    $newid = GETPOST('socid', 'int');
+
+			    if ($newid != $object->thirdparty->id)
+			    {
+			        $object->oldcopy = dol_clone($object);
+
+			        $object->fk_soc = $newid;
+
+			        if (! $error)
+			        {
+                        $result = $object->update($user, 1);
+                        if ($result < 0)
+                        {
+                            $this->error = $object->error;
+                            $this->errors = $object->errors;
+                        }
+			        }
+
+                    if (! $error)
+                    {
+                        // TODO Update fk_soc of linked objects template invoice too
+                        $object->fetchObjectLinked();
+
+                        if (is_array($object->linkedObjectsIds['facturerec']))
+                        {
+                            foreach($object->linkedObjectsIds['facturerec'] as $key => $val)
+                            {
+                                $tmpfacturerec = new FactureRec($this->db);
+                                $result = $tmpfacturerec->fetch($val);
+                                if ($result > 0)
+                                {
+                                    $tmpfacturerec->oldcopy = dol_clone($tmpfacturerec);
+                                    $tmpfacturerec->fk_soc = $newid;
+                                    $result = $tmpfacturerec->update($user, 1);
+                                    if ($result < 0)
+                                    {
+                                        $this->error = $tmpfacturerec->error;
+                                        $this->errors = $tmpfacturerec->errors;
+                                    }
+                                }
+                            }
+                        }
+                    }
+			    }
+
+			    if (! $error)
+			    {
+			        $db->commit();
+			    }
+			    else
+			    {
+			        $db->rollback();
+			    }
+
+			    $urlto=preg_replace('/action=[a-z]+/', '', $_SERVER['REQUEST_URI']);
+			    if ($urlto)
+			    {
+			        dol_syslog("Redirect to page urlto=".$urlto." to avoid to do action twice if we do back");
+			        header("Location: ".$urlto);
+			        exit;
+			    }
+			}
+
 			if (empty(GETPOST('instanceoldid','int')) && in_array($action, array('refresh','recreateauthorizedkeys','deletelock','recreatelock')))
 			{
 				dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
@@ -460,7 +531,6 @@ class ActionsSellyoursaas
 					if ($action == 'deletelock') setEventMessages($langs->trans("FilesDeleted"), null, 'mesgs');
 				}
 			}
-
         }
 
         if (in_array($parameters['currentcontext'], array('thirdpartybancard')) && $action == 'sellyoursaastakepayment' && GETPOST('companymodeid','int') > 0)
@@ -516,6 +586,33 @@ class ActionsSellyoursaas
         dol_syslog(get_class($this).'::doActions end');
         return 0;
     }
+
+    /**
+     *    formConfirm
+     *
+     *    @param	array			$parameters		Array of parameters
+     *    @param	CommonObject    $object         The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
+     *    @param    string			$action      	'add', 'update', 'view'
+     *    @return   int         					<0 if KO,
+     *                              				=0 if OK but we want to process standard actions too,
+     *                              				>0 if OK and we want to replace standard actions.
+     */
+    function formConfirm($parameters, &$object, &$action)
+    {
+        global $db,$langs,$conf,$user,$form;
+
+        dol_syslog(get_class($this).'::doActions action='.$action);
+        $langs->load("sellyoursaas@sellyoursaas");
+
+        if ($action == 'changecustomer')
+        {
+            // Clone confirmation
+            $formquestion = array(array('type' => 'other','name' => 'socid','label' => $langs->trans("SelectThirdParty"),'value' => $form->select_company($object->thirdparty->id, 'socid', '(s.client=1 OR s.client=2 OR s.client=3)')));
+            $formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id, $langs->trans('ChangeCustomer'), '', 'confirm_changecustomer', $formquestion, 'yes', 1);
+            print $formconfirm;
+        }
+    }
+
 
     /**
      * Complete search forms
