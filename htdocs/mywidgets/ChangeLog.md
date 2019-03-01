@@ -4,4 +4,4 @@
 ## 1.0
 
 Initial version.
-Need Dolibarr 4.0 or +
+Need Dolibarr 9.0 or +

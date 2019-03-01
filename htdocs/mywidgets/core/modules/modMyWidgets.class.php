@@ -31,7 +31,7 @@ include_once(DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php");
 /**
  * 	Description and activation class for module Widgets
  */
-class modWidgets extends DolibarrModules
+class modMyWidgets extends DolibarrModules
 {
 
     /**
@@ -56,7 +56,7 @@ class modWidgets extends DolibarrModules
         $this->editor_name = 'NLTechno';
         $this->editor_url = 'https://www.nltechno.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '4.0.1';
+		$this->version = '1.0';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of png file (without png) used for this module
@@ -74,7 +74,7 @@ class modWidgets extends DolibarrModules
 				//						'barcode' => 0,                                  // Set this to 1 if module has its own barcode directory
 				//						'models' => 0,                                   // Set this to 1 if module has its own models directory
 				//						'css' => '/filemanager/css/BilledOnOrder.css.php',   // Set this to relative path of css if module has its own css file
-										'hooks' => array('orderlist','supplierorderlist')  // Set here all hooks context managed by module
+										'hooks' => array()  // Set here all hooks context managed by module
 		);
 
 		// Data directories to create when module is enabled
@@ -94,11 +94,14 @@ class modWidgets extends DolibarrModules
         // Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',1),
         //                             1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',1) );
         $this->const = array(
-            0=>array('BILLEDONORDERS_DISABLE_BILLEDWOTAX','chaine','1','Disable column billed without tax',1)
+            0=>array('MYWIDGET_TITLE_1','chaine','1','Title 1',1),
+            1=>array('MYWIDGET_BODY_1','chaine','1','This is content of MyWidget 1',1)
         );
 
 		// Boxes
-		$this->boxes = array();			// List of boxes
+		$this->boxes = array(
+		    0=>array('file'=>'mywidgets.php@mywidgets','note'=>'Widget provided by MyWidget module','enabledbydefaulton'=>'Home'),
+		);			// List of boxes
 		$r=0;
 
 		// Add here list of php file(s) stored in includes/boxes that contains class to show a box.
