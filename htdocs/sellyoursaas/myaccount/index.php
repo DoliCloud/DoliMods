@@ -2115,9 +2115,9 @@ if (empty($welcomecid))
 			if (empty($messageforinstance[$contract->ref_customer])		// If warning for 'expired trial' not already shown
 				&& $delaybeforeendoftrial <= 0)							// If trial has expired
 			{
-				$delaybeforeexpiration = ($expirationdate - $now);
-				$delayindays = round($delaybeforeexpiration / 3600 / 24);
-				$delaybeforeundeployment = ($atleastonepaymentmode ? $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT : $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT);
+				$delayafterexpiration = ($now - $expirationdate);
+				$delayindays = round($delayafterexpiration / 3600 / 24);
+				$delaybeforeundeployment = max(0, ($atleastonepaymentmode ? $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT : $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT) - $delayindays);
 
 				print '<!-- XDaysAfterEndOfPeriodInstanceSuspended -->'."\n";
 				print '<div class="note note-warning">'."\n";
