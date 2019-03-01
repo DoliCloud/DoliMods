@@ -2118,20 +2118,20 @@ if (empty($welcomecid))
 				$delaybeforeexpiration = ($expirationdate - $now);
 				$delayindays = round($delaybeforeexpiration / 3600 / 24);
 
-				print ' <!-- XDaysAfterEndOfPeriodInstanceSuspended -->
-						<div class="note note-warning">
-							<h4 class="block">'.$langs->trans("XDaysAfterEndOfPeriodInstanceSuspended", $contract->ref_customer, abs($delayindays));
+				print '<!-- XDaysAfterEndOfPeriodInstanceSuspended -->'."\n";
+				print '<div class="note note-warning">'."\n";
+				print '		<h4 class="block">'."\n";
+				print $langs->trans("XDaysAfterEndOfPeriodInstanceSuspended", $contract->ref_customer, abs($delayindays), ($atleastonepaymentmode ? $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT : $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT));
 				if (empty($atleastonepaymentmode))
 				{
-					print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>';
+				    print '<br><a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("AddAPaymentModeToRestoreInstance").'</a>';
 				}
 				else
 				{
-					print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("FixPaymentModeToRestoreInstance").'</a>';
+				    print '<br>'.$langs->trans("IfInstanceWaSuspendedBecauseOrPaymentErrors").' : <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("FixPaymentModeToRestoreInstance").'</a>';
 				}
-				print '</h4>
-							</div>
-						';
+				print '     </h4>'."\n";
+				print '</div>'."\n";
 			}
 		}
 		else if ($isAPayingContract && $expirationdate > 0)
