@@ -227,6 +227,7 @@ if ($mode == 'testrsync' || $mode == 'test' || $mode == 'confirmrsync' || $mode 
 	$param[]="-rltz";
 	//$param[]="-vv";
 	$param[]="-v";
+	$param[]="--exclude 'conf.php'";
 	$param[]="--exclude .buildpath";
 	$param[]="--exclude .git";
 	$param[]="--exclude .gitignore";
