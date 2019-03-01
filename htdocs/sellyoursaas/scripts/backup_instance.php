@@ -75,7 +75,8 @@ dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
-	print "Usage:   $script_file instance    backup_dir  [testrsync|testdatabase|confirmrsync|confirmdatabase|confirm]  (old)\n";
+    print "This script must be ran as 'admin' user.\n";
+    print "Usage:   $script_file instance    backup_dir  [testrsync|testdatabase|test|confirmrsync|confirmdatabase|confirm]  (old)\n";
 	print "Example: $script_file myinstance  ".$conf->global->DOLICLOUD_BACKUP_PATH."  testrsync\n";
 	print "Note:    ssh keys must be authorized to have testrsync and confirmrsync working\n";
 	print "         remote access to database must be granted for testdatabase or confirmdatabase.\n";
@@ -231,7 +232,7 @@ if ($mode == 'confirm' || $mode == 'confirmrsync' || $mode == 'confirmdatabase')
 }
 
 // Backup files
-if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
+if ($mode == 'testrsync' || $mode == 'test' || $mode == 'confirmrsync' || $mode == 'confirm')
 {
 	$result = dol_mkdir($dirroot.'/'.$login);
 	if ($result < 0)
@@ -315,7 +316,7 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 }
 
 // Backup database
-if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
+if ($mode == 'testdatabase' || $mode == 'test' || $mode == 'confirmdatabase' || $mode == 'confirm')
 {
 	$command="mysqldump";
 	$param=array();
@@ -336,7 +337,7 @@ if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 	$param[]="--default-character-set=utf8";
 
 	$fullcommand=$command." ".join(" ",$param);
-	if ($mode == 'testdatabase') $fullcommand.=" | bzip2 > /dev/null";
+	if ($mode != 'confirm' && $mode != 'confirmdatabase') $fullcommand.=" | bzip2 > /dev/null";
 	else $fullcommand.=" | bzip2 > ".$dirroot.'/'.$login.'/mysqldump_'.$object->database_db.'_'.gmstrftime('%d').'.sql.bz2';
 	$output=array();
 	$return_varmysql=0;

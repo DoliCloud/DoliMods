@@ -74,7 +74,8 @@ dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
-	print "Usage:   $script_file backup_dir  instance  dumpfile|dayofmysqldump  [testrsync|testdatabase|confirmrsync|confirmdatabase|confirm]  (old)\n";
+    print "This script must be ran as 'admin' user.\n";
+    print "Usage:   $script_file backup_dir  instance  dumpfile|dayofmysqldump  [testrsync|testdatabase|test|confirmrsync|confirmdatabase|confirm]  (old)\n";
 	print "Example: $script_file ".$conf->global->DOLICLOUD_BACKUP_PATH."/osu123456  myinstance  31  testrsync\n";
 	print "Note:    ssh keys must be authorized to have testrsync and confirmrsync working\n";
 	print "Return code: 0 if success, <>0 if error\n";
@@ -206,12 +207,12 @@ if (empty($login) || empty($dirdb))
 }
 
 print 'Restore instance '.$instance.' from '.$dirroot." to ".$targetdir."\n";
-print 'SFTP password '.$object->password_web."\n";
-print 'Database password '.$object->password_db."\n";
+print 'Target SFTP password '.$object->password_web."\n";
+print 'Target Database password '.$object->password_db."\n";
 
 
 // Backup files
-if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
+if ($mode == 'testrsync' || $mode == 'test' || $mode == 'confirmrsync' || $mode == 'confirm')
 {
 	if (! is_dir($dirroot))
 	{
@@ -296,7 +297,7 @@ if ($mode == 'testrsync' || $mode == 'confirmrsync' || $mode == 'confirm')
 }
 
 // Backup database
-if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
+if ($mode == 'testdatabase' || $mode == 'test' || $mode == 'confirmdatabase' || $mode == 'confirm')
 {
 	$command="mysql";
 	$param=array();
@@ -319,7 +320,7 @@ if ($mode == 'testdatabase' || $mode == 'confirmdatabase' || $mode == 'confirm')
 	}
 
 	$fullcommand=$command." ".join(" ",$param);
-	if ($mode == 'testdatabase') $fullcommand='cat '.$dirroot.'/../'.$dumpfiletoload.' | bzip2 -d > /dev/null';
+	if ($mode != 'confirm' && $mode != 'confirmdatabase') $fullcommand='cat '.$dirroot.'/../'.$dumpfiletoload.' | bzip2 -d > /dev/null';
 	else $fullcommand='cat '.$dirroot.'/../'.$dumpfiletoload.' | bzip2 -d | '.$fullcommand;
 	$output=array();
 	$return_varmysql=0;
