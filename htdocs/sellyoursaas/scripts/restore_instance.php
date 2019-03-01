@@ -75,7 +75,7 @@ dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
     print "This script must be ran as 'admin' user.\n";
-    print "Usage:   $script_file backup_dir  instance  dumpfile|dayofmysqldump  [testrsync|testdatabase|test|confirmrsync|confirmdatabase|confirm]  (old)\n";
+    print "Usage:   $script_file backup_dir  instance  mysqldump_dbn...sql.bz2|dayofmysqldump  [testrsync|testdatabase|test|confirmrsync|confirmdatabase|confirm]  (old)\n";
 	print "Example: $script_file ".$conf->global->DOLICLOUD_BACKUP_PATH."/osu123456  myinstance  31  testrsync\n";
 	print "Note:    ssh keys must be authorized to have testrsync and confirmrsync working\n";
 	print "Return code: 0 if success, <>0 if error\n";
