@@ -748,12 +748,20 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 				if (! $error)
 				{
+				    $labelofevent = 'Payment mode added by '.getUserRemoteIP();
+				    $codeofevent = 'AC_ADD_PAYMENT';
+				    if ($thirdpartyhadalreadyapaymentmode > 0)
+				    {
+				        $labelofevent = 'Payment mode modified by '.getUserRemoteIP();
+				        $codeofevent = 'AC_MOD_PAYMENT';
+				    }
+
 					include_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
 					// Create an event
 					$actioncomm = new ActionComm($db);
 					$actioncomm->type_code   = 'AC_OTH_AUTO';		// Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
-					$actioncomm->code        = 'AC_ADD_PAYMENT';
-					$actioncomm->label       = 'Payment mode added by '.$_SERVER["REMOTE_ADDR"];
+					$actioncomm->code        = $codeofevent;
+					$actioncomm->label       = $labelofevent;
 					$actioncomm->datep       = $now;
 					$actioncomm->datef       = $now;
 					$actioncomm->percentage  = -1;   // Not applicable
