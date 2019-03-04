@@ -150,7 +150,7 @@ if (empty($reshook))
 	        // Get setup of remote
 	        $sql="SELECT value FROM llx_const WHERE name = 'MAIN_SECURITY_HASH_ALGO' ORDER BY entity LIMIT 1";
 	        $resql=$newdb->query($sql);
-	        if (! $resql)
+	        if ($resql)
 	        {
 	            $obj = $newdb->fetch_object($resql);
 	            if ($obj) $conf->global->MAIN_SECURITY_HASH_ALGO = $obj->value;
@@ -161,7 +161,7 @@ if (empty($reshook))
 	        }
 	        $sql="SELECT value FROM llx_const WHERE name = 'MAIN_SECURITY_SALT' ORDER BY entity LIMIT 1";
 	        $resql=$newdb->query($sql);
-	        if (! $resql)
+	        if ($resql)
 	        {
 	            $obj = $newdb->fetch_object($resql);
 	            if ($obj) $conf->global->MAIN_SECURITY_SALT = $obj->value;
