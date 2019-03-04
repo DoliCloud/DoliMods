@@ -144,10 +144,41 @@ if (empty($reshook))
 		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 	    if (is_object($newdb))
 	    {
-	    	// TODO Use the encryption of remote instance
-	    	$password_crypted = dol_hash($password);
+	        $savMAIN_SECURITY_HASH_ALGO = $conf->global->MAIN_SECURITY_HASH_ALGO;
+	        $savMAIN_SECURITY_SALT = $conf->global->MAIN_SECURITY_SALT;
 
-	    	$sql="INSERT INTO llx_user(login, lastname, admin, pass, pass_crypted, entity) VALUES('".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', 1, '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$newdb->escape($password_crypted)."', 0)";
+	        // Get setup of remote
+	        $sql="SELECT value FROM llx_const WHERE name = 'MAIN_SECURITY_HASH_ALGO' ORDER BY entity LIMIT 1";
+	        $resql=$newdb->query($sql);
+	        if (! $resql)
+	        {
+	            $obj = $newdb->fetch_object($resql);
+	            if ($obj) $conf->global->MAIN_SECURITY_HASH_ALGO = $obj->value;
+	        }
+	        else
+	        {
+	            setEventMessages("Failed to get remote MAIN_SECURITY_HASH_ALGO", null, 'warnings');
+	        }
+	        $sql="SELECT value FROM llx_const WHERE name = 'MAIN_SECURITY_SALT' ORDER BY entity LIMIT 1";
+	        $resql=$newdb->query($sql);
+	        if (! $resql)
+	        {
+	            $obj = $newdb->fetch_object($resql);
+	            if ($obj) $conf->global->MAIN_SECURITY_SALT = $obj->value;
+	        }
+	        else
+	        {
+	            setEventMessages("Failed to get remote MAIN_SECURITY_SALT", null, 'warnings');
+	        }
+
+	        // Calculate hash with remote setup
+	    	$password_crypted_for_remote = dol_hash($password);
+
+	    	// Restore current setup
+	    	$conf->global->MAIN_SECURITY_HASH_ALGO = $savMAIN_SECURITY_HASH_ALGO;
+	    	$conf->global->MAIN_SECURITY_SALT = $savMAIN_SECURITY_SALT;
+
+	    	$sql="INSERT INTO llx_user(login, lastname, admin, pass, pass_crypted, entity) VALUES('".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', 1, '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$newdb->escape($password_crypted_for_remote)."', 0)";
 	        $resql=$newdb->query($sql);
 	        if (! $resql)
 	        {
