@@ -410,7 +410,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 	                	{
 	                		$newval=$val;
 	                		if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
-	                		print '<option value="'.$newval.'">'.$newval.'</option>';
+	                		print '<option value="'.$newval.'"'.(GETPOST('tldid','alpha') == $newval ? ' selected="selected"':'').'>'.$newval.'</option>';
 	                	}
 	                    ?>
 	                </select>
