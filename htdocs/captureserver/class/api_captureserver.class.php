@@ -289,7 +289,7 @@ class CaptureServerApi extends DolibarrApi
      * @param   object  $object    Object to clean
      * @return    array    Array of cleaned object properties
      */
-    function _cleanObjectDatas($object)
+    protected function _cleanObjectDatas($object)
     {
     	$object = parent::_cleanObjectDatas($object);
 
