@@ -33,29 +33,30 @@
  *		@param	Object		$object				Object to use to get values
  * 		@return	void							The entry parameter $substitutionarray is modified
  */
-function numberwords_completesubstitutionarray(&$substitutionarray,$langs,$object)
+function numberwords_completesubstitutionarray(&$substitutionarray, $langs, $object)
 {
 	global $conf;
+
 	if (is_object($object) && $object->id > 0)	// We do not add substitution entries if object is not instantiated (->id not > 0)
 	{
-		$numbertext=$langs->getLabelFromNumber($object->total_ttc,1);
+		$numbertext=$langs->getLabelFromNumber($object->total_ttc, 1);
 		$substitutionarray['__TOTAL_TTC_WORDS__']=$numbertext;    	// deprecated
 		$substitutionarray['__AMOUNT_TEXT__']=$numbertext;
-		$numbertext=$langs->getLabelFromNumber($object->multicurrency_total_ttc,1);
+		$numbertext=$langs->getLabelFromNumber($object->multicurrency_total_ttc, $object->multicurrency_code);
 		$substitutionarray['__AMOUNT_CURRENCY_TEXT__']=$numbertext;
 
-		$numbertext=$langs->getLabelFromNumber($object->total_ht,1);
+		$numbertext=$langs->getLabelFromNumber($object->total_ht, 1);
 		$substitutionarray['__TOTAL_HT_WORDS__']=$numbertext;    	// deprecated
 		$substitutionarray['__AMOUNT_WO_TAX_TEXT__']=$numbertext;	// deprecated
 		$substitutionarray['__AMOUNT_EXCL_TAX_TEXT__']=$numbertext;
-		$numbertext=$langs->getLabelFromNumber($object->multicurrency_total_ht,1);
+		$numbertext=$langs->getLabelFromNumber($object->multicurrency_total_ht, $object->multicurrency_code);
 		$substitutionarray['__AMOUNT_CURRENCY_WO_TAX_TEXT__']=$numbertext;
 		$substitutionarray['__AMOUNT_CURRENCY_EXCL_TAX_TEXT__']=$numbertext;
 
 		$numbertext=$langs->getLabelFromNumber(((! empty($object->total_vat))?$object->total_vat:$object->total_tva),1);
 		$substitutionarray['__TOTAL_VAT_WORDS__']=$numbertext;    	// deprecated
 		$substitutionarray['__AMOUNT_VAT_TEXT__']=$numbertext;
-		$numbertext=$langs->getLabelFromNumber($object->multicurrency_total_tva,1);
+		$numbertext=$langs->getLabelFromNumber($object->multicurrency_total_tva, $object->multicurrency_code);
 		$substitutionarray['__AMOUNT_CURRENCY_VAT_TEXT__']=$numbertext;
 
 		// Use number words for property ->number of object with __NUMBER_WORDS__
@@ -67,16 +68,22 @@ function numberwords_completesubstitutionarray(&$substitutionarray,$langs,$objec
 /**
  *  Return full text translated to language label for a key. Store key-label in a cache.
  *
- *	@param		Langs	$langs		Language for output
- * 	@param		int		$number		Number to encode in full text
- * 	@param		int		$isamount	1=It's an amount, 0=it's just a number
- *  @return     string				Label translated in UTF8 (but without entities)
- * 									10 if setDefaultLang was en_US => ten
- * 									123 if setDefaultLang was fr_FR => cent vingt trois
+ *	@param		Translate	$langs		Language for output
+ * 	@param		int		    $number		Number to encode in full text
+ *  @param      string	    $isamount	''=it's just a number, '1'=It's an amount (default currency), 'currencycode'=It's an amount (foreign currency)
+ *  @return     string				    Label translated in UTF8 (but without entities)
+ * 									    10 if setDefaultLang was en_US => ten
+ * 									    123 if setDefaultLang was fr_FR => cent vingt trois
  */
-function numberwords_getLabelFromNumber($langs,$number,$isamount=0)
+function numberwords_getLabelFromNumber($langs, $number, $isamount='')
 {
 	global $conf;
+
+	$currencycode = $conf->currency;
+	if ($isamount && (string) $isamount != '1')
+	{
+	    $currencycode = $isamount;
+	}
 
 	dol_syslog("numberwords_getLabelFromNumber langs->defaultlang=".$langs->defaultlang." number=".$number." isamount=".$isamount);
 	$langs->load("dict");
@@ -109,19 +116,19 @@ function numberwords_getLabelFromNumber($langs,$number,$isamount=0)
 	}
 
 	// Define label on currency and cent in the property of object handle
-	$handle->labelcurrency=$conf->currency;	// By default (EUR, USD)
+	$handle->labelcurrency=$currencycode;	// By default (EUR, USD)
 	$handle->labelcents='cent';				// By default (s is removed)
     if ($conf->global->MAIN_MAX_DECIMALS_TOT == 3) $handle->labelcents='thousandth'; // (s is removed)
 
 	// Overwrite label of currency with ours
-	$labelcurrencysing=$langs->transnoentitiesnoconv("CurrencySing".$conf->currency);
-	//print "CurrencySing".$conf->currency."=>".$labelcurrencysing;
-	if ($labelcurrencysing && $labelcurrencysing != -1 && $labelcurrencysing != 'CurrencySing'.$conf->currency)
+	$labelcurrencysing=$langs->transnoentitiesnoconv("CurrencySing".$currencycode);
+	//print "CurrencySing".$currencycode."=>".$labelcurrencysing;
+	if ($labelcurrencysing && $labelcurrencysing != -1 && $labelcurrencysing != 'CurrencySing'.$currencycode)
 	{
 	    $handle->labelcurrencysing=$labelcurrencysing;
 	}
-	$labelcurrency=$langs->transnoentitiesnoconv("Currency".$conf->currency);
-	if ($labelcurrency && $labelcurrency != -1 && $labelcurrency !='Currency'.$conf->currency)
+	$labelcurrency=$langs->transnoentitiesnoconv("Currency".$currencycode);
+	if ($labelcurrency && $labelcurrency != -1 && $labelcurrency != 'Currency'.$currencycode)
 	{
 	    $handle->labelcurrency=$labelcurrency;
 	}
@@ -129,13 +136,13 @@ function numberwords_getLabelFromNumber($langs,$number,$isamount=0)
 	if (empty($handle->labelcurrency)) $handle->labelcurrency=$handle->labelcurrencysing;
 
 	// Overwrite label of decimals to ours
-	//print $langs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents)."Sing".$conf->currency);
-	$labelcurrencycentsing=$langs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents)."Sing".$conf->currency);
-	if ($labelcurrencycentsing && $labelcurrencycentsing != -1 && $labelcurrencycentsing!='Currency'.ucfirst($handle->labelcents).'Sing'.$conf->currency) $handle->labelcents=$labelcurrencycentsing;
+	//print $langs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents)."Sing".$currencycode);
+	$labelcurrencycentsing=$langs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents)."Sing".$currencycode);
+	if ($labelcurrencycentsing && $labelcurrencycentsing != -1 && $labelcurrencycentsing!='Currency'.ucfirst($handle->labelcents).'Sing'.$currencycode) $handle->labelcents=$labelcurrencycentsing;
 	else
 	{
-		$labelcurrencycent=$langs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents).$conf->currency);
-		if ($labelcurrencycent && $labelcurrencycent !='Currency'.ucfirst($handle->labelcents).$conf->currency) $handle->labelcents=$labelcurrencycent;
+		$labelcurrencycent=$langs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents).$currencycode);
+		if ($labelcurrencycent && $labelcurrencycent !='Currency'.ucfirst($handle->labelcents).$currencycode) $handle->labelcents=$labelcurrencycent;
 	}
 	//var_dump($handle->labelcurrency.'-'.$handle->labelcents);
 	//var_dump($labelcurrencycentsing.'-'.$labelcurrencycent);
@@ -143,8 +150,8 @@ function numberwords_getLabelFromNumber($langs,$number,$isamount=0)
 	// Call method of object handle to make convertion
 	if ($isamount)
 	{
-		//print "currency: ".$conf->currency;
-		$numberwords=$handle->toCurrency($number, $outlang, $conf->currency);
+		//print "currency: ".$currencycode;
+		$numberwords=$handle->toCurrency($number, $outlang, $currencycode);
 	}
 	else
 	{

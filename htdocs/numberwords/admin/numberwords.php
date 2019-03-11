@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2005-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2005-2019 Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
  * Copyright (C) 2007      Rodolphe Quiedeville <rodolphe@quiedeville.org>
  *
@@ -146,28 +146,22 @@ print '<td>&nbsp;</td>';
 print '<td>'.$langs->trans("Result").'</td>';
 print "</tr>\n";
 
-$var=true;
-
-$var=!$var;
-print '<tr '.$bc[$var].'><td width="140">'.$langs->trans("Number").'</td>';
+print '<tr class="oddeven"><td width="140">'.$langs->trans("Number").'</td>';
 print '<td>'.$object->number.'</td>';
 print '<td>'.$outputlangs->defaultlang.'</td>';
 print '<td>&nbsp;</td>';
 $newval=make_substitutions('__NUMBER_WORDS__',$substitutionarray);
 print '<td>'.$newval.'</td></tr>';
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td width="140">'.$langs->trans("Amount").'</td>';
+print '<tr class="oddeven"><td width="140">'.$langs->trans("Amount").'</td>';
 print '<td>'.$object->total_ttc.'</td>';
 print '<td>'.$outputlangs->defaultlang.'</td>';
 print '<td>&nbsp;</td>';
 $newval=make_substitutions('__TOTAL_TTC_WORDS__',$substitutionarray);
 print '<td>'.$newval.'</td></tr>';
 
-$var=!$var;
-print '<tr '.$bc[$var].'>';
-$val=$level;
-print '<td><select class="flat" name="level" '.$option.'>';
+print '<tr class="oddeven">';
+print '<td><select class="flat" name="level">';
 print '<option value="0" '.($_POST["level"]=='0'?'SELECTED':'').'>'.$langs->trans("Number").'</option>';
 print '<option value="1" '.($_POST["level"]=='1'?'SELECTED':'').'>'.$langs->trans("Amount").'</option>';
 print '</select>';
@@ -176,7 +170,7 @@ print '<td><input type="text" name="value" class="flat" value="'.$_POST["value"]
 print '<td>';
 print $htmlother->select_language($_POST["lang_id"]?$_POST["lang_id"]:$langs->defaultlang,'lang_id');
 print '</td>';
-print '<td><input type="submit" class="button" '.$option.' value="'.$langs->trans("ToTest").'"></td>';
+print '<td><input type="submit" class="button" value="'.$langs->trans("ToTest").'"></td>';
 print '<td><strong>'.$newvaltest.'</strong>';
 print '</td>';
 print '</tr>';

@@ -1,5 +1,9 @@
 # NUMBERWORDS MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
+## 5.0.1
+
+FIX Support for multicurrency.
+
 ## 5.0
 
 Support for multicurrency.
