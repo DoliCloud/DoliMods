@@ -175,7 +175,7 @@ print '</form>';
 print '<br><br>';
 
 
-print_titre($langs->trans("AddRootPath"));
+print '<div class="titre">'.$langs->trans("AddRootPath").'</div>';
 
 // Mode
 $var=true;
@@ -212,7 +212,7 @@ dol_fiche_end();
 print '<br>';
 
 
-print_titre($langs->trans("ListForRootPath"));
+print '<div class="titre">'.$langs->trans("ListForRootPath").'</div>';
 
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';

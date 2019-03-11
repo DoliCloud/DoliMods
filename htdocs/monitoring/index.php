@@ -343,7 +343,6 @@ if (empty($id))
     print_fiche_titre($langs->trans("Reports"));
 
     // Run probes
-    //print_titre($langs->trans("RunProbe"));
     print $langs->trans("RunProbeDesc").'<br><br>';
 
     // Confirmation de la suppression d'une ligne produit

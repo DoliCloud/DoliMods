@@ -176,7 +176,7 @@ if ($action != 'edit')
     $var=false;
 
     // Formulaire ajout
-    print_titre($langs->trans("AddProbe"));
+    print '<div class="titre">'.$langs->trans("AddProbe").'</div>';
 
     print '<form name="addnewprobe" action="'.$_SERVER["PHP_SELF"].'" method="post">';
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
@@ -302,7 +302,7 @@ if ($action != 'edit')
     print '<br>';
 
 
-    print_titre($langs->trans("ListOfProbes"));
+    print '<div class="titre">'.$langs->trans("ListOfProbes").'</div>';
 
     // Confirmation de la suppression d'une ligne produit
     if ($action == 'ask_deleteline')
@@ -396,8 +396,7 @@ else
     $probe=new Monitoring_probes($db);
     $result=$probe->fetch($id);
 
-    print_titre($langs->trans("EditProbe"));
-
+    print '<div class="titre">'.$langs->trans("EditProbe").'</div>';
 
     print '<form name="editprobe" action="'.$_SERVER["PHP_SELF"].'" method="post">';
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
