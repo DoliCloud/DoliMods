@@ -664,7 +664,7 @@ class ActionsSellyoursaas
 				{
     				if ($ispaid)
     				{
-    				    $ret .= '<span class="badge" style="font-size: 1em; background-color: green">'.$langs->trans("PayedMode").'</span>';
+    				    $ret .= '<span class="badge" style="font-size: 1em; background-color: green; color: #fff;">'.$langs->trans("PayedMode").'</span>';
     				    // nbofserviceswait, nbofservicesopened, nbofservicesexpired and nbofservicesclosed
     				    if (! $object->nbofservicesclosed)
     				    {
@@ -912,7 +912,7 @@ class ActionsSellyoursaas
 		    			dol_include_once('sellyoursaas/lib/sellyoursaas.lib.php');
 		    			$ret = '<div class="bold">';
 		    			$ispaid = sellyoursaasIsPaidInstance($contractmpforloop);
-		    			if ($ispaid) $ret .= '<span class="badge" style="font-size: 1em; background-color: green">'.$langs->trans("PayedMode").'</span>';
+		    			if ($ispaid) $ret .= '<span class="badge" style="font-size: 1em; background-color: green; color: #fff">'.$langs->trans("PayedMode").'</span>';
 		    			else $ret .= '<span class="badge" style="font-size: 1em">'.$langs->trans("TrialMode").'</span>';
 		    			$ret .= '</div>';
 
