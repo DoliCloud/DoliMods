@@ -599,7 +599,7 @@ class ActionsSellyoursaas
      */
     function formConfirm($parameters, &$object, &$action)
     {
-        global $db,$langs,$conf,$user,$form;
+        global $db, $langs, $conf, $user, $form;
 
         dol_syslog(get_class($this).'::doActions action='.$action);
         $langs->load("sellyoursaas@sellyoursaas");
@@ -609,8 +609,10 @@ class ActionsSellyoursaas
             // Clone confirmation
             $formquestion = array(array('type' => 'other','name' => 'socid','label' => $langs->trans("SelectThirdParty"),'value' => $form->select_company($object->thirdparty->id, 'socid', '(s.client=1 OR s.client=2 OR s.client=3)')));
             $formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id, $langs->trans('ChangeCustomer'), '', 'confirm_changecustomer', $formquestion, 'yes', 1);
-            print $formconfirm;
+            $this->resprints = $formconfirm;
         }
+
+        return 0;
     }
 
 
