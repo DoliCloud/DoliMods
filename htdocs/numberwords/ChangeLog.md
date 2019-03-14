@@ -3,6 +3,7 @@
 ## 5.0.1
 
 FIX Support for multicurrency.
+NEW Can replace label of currency with the symbol.
 
 ## 5.0
 

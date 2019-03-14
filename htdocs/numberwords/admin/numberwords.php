@@ -49,12 +49,13 @@ $langs->load("other");
 $langs->load("numberwords@numberwords");
 
 $newvaltest='';
-$outputlangs=new Translate('',$conf);
+$outputlangs=new Translate('', $conf);
 $outputlangs->setDefaultLang($langs->defaultlang);
 
-$action=GETPOST('action','aZ09');
-$value=GETPOST('value');
-$level=GETPOST('level','int');
+$action=GETPOST('action', 'aZ09');
+$value=GETPOST('value', 'nohtml');
+$valuetest=GETPOST('valuetest', 'nohtml');
+$level=GETPOST('level', 'int');
 
 if (empty($conf->numberwords->enabled))
 {
@@ -67,9 +68,17 @@ if (empty($conf->numberwords->enabled))
  * Actions
  */
 
+// Activate a model
+if ($action == 'set') {
+    $ret = dolibarr_set_const($db, $value, 1, 'chaine', 0, '', $conf->entity);
+}
+elseif ($action == 'del') {
+    $ret = dolibarr_del_const($db, $value, $conf->entity);
+}
+
 if ($action == 'test')
 {
-	if (trim($value) == '')
+	if (trim($valuetest) == '')
 	{
 		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Example")),'errors');
 	}
@@ -78,14 +87,15 @@ if ($action == 'test')
 		if ($_POST["lang_id"]) $outputlangs->setDefaultLang($_POST["lang_id"]);
 
 		$object = new StdClass();
+		$object->id = 1;
 		if ($level)
 		{
-			$object->total_ttc=price2num($value);
+			$object->total_ttc=price2num($valuetest);
 			$source='__TOTAL_TTC_WORDS__';
 		}
 		else
 		{
-			$object->number=price2num($value);
+			$object->number=price2num($valuetest);
 			$source='__NUMBER_WORDS__';
 		}
 
@@ -101,21 +111,21 @@ if ($action == 'test')
  * View
  */
 
+$htmlother=new FormAdmin($db);
+
 llxHeader();
 
 $object=new stdClass();
+$object->id=1;
 $object->number='989';
 $object->total_ttc='989.99';
 $substitutionarray=array();
 complete_substitutions_array($substitutionarray, $outputlangs, $object);
 
-$html=new Form($db);
-$htmlother=new FormAdmin($db);
-
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("NumberWordsSetup"),$linkback,'setup');
 
-print $langs->trans("DescNumberWords").'<br>';
+print '<span class="opacitymedium">'.$langs->trans("DescNumberWords").'</span><br>';
 print '<br>';
 
 
@@ -130,13 +140,42 @@ $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
 
-dol_fiche_head($head, 'tabsetup', '');
+dol_fiche_head($head, 'tabsetup', '', (((float) DOL_VERSION <= 8)?0:-1));
 
 
 // Mode
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="action" value="test">';
+
+print $langs->trans("NUMBERWORDS_USE_CURRENCY_SYMBOL");
+
+// Active
+if (! empty($conf->global->NUMBERWORDS_USE_CURRENCY_SYMBOL)) {
+    print '<a href="' . $_SERVER["PHP_SELF"] . '?action=del&value=NUMBERWORDS_USE_CURRENCY_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">';
+    print img_picto($langs->trans("Enabled"), 'switch_on');
+    print '</a>';
+
+    print '<br>';
+
+    print $langs->trans("NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL");
+    // Active
+    if (! empty($conf->global->NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL)) {
+        print '<a href="' . $_SERVER["PHP_SELF"] . '?action=del&value=NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">';
+        print img_picto($langs->trans("Enabled"), 'switch_on');
+        print '</a>';
+    }
+    else {
+        print '<a href="' . $_SERVER["PHP_SELF"] . '?action=set&value=NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">' . img_picto($langs->trans("Disabled"), 'switch_off') . '</a>';
+    }
+}
+else {
+    print '<a href="' . $_SERVER["PHP_SELF"] . '?action=set&value=NUMBERWORDS_USE_CURRENCY_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">' . img_picto($langs->trans("Disabled"), 'switch_off') . '</a>';
+}
+print '<br>';
+
+print '<br>';
+
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
 print '<td>'.$langs->trans("Type").'</td>';
@@ -162,13 +201,13 @@ print '<td>'.$newval.'</td></tr>';
 
 print '<tr class="oddeven">';
 print '<td><select class="flat" name="level">';
-print '<option value="0" '.($_POST["level"]=='0'?'SELECTED':'').'>'.$langs->trans("Number").'</option>';
-print '<option value="1" '.($_POST["level"]=='1'?'SELECTED':'').'>'.$langs->trans("Amount").'</option>';
+print '<option value="0" '.($level=='0'?'SELECTED':'').'>'.$langs->trans("Number").'</option>';
+print '<option value="1" '.($level=='1'?'SELECTED':'').'>'.$langs->trans("Amount").'</option>';
 print '</select>';
 print '</td>';
-print '<td><input type="text" name="value" class="flat" value="'.$_POST["value"].'"></td>';
+print '<td><input type="text" name="valuetest" class="flat" value="'.$valuetest.'"></td>';
 print '<td>';
-print $htmlother->select_language($_POST["lang_id"]?$_POST["lang_id"]:$langs->defaultlang,'lang_id');
+print $htmlother->select_language(GETPOST('lang_id','alpha')?GETPOST('lang_id','alpha'):$langs->defaultlang,'lang_id');
 print '</td>';
 print '<td><input type="submit" class="button" value="'.$langs->trans("ToTest").'"></td>';
 print '<td><strong>'.$newvaltest.'</strong>';
