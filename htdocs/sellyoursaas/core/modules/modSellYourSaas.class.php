@@ -422,7 +422,7 @@ class modSellYourSaas extends DolibarrModules
 		'titre'=>'Prospects',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_customers_prospects',
-		'url'=>'/societe/list.php?&search_options_dolicloud=v2&search_type=2,3&sortfield=s.tms&sortorder=desc',
+		'url'=>'/societe/list.php?&search_options_dolicloud=y&search_type=2,3&sortfield=s.tms&sortorder=desc',
 		'langs'=>'',
 		'position'=>233,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -437,7 +437,7 @@ class modSellYourSaas extends DolibarrModules
 		'titre'=>'Customers',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'mysaas_customers_customers',
-		'url'=>'/societe/list.php?&search_options_dolicloud=v2&search_type=1,3&sortfield=s.tms&sortorder=desc',
+		'url'=>'/societe/list.php?&search_options_dolicloud=y&search_type=1,3&sortfield=s.tms&sortorder=desc',
 		'langs'=>'',
 		'position'=>234,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -628,7 +628,12 @@ class modSellYourSaas extends DolibarrModules
 
 		// Thirdparty
 		$resultx=$extrafields->addExtraField('separatorthirdparty',       "SELLYOURSAAS_NAME", 'separate',100,    '', 'thirdparty', 0, 1, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
-		$param=array('options'=>array('no'=>'No','yesv1'=>'V1','yesv2'=>'V2'));
+		$arrayoptions=array(
+		    'no'=>'No',
+		    //'yesv1'=>'Yes (v1)',
+		    'yesv2'=>'Yes'
+		);
+		$param=array('options'=>$arrayoptions);
 		$resultx=$extrafields->addExtraField('dolicloud',                       "SaasCustomer",   'select',102,   '3', 'thirdparty', 0, 1, '', $param, 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('date_registration',           "RegistrationDate", 'datetime',103,    '', 'thirdparty', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('source',                                "Source",  'varchar',104,  '64', 'thirdparty', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
