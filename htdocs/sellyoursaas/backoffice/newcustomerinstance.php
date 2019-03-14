@@ -77,16 +77,6 @@ $instancetocreate=GETPOST('instancetocreate','alpha');
 $error = 0; $errors = array();
 
 
-// For old data
-$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
-if ($db2->error)
-{
-	dol_print_error($db2,"host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db2->error);
-	exit;
-}
-$dolicloudcustomer = new Dolicloud_customers($db,$db2);
-
-
 // Security check
 $user->rights->sellyoursaas->delete = $user->rights->sellyoursaas->write;
 $result = restrictedArea($user, 'sellyoursaas', 0, '','');
@@ -110,698 +100,671 @@ $reshook=$hookmanager->executeHooks('doActions',$parameters,$object,$action);   
 
 if (empty($reshook))
 {
-	// Cancel
-	if (GETPOST('cancel','alpha') && ! empty($backtopage))
-	{
-		header("Location: ".$backtopage);
-		exit;
-	}
-
-
-	// Search if a thirdparty already exists
-	if (GETPOST('loadthirdparty') && (GETPOST('email') || GETPOST('instance') || GETPOST('thirdparty_id') > 0))
-	{
-		$emailtocreate = '';
-		$instancetocreate = '';
-		$nametocreate = '';
-		$paymentmodetocreate = '';
-		$_POST['nametocreate'] = '';
-		$_POST['emailtocreate'] = '';
-		$_POST['mode_reglement_id'] = '';
-
-		$result = $object->fetch((GETPOST('thirdparty_id') > 0 ? GETPOST('thirdparty_id') : 0), '', '', '','','','','','', '', GETPOST('email'));
-
-		if (GETPOST('instance'))
-		{
-			$contracttosearch=new Contrat($db);
-
-			$instancetosearch = GETPOST('instance');
-
-			// Add with.dolicloud.com to have a complete instance id
-			if (! empty($instancetosearch) && ! preg_match('/\.dolicloud\.com$/',$instancetosearch)) $instancetosearch=$instancetosearch.'.with.dolicloud.com';
-			$result = $contracttosearch->fetch(0, '', $instancetosearch);
-			if ($result > 0 && $contracttosearch->socid > 0)
-			{
-				$result = $object->fetch($contracttosearch->socid);
-			}
-
-			// If third party not found, we try with v1 name
-			if (empty($object->id))
-			{
-				$instancetosearch = GETPOST('instance');
-
-				// Add on.dolicloud.com to have a complete instance id
-				if (! empty($instancetosearch) && ! preg_match('/\.dolicloud\.com$/',$instancetosearch)) $instancetosearch=$instancetosearch.'.on.dolicloud.com';
-				$result = $contracttosearch->fetch(0, '', $instancetosearch);
-				if ($result > 0 && $contracttosearch->socid > 0)
-				{
-					$result = $object->fetch($contracttosearch->socid);
-				}
-			}
-		}
-
-		$emailtosearchinold = GETPOST('email');
-		$instancetosearchinold = GETPOST('instance');
-		if (empty($emailtosearchinold)) $emailtosearchinold = $object->email;
-
-		// Search also on data from old v1 mirror table
-		if ($emailtosearchinold || $instancetosearchinold)
-		{
-			$result = $dolicloudcustomer->fetch(0, $instancetosearchinold, '', $emailtosearchinold);
-			if ($result > 0)
-			{
-				if (empty($object->id))	// Failed to find in dolibarr
-				{
-					$object->name = $dolicloudcustomer->getFullName($langs);
-					$object->email = $dolicloudcustomer->email;
-
-					$paymentmodeid = 100;	// Stripe by default
-
-					if ($dolicloudcustomer->payment_type == 'paypal') $paymentmodeid = 101;
-					if ($dolicloudcustomer->manual_collection) $paymentmodeid = 0;
-					$dolicloudcustomer->mode_reglement_id = $paymentmodeid;
-
-					$object->mode_reglement_id = $paymentmodeid;
-					$object->manual_collection = $dolicloudcustomer->manual_collection;
-				}
-			}
-		}
-	}
-
-
-	// Add customer
-	if ($action == 'add' && $user->rights->sellyoursaas->write)
-	{
-		$db->begin();
-
-		$object=new Societe($db);
-
-		if (! empty($canvas)) $object->canvas=$canvas;
-
-		$instancetocreate = GETPOST('instancetocreate','alpha');
-		$productidtocreate = GETPOST('producttocreate','alpha');
-		$productidtocreateforusers = GETPOST('productforuserstocreate','alpha');
-		$thirdpartyidselected = GETPOST('thirdpartyidselected','int');
-
-
-		// Search info v1 database to find more information
-		$result = $dolicloudcustomer->fetch(0, $instancetocreate);
-
-		if ($thirdpartyidselected > 0)
-		{
-			$object->fetch($thirdpartyidselected);
-
-			// Set flag client if not set
-			$object->client |= 1;
-
-			$checkinstance=0;
-			if (preg_match('/\.on\./', $instancetocreate))   { $checkinstance=1; $object->array_options['options_dolicloud']='yesv1'; }
-			if (preg_match('/\.with\./', $instancetocreate)) { $checkinstance=1; $object->array_options['options_dolicloud']='yesv1'; }
-
-			if (! $checkinstance)
-			{
-				$error++;
-				setEventMEssages($langs->trans("ErrorBadValueForInstance", $instancetocreate), null, 'errors');
-				$action = 'create2';
-				$_POST['loadthirdparty']='load';
-			}
-			else
-			{
-				$object->update($object->id, $user);
-
-				if (! $error && ($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG > 0))
-				{
-					$custcats = array($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG);
-					$object->setCategories($custcats, 'customer');
-				}
-			}
-		}
-		else
-		{
-			// Create customer
-
-			$object->name	= GETPOST('nametocreate');
-			$object->email	= GETPOST('emailtocreate');
-			$object->mode_reglement_id = GETPOST('mode_reglement_id','int');
-
-			$checkinstance=0;
-			if (preg_match('/\.on\./', $instancetocreate))   { $checkinstance=1; $object->array_options['options_dolicloud']='yesv1'; }
-			if (preg_match('/\.with\./', $instancetocreate)) { $checkinstance=1; $object->array_options['options_dolicloud']='yesv2'; }
-
-			if (! $checkinstance)
-			{
-				$error++;
-				setEventMEssages($langs->trans("ErrorBadValueForInstance", $instancetocreate), null, 'errors');
-				$action = 'create2';
-				$_POST['loadthirdparty']='load';
-			}
-
-			if ($dolicloudcustomer->id > 0)
-			{
-				if (empty($object->name)) $object->name = $dolicloudcustomer->organization;
-				if (empty($object->mode_reglement_id)) $object->mode_reglement_id = $dolicloudcustomer->mode_reglement_id;
-				$object->client=1;
-				$object->code_client=-1;
-				$object->name_alias = $dolicloudcustomer->getFullName($langs);
-				$object->address = $dolicloudcustomer->address;
-				$object->zip = $dolicloudcustomer->zip;
-				$object->town = $dolicloudcustomer->town;
-
-				$country_id = dol_getIdFromCode($db, $dolicloudcustomer->country_code, 'c_country', 'code', 'rowid');
-				if ($country_id > 0)
-				{
-					$object->country_id = $country_id;
-					$object->country_code = $dolicloudcustomer->country_code;
-				}
-				else
-				{
-					$object->country_id = 11;		// USA
-					$object->country_code = 'US';
-				}
-
-				$object->phone = $dolicloudcustomer->phone;
-				$object->tva_intra=$dolicloudcustomer->vat_number;
-				$locale=$dolicloudcustomer->locale;
-				if ($locale)
-				{
-					$localearray=explode('_',$locale);
-					$object->default_lang=$localearray[0].'_'.strtoupper($localearray[1]?$localearray[1]:$localearray[0]);
-				}
-				$object->array_options['options_date_registration']=$dolicloudcustomer->date_registration;
-				$object->array_options['options_source']='BACKOFFICE';
-				if ($dolicloudcustomer->status == 'ACTIVE') $object->status = 1;
-				else $object->status = 0;
-
-				$object->ref_ext = $dolicloudcustomer->customer_id;
-				$object->import_id = 'doliv1_'.$dolicloudcustomer->customer_id;
-			}
-
-			// If name not defined, we choosse email
-			if (empty($object->name)) $object->name = $object->email;
-
-			/*
-			if (empty($_POST["instance"]) || empty($_POST["organization"]) || empty($_POST["plan"]) || empty($_POST["email"]))
-			{
-				$error++; $errors[]=$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Instance").",".$langs->transnoentitiesnoconv("Organization").",".$langs->transnoentitiesnoconv("Plan").",".$langs->transnoentitiesnoconv("EMail"));
-				$action = 'create';
-			}*/
-
-			if (! $error)
-			{
-				$id =  $object->create($user);
-				if ($id <= 0)
-				{
-					$error++;
-					setEventMessages('', array_merge($errors,($object->error?array($object->error):$object->errors)), 'errors');
-					$action = 'create2';
-					$_POST['loadthirdparty']='load';
-				}
-
-				if (! $error && ($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG > 0))
-				{
-					$custcats = array($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG);
-					$object->setCategories($custcats, 'customer');
-				}
-
-				$thirdpartyidselected = $id;
-			}
-		}
-
-		// Now we create new contract/instance
-		if (! $error && $thirdpartyidselected > 0)
-		{
-			$contract = new Contrat($db);
-			if ($dolicloudcustomer->id > 0)
-			{
-				$contract->context['fromdolicloudcustomerv1']=1;
-			}
-
-			$contract->ref_customer = $instancetocreate;
-			$contract->date_contrat = dol_now();
-			$contract->socid=$thirdpartyidselected;
-			$contract->commercial_suivi_id = $user->id;
-			$contract->commercial_signature_id = $user->id;
-			/*$sql = "SELECT rowid, statut, ref, fk_soc, mise_en_service as datemise,";
-			$sql.= " ref_supplier, ref_customer,";
-			$sql.= " ref_ext,";
-			$sql.= " fk_user_mise_en_service, date_contrat as datecontrat,";
-			$sql.= " fk_user_author, fin_validite, date_cloture,";
-			$sql.= " fk_projet,";
-			$sql.= " fk_commercial_signature, fk_commercial_suivi,";
-			$sql.= " note_private, note_public, model_pdf, extraparams";
-			$sql.= " FROM ".MAIN_DB_PREFIX."contrat";
-			$sql.= " WHERE ref_ext='".$db->escape($ref)."'";
-			$sql.= " AND entity IN (".getEntity('contract', 0).")";
-			$sql.= " AND statut = 1";*/
-
-			if ($dolicloudcustomer->id > 0)
-			{
-				$contract->array_options['options_date_registration']=$dolicloudcustomer->date_registration;
-				$contract->array_options['options_date_endfreeperiod']=$dolicloudcustomer->date_endfreeperiod;
-
-				$contract->array_options['options_plan']       =$dolicloudcustomer->plan;
-				$contract->array_options['options_hostname_os']=$dolicloudcustomer->hostname_web;
-				$contract->array_options['options_username_os']=$dolicloudcustomer->username_web;
-				$contract->array_options['options_password_os']=$dolicloudcustomer->password_web;
-				$contract->array_options['options_hostname_db']=$dolicloudcustomer->hostname_db;
-				$contract->array_options['options_database_db']=$dolicloudcustomer->database_db;
-				$contract->array_options['options_port_db']    =$dolicloudcustomer->port_db?$dolicloudcustomer->port_db:3306;
-				$contract->array_options['options_username_db']=$dolicloudcustomer->username_db;
-				$contract->array_options['options_password_db']=$dolicloudcustomer->password_db;
-
-				$contract->array_options['fileauthorizekey']   =$dolicloudcustomer->fileauthorizekey;
-				$contract->array_options['filelock']           =$dolicloudcustomer->filelock;
-
-				$contract->ref_ext = $dolicloudcustomer->id;
-				$contract->import_id = 'doliv1_'.$dolicloudcustomer->id;
-			}
-
-			$nbusers = 0;
-			$nbgb = 0;
-			if (! empty($contract->array_options['options_hostname_db']) && ! empty($contract->array_options['options_database_db']))
-			{
-				// Scan remote instance to get fresh data
-				$result = refreshContract($contract);
-
-				if ($result['error'])
-				{
-					$error++;
-					setEventMessages($result['error'], null, 'errors');
-				}
-				else
-				{
-					//$contract->array_options['options_nb_users'] = $result['nb_users'];
-					//$contract->array_options['options_nb_gb'] = $result['nb_gb'];
-					$nbusers = $result['nb_users'];
-					$nbgb = $result['nb_gb'];
-				}
-			}
-
-			if ($dolicloudcustomer->id > 0)
-			{
-				$contract->note_private = 'Value in V1 when created: plan='.$dolicloudcustomer->plan.', price_instance='.$dolicloudcustomer->price_instance.", price_per_user=".$dolicloudcustomer->price_user.", users=".$dolicloudcustomer->nbofusers;
-			}
-			if ($dolicloudcustomer->id > 0)
-			{
-				$contract->context['fromdolicloudcustomerv1']=1;
-			}
-
-			/*var_dump($contract->array_options);
-			var_dump($instancetocreate);
-			var_dump($productidtocreate);
-			var_dump($thirdpartyidselected);
-			exit;*/
-			$idcontract = $contract->create($user);
-
-			if ($idcontract <= 0)
-			{
-				$error++;
-				setEventMessages('', array_merge($errors,($contract->error?array($contract->error):$contract->errors)), 'errors');
-				$action = 'create2';
-				$_POST['loadthirdparty']='load';
-			}
-
-			if (! $error)
-			{
-				// Contract for instance
-
-				$date_start=dol_now();
-				$date_end=null;
-				if ($contract->array_options['options_date_endfreeperiod'] && $contract->array_options['options_date_endfreeperiod'] > $date_start)
-				{
-					$date_start = dol_time_plus_duree($contract->array_options['options_date_endfreeperiod'], 1, 'd');
-				}
-				// If we have an ending period, we use it for start of next invoice
-				if ($dolicloudcustomer->id > 0 && $dolicloudcustomer->date_current_period_end)
-				{
-					$date_start = dol_time_plus_duree($dolicloudcustomer->date_current_period_end, 1, 'd');
-				}
-				/*
-				var_dump(dol_print_date($dolicloudcustomer->date_current_period_end,'dayhour'));
-				var_dump(dol_print_date($dolicloudcustomer->date_endfreeperiod,'dayhour'));
-				var_dump($date_start);exit;
-				*/
-
-				$product=new Product($db);
-				$product->fetch($productidtocreate);
-				if (empty($product->id))
-				{
-					$error++;
-					setEventMessages($product->error, $product->errors, 'errors');
-				}
-				else
-				{
-					if (empty($product->duration_value) || empty($product->duration_unit))
-					{
-						$error++;
-						setEventMessages('The product '.$product->ref.' has no default duration');
-					}
-					else
-					{
-						$frequeny_multiple = GETPOST('frequency_multiple','int');
-						$i = 1;
-						$now = dol_now();
-						while (dol_time_plus_duree($date_start, $product->duration_value * $i * $frequeny_multiple, $product->duration_unit) < $now)
-						{
-							$i++;
-						}
-						$date_end=dol_time_plus_duree($date_start, $product->duration_value * $i * $frequeny_multiple, $product->duration_unit);
-					}
-				}
-				$save_date_end = $date_end;
-				//var_dump("$nb_user, $product->tva_tx, $product->localtax1_tx, $product->localtax2_tx, $productidtocreate, 0, ".dol_print_date($date_start, 'dayhourlog')." - ".dol_print_date($date_end, 'dayhourlog'));exit;
-
-				$productforusers=new Product($db);
-				$productforusers->fetch($productidtocreateforusers);
-				if (empty($productforusers->id))
-				{
-					$error++;
-					setEventMessages($productforusers->error, $productforusers->errors, 'errors');
-				}
-
-
-				//$discount = GETPOST('discount');
-				$discount = 0;	// Discount for contracts is zero.
-
-				// Create contract line for INSTANCE
-				if (! $error)
-				{
-					if (empty($object->country_code))
-					{
-						$object->country_code = dol_getIdFromCode($db, $object->country_id, 'c_country', 'rowid', 'code');
-					}
-					$qty = 1;
-					//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
-					$vat = get_default_tva($mysoc, $object, $product->id);
-					$localtax1_tx = get_default_localtax($mysoc, $object, 1, $product->id);
-					$localtax2_tx = get_default_localtax($mysoc, $object, 2, $product->id);
-					//var_dump($mysoc->country_code);
-					//var_dump($object->country_code);
-					//var_dump($product->tva_tx);
-					//var_dump($vat);exit;
-
-					$price = $product->price;
-					if ($dolicloudcustomer->id > 0)
-					{
-						$price = $dolicloudcustomer->price_instance;
-						if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
-					}
-
-					if ($price == 0) $discount = 0;
-
-					$contactlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreate, $discount, $date_start, $date_end, 'HT', 0);
-					if ($contactlineid < 0)
-					{
-						$error++;
-						setEventMessages($contract->error, $contract->errors, 'errors');
-					}
-				}
-
-				//var_dump('user:'.$dolicloudcustomer->price_user);
-				//var_dump('instance:'.$dolicloudcustomer->price_instance);
-				//exit;
-
-				// Create contract line for USERS
-				if (! $error)
-				{
-					$qty = 0;
-					//if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
-					if ($nbusers > 0) $qty = $nbusers;
-					$vat = get_default_tva($mysoc, $object, 0);
-					$localtax1_tx = get_default_localtax($mysoc, $object, 1, $productforusers->id);
-					$localtax2_tx = get_default_localtax($mysoc, $object, 2, $productforusers->id);
-
-					$price = $productforusers->price;
-					if ($dolicloudcustomer->id > 0)
-					{
-						$price = $dolicloudcustomer->price_user;
-						if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
-					}
-
-					if ($price > 0 && $qty > 0)
-					{
-						$contactlineid = $contract->addline('Additional users', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreateforusers, $discount, $date_start, $date_end, 'HT', 0);
-						if ($contactlineid < 0)
-						{
-							$error++;
-							setEventMessages($contract->error, $contract->errors, 'errors');
-						}
-					}
-				}
-
-				// Activate all lines
-				if (! $error)
-				{
-					if ($dolicloudcustomer->id > 0)
-					{
-						$contract->context['fromdolicloudcustomerv1']=1;
-					}
-					$result = $contract->activateAll($user);
-					if ($result <= 0)
-					{
-						$error++;
-						setEventMessages($contract->error, $contract->errors, 'errors');
-					}
-				}
-			}
-			/*var_dump($dolicloudcustomer->price_instance);
-			var_dump($dolicloudcustomer->price_user);
-			exit;*/
-
-			// Now create invoice draft
-			$dateinvoice = $contract->array_options['options_date_endfreeperiod'];
-			if (empty($dateinvoice) && $dolicloudcustomer->id > 0) $dateinvoice = $dolicloudcustomer->date_current_period_end;
-
-			$invoice_draft = new Facture($db);
-
-			// Create empty invoice
-			if (! $error)
-			{
-				$invoice_draft->socid				= $thirdpartyidselected;
-				$invoice_draft->type				= Facture::TYPE_STANDARD;
-				$invoice_draft->number				= '';
-				$invoice_draft->date				= $dateinvoice;
-
-				$invoice_draft->note_private		= 'Created by the new instance page';
-
-				$invoice_draft->mode_reglement_id	= (GETPOST('mode_reglement_id','int') > 0 ? GETPOST('mode_reglement_id','int') : $thirdparty->mode_reglement_id);
-				$invoice_draft->cond_reglement_id	= dol_getIdFromCode($db, 'RECEP', 'c_payment_term', 'code', 'rowid');
-
-	            $invoice_draft->fk_account          = 5;												// fiducial
-	            if ($invoice_draft->mode_reglement_id == 100) $invoice_draft->fk_account          = $conf->global->STRIPE_BANK_ACCOUNT_FOR_PAYMENTS;	// stripe
-	            if ($invoice_draft->mode_reglement_id == 101) $invoice_draft->fk_account          = $conf->global->PAYPAL_BANK_ACCOUNT_FOR_PAYMENTS;	// paypal
-
-				$invoice_draft->fetch_thirdparty();
-
-				$origin='contrat';
-				$originid=$idcontract;
-
-				$invoice_draft->origin = $origin;
-				$invoice_draft->origin_id = $originid;
-
-				// Possibility to add external linked objects with hooks
-				$invoice_draft->linked_objects[$invoice_draft->origin] = $invoice_draft->origin_id;
-
-				$idinvoice = $invoice_draft->create($user);      // This include class to add_object_linked() and add add_contact()
-				if (! ($idinvoice > 0))
-				{
-					setEventMessages($invoice_draft->error, $invoice_draft->errors, 'errors');
-					$error++;
-				}
-			}
-			// Add line on invoice
-			if (! $error)
-			{
-				// Add lines of invoice
-				$srcobject = $contract;
-
-				$lines = $srcobject->lines;
-				if (empty($lines) && method_exists($srcobject, 'fetch_lines'))
-				{
-					$srcobject->fetch_lines();
-					$lines = $srcobject->lines;
-				}
-
-				$date_start = false;
-				$fk_parent_line=0;
-				$num=count($lines);
-				for ($i=0;$i<$num;$i++)
-				{
-					$label=(! empty($lines[$i]->label)?$lines[$i]->label:'');
-					$desc=(! empty($lines[$i]->desc)?$lines[$i]->desc:$lines[$i]->libelle);
-					if ($invoice_draft->situation_counter == 1) $lines[$i]->situation_percent =  0;
-
-					// Positive line
-					$product_type = ($lines[$i]->product_type ? $lines[$i]->product_type : 0);
-
-					// Date start
-					$date_start = false;
-					if ($lines[$i]->date_debut_prevue)
-						$date_start = $lines[$i]->date_debut_prevue;
-					if ($lines[$i]->date_debut_reel)
-						$date_start = $lines[$i]->date_debut_reel;
-					if ($lines[$i]->date_start)
-						$date_start = $lines[$i]->date_start;
-
-					// Date end
-					$date_end = false;
-					if ($lines[$i]->date_fin_prevue)
-						$date_end = $lines[$i]->date_fin_prevue;
-					if ($lines[$i]->date_fin_reel)
-						$date_end = $lines[$i]->date_fin_reel;
-					if ($lines[$i]->date_end)
-						$date_end = $lines[$i]->date_end;
-
-					// Reset fk_parent_line for no child products and special product
-					if (($lines[$i]->product_type != 9 && empty($lines[$i]->fk_parent_line)) || $lines[$i]->product_type == 9) {
-						$fk_parent_line = 0;
-					}
-
-					// Discount
-					$discount = $lines[$i]->remise_percent;
-					if (empty($discount) && GETPOST('discount'))
-					{
-						$discount = GETPOST('discount');
-					}
-
-					// Extrafields
-					if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED) && method_exists($lines[$i], 'fetch_optionals')) {
-						$lines[$i]->fetch_optionals($lines[$i]->rowid);
-						$array_options = $lines[$i]->array_options;
-					}
-
-					$tva_tx = $lines[$i]->tva_tx;
-					if (! empty($lines[$i]->vat_src_code) && ! preg_match('/\(/', $tva_tx)) $tva_tx .= ' ('.$lines[$i]->vat_src_code.')';
-
-					// View third's localtaxes for NOW and do not use value from origin.
-					$localtax1_tx = get_localtax($tva_tx, 1, $invoice_draft->thirdparty);
-					$localtax2_tx = get_localtax($tva_tx, 2, $invoice_draft->thirdparty);
-
-					//$price_invoice_template_line = $lines[$i]->subprice * GETPOST('frequency_multiple','int');
-					$price_invoice_template_line = $lines[$i]->subprice;
-
-					$result = $invoice_draft->addline($desc, $price_invoice_template_line, $lines[$i]->qty, $tva_tx, $localtax1_tx, $localtax2_tx, $lines[$i]->fk_product, $discount, $date_start, $date_end, 0, $lines[$i]->info_bits, $lines[$i]->fk_remise_except, 'HT', 0, $product_type, $lines[$i]->rang, $lines[$i]->special_code, $invoice_draft->origin, $lines[$i]->rowid, $fk_parent_line, $lines[$i]->fk_fournprice, $lines[$i]->pa_ht, $label, $array_options, $lines[$i]->situation_percent, $lines[$i]->fk_prev_id, $lines[$i]->fk_unit);
-
-					if ($result > 0) {
-						$lineid = $result;
-					} else {
-						$lineid = 0;
-						$error ++;
-						break;
-					}
-
-					// Defined the new fk_parent_line
-					if ($result > 0 && $lines[$i]->product_type == 9) {
-						$fk_parent_line = $result;
-					}
-				}
-			}
-
-			// Now we convert invoice into a template
-			if (! $error)
-			{
-				//var_dump($invoice_draft->lines);
-				//var_dump(dol_print_date($date_start,'dayhour'));
-				//exit;
-
-				$frequency=1;
-				$tmp=dol_getdate($date_start?$date_start:$now);
-				$reyear=$tmp['year'];
-				$remonth=$tmp['mon'];
-				$reday=$tmp['mday'];
-				$rehour=$tmp['hours'];
-				$remin=$tmp['minutes'];
-				$nb_gen_max=0;
-				//print dol_print_date($date_start,'dayhour');
-				//var_dump($remonth);
-
-				$invoice_rec = new FactureRec($db);
-
-				$invoice_rec->titre = 'Template invoice for '.$contract->ref.' '.$contract->ref_customer;
-				$invoice_rec->note_private = $contract->note_private;
-				//$invoice_rec->note_public  = dol_concatdesc($contract->note_public, '__(Period)__ : __INVOICE_DATE_NEXT_INVOICE_BEFORE_GEN__ - __INVOICE_DATE_NEXT_INVOICE_AFTER_GEN__');
-				$invoice_rec->note_public  = $contract->note_public;
-				$invoice_rec->mode_reglement_id = $invoice_draft->mode_reglement_id;
-
-				$invoice_rec->usenewprice = 0;
-
-				$invoice_rec->frequency = GETPOST('frequency_multiple','int');
-				$invoice_rec->unit_frequency = 'm';
-				$invoice_rec->nb_gen_max = $nb_gen_max;
-				$invoice_rec->auto_validate = 0;
-
-				$invoice_rec->fk_project = 0;
-
-				$date_next_execution = dol_mktime($rehour, $remin, 0, $remonth, $reday, $reyear);
-				$invoice_rec->date_when = $date_next_execution;
-
-				// Get first contract linked to invoice used to generate template
-				if ($invoice_draft->id > 0)
-				{
-					$srcObject = $invoice_draft;
-
-					$srcObject->fetchObjectLinked();
-
-					if (! empty($srcObject->linkedObjectsIds['contrat']))
-					{
-						$contractidid = reset($srcObject->linkedObjectsIds['contrat']);
-
-						$invoice_rec->origin = 'contrat';
-						$invoice_rec->origin_id = $contractidid;
-						$invoice_rec->linked_objects[$invoice_draft->origin] = $invoice_draft->origin_id;
-					}
-				}
-
-				$oldinvoice = new Facture($db);
-				$oldinvoice->fetch($invoice_draft->id);
-
-				$result = $invoice_rec->create($user, $oldinvoice->id);
-				if ($result > 0)
-				{
-					$sql = 'UPDATE '.MAIN_DB_PREFIX.'facturedet_rec SET date_start_fill = 1, date_end_fill = 1 WHERE fk_facture = '.$invoice_rec->id;
-					$result = $db->query($sql);
-					if (! $error && $result < 0)
-					{
-						$error++;
-						setEventMessages($db->lasterror(), null, 'errors');
-					}
-
-					$result=$oldinvoice->delete($user, 1);
-					if (! $error && $result < 0)
-					{
-						$error++;
-						setEventMessages($oldinvoice->error, $oldinvoice->errors, 'errors');
-					}
-				}
-				else
-				{
-					$error++;
-					setEventMessages($invoice_rec->error, $invoice_rec->errors, 'errors');
-				}
-			}
-		}
-
-		if (! $error && $thirdpartyidselected > 0 && $idcontract > 0)
-		{
-			$db->commit();
-			if (! empty($backtopage)) $url=$backtopage;
-			else $url=DOL_URL_ROOT.'/contrat/card.php?id='.$idcontract;
-			Header("Location: ".$url);
-			exit;
-		}
-		else
-		{
-			$db->rollback();
-			unset($object);
-			$object=new Societe($db);
-			$action='create2';
-			$_POST['loadthirdparty']='load';
-		}
-	}
-
-
-	// Add action to create file, etc...
-	include 'refresh_action.inc.php';
+    // Cancel
+    if (GETPOST('cancel','alpha') && ! empty($backtopage))
+    {
+        header("Location: ".$backtopage);
+        exit;
+    }
+
+
+    // Search if a thirdparty already exists
+    if (GETPOST('loadthirdparty') && (GETPOST('email') || GETPOST('instance') || GETPOST('thirdparty_id') > 0))
+    {
+        $emailtocreate = '';
+        $instancetocreate = '';
+        $nametocreate = '';
+        $paymentmodetocreate = '';
+        $_POST['nametocreate'] = '';
+        $_POST['emailtocreate'] = '';
+        $_POST['mode_reglement_id'] = '';
+
+        $result = $object->fetch((GETPOST('thirdparty_id') > 0 ? GETPOST('thirdparty_id') : 0), '', '', '','','','','','', '', GETPOST('email'));
+
+        if (GETPOST('instance'))
+        {
+            $contracttosearch=new Contrat($db);
+
+            $instancetosearch = GETPOST('instance');
+
+            // Add with.dolicloud.com to have a complete instance id
+            if (! empty($instancetosearch) && ! preg_match('/\.dolicloud\.com$/',$instancetosearch)) $instancetosearch=$instancetosearch.'.with.dolicloud.com';
+            $result = $contracttosearch->fetch(0, '', $instancetosearch);
+            if ($result > 0 && $contracttosearch->socid > 0)
+            {
+                $result = $object->fetch($contracttosearch->socid);
+            }
+
+            // If third party not found, we try with v1 name
+            if (empty($object->id))
+            {
+                $instancetosearch = GETPOST('instance');
+
+                // Add on.dolicloud.com to have a complete instance id
+                if (! empty($instancetosearch) && ! preg_match('/\.dolicloud\.com$/',$instancetosearch)) $instancetosearch=$instancetosearch.'.on.dolicloud.com';
+                $result = $contracttosearch->fetch(0, '', $instancetosearch);
+                if ($result > 0 && $contracttosearch->socid > 0)
+                {
+                    $result = $object->fetch($contracttosearch->socid);
+                }
+            }
+        }
+    }
+
+
+    // Add customer
+    if ($action == 'add' && $user->rights->sellyoursaas->write)
+    {
+        $db->begin();
+
+        $object=new Societe($db);
+
+        if (! empty($canvas)) $object->canvas=$canvas;
+
+        $instancetocreate = GETPOST('instancetocreate','alpha');
+        $productidtocreate = GETPOST('producttocreate','alpha');
+        $productidtocreateforusers = GETPOST('productforuserstocreate','alpha');
+        $thirdpartyidselected = GETPOST('thirdpartyidselected','int');
+
+
+        // Search info v1 database to find more information
+        $result = $dolicloudcustomer->fetch(0, $instancetocreate);
+
+        if ($thirdpartyidselected > 0)
+        {
+            $object->fetch($thirdpartyidselected);
+
+            // Set flag client if not set
+            $object->client |= 1;
+
+            $checkinstance=0;
+            if (preg_match('/\.on\./', $instancetocreate))   { $checkinstance=1; $object->array_options['options_dolicloud']='yesv1'; }
+            if (preg_match('/\.with\./', $instancetocreate)) { $checkinstance=1; $object->array_options['options_dolicloud']='yesv1'; }
+
+            if (! $checkinstance)
+            {
+                $error++;
+                setEventMEssages($langs->trans("ErrorBadValueForInstance", $instancetocreate), null, 'errors');
+                $action = 'create2';
+                $_POST['loadthirdparty']='load';
+            }
+            else
+            {
+                $object->update($object->id, $user);
+
+                if (! $error && ($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG > 0))
+                {
+                    $custcats = array($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG);
+                    $object->setCategories($custcats, 'customer');
+                }
+            }
+        }
+        else
+        {
+            // Create customer
+
+            $object->name	= GETPOST('nametocreate');
+            $object->email	= GETPOST('emailtocreate');
+            $object->mode_reglement_id = GETPOST('mode_reglement_id','int');
+
+            $checkinstance=0;
+            if (preg_match('/\.on\./', $instancetocreate))   { $checkinstance=1; $object->array_options['options_dolicloud']='yesv1'; }
+            if (preg_match('/\.with\./', $instancetocreate)) { $checkinstance=1; $object->array_options['options_dolicloud']='yesv2'; }
+
+            if (! $checkinstance)
+            {
+                $error++;
+                setEventMEssages($langs->trans("ErrorBadValueForInstance", $instancetocreate), null, 'errors');
+                $action = 'create2';
+                $_POST['loadthirdparty']='load';
+            }
+
+            if ($dolicloudcustomer->id > 0)
+            {
+                if (empty($object->name)) $object->name = $dolicloudcustomer->organization;
+                if (empty($object->mode_reglement_id)) $object->mode_reglement_id = $dolicloudcustomer->mode_reglement_id;
+                $object->client=1;
+                $object->code_client=-1;
+                $object->name_alias = $dolicloudcustomer->getFullName($langs);
+                $object->address = $dolicloudcustomer->address;
+                $object->zip = $dolicloudcustomer->zip;
+                $object->town = $dolicloudcustomer->town;
+
+                $country_id = dol_getIdFromCode($db, $dolicloudcustomer->country_code, 'c_country', 'code', 'rowid');
+                if ($country_id > 0)
+                {
+                    $object->country_id = $country_id;
+                    $object->country_code = $dolicloudcustomer->country_code;
+                }
+                else
+                {
+                    $object->country_id = 11;		// USA
+                    $object->country_code = 'US';
+                }
+
+                $object->phone = $dolicloudcustomer->phone;
+                $object->tva_intra=$dolicloudcustomer->vat_number;
+                $locale=$dolicloudcustomer->locale;
+                if ($locale)
+                {
+                    $localearray=explode('_',$locale);
+                    $object->default_lang=$localearray[0].'_'.strtoupper($localearray[1]?$localearray[1]:$localearray[0]);
+                }
+                $object->array_options['options_date_registration']=$dolicloudcustomer->date_registration;
+                $object->array_options['options_source']='BACKOFFICE';
+                if ($dolicloudcustomer->status == 'ACTIVE') $object->status = 1;
+                else $object->status = 0;
+
+                $object->ref_ext = $dolicloudcustomer->customer_id;
+                $object->import_id = 'doliv1_'.$dolicloudcustomer->customer_id;
+            }
+
+            // If name not defined, we choosse email
+            if (empty($object->name)) $object->name = $object->email;
+
+            /*
+             if (empty($_POST["instance"]) || empty($_POST["organization"]) || empty($_POST["plan"]) || empty($_POST["email"]))
+             {
+             $error++; $errors[]=$langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Instance").",".$langs->transnoentitiesnoconv("Organization").",".$langs->transnoentitiesnoconv("Plan").",".$langs->transnoentitiesnoconv("EMail"));
+             $action = 'create';
+             }*/
+
+            if (! $error)
+            {
+                $id =  $object->create($user);
+                if ($id <= 0)
+                {
+                    $error++;
+                    setEventMessages('', array_merge($errors,($object->error?array($object->error):$object->errors)), 'errors');
+                    $action = 'create2';
+                    $_POST['loadthirdparty']='load';
+                }
+
+                if (! $error && ($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG > 0))
+                {
+                    $custcats = array($conf->global->SELLYOURSAAS_DEFAULT_CUSTOMER_CATEG);
+                    $object->setCategories($custcats, 'customer');
+                }
+
+                $thirdpartyidselected = $id;
+            }
+        }
+
+        // Now we create new contract/instance
+        if (! $error && $thirdpartyidselected > 0)
+        {
+            $contract = new Contrat($db);
+            if ($dolicloudcustomer->id > 0)
+            {
+                $contract->context['fromdolicloudcustomerv1']=1;
+            }
+
+            $contract->ref_customer = $instancetocreate;
+            $contract->date_contrat = dol_now();
+            $contract->socid=$thirdpartyidselected;
+            $contract->commercial_suivi_id = $user->id;
+            $contract->commercial_signature_id = $user->id;
+            /*$sql = "SELECT rowid, statut, ref, fk_soc, mise_en_service as datemise,";
+             $sql.= " ref_supplier, ref_customer,";
+             $sql.= " ref_ext,";
+             $sql.= " fk_user_mise_en_service, date_contrat as datecontrat,";
+             $sql.= " fk_user_author, fin_validite, date_cloture,";
+             $sql.= " fk_projet,";
+             $sql.= " fk_commercial_signature, fk_commercial_suivi,";
+             $sql.= " note_private, note_public, model_pdf, extraparams";
+             $sql.= " FROM ".MAIN_DB_PREFIX."contrat";
+             $sql.= " WHERE ref_ext='".$db->escape($ref)."'";
+             $sql.= " AND entity IN (".getEntity('contract', 0).")";
+             $sql.= " AND statut = 1";*/
+
+            if ($dolicloudcustomer->id > 0)
+            {
+                $contract->array_options['options_date_registration']=$dolicloudcustomer->date_registration;
+                $contract->array_options['options_date_endfreeperiod']=$dolicloudcustomer->date_endfreeperiod;
+
+                $contract->array_options['options_plan']       =$dolicloudcustomer->plan;
+                $contract->array_options['options_hostname_os']=$dolicloudcustomer->hostname_web;
+                $contract->array_options['options_username_os']=$dolicloudcustomer->username_web;
+                $contract->array_options['options_password_os']=$dolicloudcustomer->password_web;
+                $contract->array_options['options_hostname_db']=$dolicloudcustomer->hostname_db;
+                $contract->array_options['options_database_db']=$dolicloudcustomer->database_db;
+                $contract->array_options['options_port_db']    =$dolicloudcustomer->port_db?$dolicloudcustomer->port_db:3306;
+                $contract->array_options['options_username_db']=$dolicloudcustomer->username_db;
+                $contract->array_options['options_password_db']=$dolicloudcustomer->password_db;
+
+                $contract->array_options['fileauthorizekey']   =$dolicloudcustomer->fileauthorizekey;
+                $contract->array_options['filelock']           =$dolicloudcustomer->filelock;
+
+                $contract->ref_ext = $dolicloudcustomer->id;
+                $contract->import_id = 'doliv1_'.$dolicloudcustomer->id;
+            }
+
+            $nbusers = 0;
+            $nbgb = 0;
+            if (! empty($contract->array_options['options_hostname_db']) && ! empty($contract->array_options['options_database_db']))
+            {
+                // Scan remote instance to get fresh data
+                $result = refreshContract($contract);
+
+                if ($result['error'])
+                {
+                    $error++;
+                    setEventMessages($result['error'], null, 'errors');
+                }
+                else
+                {
+                    //$contract->array_options['options_nb_users'] = $result['nb_users'];
+                    //$contract->array_options['options_nb_gb'] = $result['nb_gb'];
+                    $nbusers = $result['nb_users'];
+                    $nbgb = $result['nb_gb'];
+                }
+            }
+
+            if ($dolicloudcustomer->id > 0)
+            {
+                $contract->note_private = 'Value in V1 when created: plan='.$dolicloudcustomer->plan.', price_instance='.$dolicloudcustomer->price_instance.", price_per_user=".$dolicloudcustomer->price_user.", users=".$dolicloudcustomer->nbofusers;
+            }
+            if ($dolicloudcustomer->id > 0)
+            {
+                $contract->context['fromdolicloudcustomerv1']=1;
+            }
+
+            /*var_dump($contract->array_options);
+             var_dump($instancetocreate);
+             var_dump($productidtocreate);
+             var_dump($thirdpartyidselected);
+             exit;*/
+            $idcontract = $contract->create($user);
+
+            if ($idcontract <= 0)
+            {
+                $error++;
+                setEventMessages('', array_merge($errors,($contract->error?array($contract->error):$contract->errors)), 'errors');
+                $action = 'create2';
+                $_POST['loadthirdparty']='load';
+            }
+
+            if (! $error)
+            {
+                // Contract for instance
+
+                $date_start=dol_now();
+                $date_end=null;
+                if ($contract->array_options['options_date_endfreeperiod'] && $contract->array_options['options_date_endfreeperiod'] > $date_start)
+                {
+                    $date_start = dol_time_plus_duree($contract->array_options['options_date_endfreeperiod'], 1, 'd');
+                }
+                // If we have an ending period, we use it for start of next invoice
+                if ($dolicloudcustomer->id > 0 && $dolicloudcustomer->date_current_period_end)
+                {
+                    $date_start = dol_time_plus_duree($dolicloudcustomer->date_current_period_end, 1, 'd');
+                }
+                /*
+                 var_dump(dol_print_date($dolicloudcustomer->date_current_period_end,'dayhour'));
+                 var_dump(dol_print_date($dolicloudcustomer->date_endfreeperiod,'dayhour'));
+                 var_dump($date_start);exit;
+                 */
+
+                $product=new Product($db);
+                $product->fetch($productidtocreate);
+                if (empty($product->id))
+                {
+                    $error++;
+                    setEventMessages($product->error, $product->errors, 'errors');
+                }
+                else
+                {
+                    if (empty($product->duration_value) || empty($product->duration_unit))
+                    {
+                        $error++;
+                        setEventMessages('The product '.$product->ref.' has no default duration');
+                    }
+                    else
+                    {
+                        $frequeny_multiple = GETPOST('frequency_multiple','int');
+                        $i = 1;
+                        $now = dol_now();
+                        while (dol_time_plus_duree($date_start, $product->duration_value * $i * $frequeny_multiple, $product->duration_unit) < $now)
+                        {
+                            $i++;
+                        }
+                        $date_end=dol_time_plus_duree($date_start, $product->duration_value * $i * $frequeny_multiple, $product->duration_unit);
+                    }
+                }
+                $save_date_end = $date_end;
+                //var_dump("$nb_user, $product->tva_tx, $product->localtax1_tx, $product->localtax2_tx, $productidtocreate, 0, ".dol_print_date($date_start, 'dayhourlog')." - ".dol_print_date($date_end, 'dayhourlog'));exit;
+
+                $productforusers=new Product($db);
+                $productforusers->fetch($productidtocreateforusers);
+                if (empty($productforusers->id))
+                {
+                    $error++;
+                    setEventMessages($productforusers->error, $productforusers->errors, 'errors');
+                }
+
+
+                //$discount = GETPOST('discount');
+                $discount = 0;	// Discount for contracts is zero.
+
+                // Create contract line for INSTANCE
+                if (! $error)
+                {
+                    if (empty($object->country_code))
+                    {
+                        $object->country_code = dol_getIdFromCode($db, $object->country_id, 'c_country', 'rowid', 'code');
+                    }
+                    $qty = 1;
+                    //if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+                    $vat = get_default_tva($mysoc, $object, $product->id);
+                    $localtax1_tx = get_default_localtax($mysoc, $object, 1, $product->id);
+                    $localtax2_tx = get_default_localtax($mysoc, $object, 2, $product->id);
+                    //var_dump($mysoc->country_code);
+                    //var_dump($object->country_code);
+                    //var_dump($product->tva_tx);
+                    //var_dump($vat);exit;
+
+                    $price = $product->price;
+                    if ($dolicloudcustomer->id > 0)
+                    {
+                        $price = $dolicloudcustomer->price_instance;
+                        if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
+                    }
+
+                    if ($price == 0) $discount = 0;
+
+                    $contactlineid = $contract->addline('', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreate, $discount, $date_start, $date_end, 'HT', 0);
+                    if ($contactlineid < 0)
+                    {
+                        $error++;
+                        setEventMessages($contract->error, $contract->errors, 'errors');
+                    }
+                }
+
+                //var_dump('user:'.$dolicloudcustomer->price_user);
+                //var_dump('instance:'.$dolicloudcustomer->price_instance);
+                //exit;
+
+                // Create contract line for USERS
+                if (! $error)
+                {
+                    $qty = 0;
+                    //if (! empty($contract->array_options['options_nb_users'])) $qty = $contract->array_options['options_nb_users'];
+                    if ($nbusers > 0) $qty = $nbusers;
+                    $vat = get_default_tva($mysoc, $object, 0);
+                    $localtax1_tx = get_default_localtax($mysoc, $object, 1, $productforusers->id);
+                    $localtax2_tx = get_default_localtax($mysoc, $object, 2, $productforusers->id);
+
+                    $price = $productforusers->price;
+                    if ($dolicloudcustomer->id > 0)
+                    {
+                        $price = $dolicloudcustomer->price_user;
+                        if (! preg_match('/yearly/', $dolicloudcustomer->plan)) $price = $price * 12;
+                    }
+
+                    if ($price > 0 && $qty > 0)
+                    {
+                        $contactlineid = $contract->addline('Additional users', $price, $qty, $vat, $localtax1_tx, $localtax2_tx, $productidtocreateforusers, $discount, $date_start, $date_end, 'HT', 0);
+                        if ($contactlineid < 0)
+                        {
+                            $error++;
+                            setEventMessages($contract->error, $contract->errors, 'errors');
+                        }
+                    }
+                }
+
+                // Activate all lines
+                if (! $error)
+                {
+                    if ($dolicloudcustomer->id > 0)
+                    {
+                        $contract->context['fromdolicloudcustomerv1']=1;
+                    }
+                    $result = $contract->activateAll($user);
+                    if ($result <= 0)
+                    {
+                        $error++;
+                        setEventMessages($contract->error, $contract->errors, 'errors');
+                    }
+                }
+            }
+            /*var_dump($dolicloudcustomer->price_instance);
+             var_dump($dolicloudcustomer->price_user);
+             exit;*/
+
+            // Now create invoice draft
+            $dateinvoice = $contract->array_options['options_date_endfreeperiod'];
+            if (empty($dateinvoice) && $dolicloudcustomer->id > 0) $dateinvoice = $dolicloudcustomer->date_current_period_end;
+
+            $invoice_draft = new Facture($db);
+
+            // Create empty invoice
+            if (! $error)
+            {
+                $invoice_draft->socid				= $thirdpartyidselected;
+                $invoice_draft->type				= Facture::TYPE_STANDARD;
+                $invoice_draft->number				= '';
+                $invoice_draft->date				= $dateinvoice;
+
+                $invoice_draft->note_private		= 'Created by the new instance page';
+
+                $invoice_draft->mode_reglement_id	= (GETPOST('mode_reglement_id','int') > 0 ? GETPOST('mode_reglement_id','int') : $thirdparty->mode_reglement_id);
+                $invoice_draft->cond_reglement_id	= dol_getIdFromCode($db, 'RECEP', 'c_payment_term', 'code', 'rowid');
+
+                $invoice_draft->fk_account          = 5;												// fiducial
+                if ($invoice_draft->mode_reglement_id == 100) $invoice_draft->fk_account          = $conf->global->STRIPE_BANK_ACCOUNT_FOR_PAYMENTS;	// stripe
+                if ($invoice_draft->mode_reglement_id == 101) $invoice_draft->fk_account          = $conf->global->PAYPAL_BANK_ACCOUNT_FOR_PAYMENTS;	// paypal
+
+                $invoice_draft->fetch_thirdparty();
+
+                $origin='contrat';
+                $originid=$idcontract;
+
+                $invoice_draft->origin = $origin;
+                $invoice_draft->origin_id = $originid;
+
+                // Possibility to add external linked objects with hooks
+                $invoice_draft->linked_objects[$invoice_draft->origin] = $invoice_draft->origin_id;
+
+                $idinvoice = $invoice_draft->create($user);      // This include class to add_object_linked() and add add_contact()
+                if (! ($idinvoice > 0))
+                {
+                    setEventMessages($invoice_draft->error, $invoice_draft->errors, 'errors');
+                    $error++;
+                }
+            }
+            // Add line on invoice
+            if (! $error)
+            {
+                // Add lines of invoice
+                $srcobject = $contract;
+
+                $lines = $srcobject->lines;
+                if (empty($lines) && method_exists($srcobject, 'fetch_lines'))
+                {
+                    $srcobject->fetch_lines();
+                    $lines = $srcobject->lines;
+                }
+
+                $date_start = false;
+                $fk_parent_line=0;
+                $num=count($lines);
+                for ($i=0;$i<$num;$i++)
+                {
+                    $label=(! empty($lines[$i]->label)?$lines[$i]->label:'');
+                    $desc=(! empty($lines[$i]->desc)?$lines[$i]->desc:$lines[$i]->libelle);
+                    if ($invoice_draft->situation_counter == 1) $lines[$i]->situation_percent =  0;
+
+                    // Positive line
+                    $product_type = ($lines[$i]->product_type ? $lines[$i]->product_type : 0);
+
+                    // Date start
+                    $date_start = false;
+                    if ($lines[$i]->date_debut_prevue)
+                        $date_start = $lines[$i]->date_debut_prevue;
+                        if ($lines[$i]->date_debut_reel)
+                            $date_start = $lines[$i]->date_debut_reel;
+                            if ($lines[$i]->date_start)
+                                $date_start = $lines[$i]->date_start;
+
+                                // Date end
+                                $date_end = false;
+                                if ($lines[$i]->date_fin_prevue)
+                                    $date_end = $lines[$i]->date_fin_prevue;
+                                    if ($lines[$i]->date_fin_reel)
+                                        $date_end = $lines[$i]->date_fin_reel;
+                                        if ($lines[$i]->date_end)
+                                            $date_end = $lines[$i]->date_end;
+
+                                            // Reset fk_parent_line for no child products and special product
+                                            if (($lines[$i]->product_type != 9 && empty($lines[$i]->fk_parent_line)) || $lines[$i]->product_type == 9) {
+                                                $fk_parent_line = 0;
+                                            }
+
+                                            // Discount
+                                            $discount = $lines[$i]->remise_percent;
+                                            if (empty($discount) && GETPOST('discount'))
+                                            {
+                                                $discount = GETPOST('discount');
+                                            }
+
+                                            // Extrafields
+                                            if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED) && method_exists($lines[$i], 'fetch_optionals')) {
+                                                $lines[$i]->fetch_optionals($lines[$i]->rowid);
+                                                $array_options = $lines[$i]->array_options;
+                                            }
+
+                                            $tva_tx = $lines[$i]->tva_tx;
+                                            if (! empty($lines[$i]->vat_src_code) && ! preg_match('/\(/', $tva_tx)) $tva_tx .= ' ('.$lines[$i]->vat_src_code.')';
+
+                                            // View third's localtaxes for NOW and do not use value from origin.
+                                            $localtax1_tx = get_localtax($tva_tx, 1, $invoice_draft->thirdparty);
+                                            $localtax2_tx = get_localtax($tva_tx, 2, $invoice_draft->thirdparty);
+
+                                            //$price_invoice_template_line = $lines[$i]->subprice * GETPOST('frequency_multiple','int');
+                                            $price_invoice_template_line = $lines[$i]->subprice;
+
+                                            $result = $invoice_draft->addline($desc, $price_invoice_template_line, $lines[$i]->qty, $tva_tx, $localtax1_tx, $localtax2_tx, $lines[$i]->fk_product, $discount, $date_start, $date_end, 0, $lines[$i]->info_bits, $lines[$i]->fk_remise_except, 'HT', 0, $product_type, $lines[$i]->rang, $lines[$i]->special_code, $invoice_draft->origin, $lines[$i]->rowid, $fk_parent_line, $lines[$i]->fk_fournprice, $lines[$i]->pa_ht, $label, $array_options, $lines[$i]->situation_percent, $lines[$i]->fk_prev_id, $lines[$i]->fk_unit);
+
+                                            if ($result > 0) {
+                                                $lineid = $result;
+                                            } else {
+                                                $lineid = 0;
+                                                $error ++;
+                                                break;
+                                            }
+
+                                            // Defined the new fk_parent_line
+                                            if ($result > 0 && $lines[$i]->product_type == 9) {
+                                                $fk_parent_line = $result;
+                                            }
+                }
+            }
+
+            // Now we convert invoice into a template
+            if (! $error)
+            {
+                //var_dump($invoice_draft->lines);
+                //var_dump(dol_print_date($date_start,'dayhour'));
+                //exit;
+
+                $frequency=1;
+                $tmp=dol_getdate($date_start?$date_start:$now);
+                $reyear=$tmp['year'];
+                $remonth=$tmp['mon'];
+                $reday=$tmp['mday'];
+                $rehour=$tmp['hours'];
+                $remin=$tmp['minutes'];
+                $nb_gen_max=0;
+                //print dol_print_date($date_start,'dayhour');
+                //var_dump($remonth);
+
+                $invoice_rec = new FactureRec($db);
+
+                $invoice_rec->titre = 'Template invoice for '.$contract->ref.' '.$contract->ref_customer;
+                $invoice_rec->note_private = $contract->note_private;
+                //$invoice_rec->note_public  = dol_concatdesc($contract->note_public, '__(Period)__ : __INVOICE_DATE_NEXT_INVOICE_BEFORE_GEN__ - __INVOICE_DATE_NEXT_INVOICE_AFTER_GEN__');
+                $invoice_rec->note_public  = $contract->note_public;
+                $invoice_rec->mode_reglement_id = $invoice_draft->mode_reglement_id;
+
+                $invoice_rec->usenewprice = 0;
+
+                $invoice_rec->frequency = GETPOST('frequency_multiple','int');
+                $invoice_rec->unit_frequency = 'm';
+                $invoice_rec->nb_gen_max = $nb_gen_max;
+                $invoice_rec->auto_validate = 0;
+
+                $invoice_rec->fk_project = 0;
+
+                $date_next_execution = dol_mktime($rehour, $remin, 0, $remonth, $reday, $reyear);
+                $invoice_rec->date_when = $date_next_execution;
+
+                // Get first contract linked to invoice used to generate template
+                if ($invoice_draft->id > 0)
+                {
+                    $srcObject = $invoice_draft;
+
+                    $srcObject->fetchObjectLinked();
+
+                    if (! empty($srcObject->linkedObjectsIds['contrat']))
+                    {
+                        $contractidid = reset($srcObject->linkedObjectsIds['contrat']);
+
+                        $invoice_rec->origin = 'contrat';
+                        $invoice_rec->origin_id = $contractidid;
+                        $invoice_rec->linked_objects[$invoice_draft->origin] = $invoice_draft->origin_id;
+                    }
+                }
+
+                $oldinvoice = new Facture($db);
+                $oldinvoice->fetch($invoice_draft->id);
+
+                $result = $invoice_rec->create($user, $oldinvoice->id);
+                if ($result > 0)
+                {
+                    $sql = 'UPDATE '.MAIN_DB_PREFIX.'facturedet_rec SET date_start_fill = 1, date_end_fill = 1 WHERE fk_facture = '.$invoice_rec->id;
+                    $result = $db->query($sql);
+                    if (! $error && $result < 0)
+                    {
+                        $error++;
+                        setEventMessages($db->lasterror(), null, 'errors');
+                    }
+
+                    $result=$oldinvoice->delete($user, 1);
+                    if (! $error && $result < 0)
+                    {
+                        $error++;
+                        setEventMessages($oldinvoice->error, $oldinvoice->errors, 'errors');
+                    }
+                }
+                else
+                {
+                    $error++;
+                    setEventMessages($invoice_rec->error, $invoice_rec->errors, 'errors');
+                }
+            }
+        }
+
+        if (! $error && $thirdpartyidselected > 0 && $idcontract > 0)
+        {
+            $db->commit();
+            if (! empty($backtopage)) $url=$backtopage;
+            else $url=DOL_URL_ROOT.'/contrat/card.php?id='.$idcontract;
+            Header("Location: ".$url);
+            exit;
+        }
+        else
+        {
+            $db->rollback();
+            unset($object);
+            $object=new Societe($db);
+            $action='create2';
+            $_POST['loadthirdparty']='load';
+        }
+    }
+
+
+    // Add action to create file, etc...
+    include 'refresh_action.inc.php';
 }
 
 
@@ -822,6 +785,12 @@ $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("Se
 print '<form mode="POST" action="'.$_SERVER["PHP_SELF"].'">';
 
 print_fiche_titre($langs->trans("NewInstance"));
+
+print '<br>';
+print $langs->trans("ToCreateNewInstanceUseRegisterPageOrTheCustomerDashboard");
+print '<br><br>';
+print '<br><br>';
+print '<span class="opacitymedium">'.$langs->trans("ToolForMaintenance").'</span><br><br>';
 
 print '<div class="fichecenter">';
 
@@ -851,95 +820,7 @@ print '<tr><td></td><td>';
 print '<input type="submit" name="loadthirdparty" class="button" value="'.$langs->trans("Search").'">';
 print '</td></tr>';
 
-// Id thirdparty found in V1
-if ($dolicloudcustomer->id > 0)
-{
-	$nametocreate = $dolicloudcustomer->organization;
-	$instancetocreate = $dolicloudcustomer->instance.'.on.dolicloud.com';
-	$emailtocreate = $dolicloudcustomer->email;
-	$paymentmodetocreate = $dolicloudcustomer->mode_reglement_id;
-
-	print '<tr><td colspan="2"><hr>';
-	print '</td></tr>';
-
-	print '<tr><td colspan="2">';
-	print '<div class="titre">'.$langs->trans("Third party found in V1").'</div>';
-	print '</td></tr>';
-
-	print '<tr><td class="fieldrequired">';
-	print $langs->trans('Instance').'</td><td>';
-	print $instancetocreate;
-	print '</td>';
-
-	print '<tr><td class="fieldrequired">';
-	print $langs->trans('Contact').'</td><td>';
-	print $dolicloudcustomer->getFullName($langs);
-	print '</td>';
-
-	print '<tr><td class="fieldrequired">';
-	print $langs->trans('Status').'</td><td>';
-	print $dolicloudcustomer->instance_status.' - '.$dolicloudcustomer->status;
-	print '</td>';
-
-	print '<tr><td class="fieldrequired">';
-	print $langs->trans('Address').'</td><td>';
-	print $dolicloudcustomer->getFullAddress(0);
-	print '</td>';
-
-	print '<tr><td class="fieldrequired">';
-	print $langs->trans('Country').'</td><td>';
-	print $dolicloudcustomer->country_code;
-	print '</td>';
-
-	print '<tr><td class="fieldrequired">';
-	print $langs->trans('IntraVat').'</td><td>';
-	print $dolicloudcustomer->vat_number;
-	print '</td>';
-
-	/*print '<tr><td class="fieldrequired">';
-	print $langs->trans('Package').'</td><td>';
-	print $dolicloudcustomer->package;
-	print '</td>';*/
-
-	print '<tr><td class="fieldrequired">';
-	print $langs->trans('Plan').'</td><td>';
-	print $dolicloudcustomer->plan;
-	print '</td>';
-
-	print '<tr><td class="fieldrequired">';
-	print $langs->trans('Price').'</td><td>';
-	print 'Instance: '.$dolicloudcustomer->price_instance.' - Per user: '.$dolicloudcustomer->price_user;
-	print '</td>';
-
-	print '<tr><td class="fieldrequired">';
-	print $langs->trans('NbOfUsers').'</td><td>';
-	print $dolicloudcustomer->nbofusers;
-	print '</td>';
-
-	// Subscription date
-	print '<tr><td class="fieldrequired">';
-	print $langs->trans('DateRegistration').'</td><td>';
-	print dol_print_date($dolicloudcustomer->date_registration, 'dayhour');
-	print '</td>';
-
-	// End trial date
-	print '<tr><td class="fieldrequired">';
-	print $langs->trans('DateEndFreePeriod').'</td><td>';
-	print dol_print_date($dolicloudcustomer->date_endfreeperiod, 'dayhour');
-	print '</td>';
-
-	// Date end current period
-	print '<tr><td class="fieldrequired">';
-	print $langs->trans('DateEndCurrentPeriod').'</td><td>';
-	print dol_print_date($dolicloudcustomer->date_current_period_end, 'dayhour');
-	print '</td>';
-
-	print '</tr>';
-}
-else
-{
-	$emailtocreate = GETPOST('email');
-}
+$emailtocreate = GETPOST('email');
 
 // If thirdparty found
 if ($object->id > 0)
@@ -1142,7 +1023,8 @@ if (GETPOST('email') || GETPOST('instance') || GETPOST('thirdparty_id') > 0 || $
 		else
 		{
 			print '<tr><td colspan="2">';
-			print 'A contract already exists. TODO Manage 2 contracts on same customer...';
+			print 'A contract already exists.'."<br>\n";
+			print 'TODO Manage 2 contracts on same customer from this interface...';
 			print '</td></tr>';
 		}
 	}

@@ -281,28 +281,6 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 		 print '<input type="text" name="mysqlconnectstring" value="'.$mysqlconnectstring.'" size="120"><br>';
 		 */
 	}
-
-
-	if (! empty($instanceoldid))
-	{
-		// ----- DoliCloud instance -----
-		print '<strong>INSTANCE DOLICLOUD v1</strong><br>';
-
-		print '<div class="underbanner clearboth"></div>';
-		print '<table class="border" width="100%">';
-
-		// Nb of users
-		print '<tr class="liste_titre">';
-		print '<td>'.$langs->trans("Date").'</td>';
-		print '<td>'.$langs->trans("Amount").'</td>';
-		print '<td>'.$langs->trans("Status").'</td>';
-		print '</tr>';
-
-		print "</table>";
-
-		print '<br>';
-		print '<br>';
-	}
 }
 
 

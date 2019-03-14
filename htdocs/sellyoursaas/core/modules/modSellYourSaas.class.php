@@ -281,12 +281,12 @@ class modSellYourSaas extends DolibarrModules
 		$this->menu[$r]=array(
 		'fk_menu'=>'fk_mainmenu=sellyoursaas',        // Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 		'type'=>'left',         // This is a Left menu entry
-		'titre'=>'SummaryOld',
+		'titre'=>'Instances (dolicloud old)',
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'dolicloud',
-		'url'=>'/sellyoursaas/backoffice/dolicloudold_index.php',
+		'url'=>'/sellyoursaas/backoffice/dolicloud_list.php',
 		'langs'=>'sellyoursaas@sellyoursaas',  // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-		'position'=>105,
+		'position'=>10000,
 		'enabled'=>'$conf->sellyoursaas->enabled && $conf->global->SELLYOURSAAS_DOLICLOUD_ON',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
 		'perms'=>'$user->rights->sellyoursaas->read',           // Use 'perms'=>'$user->rights->NewsSubmitter->level1->level2' if you want your menu with a permission rules
 		'target'=>'',
@@ -558,21 +558,6 @@ class modSellYourSaas extends DolibarrModules
 		'user'=>0);
 		$r++;
 
-
-		$this->menu[$r]=array(
-		'fk_menu'=>'fk_mainmenu=sellyoursaas,fk_leftmenu=dolicloud',
-		'type'=>'left',
-		'titre'=>'Instances (dolicloud old)',
-		'mainmenu'=>'sellyoursaas',
-		'leftmenu'=>'dolicloud_list',
-		'url'=>'/sellyoursaas/backoffice/dolicloud_list.php',
-		'langs'=>'sellyoursaas@sellyoursaas',
-		'position'=>502,
-		'enabled'=>'$conf->sellyoursaas->enabled && $conf->global->SELLYOURSAAS_DOLICLOUD_ON',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
-		'perms'=>'$user->rights->sellyoursaas->read',
-		'target'=>'',
-		'user'=>0);
-		$r++;
 
 
 		// Reseller

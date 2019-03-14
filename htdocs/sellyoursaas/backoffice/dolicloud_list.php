@@ -363,15 +363,18 @@ if ($resql)
 {
     $num = $db2->num_rows($resql);
 
-    // List of mass actions available
     $arrayofmassactions =  array(
-    'generate_doc'=>$langs->trans("GenerateList"),
-    //'presend'=>$langs->trans("SendByMail"),
-    //'builddoc'=>$langs->trans("PDFMerge"),
+        //'presend'=>$langs->trans("SendByMail"),
+        //'builddoc'=>$langs->trans("PDFMerge"),
     );
+
+    // List of mass actions available
+    if (! empty($conf->global->SELLYOURSAAS_DOLICLOUD_ON))
+    {
+        $arrayofmassactions['generate_doc'] = $langs->trans("GenerateList");
+    }
     if (in_array($massaction, array('presend','predelete'))) $arrayofmassactions=array();
     $massactionbutton=$form->selectMassAction('', $arrayofmassactions);
-
 
     // Lignes des champs de filtre
     print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
