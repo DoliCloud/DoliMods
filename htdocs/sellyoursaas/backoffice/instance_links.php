@@ -238,7 +238,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 			setEventMessages('Success to connect to server, but failed to switch on database.'.$newdb->lasterror(), null, 'errors');
 		}
 
-	    $confinstance->setValues($newdb);
+		$confinstance->setValues($newdb);
 	}
 
 

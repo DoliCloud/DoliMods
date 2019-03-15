@@ -1499,7 +1499,7 @@ if ($action == 'deleteaccount')
 {
 	if (! GETPOST('accounttodestroy','alpha'))
 	{
-		setEventMessages($langs->trans("ErrorFieldRequired", $langs->trans("AccountToDelete")), '', 'errors');
+		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("AccountToDelete")), '', 'errors');
 	}
 	else
 	{
