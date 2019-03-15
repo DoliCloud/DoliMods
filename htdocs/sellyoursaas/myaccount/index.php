@@ -2417,7 +2417,7 @@ if ($mode == 'dashboard')
 								$nbinvoicenotpayed++;
 								$alreadypayed = $invoice->getSommePaiement();
 								$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
-								$amountdue = $invoice->total_ttc - $alreadypayed - $amount_credit_notes_included;
+								$amountdue .= $invoice->total_ttc - $alreadypayed - $amount_credit_notes_included;
 							}
 						}
 					}
