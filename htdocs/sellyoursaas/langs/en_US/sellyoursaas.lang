@@ -419,3 +419,4 @@ RegistrationSuspendedForTheMomentPleaseTryLater=Registration of new instances ar
 ChangeCustomer=Change customer account
 ToCreateNewInstanceUseRegisterPageOrTheCustomerDashboard=To create a new instance, use the menu '<strong>Registration pages</strong>' (to create a new customer + new instance) or use the link '<strong>Add new instance</strong>' from the customer dashboard to create only a new instance for an existing customer.
 ToolForMaintenance=The following tool is an alternative tool kept for maintenance/test purpose...
+AccountToDelete=Account to delete
