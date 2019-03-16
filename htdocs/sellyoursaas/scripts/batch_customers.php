@@ -61,7 +61,7 @@ if (! $res) die("Include of master fails");
 // $user is created but empty.
 
 dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
-include_once dol_buildpath("/sellyoursaas/backoffice/lib/refresh.lib.php");		// do not use dol_buildpth to keep global declaration working
+include_once dol_buildpath("/sellyoursaas/backoffice/lib/refresh.lib.php");
 
 if (! empty($conf->global->DOLICLOUD_DATABASE_HOST))
 {

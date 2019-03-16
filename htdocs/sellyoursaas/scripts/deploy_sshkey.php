@@ -50,6 +50,7 @@ while($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/master.inc.php")) $res=@include(substr($tmp, 0, ($i+1))."/master.inc.php");
 if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/master.inc.php")) $res=@include(dirname(substr($tmp, 0, ($i+1)))."/master.inc.php");
 // Try master.inc.php using relative path
+if (! $res && file_exists("./master.inc.php")) $res=@include("./master.inc.php");
 if (! $res && file_exists("../master.inc.php")) $res=@include("../master.inc.php");
 if (! $res && file_exists("../../master.inc.php")) $res=@include("../../master.inc.php");
 if (! $res && file_exists("../../../master.inc.php")) $res=@include("../../../master.inc.php");
@@ -58,15 +59,8 @@ if (! $res) die("Include of master fails");
 // $user is created but empty.
 
 dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
-include_once dol_buildpath("/sellyoursaas/backoffice/lib/refresh.lib.php");		// do not use dol_buildpth to keep global declaration working
+include_once dol_buildpath("/sellyoursaas/backoffice/lib/refresh.lib.php");
 
-
-$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
-if ($db2->error)
-{
-	dol_print_error($db2,"host=".$conf->global->DOLICLOUD_DATABASE_HOST.", port=".$conf->global->DOLICLOUD_DATABASE_PORT.", user=".$conf->global->DOLICLOUD_DATABASE_USER.", databasename=".$conf->global->DOLICLOUD_DATABASE_NAME.", ".$db2->error);
-	exit;
-}
 
 
 //$langs->setDefaultLang('en_US'); 	// To change default language of $langs
@@ -81,7 +75,8 @@ $langs->load("main");				// To load language file for default language
 
 print "***** ".$script_file." (".$version.") - ".strftime("%Y%m%d-%H%M%S")." *****\n";
 if (! isset($argv[1])) {	// Check parameters
-    print "Usage: ".$script_file." (test|confirm) [old|instancefilter]\n";
+    print "Create or recreate the file authorized_keys. WARNING: Old file is erased if it already exists.\n";
+    print "Usage: ".$script_file." (test|confirm) [instancefilter]\n";
     print "\n";
     print "- test     test deploy of public key\n";
     print "- confirm  deploy public key\n";
@@ -111,64 +106,22 @@ $nboferrors=0;
 $instancefilter=(isset($argv[2])?$argv[2]:'');
 $instancefiltercomplete=$instancefilter;
 
-// Use instancefilter to detect if v1 or v2 or instance
-$v=2;
-if ($instancefilter == 'old')
-{
-	$instancefilter='';
-	$instancefiltercomplete='';
-	$v=1;
-}
-else
-{
-	// Force $v according to hard coded values (keep v2 in default case)
-	if (! empty($instancefiltercomplete) && ! preg_match('/(\.on|\.with)\.dolicloud\.com$/',$instancefiltercomplete) && ! preg_match('/\.home\.lan$/',$instancefiltercomplete))
-	{
-		// TODO Manage several domains
-		$instancefiltercomplete=$instancefiltercomplete.".".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
-	}
-	if (! empty($instancefiltercomplete) && preg_match('/\.on\.dolicloud\.com$/',$instancefiltercomplete)) {
-		$v=1;
-	}
-	if (! empty($instancefiltercomplete) && preg_match('/\.with\.dolicloud\.com$/',$instancefiltercomplete)) {
-		$v=2;
-	}
-}
-
 $instances=array();
 $instanceserror=array();
 
 
-if ($v==1)
-{
-	$object=new Dolicloud_customers($db,$db2);
+include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+$object=new Contrat($db);
 
-	// Get list of instance
-	$sql = "SELECT i.id, i.name as instance, i.status as instance_status,";
-	$sql.= " c.status as status,";
-	$sql.= " s.payment_status,";
-	$sql.= " s.status as subscription_status";
-	$sql.= " FROM app_instance as i, subscription as s, customer as c";
-	$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id";
-	if ($instancefiltercomplete) $sql.= " AND i.name = '".$instancefiltercomplete."'";
+// Get list of instance
+$sql = "SELECT c.rowid as id, c.ref_customer as instance,";
+$sql.= " ce.deployment_status as instance_status";
+$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
+$sql.= " WHERE c.ref_customer <> '' AND c.ref_customer IS NOT NULL";
+if ($instancefiltercomplete) $sql.= " AND c.ref_customer LIKE '".$instancefiltercomplete.".%'";
+$sql.= " AND ce.deployment_status IS NOT NULL";
 
-	$dbtousetosearch = $db2;
-}
-else
-{
-	include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-	$object=new Contrat($db);
-
-	// Get list of instance
-	$sql = "SELECT c.rowid as id, c.ref_customer as instance,";
-	$sql.= " ce.deployment_status as instance_status";
-	$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
-	$sql.= " WHERE c.ref_customer <> '' AND c.ref_customer IS NOT NULL";
-	if ($instancefiltercomplete) $sql.= " AND c.ref_customer = '".$instancefiltercomplete."'";
-	$sql.= " AND ce.deployment_status IS NOT NULL";
-
-	$dbtousetosearch = $db;
-}
+$dbtousetosearch = $db;
 
 
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
@@ -187,41 +140,31 @@ if ($resql)
 				$instance = $obj->instance;
 				$payment_status='PAID';
 				$found = true;
-				if ($v == 1)
-				{
-					$instance_status = $obj->status;
-					$instance_status_bis = $obj->instance_status;
-					$payment_status = $obj->payment_status;
 
-					$object = new Dolicloud_customers($db, $db2);
-					$result = $object->fetch(0, $instance);
-				}
+			    dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
+				$object = new Contrat($db);
+
+				$instance_status_bis = '';
+				$result = $object->fetch($obj->id);
+				if ($result <= 0) $found=false;
 				else
 				{
-					dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
-					$object = new Contrat($db);
-
-					$instance_status_bis = '';
-					$result = $object->fetch($obj->id);
-					if ($result <= 0) $found=false;
-					else
-					{
-						if ($object->array_options['options_deployment_status'] == 'processing') { $instance_status = 'PROCESSING'; }
-						elseif ($object->array_options['options_deployment_status'] == 'undeployed') { $instance_status = 'CLOSED'; $instance_status_bis = 'UNDEPLOYED'; }
-						elseif ($object->array_options['options_deployment_status'] == 'done')       { $instance_status = 'DEPLOYED'; }
-						else { $instance_status = 'UNKNOWN'; }
-					}
-
-					$ispaid = sellyoursaasIsPaidInstance($object);
-					if (! $ispaid) $payment_status='TRIAL';
-					else
-					{
-						$ispaymentko = sellyoursaasIsPaymentKo($object);
-						if ($ispaymentko) $payment_status='FAILURE';
-					}
+					if ($object->array_options['options_deployment_status'] == 'processing') { $instance_status = 'PROCESSING'; }
+					elseif ($object->array_options['options_deployment_status'] == 'undeployed') { $instance_status = 'CLOSED'; $instance_status_bis = 'UNDEPLOYED'; }
+					elseif ($object->array_options['options_deployment_status'] == 'done')       { $instance_status = 'DEPLOYED'; }
+					else { $instance_status = 'UNKNOWN'; }
 				}
+
+				$ispaid = sellyoursaasIsPaidInstance($object);
+				if (! $ispaid) $payment_status='TRIAL';
+				else
+				{
+					$ispaymentko = sellyoursaasIsPaymentKo($object);
+					if ($ispaymentko) $payment_status='FAILURE';
+				}
+
 				if (empty($instance_status_bis)) $instance_status_bis=$instance_status;
-				print "Analyze instance ".($i+1)." V".$v." ".$instance." status=".$instance_status." instance_status=".$instance_status_bis." payment_status=".$payment_status."\n";
+				print "Analyze instance ".($i+1)." ".$instance." status=".$instance_status." instance_status=".$instance_status_bis." payment_status=".$payment_status."\n";
 
 				// Count
 				if ($found && ! in_array($payment_status,array('TRIAL','TRIALING','TRIAL_EXPIRED')))
@@ -237,7 +180,7 @@ if ($resql)
 						else $nbofactiveok++; // not suspended, not close request
 
 						$instances[$obj->id]=$object;
-						print "Qualify instance ".($i+1)." V".$v." ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$obj->subscription_status."\n";
+						print "Qualify instance ".($i+1)." ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$obj->subscription_status."\n";
 					}
 					else
 					{
@@ -247,7 +190,7 @@ if ($resql)
 				elseif ($found && $instancefiltercomplete)
 				{
 					$instances[$obj->id]=$object;
-					print "Qualify instance ".($i+1)." V".$v." ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$obj->subscription_status."\n";
+					print "Qualify instance ".($i+1)." ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$obj->subscription_status."\n";
 				}
 				else
 				{
@@ -289,7 +232,7 @@ if ($action == 'test' || $action == 'confirm')
 			$return_val=0; $error=0; $errors=array();	// No error by default into each loop
 
 			// Run backup
-			print "Process deploy of public key of instance ".($i+1)." V".$v." (id ".$key.") ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
+			print "--- Process deploy of public key of instance ".($i+1)." (id ".$key.") ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
 
 			$errors=array();
 
