@@ -304,7 +304,7 @@ InstanceWasDeployed=Instance was deployed
 YourPaymentModeWillExpireFixItSoon=Your payment mode is about to expire. Please <a href="%s">update your payment mode</a> to avoid any interruption of service.
 YouAreAReseller=You are a reseller
 YourURLToCreateNewInstance=To have new users being linked to your account and appear in your dashboard, you/they must use the following URL to register
-YourCommissionsAppearsInMenu=Your commissions (current rate %s%%) are visible into menu %s
+YourCommissionsAppearsInMenu=Your commissions (current rate <strong>%s%%</strong>) are visible into menu %s
 InvoicingSuspended=Billing suspended
 LoginWithCustomerAccount=Login with customer account
 ErrorYouDontOwnTheInstanceYouTryToDelete=Error, you don't own the instance <strong>%s</strong> that you try to delete.
