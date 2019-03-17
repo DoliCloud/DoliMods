@@ -168,11 +168,12 @@ class mywidgetwidget1 extends ModeleBoxes
 	/**
 	 * Method to show box. Called by Dolibarr eatch time it wants to display the box.
 	 *
-	 * @param array $head Array with properties of box title
-	 * @param array $contents Array with properties of box lines
+	 * @param array $head      Array with properties of box title
+	 * @param array $contents  Array with properties of box lines
+	 * @param int   $nooutput  No output
 	 * @return void
 	 */
-	public function showBox($head = null, $contents = null)
+	public function showBox($head = null, $contents = null, $nooutput = 0)
 	{
 		// You may make your own code here…
 		// … or use the parent's class function using the provided head and contents templates
