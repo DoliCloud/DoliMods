@@ -269,6 +269,7 @@ class SellYourSaasUtils
 
     		$MAXPERCALL=10;
     		$nbsending = 0;
+            $nbpayingneverreminded = 0;
 
     		$i=0;
     		while ($i < $num)
@@ -295,6 +296,8 @@ class SellYourSaasUtils
     				dol_syslog('', 0, -1);
     				if ($mode == 'test' && $isAPayingContract)          // Discard if this is a paid instance when we are in test mode
     				{
+    				    $nbpayingneverreminded++;
+
     				    $sqlupdatedate = 'UPDATE '.MAIN_DB_PREFIX."contrat_extrafields SET date_softalert_endfreeperiod = date_endfreeperiod WHERE fk_object = ".$object->id;
     				    $resqlupdatedate = $this->db->query($sqlupdatedate);
     				    if (! $resqlupdatedate)
@@ -379,7 +382,11 @@ class SellYourSaasUtils
     		$this->error = $this->db->lasterror();
     	}
 
-    	$this->output = count($contractprocessed).' contract(s) processed (search done on contracts of SellYourSaas customers only).';
+    	$this->output = count($contractprocessed).' contract(s) qualified (search done on contracts of SellYourSaas prospects/customers only).';
+    	if ($nbpayingneverreminded)
+    	{
+            $this->output .= ' '.$nbpayingneverreminded.' contract(s) seems paying, so we update date_softalert_endfreeperiod to date_endfreeperiod for them.';
+    	}
     	if (count($contractok)>0)
     	{
     		$this->output .= ' '.count($contractok).' email(s) sent for '.join(',', $contractok).'.';
