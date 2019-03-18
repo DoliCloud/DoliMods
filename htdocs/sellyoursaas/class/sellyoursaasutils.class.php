@@ -253,7 +253,7 @@ class SellYourSaasUtils
     	$sql.= " AND ce.deployment_status = 'done'";
     	$sql.= " AND ce.date_softalert_endfreeperiod IS NULL";
     	$sql.= " AND cd.date_fin_validite <= '".$this->db->idate($date_limit_expiration)."'";      // Expired contracts
-    	$sql.= " AND cd.date_fin_validite >= '".$this->db->idate($date_limit_expiration - 3 * 24 * 3600)."'";	// Protection: We dont' go higher than 7 days late to avoid to resend too much warnings when update of date_softalert_endfreeperiod has failed
+    	$sql.= " AND cd.date_fin_validite >= '".$this->db->idate($date_limit_expiration - 7 * 24 * 3600)."'";	// Protection: We dont' go higher than 7 days late to avoid to resend too much warnings when update of date_softalert_endfreeperiod has failed
     	$sql.= " AND cd.statut = 4";	// 4 = ContratLigne::STATUS_OPEN
     	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
     	//print $sql;
@@ -293,7 +293,16 @@ class SellYourSaasUtils
     				dol_syslog('Call sellyoursaasIsPaidInstance', LOG_DEBUG, 1);
     				$isAPayingContract = sellyoursaasIsPaidInstance($object);
     				dol_syslog('', 0, -1);
-    				if ($mode == 'test' && $isAPayingContract) continue;											// Discard if this is a paid instance when we are in test mode
+    				if ($mode == 'test' && $isAPayingContract)          // Discard if this is a paid instance when we are in test mode
+    				{
+    				    $sqlupdatedate = 'UPDATE '.MAIN_DB_PREFIX."contrat_extrafields SET date_softalert_endfreeperiod = date_endfreeperiod WHERE fk_object = ".$object->id;
+    				    $resqlupdatedate = $this->db->query($sqlupdatedate);
+    				    if (! $resqlupdatedate)
+    				    {
+    				        dol_syslog('Failed to update date_softalert_endfreeperiod with date_endfreeperiod for object id = '.$object->id, LOG_ERR);
+    				    }
+    				    continue;
+    				}
     				//if ($mode == 'paid' && ! $isAPayingContract) continue;										// Discard if this is a test instance when we are in paid mode
 
     				// Suspend instance
@@ -342,6 +351,10 @@ class SellYourSaasUtils
 
 	    						$sqlupdatedate = 'UPDATE '.MAIN_DB_PREFIX."contrat_extrafields SET date_softalert_endfreeperiod = '".$this->db->idate($now)."' WHERE fk_object = ".$object->id;
 	    						$resqlupdatedate = $this->db->query($sqlupdatedate);
+	    						if (! $resqlupdatedate)
+	    						{
+	    						    dol_syslog("Failed to update date_softalert_endfreeperiod with '".$this->db->idate($now)."' for object id = ".$object->id, LOG_ERR);
+	    						}
 	    					}
 
 	    					$contractprocessed[$object->id]=$object->ref;
