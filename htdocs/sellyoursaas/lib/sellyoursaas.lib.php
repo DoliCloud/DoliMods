@@ -139,27 +139,6 @@ function sellyoursaasIsPaidInstance($contract, $mode=0)
 		if ($foundinvoice) return 1;
 	}
 
-	/*
-	$nbinvoicenotpayed = 0;
-	$amountdue = 0;
-	foreach ($listofcontractid as $id => $contract)
-	{
-		$contract->fetchObjectLinked();
-		if (is_array($contract->linkedObjects['facture']))
-		{
-			foreach($contract->linkedObjects['facture'] as $idinvoice => $invoice)
-			{
-				if ($invoice->statut != $invoice::STATUS_CLOSED)
-				{
-					$nbinvoicenotpayed++;
-				}
-				$alreadypayed = $invoice->getSommePaiement();
-				$amount_credit_notes_included = $invoice->getSumCreditNotesUsed();
-				$amountdue = $invoice->total_ttc - $alreadypayed - $amount_credit_notes_included;
-			}
-		}
-	}*/
-
 	return 0;
 }
 
