@@ -385,7 +385,7 @@ class SellYourSaasUtils
     	$this->output = count($contractprocessed).' contract(s) qualified (search done on contracts of SellYourSaas prospects/customers only).';
     	if (count($contractpayingupdated)>0)
     	{
-    	    $this->output .= ' '.$contractpayingupdated.' contract(s) seems paying so we updated date_softalert_endfreeperiod to date_endfreeperiod for '.join(',', $contractpayingupdated).'.';
+    	    $this->output .= ' '.count($contractpayingupdated).' contract(s) seems paying so we updated date_softalert_endfreeperiod to date_endfreeperiod for '.join(',', $contractpayingupdated).'.';
     	}
     	if (count($contractok)>0)
     	{
