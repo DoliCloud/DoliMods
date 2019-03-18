@@ -252,8 +252,8 @@ class SellYourSaasUtils
     	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
     	$sql.= " AND ce.deployment_status = 'done'";
     	$sql.= " AND ce.date_softalert_endfreeperiod IS NULL";
-    	$sql.= " AND cd.date_fin_validite <= '".$this->db->idate($date_limit_expiration)."'";
-    	$sql.= " AND cd.date_fin_validite >= '".$this->db->idate($date_limit_expiration - 7 * 24 * 3600)."'";	// Protection: We dont' go higher than 7 days late to avoid to resend too much warnings when update of date_softalert_endfreeperiod has failed
+    	$sql.= " AND cd.date_fin_validite <= '".$this->db->idate($date_limit_expiration)."'";      // Expired contracts
+    	$sql.= " AND cd.date_fin_validite >= '".$this->db->idate($date_limit_expiration - 3 * 24 * 3600)."'";	// Protection: We dont' go higher than 7 days late to avoid to resend too much warnings when update of date_softalert_endfreeperiod has failed
     	$sql.= " AND cd.statut = 4";	// 4 = ContratLigne::STATUS_OPEN
     	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
     	//print $sql;
@@ -281,8 +281,6 @@ class SellYourSaasUtils
     				// Test if this is a paid or not instance
     				$object = new Contrat($this->db);
     				$result = $object->fetch($obj->rowid);
-    				$object->fetch_thirdparty();
-
     				if ($result <= 0)
     				{
     					$error++;
@@ -292,16 +290,11 @@ class SellYourSaasUtils
 
     				dol_syslog("* Process contract id=".$object->id." ref=".$object->ref." ref_customer=".$object->ref_customer);
 
-    				$outputlangs = new Translate('', $conf);
-    				$outputlangs->setDefaultLang($object->thirdparty->default_lang);
-
-    				$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'contract', $user, $outputlangs, 0, 1, 'GentleTrialExpiringReminder');
-
     				dol_syslog('Call sellyoursaasIsPaidInstance', LOG_DEBUG, 1);
     				$isAPayingContract = sellyoursaasIsPaidInstance($object);
     				dol_syslog('', 0, -1);
     				if ($mode == 'test' && $isAPayingContract) continue;											// Discard if this is a paid instance when we are in test mode
-    				//if ($mode == 'paid' && ! $isAPayingContract) continue;											// Discard if this is a test instance when we are in paid mode
+    				//if ($mode == 'paid' && ! $isAPayingContract) continue;										// Discard if this is a test instance when we are in paid mode
 
     				// Suspend instance
     				dol_syslog('Call sellyoursaasGetExpirationDate', LOG_DEBUG, 1);
@@ -314,11 +307,18 @@ class SellYourSaasUtils
     					$nbsending++;
     					if ($nbsending <= $MAXPERCALL)
     					{
+    					    // Load third party
+    					    $object->fetch_thirdparty();
+
+    					    // @TODO Save in cache $arraydefaultmessage for each $object->thirdparty->default_lang and reuse it to avoid getEMailTemplate
+    					    $outputlangs = new Translate('', $conf);
+    					    $outputlangs->setDefaultLang($object->thirdparty->default_lang);
+    					    $arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'contract', $user, $outputlangs, 0, 1, 'GentleTrialExpiringReminder');
+
 	    					$substitutionarray=getCommonSubstitutionArray($outputlangs, 0, null, $object);
 	    					$substitutionarray['__SELLYOURSAAS_EXPIRY_DATE__']=dol_print_date($expirationdate, 'day', $outputlangs, 'tzserver');
 	    					complete_substitutions_array($substitutionarray, $outputlangs, $object);
 
-	    					//$object->array_options['options_deployment_status'] = 'suspended';
 	    					$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray);
 	    					$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray);
 	    					$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
@@ -348,7 +348,7 @@ class SellYourSaasUtils
     					}
     					else
     					{
-    					    dol_syslog("We reach the limit of ".$MAXPERCALL." contract processed per batch, so we quit loop for this batch doAlertSoftTrial to avoid to reach email quota.", LOG_WARNING);
+    					    dol_syslog("We reach the limit of ".$MAXPERCALL." contract processed per batch, so we quit loop for the batch doAlertSoftTrial to avoid to reach email quota.", LOG_WARNING);
     					    break;
     					}
     				}
