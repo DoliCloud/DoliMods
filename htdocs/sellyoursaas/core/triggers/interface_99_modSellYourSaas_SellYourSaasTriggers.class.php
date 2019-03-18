@@ -247,7 +247,8 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         		{
         			dol_syslog("We found a change in date of end of trial, so we check if you can and, if yes, we make the update of contract");
 
-        			if ($object->oldcopy->array_options['options_date_endfreeperiod'] < $object->array_options['options_date_endfreeperiod'])
+        			if ($object->oldcopy->array_options['options_date_endfreeperiod']
+        			    && ($object->oldcopy->array_options['options_date_endfreeperiod'] < $object->array_options['options_date_endfreeperiod']))
         			{
 	        			// Check there is no recurring invoice. If yes, we refuse to increase value.
     	    			$object->fetchObjectLinked();
