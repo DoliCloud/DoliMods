@@ -422,3 +422,4 @@ ToolForMaintenance=The following tool is an alternative tool kept for maintenanc
 AccountToDelete=Account to delete
 PaymentDoneOnStripeTest=Payment done on Stripe - Test
 PaymentDoneOnStripeLive=Payment done on Stripe - Live
+PayBalance=Pay the balance
