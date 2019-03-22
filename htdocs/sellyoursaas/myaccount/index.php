@@ -2816,8 +2816,8 @@ if ($mode == 'instances')
 						print '</div>';
 				     print '</div>';
 
-				     print '
-				      <div class="portlet-body" style="'.$displayforinstance.'">
+				     print '<!-- tabs for instance -->'."\n";
+				     print '<div class="portlet-body" style="'.$displayforinstance.'">
 
 				        <div class="tabbable-custom nav-justified">
 				          <ul class="nav nav-tabs nav-justified">
@@ -2837,9 +2837,12 @@ if ($mode == 'instances')
 
 				     			$arrayoflines = $contract->lines;
 				     			//var_dump($arrayoflines);
-								// Loop on each service / option
+
+								// Loop on each service / option enabled
 				     			foreach($arrayoflines as $keyline => $line)
 								{
+								   if ($line->statut != ContratLigne::STATUS_OPEN) continue;
+
 									//var_dump($line);
 									print '<div class="resource inline-block boxresource">';
 
@@ -2938,12 +2941,13 @@ if ($mode == 'instances')
 								}
 
 								// Add new option
-
-								print '<div class="resource inline-block boxresource opacitymedium small">';
-								print '<br><br><br>';
-								print $langs->trans("SoonMoreOptionsHere");
-								print '</div>';
-
+								if ($statuslabel != 'processing' && $statuslabel != 'undeployed')
+								{
+    								print '<div class="resource inline-block boxresource opacitymedium small">';
+    								print '<br><br><br>';
+    								print $langs->trans("SoonMoreOptionsHere");
+    								print '</div>';
+								}
 
 
 								print '<br><br>';
