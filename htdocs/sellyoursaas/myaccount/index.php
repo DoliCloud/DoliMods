@@ -5174,17 +5174,20 @@ if ($mode == 'mycustomerbilling')
 if ($mode == 'support')
 {
 	// Print warning to read FAQ before
-	print '
-		<div class="alert alert-success note note-success">';
-	if ($urlfaq)
+	print '<!-- Message to read FAQ and get status -->'."\n";
+	if ($urlfaq || $urlstatus)
 	{
-		print '<h4 class="block">'.$langs->trans("PleaseReadFAQFirst", $urlfaq).'</h4><br>';
+    	print '<div class="alert alert-success note note-success">'."\n";
+    	if ($urlfaq)
+    	{
+    		print '<h4 class="block">'.$langs->trans("PleaseReadFAQFirst", $urlfaq).'</h4><br>'."\n";
+    	}
+    	if ($urlstatus)
+    	{
+    	    print $langs->trans("CurrentServiceStatus", $urlstatus).'<br>'."\n";
+    	}
+    	print '</div>'."\n";
 	}
-	print $langs->trans("CurrentServiceStatus", $urlstatus).'<br>';
-	print '
-		</div>
-	';
-
 
 	print '
 	<div class="page-content-wrapper">
