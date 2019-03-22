@@ -3235,7 +3235,8 @@ class SellYourSaasUtils
     				'__APPPASSWORDMD5SALTED__'=>$passwordmd5salted,
     				'__APPPASSWORDSHA256SALTED__'=>$passwordsha256salted,
     				'__APPUNIQUEKEY__'=>$generateduniquekey,
-    				'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname
+    				'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname,
+    				'__SELLYOURSAAS_LOGIN_FOR_SUPPORT__'=>$conf->global->__SELLYOURSAAS_LOGIN_FOR_SUPPORT__
     				);
 
 

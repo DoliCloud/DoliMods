@@ -423,3 +423,4 @@ AccountToDelete=Account to delete
 PaymentDoneOnStripeTest=Payment done on Stripe - Test
 PaymentDoneOnStripeLive=Payment done on Stripe - Live
 PayBalance=Pay the balance
+QtyFormulaExamples=SQL:select count(rowid) as nb from __INSTANCEDBPREFIX__user where statut = 1 and login != '__SELLYOURSAAS_LOGIN_FOR_SUPPORT__'<br>BASH:du -ks __INSTANCEDIR__ | cut -f 1 | php -r '$a=fgets(STDIN)/1000; print ($a>0?$a:0)." ".($a>5?($a-5):0);'
