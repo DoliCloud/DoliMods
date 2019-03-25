@@ -1229,10 +1229,15 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			            $arraytags=null;
 			            $statsd->increment('sellyoursaas.paymentmodeadded', 1, $arraytags);
 
+			            global $dolibarr_main_url_root;
+			            $urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+			            $urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+			            //$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
+
 			            $titleofevent = dol_trunc($conf->global->SELLYOURSAAS_NAME.' - '.gethostname().' - '.$langs->trans("NewCustomer").': '.$mythirdpartyaccount->name, 90);
 			            $statsd->event($titleofevent,
 			                array(
-			                    'text'       =>  $titleofevent.' - Payment mode added from '.getUserRemoteIP()."\n\n"."URL: ".$url,
+			                    'text'       =>  $titleofevent.' - Payment mode added from '.getUserRemoteIP()."\n".$langs->trans("Customer").': '.$mythirdpartyaccount->name.' <a href="'.$urlwithouturlroot.'/societe/card.php?socid='.$mythirdpartyaccount->id.'">'.$langs->trans("SeeOnBackoffice").'</a>'."\nSource URL of event: ".$url,
 			                    'alert_type' => 'info',
 			                    'source_type_name' => 'API',
 			                    'host'       => gethostname()
