@@ -1235,9 +1235,12 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			            //$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 
 			            $titleofevent = dol_trunc($conf->global->SELLYOURSAAS_NAME.' - '.gethostname().' - '.$langs->trans("NewCustomer").': '.$mythirdpartyaccount->name, 90);
+			            $messageofevent = ' - Payment mode added from '.getUserRemoteIP()."\n";
+			            $messageofevent.= $langs->trans("Customer").': '.$mythirdpartyaccount->name.' <a href="'.$urlwithouturlroot.'/societe/card.php?socid='.$mythirdpartyaccount->id.'">'.$langs->trans("SeeOnBackoffice").'</a>'."\nSource URL of event: ".$url;
+
 			            $statsd->event($titleofevent,
 			                array(
-			                    'text'       =>  $titleofevent.' - Payment mode added from '.getUserRemoteIP()."\n".$langs->trans("Customer").': '.$mythirdpartyaccount->name.' <a href="'.$urlwithouturlroot.'/societe/card.php?socid='.$mythirdpartyaccount->id.'">'.$langs->trans("SeeOnBackoffice").'</a>'."\nSource URL of event: ".$url,
+			                    'text'       =>  $titleofevent.$messageofevent,
 			                    'alert_type' => 'info',
 			                    'source_type_name' => 'API',
 			                    'host'       => gethostname()
