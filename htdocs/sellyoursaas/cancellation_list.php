@@ -351,7 +351,7 @@ print '<input type="hidden" name="contextpage" value="'.$contextpage.'">';
 $newcardbutton='';
 //if ($user->rights->mymodule->creer)
 	//{
-$newcardbutton='<a class="butActionNew" href="card.php?action=create">'.$langs->trans('New');
+$newcardbutton='<a class="butActionNew" href="card.php?action=create"><span class="valignmiddle text-plus-circle">'.$langs->trans('New').'</span>';
 $newcardbutton.= '<span class="fa fa-plus-circle valignmiddle"></span>';
 $newcardbutton.= '</a>';
 //}

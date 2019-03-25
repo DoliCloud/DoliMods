@@ -2841,7 +2841,7 @@ if ($mode == 'instances')
 								// Loop on each service / option enabled
 				     			foreach($arrayoflines as $keyline => $line)
 								{
-								   if ($line->statut != ContratLigne::STATUS_OPEN) continue;
+								    //if ($line->statut != ContratLigne::STATUS_OPEN) continue;     // We need to show even if closed for the dashboard
 
 									//var_dump($line);
 									print '<div class="resource inline-block boxresource">';
@@ -3212,7 +3212,7 @@ if ($mode == 'instances')
 	';
 
 	print '<a href="#addanotherinstance" id="addanotherinstance" class="valignmiddle">';
-	print '<span class="fa fa-plus-circle valignmiddle" style="font-size: 1.5em; padding-right: 4px;"></span><span class="valignmiddle">'.$langs->trans("AddAnotherInstance").'...</span><br>';
+	print '<span class="fa fa-plus-circle valignmiddle" style="font-size: 1.5em; padding-right: 4px;"></span><span class="valignmiddle text-plus-circle">'.$langs->trans("AddAnotherInstance").'...</span><br>';
 	print '</a>';
 
 	print '<script type="text/javascript" language="javascript">
@@ -4175,6 +4175,7 @@ if ($mode == 'billing')
 									if (! $paymentinerroronthisinvoice)
 									{
 										$s = $invoice->getLibStatut(2, $alreadypayed + $amount_credit_notes_included);
+										$s = preg_replace('/'.$langs->trans("BillStatusPaidBackOrConverted").'/', $langs->trans("Refunded"), $s);
 										$s = preg_replace('/'.$langs->trans("BillShortStatusPaidBackOrConverted").'/', $langs->trans("Refunded"), $s);
 										print $s;
 									}
