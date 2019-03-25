@@ -669,12 +669,12 @@ class ActionsSellyoursaas
     				    if (! $object->nbofservicesclosed)
     				    {
     				        $daysafterexpiration = $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_SUSPEND;
-    				        $ret.=' Service will be suspended<br>'.$daysafterexpiration.' days after expiration.';
+    				        $ret.=' <span class="badge2 small">Service will be suspended<br>'.$daysafterexpiration.' days after expiration.</span>';
     				    }
     				    if ($object->nbofservicesclosed)
     				    {
     				        $daysafterexpiration = $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT;
-    				        $ret.=' Service will be undeployed<br>'.$daysafterexpiration.' days after expiration.';
+    				        $ret.=' <span class="badge2 small">Service will be undeployed<br>'.$daysafterexpiration.' days after expiration.</span>';
     				    }
     				}
     				else
@@ -684,12 +684,12 @@ class ActionsSellyoursaas
     				    if (! $object->nbofservicesclosed)
     				    {
     				        $daysafterexpiration = $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_SUSPEND;
-    				        $ret.=' Service will be suspended<br>'.$daysafterexpiration.' days after expiration.';
+    				        $ret.=' <span class="badge2 small">Service will be suspended<br>'.$daysafterexpiration.' days after expiration.</span>';
     				    }
     				    if ($object->nbofservicesclosed)
     				    {
     				        $daysafterexpiration = $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT;
-    				        $ret.=' Service will be undeployed<br>'.$daysafterexpiration.' days after expiration.';
+    				        $ret.=' <span class="badge2 small">Service will be undeployed<br>'.$daysafterexpiration.' days after expiration.</span>';
     				    }
     				}
 				}
