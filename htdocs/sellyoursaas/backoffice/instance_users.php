@@ -283,21 +283,13 @@ $formcompany = new FormCompany($db);
 $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
 $arraystatus=Dolicloud_customers::$listOfStatus;
 
-if (empty($instanceoldid) && $action != 'create')
+if ($action != 'create')
 {
 	// Show tabs
 	$head = contract_prepare_head($object);
 
 	$title = $langs->trans("Contract");
-	dol_fiche_head($head, 'users', $title, 0, 'contract');
-}
-else
-{
-	// Show tabs
-	$head = dolicloud_prepare_head($object);
-
-	$title = $langs->trans("Contract");
-	dol_fiche_head($head, 'users', $title, 0, 'contract');
+	dol_fiche_head($head, 'users', $title, -1, 'contract');
 }
 
 if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
@@ -342,70 +334,59 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 	// Contract card
 
-	if (empty($instanceoldid))
-	{
-		$linkback = '<a href="'.DOL_URL_ROOT.'/contrat/list.php?restore_lastsearch_values=1'.(! empty($socid)?'&socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
-	}
-	else
-	{
-		$linkback = '<a href="'.dol_buildpath('/sellyoursaas/backoffice/dolicloud_list.php',1).'?instanceoldid='.$instanceoldid.'&restore_lastsearch_values=1'.(! empty($socid)?'&socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
-	}
+	$linkback = '<a href="'.DOL_URL_ROOT.'/contrat/list.php?restore_lastsearch_values=1'.(! empty($socid)?'&socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
 
 	$morehtmlref='';
 
-	if (empty($instanceoldid))
+	$morehtmlref.='<div class="refidno">';
+	// Ref customer
+	$morehtmlref.=$form->editfieldkey("RefCustomer", 'ref_customer', $object->ref_customer, $object, 0, 'string', '', 0, 1);
+	$morehtmlref.=$form->editfieldval("RefCustomer", 'ref_customer', $object->ref_customer, $object, 0, 'string', '', null, null, '', 1, 'getFormatedCustomerRef');
+	// Ref supplier
+	$morehtmlref.='<br>';
+	$morehtmlref.=$form->editfieldkey("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, 0, 'string', '', 0, 1);
+	$morehtmlref.=$form->editfieldval("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, 0, 'string', '', null, null, '', 1, 'getFormatedSupplierRef');
+	// Thirdparty
+	$morehtmlref.='<br>'.$langs->trans('ThirdParty') . ' : ' . $object->thirdparty->getNomUrl(1);
+	// Project
+	if (! empty($conf->projet->enabled))
 	{
-		$morehtmlref.='<div class="refidno">';
-		// Ref customer
-		$morehtmlref.=$form->editfieldkey("RefCustomer", 'ref_customer', $object->ref_customer, $object, 0, 'string', '', 0, 1);
-		$morehtmlref.=$form->editfieldval("RefCustomer", 'ref_customer', $object->ref_customer, $object, 0, 'string', '', null, null, '', 1, 'getFormatedCustomerRef');
-		// Ref supplier
-		$morehtmlref.='<br>';
-		$morehtmlref.=$form->editfieldkey("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, 0, 'string', '', 0, 1);
-		$morehtmlref.=$form->editfieldval("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, 0, 'string', '', null, null, '', 1, 'getFormatedSupplierRef');
-		// Thirdparty
-		$morehtmlref.='<br>'.$langs->trans('ThirdParty') . ' : ' . $object->thirdparty->getNomUrl(1);
-		// Project
-		if (! empty($conf->projet->enabled))
+		$langs->load("projects");
+		$morehtmlref.='<br>'.$langs->trans('Project') . ' : ';
+		if (0)
 		{
-			$langs->load("projects");
-			$morehtmlref.='<br>'.$langs->trans('Project') . ' : ';
-			if (0)
-			{
-				if ($action != 'classify')
-					$morehtmlref.='<a href="' . $_SERVER['PHP_SELF'] . '?action=classify&amp;id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
-					if ($action == 'classify') {
-						//$morehtmlref.=$form->form_project($_SERVER['PHP_SELF'] . '?id=' . $object->id, $object->socid, $object->fk_project, 'projectid', 0, 0, 1, 1);
-						$morehtmlref.='<form method="post" action="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'">';
-						$morehtmlref.='<input type="hidden" name="action" value="classin">';
-						$morehtmlref.='<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-						$morehtmlref.=$formproject->select_projects($object->thirdparty->id, $object->fk_project, 'projectid', $maxlength, 0, 1, 0, 1, 0, 0, '', 1);
-						$morehtmlref.='<input type="submit" class="button valignmiddle" value="'.$langs->trans("Modify").'">';
-						$morehtmlref.='</form>';
-					} else {
-						$morehtmlref.=$form->form_project($_SERVER['PHP_SELF'] . '?id=' . $object->id, $object->thirdparty->id, $object->fk_project, 'none', 0, 0, 0, 1);
-					}
-			} else {
-				if (! empty($object->fk_project)) {
-					$proj = new Project($db);
-					$proj->fetch($object->fk_project);
-					$morehtmlref.='<a href="'.DOL_URL_ROOT.'/projet/card.php?id=' . $object->fk_project . '" title="' . $langs->trans('ShowProject') . '">';
-					$morehtmlref.=$proj->ref;
-					$morehtmlref.='</a>';
+			if ($action != 'classify')
+				$morehtmlref.='<a href="' . $_SERVER['PHP_SELF'] . '?action=classify&amp;id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
+				if ($action == 'classify') {
+					//$morehtmlref.=$form->form_project($_SERVER['PHP_SELF'] . '?id=' . $object->id, $object->socid, $object->fk_project, 'projectid', 0, 0, 1, 1);
+					$morehtmlref.='<form method="post" action="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'">';
+					$morehtmlref.='<input type="hidden" name="action" value="classin">';
+					$morehtmlref.='<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+					$morehtmlref.=$formproject->select_projects($object->thirdparty->id, $object->fk_project, 'projectid', $maxlength, 0, 1, 0, 1, 0, 0, '', 1);
+					$morehtmlref.='<input type="submit" class="button valignmiddle" value="'.$langs->trans("Modify").'">';
+					$morehtmlref.='</form>';
 				} else {
-					$morehtmlref.='';
+					$morehtmlref.=$form->form_project($_SERVER['PHP_SELF'] . '?id=' . $object->id, $object->thirdparty->id, $object->fk_project, 'none', 0, 0, 0, 1);
 				}
+		} else {
+			if (! empty($object->fk_project)) {
+				$proj = new Project($db);
+				$proj->fetch($object->fk_project);
+				$morehtmlref.='<a href="'.DOL_URL_ROOT.'/projet/card.php?id=' . $object->fk_project . '" title="' . $langs->trans('ShowProject') . '">';
+				$morehtmlref.=$proj->ref;
+				$morehtmlref.='</a>';
+			} else {
+				$morehtmlref.='';
 			}
 		}
-		$morehtmlref.='</div>';
 	}
+	$morehtmlref.='</div>';
 
 	//dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'none', $morehtmlref);
 
-	if (empty($instanceoldid)) $nodbprefix=0;
-	else $nodbprefix=1;
+	$nodbprefix=0;
 
-	dol_banner_tab($object, ($instanceoldid?'refold':'ref'), $linkback, 1, ($instanceoldid?'name':'ref'), 'ref', $morehtmlref, '', $nodbprefix, '', '', 1);
+	dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'ref', $morehtmlref, '', $nodbprefix, '', '', 1);
 
 	if (is_object($object->db2))
 	{
@@ -421,104 +402,71 @@ if ($id > 0 || $instanceoldid > 0)
 	dol_fiche_end();
 }
 
-print '<br>';
 
 
-if (empty($instanceoldid))
+$instance = 'xxxx';
+$type_db = $conf->db->type;
+
+$hostname_db = $object->array_options['options_hostname_db'];
+$username_db = $object->array_options['options_username_db'];
+$password_db = $object->array_options['options_password_db'];
+$database_db = $object->array_options['options_database_db'];
+$port_db     = $object->array_options['options_port_db'];
+$username_web = $object->array_options['options_username_os'];
+$password_web = $object->array_options['options_password_os'];
+$hostname_os = $object->array_options['options_hostname_os'];
+
+$dbcustomerinstance=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
+
+if (is_object($dbcustomerinstance) && $dbcustomerinstance->connected)
 {
-	$instance = 'xxxx';
-	$type_db = $conf->db->type;
-
-	if ($instanceoldid)	// $object is old dolicloud_customers
+	// Get user/pass of last admin user
+	$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
+	$resql=$dbcustomerinstance->query($sql);
+	if ($resql)
 	{
-		$instance = $object->instance;
-		$hostname_db = $object->hostname_db;
-		$username_db = $object->username_db;
-		$password_db = $object->password_db;
-		$database_db = $object->database_db;
-		$port_db     = $object->port_db?$object->port_db:3306;
-		$username_web = $object->username_web;
-		$password_web = $object->password_web;
-		$hostname_os = $object->instance.'.on.dolicloud.com';
+		$obj = $dbcustomerinstance->fetch_object($resql);
+		$object->lastlogin_admin=$obj->login;
+		$object->lastpass_admin=$obj->pass;
+		$lastloginadmin=$object->lastlogin_admin;
+		$lastpassadmin=$object->lastpass_admin;
 	}
-	else	// $object is a contract (on old or new instance)
+	else
 	{
-		$hostname_db = $object->array_options['options_hostname_db'];
-		$username_db = $object->array_options['options_username_db'];
-		$password_db = $object->array_options['options_password_db'];
-		$database_db = $object->array_options['options_database_db'];
-		$port_db     = $object->array_options['options_port_db'];
-		$username_web = $object->array_options['options_username_os'];
-		$password_web = $object->array_options['options_password_os'];
-		$hostname_os = $object->array_options['options_hostname_os'];
+		dol_print_error($dbcustomerinstance);
 	}
-
-	$dbcustomerinstance=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
-
-	if (is_object($dbcustomerinstance) && $dbcustomerinstance->connected)
-	{
-		// Get user/pass of last admin user
-		$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
-		$resql=$dbcustomerinstance->query($sql);
-		if ($resql)
-		{
-			$obj = $dbcustomerinstance->fetch_object($resql);
-			$object->lastlogin_admin=$obj->login;
-			$object->lastpass_admin=$obj->pass;
-			$lastloginadmin=$object->lastlogin_admin;
-			$lastpassadmin=$object->lastpass_admin;
-		}
-		else
-		{
-			dol_print_error($dbcustomerinstance);
-		}
-	}
-
-
-	if ($action == 'resetpassword') {
-		include_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
-
-		$newpasswordforcustomerinstance = getRandomPassword(false);	// TODO Use setup of customer instance instead of backoffice instance
-
-		$formquestion=array();
-		$formquestion[] = array('type' => 'text','name' => 'newpassword','label' => $langs->trans("NewPassword"),'value' => $newpasswordforcustomerinstance);
-
-		print $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id . '&remoteid=' . GETPOST('remoteid','int'), $langs->trans('ResetPassword'), $langs->trans('ConfirmResetPassword'), 'confirm_resetpassword', $formquestion, 0, 1);
-	}
-
-	print '<strong>INSTANCE '.$conf->global->SELLYOURSAAS_NAME.' (Customer instance '.$dbcustomerinstance->database_host.')</strong><br>';
-	print '<table class="border" width="100%">';
-
-	print_user_table($dbcustomerinstance);
-
-	print "</table><br>";
 }
+
+
+if ($action == 'resetpassword') {
+	include_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
+
+	$newpasswordforcustomerinstance = getRandomPassword(false);	// TODO Use setup of customer instance instead of backoffice instance
+
+	$formquestion=array();
+	$formquestion[] = array('type' => 'text','name' => 'newpassword','label' => $langs->trans("NewPassword"),'value' => $newpasswordforcustomerinstance);
+
+	print $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id . '&remoteid=' . GETPOST('remoteid','int'), $langs->trans('ResetPassword'), $langs->trans('ConfirmResetPassword'), 'confirm_resetpassword', $formquestion, 0, 1);
+}
+
+print '<table class="border" width="100%">';
+
+print_user_table($dbcustomerinstance);
+
+print "</table><br>";
+
 
 
 // Dolibarr instance login
 if ($lastpassadmin)
 {
-	if (empty($instanceoldid))
-	{
-		$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
-	}
-	else
-	{
-		$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
-	}
+	$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
 	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
 	print 'Dolibarr link (last logged admin): '.$link.'<br>';
 }
 else
 {
-	if (empty($instanceoldid))
-	{
-		$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password='.$object->array_options['options_deployment_init_adminpass'];
-	}
-	else
-	{
-		$url='https://'.$object->instance.'.on.dolicloud.com?username='.$lastloginadmin.'&amp;password=';
-	}
+	$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password='.$object->array_options['options_deployment_init_adminpass'];
 	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
 	print 'Dolibarr link (initial pass at install): '.$link.'<br>';
 }

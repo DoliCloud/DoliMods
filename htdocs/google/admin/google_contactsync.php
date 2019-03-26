@@ -694,10 +694,10 @@ if ($conf->use_javascript_ajax)
 	print 'jQuery(document).ready(function () {
 		function initfields()
 		{
-			if (jQuery("#GOOGLE_DUPLICATE_INTO_THIRDPARTIES").val() > 0 || jQuery("#GOOGLE_DUPLICATE_INTO_CONTACTS").val() > 0 || jQuery("#GOOGLE_DUPLICATE_INTO_MEMBERS").val() > 0) jQuery(".syncx").show();
+			if (jQuery("#GOOGLE_DUPLICATE_INTO_THIRDPARTIES").val() != "0" || jQuery("#GOOGLE_DUPLICATE_INTO_CONTACTS").val() > 0 || jQuery("#GOOGLE_DUPLICATE_INTO_MEMBERS").val() > 0) jQuery(".syncx").show();
 			else jQuery(".syncx").hide();
 
-			if (jQuery("#GOOGLE_DUPLICATE_INTO_THIRDPARTIES").val() > 0) jQuery(".syncthirdparties,#trsyncthirdparties").show();
+			if (jQuery("#GOOGLE_DUPLICATE_INTO_THIRDPARTIES").val() != "0") jQuery(".syncthirdparties,#trsyncthirdparties").show();
 			else jQuery(".syncthirdparties,#trsyncthirdparties").hide();
 			if (jQuery("#GOOGLE_DUPLICATE_INTO_CONTACTS").val() > 0) jQuery(".synccontacts,#trsynccontacts").show();
 			else jQuery(".synccontacts,#trsynccontacts").hide();
@@ -719,14 +719,25 @@ if ($conf->use_javascript_ajax)
 	print '</script>'."\n";
 }
 
-if ($conf->societe->enabled) print $langs->trans("GoogleEnableSyncToThirdparties").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_THIRDPARTIES",isset($_POST["GOOGLE_DUPLICATE_INTO_THIRDPARTIES"])?$_POST["GOOGLE_DUPLICATE_INTO_THIRDPARTIES"]:$conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES,1).'<br>';
+if ($conf->societe->enabled)
+{
+    print $langs->trans("GoogleEnableSyncToThirdparties").' ';
+    $arraytmp=array(
+        '1'=>$langs->trans("Yes"),
+        'customersonly'=>$langs->trans("CustomersOnly"),
+        //'prospectsonly'=>$langs->trans("ProspectsOnly"),
+        '0'=>$langs->trans("No")
+    );
+    print $form->selectarray('GOOGLE_DUPLICATE_INTO_THIRDPARTIES', $arraytmp, $conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES);
+    print '<br>';
+}
 if ($conf->societe->enabled) print $langs->trans("GoogleEnableSyncToContacts").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_CONTACTS",isset($_POST["GOOGLE_DUPLICATE_INTO_CONTACTS"])?$_POST["GOOGLE_DUPLICATE_INTO_CONTACTS"]:$conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS,1).'<br>';
 if ($conf->adherent->enabled) print $langs->trans("GoogleEnableSyncToMembers").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_MEMBERS",isset($_POST["GOOGLE_DUPLICATE_INTO_MEMBERS"])?$_POST["GOOGLE_DUPLICATE_INTO_MEMBERS"]:$conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS,1).'<br>';
 
 
 print '<div class="syncx">';
 
-print '<br>';
+print '<br><br>';
 
 
 $var=true;

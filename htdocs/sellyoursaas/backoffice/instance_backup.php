@@ -67,20 +67,9 @@ $refold     = GETPOST('refold','alpha');
 $error=0; $errors=array();
 
 
-if (empty($instanceoldid) && empty($refold) && $action != 'create')
+if ($action != 'create')
 {
 	$object = new Contrat($db);
-}
-else
-{
-	$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
-	if ($db2->error)
-	{
-		dol_print_error($db2,"host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db2->error);
-		exit;
-	}
-
-	$object = new Dolicloud_customers($db,$db2);
 }
 
 
@@ -91,38 +80,31 @@ $result = restrictedArea($user, 'sellyoursaas', 0, '','');
 $hookmanager->initHooks(array('contractcard','globalcard'));
 
 
-if ($id > 0 || $instanceoldid > 0 || $ref || $refold)
+if ($id > 0 || $ref)
 {
 	$result=$object->fetch($id?$id:$instanceoldid, $ref?$ref:$refold);
 	if ($result < 0) dol_print_error($db,$object->error);
-	if ($object->element != 'contrat') $instanceoldid=$object->id;
-	else $id=$object->id;
+	$id=$object->id;
 }
 
-if (! empty($instanceoldid))
+$backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/backup_instance.php '.$object->ref_customer.' '.$conf->global->DOLICLOUD_BACKUP_PATH;
+
+if (sellyoursaasIsPaidInstance($object))
 {
-	$backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/backup_instance.php '.$object->instance.' '.$conf->global->DOLICLOUD_BACKUP_PATH;
+    if ($object->array_options['options_deployment_status'] != 'undeployed')
+    {
+        $restorestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/restore_instance.php '.$conf->global->DOLICLOUD_BACKUP_PATH.'/'.$object->array_options['options_username_os'].'/'.$object->array_options['options_database_db'].' dumpfile|31 '.$object->ref_customer;
+    }
+    else
+    {
+        $restorestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/restore_instance.php '.$conf->global->DOLICLOUD_BACKUP_PATH.'/'.$object->array_options['options_username_os'].'/'.$object->array_options['options_database_db'].'|'.$conf->global->SELLYOURSAAS_PAID_ARCHIVES_PATH.'/'.$object->array_options['options_username_os'].'/'.$object->array_options['options_database_db'].' dumpfile|31 '.$object->ref_customer;
+    }
 }
 else
 {
-	$backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/backup_instance.php '.$object->ref_customer.' '.$conf->global->DOLICLOUD_BACKUP_PATH;
-
-	if (sellyoursaasIsPaidInstance($object))
-	{
-	    if ($object->array_options['options_deployment_status'] != 'undeployed')
-	    {
-	        $restorestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/restore_instance.php '.$conf->global->DOLICLOUD_BACKUP_PATH.'/'.$object->array_options['options_username_os'].'/'.$object->array_options['options_database_db'].' dumpfile|31 '.$object->ref_customer;
-	    }
-	    else
-	    {
-	        $restorestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/restore_instance.php '.$conf->global->DOLICLOUD_BACKUP_PATH.'/'.$object->array_options['options_username_os'].'/'.$object->array_options['options_database_db'].'|'.$conf->global->SELLYOURSAAS_PAID_ARCHIVES_PATH.'/'.$object->array_options['options_username_os'].'/'.$object->array_options['options_database_db'].' dumpfile|31 '.$object->ref_customer;
-	    }
-	}
-	else
-	{
-	    $restorestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/restore_instance.php '.$conf->global->SELLYOURSAAS_TEST_ARCHIVES_PATH.'/'.$object->array_options['options_username_os'].'/'.$object->array_options['options_database_db'].' dumpfile|31 '.$object->ref_customer;
-	}
+    $restorestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/restore_instance.php '.$conf->global->SELLYOURSAAS_TEST_ARCHIVES_PATH.'/'.$object->array_options['options_username_os'].'/'.$object->array_options['options_database_db'].' dumpfile|31 '.$object->ref_customer;
 }
+
 
 
 /*
@@ -161,21 +143,13 @@ $formcompany = new FormCompany($db);
 $countrynotdefined=$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
 $arraystatus=Dolicloud_customers::$listOfStatus;
 
-if (empty($instanceoldid) && $action != 'create')
+if ($action != 'create')
 {
 	// Show tabs
 	$head = contract_prepare_head($object);
 
 	$title = $langs->trans("Contract");
-	dol_fiche_head($head, 'backup', $title, 0, 'contract');
-}
-else
-{
-	// Show tabs
-	$head = dolicloud_prepare_head($object);
-
-	$title = $langs->trans("Contract");
-	dol_fiche_head($head, 'backup', $title, 0, 'contract');
+	dol_fiche_head($head, 'backup', $title, -1, 'contract');
 }
 
 
@@ -187,30 +161,15 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 	$instance = 'xxxx';
 	$type_db = $conf->db->type;
-	if ($instanceoldid)
-	{
-		$instance = $object->instance;
-		$hostname_db = $object->hostname_db;
-		$username_db = $object->username_db;
-		$password_db = $object->password_db;
-		$database_db = $object->database_db;
-		$port_db = $object->port_db?$object->port_db:3306;
-		$username_web = $object->username_web;
-		$password_web = $object->password_web;
-		$hostname_os = $object->instance.'.on.dolicloud.com';
-	}
-	else	// $object is a contract (on old or new instance)
-	{
-		$instance = $object->ref_customer;
-		$hostname_db = $object->array_options['options_hostname_db'];
-		$username_db = $object->array_options['options_username_db'];
-		$password_db = $object->array_options['options_password_db'];
-		$database_db = $object->array_options['options_database_db'];
-		$port_db     = $object->array_options['options_port_db'];
-		$username_web = $object->array_options['options_username_os'];
-		$password_web = $object->array_options['options_password_os'];
-		$hostname_os = $object->array_options['options_hostname_os'];
-	}
+	$instance = $object->ref_customer;
+	$hostname_db = $object->array_options['options_hostname_db'];
+	$username_db = $object->array_options['options_username_db'];
+	$password_db = $object->array_options['options_password_db'];
+	$database_db = $object->array_options['options_database_db'];
+	$port_db     = $object->array_options['options_port_db'];
+	$username_web = $object->array_options['options_username_os'];
+	$password_web = $object->array_options['options_password_os'];
+	$hostname_os = $object->array_options['options_hostname_os'];
 
 	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, 3306);
 
@@ -228,68 +187,57 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 
 	// Contract card
 
-	if (empty($instanceoldid))
-	{
-		$linkback = '<a href="'.DOL_URL_ROOT.'/contrat/list.php?restore_lastsearch_values=1'.(! empty($socid)?'&socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
-	}
-	else
-	{
-		$linkback = '<a href="'.dol_buildpath('/sellyoursaas/backoffice/dolicloud_list.php',1).'?instanceoldid='.$instanceoldid.'&restore_lastsearch_values=1'.(! empty($socid)?'&socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
-	}
+	$linkback = '<a href="'.DOL_URL_ROOT.'/contrat/list.php?restore_lastsearch_values=1'.(! empty($socid)?'&socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
 
 	$morehtmlref='';
 
-	if (empty($instanceoldid))
+	$morehtmlref.='<div class="refidno">';
+	// Ref customer
+	$morehtmlref.=$form->editfieldkey("RefCustomer", 'ref_customer', $object->ref_customer, $object, 0, 'string', '', 0, 1);
+	$morehtmlref.=$form->editfieldval("RefCustomer", 'ref_customer', $object->ref_customer, $object, 0, 'string', '', null, null, '', 1, 'getFormatedCustomerRef');
+	// Ref supplier
+	$morehtmlref.='<br>';
+	$morehtmlref.=$form->editfieldkey("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, 0, 'string', '', 0, 1);
+	$morehtmlref.=$form->editfieldval("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, 0, 'string', '', null, null, '', 1, 'getFormatedSupplierRef');
+	// Thirdparty
+	$morehtmlref.='<br>'.$langs->trans('ThirdParty') . ' : ' . ($object->thirdparty ? $object->thirdparty->getNomUrl(1) : '');
+	// Project
+	if (! empty($conf->projet->enabled))
 	{
-		$morehtmlref.='<div class="refidno">';
-		// Ref customer
-		$morehtmlref.=$form->editfieldkey("RefCustomer", 'ref_customer', $object->ref_customer, $object, 0, 'string', '', 0, 1);
-		$morehtmlref.=$form->editfieldval("RefCustomer", 'ref_customer', $object->ref_customer, $object, 0, 'string', '', null, null, '', 1, 'getFormatedCustomerRef');
-		// Ref supplier
-		$morehtmlref.='<br>';
-		$morehtmlref.=$form->editfieldkey("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, 0, 'string', '', 0, 1);
-		$morehtmlref.=$form->editfieldval("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, 0, 'string', '', null, null, '', 1, 'getFormatedSupplierRef');
-		// Thirdparty
-		$morehtmlref.='<br>'.$langs->trans('ThirdParty') . ' : ' . ($object->thirdparty ? $object->thirdparty->getNomUrl(1) : '');
-		// Project
-		if (! empty($conf->projet->enabled))
+		$langs->load("projects");
+		$morehtmlref.='<br>'.$langs->trans('Project') . ' : ';
+		if (0)
 		{
-			$langs->load("projects");
-			$morehtmlref.='<br>'.$langs->trans('Project') . ' : ';
-			if (0)
-			{
-				if ($action != 'classify')
-					$morehtmlref.='<a href="' . $_SERVER['PHP_SELF'] . '?action=classify&amp;id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
-					if ($action == 'classify') {
-						//$morehtmlref.=$form->form_project($_SERVER['PHP_SELF'] . '?id=' . $object->id, $object->socid, $object->fk_project, 'projectid', 0, 0, 1, 1);
-						$morehtmlref.='<form method="post" action="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'">';
-						$morehtmlref.='<input type="hidden" name="action" value="classin">';
-						$morehtmlref.='<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-						$morehtmlref.=$formproject->select_projects($object->thirdparty->id, $object->fk_project, 'projectid', $maxlength, 0, 1, 0, 1, 0, 0, '', 1);
-						$morehtmlref.='<input type="submit" class="button valignmiddle" value="'.$langs->trans("Modify").'">';
-						$morehtmlref.='</form>';
-					} else {
-						$morehtmlref.=$form->form_project($_SERVER['PHP_SELF'] . '?id=' . $object->id, $object->thirdparty->id, $object->fk_project, 'none', 0, 0, 0, 1);
-					}
-			} else {
-				if (! empty($object->fk_project)) {
-					$proj = new Project($db);
-					$proj->fetch($object->fk_project);
-					$morehtmlref.='<a href="'.DOL_URL_ROOT.'/projet/card.php?id=' . $object->fk_project . '" title="' . $langs->trans('ShowProject') . '">';
-					$morehtmlref.=$proj->ref;
-					$morehtmlref.='</a>';
+			if ($action != 'classify')
+				$morehtmlref.='<a href="' . $_SERVER['PHP_SELF'] . '?action=classify&amp;id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
+				if ($action == 'classify') {
+					//$morehtmlref.=$form->form_project($_SERVER['PHP_SELF'] . '?id=' . $object->id, $object->socid, $object->fk_project, 'projectid', 0, 0, 1, 1);
+					$morehtmlref.='<form method="post" action="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'">';
+					$morehtmlref.='<input type="hidden" name="action" value="classin">';
+					$morehtmlref.='<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+					$morehtmlref.=$formproject->select_projects($object->thirdparty->id, $object->fk_project, 'projectid', $maxlength, 0, 1, 0, 1, 0, 0, '', 1);
+					$morehtmlref.='<input type="submit" class="button valignmiddle" value="'.$langs->trans("Modify").'">';
+					$morehtmlref.='</form>';
 				} else {
-					$morehtmlref.='';
+					$morehtmlref.=$form->form_project($_SERVER['PHP_SELF'] . '?id=' . $object->id, $object->thirdparty->id, $object->fk_project, 'none', 0, 0, 0, 1);
 				}
+		} else {
+			if (! empty($object->fk_project)) {
+				$proj = new Project($db);
+				$proj->fetch($object->fk_project);
+				$morehtmlref.='<a href="'.DOL_URL_ROOT.'/projet/card.php?id=' . $object->fk_project . '" title="' . $langs->trans('ShowProject') . '">';
+				$morehtmlref.=$proj->ref;
+				$morehtmlref.='</a>';
+			} else {
+				$morehtmlref.='';
 			}
 		}
-		$morehtmlref.='</div>';
 	}
+	$morehtmlref.='</div>';
 
 	//dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'none', $morehtmlref);
 
-	if (empty($instanceoldid)) $nodbprefix=0;
-	else $nodbprefix=1;
+	$nodbprefix=0;
 
 	dol_banner_tab($object, ($instanceoldid?'refold':'ref'), $linkback, 1, ($instanceoldid?'name':'ref'), 'ref', $morehtmlref, '', $nodbprefix, '', '', 1);
 }
@@ -299,10 +247,8 @@ if ($id > 0 || $instanceoldid > 0)
     dol_fiche_end();
 }
 
-if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
+if ($id > 0 && $action != 'edit' && $action != 'create')
 {
-    print '<br>';
-
 	if (is_object($object->db2))
 	{
 		$object->db=$savdb;
@@ -326,7 +272,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	}
 
 	// ----- Backup instance -----
-	print '<strong>INSTANCE BACKUP</strong><br>';
+	//print '<strong>INSTANCE BACKUP</strong><br>';
 
 	print '<div class="underbanner clearboth"></div>';
 	print '<table class="noborder" width="100%">';

@@ -5,6 +5,7 @@
 
 - NEW Add filter on type of thirdparty (customer/prospect/supplier) on maps.
 - NEW Add filter on categories for members too.
+- NEW Can sync contacts for thirdparties "Customers only".
 - Need Dolibarr 3.9+
 
 ## 6.1

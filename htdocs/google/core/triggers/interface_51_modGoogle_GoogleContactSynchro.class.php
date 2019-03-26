@@ -135,6 +135,8 @@ class InterfaceGoogleContactSynchro
 			if (preg_match('/^CONTACT_/',$action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS)) return 0;
 			if (preg_match('/^MEMBER_/',$action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS)) return 0;
 
+			if ($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES == 'customersonly' && $object->client != 1 && $object->client != 3) return 0;
+			if ($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES == 'prospectsonly' && $object->client != 2 && $object->client != 3) return 0;
 
 			dol_syslog("Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id." element=".$object->element);
 
