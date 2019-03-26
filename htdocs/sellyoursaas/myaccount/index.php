@@ -90,8 +90,12 @@ $langs->setDefaultLang(GETPOST('lang','aZ09')?GETPOST('lang','aZ09'):'auto');
 $langsen=new Translate('', $conf);
 $langsen->setDefaultLang('en_US');
 
+$langscompany=new Translate('', $conf);
+$langscompany->setDefaultLang($mysoc->default_lang == 'auto' ? getLanguageCodeFromCountryCode($mysoc->country_code) : $mysoc->default_lang);
+
 $langs->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas","other","errors",'mails','paypal','paybox','stripe','withdrawals','other'));
 $langsen->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas","other","errors",'mails','paypal','paybox','stripe','withdrawals','other'));
+$langscompany->loadLangs(array("main","companies","bills","sellyoursaas@sellyoursaas","other","errors",'mails','paypal','paybox','stripe','withdrawals','other'));
 
 $mythirdpartyaccount = new Societe($db);
 
@@ -1234,13 +1238,14 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			            $urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
 			            //$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 
-			            $titleofevent = dol_trunc($conf->global->SELLYOURSAAS_NAME.' - '.gethostname().' - '.$langs->trans("NewCustomer").': '.$mythirdpartyaccount->name, 90);
-			            $messageofevent = ' - Payment mode added from '.getUserRemoteIP()."\n";
-			            $messageofevent.= $langs->trans("Customer").': '.$mythirdpartyaccount->name.' <a href="'.$urlwithouturlroot.'/societe/card.php?socid='.$mythirdpartyaccount->id.'">'.$langs->trans("SeeOnBackoffice").'</a>'."\nSource URL of event: ".$url;
+			            $titleofevent = dol_trunc($conf->global->SELLYOURSAAS_NAME.' - '.gethostname().' - '.$langscompany->trans("NewCustomer").': '.$mythirdpartyaccount->name, 90);
+			            $messageofevent = ' - '.$langscompany->trans("PaymentModeAddedFrom").' '.getUserRemoteIP()."\n";
+			            $messageofevent.= $langscompany->trans("Customer").': '.$mythirdpartyaccount->name.' ['.$langscompany->trans("SeeOnBackoffice").']('.$urlwithouturlroot.'/societe/card.php?socid='.$mythirdpartyaccount->id.')'."\n".$langscompany->trans("SourceURLOfEvent").": ".$url;
 
+			            // See https://docs.datadoghq.com/api/?lang=python#post-an-event
 			            $statsd->event($titleofevent,
 			                array(
-			                    'text'       =>  $titleofevent.$messageofevent,
+			                    'text'       =>  "%%% \n ".$titleofevent.$messageofevent." \n %%%",      // Markdown text
 			                    'alert_type' => 'info',
 			                    'source_type_name' => 'API',
 			                    'host'       => gethostname()
