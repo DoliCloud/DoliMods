@@ -54,8 +54,9 @@ $action = GETPOST('action', 'alpha');
 $backtopage = GETPOST('backtopage', 'alpha');
 
 $arrayofparameters=array(
-	'PRESTASHOPGET_MYPARAM1'=>array('css'=>'minwidth200','enabled'=>1),
-	'PRESTASHOPGET_MYPARAM2'=>array('css'=>'minwidth500','enabled'=>1)
+	'PRESTASHOPGET_DB_SERVER'=>array('css'=>'minwidth200','enabled'=>1),
+	'PRESTASHOPGET_DB_USER'=>array('css'=>'minwidth500','enabled'=>1),
+    'PRESTASHOPGET_DB_PASS'=>array('css'=>'minwidth500','enabled'=>1)
 );
 
 

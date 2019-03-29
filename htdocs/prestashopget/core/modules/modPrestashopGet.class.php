@@ -46,7 +46,7 @@ class modPrestashopGet extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 500000;		// TODO Go on page https://wiki.dolibarr.org/index.php/List_of_modules_id to reserve id number for your module
+		$this->numero = 101460;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'prestashopget';
 
@@ -65,8 +65,8 @@ class modPrestashopGet extends DolibarrModules
 		// Used only if file README.md and README-LL.md not found.
 		$this->descriptionlong = "PrestashopGet description (Long)";
 
-		$this->editor_name = 'Editor name';
-		$this->editor_url = 'https://www.example.com';
+		$this->editor_name = 'NLTechno';
+		$this->editor_url = 'https://www.nltechno.com';
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
 		$this->version = '1.0';
@@ -188,7 +188,7 @@ class modPrestashopGet extends DolibarrModules
         // Boxes/Widgets
 		// Add here list of php file(s) stored in prestashopget/core/boxes that contains class to show a widget.
         $this->boxes = array(
-        	0=>array('file'=>'prestashopgetwidget1.php@prestashopget','note'=>'Widget provided by PrestashopGet','enabledbydefaulton'=>'Home'),
+        	//0=>array('file'=>'prestashopgetwidget1.php@prestashopget','note'=>'Widget provided by PrestashopGet','enabledbydefaulton'=>'Home'),
         	//1=>array('file'=>'prestashopgetwidget2.php@prestashopget','note'=>'Widget provided by PrestashopGet'),
         	//2=>array('file'=>'prestashopgetwidget3.php@prestashopget','note'=>'Widget provided by PrestashopGet')
         );
@@ -197,7 +197,7 @@ class modPrestashopGet extends DolibarrModules
 		// Cronjobs (List of cron jobs entries to add when module is enabled)
 		// unit_frequency must be 60 for minute, 3600 for hour, 86400 for day, 604800 for week
 		$this->cronjobs = array(
-			0=>array('label'=>'MyJob label', 'jobtype'=>'method', 'class'=>'/prestashopget/class/myobject.class.php', 'objectname'=>'MyObject', 'method'=>'doScheduledJob', 'parameters'=>'', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->prestashopget->enabled', 'priority'=>50)
+			//0=>array('label'=>'MyJob label', 'jobtype'=>'method', 'class'=>'/prestashopget/class/myobject.class.php', 'objectname'=>'MyObject', 'method'=>'doScheduledJob', 'parameters'=>'', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->prestashopget->enabled', 'priority'=>50)
 		);
 		// Example: $this->cronjobs=array(0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->prestashopget->enabled', 'priority'=>50),
 		//                                1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$conf->prestashopget->enabled', 'priority'=>50)
@@ -236,7 +236,7 @@ class modPrestashopGet extends DolibarrModules
 		// Add here entries to declare new menus
 
 		/* BEGIN MODULEBUILDER TOPMENU */
-		$this->menu[$r++]=array('fk_menu'=>'',			                // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+		/*$this->menu[$r++]=array('fk_menu'=>'',			                // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 								'type'=>'top',			                // This is a Top menu entry
 								'titre'=>'PrestashopGet',
 								'mainmenu'=>'prestashopget',
@@ -248,23 +248,23 @@ class modPrestashopGet extends DolibarrModules
 								'perms'=>'1',			                // Use 'perms'=>'$user->rights->prestashopget->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
 								'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
-
+        */
 		/* END MODULEBUILDER TOPMENU */
 
-		/* BEGIN MODULEBUILDER LEFTMENU MYOBJECT
-		$this->menu[$r++]=array(	'fk_menu'=>'fk_mainmenu=prestashopget',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+		/* BEGIN MODULEBUILDER LEFTMENU MYOBJECT */
+		$this->menu[$r++]=array(	'fk_menu'=>'fk_mainmenu=tools',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 								'type'=>'left',			                // This is a Left menu entry
-								'titre'=>'List MyObject',
+								'titre'=>'PrestaShopGet',
 								'mainmenu'=>'prestashopget',
-								'leftmenu'=>'prestashopget_myobject_list',
-								'url'=>'/prestashopget/myobject_list.php',
+								'leftmenu'=>'prestashopget_index',
+								'url'=>'/prestashopget/index.php',
 								'langs'=>'prestashopget@prestashopget',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 								'position'=>1000+$r,
 								'enabled'=>'$conf->prestashopget->enabled',  // Define condition to show or hide menu entry. Use '$conf->prestashopget->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 								'perms'=>'1',			                // Use 'perms'=>'$user->rights->prestashopget->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
 								'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
-		$this->menu[$r++]=array(	'fk_menu'=>'fk_mainmenu=prestashopget,fk_leftmenu=prestashopget',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+		/*$this->menu[$r++]=array(	'fk_menu'=>'fk_mainmenu=prestashopget,fk_leftmenu=prestashopget',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 								'type'=>'left',			                // This is a Left menu entry
 								'titre'=>'New MyObject',
 								'mainmenu'=>'prestashopget',
