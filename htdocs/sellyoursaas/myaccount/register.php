@@ -134,6 +134,13 @@ if ($productref != 'none')
 	}
 }
 
+if ($conf->global->CONTRACT_ADDON == 'mod_contract_olive')
+{
+    print "You must configure the module Contract to a numbering module that is able to generate new number for new contracts.";
+    exit;
+}
+
+
 // Check partner exists if provided
 if ($partner)
 {
