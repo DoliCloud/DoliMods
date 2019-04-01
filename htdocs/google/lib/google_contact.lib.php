@@ -69,7 +69,8 @@ function googleCreateContact($client, $object, $useremail='default')
 	global $conf,$langs;
 	global $tag_debug;
 
-	include_once(DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php');
+	include_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+	include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
 	dol_syslog('googleCreateContact object->id='.$object->id.' type='.$object->element);
 

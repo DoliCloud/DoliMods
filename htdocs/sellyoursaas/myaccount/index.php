@@ -295,6 +295,7 @@ if (! empty($conf->paypal->enabled))
 
 $initialaction = $action;
 
+
 /*
  * Action
  */
@@ -1569,9 +1570,20 @@ $formother = new FormOther($db);
 
 if ($welcomecid > 0)
 {
+    // Here $_POST is empty, $GET has just welcomecid=..., $_SESSION['dol_loginsellyoursaas'] is socid =382
+    /*var_dump($_POST);
+    var_dump($_GET);
+    var_dump($_SESSION);
+    var_dump($mythirdpartyaccount);*/
 	$contract=new Contrat($db);
 	$contract->fetch($welcomecid);
 	$listofcontractid[$welcomecid]=$contract;
+	// Add a protection to avoid to see dashboard of others by changing welcomecid.
+	if ($contract->fk_soc != $_SESSION['dol_loginsellyoursaas'])
+	{
+	    dol_print_error_email('DEPLOY-WELCOMEID'.$welcomecid, 'Bad value for welcomeid', null, 'alert alert-error');
+	    //exit;
+	}
 }
 //var_dump($listofcontractid);
 
