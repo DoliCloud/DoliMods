@@ -1,13 +1,16 @@
 # NUMBERWORDS MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
-## 5.0.1
+## 5.0.2
 
-FIX Support for multicurrency.
-NEW Can replace label of currency with the symbol.
 NEW Add Support for english canadian
 FIX Support for integer for bulgarian (amount not supported)
 FIX Support for integer for russian
 Remove turkish support (was not working)
+
+## 5.0.1
+
+FIX Support for multicurrency.
+NEW Can replace label of currency with the symbol.
 
 ## 5.0
 
