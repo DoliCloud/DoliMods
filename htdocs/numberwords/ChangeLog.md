@@ -4,6 +4,10 @@
 
 FIX Support for multicurrency.
 NEW Can replace label of currency with the symbol.
+NEW Add Support for english canadian
+FIX Support for integer for bulgarian (amount not supported)
+FIX Support for integer for russian
+Remove turkish support (was not working)
 
 ## 5.0
 
