@@ -137,12 +137,28 @@ function numberwords_getLabelFromNumber($outlangs, $number, $isamount='')
 
 	// Overwrite label of decimals to ours
 	//print $outlangs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents)."Sing".$currencycode);
-	$labelcurrencycentsing=$outlangs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents)."Sing".$currencycode);
-	if ($labelcurrencycentsing && $labelcurrencycentsing != -1 && $labelcurrencycentsing!='Currency'.ucfirst($handle->labelcents).'Sing'.$currencycode) $handle->labelcents=$labelcurrencycentsing;
+	$transforsingnotfound=false;
+	$savlabelcents=$handle->labelcents;
+	$labelcurrencycentsing=$outlangs->transnoentitiesnoconv("Currency".ucfirst($savlabelcents)."Sing".$currencycode);
+	if ($labelcurrencycentsing && $labelcurrencycentsing != -1 && $labelcurrencycentsing != 'Currency'.ucfirst($savlabelcents).'Sing'.$currencycode)
+	{
+	    $handle->labelcents=$labelcurrencycentsing;
+	}
 	else
 	{
-		$labelcurrencycent=$outlangs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents).$currencycode);
-		if ($labelcurrencycent && $labelcurrencycent !='Currency'.ucfirst($handle->labelcents).$currencycode) $handle->labelcents=$labelcurrencycent;
+	    $transforsingnotfound=true;
+	}
+
+	list($whole, $decimal) = explode('.', $number);
+	//var_dump($number.'->'.$decimal);
+	if ($decimal > 1 || $transforsingnotfound)
+	{
+	    $labelcurrencycent=$outlangs->transnoentitiesnoconv("Currency".ucfirst($savlabelcents).$currencycode);
+	    if ($labelcurrencycent && $labelcurrencycent != 'Currency'.ucfirst($savlabelcents).$currencycode)
+	    {
+	        $handle->labelcents=preg_replace('/s$/', '', $labelcurrencycent);  // The s is added by the toCurrency() method.
+	    }
+		//var_dump("Currency".ucfirst($handle->labelcents).$currencycode);
 	}
 	//var_dump($handle->labelcurrency.'-'.$handle->labelcents);
 	//var_dump($labelcurrencycentsing.'-'.$labelcurrencycent);
