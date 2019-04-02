@@ -157,8 +157,8 @@ function numberwords_getLabelFromNumber($outlangs, $number, $isamount='')
 	{
 	    $cursymbolbefore='';
 	    $cursymbolafter='';
-	    $listofcurrenciesbefore=array('USD','GBP','AUD','HKD','MXN','PEN','CNY');
-	    $listoflanguagesbefore=array('nl_NL');
+	    $listofcurrenciesbefore=array('USD','GBP','AUD','HKD','MXN','PEN','CNY');      // List of currency where currency is before text
+	    $listoflanguagesbefore=array('nl_NL');                                         // List of language code that use the currency before, whatever is currency
 	    if (in_array($currencycode, $listofcurrenciesbefore) || in_array($outlangs->defaultlang, $listoflanguagesbefore))
 	    {
 	        $cursymbolbefore.=$outlangs->getCurrencySymbol($currencycode);
@@ -185,7 +185,11 @@ function numberwords_getLabelFromNumber($outlangs, $number, $isamount='')
 	    }
 	    else
 	    {
-	        $numberwords = preg_replace('/(Dollars?|Euros?|Yens?)/i', $cursymbolafter, $handle->toCurrency($number, $outlang));
+	        /*var_dump('eee');
+	        var_dump($outlang);
+	        var_dump($currencycode);
+	        var_dump($outlangs->trans('Currency'.$currencycode));*/
+	        $numberwords = preg_replace('/(Dollars?|Euros?|Yens?|'.preg_quote($outlangs->trans('Currency'.$currencycode),'/').'?)/i', $cursymbolafter, $handle->toCurrency($number, $outlang));
 	    }
 	    //$numberwords=$cursymbolbefore.($cursymbolbefore?' ':'').$texttouse.($cursymbolafter?' ':'').$cursymbolafter;
 	}
