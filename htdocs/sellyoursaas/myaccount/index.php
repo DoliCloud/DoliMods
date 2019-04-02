@@ -1582,7 +1582,7 @@ if ($welcomecid > 0)
 	if ($contract->fk_soc != $_SESSION['dol_loginsellyoursaas'])
 	{
 	    dol_print_error_email('DEPLOY-WELCOMEID'.$welcomecid, 'Bad value for welcomeid', null, 'alert alert-error');
-	    //exit;
+	    exit;
 	}
 }
 //var_dump($listofcontractid);
