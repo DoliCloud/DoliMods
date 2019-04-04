@@ -173,7 +173,6 @@ function top_htmlhead_sellyoursaas($head, $title='', $disablejs=0, $disablehead=
 		//if (! empty($conf->dol_use_jmobile)) $ext='version='.urlencode(DOL_VERSION);
 		$ext='version='.urlencode(DOL_VERSION);
 		if (GETPOST('version','int')) $ext='version='.GETPOST('version','int');	// usefull to force no cache on css/js
-		if (GETPOST('testmenuhider','int') || ! empty($conf->global->MAIN_TESTMENUHIDER)) $ext.='&testmenuhider='.(GETPOST('testmenuhider','int')?GETPOST('testmenuhider','int'):$conf->global->MAIN_TESTMENUHIDER);
 
 		$themeparam='?lang='.$langs->defaultlang.'&amp;theme='.$conf->theme.(GETPOST('optioncss','aZ09')?'&amp;optioncss='.GETPOST('optioncss','aZ09',1):'').'&amp;userid='.$user->id.'&amp;entity='.$conf->entity;
 		$themeparam.=($ext?'&amp;'.$ext:'');
