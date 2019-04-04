@@ -33,8 +33,9 @@ while read ; do
 	export now=`date '+%Y-%m-%d %H:%M:%S'`
 	echo "$now Found a segfault, now kicking apache..." >> /var/log/apache_watchdog.log 2>&1
 	/etc/init.d/apache2 stop >> /var/log/apache_watchdog.log 2>&1
-	sleep 2
+	sleep 3
 	killall -9 apache2 >> /var/log/apache_watchdog.log 2>&1
+	sleep 3
 	export now=`date '+%Y-%m-%d %H:%M:%S'`
 	echo "$now Now restart apache..." >> /var/log/apache_watchdog.log 2>&1
 	/etc/init.d/apache2 start >> /var/log/apache_watchdog.log 2>&1

@@ -38,3 +38,5 @@ echo result = $? >>/tmp/post_inst_script.log
 
 echo "Disable cron end"
 echo "Disable cron end" >>/tmp/post_inst_script.log
+
+exit 0
