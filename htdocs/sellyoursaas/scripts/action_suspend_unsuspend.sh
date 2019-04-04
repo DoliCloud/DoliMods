@@ -260,6 +260,7 @@ if [[ "$mode" == "rename" ]]; then
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running apache2ctl configtest 
 		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" $EMAILTO 
+		sleep 1
 		exit 1
 	fi 
 
@@ -268,6 +269,7 @@ if [[ "$mode" == "rename" ]]; then
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running service apache2 reload
 		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" $EMAILTO 
+		sleep 1
 		exit 2
 	fi
 
@@ -289,7 +291,8 @@ if [[ "$mode" == "rename" ]]; then
 			if [[ "x$?" != "x0" ]]; then
 				echo Error when running apache2ctl configtest 
 				echo "Failed to delete virtual host with old name instance $instancenameold.$domainnameold with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in rename" $EMAILTO
-				exit 1
+				sleep 1
+				exit 3
 			fi
 			
 			echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. service apache2 reload"
@@ -297,7 +300,8 @@ if [[ "$mode" == "rename" ]]; then
 			if [[ "x$?" != "x0" ]]; then
 				echo Error when running service apache2 reload 
 				echo "Failed to delete virtual host with old name instance $instancenameold.$domainnameold with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in rename" $EMAILTO
-				exit 2
+				sleep 1
+				exit 4
 			fi
 		else
 			echo "Virtual host $apacheconf seems already disabled"
@@ -395,15 +399,17 @@ if [[ "$mode" == "suspend" ]]; then
 		rm -f /etc/apache2/sellyoursaas-online/$fqn.conf
 		rm -f /etc/apache2/sellyoursaas-online/$fqn.custom.conf
 		echo "Failed to suspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb when suspending $instancename.$domainname" $EMAILTO 
-		exit 1
+		sleep 1
+		exit 5
 	fi 
 	
 	echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. service apache2 reload"
 	service apache2 reload
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running service apache2 reload
-		echo "Failed to suspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb when suspending $instancename.$domainname" $EMAILTO 
-		exit 2
+		echo "Failed to suspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb when suspending $instancename.$domainname" $EMAILTO
+		sleep 1 
+		exit 6
 	fi
 
 fi
@@ -494,7 +500,8 @@ if [[ "$mode" == "unsuspend" ]]; then
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running apache2ctl configtest 
 		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running apache2ctl configtest" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" $EMAILTO 
-		exit 1
+		sleep 1
+		exit 7
 	fi 
 
 	echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. service apache2 reload"
@@ -502,7 +509,8 @@ if [[ "$mode" == "unsuspend" ]]; then
 	if [[ "x$?" != "x0" ]]; then
 		echo Error when running service apache2 reload
 		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" $EMAILTO 
-		exit 2
+		sleep 1
+		exit 8
 	fi
 
 fi
@@ -554,4 +562,5 @@ fi
 echo `date +%Y%m%d%H%M%S`" Process of action $mode of $instancename.$domainname for user $osusername finished"
 echo
 
+sleep 1
 exit 0
