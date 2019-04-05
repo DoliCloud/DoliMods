@@ -123,16 +123,6 @@ print '<table class="noborder nohover" width="100%">';
 print '<tr class="liste_titre">';
 print '<td>';
 print $langs->trans('Website').' & '.$langs->trans('CustomerAccountArea');
-if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE)) print img_warning($langs->trans('MessageOn'));
-print '</td></tr>';
-print '<tr class="oddeven"><td>';
-print $langs->trans("AnnounceOnCustomerDashboard").' - ';
-print '<span class="opacitymedium">';
-print $langs->trans("Example").': (AnnounceMajorOutage), (AnnounceMinorOutage), Any text...</span><br>';
-print '<textarea class="flat inputsearch  inline-block" type="text" name="SELLYOURSAAS_ANNOUNCE">';
-print $conf->global->SELLYOURSAAS_ANNOUNCE;
-print '</textarea>';
-print '<div class="center valigntop inline-block"><input type="submit" name="saveannounce" class="button" value="'.$langs->trans("Save").'"></center>';
 print '</td></tr>';
 print '<tr class="oddeven"><td>';
 print $langs->trans("EnableNewInstance");
@@ -153,28 +143,54 @@ else
 }
 print $enabledisablehtml;
 print '</td></tr>';
+print '<tr class="oddeven"><td>';
+print $langs->trans("AnnounceOnCustomerDashboard");
+if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE)) print img_warning($langs->trans('MessageOn'));
+print '<br>';
+print '<span class="opacitymedium">';
+print $langs->trans("Example").': (AnnounceMajorOutage), (AnnounceMinorOutage), Any custom text...</span><br>';
+print '<textarea class="flat inputsearch  inline-block" type="text" name="SELLYOURSAAS_ANNOUNCE">';
+print $conf->global->SELLYOURSAAS_ANNOUNCE;
+print '</textarea>';
+print '<div class="center valigntop inline-block"><input type="submit" name="saveannounce" class="button" value="'.$langs->trans("Save").'"></center>';
+print '</td></tr>';
 print "</table></form><br>";
 
+$listofipwithinstances=array();
+$sql="SELECT DISTINCT deployment_host FROM ".MAIN_DB_PREFIX."contrat_extrafields WHERE deployment_host IS NOT NULL AND deployment_status IN ('done', 'processing')";
+$resql=$db->query($sql);
+if ($resql)
+{
+    while($obj = $db->fetch_object($resql))
+    {
+        $listofipwithinstances[]=$obj->deployment_host;
+    }
+    $db->free($resql);
+}
+else dol_print_error($db);
 print '<table class="noborder nohover" width="100%">';
 print '<tr class="liste_titre">';
 print '<td>'.$langs->trans('DeploymentServers').'</td></tr>';
 print '<tr class="oddeven">';
-print '<td>'.$langs->trans('SellYourSaasSubDomainsIP').': <strong>'.$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP.'</strong> for domain name <strong>'.$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES.'</strong></td></tr>';
+print '<td>'.$langs->trans('SellYourSaasSubDomainsIPDeployed').': <strong>'.join(', ',$listofipwithinstances).'</strong></td>';
+print '</tr>';
+print '<tr class="oddeven">';
+print '<td>'.$langs->trans('SellYourSaasSubDomainsIP').': <strong>'.$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP.'</strong> for domain name <strong>'.$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES.'</strong></td>';
+print '</tr>';
 print '<tr class="oddeven"><td>';
-print $langs->trans("CommandToManageRemoteDeploymentAgent");
+print $langs->trans("CommandToManageRemoteDeploymentAgent").'<br>';
 print '<textarea class="flat inputsearch centpercent" type="text" name="SELLYOURSAAS_ANNOUNCE">';
 print 'sudo '.$conf->global->DOLICLOUD_SCRIPTS_PATH.'/remote_server_launcher.sh start|status|stop';
 print '</textarea>';
 print '</td></tr>';
-print '<tr class="oddeven"><td class="center">';
-print '<a class="button" href="'.$_SERVER["PHP_SELF"].'?action=makeoffline">'.$langs->trans("PutAllInstancesOffLine").'</a>';
-print ' &nbsp; - &nbsp; ';
-print '<a class="button" href="'.$_SERVER["PHP_SELF"].'?action=makeonline">'.$langs->trans("PutAllInstancesOnLine").'</a>';
-print '</td></tr>';
 print '<tr class="oddeven"><td>';
+print $langs->trans("CommandToPutInstancesOnOffline").'<br>';
 print '<textarea class="flat inputsearch centpercent" type="text" name="SELLYOURSAAS_ANNOUNCE">';
 print 'sudo '.$conf->global->DOLICLOUD_SCRIPTS_PATH.'/make_instances_offline.sh '.$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/offline.php test|offline|online';
 print '</textarea>';
+print '<a class="button" href="'.$_SERVER["PHP_SELF"].'?action=makeoffline">'.$langs->trans("PutAllInstancesOffLine").'</a>';
+print ' &nbsp; - &nbsp; ';
+print '<a class="button" href="'.$_SERVER["PHP_SELF"].'?action=makeonline">'.$langs->trans("PutAllInstancesOnLine").'</a>';
 print '</td></tr>';
 print "</table><br>";
 
