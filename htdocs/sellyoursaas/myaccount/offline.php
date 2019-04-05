@@ -84,7 +84,7 @@ if (empty($messageonly))
 }
 
 // Show global announce
-if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE))
+if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE_ON) && ! empty($conf->global->SELLYOURSAAS_ANNOUNCE))
 {
     $sql = "SELECT tms from ".MAIN_DB_PREFIX."const where name = 'SELLYOURSAAS_ANNOUNCE'";
     $resql=$db->query($sql);

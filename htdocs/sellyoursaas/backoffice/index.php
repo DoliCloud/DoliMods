@@ -90,6 +90,11 @@ if ($action == 'setSELLYOURSAAS_DISABLE_NEW_INSTANCES')
     if (GETPOST('value')) dolibarr_set_const($db, 'SELLYOURSAAS_DISABLE_NEW_INSTANCES', 1, 'chaine', 0, '', $conf->entity);
     else dolibarr_set_const($db, 'SELLYOURSAAS_DISABLE_NEW_INSTANCES', 0, 'chaine', 0, '', $conf->entity);
 }
+if ($action == 'setSELLYOURSAAS_ANNOUNCE_ON')
+{
+    if (GETPOST('value')) dolibarr_set_const($db, 'SELLYOURSAAS_ANNOUNCE_ON', 1, 'chaine', 0, '', $conf->entity);
+    else dolibarr_set_const($db, 'SELLYOURSAAS_ANNOUNCE_ON', 0, 'chaine', 0, '', $conf->entity);
+}
 
 
 
@@ -145,7 +150,22 @@ print $enabledisablehtml;
 print '</td></tr>';
 print '<tr class="oddeven"><td>';
 print $langs->trans("AnnounceOnCustomerDashboard");
-if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE)) print img_warning($langs->trans('MessageOn'));
+$enabledisableannounce='';
+if (empty($conf->global->SELLYOURSAAS_ANNOUNCE_ON))
+{
+    // Button off, click to enable
+    $enabledisableannounce.='<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setSELLYOURSAAS_ANNOUNCE_ON&value=1'.$param.'">';
+    $enabledisableannounce.=img_picto($langs->trans("Disabled"), 'switch_off', '', false, 0, 0, '', '');
+    $enabledisableannounce.='</a>';
+}
+else
+{
+    // Button on, click to disable
+    $enabledisableannounce.='<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setSELLYOURSAAS_ANNOUNCE_ON&value=0'.$param.'">';
+    $enabledisableannounce.=img_picto($langs->trans('MessageOn'), 'switch_on', '', false, 0, 0, '', 'warning');
+    $enabledisableannounce.='</a>';
+}
+print $enabledisableannounce;
 print '<br>';
 print '<span class="opacitymedium">';
 print $langs->trans("Example").': (AnnounceMajorOutage), (AnnounceMinorOutage), Any custom text...</span><br>';
