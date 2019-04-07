@@ -501,22 +501,34 @@ if (! function_exists('dol_getprefix'))
 {
 	function dol_getprefix($mode='')
 	{
-		global $conf;
+	    global $conf;
 
-		// If MAIL_PREFIX_FOR_EMAIL_ID is set and requested prefix (mode) is for email
-		if ($mode == 'email' && ! empty($conf->global->MAIL_PREFIX_FOR_EMAIL_ID))
+	    // If prefix is for email
+		if ($mode == 'email')
 		{
-			if ($conf->global->MAIL_PREFIX_FOR_EMAIL_ID != 'SERVER_NAME') return $conf->global->MAIL_PREFIX_FOR_EMAIL_ID;
-			else if (isset($_SERVER["SERVER_NAME"])) return $_SERVER["SERVER_NAME"];
+		    if (! empty($conf->global->MAIL_PREFIX_FOR_EMAIL_ID))	// If MAIL_PREFIX_FOR_EMAIL_ID is set (a value initialized with a random value is recommended)
+		    {
+		        if ($conf->global->MAIL_PREFIX_FOR_EMAIL_ID != 'SERVER_NAME') return 'sellyoursaas'.$conf->global->MAIL_PREFIX_FOR_EMAIL_ID;
+		        elseif (isset($_SERVER["SERVER_NAME"])) return 'sellyoursaas'.$_SERVER["SERVER_NAME"];
+		    }
+
+		    // The recommended value (may be not defined for old versions)
+		    if (! empty($conf->file->instance_unique_id)) return 'sellyoursaas'.$conf->file->instance_unique_id;
+
+		    // For backward compatibility
+		    return 'sellyoursaas'.dol_hash(DOL_DOCUMENT_ROOT.DOL_URL_ROOT, '3');
 		}
 
+		// The recommended value (may be not defined for old versions)
+		if (! empty($conf->file->instance_unique_id)) return 'sellyoursaas'.$conf->file->instance_unique_id;
+
+		// For backward compatibility
 		if (isset($_SERVER["SERVER_NAME"]) && isset($_SERVER["DOCUMENT_ROOT"]))
 		{
-			return 'sellyoursaas'.dol_hash($_SERVER["SERVER_NAME"].$_SERVER["DOCUMENT_ROOT"].DOL_DOCUMENT_ROOT.DOL_URL_ROOT, 'md5');
-			// Use this for a "readable" cookie name
-			//return dol_sanitizeFileName($_SERVER["SERVER_NAME"].$_SERVER["DOCUMENT_ROOT"].DOL_DOCUMENT_ROOT.DOL_URL_ROOT);
+		    return 'sellyoursaas'.dol_hash($_SERVER["SERVER_NAME"].$_SERVER["DOCUMENT_ROOT"].DOL_DOCUMENT_ROOT.DOL_URL_ROOT, '3');
 		}
-		else return 'sellyoursaas'.dol_hash(DOL_DOCUMENT_ROOT.DOL_URL_ROOT, 'md5');
+
+		return 'sellyoursaas'.dol_hash(DOL_DOCUMENT_ROOT.DOL_URL_ROOT, '3');
 	}
 }
 

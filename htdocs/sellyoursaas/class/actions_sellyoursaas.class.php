@@ -66,10 +66,6 @@ class ActionsSellyoursaas
 	    	if ($user->admin && ! empty($object->array_options['options_dolicloud']))
 	    	{
 	    		$url = '';
-	    		if ($object->array_options['options_dolicloud'] == 'yesv1')
-		    	{
-		    		$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email;	// Note that password may have change and not being the one of dolibarr admin user
-		    	}
 		    	if ($object->array_options['options_dolicloud'] == 'yesv2')
 		    	{
 		    		$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$object->email.dol_print_date(dol_now(),'dayrfc'), 5);	// hash is valid one hour
@@ -79,9 +75,6 @@ class ActionsSellyoursaas
 		    	if ($url)
 		    	{
 			    	$this->resprints = ' - <!-- Added by getNomUrl hook of SellYourSaas -->';
-			    	if ($object->array_options['options_dolicloud'] == 'yesv1') $this->resprints .= 'V1 - ';
-			    	//if ($object->array_options['options_dolicloud'] == 'yesv2') $this->resprints .= 'V2 - ';
-		    		//$this->resprints .= '<a href="'.$url.'" target="_myaccount" alt="'.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span> '.$conf->global->SELLYOURSAAS_NAME.' '.$langs->trans("Dashboard").'</a>';
 			    	$this->resprints .= '<a href="'.$url.'" target="_myaccount" alt="'.$conf->global->SELLYOURSAAS_NAME.' '.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span></a>';
 		    	}
 	    	}
@@ -723,10 +716,6 @@ class ActionsSellyoursaas
     			if ($user->admin && ! empty($object->array_options['options_dolicloud']))
     			{
     				$url='';
-    				if ($object->array_options['options_dolicloud'] == 'yesv1')
-    				{
-    					$url='https://www.on.dolicloud.com/signIn/index?email='.$object->email;	// Note that password may have change and not being the one of dolibarr admin user
-    				}
     				if ($object->array_options['options_dolicloud'] == 'yesv2')
     				{
     					$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$object->email.dol_print_date(dol_now(),'dayrfc'), 5);	// hash is valid one hour
@@ -736,9 +725,7 @@ class ActionsSellyoursaas
 					if ($url)
 					{
 						$this->resprints = '<!-- Added by getNomUrl hook of SellYourSaas --><br><div class="clearboth">';
-						if ($object->array_options['options_dolicloud'] == 'yesv1') $this->resprints .= 'V1 - ';
-						if ($object->array_options['options_dolicloud'] == 'yesv2') $this->resprints .= 'V2 - ';
-    					$this->resprints .= '<a href="'.$url.'" target="_myaccount" alt="'.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span> '.$conf->global->SELLYOURSAAS_NAME.' '.$langs->trans("Dashboard").'</a></div>';
+    					$this->resprints .= '<a href="'.$url.'" target="_myaccount" alt="'.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span></a></div>';
 					}
     			}
     		}
