@@ -207,7 +207,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
 	$links.='<br>';
 
 	// Rsync to Deploy module
-	$sftpdeploystring='rsync -n -v -a --exclude \'*.cache\' pathtohtdocsmodule/* '.$object->username_os.'@'.$object->hostname_os.':'.$object->database_db.'/htdocs/namemodule';
+	$sftpdeploystring='rsync -n -v -a --exclude \'*.cache\' --exclude \'conf\.php\' pathtohtdocsmodule/* '.$object->username_os.'@'.$object->hostname_os.':'.$object->database_db.'/htdocs/namemodule';
 	$links.='Rsync to install or overwrite module (remove -n to execute really):<br>';
 	$links.='<input type="text" id="sftpdeploystring" name="sftpdeploystring" value="'.$sftpdeploystring.'" class="quatrevingtpercent"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("sftpdeploystring", 0);
