@@ -44,7 +44,6 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
 dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
-dol_include_once('/sellyoursaas/class/cdolicloudplans.class.php');
 
 $langs->load("admin");
 $langs->load("companies");

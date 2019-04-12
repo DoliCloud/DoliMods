@@ -47,7 +47,6 @@ require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
 dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
 dol_include_once("/sellyoursaas/backoffice/lib/refresh.lib.php");		// do not use dol_buildpath to keep global of var into refresh.lib.php working
 dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
-dol_include_once('/sellyoursaas/class/cdolicloudplans.class.php');
 
 $langs->load("admin");
 $langs->load("companies");
