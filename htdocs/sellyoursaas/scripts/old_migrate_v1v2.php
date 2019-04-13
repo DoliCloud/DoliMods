@@ -408,7 +408,7 @@ if ($result <= 0 || $newobject->statut == 0)
 		$contract->commercial_signature_id = $user->id;
 		$contract->commercial_suivi_id = $user->id;
 		$contract->date_contrat = $now;
-		$contract->note_private = 'Contract created from the online instance registration form';
+		$contract->note_private = 'Contract created from the online instance registration form.';
 
 		$contract->array_options['options_plan'] = $tmpproduct->ref;
 		$contract->array_options['options_deployment_status'] = 'processing';
