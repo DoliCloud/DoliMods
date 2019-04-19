@@ -16,6 +16,7 @@ NEW Can replace label of currency with the symbol ($, €, ...) or shortcode+sym
 ## 5.0
 
 Support for multicurrency.
+Need Dolibarr 4.0+
 
 
 ## 3.4.1
