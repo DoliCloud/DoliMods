@@ -36,7 +36,6 @@ $error=0;
 $dirroot=isset($argv[1])?$argv[1]:'';
 $instance=isset($argv[2])?$argv[2]:'';
 $mode=isset($argv[3])?$argv[3]:'';
-$v=isset($argv[4])?$argv[4]:'';
 
 // Include Dolibarr environment
 @set_time_limit(0);							// No timeout for this script
@@ -70,69 +69,36 @@ include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
 	print "Update an instance on remote server with new ref version.\n";
-	print "Usage: $script_file source_root_dir sellyoursaas_instance (test|confirm|confirmunlock|diff|diffadd|diffchange|clean|confirmclean) (old)\n";
+	print "Usage: $script_file source_root_dir sellyoursaas_instance (test|confirm|confirmunlock|diff|diffadd|diffchange|clean|confirmclean)\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);
 }
 
 
-// Use instance to detect if v1 or v2 or instance
-if ($v == 'old')
+// Forge complete name of instance
+if (! empty($instance) && ! preg_match('/(\.on|\.with)\.dolicloud\.com$/', $instance) && ! preg_match('/\.home\.lan$/', $instance))
 {
-	$v=1;
-}
-else
-{
-	$v=2;
-	// Force $v according to hard coded values (keep v2 in default case)
-	if (! empty($instance) && ! preg_match('/(\.on|\.with)\.dolicloud\.com$/',$instance) && ! preg_match('/\.home\.lan$/',$instance))
-	{
-		// TODO Manage several domains
-		$instance=$instance.".".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
-	}
-	if (! empty($instance) && preg_match('/\.on\.dolicloud\.com$/',$instance)) {
-		$v=1;
-	}
-	if (! empty($instance) && preg_match('/\.with\.dolicloud\.com$/',$instance)) {
-		$v=2;
-	}
+	// TODO Manage several domains
+	$instance=$instance.".".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
 }
 
-if ($v == 1)
-{
-	$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
-	if ($db2->error)
-	{
-		dol_print_error($db2,"host=".$conf->global->DOLICLOUD_DATABASE_HOST.", port=".$conf->global->DOLICLOUD_DATABASE_PORT.", user=".$conf->global->DOLICLOUD_DATABASE_USER.", databasename=".$conf->global->DOLICLOUD_DATABASE_NAME.", ".$db2->error);
-		exit;
-	}
-
-	$object = new Dolicloud_customers($db, $db2);
-	$result=$object->fetch('',$instance);
-}
-else
-{
-	include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-	$object = new Contrat($db);
-	$result=$object->fetch('', '', $instance);
-	$result=$object->fetch_thirdparty();
-}
+include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+$object = new Contrat($db);
+$result=$object->fetch('', '', $instance);
+$result=$object->fetch_thirdparty();
 
 if ($result <= 0)
 {
-	print "Error: instance ".$instance." for v".$v." not found.\n";
+	print "Error: instance ".$instance." not found. Are you on the correct SellYourSaas master server ?\n";
 	exit(-2);
 }
 
-if ($v != 1)
-{
-	$object->instance = $object->ref_customer;
-	$object->username_web = $object->array_options['options_username_os'];
-	$object->password_web = $object->array_options['options_password_os'];
-	$object->username_db = $object->array_options['options_username_db'];
-	$object->password_db = $object->array_options['options_password_db'];
-	$object->database_db = $object->array_options['options_database_db'];
-}
+$object->instance = $object->ref_customer;
+$object->username_web = $object->array_options['options_username_os'];
+$object->password_web = $object->array_options['options_password_os'];
+$object->username_db = $object->array_options['options_username_db'];
+$object->password_db = $object->array_options['options_password_db'];
+$object->database_db = $object->array_options['options_database_db'];
 
 
 if (empty($object->instance) || empty($object->username_web) || empty($object->password_web) || empty($object->database_db))
@@ -149,16 +115,9 @@ if (! is_dir($dirroot.'/htdocs'))
 $dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
 $login=$object->username_web;
 $password=$object->password_web;
-if ($v != 1)
-{
-	$targetdir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$login.'/'.$dirdb;
-	$server=$object->array_options['options_hostname_os'];
-}
-else
-{
-	$targetdir=$conf->global->DOLICLOUD_EXT_HOME.'/'.$login.'/'.$dirdb;
-	$server=$object->instance.'.on.dolicloud.com';
-}
+
+$targetdir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$login.'/'.$dirdb;
+$server=$object->array_options['options_hostname_os'];
 
 if (empty($login) || empty($dirdb))
 {
@@ -267,14 +226,7 @@ if ($mode != 'test')
 	$actioncomm->label='Upgrade instance='.$instance.' dirroot='.$dirroot.' mode='.$mode;
 	$actioncomm->note_private='Upgrade instance='.$instance.' dirroot='.$dirroot.' mode='.$mode;
 	$actioncomm->fk_element=$object->id;
-	if ($v != 1)
-	{
-		$actioncomm->elementtype='contract';
-	}
-	else
-	{
-		$actioncomm->elementtype='dolicloudcustomers';
-	}
+	$actioncomm->elementtype='contract';
 	$actioncomm->type_code='AC_OTH_AUTO';
 	$actioncomm->userassigned[$user->id]=array('id'=>$user->id);
 	$actioncomm->userownerid=$user->id;
