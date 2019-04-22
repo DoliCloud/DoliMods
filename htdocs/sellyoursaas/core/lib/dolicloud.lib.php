@@ -293,11 +293,6 @@ function dolicloud_prepare_head($object,$prefix='')
 	$head[$h][2] = 'users';
 	$h++;
 
-	/*$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/dolicloud_card_payments'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloud_customers'?'instanceoldid='.$object->id:'id='.$object->id);
-	$head[$h][1] = $langs->trans("Payments");
-	$head[$h][2] = 'payments';
-	$h++;*/
-
 	$head[$h][0] = dol_buildpath('/sellyoursaas/backoffice/instance_backup'.$prefix.'.php',1).'?'.(get_class($object)=='Dolicloud_customers'?'instanceoldid='.$object->id:'id='.$object->id);
 	$head[$h][1] = $langs->trans("Backup");
 	$head[$h][2] = 'backup';

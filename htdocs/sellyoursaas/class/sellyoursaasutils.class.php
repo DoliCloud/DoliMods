@@ -1580,8 +1580,9 @@ class SellYourSaasUtils
 
     						$errorforlocaltransaction = 0;
 
+    						$comment = 'Refresh contract '.$object->ref." by doRenewalContracts";
     						// First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines + linked template invoice
-    						$result = $this->sellyoursaasRemoteAction('refresh', $object);	// This include add of event if qty has changed
+    						$result = $this->sellyoursaasRemoteAction('refresh', $object, 'admin', '', '', '0', $comment);	// This include add of event if qty has changed
     						if ($result <= 0)
     						{
     							$contracterror[$object->id]=$object->ref;
@@ -1774,8 +1775,9 @@ class SellYourSaasUtils
 
     						$errorforlocaltransaction = 0;
 
+    						$comment = 'Refresh contract '.$object->ref." by doRenewalContracts";
     						// First launch update of resources: This update status of install.lock+authorized key and update qty on contract lines and on linked template invoice. An event is added if qty is changed.
-    						$result = $this->sellyoursaasRemoteAction('refresh', $object);
+    						$result = $this->sellyoursaasRemoteAction('refresh', $object, 'admin', '', '', '0', $comment);
     						if ($result <= 0)
     						{
     							$contracterror[$object->id]=$object->ref;
@@ -1985,7 +1987,6 @@ class SellYourSaasUtils
 					// Test if this is a paid or not instance
 					$object = new Contrat($this->db);
 					$object->fetch($obj->rowid);
-					$object->fetch_thirdparty();
 
 					if ($object->id <= 0)
 					{
@@ -1993,6 +1994,8 @@ class SellYourSaasUtils
 						$this->errors[] = 'Failed to load contract with id='.$obj->rowid;
 						continue;
 					}
+
+					$object->fetch_thirdparty();
 
 					dol_syslog("* Process fetch line nb ".$ifetchservice." - contract id=".$object->id." ref=".$object->ref." ref_customer=".$object->ref_customer);
 
@@ -2322,9 +2325,10 @@ class SellYourSaasUtils
 
 						if ($wemustsuspendinstance)
 						{
-							$conf->global->noapachereload = 1;       // Set a global variable that can be read later by trigger
+							//$conf->global->noapachereload = 1;       // Set a global variable that can be read later by trigger
+						    $conf->global->noapachereload = 0;       // Set a global variable that can be read later by trigger
 							$result = $object->closeAll($user, 0, 'Closed by batch doSuspendInstances (mode='.$mode.') the '.dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')');			// This may execute trigger that make remote actions to suspend instance
-							unset($conf->global->noapachereload);    // unset a global variable that can be read later by trigger
+							$conf->global->noapachereload = null;    // unset a global variable that can be read later by trigger
 							if ($result < 0)
 							{
 								$error++;
@@ -2540,8 +2544,11 @@ class SellYourSaasUtils
 
     				if ($expirationdate && $expirationdate < ($now - (abs($delayindays)*24*3600)))
     				{
-    					$result = $this->sellyoursaasRemoteAction('undeploy', $object);
-    					if ($result <= 0)
+    				    $conf->global->noapachereload = 1;       // Set a global variable that can be read later
+    				    $comment = 'Undeploy instance by doUndeployOldSuspendedInstances('.$mode.') the '.dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')';
+    				    $result = $this->sellyoursaasRemoteAction('undeploy', $object, 'admin', '', '', '0', $comment);
+    				    $conf->global->noapachereload = null;    // unset a global variable that can be read later
+    				    if ($result <= 0)
     					{
     						$error++;
     						$this->error=$this->error;
@@ -2554,19 +2561,20 @@ class SellYourSaasUtils
 
     				// Finish undeploy
 
-    				$comment = 'Close after undeployment by doUndeployOldSuspendedInstances('.$mode.')';
-
     				// Unactivate all lines
     				if (! $error)
     				{
     					dol_syslog("Unactivate all lines - doUndeployOldSuspendedInstances undeploy");
 
+    					$conf->global->noapachereload = 1;       // Set a global variable that can be read later by trigger
+    					$comment = 'Close after undeployment by doUndeployOldSuspendedInstances('.$mode.') the '.dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')';
     					$result = $object->closeAll($user, 1, $comment);
+    					$conf->global->noapachereload = null;    // unset a global variable that can be read later by trigger
     					if ($result <= 0)
     					{
     						$error++;
     						$this->error=$object->error;
-    						$this->errors=$object->errors;
+    						$this->errors = array_merge((array) $this->errors, (array) $object->errors);
     					}
     				}
 

@@ -664,12 +664,16 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		exit 1
 	fi
 	
-	echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. service apache2 reload"
-	service apache2 reload
-	if [[ "x$?" != "x0" ]]; then
-		echo Error when running service apache2 reload 
-		echo "Failed to deployall instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILTO
-		exit 2
+	if [[ "x$apachereload" != "xnoapachereload" ]]; then
+		echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. service apache2 reload."
+		service apache2 reload
+		if [[ "x$?" != "x0" ]]; then
+			echo Error when running service apache2 reload 
+			echo "Failed to deployall instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in deployment" $EMAILTO
+			exit 2
+		fi
+	else
+		echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. But we do not reload apache2 now to reduce reloading."
 	fi
 
 fi
