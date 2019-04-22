@@ -543,8 +543,8 @@ if (! function_exists('dol_getprefix'))
  */
 function dol_loginfunction($langs,$conf,$mysoc)
 {
-	global $dolibarr_main_demo,$db;
-	global $smartphone,$hookmanager;
+	global $dolibarr_main_demo, $db;
+	global $hookmanager;
 
 	//$langs=new Translate('', $conf);
 	$langs->setDefaultLang(GETPOST('lang','aZ09')?GETPOST('lang','aZ09'):'auto');
