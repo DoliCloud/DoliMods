@@ -511,7 +511,7 @@ class SellYourSaasUtils
     					$substitutionarray['__CARD_EXP_DATE_YEAR__']=$obj->exp_date_year;
     					$substitutionarray['__CARD_LAST4__']=$obj->last_four;
 
-    					complete_substitutions_array($substitutionarray, $langstouse, $contract);
+    					complete_substitutions_array($substitutionarray, $langstouse, $thirdparty);
 
     					$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langstouse);
     					$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langstouse);
@@ -661,7 +661,7 @@ class SellYourSaasUtils
 	    					$substitutionarray=getCommonSubstitutionArray($langstouse, 0, null, $thirdparty);
 	    					$substitutionarray['__PAYPAL_EXP_DATE__']=dol_print_date($obj->ending_date, 'day', $langstouse);
 
-	    					complete_substitutions_array($substitutionarray, $langstouse, $contract);
+	    					complete_substitutions_array($substitutionarray, $langstouse, $thirdparty);
 
 	    					$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langstouse);
 	    					$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langstouse);
@@ -784,8 +784,8 @@ class SellYourSaasUtils
 	    			if ($result1 <= 0 || $result2 <= 0)
 	    			{
 	    				$error++;
-	    				dol_syslog('Failed to get invoice id = '.$invoice_id.' or companypaymentmode id ='.$companypaymentmodeid, LOG_ERR);
-	    				$this->errors[] = 'Failed to get invoice id = '.$invoice_id.' or companypaymentmode id ='.$companypaymentmodeid;
+	    				dol_syslog('Failed to get invoice id = '.$obj->rowid.' or companypaymentmode id ='.$obj->companypaymentmodeid, LOG_ERR);
+	    				$this->errors[] = 'Failed to get invoice id = '.$obj->rowid.' or companypaymentmode id ='.$obj->companypaymentmodeid;
 	    			}
     				else
     				{
@@ -1794,18 +1794,18 @@ class SellYourSaasUtils
 	    						{
 	    							$contractprocessed[$object->id]=$object->ref;
 
-	    							$action = 'RENEW_CONTRACT';
+	    							$actioncode = 'RENEW_CONTRACT';
 	    							$now = dol_now();
 
 	    							// Create an event
 	    							$actioncomm = new ActionComm($this->db);
 	    							$actioncomm->type_code   = 'AC_OTH_AUTO';		// Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
-	    							$actioncomm->code        = 'AC_'.$action;
+	    							$actioncomm->code        = 'AC_'.$actioncode;
 	    							$actioncomm->label       = 'Renewal of contrat '.$object->ref;
 	    							$actioncomm->datep       = $now;
 	    							$actioncomm->datef       = $now;
 	    							$actioncomm->percentage  = -1;   // Not applicable
-	    							$actioncomm->socid       = $contract->thirdparty->id;
+	    							$actioncomm->socid       = $object->thirdparty->id;
 	    							$actioncomm->authorid    = $user->id;   // User saving action
 	    							$actioncomm->userownerid = $user->id;	// Owner of action
 	    							$actioncomm->fk_element  = $object->id;
@@ -2934,6 +2934,10 @@ class SellYourSaasUtils
     			$generateddbusername  =$contract->array_options['options_username_db'];
     			$generateddbpassword  =$contract->array_options['options_password_db'];
     			$generateddbprefix    =($contract->array_options['options_prefix_db']?$contract->array_options['options_prefix_db']:'llx_');
+    			$generatedunixhostname=$contract->array_options['options_hostname_os'];
+    			$generateddbhostname  =$contract->array_options['options_hostname_db'];
+    			$generateduniquekey   =getRandomPassword(true);
+
     			$customurl            =$contract->array_options['options_custom_url'];
     			$SSLON='On';
     			$CERTIFFORCUSTOMDOMAIN=$customurl;
@@ -3094,7 +3098,7 @@ class SellYourSaasUtils
 				$commandurl.= '&'.$SSLON;
 				$commandurl.= '&'.($object->noapachereload?'noapachereload':'apachereload');
 
-    			$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
+    			//$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 
 
     			$conf->global->MAIN_USE_RESPONSE_TIMEOUT = 90;	// Timeout of call of external URL to make remote action
@@ -3172,11 +3176,14 @@ class SellYourSaasUtils
     				$tmp=explode('.', $contract->ref_customer, 2);
     				$sldAndSubdomain=$tmp[0];
     				$domainname=$tmp[1];
-    				$generateddbname=$contract->array_options['options_database_db'];
-    				$generateddbport = ($contract->array_options['options_port_db']?$contract->array_options['options_port_db']:3306);
-    				$generateddbusername=$contract->array_options['options_username_db'];
-    				$generateddbpassword=$contract->array_options['options_password_db'];
-    				$generateddbprefix=($contract->array_options['options_prefix_db']?$contract->array_options['options_prefix_db']:'llx_');
+    				$generateddbname      =$contract->array_options['options_database_db'];
+    				$generateddbport      =($contract->array_options['options_port_db']?$contract->array_options['options_port_db']:3306);
+    				$generateddbusername  =$contract->array_options['options_username_db'];
+    				$generateddbpassword  =$contract->array_options['options_password_db'];
+    				$generateddbprefix    =($contract->array_options['options_prefix_db']?$contract->array_options['options_prefix_db']:'llx_');
+    				$generatedunixhostname=$contract->array_options['options_hostname_os'];
+    				$generateddbhostname  =$contract->array_options['options_hostname_db'];
+    				$generateduniquekey   =getRandomPassword(true);
 
     				// Is it a product linked to a package ?
     				$tmppackage = new Packages($this->db);
@@ -3360,7 +3367,7 @@ class SellYourSaasUtils
     							if ($sometemplateinvoice > 1)
     							{
     								$error++;
-    								$this->error = 'Contract '.$object->ref.' has too many template invoice ('.$someinvoicenotpaid.') so we dont know which one to update';
+    								$this->error = 'Contract '.$object->ref.' has too many template invoice ('.$sometemplateinvoice.') so we dont know which one to update';
     							}
     							elseif (is_object($lasttemplateinvoice))
     							{
@@ -3428,7 +3435,7 @@ class SellYourSaasUtils
     		// Create an event
     		$actioncomm = new ActionComm($this->db);
     		$actioncomm->type_code   = 'AC_OTH_AUTO';		// Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
-    		$actioncomm->code        = 'AC_'.strtoupper($action?$action:$remoteaction);
+    		$actioncomm->code        = 'AC_'.strtoupper($remoteaction);
     		$actioncomm->label       = 'Remote action '.$remoteaction.(preg_match('/PROV/', $object->ref) ? '' : ' on '.$object->ref).' by '.($_SERVER["REMOTE_ADDR"]?$_SERVER["REMOTE_ADDR"]:'localhost');
     		$actioncomm->datep       = $now;
     		$actioncomm->datef       = $now;

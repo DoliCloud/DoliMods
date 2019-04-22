@@ -264,15 +264,18 @@ if [[ "$mode" == "rename" ]]; then
 		exit 1
 	fi 
 
-	echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. service apache2 reload"
-	service apache2 reload
-	if [[ "x$?" != "x0" ]]; then
-		echo Error when running service apache2 reload
-		echo "Failed to unsuspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" $EMAILTO 
-		sleep 1
-		exit 2
+	if [[ "x$apachereload" != "xnoapachereload" ]]; then
+		echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. service apache2 reload."
+		service apache2 reload
+		if [[ "x$?" != "x0" ]]; then
+			echo Error when running service apache2 reload
+			echo "Failed to unsuspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb in suspend" $EMAILTO 
+			sleep 1
+			exit 2
+		fi
+	else
+		echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. But we do not reload apache2 now to reduce reloading."
 	fi
-
 
 	if [[ "$fqn" != "$fqnold" ]]; then
 		echo `date +%Y%m%d%H%M%S`" ***** For instance in /home/jail/home/$osusername/$dbname, delete old virtual name $fqnold"
@@ -403,15 +406,18 @@ if [[ "$mode" == "suspend" ]]; then
 		exit 5
 	fi 
 	
-	echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. service apache2 reload"
-	service apache2 reload
-	if [[ "x$?" != "x0" ]]; then
-		echo Error when running service apache2 reload
-		echo "Failed to suspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb when suspending $instancename.$domainname" $EMAILTO
-		sleep 1 
-		exit 6
+	if [[ "x$apachereload" != "xnoapachereload" ]]; then
+		echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. service apache2 reload."
+		service apache2 reload
+		if [[ "x$?" != "x0" ]]; then
+			echo Error when running service apache2 reload
+			echo "Failed to suspend instance $instancename.$domainname with: Error when running service apache2 reload" | mail -aFrom:$EMAILFROM -s "[Alert] Pb when suspending $instancename.$domainname" $EMAILTO
+			sleep 1 
+			exit 6
+		fi
+	else
+		echo `date +%Y%m%d%H%M%S`" ***** Apache tasks finished. But we do not reload apache2 now to reduce reloading."
 	fi
-
 fi
 
 
