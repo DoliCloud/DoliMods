@@ -2322,9 +2322,9 @@ class SellYourSaasUtils
 
 						if ($wemustsuspendinstance)
 						{
-							$object->noapachereload = 1;
-
-							$result = $object->closeAll($user, 0, 'Closed by batch doSuspendInstances (mode='.$mode.') the '.dol_print_date($now, 'dayhourrfc').' (noapachereload='.$object->noapachereload.')');			// This may execute trigger that make remote actions to suspend instance
+							$conf->global->noapachereload = 1;       // Set a global variable that can be read later by trigger
+							$result = $object->closeAll($user, 0, 'Closed by batch doSuspendInstances (mode='.$mode.') the '.dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')');			// This may execute trigger that make remote actions to suspend instance
+							unset($conf->global->noapachereload);    // unset a global variable that can be read later by trigger
 							if ($result < 0)
 							{
 								$error++;
@@ -3091,7 +3091,7 @@ class SellYourSaasUtils
 				$commandurl.= '&'.$CERTIFFORCUSTOMDOMAIN;
 				$commandurl.= '&'.$archivedir;
 				$commandurl.= '&'.$SSLON;
-				$commandurl.= '&'.($object->noapachereload?'noapachereload':'apachereload');
+				$commandurl.= '&'.(empty($conf->global->noapachereload)?'apachereload':'noapachereload');
 
     			//$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 

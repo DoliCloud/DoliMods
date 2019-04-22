@@ -487,7 +487,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
                 break;
         }
 
-    	if ($remoteaction)
+    	if ($remoteaction)     // Note that remoteaction is on for line of contract if line has type 'app' only.
     	{
     		$okforremoteaction = 1;
     		$contract = null;
@@ -500,13 +500,15 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
     			$contract = new Contrat($this->db);
     			$contract->fetch($object->fk_contrat);
     		}
-    		if (in_array($remoteaction, array('suspend','unsuspend','undeploy','undeployall')) && empty($contract->array_options['options_deployment_status'])) $okforremoteaction=0;	// This is a v1 record
+
+    		// No remote action required or this is not a sellyoursaas instance
+    		if (in_array($remoteaction, array('suspend','unsuspend','undeploy','undeployall')) && empty($contract->array_options['options_deployment_status'])) $okforremoteaction=0;
 
     		if (! $error && $okforremoteaction && $contract)
     		{
     			if ($remoteaction == 'deploy' || $remoteaction == 'unsuspend')		// when remoteaction = 'deploy' or 'unsuspend'
     			{
-    				// If there is some template invoices linked to contract, we make sure template invoice are enabled
+    				// If there is some template invoices linked to contract, we make sure the template invoices are also enabled
     				$contract->fetchObjectLinked();
     				//var_dump($contract->linkedObjects);
     				if (is_array($contract->linkedObjects['facturerec']))
