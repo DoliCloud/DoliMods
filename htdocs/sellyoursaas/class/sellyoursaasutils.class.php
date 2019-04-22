@@ -2329,7 +2329,7 @@ class SellYourSaasUtils
 							{
 								$error++;
 								$this->error = $object->error;
-								$this->errors += $object->errors;
+								$this->errors = array_merge((array) $this->errors, (array) $object->errors);
 							}
 							else
 							{

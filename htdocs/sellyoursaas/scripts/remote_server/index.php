@@ -65,6 +65,7 @@ $param = preg_replace('/^\//', '', $_SERVER['REQUEST_URI']);
 $tmparray=explode('?', $param, 2);
 
 $paramspace='';
+$paramarray=array();
 if (! empty($tmparray[1]))
 {
 	$paramarray = explode('&', urldecode($tmparray[1]));
@@ -105,8 +106,7 @@ if (in_array($tmparray[0], array('deploy', 'undeploy', 'deployall', 'undeployall
 	}
 	http_response_code($httpresponse);
 
-	print 'action_deploy_undeploy.sh for action '.$tmparray[0].' return '.$return_var.", \n";
-	print "so remote agent returns http code ".$httpresponse."\n";
+	print 'action_deploy_undeploy.sh for action '.$tmparray[0].' on '.$paramarray[2].' '.$paramarray[3].' return '.$return_var.", so remote agent returns http code ".$httpresponse."\n";
 
 	exit();
 }
@@ -128,8 +128,7 @@ if (in_array($tmparray[0], array('rename', 'suspend', 'unsuspend')))
 	}
 	http_response_code($httpresponse);
 
-	print 'action_suspend_unsuspend.sh for action '.$tmparray[0].' return '.$return_var.", \n";
-	print "so remote agent returns http code ".$httpresponse."\n";
+	print 'action_suspend_unsuspend.sh for action '.$tmparray[0].' on '.$paramarray[2].' '.$paramarray[3].' return '.$return_var.", so remote agent returns http code ".$httpresponse."\n";
 
 	exit();
 }
