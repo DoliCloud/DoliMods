@@ -429,4 +429,4 @@ QtyFormulaExamples=<u>Example of rules to calculate quantities:</u><br><br>SQL:s
 SourceURLOfEvent=Source URL of event
 SeeOnBackoffice=See on backoffice
 PaymentModeAddedFrom=Payment mode added from
-ErrorBadValueForIntraVAT=Error, the value '%s' entered for field '%s' does not match the syntax rules of your country (%s).<br>Please fix your country or your intracommunautary VAT number (You can also uncheck the field '%s' if you are not a company or don't have your intracommunautary VAT number. In such a case, a VAT may be added when charging the service to respect the European VAT rules for Business to Customer sales).
+ErrorBadValueForIntraVAT=Error: the value '%s' entered for field '%s' does not match the syntax rules of your country (%s).<br>Please fix your country or your intracommunautary VAT number (You can also uncheck the field '%s' if you are not a company or don't have your intracommunautary VAT number. In such a case, a VAT may be added when charging the service to respect the European VAT rules for Business to Customer sales).

@@ -464,7 +464,7 @@ if ($action == 'updatemythirdpartyaccount')
 	$mythirdpartyaccount->tva_assuj = $vatassuj;
 	$mythirdpartyaccount->tva_intra = preg_replace('/\s/', '', $vatnumber);
 
-	if ($mythirdpartyaccount->tva_assuj)
+	if ($mythirdpartyaccount->tva_assuj && $mythirdpartyaccount->tva_intra)
 	{
 	    include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 	    $vatisvalid = isValidVATID($mythirdpartyaccount);
