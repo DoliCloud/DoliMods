@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2007-2011	Laurent Destailleur	<eldy@users.sourceforge.net>
+/* Copyright (C) 2007-2019	Laurent Destailleur	<eldy@users.sourceforge.net>
  * Copyright (C) 2008-2012	Regis Houssin		<regis.houssin@capnetworks.com>
  * Copyright (C) 2008-2011	Juanjo Menent		<jmenent@2byte.es>
  * Copyright (C) 2014       Teddy Andreotti    	<125155@supinfo.com>
@@ -424,6 +424,8 @@ if ($action == 'sendbecomereseller')
 
 if ($action == 'updatemythirdpartyaccount')
 {
+    $error = 0;
+
 	$orgname = GETPOST('orgName','nohtml');
 	$address = GETPOST('address','nohtml');
 	$town = GETPOST('town','nohtml');
@@ -448,8 +450,6 @@ if ($action == 'updatemythirdpartyaccount')
 
 	$country_id = dol_getIdFromCode($db, $country_code, 'c_country', 'code', 'rowid');
 
-	$db->begin();	// Start transaction
-
 	$mythirdpartyaccount->oldcopy = dol_clone($mythirdpartyaccount);
 
 	$mythirdpartyaccount->name = $orgname;
@@ -458,27 +458,46 @@ if ($action == 'updatemythirdpartyaccount')
 	$mythirdpartyaccount->zip = $zip;
 	if ($country_id > 0)
 	{
-		$mythirdpartyaccount->country_id = $country_id;
-		$mythirdpartyaccount->country_code = $country_code;
+	    $mythirdpartyaccount->country_id = $country_id;
+	    $mythirdpartyaccount->country_code = $country_code;
 	}
 	$mythirdpartyaccount->tva_assuj = $vatassuj;
-	$mythirdpartyaccount->tva_intra = $vatnumber;
+	$mythirdpartyaccount->tva_intra = preg_replace('/\s/', '', $vatnumber);
 
-	$result = $mythirdpartyaccount->update($mythirdpartyaccount->id, $user);
-
-	if ($result > 0)
+	if ($mythirdpartyaccount->tva_assuj)
 	{
-		$mythirdpartyaccount->country_code = $country_code;
-
-		setEventMessages($langs->trans("RecordSaved"), null, 'mesgs');
-		$db->commit();
+	    include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
+	    $vatisvalid = isValidVATID($mythirdpartyaccount);
+	    if (! $vatisvalid)
+	    {
+	        $error++;
+	        setEventMessages($langs->trans("ErrorBadValueForIntraVAT", $mythirdpartyaccount->tva_intra, $langs->transnoentitiesnoconv('VATIntra'), $mythirdpartyaccount->country_code, $langs->transnoentitiesnoconv('VATIsUsed')), null, 'errors');
+	        $mode='myaccount';
+	        //header("Location: ".$_SERVER['PHP_SELF']."?mode=myaccount#updatemythirdpartyaccount");
+	        //exit;
+	    }
 	}
-	else
+
+	if (! $error)
 	{
-		$langs->load("errors");
-		setEventMessages($langs->trans('ErrorFailedToSaveRecord'), null, 'errors');
-		setEventMessages($mythirdpartyaccount->error, $mythirdpartyaccount->errors, 'errors');
-		$db->rollback();
+		$db->begin();	// Start transaction
+
+		$result = $mythirdpartyaccount->update($mythirdpartyaccount->id, $user);
+
+		if ($result > 0)
+		{
+			$mythirdpartyaccount->country_code = $country_code;
+
+			setEventMessages($langs->trans("RecordSaved"), null, 'mesgs');
+			$db->commit();
+		}
+		else
+		{
+			$langs->load("errors");
+			setEventMessages($langs->trans('ErrorFailedToSaveRecord'), null, 'errors');
+			setEventMessages($mythirdpartyaccount->error, $mythirdpartyaccount->errors, 'errors');
+			$db->rollback();
+		}
 	}
 }
 
@@ -5606,9 +5625,9 @@ if ($mode == 'myaccount')
                   <input type="text" class="form-control" placeholder="'.$langs->trans("StateOrCounty").'" name="stateorcounty" value="">
                 </div>
                 <div class="form-group">
-                  <label>'.$langs->trans("Country").'</label><br>';
-				$countryselected = $mythirdpartyaccount->country_code;
-				print $form->select_country($countryselected, 'country_id', '', 0, 'minwidth300', 'code2', 0);
+                  <label>'.$langs->trans("Country").'aaa</label><br>';
+				$countryselected = (GETPOSTISSET('country_id')?GETPOST('country_id','az09'):$mythirdpartyaccount->country_id);
+				print $form->select_country($countryselected, 'country_id', '', 0, 'minwidth300', 'code2', 0, 1);
 				print '
                 </div>
                 <div class="form-group">
@@ -5621,6 +5640,7 @@ if ($mode == 'myaccount')
 					$placeholderforvat='';
 					if ($mythirdpartyaccount->country_code == 'FR') $placeholderforvat='Exemple: FR12345678';
 					elseif ($mythirdpartyaccount->country_code == 'BE') $placeholderforvat='Exemple: BE12345678';
+					elseif ($mythirdpartyaccount->country_code == 'ES') $placeholderforvat='Exemple: ES12345678';
 					else $placeholderforvat=$langs->trans("EnterVATHere");
 
 					print '
