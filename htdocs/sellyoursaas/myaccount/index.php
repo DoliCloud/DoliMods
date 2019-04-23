@@ -5634,7 +5634,7 @@ if ($mode == 'myaccount')
                   <label>'.$langs->trans("VATIntra").'</label> ';
 				if (! empty($mythirdpartyaccount->tva_assuj) && empty($mythirdpartyaccount->tva_intra))
 					{
-						print img_warning($langs->trans("WarningMandatorySetupNotComplete"), 'class="hideifnonassuj"');
+						print img_warning($langs->trans("Mandatory"), 'class="hideifnonassuj"');
 					}
 
 					$placeholderforvat='';
@@ -5695,7 +5695,7 @@ if ($mode == 'myaccount')
 	                  <div class="col-md-6">
 	                    <div class="form-group">
 	                      <label>'.$langs->trans("Firstname").'</label> ';
-							if (empty($mythirdpartyaccount->array_options['options_firstname'])) print img_warning($langs->trans("WarningMandatorySetupNotComplete"));
+							if (empty($mythirdpartyaccount->array_options['options_firstname'])) print img_warning($langs->trans("Mandatory"));
 						print '
 							<br>
 	                      <input type="text" class="inline-block" value="'.$mythirdpartyaccount->array_options['options_firstname'].'" name="firstName">
@@ -5704,7 +5704,7 @@ if ($mode == 'myaccount')
 	                  <div class="col-md-6">
 	                    <div class="form-group">
 	                      <label>'.$langs->trans("Lastname").'</label> ';
-							if (empty($mythirdpartyaccount->array_options['options_lastname'])) print img_warning($langs->trans("WarningMandatorySetupNotComplete"));
+							if (empty($mythirdpartyaccount->array_options['options_lastname'])) print img_warning($langs->trans("Mandatory"));
 						print '<br>
 	                      <input type="text" class="inline-block" value="'.$mythirdpartyaccount->array_options['options_lastname'].'" name="lastName">
 	                    </div>
