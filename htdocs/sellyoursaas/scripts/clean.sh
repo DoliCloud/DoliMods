@@ -265,7 +265,7 @@ if [ -s /tmp/osutoclean ]; then
 	cat /tmp/osutoclean | grep '^osu' | sort -u
 	for osusername in `grep '^osu' /tmp/osutoclean | sort -u`
 	do
-		echo "   ** Archive and delete qualified user $osusername found in /tmp/osutoclean"
+		echo "***** Archive and delete qualified user $osusername found in /tmp/osutoclean"
 		
 		echo Try to find database and instance name from username $osusername
 		export instancename=""
