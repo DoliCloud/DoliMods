@@ -4531,8 +4531,6 @@ if ($mode == 'registerpaymentmode')
 					$stripearrayofkeys = $stripearrayofkeysbyenv[1];	// Live
 				}
 
-				print '<script src="https://js.stripe.com/v3/"></script>';
-
 				print '	<center><div class="form-row" style="max-width: 320px">
 
 				<div id="card-element">
@@ -4543,7 +4541,6 @@ if ($mode == 'registerpaymentmode')
 				<div id="card-errors" role="alert"></div>
 
 				</div></center>
-
                 ';
 
 				print '<br>';
@@ -4552,8 +4549,10 @@ if ($mode == 'registerpaymentmode')
 				print ' ';
 				print '<a id="buttontocancel" href="'.($backtourl ? $backtourl : $_SERVER["PHP_SELF"]).'" class="btn green-haze btn-circle">'.$langs->trans("Cancel").'</a>';
 
-                // Code to ask the credit card. This use the default "API version". No way to force API version when using JS code.
-				print '<script type="text/javascript" language="javascript">';
+				print '<script src="https://js.stripe.com/v3/"></script>'."\n";
+
+				// Code to ask the credit card. This use the default "API version". No way to force API version when using JS code.
+				print '<script type="text/javascript" language="javascript">'."\n";
 				print "
 					// Create a Stripe client.
 					var stripe = Stripe('".$stripearrayofkeys['publishable_key']."');		/* Defined into config.php */
