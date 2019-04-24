@@ -844,6 +844,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			{
 				$error++;
 				setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
+				dol_syslog("Failed to make renewal of contract ".$sellyoursaasutils->error, LOG_ERR);
 			}
 		}
 

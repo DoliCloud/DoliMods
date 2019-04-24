@@ -1509,7 +1509,7 @@ class SellYourSaasUtils
     					continue;
     				}
 
-    				dol_syslog("* Process contract id=".$object->id." ref=".$object->ref." ref_customer=".$object->ref_customer);
+    				dol_syslog("* Process contract in doRefreshContracts for contract id=".$object->id." ref=".$object->ref." ref_customer=".$object->ref_customer);
 
     				dol_syslog('Call sellyoursaasIsPaidInstance', LOG_DEBUG, 1);
     				$isAPayingContract = sellyoursaasIsPaidInstance($object);
@@ -1563,7 +1563,8 @@ class SellYourSaasUtils
 
     				if ($expirationdate && $expirationdate < $enddatetoscan)
     				{
-    					$newdate = $expirationdate;
+    				    dol_syslog("Define the newdate of end of services from expirationdate=".$expirationdate);
+    				    $newdate = $expirationdate;
     					$protecti=0;	//$protecti is to avoid infinite loop
     					while ($newdate < $enddatetoscan && $protecti < 1000)
     					{
@@ -1609,8 +1610,8 @@ class SellYourSaasUtils
     					else
     					{
     						$error++;
-    						$this->error = "Bad value for newdate";
-    						dol_syslog("Bad value for newdate", LOG_ERR);
+    						$this->error = "Bad value for newdate in doRefreshContracts - expirationdate=".$expirationdate." enddatetoscan=".$enddatetoscan." duration_value=".$duration_value." duration_unit=".$duration_value;
+    						dol_syslog($this->error, LOG_ERR);
     					}
     				}
     			}
@@ -1705,7 +1706,7 @@ class SellYourSaasUtils
     					continue;
     				}
 
-    				dol_syslog("* Process contract id=".$object->id." ref=".$object->ref." ref_customer=".$object->ref_customer);
+    				dol_syslog("* Process contract in doRenewalContracts for contract id=".$object->id." ref=".$object->ref." ref_customer=".$object->ref_customer);
 
     				dol_syslog('Call sellyoursaasIsPaidInstance', LOG_DEBUG, 1);
     				$isAPayingContract = sellyoursaasIsPaidInstance($object);
@@ -1758,7 +1759,8 @@ class SellYourSaasUtils
 
     				if ($expirationdate && $expirationdate < $enddatetoscan)
     				{
-    					$newdate = $expirationdate;
+    				    dol_syslog("Define the newdate of end of services from expirationdate=".$expirationdate);
+    				    $newdate = $expirationdate;
     					$protecti=0;	//$protecti is to avoid infinite loop
     					while ($newdate < $enddatetoscan && $protecti < 1000)
     					{
@@ -1837,8 +1839,8 @@ class SellYourSaasUtils
     					else
     					{
     						$error++;
-    						$this->error = "Bad value for newdate";
-    						dol_syslog("Bad value for newdate", LOG_ERR);
+    						$this->error = "Bad value for newdate in doRenewalContracts - expirationdate=".$expirationdate." enddatetoscan=".$enddatetoscan." duration_value=".$duration_value." duration_unit=".$duration_value;
+    						dol_syslog($this->error, LOG_ERR);
     					}
     				}
     			}
