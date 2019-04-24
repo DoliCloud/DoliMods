@@ -4457,6 +4457,7 @@ if ($mode == 'registerpaymentmode')
 
 		print '
 		<form action="'.$_SERVER["PHP_SELF"].'" method="POST" id="payment-form">
+
 		<input type="hidden" name="action" value="createpaymentmode">
 		<input type="hidden" name="backtourl" value="'.$backtourl.'">
 
@@ -4517,7 +4518,6 @@ if ($mode == 'registerpaymentmode')
 			print '<div class="row"><div class="col-md-12"><label class="valignmiddle" style="margin-bottom: 20px">'.$langs->trans("NameOnCard").':</label> ';
 			print '<input class="minwidth200 valignmiddle" style="margin-bottom: 15px" type="text" name="proprio" value="'.GETPOST('proprio','alpha').'"></div></div>';
 
-
 			if (! empty($conf->global->SELLYOURSAAS_STRIPE_USE_TOKEN))
 			{
 				require_once DOL_DOCUMENT_ROOT.'/stripe/config.php';
@@ -4542,7 +4542,9 @@ if ($mode == 'registerpaymentmode')
 				<!-- Used to display form errors. -->
 				<div id="card-errors" role="alert"></div>
 
-				</div></form>';
+				</div></center>
+
+                ';
 
 				print '<br>';
 				print '<button class="btn btn-info btn-circle" id="buttontopay">'.$langs->trans("Save").'</button>';
@@ -4550,7 +4552,7 @@ if ($mode == 'registerpaymentmode')
 				print ' ';
 				print '<a id="buttontocancel" href="'.($backtourl ? $backtourl : $_SERVER["PHP_SELF"]).'" class="btn green-haze btn-circle">'.$langs->trans("Cancel").'</a>';
 
-
+                // Code to ask the credit card. This use the default "API version". No way to force API version when using JS code.
 				print '<script type="text/javascript" language="javascript">';
 				print "
 					// Create a Stripe client.
