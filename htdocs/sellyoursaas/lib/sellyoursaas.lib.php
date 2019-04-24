@@ -244,8 +244,15 @@ function sellyoursaasGetExpirationDate($contract)
 			if (empty($cachefortmpprod[$line->fk_product]))
 			{
 				$tmpprod = new Product($db);
-				$tmpprod->fetch($line->fk_product);
-				$cachefortmpprod[$line->fk_product] = $tmpprod;
+				$result = $tmpprod->fetch($line->fk_product);
+				if ($result > 0)
+				{
+				    $cachefortmpprod[$line->fk_product] = $tmpprod;
+				}
+				else
+				{
+				    dol_syslog("Error, failed to fetch product with ID ".$line->fk_product, LOG_ERR);
+				}
 			}
 			$prodforline = $cachefortmpprod[$line->fk_product];
 
@@ -263,8 +270,8 @@ function sellyoursaasGetExpirationDate($contract)
 			}
 		}
 	}
-
-	return array('status'=>$status, 'expirationdate'=>$expirationdate, 'duration_value'=>$duration_value, 'duration_unit'=>$duration_unit, 'nbusers'=>$nbofusers);
+    dol_syslog(var_export($contract->lines, true), LOG_ERR);
+    return array('status'=>$status, 'expirationdate'=>$expirationdate, 'duration_value'=>$duration_value, 'duration_unit'=>$duration_unit, 'nbusers'=>$nbofusers, 'nbofgbs'=>$nbofgbs);
 }
 
 
