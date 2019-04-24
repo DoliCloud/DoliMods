@@ -262,6 +262,11 @@ function sellyoursaasGetExpirationDate($contract)
 				$duration_unit = $prodforline->duration_unit;
 
 				$status = $line->statut;
+
+				if (empty($duration_value) || empty($duration_unit))
+				{
+				    dol_syslog("Error, the definition of duration for product ID ".$prodforline->id." is uncomplete.", LOG_ERR);
+				}
 			}
 			if ($prodforline->array_options['options_app_or_option'] == 'system')
 			{
@@ -270,7 +275,7 @@ function sellyoursaasGetExpirationDate($contract)
 			}
 		}
 	}
-    dol_syslog(var_export($contract->lines, true), LOG_ERR);
+
     return array('status'=>$status, 'expirationdate'=>$expirationdate, 'duration_value'=>$duration_value, 'duration_unit'=>$duration_unit, 'nbusers'=>$nbofusers, 'nbofgbs'=>$nbofgbs);
 }
 
