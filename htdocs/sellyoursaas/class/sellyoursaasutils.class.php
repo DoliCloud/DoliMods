@@ -1026,7 +1026,7 @@ class SellYourSaasUtils
 		    							'customer' => $customer->id,
 		    							//'customer' => 'bidon_to_force_error',		// To use to force a stripe error
 			    						'source' => $stripecard,
-			    						'statement_descriptor' => dol_trunc(dol_trunc(dol_string_unaccent($mysoc->name), 8, 'right', 'UTF-8', 1).' INV='.$invoice->id, 22, 'right', 'UTF-8', 1)     // 22 chars that appears on bank receipt
+		    						    'statement_descriptor' => dol_trunc('INV='.$invoice->id, 10, 'right', 'UTF-8', 1),     // 22 chars that appears on bank receipt (company + description)
 		    						));
 	    						}
 	    						catch(\Stripe\Error\Card $e) {
