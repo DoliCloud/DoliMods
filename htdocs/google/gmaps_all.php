@@ -249,7 +249,7 @@ if ($user->rights->societe->client->voir && empty($socid))
     	print '<form name="formsearch" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
     	print '<input type="hidden" name="mode" value="'.$mode.'">';
 
-    	if ($mode != 'member')
+    	if ($mode != 'member' && (empty($conf->global->SOCIETE_DISABLE_CUSTOMERS) || empty($conf->global->SOCIETE_DISABLE_PROSPECTS)))
     	{
 	    	print fieldLabel('ProspectCustomer','customerprospect'). ' : ';
 
@@ -267,7 +267,10 @@ if ($user->rights->societe->client->voir && empty($socid))
 	    	}
 
 	    	print '<br>';
+    	}
 
+    	if ($mode != 'member')
+    	{
 	    	print $langs->trans('ThirdPartiesOfSaleRepresentative'). ': ';
 	    	print $formother->select_salesrepresentatives($search_sale,'search_sale',$user, 0, 1, 'maxwidth300');
 
