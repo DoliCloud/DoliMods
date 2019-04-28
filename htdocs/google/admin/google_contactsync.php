@@ -744,7 +744,7 @@ $var=true;
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print '<td width="25%">'.$langs->trans("Parameter")."</td>";
+print '<td class="titlefieldcreate">'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
 // Label to use for thirdparties
@@ -793,7 +793,7 @@ $var=false;
 print '<table class="noborder" width="100%">';
 
 print "<tr class=\"liste_titre\">";
-print '<td width="25%">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage", "Contact").')'."</td>";
+print '<td class="titlefieldcreate">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage", "Contact").')'."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "<td>".$langs->trans("Note")."</td>";
 print "</tr>";
@@ -803,7 +803,7 @@ $var=!$var;
 print "<tr ".$bc[$var].">";
 print '<td class="fieldrequired">'.$langs->trans("GoogleIDContact")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="24" name="GOOGLE_CONTACT_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_CONTACT_LOGIN.'">';
+print '<input class="flat minwidth300" type="text" name="GOOGLE_CONTACT_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_CONTACT_LOGIN.'">';
 print "</td>";
 print '<td>';
 print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com<br>";
@@ -849,30 +849,27 @@ $jsallowed=preg_replace('/(https*:\/\/[^\/]+\/).*$/','\1',$redirect_uri);
 
 $urltocreateidclientoauth = 'https://console.developers.google.com/apis/credentials';
 
-$var=!$var;
-print "<tr ".$bc[$var].">";
-print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_CLIENT_ID")."</td>";
+print '<tr class="oddeven">';
+print '<td class="titlefieldcreate fieldrequired">'.$langs->trans("GOOGLE_API_CLIENT_ID")."</td>";
 print '<td>';
-print '<input class="flat" type="text" size="90" name="GOOGLE_API_CLIENT_ID" value="'.$conf->global->GOOGLE_API_CLIENT_ID.'">';
+print '<input class="flat minwidth500" type="text" name="GOOGLE_API_CLIENT_ID" value="'.$conf->global->GOOGLE_API_CLIENT_ID.'">';
 print '</td>';
 print '<td>';
 print $langs->trans("AllowGoogleToLoginWithClientID", $urltocreateidclientoauth, $urltocreateidclientoauth, $redirect_uri).'<br>';
 print '</td>';
 print '</tr>';
 
-$var=!$var;
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_CLIENT_SECRET")."</td>";
 print '<td>';
-print '<input class="flat" type="text" size="90" name="GOOGLE_API_CLIENT_SECRET" value="'.$conf->global->GOOGLE_API_CLIENT_SECRET.'">';
+print '<input class="flat minwidth300" type="text" name="GOOGLE_API_CLIENT_SECRET" value="'.$conf->global->GOOGLE_API_CLIENT_SECRET.'">';
 print '</td>';
 print '<td>';
 print $langs->trans("AllowGoogleToLoginWithClientSecret").'<br>';
 print '</td>';
 print '</tr>';
 
-$var=!$var;
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print '<td>'.$langs->trans("GOOGLE_WEB_TOKEN")."</td>";
 print '<td colspan="2">';
 if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_API_CLIENT_ID) || empty($conf->global->GOOGLE_API_CLIENT_SECRET))
@@ -951,7 +948,7 @@ print "</div>";
 
 print "</form>\n";
 
-print '<br>';
+print '<br><br>';
 
 
 // Thirdparties

@@ -443,8 +443,7 @@ else
 	print "</tr>";
 	*/
 	// Google login
-	$var=!$var;
-	print "<tr ".$bc[$var].">";
+	print '<tr class="oddeven">';
 	print '<td class="fieldrequired">'.$langs->trans("GoogleIDAgenda")."</td>";
 	print "<td>";
 	if (! empty($conf->global->GOOGLE_LOGIN)) print $conf->global->GOOGLE_LOGIN;
@@ -456,8 +455,7 @@ else
 	print '</td>';
 	print "</tr>";
 
-	$var=!$var;
-	print "<tr ".$bc[$var].">";
+	print '<tr class="oddeven">';
 	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_EMAIL")."</td>";
 	print '<td>';
 	print '<input class="flat" type="text" size="90" name="GOOGLE_API_SERVICEACCOUNT_EMAIL" value="'.$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.'" disabled="disabled">';
@@ -468,8 +466,7 @@ else
 	print '</td>';
 	print '</tr>';
 
-	$var=!$var;
-	print "<tr ".$bc[$var].">";
+	print '<tr lass="oddeven">';
 	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_P12KEY")."</td>";
 	print '<td>';
 	if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) print $conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY.'<br>';
@@ -500,6 +497,8 @@ else
 
 	print "</table>";
 
+	print '<br>';
+
 	print info_admin($langs->trans("EnableAPI","https://console.developers.google.com/apis/library/","https://console.developers.google.com/apis/library/","Calendar API"));
 
 	print info_admin($langs->trans("ShareCalendarWithServiceAccount",$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL,$langs->transnoentitiesnoconv("GoogleIDAgenda")));
@@ -520,8 +519,7 @@ if (empty($userlogin))	// We use setup of user
 
 print "</form>\n";
 
-print '<br>';
-
+print '<br><br>';
 
 
 // Test area
