@@ -5342,7 +5342,10 @@ if ($mode == 'support')
 							print '<input type="hidden" name="supportchannel" value="'.GETPOST('supportchannel','alpha').'">';
 
 							$email = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
-							if (preg_match('/high/', GETPOST('supportchannel','alpha'))) $email = preg_replace('/@/', '+premium@', $email);
+						    if (! empty($conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM) && preg_match('/high/', GETPOST('supportchannel','alpha')))
+						    {
+						        $email = $conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM;
+						    }
 
 							$subject = (GETPOST('subject','none')?GETPOST('subject','none'):'');
 
