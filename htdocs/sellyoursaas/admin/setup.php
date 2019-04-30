@@ -77,6 +77,7 @@ if ($action == 'set')
 		dolibarr_set_const($db,"SELLYOURSAAS_SUB_DOMAIN_IP",GETPOST("SELLYOURSAAS_SUB_DOMAIN_IP"),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_MAIN_EMAIL",GETPOST("SELLYOURSAAS_MAIN_EMAIL"),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"SELLYOURSAAS_MAIN_EMAIL_PREMIUM",GETPOST("SELLYOURSAAS_MAIN_EMAIL_PREMIUM"),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_SUPERVISION_EMAIL",GETPOST("SELLYOURSAAS_SUPERVISION_EMAIL"),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_NOREPLY_EMAIL",GETPOST("SELLYOURSAAS_NOREPLY_EMAIL"),'chaine',0,'',$conf->entity);
 
@@ -406,6 +407,13 @@ print '<td>';
 print '<input type="text" name="SELLYOURSAAS_MAIN_EMAIL" value="'.$conf->global->SELLYOURSAAS_MAIN_EMAIL.'">';
 print '</td>';
 print '<td>contact@mysaas.com</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasMainEmail").' (Premium)</td>';
+print '<td>';
+print '<input type="text" name="SELLYOURSAAS_MAIN_EMAIL_PREMIUM" value="'.$conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM.'">';
+print '</td>';
+print '<td>contact+premium@mysaas.com</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasSupervisionEmail").'</td>';
