@@ -662,12 +662,12 @@ class ActionsSellyoursaas
     				    if (! $object->nbofservicesclosed)
     				    {
     				        $daysafterexpiration = $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_SUSPEND;
-    				        $ret.=' <span class="badge2 small">Service will be suspended<br>'.$daysafterexpiration.' days after expiration.</span>';
+    				        $ret.=' <span class="badge2 small" title="Expiration = Date planed for end of service">Paid services will be suspended<br>'.$daysafterexpiration.' days after expiration.</span>';
     				    }
     				    if ($object->nbofservicesclosed)
     				    {
     				        $daysafterexpiration = $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT;
-    				        $ret.=' <span class="badge2 small">Service will be undeployed<br>'.$daysafterexpiration.' days after expiration.</span>';
+    				        $ret.=' <span class="badge2 small" title="Expiration = Date planed for end of service">Paid instance will be undeployed<br>'.$daysafterexpiration.' days after expiration.</span>';
     				    }
     				}
     				else
@@ -677,12 +677,12 @@ class ActionsSellyoursaas
     				    if (! $object->nbofservicesclosed)
     				    {
     				        $daysafterexpiration = $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_SUSPEND;
-    				        $ret.=' <span class="badge2 small">Service will be suspended<br>'.$daysafterexpiration.' days after expiration.</span>';
+    				        $ret.=' <span class="badge2 small" title="Expiration = Date planed for end of service">Test services will be suspended<br>'.$daysafterexpiration.' days after expiration.</span>';
     				    }
     				    if ($object->nbofservicesclosed)
     				    {
     				        $daysafterexpiration = $conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT;
-    				        $ret.=' <span class="badge2 small">Service will be undeployed<br>'.$daysafterexpiration.' days after expiration.</span>';
+    				        $ret.=' <span class="badge2 small" title="Expiration = Date planed for end of service">Test instance will be undeployed<br>'.$daysafterexpiration.' days after expiration.</span>';
     				    }
     				}
 				}
