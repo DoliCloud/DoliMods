@@ -109,7 +109,7 @@ class modMonitoring extends DolibarrModules
 
 		$this->rights[$r][0] = 101311;
 		$this->rights[$r][1] = 'Read monitoring';
-		$this->rights[$r][3] = 1;
+		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'read';
 		$r++;
         $this->rights[$r][0] = 101312;
