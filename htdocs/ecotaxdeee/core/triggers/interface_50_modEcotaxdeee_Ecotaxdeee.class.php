@@ -95,15 +95,15 @@ class InterfaceEcotaxdeee
 	function runTrigger($action, $object, $user, $langs, $conf) {
 
 		// Création / Mise à jour / Suppression d'un évènement dans Google contact
-
 		if (empty($conf->ecotaxdeee->enabled)) return 0;
-		if (isset($object->special_code) && $object->special_code == 2) return 0;			// To avoid infinite loop. Line with special_code = 2 are not triggered
+		if (isset($object->special_code) && $object->special_code == 2) return 0;			// To avoid infinite loop. Line with special_code = 2, like ecotax lines, are not triggered
+		if (! empty($object->context['createfromclone'])) return 0;                         // To avoid to add ecotax line during cloning
 
 		if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER))
 		{
 			if ($action == 'LINEORDER_INSERT')
 			{
-				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			    return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
 			}
 			if ($action == 'LINEORDER_UPDATE' || $action == 'LINEORDER_MODIFY')
 			{
@@ -118,7 +118,8 @@ class InterfaceEcotaxdeee
 		{
 			if ($action == 'LINEPROPAL_INSERT')
 			{
-				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
+			    var_dump($object);
+			    return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
 			}
 			if ($action == 'LINEPROPAL_UPDATE' || $action == 'LINEPROPAL_MODIFY')
 			{
@@ -185,11 +186,11 @@ class InterfaceEcotaxdeee
 	/**
 	 * Calculate ecotax
 	 *
-	 * @param  string  $action     Action
-	 * @param  Object  $object     Is a line of object (->element, ->table_element must be defined)
-	 * @param  User    $user       User
-	 * @param  Langs   $langs      Langs
-	 * @param  Conf    $conf       Conf
+	 * @param  string      $action     Action
+	 * @param  Object      $object     Is a line of object (->element, ->table_element must be defined)
+	 * @param  User        $user       User
+	 * @param  Translate   $langs      Langs
+	 * @param  Conf        $conf       Conf
 	 */
 	function _add_replace_ecotax($action,$object,$user,$langs,$conf)
 	{
@@ -330,7 +331,6 @@ class InterfaceEcotaxdeee
 					$tmpecotaxline[$ecocateg]->oldline=dol_clone($tmpecotaxline[$ecocateg]);
 					$tmpecotaxline[$ecocateg]->qty=1;
 					$tmpecotaxline[$ecocateg]->subprice=$ecoamount[$ecocateg];
-					$remise_percent_ligne=0;
 
 					$localtaxarray=getLocalTaxesFromRate($tmpecotaxline[$ecocateg]->tva_tx, 0, $buyer, $seller);
 					$tmparray=calcul_price_total($tmpecotaxline[$ecocateg]->qty, $tmpecotaxline[$ecocateg]->subprice, $tmpecotaxline[$ecocateg]->remise_percent, $tmpecotaxline[$ecocateg]->tva_tx, 0, 0, 0, 'HT', $tmpecotaxline[$ecocateg]->info_bits, $tmpecotaxline[$ecocateg]->type, $seller, $localtaxarray);
