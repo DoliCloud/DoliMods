@@ -46,8 +46,4 @@ CaptureServerAboutPage = CaptureServer about page
 #
 MyPageName = My page name
 
-#
-# Sample widget
-#
-MyWidget = My widget
-MyWidgetDescription = My widget description
+EndPointOfCaptureServer=Endpoint provided by CaptureServer module:<br>%s

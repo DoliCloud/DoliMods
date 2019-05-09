@@ -54,8 +54,8 @@ $action = GETPOST('action', 'alpha');
 $backtopage = GETPOST('backtopage', 'alpha');
 
 $arrayofparameters=array(
-	'CAPTURESERVER_MYPARAM1'=>array('css'=>'minwidth200','enabled'=>1),
-	'CAPTURESERVER_MYPARAM2'=>array('css'=>'minwidth500','enabled'=>1)
+	'CAPTURESERVER_SECURITY_KEY'=>array('css'=>'minwidth200','enabled'=>1),
+	//'CAPTURESERVER_MYPARAM2'=>array('css'=>'minwidth500','enabled'=>1)
 );
 
 
@@ -85,7 +85,7 @@ $head = captureserverAdminPrepareHead();
 dol_fiche_head($head, 'settings', '', -1, "captureserver@captureserver");
 
 // Setup page goes here
-echo $langs->trans("CaptureServerSetupPage").'<br><br>';
+echo '<span class="opacitymedium">'.$langs->trans("CaptureServerSetupPage").'</span><br><br>';
 
 
 if ($action == 'edit')
@@ -137,6 +137,19 @@ else
 		print '<br>'.$langs->trans("NothingToSetup");
 	}
 }
+
+
+// Define $urlwithroot
+$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+//$urlwithroot=DOL_MAIN_URL_ROOT;						// This is to use same domain name than current. For Paypal payment, we can use internal URL like localhost.
+
+
+$message='';
+$url='<a href="'.dol_buildpath('/captureserver/public/captureserver.php', 3).'?key='.($conf->global->CAPTURESERVER_SECURITY_KEY?urlencode($conf->global->CAPTURESERVER_SECURITY_KEY):'...').'" target="_blank">'.dol_buildpath('/captureserver/public/captureserver.php', 3).'?key='.($conf->global->CAPTURESERVER_SECURITY_KEY?urlencode($conf->global->CAPTURESERVER_SECURITY_KEY):'KEYNOTDEFINED').'</a>';
+$message.=img_picto('', 'object_globe.png').' '.$langs->trans("EndPointOfCaptureServer", $url);
+
+print $message;
 
 
 // Page end

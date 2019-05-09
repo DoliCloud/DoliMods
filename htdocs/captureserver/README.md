@@ -1,11 +1,7 @@
 # CAPTURESERVER FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 ## Features
-Description...
-
-<!--
-![Screenshot captureserver](img/screenshot_captureserver.png?raw=true "CaptureServer"){imgmd}
--->
+Capture Server is a module that add an EndPoint to your Dolibarr to capture data send by other servers to him.
 
 Other modules are available on <a href="https://www.dolistore.com" target="_new">Dolistore.com</a>.
 
