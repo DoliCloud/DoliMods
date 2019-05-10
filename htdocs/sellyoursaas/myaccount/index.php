@@ -5579,7 +5579,7 @@ if ($mode == 'myaccount')
                 </div>
                 <div class="form-group">
                   <label>'.$langs->trans("VATIntra").'</label> ';
-				if (! empty($mythirdpartyaccount->tva_assuj) && empty($mythirdpartyaccount->tva_intra))
+				    if (! empty($mythirdpartyaccount->tva_assuj) && empty($mythirdpartyaccount->tva_intra))
 					{
 						print img_warning($langs->trans("Mandatory"), 'class="hideifnonassuj"');
 					}
@@ -5595,6 +5595,28 @@ if ($mode == 'myaccount')
                   <input type="checkbox" style="vertical-align: top" class="inline-block"'.($mythirdpartyaccount->tva_assuj?' checked="checked"':'').'" id="vatassuj" name="vatassuj"> '.$langs->trans("VATIsUsed").'
 					<br>
                   <input type="text" class="input-small quatrevingtpercent hideifnonassuj" value="'.$mythirdpartyaccount->tva_intra.'" name="vatnumber" placeholder="'.$placeholderforvat.'">
+                    ';
+					if (empty($conf->global->MAIN_DISABLEVATCHECK) && isInEEC($object) && (GETPOST('admin','alpha')))
+					{
+					    if (! empty($conf->use_javascript_ajax))
+					    {
+					        print "\n";
+					        print '<script language="JavaScript" type="text/javascript">';
+					        print "function CheckVAT(a) {\n";
+					        print "newpopup('".DOL_URL_ROOT."/societe/checkvat/checkVatPopup.php?vatNumber='+a,'".dol_escape_js($langs->trans("VATIntraCheckableOnEUSite"))."',500,300);\n";
+					        print "}\n";
+					        print '</script>';
+					        print "\n";
+					        $s.='<a href="#" class="hideonsmartphone" onclick="javascript: CheckVAT(document.formsoc.tva_intra.value);">'.$langs->trans("VATIntraCheck").'</a>';
+					        $s = $form->textwithpicto($s, $langs->trans("VATIntraCheckDesc", $langs->trans("VATIntraCheck")), 1);
+					    }
+					    else
+					    {
+					        $s.='<a href="'.$langs->transcountry("VATIntraCheckURL", $mythirdpartyaccount->country_id).'" target="_blank">'.img_picto($langs->trans("VATIntraCheckableOnEUSite"), 'help').'</a>';
+					    }
+					    print $s;
+					}
+					print '
                 </div>
               </div>
               <!-- END FORM BODY -->
