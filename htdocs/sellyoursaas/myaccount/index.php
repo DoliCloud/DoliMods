@@ -5545,7 +5545,7 @@ if ($mode == 'myaccount')
             <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("Organization").'</div>
           </div>
           <div class="portlet-body">
-            <form action="'.$_SERVER["PHP_SELF"].'" method="post">
+            <form action="'.$_SERVER["PHP_SELF"].'" method="post" name="formsoc">
 				<input type="hidden" name="action" value="updatemythirdpartyaccount">
 				<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
               <div class="form-body">
@@ -5607,7 +5607,7 @@ if ($mode == 'myaccount')
 					        print "}\n";
 					        print '</script>';
 					        print "\n";
-					        $s.='<a href="#" class="hideonsmartphone" onclick="javascript: CheckVAT(document.formsoc.tva_intra.value);">'.$langs->trans("VATIntraCheck").'</a>';
+					        $s.='<a href="#" class="hideonsmartphone" onclick="javascript: CheckVAT(document.formsoc.vatnumber.value);">'.$langs->trans("VATIntraCheck").'</a>';
 					        $s = $form->textwithpicto($s, $langs->trans("VATIntraCheckDesc", $langs->trans("VATIntraCheck")), 1);
 					    }
 					    else
