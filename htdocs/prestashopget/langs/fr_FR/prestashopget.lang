@@ -29,6 +29,8 @@ PrestashopGetSetup = Configuration du module PrestashopGet
 Settings = Réglages
 PrestashopGetSetupPage = Page de configuration du module PrestashopGet
 
+PrestashopGetSetup=Espace consultation des factures prestashop
+
 #
 # Page À propos
 #
