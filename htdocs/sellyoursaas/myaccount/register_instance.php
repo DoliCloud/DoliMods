@@ -259,15 +259,9 @@ else
 		header("Location: ".$newurl);
 		exit;
 	}
-	/*if (! filter_var($domainemail, FILTER_VALIDATE_DOMAIN))
-	{
-		setEventMessages($langs->trans("BadValueForDomainInEmail", $conf->global->SELLYOURSAAS_MAIN_EMAIL), null, 'errors');
-		header("Location: ".$newurl);
-		exit;
-	}*/
 	if (function_exists('isValidMXRecord') && isValidMXRecord($domainemail) == 0)
 	{
-		setEventMessages($langs->trans("BadValueForDomainInEmail", $conf->global->SELLYOURSAAS_MAIN_EMAIL), null, 'errors');
+	    setEventMessages($langs->trans("BadValueForDomainInEmail", $domainemail, $conf->global->SELLYOURSAAS_MAIN_EMAIL), null, 'errors');
 		header("Location: ".$newurl);
 		exit;
 	}

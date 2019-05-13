@@ -359,6 +359,7 @@ TrialOrPaid=Mode gratuit ou payant
 PaymentModeSaved=Mode de paiement enregistré
 RetryNow=Ré-essayer maintenant
 ClickToCheckAgain=Cliquer ici pour vérifier à nouveau
+BadValueForDomainInEmail=Email non valide: La valeur du nom de domain (%s) semble incorrecte. Si vous êtes sur que votre email est correct, merci de nous le signaler à %s.
 LogIn=Se connecter
 DateSoftAlertEndTrial=Date dernière alerte de fin d'essai
 DateEndTrial=Date fin d'essai
