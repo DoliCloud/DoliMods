@@ -261,6 +261,7 @@ else
 	}
 	if (function_exists('isValidMXRecord') && isValidMXRecord($domainemail) == 0)
 	{
+	    dol_syslog("Try to register with a bad value for email domain : ".$domainemail);
 	    setEventMessages($langs->trans("BadValueForDomainInEmail", $domainemail, $conf->global->SELLYOURSAAS_MAIN_EMAIL), null, 'errors');
 		header("Location: ".$newurl);
 		exit;
