@@ -116,6 +116,32 @@ if (empty($reshook))
         }
 	}
 
+	if ($action == 'getiplist')
+	{
+	    header('Content-Type: text/csv');
+	    header('Content-Disposition: attachment;filename=listofips.txt');
+
+	    // Get all instances in chain
+	    $arraylistofinstances = getListOfInstancesInChain($object);
+
+	    $arrayofips=array();
+
+	    foreach($arraylistofinstances as $instance)
+	    {
+	        $arrayofips[] = $instance->array_options['options_deployment_ip'];
+	    }
+
+	    $arrayofips = array_unique($arrayofips);
+	    sort($arrayofips);
+
+	    foreach($arrayofips as $key => $val)
+	    {
+	        print $val."\n";
+	    }
+
+	    exit;
+	}
+
 	$action = 'view';
 }
 
