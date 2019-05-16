@@ -859,7 +859,7 @@ class ActionsSellyoursaas
     		if (empty($conf->global->SELLYOURSAAS_DISABLE_PAYMENT_MODE_SAVED))
     			print_liste_field_titre("PaymentModeSaved",$_SERVER["PHP_SELF"],'','',$param,' align="center"',$sortfield,$sortorder);
     	}
-    	if ($parameters['currentcontext'] == 'thirdpartybancard' && $parameters['linetype'] == 'stripetitle')
+    	if ($parameters['currentcontext'] == 'thirdpartybancard')
     	{
     	    $langs->load("sellyoursaas@sellyoursaas");
    	        print_liste_field_titre("",$_SERVER["PHP_SELF"],'','',$param,' align="center"',$sortfield,$sortorder);
