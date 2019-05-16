@@ -146,12 +146,12 @@ if (empty($fromline) && empty($emailfrom))
 }
 elseif (($nbto + $nbcc + $nbbcc) > $MAXOK)
 {
-    file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ko toomanyrecipient - exit 2. ( > '.$MAXOK.': ' . $nbto . ' ' . $nbcc . ' ' . $nbbcc . ') ' . (empty($_ENV['PWD'])?'':$_ENV['PWD'])."\n", FILE_APPEND);
+    file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ko toomanyrecipient - exit 2. ( >'.$MAXOK.' : ' . $nbto . ' ' . $nbcc . ' ' . $nbbcc . ' ) ' . (empty($_ENV['PWD'])?'':$_ENV['PWD'])."\n", FILE_APPEND);
     exit(2);
 }
 else
 {
-    file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ok ( < '.$MAXOK.': ' . $nbto . ' ' . $nbcc . ' ' . $nbbcc . ') ' . (empty($_ENV['PWD'])?'':$_ENV['PWD'])."\n", FILE_APPEND);
+    file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ok ( <'.$MAXOK.' : ' . $nbto . ' ' . $nbcc . ' ' . $nbbcc . ' ) ' . (empty($_ENV['PWD'])?'':$_ENV['PWD'])."\n", FILE_APPEND);
 }
 
 
