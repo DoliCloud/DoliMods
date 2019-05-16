@@ -78,7 +78,7 @@ function getNextInstanceInChain($object)
 
     $contract = null;
 
-    $sql="SELECT fk_object FROM ".MAIN_DB_PREFIX."contrat WHERE cookieregister_previous_instance = '".$db->escape($object->ref_customer)."'";
+    $sql="SELECT fk_object FROM ".MAIN_DB_PREFIX."contrat_extrafields WHERE cookieregister_previous_instance = '".$db->escape($object->ref_customer)."'";
 
     $resql = $db->query($sql);
     if ($resql)
@@ -89,6 +89,10 @@ function getNextInstanceInChain($object)
             $contract = new Contrat($db);
             $contract->fetch($obj->fk_object);
         }
+    }
+    else
+    {
+        dol_print_error($db);
     }
     return $contract;
 }
