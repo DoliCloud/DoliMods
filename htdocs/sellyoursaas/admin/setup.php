@@ -91,22 +91,6 @@ if ($action == 'set')
 		if (! dol_is_dir($dir) && ! dol_is_link($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
 		dolibarr_set_const($db,"DOLICLOUD_LASTSTABLEVERSION_DIR",GETPOST("DOLICLOUD_LASTSTABLEVERSION_DIR"),'chaine',0,'',$conf->entity);
 
-		$dir=GETPOST("DOLICLOUD_INSTANCES_PATH");
-		if (! dol_is_dir($dir) && ! dol_is_link($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
-		dolibarr_set_const($db,"DOLICLOUD_INSTANCES_PATH",GETPOST("DOLICLOUD_INSTANCES_PATH"),'chaine',0,'',$conf->entity);
-
-		$dir=GETPOST("DOLICLOUD_BACKUP_PATH");
-		if (! dol_is_dir($dir) && ! dol_is_link($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
-		dolibarr_set_const($db,"DOLICLOUD_BACKUP_PATH",GETPOST("DOLICLOUD_BACKUP_PATH"),'chaine',0,'',$conf->entity);
-
-		$dir=GETPOST("SELLYOURSAAS_TEST_ARCHIVES_PATH");
-		if (! dol_is_dir($dir) && ! dol_is_link($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
-		dolibarr_set_const($db,"SELLYOURSAAS_TEST_ARCHIVES_PATH",GETPOST("SELLYOURSAAS_TEST_ARCHIVES_PATH"),'chaine',0,'',$conf->entity);
-
-		$dir=GETPOST("SELLYOURSAAS_PAID_ARCHIVES_PATH");
-		if (! dol_is_dir($dir) && ! dol_is_link($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
-		dolibarr_set_const($db,"SELLYOURSAAS_PAID_ARCHIVES_PATH",GETPOST("SELLYOURSAAS_PAID_ARCHIVES_PATH"),'chaine',0,'',$conf->entity);
-
 		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_PRODUCT",GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT"),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS",GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS"),'chaine',0,'',$conf->entity);
 
@@ -129,9 +113,6 @@ if ($action == 'set')
 		dolibarr_set_const($db,"SELLYOURSAAS_CONVERSION_FOOTER",GETPOST("SELLYOURSAAS_CONVERSION_FOOTER",'none'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_PUBLIC_KEY",GETPOST("SELLYOURSAAS_PUBLIC_KEY",'none'),'chaine',0,'',$conf->entity);
 
-		dolibarr_set_const($db,"SELLYOURSAAS_ANONYMOUSUSER",GETPOST("SELLYOURSAAS_ANONYMOUSUSER",'none'),'chaine',0,'',$conf->entity);
-		dolibarr_set_const($db,"SELLYOURSAAS_LOGIN_FOR_SUPPORT",GETPOST("SELLYOURSAAS_LOGIN_FOR_SUPPORT",'none'),'chaine',0,'',$conf->entity);
-
 		dolibarr_set_const($db,"SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_SOFT_ALERT",GETPOST("SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_SOFT_ALERT",'int'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_HARD_ALERT",GETPOST("SELLYOURSAAS_NBDAYS_BEFORE_TRIAL_END_FOR_HARD_ALERT",'int'),'chaine',0,'',$conf->entity);
 
@@ -145,6 +126,29 @@ if ($action == 'set')
 
 		dolibarr_set_const($db,'SELLYOURSAAS_MAXDEPLOYMENTPERIP',GETPOST("SELLYOURSAAS_MAXDEPLOYMENTPERIP",'int'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,'SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR',GETPOST("SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR",'int'),'chaine',0,'',$conf->entity);
+
+
+
+		dolibarr_set_const($db,"SELLYOURSAAS_ANONYMOUSUSER",GETPOST("SELLYOURSAAS_ANONYMOUSUSER",'none'),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,"SELLYOURSAAS_LOGIN_FOR_SUPPORT",GETPOST("SELLYOURSAAS_LOGIN_FOR_SUPPORT",'none'),'chaine',0,'',$conf->entity);
+
+		$dir=GETPOST("DOLICLOUD_INSTANCES_PATH");
+		if (! dol_is_dir($dir) && ! dol_is_link($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
+		dolibarr_set_const($db,"DOLICLOUD_INSTANCES_PATH",GETPOST("DOLICLOUD_INSTANCES_PATH"),'chaine',0,'',$conf->entity);
+
+		$dir=GETPOST("DOLICLOUD_BACKUP_PATH");
+		if (! dol_is_dir($dir) && ! dol_is_link($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
+		dolibarr_set_const($db,"DOLICLOUD_BACKUP_PATH",GETPOST("DOLICLOUD_BACKUP_PATH"),'chaine',0,'',$conf->entity);
+
+		$dir=GETPOST("SELLYOURSAAS_TEST_ARCHIVES_PATH");
+		if (! dol_is_dir($dir) && ! dol_is_link($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
+		dolibarr_set_const($db,"SELLYOURSAAS_TEST_ARCHIVES_PATH",GETPOST("SELLYOURSAAS_TEST_ARCHIVES_PATH"),'chaine',0,'',$conf->entity);
+
+		$dir=GETPOST("SELLYOURSAAS_PAID_ARCHIVES_PATH");
+		if (! dol_is_dir($dir) && ! dol_is_link($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
+		dolibarr_set_const($db,"SELLYOURSAAS_PAID_ARCHIVES_PATH",GETPOST("SELLYOURSAAS_PAID_ARCHIVES_PATH"),'chaine',0,'',$conf->entity);
+
+
 
 		$varforimage='logo'; $dirforimage=$conf->mycompany->dir_output.'/logos/';
 		if ($_FILES[$varforimage]["tmp_name"])
@@ -353,7 +357,7 @@ print_fiche_titre($langs->trans('SellYouSaasSetup'), $linkback, 'setup');
 //$head=array();
 //dol_fiche_head($head, 'serversetup', $langs->trans("SellYourSaas"), -1);
 
-print $langs->trans("SellYouSaasDesc")."<br>\n";
+print '<span class="opacitymedium">'.$langs->trans("SellYouSaasDesc")."</span><br>\n";
 print "<br>\n";
 
 $error=0;
@@ -365,7 +369,7 @@ print '<input type="hidden" name="action" value="set">';
 
 print '<table class="noborder" width="100%">';
 print '<tr class="liste_titre">';
-print '<td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td>';
+print '<td class="titlefield">'.$langs->trans("ParametersOnMasterServer").'</td><td>'.$langs->trans("Value").'</td>';
 print '<td>'.$langs->trans("Examples").'<div class="floatright"><input type="submit" class="button" value="'.$langs->trans("Save").'"></div></td>';
 print "</tr>\n";
 
@@ -437,41 +441,6 @@ print '<td>';
 print '<input class="minwidth500" type="text" name="DOLICLOUD_SCRIPTS_PATH" value="'.$conf->global->DOLICLOUD_SCRIPTS_PATH.'">';
 print '</td>';
 print '<td>'.dol_buildpath('sellyoursaas/scripts').'</td>';
-print '</tr>';
-
-print '<tr class="oddeven"><td>'.$langs->trans("DirForLastStableVersionOfDolibarr").'</td>';
-print '<td>';
-print '<input class="minwidth500" type="text" name="DOLICLOUD_LASTSTABLEVERSION_DIR" value="'.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.'">';
-print '</td>';
-print '<td>'.$dolibarr_main_data_root.'/sellyoursaas/git/dolibarr_x.y</td>';
-print '</tr>';
-
-print '<tr class="oddeven"><td>'.$langs->trans("DirForDoliCloudInstances").'</td>';
-print '<td>';
-print '<input size="40" type="text" name="DOLICLOUD_INSTANCES_PATH" value="'.$conf->global->DOLICLOUD_INSTANCES_PATH.'">';
-print '</td>';
-print '<td>/home/jail/home</td>';
-print '</tr>';
-
-print '<tr class="oddeven"><td>'.$langs->trans("DirForBackupInstances").'</td>';
-print '<td>';
-print '<input size="40" type="text" name="DOLICLOUD_BACKUP_PATH" value="'.$conf->global->DOLICLOUD_BACKUP_PATH.'">';
-print '</td>';
-print '<td>/home/jail/backup</td>';
-print '</tr>';
-
-print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_TEST_ARCHIVES_PATH").'</td>';
-print '<td>';
-print '<input size="40" type="text" name="SELLYOURSAAS_TEST_ARCHIVES_PATH" value="'.$conf->global->SELLYOURSAAS_TEST_ARCHIVES_PATH.'">';
-print '</td>';
-print '<td>/home/jail/archives-test</td>';
-print '</tr>';
-
-print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_PAID_ARCHIVES_PATH").'</td>';
-print '<td>';
-print '<input size="40" type="text" name="SELLYOURSAAS_PAID_ARCHIVES_PATH" value="'.$conf->global->SELLYOURSAAS_PAID_ARCHIVES_PATH.'">';
-print '</td>';
-print '<td>/home/jail/archives-paid</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("DefaultProductForInstances").'</td>';
@@ -583,25 +552,11 @@ print '</td>';
 print '<td>&lt;script&gt;Your conversion trackers&lt;/script&gt;</td>';
 print '</tr>';
 
-print '<tr class="oddeven"><td>'.$langs->trans("SSHPublicKey").'</td>';
-print '<td>';
-print '<textarea name="SELLYOURSAAS_PUBLIC_KEY" class="quatrevingtpercent" rows="3">'.$conf->global->SELLYOURSAAS_PUBLIC_KEY.'</textarea>';
-print '</td>';
-print '<td>Your SSH public key(s) deployed into each new instance</td>';
-print '</tr>';
-
 print '<tr class="oddeven"><td>'.$langs->trans("AnonymousUser").'</td>';
 print '<td>';
 print $form->select_dolusers($conf->global->SELLYOURSAAS_ANONYMOUSUSER, 'SELLYOURSAAS_ANONYMOUSUSER', 1);
 print '</td>';
 print '<td>User used for all anonymous action (registering, actions from customer dashboard, ...)</td>';
-print '</tr>';
-
-print '<tr class="oddeven"><td>'.$langs->trans("LoginForSupport").'</td>';
-print '<td>';
-print '<input type="text" name="SELLYOURSAAS_LOGIN_FOR_SUPPORT" value="'.$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT.'">';
-print '</td>';
-print '<td>Login to use to create a support user account on customer instances</td>';
 print '</tr>';
 
 
@@ -712,6 +667,78 @@ print '</td></tr></table>';
 print '</td><td>';
 print '</td></tr>';
 
+print '</table>';
+
+
+print '<br>';
+
+
+print '<table class="noborder" width="100%">';
+print '<tr class="liste_titre">';
+print '<td class="titlefield">'.$langs->trans("ParametersOnDeploymentServers").'</td><td>'.$langs->trans("Value").'</td>';
+print '<td>'.$langs->trans("Examples").'<div class="floatright"><input type="submit" class="button" value="'.$langs->trans("Save").'"></div></td>';
+print "</tr>\n";
+
+print '<tr class="oddeven"><td>'.$langs->trans("DirForDoliCloudInstances").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="DOLICLOUD_INSTANCES_PATH" value="'.$conf->global->DOLICLOUD_INSTANCES_PATH.'">';
+print '</td>';
+print '<td>/home/jail/home</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("DirForBackupInstances").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="DOLICLOUD_BACKUP_PATH" value="'.$conf->global->DOLICLOUD_BACKUP_PATH.'">';
+print '</td>';
+print '<td>/home/jail/backup</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_TEST_ARCHIVES_PATH").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="SELLYOURSAAS_TEST_ARCHIVES_PATH" value="'.$conf->global->SELLYOURSAAS_TEST_ARCHIVES_PATH.'">';
+print '</td>';
+print '<td>/home/jail/archives-test</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_PAID_ARCHIVES_PATH").'</td>';
+print '<td>';
+print '<input size="40" type="text" name="SELLYOURSAAS_PAID_ARCHIVES_PATH" value="'.$conf->global->SELLYOURSAAS_PAID_ARCHIVES_PATH.'">';
+print '</td>';
+print '<td>/home/jail/archives-paid</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SSHPublicKey").'</td>';
+print '<td>';
+print '<textarea name="SELLYOURSAAS_PUBLIC_KEY" class="quatrevingtpercent" rows="3">'.$conf->global->SELLYOURSAAS_PUBLIC_KEY.'</textarea>';
+print '</td>';
+print '<td>Your SSH public key(s) deployed into each new instance</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("LoginForSupport").'</td>';
+print '<td>';
+print '<input type="text" name="SELLYOURSAAS_LOGIN_FOR_SUPPORT" value="'.$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT.'">';
+print '</td>';
+print '<td>Login to use to create a support user account on customer instances</td>';
+print '</tr>';
+
+print '</table>';
+
+
+print '<br>';
+
+// TODO Remove this to use the dir of package.
+print '<table class="noborder" width="100%">';
+print '<tr class="liste_titre">';
+print '<td class="titlefield">'.$langs->trans("ParametersSpecificToDolibarr").'</td><td>'.$langs->trans("Value").'</td>';
+print '<td>'.$langs->trans("Examples").'<div class="floatright"><input type="submit" class="button" value="'.$langs->trans("Save").'"></div></td>';
+print "</tr>\n";
+
+print '<tr class="oddeven"><td>'.$langs->trans("DirForLastStableVersionOfDolibarr").'</td>';
+print '<td>';
+print '<input class="minwidth500" type="text" name="DOLICLOUD_LASTSTABLEVERSION_DIR" value="'.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.'">';
+print '</td>';
+print '<td>'.$dolibarr_main_data_root.'/sellyoursaas/git/dolibarr_x.y</td>';
+print '</tr>';
 
 print '</table>';
 
