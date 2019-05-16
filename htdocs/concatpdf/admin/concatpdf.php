@@ -232,7 +232,6 @@ if (! empty($conf->global->PDF_SECURITY_ENCRYPTION))
 if ($action == 'remove_file')
 {
 	print $form->formconfirm($_SERVER["PHP_SELF"].'?&urlfile='.urlencode(GETPOST("file")), $langs->trans('DeleteFile'), $langs->trans('ConfirmDeleteFile'), 'confirm_deletefile', '', 0, 1);
-	if ($ret == 'html') print '<br>';
 }
 
 // Show dir for each module

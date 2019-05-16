@@ -671,22 +671,19 @@ else
 		// Confirmation de la validation du mailing
 		if ($_GET["action"] == 'valid')
 		{
-			$ret=$html->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id,$langs->trans("ValidMailing"),$langs->trans("ConfirmValidMailing"),"confirm_valid",'','',1);
-			if ($ret == 'html') print '<br>';
+			print $html->formconfirm($_SERVER["PHP_SELF"]."?id=".$object->id,$langs->trans("ValidMailing"),$langs->trans("ConfirmValidMailing"),"confirm_valid",'','',1);
 		}
 
 		// Confirm reset
 		if ($_GET["action"] == 'reset')
 		{
-			$ret=$html->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id,$langs->trans("ResetMailing"),$langs->trans("ConfirmResetMailing",$object->ref),"confirm_reset",'','',2);
-			if ($ret == 'html') print '<br>';
+		    print $html->formconfirm($_SERVER["PHP_SELF"]."?id=".$object->id,$langs->trans("ResetMailing"),$langs->trans("ConfirmResetMailing",$object->ref),"confirm_reset",'','',2);
 		}
 
 		// Confirm delete
 		if ($_GET["action"] == 'delete')
 		{
-			$ret=$html->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id,$langs->trans("DeleteAMailing"),$langs->trans("ConfirmDeleteMailing"),"confirm_delete",'','',1);
-			if ($ret == 'html') print '<br>';
+		    print $html->formconfirm($_SERVER["PHP_SELF"]."?id=".$object->id,$langs->trans("DeleteAMailing"),$langs->trans("ConfirmDeleteMailing"),"confirm_delete",'','',1);
 		}
 
 
@@ -722,8 +719,7 @@ else
                     }
 				    $text.=$langs->trans('ConfirmSendingEmailing').'<br>';
 					$text.=$langs->trans('LimitSendingEmailing',$conf->global->MAILING_LIMIT_SENDBYWEB);
-					$ret=$html->form_confirm($_SERVER['PHP_SELF'].'?id='.$_REQUEST['id'],$langs->trans('SendMailing'),$text,'sendallconfirmed',$formquestion,'',1,260);
-					if ($ret == 'html') print '<br>';
+					print $html->formconfirm($_SERVER['PHP_SELF'].'?id='.$_REQUEST['id'],$langs->trans('SendMailing'),$text,'sendallconfirmed',$formquestion,'',1,260);
 				}
 			}
 
@@ -792,7 +788,7 @@ else
 				array('type' => 'checkbox', 'name' => 'clone_receivers', 'label' => $langs->trans("CloneReceivers").' ('.$langs->trans("FeatureNotYetAvailable").')', 'value' => 0, 'disabled' => true)
 				);
 				// Paiement incomplet. On demande si motif = escompte ou autre
-				$html->form_confirm($_SERVER["PHP_SELF"].'?id='.$object->id,$langs->trans('CloneEMailing'),$langs->trans('ConfirmCloneEMailing',$object->ref),'confirm_clone',$formquestion,'yes');
+				print $html->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id,$langs->trans('CloneEMailing'),$langs->trans('ConfirmCloneEMailing',$object->ref),'confirm_clone',$formquestion,'yes');
 				print '<br>';
 			}
 

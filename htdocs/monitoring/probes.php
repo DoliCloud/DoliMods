@@ -307,8 +307,7 @@ if ($action != 'edit')
     // Confirmation de la suppression d'une ligne produit
     if ($action == 'ask_deleteline')
     {
-        $ret=$form->form_confirm($_SERVER["PHP_SELF"].'?id='.$_GET["id"], $langs->trans('DeleteProbe'), $langs->trans('ConfirmDeleteProbe'), 'confirm_deleteprobe', '', 'no', 1);
-        if ($ret == 'html') print '<br>';
+        print $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$_GET["id"], $langs->trans('DeleteProbe'), $langs->trans('ConfirmDeleteProbe'), 'confirm_deleteprobe', '', 'no', 1);
     }
 
 

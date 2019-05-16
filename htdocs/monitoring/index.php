@@ -348,8 +348,7 @@ if (empty($id))
     // Confirmation de la suppression d'une ligne produit
     if ($action == 'swapstatus')
     {
-        $ret=$form->form_confirm($_SERVER["PHP_SELF"].'?id='.$_GET["id"], $langs->trans('SwapStatus'), $langs->trans('ConfirmSwapStatus'), 'confirm_swapstatus', '', 'yes', 1);
-        if ($ret == 'html') print '<br>';
+        print $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$_GET["id"], $langs->trans('SwapStatus'), $langs->trans('ConfirmSwapStatus'), 'confirm_swapstatus', '', 'yes', 1);
     }
 
     print '<br>';
