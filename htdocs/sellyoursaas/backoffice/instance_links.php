@@ -455,8 +455,6 @@ if (! empty($object->array_options['options_cookieregister_previous_instance']))
     print '</tr>';
 
     print '</table>';
-
-
 }
 
 

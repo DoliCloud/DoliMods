@@ -149,6 +149,7 @@ function getListOfInstancesInChain($object)
         if ($previouscontract) $arrayofinstances[] = $previouscontract;
     }
 
+    $arrayofinstances = dol_sort_array($arrayofinstances, 'date_creation', 'asc');
     return $arrayofinstances;
 }
 
