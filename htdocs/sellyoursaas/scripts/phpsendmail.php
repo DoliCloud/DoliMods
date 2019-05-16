@@ -82,9 +82,6 @@ if (empty($ip))
 
 // Rules
 $MAXOK = 10;
-$listofblacklistip=array('41.85.161.129','41.85.161.131','41.138.91.132','41.138.89.202','80.11.22.168','197.234.219.68','165.227.36.233','185.20.99.96','185.156.173.178','185.189.113.51');
-$listofblacklistfrom=array('lcomanester@gmail.com','catherinepeladeau@gmail.com','peladeaucatherine@gmail.com','peladcath@gmail.com','catherinepeladeau9@ntymail.com','isabelleboel62@gmail.com','isabelleboel33@vivaldi.net','isa.boel@vivaldi.net','isabelleboel@vivaldi.net','ISABEL.BOEL1962@GMAIL.COM','catherinepeladeau@net-c.ca','kasorace@gmail.com','christianblandin63');
-$listofblacklistcontent=array('thisisaspam','comanesterlucien','COMANESTER Lucien','isabelleboel','Isabelle BOEL','cabinetf.dako','dako@yahoo.com','dako@yahoo.com','dako@yahoo.fr','rinepelad','rine.pelad','brunof@netc.fr','peladcath','cathpelad','pealadoo','BARAKA qui m','Une berline de location et carburant à ma charge','chauffeur avec un Permis B pour mes déplacements','sur le site de www.pole-emploi.fr suite à la','christianblandi','location et carburant à ma charge sera','entreprise Français résident à Montreal','conduire étant handicapé');
 
 
 //* Write the log
@@ -101,62 +98,60 @@ file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . (empty($_ENV['PWD'])?(em
 $blacklistofips = @file_get_contents('/tmp/blacklistip');
 if (! empty($ip) && $blacklistofips)
 {
-        $blacklistofipsarray = explode("\n", $blacklistofips);
-        if (is_array($blacklistofipsarray) && in_array($ip, $blacklistofipsarray))
-        {
-                file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ko blacklist - exit 2. Blacklisted ip '.$ip." found into file blacklistip\n", FILE_APPEND);
-                exit(2);
-        }
+    $blacklistofipsarray = explode("\n", $blacklistofips);
+    if (is_array($blacklistofipsarray) && in_array($ip, $blacklistofipsarray))
+    {
+        file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ko blacklist - exit 2. Blacklisted ip '.$ip." found into file blacklistip\n", FILE_APPEND);
+        exit(3);
+    }
 }
 
+$blacklistoffroms = @file_get_contents('/tmp/blacklistfrom');
+if (! empty($emailfrom) && $blacklistoffroms)
+{
+    $blacklistoffromsarray = explode("\n", $blacklistoffroms);
+    if (is_array($blacklistoffromsarray) && in_array($emailfrom, $blacklistoffromsarray))
+    {
+        file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ko blacklist - exit 3. Blacklisted from '.$emailfrom." found into file blacklistfrom\n", FILE_APPEND);
+        exit(4);
+    }
+}
 
+$blacklistofcontents = @file_get_contents('/tmp/blacklistcontent');
+if (! empty($mail) && $blacklistofcontents)
+{
+    $blacklistofcontentsarray = explode("\n", $blacklistofcontents);
+    foreach($blacklistofcontentsarray as $blackcontent)
+    {
+        if (preg_match('/'.preg_quote($blackcontent,'/').'/ims', $mail))
+        {
+            file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ko blacklist - exit 4. Blacklisted content has the key '.$blackcontent." found into file blacklistcontent\n", FILE_APPEND);
+            // Save spam mail content and ip
+            file_put_contents('/tmp/blacklistmail', $mail."\n", FILE_APPEND);
+            chmod("/tmp/blacklistmail", 0666);
+            if (! empty($ip))
+            {
+                file_put_contents('/tmp/blacklistip', $ip."\n", FILE_APPEND);
+                chmod("/tmp/blacklistip", 0666);
+            }
+            exit(5);
+        }
+    }
+}
 
 if (empty($fromline) && empty($emailfrom))
 {
 	file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' cant send email - exit 1. From not provided. See tmp file '.$tmpfile."\n", FILE_APPEND);
 	exit(1);
 }
-elseif (! empty($ip) && in_array($ip, $listofblacklistip))
-{
-	file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ko blacklist - exit 2. Blacklisted ip '.$ip."\n", FILE_APPEND);
-	file_put_contents('/tmp/blacklistip', $ip."\n", FILE_APPEND);
-	chmod("/tmp/blacklistip", 0666);
-        exit(2);
-}
-elseif (! empty($emailfrom) && in_array($emailfrom, $listofblacklistfrom))
-{
-        file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ko blacklist - exit 3. Blacklisted from '.$emailfrom."\n", FILE_APPEND);
-		if (! empty($ip))
-		{
-			file_put_contents('/tmp/blacklistip', $ip."\n", FILE_APPEND);
-			chmod("/tmp/blacklistip", 0666);
-		}
-        exit(3);
-}
 elseif (($nbto + $nbcc + $nbbcc) > $MAXOK)
 {
-        file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ko toomanyrecipient - exit 4 ( > '.$MAXOK.': ' . $nbto . ' ' . $nbcc . ' ' . $nbbcc . ') ' . (empty($_ENV['PWD'])?'':$_ENV['PWD'])."\n", FILE_APPEND);
-        exit(4);
+    file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ko toomanyrecipient - exit 2. ( > '.$MAXOK.': ' . $nbto . ' ' . $nbcc . ' ' . $nbbcc . ') ' . (empty($_ENV['PWD'])?'':$_ENV['PWD'])."\n", FILE_APPEND);
+    exit(2);
 }
 else
 {
-	foreach($listofblacklistcontent as $blackcontent)
-	{
-		if (preg_match('/'.preg_quote($blackcontent,'/').'/ims', $mail))
-		{
-			file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ko blacklist - exit 5. Blacklisted content '.$blackcontent."\n", FILE_APPEND);
-			file_put_contents('/tmp/blacklistmail', $mail."\n", FILE_APPEND);
-			chmod("/tmp/blacklistmail", 0666);
-			if (! empty($ip))
-			{
-				file_put_contents('/tmp/blacklistip', $ip."\n", FILE_APPEND);
-				chmod("/tmp/blacklistip", 0666);
-			}
-			exit(5);
-		}
-	}
-
-        file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ok ( < '.$MAXOK.': ' . $nbto . ' ' . $nbcc . ' ' . $nbbcc . ') ' . (empty($_ENV['PWD'])?'':$_ENV['PWD'])."\n", FILE_APPEND);
+    file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ok ( < '.$MAXOK.': ' . $nbto . ' ' . $nbcc . ' ' . $nbbcc . ') ' . (empty($_ENV['PWD'])?'':$_ENV['PWD'])."\n", FILE_APPEND);
 }
 
 
