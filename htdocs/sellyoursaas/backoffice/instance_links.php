@@ -97,6 +97,25 @@ if (empty($reshook))
 	// Add action to create file, etc...
 	include 'refresh_action.inc.php';
 
+	if ($action == 'markasspamandclose')
+	{
+        $idtoclose = GETPOST('idtoclose', 'int');
+        $tmpcontract = new Contrat($db);
+        $tmpcontract->fetch($idtoclose);
+        $tmpcontract->array_options['spammer'] = 1;
+        $tmpcontract->update($user, 1);
+
+        $result = $tmpcontract->closeAll($user, 0, 'Closed by spammer inspector.');
+        if ($result > 0)
+        {
+            setEventMessages("OK", null, 'mesgs');
+        }
+        else
+        {
+            setEventMessages($tmpcontract->error, $tmpcontract->errors, 'errors');
+        }
+	}
+
 	$action = 'view';
 }
 
@@ -374,8 +393,52 @@ print "</table><br>";
 
 print "</div>";	//  End fiche=center
 
+print '<br>';
+
 
 print getListOfLinks($object, $lastloginadmin, $lastpassadmin, 0);
+
+
+if (! empty($object->array_options['options_spammer']))
+{
+    // Get all instances in chain
+    $arraylistofinstances = getListOfInstancesInChain($object);
+
+    print '<br>';
+    print_barre_liste("ChainOfRegistration");
+
+    print '<table class="noborder" width="100%">';
+
+    print '<tr>';
+    print '<td>'.$langs->trans("#").'</td>';
+    print '<td>'.$langs->trans("Instance").'</td>';
+    print '<td>'.$langs->trans("Refcustomer").'</td>';
+    print '<td>'.$langs->trans("IP").'</td>';
+    print '<td>'.$langs->trans("Date").'</td>';
+    print '<td></td>';
+    print '</tr>';
+
+    foreach($arraylistofinstances as $instance)
+    {
+        // Nb of users
+        print '<tr>';
+        print '<td>'.$instance->array_options['options_cookieregister_counter'].'</td>';
+        print '<td>'.$instance->getNomUrl(1).'</td>';
+        print '<td>'.$instance->getFormatedCustomerRef($instance->ref_customer).'</td>';
+        print '<td>'.$instance->array_options['options_deployment_ip'].'</td>';
+        print '<td>'.dol_print_date($instance->array_options['options_deployment_date_start'], 'dayhour').'</td>';
+        print '<td>';
+        if ($user->rights->sellyoursaas->write)
+        {
+            print ' <a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=markasspamandclose&idtoclose='.$instance->id.'">'.$langs->trans("MarkAsSpamAndClose").'</a>';
+        }
+        print '</td>';
+        print '</td>';
+        print '</tr>';
+    }
+
+    print '</table>';
+}
 
 
 llxFooter();

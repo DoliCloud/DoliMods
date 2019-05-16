@@ -93,9 +93,9 @@ class ActionsSellyoursaas
      *                              				=0 if OK but we want to process standard actions too,
      *                              				>0 if OK and we want to replace standard actions.
      */
-    function getFormatedCustomerRef($parameters,&$object,&$action)
+    function getFormatedCustomerRef($parameters, &$object, &$action)
     {
-        global $conf;
+        global $conf, $langs;
 
         if (! empty($parameters['objref']))
         {
@@ -108,6 +108,19 @@ class ActionsSellyoursaas
             if ($isanurlofasellyoursaasinstance)
             {
                 $this->results['objref'] = $parameters['objref'].' <a href="https://'.$parameters['objref'].'" target="_blank">'.img_picto('https://'.$parameters['objref'], 'object_globe').'</a>';
+
+                if ($parameters['currentcontext'] == 'contractcard')
+                {
+                    /*if (! empty($object->array_options['options_cookieregister_previous_instance']))
+                    {
+                        $this->results['objref'] .= ' &nbsp; <a href="/aa">'.$langs->trans("SeeChain").'</a>';
+                    }*/
+                    if (! empty($object->array_options['options_spammer']) && $object->array_options['options_deployment_status'] == 'done')
+                    {
+                        $this->results['objref'] .= ' '.img_warning('ActiveInstanceOfASpammer');
+                    }
+                }
+
                 return 1;
             }
         }
@@ -608,6 +621,23 @@ class ActionsSellyoursaas
         return 0;
     }
 
+    /**
+     *    formObjectOptions
+     *
+     *    @param	array			$parameters		Array of parameters
+     *    @param	CommonObject    $object         The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
+     *    @param    string			$action      	'add', 'update', 'view'
+     *    @return   int         					<0 if KO,
+     *                              				=0 if OK but we want to process standard actions too,
+     *                              				>0 if OK and we want to replace standard actions.
+     */
+    function formObjectOptions($parameters, &$object, &$action)
+    {
+        if ($parameters['currentcontext'] == 'crontactcard')
+        {
+            //print '<tr><td>aaa</td><td></td></tr>';
+        }
+    }
 
     /**
      * Complete search forms
@@ -815,7 +845,7 @@ class ActionsSellyoursaas
      * @param	object	$object			Object
      * @return	string					HTML content to add by hook
      */
-    function printFieldListTitle($parameters,&$object)
+    function printFieldListTitle($parameters, &$object)
     {
     	global $conf, $langs;
     	global $param, $sortfield, $sortorder;
@@ -845,7 +875,7 @@ class ActionsSellyoursaas
      * @param	object	$object			Object
      * @return	string					HTML content to add by hook
      */
-    function printFieldListOption($parameters,&$object)
+    function printFieldListOption($parameters, &$object)
     {
     	global $conf, $langs;
     	global $contextpage;
@@ -873,7 +903,7 @@ class ActionsSellyoursaas
      * @param	object	$object			Object
      * @return	string					HTML content to add by hook
      */
-    function printFieldListValue($parameters,&$object)
+    function printFieldListValue($parameters, &$object)
     {
     	global $conf, $langs;
     	global $db;
@@ -952,7 +982,7 @@ class ActionsSellyoursaas
      *                          		=0 if OK but we want to process standard actions too,
      *  	                            >0 if OK and we want to replace standard actions.
      */
-    function afterPDFCreation($parameters,&$pdfhandler,&$action)
+    function afterPDFCreation($parameters, &$pdfhandler, &$action)
     {
     	global $conf,$langs;
     	global $hookmanager;

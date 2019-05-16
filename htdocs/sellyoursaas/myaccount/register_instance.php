@@ -332,7 +332,7 @@ if ($reusecontractid)
 else
 {
     // Check number of instance with same IP deployed (Rem: for partners, ip are the one of their customer)
-    $MAXDEPLOYMENTPERIP = 20;
+    $MAXDEPLOYMENTPERIP = (empty($conf->global->SELLYOURSAAS_MAXDEPLOYMENTPERIP)?20:$conf->global->SELLYOURSAAS_MAXDEPLOYMENTPERIP);
 
     $nbofinstancewithsameip=-1;
     $select = 'SELECT COUNT(*) as nb FROM '.MAIN_DB_PREFIX."contrat_extrafields WHERE deployment_ip = '".$db->escape($remoteip)."'";
@@ -352,7 +352,7 @@ else
     }
 
     // Check number of instance with same IP on same hour
-    $MAXDEPLOYMENTPERIPPERHOUR = 10;
+    $MAXDEPLOYMENTPERIPPERHOUR = (empty($conf->global->SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR)?5:$conf->global->SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR);
 
     $nbofinstancewithsameip=-1;
     $select = 'SELECT COUNT(*) as nb FROM '.MAIN_DB_PREFIX."contrat_extrafields WHERE deployment_ip = '".$db->escape($remoteip)."'";

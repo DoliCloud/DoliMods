@@ -66,6 +66,88 @@ function refreshContract(Contrat $contract)
 	}
 }
 
+/**
+ * getNextInstanceInChain
+ *
+ * @param Contrat  $object  Instance
+ * @return NULL|Contrat
+ */
+function getNextInstanceInChain($object)
+{
+    global $db;
+
+    $contract = null;
+
+    $sql="SELECT fk_object FROM ".MAIN_DB_PREFIX."contrat WHERE cookieregister_previous_instance = '".$db->escape($object->ref_customer)."'";
+
+    $resql = $db->query($sql);
+    if ($resql)
+    {
+        $obj = $db->fetch_object($resql);
+        if ($obj && $obj->fk_object > 0)
+        {
+            $contract = new Contrat($db);
+            $contract->fetch($obj->fk_object);
+        }
+    }
+    return $contract;
+}
+
+/**
+ * getPreviousInstanceInChain
+ *
+ * @param Contrat   $object     Instance
+ * @return NULL|Contrat
+ */
+function getPreviousInstanceInChain($object)
+{
+    global $db;
+
+    if (empty($object->array_options['options_cookieregister_previous_instance'])) return null;
+
+    $contract = new Contrat($db);
+    $result = $contract->fetch(0, '', $object->array_options['options_cookieregister_previous_instance']);
+    if ($result > 0) return $contract;
+    else return null;
+}
+
+/**
+ * getListOfInstances
+ *
+ * @param	Contrat 	$object    	Instance
+ */
+function getListOfInstancesInChain($object)
+{
+    global $conf, $langs, $user, $db;
+
+    $arrayofinstances = array();
+    $arrayofinstances[] = $object;
+
+    // Get next contracts
+    $nextcontract = getNextInstanceInChain($object);
+    if ($nextcontract) $arrayofinstances[] = $nextcontract;
+    $i = 0;
+    while ($nextcontract && $i < 1000)
+    {
+        $i++;
+        $nextcontract = getNextInstanceInChain($nextcontract);
+        if ($nextcontract) $arrayofinstances[] = $nextcontract;
+    }
+
+    // Get previous contracts
+    $previouscontract = getPreviousInstanceInChain($object);
+    if ($previouscontract) $arrayofinstances[] = $previouscontract;
+    $i = 0;
+    while ($previouscontract && $i < 1000)
+    {
+        $i++;
+        $previouscontract = getPreviousInstanceInChain($nextcontract);
+        if ($previouscontract) $arrayofinstances[] = $previouscontract;
+    }
+
+    return $arrayofinstances;
+}
+
 
 /**
  * getListOfLinks

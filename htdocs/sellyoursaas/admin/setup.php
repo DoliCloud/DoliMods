@@ -70,7 +70,9 @@ if ($action == 'set')
 
 	if (! $error)
 	{
-		dolibarr_set_const($db,"SELLYOURSAAS_NAME",GETPOST("SELLYOURSAAS_NAME"),'chaine',0,'',$conf->entity);
+	    dolibarr_set_const($db,'SELLYOURSAAS_FORCE_STRIPE_TEST',GETPOST("SELLYOURSAAS_FORCE_STRIPE_TEST",'int'),'chaine',0,'',$conf->entity);
+
+	    dolibarr_set_const($db,"SELLYOURSAAS_NAME",GETPOST("SELLYOURSAAS_NAME"),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,"SELLYOURSAAS_MAIN_DOMAIN_NAME",GETPOST("SELLYOURSAAS_MAIN_DOMAIN_NAME"),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_SUB_DOMAIN_NAMES",GETPOST("SELLYOURSAAS_SUB_DOMAIN_NAMES"),'chaine',0,'',$conf->entity);
@@ -141,8 +143,8 @@ if ($action == 'set')
 		dolibarr_set_const($db,"SELLYOURSAAS_SALTFORPASSWORDENCRYPTION",GETPOST("SELLYOURSAAS_SALTFORPASSWORDENCRYPTION",'alpha'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_HASHALGOFORPASSWORD",GETPOST("SELLYOURSAAS_HASHALGOFORPASSWORD",'alpha'),'chaine',0,'',$conf->entity);
 
-		dolibarr_set_const($db,'SELLYOURSAAS_FORCE_STRIPE_TEST',GETPOST("SELLYOURSAAS_FORCE_STRIPE_TEST",'int'),'chaine',0,'',$conf->entity);
-
+		dolibarr_set_const($db,'SELLYOURSAAS_MAXDEPLOYMENTPERIP',GETPOST("SELLYOURSAAS_MAXDEPLOYMENTPERIP",'int'),'chaine',0,'',$conf->entity);
+		dolibarr_set_const($db,'SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR',GETPOST("SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR",'int'),'chaine',0,'',$conf->entity);
 
 		$varforimage='logo'; $dirforimage=$conf->mycompany->dir_output.'/logos/';
 		if ($_FILES[$varforimage]["tmp_name"])
@@ -585,7 +587,7 @@ print '<tr class="oddeven"><td>'.$langs->trans("SSHPublicKey").'</td>';
 print '<td>';
 print '<textarea name="SELLYOURSAAS_PUBLIC_KEY" class="quatrevingtpercent" rows="3">'.$conf->global->SELLYOURSAAS_PUBLIC_KEY.'</textarea>';
 print '</td>';
-print '<td>Your SSH public key deployed into each new instance</td>';
+print '<td>Your SSH public key(s) deployed into each new instance</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("AnonymousUser").'</td>';
@@ -658,6 +660,20 @@ print '<td>';
 print '<input class="maxwidth50" type="text" name="SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT" value="'.$conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT.'">';
 print '</td>';
 print '<td>120</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_MAXDEPLOYMENTPERIP").'</td>';
+print '<td>';
+print '<input class="maxwidth50" type="text" name="SELLYOURSAAS_MAXDEPLOYMENTPERIP" value="'.(empty($conf->global->SELLYOURSAAS_MAXDEPLOYMENTPERIP)?20:$conf->global->SELLYOURSAAS_MAXDEPLOYMENTPERIP).'">';
+print '</td>';
+print '<td>20</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR").'</td>';
+print '<td>';
+print '<input class="maxwidth50" type="text" name="SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR" value="'.(empty($conf->global->SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR)?5:$conf->global->SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR).'">';
+print '</td>';
+print '<td>5</td>';
 print '</tr>';
 
 // Logo
