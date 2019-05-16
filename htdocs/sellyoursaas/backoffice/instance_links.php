@@ -405,21 +405,26 @@ if (! empty($object->array_options['options_cookieregister_previous_instance']))
     $arraylistofinstances = getListOfInstancesInChain($object);
 
     print '<br>';
-    print_barre_liste("ChainOfRegistration");
+    print_barre_liste("ChainOfRegistrations");
 
     print '<table class="noborder" width="100%">';
 
     print '<tr>';
     print '<td>'.$langs->trans("#").'</td>';
     print '<td>'.$langs->trans("Instance").'</td>';
-    print '<td>'.$langs->trans("Refcustomer").'</td>';
+    print '<td>'.$langs->trans("RefCustomer").'</td>';
     print '<td>'.$langs->trans("IP").'</td>';
     print '<td>'.$langs->trans("Date").'</td>';
+    print '<td>'.$langs->trans("Status").'</td>';
     print '<td></td>';
     print '</tr>';
 
+    $arrayofips=array();
+
     foreach($arraylistofinstances as $instance)
     {
+        $arrayofips[] = $instance->array_options['options_deployment_ip'];
+
         // Nb of users
         print '<tr>';
         print '<td>'.$instance->array_options['options_cookieregister_counter'].'</td>';
@@ -427,17 +432,31 @@ if (! empty($object->array_options['options_cookieregister_previous_instance']))
         print '<td>'.$instance->getFormatedCustomerRef($instance->ref_customer).'</td>';
         print '<td>'.$instance->array_options['options_deployment_ip'].'</td>';
         print '<td>'.dol_print_date($instance->array_options['options_deployment_date_start'], 'dayhour').'</td>';
+        print '<td>'.$instance->getLibStatut(6).'</td>';
         print '<td>';
         if ($user->rights->sellyoursaas->write)
         {
             print ' <a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=markasspamandclose&idtoclose='.$instance->id.'">'.$langs->trans("MarkAsSpamAndClose").'</a>';
         }
         print '</td>';
-        print '</td>';
         print '</tr>';
     }
 
+    print '<tr class="liste_total">';
+    print '<td></td>';
+    print '<td></td>';
+    print '<td></td>';
+    print '<td>';
+    print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=getiplist">'.$langs->trans("GetFileOfIps").'</a>';
+    print '</td>';
+    print '<td></td>';
+    print '<td></td>';
+    print '<td></td>';
+    print '</tr>';
+
     print '</table>';
+
+
 }
 
 
