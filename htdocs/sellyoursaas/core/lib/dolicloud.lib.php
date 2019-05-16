@@ -141,7 +141,7 @@ function getListOfInstancesInChain($object)
     while ($previouscontract && $i < 1000)
     {
         $i++;
-        $previouscontract = getPreviousInstanceInChain($nextcontract);
+        $previouscontract = getPreviousInstanceInChain($previouscontract);
         if ($previouscontract) $arrayofinstances[] = $previouscontract;
     }
 

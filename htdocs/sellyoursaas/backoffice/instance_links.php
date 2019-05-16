@@ -399,7 +399,7 @@ print '<br>';
 print getListOfLinks($object, $lastloginadmin, $lastpassadmin, 0);
 
 
-if (! empty($object->array_options['options_spammer']))
+if (! empty($object->array_options['options_cookieregister_previous_instance']))
 {
     // Get all instances in chain
     $arraylistofinstances = getListOfInstancesInChain($object);
