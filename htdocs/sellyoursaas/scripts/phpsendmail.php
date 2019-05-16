@@ -123,7 +123,7 @@ if (! empty($mail) && $blacklistofcontents)
     $blacklistofcontentsarray = explode("\n", $blacklistofcontents);
     foreach($blacklistofcontentsarray as $blackcontent)
     {
-        if ($blackcontent && preg_match('/'.preg_quote($blackcontent,'/').'/ims', $mail))
+        if (trim($blackcontent) && preg_match('/'.preg_quote($blackcontent,'/').'/ims', $mail))
         {
             file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ko blacklist - exit 4. Blacklisted content has the key '.$blackcontent." found into file blacklistcontent\n", FILE_APPEND);
             // Save spam mail content and ip
