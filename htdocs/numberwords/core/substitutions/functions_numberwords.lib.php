@@ -168,6 +168,8 @@ function numberwords_getLabelFromNumber($outlangs, $number, $isamount='')
 	{
 		//print "currency: ".$currencycode;
 		$numberwords=$handle->toCurrency($number, $outlang, $currencycode);
+
+		$numberwords = preg_replace('/(\s+cfa)(\sBEAC|\sBCEAO|s)/i', '\1', $numberwords);   // Replace 'Francs cfas' with 'Francs cfa'
 	}
 	elseif ($isamount && ! empty($conf->global->NUMBERWORDS_USE_CURRENCY_SYMBOL))
 	{
