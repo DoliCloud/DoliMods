@@ -432,7 +432,7 @@ if (! empty($object->array_options['options_cookieregister_previous_instance']))
         print '<td>'.$instance->getFormatedCustomerRef($instance->ref_customer).'</td>';
         print '<td>'.$instance->array_options['options_deployment_ip'].'</td>';
         print '<td>'.dol_print_date($instance->array_options['options_deployment_date_start'], 'dayhour').'</td>';
-        print '<td>'.$instance->getLibStatut(6).'</td>';
+        print '<td>'.$instance->getLibStatut(7).'</td>';
         print '<td>';
         if ($user->rights->sellyoursaas->write)
         {
