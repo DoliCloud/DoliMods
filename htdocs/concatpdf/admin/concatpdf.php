@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008-2015	Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2019	Laurent Destailleur  <eldy@users.sourceforge.net>
  * Copyright (C) 2012		Regis Houssin        <regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -231,7 +231,7 @@ if (! empty($conf->global->PDF_SECURITY_ENCRYPTION))
  */
 if ($action == 'remove_file')
 {
-	$ret=$form->form_confirm($_SERVER["PHP_SELF"].'?&urlfile='.urlencode(GETPOST("file")), $langs->trans('DeleteFile'), $langs->trans('ConfirmDeleteFile'), 'confirm_deletefile', '', 0, 1);
+	print $form->formconfirm($_SERVER["PHP_SELF"].'?&urlfile='.urlencode(GETPOST("file")), $langs->trans('DeleteFile'), $langs->trans('ConfirmDeleteFile'), 'confirm_deletefile', '', 0, 1);
 	if ($ret == 'html') print '<br>';
 }
 
@@ -270,8 +270,7 @@ if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT))
      */
 
     // Use multiple concatenation
-    $var=!$var;
-    print '<tr '.$bc[$var].'>';
+    print '<tr class="oddeven">';
     print '<td>'.$langs->trans("EnableMultipleConcatenation").'</td>';
     print '<td align="center" width="20">&nbsp;</td>';
 
