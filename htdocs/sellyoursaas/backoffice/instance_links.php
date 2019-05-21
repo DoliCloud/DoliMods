@@ -362,7 +362,7 @@ if ($object->nbofusers == 0)
 
 print '<div class="fichecenter">';
 
-print '<table class="noborder" width="100%">';
+print '<table class="noborder centpercent tableforfield">';
 
 // Nb of users
 print '<tr><td width="20%">'.$langs->trans("NbOfUsers").'</td><td><font size="+2">'.round($object->nbofusers).'</font></td>';

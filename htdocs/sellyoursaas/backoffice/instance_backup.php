@@ -274,7 +274,7 @@ if ($id > 0 && $action != 'edit' && $action != 'create')
 	//print '<strong>INSTANCE BACKUP</strong><br>';
 
 	print '<div class="underbanner clearboth"></div>';
-	print '<table class="noborder" width="100%">';
+	print '<table class="noborder centpercent tableforfield">';
 
 	// Backup dir
 	print '<tr class="oddeven">';
