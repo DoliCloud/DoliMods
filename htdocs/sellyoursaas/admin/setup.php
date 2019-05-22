@@ -87,10 +87,6 @@ if ($action == 'set')
 		if (! dol_is_dir($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
 		dolibarr_set_const($db,"DOLICLOUD_SCRIPTS_PATH",GETPOST("DOLICLOUD_SCRIPTS_PATH"),'chaine',0,'',$conf->entity);
 
-		$dir=GETPOST("DOLICLOUD_LASTSTABLEVERSION_DIR");
-		if (! dol_is_dir($dir) && ! dol_is_link($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
-		dolibarr_set_const($db,"DOLICLOUD_LASTSTABLEVERSION_DIR",GETPOST("DOLICLOUD_LASTSTABLEVERSION_DIR"),'chaine',0,'',$conf->entity);
-
 		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_PRODUCT",GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT"),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS",GETPOST("SELLYOURSAAS_DEFAULT_PRODUCT_FOR_USERS"),'chaine',0,'',$conf->entity);
 
@@ -719,25 +715,6 @@ print '<td>';
 print '<input type="text" name="SELLYOURSAAS_LOGIN_FOR_SUPPORT" value="'.$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT.'">';
 print '</td>';
 print '<td>Login to use to create a support user account on customer instances</td>';
-print '</tr>';
-
-print '</table>';
-
-
-print '<br>';
-
-// TODO Remove this to use the dir of package.
-print '<table class="noborder" width="100%">';
-print '<tr class="liste_titre">';
-print '<td class="titlefield">'.$langs->trans("ParametersSpecificToDolibarr").'</td><td>'.$langs->trans("Value").'</td>';
-print '<td>'.$langs->trans("Examples").'<div class="floatright"><input type="submit" class="button" value="'.$langs->trans("Save").'"></div></td>';
-print "</tr>\n";
-
-print '<tr class="oddeven"><td>'.$langs->trans("DirForLastStableVersionOfDolibarr").'</td>';
-print '<td>';
-print '<input class="minwidth500" type="text" name="DOLICLOUD_LASTSTABLEVERSION_DIR" value="'.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.'">';
-print '</td>';
-print '<td>'.$dolibarr_main_data_root.'/sellyoursaas/git/dolibarr_x.y</td>';
 print '</tr>';
 
 print '</table>';

@@ -222,6 +222,7 @@ function sellyoursaasGetExpirationDate($contract)
 	$expirationdate = 0;
 	$duration_value = 0;
 	$duration_unit = '';
+	$appproductid = 0;
 	$status = 0;
 	$nbofusers = 0;
 
@@ -260,6 +261,7 @@ function sellyoursaasGetExpirationDate($contract)
 			{
 				$duration_value = $prodforline->duration_value;
 				$duration_unit = $prodforline->duration_unit;
+				$appproductid = $prodforline->id;
 
 				$status = $line->statut;
 
@@ -276,7 +278,7 @@ function sellyoursaasGetExpirationDate($contract)
 		}
 	}
 
-    return array('status'=>$status, 'expirationdate'=>$expirationdate, 'duration_value'=>$duration_value, 'duration_unit'=>$duration_unit, 'nbusers'=>$nbofusers, 'nbofgbs'=>$nbofgbs);
+	return array('status'=>$status, 'expirationdate'=>$expirationdate, 'duration_value'=>$duration_value, 'duration_unit'=>$duration_unit, 'nbusers'=>$nbofusers, 'nbofgbs'=>$nbofgbs, 'appproductid'=>$appproductid);
 }
 
 

@@ -75,8 +75,6 @@ if ($id > 0 || $ref)
 	$id=$object->id;
 }
 
-$upgradestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/rsync_instance.php '.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.' '.$object->instance;
-
 
 
 /*
@@ -431,7 +429,7 @@ if (! empty($object->array_options['options_cookieregister_previous_instance']))
     $arraylistofinstances = getListOfInstancesInChain($object);
 
     print '<br>';
-    print_barre_liste("ChainOfRegistrations");
+    print_barre_liste($langs->trans("ChainOfRegistrations"));
 
     print '<table class="noborder" width="100%">';
 
@@ -459,7 +457,7 @@ if (! empty($object->array_options['options_cookieregister_previous_instance']))
         print '<td>'.$instance->array_options['options_deployment_ip'].'</td>';
         print '<td>'.dol_print_date($instance->array_options['options_deployment_date_start'], 'dayhour').'</td>';
         print '<td>'.$instance->getLibStatut(7).'</td>';
-        print '<td>';
+        print '<td align="right">';
         if ($user->rights->sellyoursaas->write)
         {
             print ' <a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=markasspamandclose&idtoclose='.$instance->id.'">'.$langs->trans("MarkAsSpamAndClose").'</a>';
