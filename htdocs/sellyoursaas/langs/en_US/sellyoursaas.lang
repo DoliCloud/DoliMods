@@ -444,3 +444,5 @@ HelpOnAppOrOption='Application' if this is an application to deploy<br>'Option' 
 KeepEmptyForNoRestrictionOnDomain=Keep empty to suggest at installation all possible domain names defined in global setup. Enter some domain name, separated with coma, to restrict the list (effective only on services that uses this package and with the field Type of Saas = 'Application').
 ChainOfRegistrations=Chain of subscriptions on same computer
 GetFileOfIps=Get file of IPs
+ParametersOnMasterServer=Parameters for Master server
+ParametersOnMasterServer=Parameters for Deployment servers
