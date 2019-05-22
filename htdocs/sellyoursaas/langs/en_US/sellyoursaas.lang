@@ -441,3 +441,4 @@ ChainOfRegistration=Chain of registration with same cookie
 AddService=Add service
 ServicesUsingThisPackage=Services deploying this package
 HelpOnAppOrOption='Application' if this is an application to deploy<br>'Option' if this is an option to activate or to deploy<br>'System' if this is a metric used for invoicing
+KeepEmptyForNoRestrictionOnDomain=Keep empty to suggest at installation all possible domain names defined in global setup. Enter some domain name, separated with coma, to restrict the list (effective only on services that uses this package and with the field Type of Saas = 'Application').

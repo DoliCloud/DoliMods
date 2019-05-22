@@ -402,6 +402,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
           {
 	          if (empty($reusecontractid)) print '<br>';
 	          else print '<hr/>';
+
 	          ?>
 
 	          <section id="selectDomain">
@@ -415,6 +416,21 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 	                	$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
 	                	foreach($listofdomain as $val)
 	                	{
+	                	    if (! empty($tmppackage->restrict_domains))   // There is a restriction on some domains
+	                	    {
+	                	        $restrictfound = false;
+	                	        $tmparray=explode(',', $tmppackage->restrict_domains);
+	                	        foreach($tmparray as $tmprestrictdomain)
+	                	        {
+	                	            var_dump($val.' - '.$tmprestrictdomain);
+	                	            if ($val == $tmprestrictdomain)
+                                    {
+                                        $restrictfound=true;
+                                        break;
+                                    }
+	                	        }
+	                	        if (! $restrictfound) continue;
+	                	    }
 	                		$newval=$val;
 	                		if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
 	                		print '<option value="'.$newval.'"'.(GETPOST('tldid','alpha') == $newval ? ' selected="selected"':'').'>'.$newval.'</option>';
