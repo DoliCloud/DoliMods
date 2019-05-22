@@ -200,7 +200,7 @@ BillingDesc=Review your billing situation, update your payment method
 CancellationForms=Cancellation forms
 NewCancellationForm=New cancellation form
 SoonAvailable=Soon available
-AppOrOption=Application or option
+AppOrOption=Type of SaaS service
 PricePerResource=Price per resource
 QuantityCalculationFormula=Qty calculation formula
 PleaseBeSure=You will destroy your instance. All your data stored into this application will be destroyed. Please type the name of instance to destroy (<strong>%s</strong>) before clicking the 'Undeploy and Delete' button. There is no undo. There is no going back!
@@ -267,7 +267,7 @@ SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT=Nb of days after 
 SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT=Nb of days after expiration date to undeploy automatically paid instances
 DaysForFreePeriod=Days for free period
 AccessToResources=Access to server (SSH/DB)
-TypeOfSupport=Type of support
+TypeOfSupport=Level of support
 PleaseReadFAQFirst=Before submitting any support ticket, please check if answer is not already available here :<br><br><center><a href="%s" target="_faq">FAQs (Foire Aux Questions)</a></center>
 CurrentServiceStatus=The status of our service is visible in real time on <a href="%s" target="_status">this page</a>. If a service appears not active, we are probably already aware of this, and are working on the issue. Thanks for your patience...
 NewTicket=New ticket/issue
@@ -440,3 +440,4 @@ MarkAsSpamAndClose=Mark as spammer and close
 ChainOfRegistration=Chain of registration with same cookie
 AddService=Add service
 ServicesUsingThisPackage=Services deploying this package
+HelpOnAppOrOption='Application' if this is an application to deploy<br>'Option' if this is an option to activate or to deploy<br>'System' if this is a metric used for invoicing

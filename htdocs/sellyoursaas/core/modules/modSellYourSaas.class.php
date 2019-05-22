@@ -567,11 +567,12 @@ class modSellYourSaas extends DolibarrModules
 		// Product
 		$resultx=$extrafields->addExtraField('separatorproduct',          "SELLYOURSAAS_NAME",'separate',   100,     '',  'product', 0, 1, '',       '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$param=array('options'=>array('app'=>'Application','system'=>'System','option'=>'Option'));
-		$resultx=$extrafields->addExtraField('app_or_option',                   "AppOrOption",  'select',   110,     '',  'product', 0, 0,   '', $param, 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$resultx=$extrafields->addExtraField('app_or_option',                   "AppOrOption",  'select',   110,     '',  'product', 0, 0,   '', $param, 1, '',  1, 'HelpOnAppOrOption',         '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('availabelforresellers', "AvailableForResellers", 'boolean',   111,     '',  'product', 0, 0,   '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$param=array('options'=>array('Packages:sellyoursaas/class/packages.class.php'=>null));
-		$resultx=$extrafields->addExtraField('package', 	        	            "Package",    'link',   111,     '',  'product', 0, 0,   '', $param, 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled', 'IfSomethingMustBeDeployed');
-		$resultx=$extrafields->addExtraField('resource_formula', "QuantityCalculationFormula",    'text',   112, '8192',  'product', 0, 0,   '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled', 'QtyFormulaExamples');
+		$resultx=$extrafields->addExtraField('package', 	        	            "Package",    'link',   111,     '',  'product', 0, 0,   '', $param, 1, '',  1, 'IfSomethingMustBeDeployed', '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$resultx=$extrafields->addExtraField('resource_formula', "QuantityCalculationFormula",    'text',   112, '8192',  'product', 0, 0,   '',     '', 1, '', -1, 'QtyFormulaExamples',        '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+
 		$resultx=$extrafields->addExtraField('resource_label',            "ResourceUnitLabel", 'varchar',   112,   '32',  'product', 0, 0,   '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('freeperioddays', 	          "DaysForFreePeriod",     'int',   113,    '6',  'product', 0, 0,   '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('directaccess', 	          "AccessToResources", 'boolean',   114,     '',  'product', 0, 0,   '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');

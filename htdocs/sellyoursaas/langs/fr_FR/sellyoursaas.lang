@@ -189,7 +189,7 @@ BillingDesc=Consulter ma situation de facturation, mettre à jour mon mode de pa
 CancellationForms=Formulaire de résiliation
 NewCancellationForm=Nouveau formulaire de résiliation
 SoonAvailable=Bientôt disponible
-AppOrOption=Application ou option
+AppOrOption=Type de service Saas
 PricePerResource=Prix par ressource
 QuantityCalculationFormula=Formule de calcul de qté
 Deploy=Déployer
@@ -256,7 +256,7 @@ SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT=Nb de jours aprè
 SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT=Nb de jours après expiration avant désinstallation des instances payantes
 DaysForFreePeriod=Nb de jours période gratuite
 AccessToResources=Accès au serveur (SSH/DB)
-TypeOfSupport=Type de support
+TypeOfSupport=Niveau d'assistance
 PleaseReadFAQFirst=Avant de soumettre un ticket au support, merci de vérifier si la réponse n'est pas disponible ici :<br><br><center><a href="%s" target="_faq">FAQs (Frequently Asked Questions)</a></center>
 CurrentServiceStatus=L'état de nos services peut être consulté en temps réel sur <a href="%s" target="_status">cette page</a>. Si un service apparaît inactif, alors nous sommes probablement déjà au courant et en train d'intervenir. Merci de patienter...
 Support=Support
