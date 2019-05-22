@@ -308,8 +308,8 @@ class Packages extends CommonObject
         $label = '<u>' . $langs->trans("Packages") . '</u>';
         $label.= '<br>';
         $label.= '<b>' . $langs->trans('Ref') . ':</b> ' . $this->ref;
-        $label.= '<b>' . $langs->trans('Label') . ':</b> ' . $this->label;
-        $label.= '<b>' . $langs->trans('RestrictDomainNames') . ':</b> ' . $this->restrict_domains;
+        $label.= '<br><b>' . $langs->trans('Label') . ':</b> ' . $this->label;
+        $label.= '<br><b>' . $langs->trans('RestrictDomainNames') . ':</b> ' . $this->restrict_domains;
 
         $url='';
         if ($option != 'nolink')

@@ -446,3 +446,4 @@ ChainOfRegistrations=Chain of subscriptions on same computer
 GetFileOfIps=Get file of IPs
 ParametersOnMasterServer=Parameters for Master server
 ParametersOnMasterServer=Parameters for Deployment servers
+RestrictDomainNames=Restrict domain names
