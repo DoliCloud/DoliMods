@@ -197,7 +197,7 @@ $now=dol_now();
 
 //$help_url="EN:Module_Packages|FR:Module_Packages_FR|ES:Módulo_Packages";
 $help_url='';
-$title = $langs->trans('ListOf', $langs->transnoentitiesnoconv("Packagess"));
+$title = $langs->trans('ListOf', $langs->transnoentitiesnoconv("Packages"));
 
 
 // Build and execute select
