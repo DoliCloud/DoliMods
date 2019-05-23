@@ -4970,18 +4970,6 @@ if ($mode == 'mycustomerbilling')
 				</tr>
 		';
 
-		if ($totalpaidht)
-		{
-		    print '<tr style="background-color: #f0f0F0;">';
-			print '<td colspan="2">'.$langs->trans("AlreadyPaid").'</td>';
-			print '<td></td>';
-			print '<td></td>';
-			print '<td></td>';
-			print '<td></td>';
-			print '<td align="right">'.price($totalpaidht).'</td>';
-			print '</tr>';
-		}
-
 		if (preg_match('/Commissions old system = ([a-zA-Z0-9\.\,]+)/i', $mythirdpartyaccount->note_private, $reg))
 		{
 			$commoldystem = price2num($reg[1]);
