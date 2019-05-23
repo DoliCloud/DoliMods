@@ -4972,7 +4972,7 @@ if ($mode == 'mycustomerbilling')
 
 		if ($totalpaidht)
 		{
-			print '<tr style="background-color: #f0f0F0;">';
+		    print '<tr style="background-color: #f0f0F0;">';
 			print '<td colspan="2">'.$langs->trans("AlreadyPaid").'</td>';
 			print '<td></td>';
 			print '<td></td>';
@@ -4985,7 +4985,7 @@ if ($mode == 'mycustomerbilling')
 		if (preg_match('/Commissions old system = ([a-zA-Z0-9\.\,]+)/i', $mythirdpartyaccount->note_private, $reg))
 		{
 			$commoldystem = price2num($reg[1]);
-			print '<tr style="background-color: #f0f0F0;">';
+			print '<tr>';
 			print '<td colspan="2">'.$langs->trans("CommissionsOnOldSystem").'</td>';
 			print '<td></td>';
 			print '<td></td>';
@@ -5137,7 +5137,28 @@ if ($mode == 'mycustomerbilling')
 		}
 
 		print '<tr class="liste_titre"><td colspan="6">'.$langs->trans("Total").'</td>';
-		print '<td align="right"><strong>'.price($totalpaidht + $commoldystem + $totalamountcommission).'</strong></td>';
+		print '<td align="right"><strong>'.price($commoldystem + $totalamountcommission).'</strong></td>';
+		print '</tr>';
+
+		if ($totalpaidht)
+		{
+		    print '<tr style="background-color: #f0f0F0;">';
+		    print '<td colspan="2">'.$langs->trans("AlreadyPaid").'</td>';
+		    print '<td></td>';
+		    print '<td></td>';
+		    print '<td></td>';
+		    print '<td></td>';
+		    print '<td align="right">'.price($totalpaidht).'</td>';
+		    print '</tr>';
+		}
+
+		print '<tr style="background-color: #f0f0F0;">';
+		print '<td colspan="2">'.$langs->trans("RemainderToBill").'</td>';
+		print '<td></td>';
+		print '<td></td>';
+		print '<td></td>';
+		print '<td></td>';
+		print '<td align="right">'.price($commoldystem + $totalamountcommission - $totalpaidht).'</td>';
 		print '</tr>';
 
 		print '</table>
