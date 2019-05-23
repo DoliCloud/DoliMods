@@ -1,9 +1,5 @@
 <?php
-/* Copyright (C) 2001-2002	Rodolphe Quiedeville	<rodolphe@quiedeville.org>
- * Copyright (C) 2006-2017	Laurent Destailleur		<eldy@users.sourceforge.net>
- * Copyright (C) 2009-2012	Regis Houssin			<regis.houssin@capnetworks.com>
- *
- * This program is free software; you can redistribute it and/or modify
+/* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
@@ -18,9 +14,8 @@
  */
 
 /**
- *     	\file       htdocs/sellyoursaas/public/spamreport.php
- *		\ingroup    sellyoursaas
- *		\brief      Page to report SPAM
+ *     	\file       test.php
+ *		\brief      Page test
  */
 
 define("NOLOGIN",1);		// This means this output page does not require to be logged.
@@ -52,28 +47,43 @@ require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societeaccount.class.php';
 
 
-$tmpfile = '/var/log/sellyoursaas_spamreport.log';
+
+
+/*
+ * View
+ */
+
+print '<html>
+<head>
+<script type="text/javascript" src="localdata.js"></script>
+</head>
+
+<body>';
+
+$tmpfile = '/var/log/sellyoursaas_test.log';
 $date = strftime("%Y-%m-%d %H:%M:%S" ,time());
 
-file_put_contents($tmpfile, "\n***** Spam report received ".$date."*****\n", FILE_APPEND);
+file_put_contents($tmpfile, "\n***** Test report received ".$date."*****\n", FILE_APPEND);
 file_put_contents($tmpfile, var_export($_SERVER, true), FILE_APPEND);
-echo "Spam report received at ".$date."<br>\n";
+echo "Test report received at ".$date."<br>\n";
 
 $body = file_get_contents('php://input');
 file_put_contents($tmpfile, $body, FILE_APPEND);
 
-echo "Content of alert message received:<br>\n";
+echo "Content of message received:<br>\n";
 echo $body;
 
 file_put_contents($tmpfile, "\n", FILE_APPEND);
 echo "<br>\n";
 
 
+echo "Now make internal js test...<br>\n";
+
 
 // Send email
-file_put_contents($tmpfile, "Now we send an email to supervisor ".$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL."\n", FILE_APPEND);
+//file_put_contents($tmpfile, "Now we send an email to supervisor ".$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL."\n", FILE_APPEND);
 
-$headers = 'From: <'.$conf->global->SELLYOURSAAS_NOREPLY_EMAIL.">\r\n";
+/*$headers = 'From: <'.$conf->global->SELLYOURSAAS_NOREPLY_EMAIL.">\r\n";
 $success=mail($conf->global->SELLYOURSAAS_SUPERVISION_EMAIL, '[Alert] Spam report received from SendGrid', 'Spam was reported by SendGrid:'."\r\n".$body, $headers);
 if (!$success) {
 	$errorMessage = error_get_last()['message'];
@@ -122,3 +132,7 @@ if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
 
     }
 }
+*/
+
+print '</body>
+</html>';
