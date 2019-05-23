@@ -438,6 +438,7 @@ if (! empty($object->array_options['options_cookieregister_previous_instance']))
     print '<td>'.$langs->trans("Instance").'</td>';
     print '<td>'.$langs->trans("RefCustomer").'</td>';
     print '<td>'.$langs->trans("IP").'</td>';
+    print '<td>'.$langs->trans("DeploymentIPVPNProba").'</td>';
     print '<td>'.$langs->trans("Date").'</td>';
     print '<td>'.$langs->trans("Status").'</td>';
     print '<td></td>';
@@ -455,6 +456,7 @@ if (! empty($object->array_options['options_cookieregister_previous_instance']))
         print '<td>'.$instance->getNomUrl(1).'</td>';
         print '<td>'.$instance->getFormatedCustomerRef($instance->ref_customer).'</td>';
         print '<td>'.$instance->array_options['options_deployment_ip'].'</td>';
+        print '<td>'.$instance->array_options['options_deployment_vpn_proba'].'</td>';
         print '<td>'.dol_print_date($instance->array_options['options_deployment_date_start'], 'dayhour').'</td>';
         print '<td>'.$instance->getLibStatut(7).'</td>';
         print '<td align="right">';
@@ -473,6 +475,7 @@ if (! empty($object->array_options['options_cookieregister_previous_instance']))
     print '<td>';
     print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=getiplist">'.$langs->trans("GetFileOfIps").'</a>';
     print '</td>';
+    print '<td></td>';
     print '<td></td>';
     print '<td></td>';
     print '<td></td>';
