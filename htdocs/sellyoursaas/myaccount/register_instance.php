@@ -867,12 +867,12 @@ if (! $error)
 		if (! $result)
 		{
 			$error++;
-			setEventMessages($cmail->error, $cmail->errors, 'warning');
+			setEventMessages($cmail->error, $cmail->errors, 'warnings');
 		}
 	}
 	else	// In rare cases, we are here
 	{
-		setEventMessages('NoEmailSent', null, 'warning');
+		setEventMessages('NoEmailSent', null, 'warnings');
 	}
 
 	dol_syslog("Deployment successful");
