@@ -18,30 +18,16 @@ if ($action == 'addauthorizedkey')
 
 	$instance = 'xxxx';
 	$type_db = $conf->db->type;
-	if ($instanceoldid)
-	{
-		$instance = $object->instance;
-		$hostname_db = $object->hostname_db;
-		$username_db = $object->username_db;
-		$password_db = $object->password_db;
-		$database_db = $object->database_db;
-		$port_db = $object->port_db?$object->port_db:3306;
-		$username_web = $object->username_web;
-		$password_web = $object->password_web;
-		$hostname_os = $object->instance.'.on.dolicloud.com';
-	}
-	else	// $object is a contract (on old or new instance)
-	{
-		$instance = $object->ref_customer;
-		$hostname_db = $object->array_options['options_hostname_db'];
-		$username_db = $object->array_options['options_username_db'];
-		$password_db = $object->array_options['options_password_db'];
-		$database_db = $object->array_options['options_database_db'];
-		$port_db     = $object->array_options['options_port_db'];
-		$username_web = $object->array_options['options_username_os'];
-		$password_web = $object->array_options['options_password_os'];
-		$hostname_os = $object->array_options['options_hostname_os'];
-	}
+
+	$instance = $object->ref_customer;
+	$hostname_db = $object->array_options['options_hostname_db'];
+	$username_db = $object->array_options['options_username_db'];
+	$password_db = $object->array_options['options_password_db'];
+	$database_db = $object->array_options['options_database_db'];
+	$port_db     = $object->array_options['options_port_db'];
+	$username_web = $object->array_options['options_username_os'];
+	$password_web = $object->array_options['options_password_os'];
+	$hostname_os = $object->array_options['options_hostname_os'];
 
 	$server=$hostname_os;
 
@@ -115,30 +101,16 @@ if ($action == 'addinstalllock')
 
 	$instance = 'xxxx';
 	$type_db = $conf->db->type;
-	if ($instanceoldid)
-	{
-		$instance = $object->instance;
-		$hostname_db = $object->hostname_db;
-		$username_db = $object->username_db;
-		$password_db = $object->password_db;
-		$database_db = $object->database_db;
-		$port_db = $object->port_db?$object->port_db:3306;
-		$username_web = $object->username_web;
-		$password_web = $object->password_web;
-		$hostname_os = $object->instance.'.on.dolicloud.com';
-	}
-	else	// $object is a contract (on old or new instance)
-	{
-		$instance = $object->ref_customer;
-		$hostname_db = $object->array_options['options_hostname_db'];
-		$username_db = $object->array_options['options_username_db'];
-		$password_db = $object->array_options['options_password_db'];
-		$database_db = $object->array_options['options_database_db'];
-		$port_db     = $object->array_options['options_port_db'];
-		$username_web = $object->array_options['options_username_os'];
-		$password_web = $object->array_options['options_password_os'];
-		$hostname_os = $object->array_options['options_hostname_os'];
-	}
+
+	$instance = $object->ref_customer;
+	$hostname_db = $object->array_options['options_hostname_db'];
+	$username_db = $object->array_options['options_username_db'];
+	$password_db = $object->array_options['options_password_db'];
+	$database_db = $object->array_options['options_database_db'];
+	$port_db     = $object->array_options['options_port_db'];
+	$username_web = $object->array_options['options_username_os'];
+	$password_web = $object->array_options['options_password_os'];
+	$hostname_os = $object->array_options['options_hostname_os'];
 
 	$server=$hostname_os;
 
@@ -191,30 +163,16 @@ if ($action == 'delauthorizedkey')
 
 	$instance = 'xxxx';
 	$type_db = $conf->db->type;
-	if ($instanceoldid)
-	{
-		$instance = $object->instance;
-		$hostname_db = $object->hostname_db;
-		$username_db = $object->username_db;
-		$password_db = $object->password_db;
-		$database_db = $object->database_db;
-		$port_db = $object->port_db?$object->port_db:3306;
-		$username_web = $object->username_web;
-		$password_web = $object->password_web;
-		$hostname_os = $object->instance.'.on.dolicloud.com';
-	}
-	else	// $object is a contract (on old or new instance)
-	{
-		$instance = $object->ref_customer;
-		$hostname_db = $object->array_options['options_hostname_db'];
-		$username_db = $object->array_options['options_username_db'];
-		$password_db = $object->array_options['options_password_db'];
-		$database_db = $object->array_options['options_database_db'];
-		$port_db     = $object->array_options['options_port_db'];
-		$username_web = $object->array_options['options_username_os'];
-		$password_web = $object->array_options['options_password_os'];
-		$hostname_os = $object->array_options['options_hostname_os'];
-	}
+
+	$instance = $object->ref_customer;
+	$hostname_db = $object->array_options['options_hostname_db'];
+	$username_db = $object->array_options['options_username_db'];
+	$password_db = $object->array_options['options_password_db'];
+	$database_db = $object->array_options['options_database_db'];
+	$port_db     = $object->array_options['options_port_db'];
+	$username_web = $object->array_options['options_username_os'];
+	$password_web = $object->array_options['options_password_os'];
+	$hostname_os = $object->array_options['options_hostname_os'];
 
 	$server=$hostname_os;
 	$connection = ssh2_connect($server, 22);
@@ -256,30 +214,16 @@ if ($action == 'delinstalllock')
 
 	$instance = 'xxxx';
 	$type_db = $conf->db->type;
-	if ($instanceoldid)
-	{
-		$instance = $object->instance;
-		$hostname_db = $object->hostname_db;
-		$username_db = $object->username_db;
-		$password_db = $object->password_db;
-		$database_db = $object->database_db;
-		$port_db = $object->port_db?$object->port_db:3306;
-		$username_web = $object->username_web;
-		$password_web = $object->password_web;
-		$hostname_os = $object->instance.'.on.dolicloud.com';
-	}
-	else	// $object is a contract (on old or new instance)
-	{
-		$instance = $object->ref_customer;
-		$hostname_db = $object->array_options['options_hostname_db'];
-		$username_db = $object->array_options['options_username_db'];
-		$password_db = $object->array_options['options_password_db'];
-		$database_db = $object->array_options['options_database_db'];
-		$port_db     = $object->array_options['options_port_db'];
-		$username_web = $object->array_options['options_username_os'];
-		$password_web = $object->array_options['options_password_os'];
-		$hostname_os = $object->array_options['options_hostname_os'];
-	}
+
+	$instance = $object->ref_customer;
+	$hostname_db = $object->array_options['options_hostname_db'];
+	$username_db = $object->array_options['options_username_db'];
+	$password_db = $object->array_options['options_password_db'];
+	$database_db = $object->array_options['options_database_db'];
+	$port_db     = $object->array_options['options_port_db'];
+	$username_web = $object->array_options['options_username_os'];
+	$password_web = $object->array_options['options_password_os'];
+	$hostname_os = $object->array_options['options_hostname_os'];
 
 	$server=$hostname_os;
 

@@ -114,6 +114,43 @@ if (empty($reshook))
         }
 	}
 
+	if ($action == 'addspamtracker')
+	{
+	    $idtoclose = GETPOST('idtotrack', 'int');
+	    $tmpcontract = new Contrat($db);
+	    $tmpcontract->fetch($idtoclose);
+
+	    $server = $tmpcontract->ref_customer;
+	    $username_db = $tmpcontract->username_db;
+	    if (empty($username_db)) $username_db = $tmpcontract->array_options['options_username_db'];
+	    $password_db = $object->password_db;
+	    if (empty($password_db)) $password_db = $tmpcontract->array_options['options_password_db'];
+	    $database_db = $object->database_db;
+	    if (empty($database_db)) $database_db = $tmpcontract->array_options['options_database_db'];
+
+	    $newdb=getDoliDBInstance('mysqli', $server, $username_db, $password_db, $database_db, 3306);
+
+	    if ($newdb)
+	    {
+	        include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+	        dolibarr_set_const($newdb, 'MAIN_HOME', 'aaa<script type="text/javascript" src="'.$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/public/localdata.js"></script>');
+    	    //$tmpcontract->array_options['spammer'] = 1;
+    	    //$result= $tmpcontract->update($user, 1);
+    	    if ($result > 0)
+    	    {
+    	        setEventMessages("Tracker added on login page of instance ".$server, null, 'mesgs');
+    	    }
+    	    else
+    	    {
+    	        setEventMessages($tmpcontract->error, $tmpcontract->errors, 'errors');
+    	    }
+	    }
+	    else
+	    {
+	        dol_print_error($newdb);
+	    }
+	}
+
 	if ($action == 'getiplist')
 	{
 	    header('Content-Type: text/csv');
@@ -463,6 +500,8 @@ if (! empty($object->array_options['options_cookieregister_previous_instance']))
         if ($user->rights->sellyoursaas->write)
         {
             print ' <a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=markasspamandclose&idtoclose='.$instance->id.'">'.$langs->trans("MarkAsSpamAndClose").'</a>';
+            print ' &nbsp; ';
+            print ' <a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addspamtracker&idtotrack='.$instance->id.'">'.$langs->trans("AddAntiSpamTracker").'</a>';
         }
         print '</td>';
         print '</tr>';
