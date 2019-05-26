@@ -114,7 +114,7 @@ if (empty($reshook))
         }
 	}
 
-	if ($action == 'addspamtracker')
+	if ($action == 'addspamtracker' || $action == 'removespamtracker')
 	{
 	    $idtoclose = GETPOST('idtotrack', 'int');
 	    $tmpcontract = new Contrat($db);
@@ -133,7 +133,9 @@ if (empty($reshook))
 	    if ($newdb)
 	    {
 	        include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-	        dolibarr_set_const($newdb, 'MAIN_HOME', 'aaa<script type="text/javascript" src="'.$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/public/localdata.js"></script>');
+	        $stringtosave = '<script type="text/javascript" src="'.$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/public/localdata.js"></script>';
+	        if ($action == 'removespamtracker') $stringtosave = '';
+	        dolibarr_set_const($newdb, 'MAIN_HOME', $stringtosave);
     	    //$tmpcontract->array_options['spammer'] = 1;
     	    //$result= $tmpcontract->update($user, 1);
     	    if ($result > 0)
@@ -502,6 +504,8 @@ if (! empty($object->array_options['options_cookieregister_previous_instance']))
             print ' <a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=markasspamandclose&idtoclose='.$instance->id.'">'.$langs->trans("MarkAsSpamAndClose").'</a>';
             print ' &nbsp; ';
             print ' <a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addspamtracker&idtotrack='.$instance->id.'">'.$langs->trans("AddAntiSpamTracker").'</a>';
+            print ' &nbsp; ';
+            print ' <a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=removespamtracker&idtotrack='.$instance->id.'">'.$langs->trans("RemoveAntiSpamTracker").'</a>';
         }
         print '</td>';
         print '</tr>';

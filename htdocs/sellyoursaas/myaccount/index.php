@@ -5581,7 +5581,7 @@ if ($mode == 'myaccount')
                   <input type="text" class="form-control" placeholder="'.$langs->trans("StateOrCounty").'" name="stateorcounty" value="">
                 </div>
                 <div class="form-group">
-                  <label>'.$langs->trans("Country").'aaa</label><br>';
+                  <label>'.$langs->trans("Country").'</label><br>';
 				$countryselected = (GETPOSTISSET('country_id')?GETPOST('country_id','az09'):$mythirdpartyaccount->country_id);
 				print $form->select_country($countryselected, 'country_id', '', 0, 'minwidth300', 'code2', 0, 1);
 				print '
