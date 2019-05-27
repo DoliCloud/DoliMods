@@ -626,25 +626,56 @@ function dol_loginfunction($langs,$conf,$mysoc)
 	$login = (! empty($hookmanager->resArray['username']) ? $hookmanager->resArray['username'] : (GETPOST("username","alpha") ? GETPOST("username","alpha") : $demologin));
 	$password = $demopassword;
 
+	$tmparray=explode(',', $conf->global->SELLYOURSAAS_NAME);
+	$tmparray2=explode(',', $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME);
+	$sellyoursaasname = $tmparray[0];
+	$sellyoursaasdomain = $tmparray2[0];
+
 	// Show logo (search in order: small company logo, large company logo, theme logo, common logo)
 	$width=0;
-	$urllogo=DOL_URL_ROOT.'/theme/login_logo.png';
-	if (! empty($conf->global->SELLYOURSAAS_LOGO_SMALL) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL))
+	$urllogo = '';
+	$constlogo = 'SELLYOURSAAS_LOGO';
+	$constlogosmall = 'SELLYOURSAAS_LOGO_SMALL';
+	foreach($tmparray2 as $key => $value)
 	{
-		$urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL);
+	    if ($_SERVER['SERVER_NAME'] == $value)     // Domain is same
+	    {
+	       if (! empty($tmparray[$key]))
+	       {
+	           $constlogo.='_'.strtoupper($tmparray[$key]);
+	           $constlogosmall.='_'.strtoupper($tmparray[$key]);
+	           $sellyoursaasname = $tmparray[$key];
+	       }
+	       $sellyoursaasdomain = $value;
+	    }
 	}
-	elseif (! empty($conf->global->SELLYOURSAAS_LOGO) && is_readable($conf->mycompany->dir_output.'/logos/'.$conf->global->SELLYOURSAAS_LOGO))
+
+	if (empty($urllogo) && ! empty($conf->global->$constlogosmall))
 	{
-		$urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/'.$conf->global->SELLYOURSAAS_LOGO);
-		$width=128;
+	    if (is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->$constlogosmall))
+	    {
+	        $urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$conf->global->$constlogosmall);
+	    }
 	}
-	elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/img/dolibarr_logo.png'))
+	elseif (empty($urllogo) && ! empty($conf->global->$constlogo))
+	{
+	    if (is_readable($conf->mycompany->dir_output.'/logos/'.$conf->global->$constlogo))
+	    {
+	        $urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/'.$conf->global->$constlogo);
+            $width=128;
+	    }
+	}
+	elseif (empty($urllogo) && is_readable(DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/img/dolibarr_logo.png'))
 	{
 		$urllogo=DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/dolibarr_logo.png';
 	}
-	elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.png'))
+	elseif (empty($urllogo) && is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.png'))
 	{
 		$urllogo=DOL_URL_ROOT.'/theme/dolibarr_logo.png';
+	}
+	else
+	{
+	    $urllogo=DOL_URL_ROOT.'/theme/login_logo.png';
 	}
 
 	// Security graphical code

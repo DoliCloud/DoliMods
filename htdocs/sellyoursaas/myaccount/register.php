@@ -219,9 +219,13 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 
 <div class="large">
         <?php
+        $tmparray=explode(',', $conf->global->SELLYOURSAAS_NAME);
+        $tmparray2=explode(',', $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME);
+        $sellyoursaasname = $tmparray[0];
+        $sellyoursaasdomain = $tmparray2[0];
 
         $linklogo = '';
-        if ($partnerthirdparty->id > 0)
+        if ($partnerthirdparty->id > 0)     // Show logo of partner
         {
         	require_once DOL_DOCUMENT_ROOT.'/ecm/class/ecmfiles.class.php';
         	$ecmfile=new EcmFiles($db);
@@ -236,9 +240,52 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
         		$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=societe&hashp='.$ecmfile->share;
         	}
         }
-        if (empty($linklogo))
+        if (empty($linklogo))               // Show main logo of Cloud service
         {
-        	$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL);
+            // Show logo (search in order: small company logo, large company logo, theme logo, common logo)
+            $linklogo = '';
+            $constlogo = 'SELLYOURSAAS_LOGO';
+            $constlogosmall = 'SELLYOURSAAS_LOGO_SMALL';
+            foreach($tmparray2 as $key => $value)
+            {
+                if ($_SERVER['SERVER_NAME'] == $value)     // Domain is same
+                {
+                    if (! empty($tmparray[$key]))
+                    {
+                        $constlogo.='_'.strtoupper($tmparray[$key]);
+                        $constlogosmall.='_'.strtoupper($tmparray[$key]);
+                        $sellyoursaasname = $tmparray[$key];
+                    }
+                    $sellyoursaasdomain = $value;
+                }
+            }
+
+            if (empty($linklogo) && ! empty($conf->global->$constlogosmall))
+            {
+                if (is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->$constlogosmall))
+                {
+                    $linklogo=DOL_URL_ROOT.'/viewimage.php?cache=1&modulepart=mycompany&file='.urlencode('logos/thumbs/'.$conf->global->$constlogosmall);
+                }
+            }
+            elseif (empty($urllogo) && ! empty($conf->global->$constlogo))
+            {
+                if (is_readable($conf->mycompany->dir_output.'/logos/'.$conf->global->$constlogo))
+                {
+                    $linklogo=DOL_URL_ROOT.'/viewimage.php?cache=1&modulepart=mycompany&file='.urlencode('logos/'.$conf->global->$constlogo);
+                }
+            }
+            elseif (empty($urllogo) && is_readable(DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/img/dolibarr_logo.png'))
+            {
+                $linklogo=DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/dolibarr_logo.png';
+            }
+            elseif (empty($urllogo) && is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.png'))
+            {
+                $linklogo=DOL_URL_ROOT.'/theme/dolibarr_logo.png';
+            }
+            else
+            {
+                $linklogo=DOL_URL_ROOT.'/theme/login_logo.png';
+            }
         }
 
         if (! GETPOST('noheader','int'))

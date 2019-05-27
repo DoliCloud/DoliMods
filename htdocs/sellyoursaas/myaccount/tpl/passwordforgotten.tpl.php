@@ -40,12 +40,12 @@ $php_self.= dol_escape_htmltag($_SERVER["QUERY_STRING"])?'?'.dol_escape_htmltag(
 $php_self = preg_replace('/&hashreset=[0-9a-zA-Z]+/', '', $php_self);
 
 $arrayofjs=array();
-$titleofloginpage=$langs->trans('SendNewPassword');
+$titleofpage=$langs->trans('SendNewPassword');
 
 $disablenofollow=1;
-if (! preg_match('/'.constant('DOL_APPLICATION_TITLE').'/', $title)) $disablenofollow=0;
+if (! preg_match('/'.constant('DOL_APPLICATION_TITLE').'/', $titleofpage)) $disablenofollow=0;
 
-print top_htmlhead_sellyoursaas('', $titleofloginpage, 0, 0, $arrayofjs, array(), 0, $disablenofollow);
+print top_htmlhead_sellyoursaas('', $titleofpage, 0, 0, $arrayofjs, array(), 0, $disablenofollow);
 
 ?>
 <!-- BEGIN PHP TEMPLATE PASSWORDFORGOTTEN.TPL.PHP -->
