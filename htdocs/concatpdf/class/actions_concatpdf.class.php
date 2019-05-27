@@ -147,8 +147,10 @@ class ActionsConcatPdf
         if (empty($morefiles)) print "\n".'<!-- No files found for concat parameter[modulepart]='.$parameters['modulepart'].' -->'."\n";
         else
 		{
+		    $colspan = (empty($parameters['colspan']) ? 4 : $parameters['colspan']);
+
         	$out.='<tr class="liste_titre">';
-        	$out.='<td align="left" colspan="5" class="formdoc">';
+        	$out.='<td align="left" colspan="'.$colspan.'" class="formdoc">';
         	$out.='<div class="valignmiddle inline-block hideonsmartphone">'.$langs->trans("ConcatFile").'</div> ';
 
         	if (! empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED))
@@ -158,8 +160,8 @@ class ActionsConcatPdf
         		/*$out.='</td></tr>';
         		$out.='<tr>'; */
         		//$out.='<td id="selectconcatpdf" colspan="4" valign="top">';
-        		$out.='<div class="valignmiddle inline-block minwidth300">';
-        		$out.= $form->multiselectarray('concatpdffile', $morefiles, (! empty($object->extraparams['concatpdf'])?$object->extraparams['concatpdf']:$arraypreselected), 0, 0, '', 1, '95%');
+        		$out.='<div class="valignmiddle inline-block minwidth300imp">';
+        		$out.= $form->multiselectarray('concatpdffile', $morefiles, (! empty($object->extraparams['concatpdf'])?$object->extraparams['concatpdf']:$arraypreselected), 0, 0, 'minwidth100', 1, '95%');
         		$out.='</div>';
         	}
         	else
