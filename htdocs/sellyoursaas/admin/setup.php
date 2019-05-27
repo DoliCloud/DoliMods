@@ -503,7 +503,7 @@ print '</td>';
 print '<td>';
 print '<input class="minwidth300" type="text" name="SELLYOURSAAS_REFS_URL" value="'.$conf->global->SELLYOURSAAS_REFS_URL.'">';
 print '</td>';
-print '<td>https://mysaas.com/refs</td>';
+print '<td>https://admin.mysaas.com/git</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasAccountUrl").'</td>';
