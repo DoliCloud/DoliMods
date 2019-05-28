@@ -1,4 +1,7 @@
 <?php
+use Splash\Tests\WsObjects\O00ObjectBaseTest;
+use Splash\Models\Objects\ObjectInterface;
+
 /* Copyright (C) 2018	Laurent Destailleur	<eldy@users.sourceforge.net>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -298,4 +301,47 @@ function sellyoursaasIsSuspended($contract)
 	if ($contract->nbofservicesclosed > 0) return true;
 
 	return false;
+}
+
+/**
+ * Return URL of customer account from object
+ *
+ * @param   Object      $object         Object
+ * @return  string                      URL
+ */
+function getRootUrlForAccount($object)
+{
+    global $db, $conf, $user;
+    $ret = $conf->global->SELLYOURSAAS_ACCOUNT_URL;     // By default
+
+    $newobject = $object;
+
+    // If $object is a product, we take package
+    if (get_class($newobject) == 'Product')
+    {
+        $newobject->fetch_optionals();
+
+        $tmppackage = new Packages($db);
+        $tmppackage->fetch($newobject->array_options['options_package']);
+        $newobject = $tmppackage;
+    }
+
+    // If $object is a package, we take first restrict and add account.
+    if (get_class($newobject) == 'Packages')
+    {
+        $tmparray = explode(',', $newobject->restrict_domains);
+        if (is_array($tmparray))
+        {
+            foreach($tmparray as $key => $val)
+            {
+                if ($val)
+                {
+                    $ret = 'https://myaccount.'.$val;
+                    break;
+                }
+            }
+        }
+    }
+
+    return $ret;
 }
