@@ -84,6 +84,10 @@ if (empty($productid) && empty($productref))
 	$productref = $plan;
 	if (empty($productref))
 	{
+	    include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+
+	    $domainname = getDomainFromURL($_SERVER["SERVER_NAME"]);
+
 		// Take first plan found
 		$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration, pa.restrict_domains';
 		$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
@@ -91,8 +95,9 @@ if (empty($productid) && empty($productref))
 		$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 		$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
 		$sqlproducts.= " AND p.ref NOT LIKE '%DolibarrV1%'";
-        $sqlproducts.= " AND (restrict_domains IS NULL OR restrict_domains = '".$db->escape($_SERVER["SERVER_NAME"])."')";
+		$sqlproducts.= " AND (restrict_domains IS NULL OR restrict_domains = '".$db->escape($domainname)."')";
 		$sqlproducts.= " ORDER BY p.datec";
+		print $sqlproducts;
 		$resqlproducts = $db->query($sqlproducts);
 		if ($resqlproducts)
 		{
