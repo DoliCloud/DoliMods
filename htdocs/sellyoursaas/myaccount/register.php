@@ -86,7 +86,7 @@ if (empty($productid) && empty($productref))
 	{
 	    include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 
-	    $domainname = getDomainFromURL($_SERVER["SERVER_NAME"]);
+	    $domainname = getDomainFromURL($_SERVER["SERVER_NAME"], 1);
 
 		// Take first plan found
 		$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration, pa.restrict_domains';
@@ -97,7 +97,7 @@ if (empty($productid) && empty($productref))
 		$sqlproducts.= " AND p.ref NOT LIKE '%DolibarrV1%'";
 		$sqlproducts.= " AND (restrict_domains IS NULL OR restrict_domains = '".$db->escape($domainname)."')";
 		$sqlproducts.= " ORDER BY p.datec";
-		print $_SERVER["SERVER_NAME"].' - '.$sqlproducts;
+		//print $_SERVER["SERVER_NAME"].' - '.$sqlproducts;
 		$resqlproducts = $db->query($sqlproducts);
 		if ($resqlproducts)
 		{
