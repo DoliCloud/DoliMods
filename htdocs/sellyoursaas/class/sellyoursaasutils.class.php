@@ -2666,7 +2666,7 @@ class SellYourSaasUtils
     		{
     		    $server=$object->array_options['options_hostname_os'];
     		    dol_syslog("Try to ssh2_connect to ".$server);
-    		    
+
     		    $connection = @ssh2_connect($server, 22);
     			if ($connection)
     			{
@@ -3030,7 +3030,7 @@ class SellYourSaasUtils
     			'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname
     			);
 
-    			$dirfortmpfiles = '/tmp/sellyoursaas';
+    			$dirfortmpfiles = DOL_DATA_ROOT.'/sellyoursaas/temp';
     			$tmppackage->srcconffile1 = $dirfortmpfiles.'/conf.php.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
     			$tmppackage->srccronfile  = $dirfortmpfiles.'/cron.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
     			$tmppackage->srccliafter  = $dirfortmpfiles.'/cliafter.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
