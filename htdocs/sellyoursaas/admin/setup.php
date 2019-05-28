@@ -338,11 +338,11 @@ print '</td>';
 print '<td>mysaas.com</td>';
 print '</tr>';
 
-print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasSubDomains").'</td>';
+print '<tr class="oddeven"><td>'.$form->textwithpicto($langs->trans("SellYourSaasSubDomains"), $langs->trans("SellYourSaasSubDomainsHelp")).'</td>';
 print '<td>';
 print '<input type="text" name="SELLYOURSAAS_SUB_DOMAIN_NAMES" value="'.$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES.'">';
 print '</td>';
-print '<td>with.mydomain.com,on.myotherdomain.com...</td>';
+print '<td>with.mydomain.com,with.myotherdomain.com:myotherdomain.com...</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasSubDomainsIP").'</td>';

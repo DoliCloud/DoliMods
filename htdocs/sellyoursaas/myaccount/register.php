@@ -46,6 +46,7 @@ if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main
 if (! $res) die("Include of main fails");
 
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
@@ -465,6 +466,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 
 	          ?>
 
+			  <!-- Selection of domain to create instance -->
 	          <section id="selectDomain">
 	            <div class="fld select-domain required">
 	              <label trans="1"><?php echo $langs->trans("ChooseANameForYourApplication") ?></label>
@@ -473,9 +475,18 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 	                <input<?php echo $disabled; ?> class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="<?php echo $sldAndSubdomain; ?>" maxlength="29" />
 	                <select<?php echo $disabled; ?> name="tldid" id="tldid" >
 	                	<?php
+	                	// SERVER_NAME here is myaccount.mydomain.com (we can exploit only the part mydomain.com)
+	                	$domainname = getDomainFromURL($_SERVER["SERVER_NAME"], 1);
+
 	                	$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);   // This is list of all domains to show into combo list
 	                	foreach($listofdomain as $val)
 	                	{
+	                	    $newval = $val;
+	                	    if (preg_match('/:(.*)$/', $newval, $reg)) {      // If this domain must be shown only if domain match
+	                	        $newval = preg_replace('/:.*$/', '', $newval);
+	                	        if ($reg[1] != $domainname) continue;
+	                	    }
+
 	                	    if (! empty($tmppackage->restrict_domains))   // There is a restriction on some domains for this package
 	                	    {
 	                	        $restrictfound = false;
@@ -483,7 +494,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 	                	        foreach($tmparray as $tmprestrictdomain)
 	                	        {
 	                	            //var_dump($val.' - '.$tmprestrictdomain);
-	                	            if ($val == $tmprestrictdomain)
+	                	            if ($newval == $tmprestrictdomain)
                                     {
                                         $restrictfound=true;
                                         break;
@@ -491,7 +502,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 	                	        }
 	                	        if (! $restrictfound) continue;   // The domain in SELLYOURSAAS_SUB_DOMAIN_NAMES is inside restrictlist of package
 	                	    }
-	                		$newval=$val;
+
 	                		if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
 	                		print '<option value="'.$newval.'"'.(GETPOST('tldid','alpha') == $newval ? ' selected="selected"':'').'>'.$newval.'</option>';
 	                	}

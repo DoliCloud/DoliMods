@@ -441,9 +441,10 @@ ChainOfRegistration=Chain of registration with same cookie
 AddService=Add service
 ServicesUsingThisPackage=Services deploying this package
 HelpOnAppOrOption='Application' if this is an application to deploy<br>'Option' if this is an option to activate or to deploy<br>'System' if this is a metric used for invoicing
-KeepEmptyForNoRestrictionOnDomain=Keep empty to suggest at installation all possible domain names defined in global setup. Enter some domain name, separated with coma, to restrict the list (effective only on services that uses this package and with the field Type of Saas = 'Application').
 ChainOfRegistrations=Chain of subscriptions on same computer
 GetFileOfIps=Get file of IPs
 ParametersOnMasterServer=Parameters for Master server
 ParametersOnMasterServer=Parameters for Deployment servers
-RestrictDomainNames=Restrict domain names
+RestrictDomainNames=Visible on some domains only
+KeepEmptyForNoRestrictionOnDomain=Keep empty if services (in sales) that includes this package should be visible on dashboard. Enter some domain name(s), separated with coma, to restrict visibility of services provinding this package when the dashboard has the same domain name.<br>Example: mydomain.com,mydomain2.com
+SellYourSaasSubDomainsHelp=Enter full list (separated by a comma) of subdomains to show in combolists when a user wants to create a new instance. If the subdomain must be visible only when dashboard or registration page if on a particular domain, enter the domaine after ':'.

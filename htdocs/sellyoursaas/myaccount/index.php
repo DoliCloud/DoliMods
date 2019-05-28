@@ -3300,13 +3300,20 @@ if ($mode == 'instances')
     			<span class="opacitymedium">https://</span>
     			<input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="" maxlength="29" required />
     			<select name="tldid" id="tldid" >';
-    				$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
-    				foreach($listofdomain as $val)
-    				{
-    					$newval=$val;
-    					if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
-    					print '<option value="'.$newval.'">'.$newval.'</option>';
-    				}
+            		// SERVER_NAME here is myaccount.mydomain.com (we can exploit only the part mydomain.com)
+            		$domainname = getDomainFromURL($_SERVER["SERVER_NAME"], 1);
+
+            		$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+            		foreach($listofdomain as $val)
+            		{
+            		    $newval=$val;
+            		    if (preg_match('/:(.*)$/', $newval, $reg)) {      // If this domain must be shown only if domain match
+            		        $newval = preg_replace('/:.*$/', '', $newval);
+            		        if ($reg[1] != $domainname) continue;
+            		    }
+            		    if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
+            		    print '<option value="'.$newval.'">'.$newval.'</option>';
+            		}
     			print '</select>
     			<br class="unfloat" />
     			</div>
@@ -3975,6 +3982,7 @@ if ($mode == 'mycustomerinstances')
 	print '<form id="formaddanotherinstance" class="form-group reposition" style="display: none;" action="register_instance.php" method="POST">';
 	print '<input type="hidden" name="action" value="deployall" />';
 	print '<input type="hidden" name="fromsocid" value="'.$mythirdpartyaccount->id.'" />';
+	print '<input type="hidden" name="mode" value="mycustomerinstances" />';
 	//print '<input type="hidden" name="reusesocid" value="'.$socid.'" />';
 
 	print '<div class="row">
@@ -4017,10 +4025,17 @@ if ($mode == 'mycustomerinstances')
 		<span class="opacitymedium">https://</span>
 		<input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="" maxlength="29" required />
 		<select name="tldid" id="tldid" >';
-			$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+        	// SERVER_NAME here is myaccount.mydomain.com (we can exploit only the part mydomain.com)
+        	$domainname = getDomainFromURL($_SERVER["SERVER_NAME"], 1);
+
+        	$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
 			foreach($listofdomain as $val)
 			{
 				$newval=$val;
+				if (preg_match('/:(.*)$/', $newval, $reg)) {      // If this domain must be shown only if domain match
+				    $newval = preg_replace('/:.*$/', '', $newval);
+				    if ($reg[1] != $domainname) continue;
+				}
 				if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
 				print '<option value="'.$newval.'">'.$newval.'</option>';
 			}
