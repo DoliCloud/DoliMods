@@ -86,6 +86,7 @@ if (empty($productid) && empty($productref))
 	{
 	    include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 
+	    // SERVER_NAME here is myaccount.mydomain.com (we can exploit only the part mydomain.com)
 	    $domainname = getDomainFromURL($_SERVER["SERVER_NAME"], 1);
 
 		// Take first plan found
@@ -95,7 +96,8 @@ if (empty($productid) && empty($productref))
 		$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 		$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
 		$sqlproducts.= " AND p.ref NOT LIKE '%DolibarrV1%'";
-		$sqlproducts.= " AND (restrict_domains IS NULL OR restrict_domains = '".$db->escape($domainname)."')";
+		// restict_domains can be empty (it's ok), can be mydomain.com or can be with.mydomain.com
+		$sqlproducts.= " AND (restrict_domains IS NULL OR restrict_domains = '".$db->escape($domainname)."' OR restrict_domains LIKE '%.".$db->escape($domainname)."')";
 		$sqlproducts.= " ORDER BY p.datec";
 		//print $_SERVER["SERVER_NAME"].' - '.$sqlproducts;
 		$resqlproducts = $db->query($sqlproducts);
