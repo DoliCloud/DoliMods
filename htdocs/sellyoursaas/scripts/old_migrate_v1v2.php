@@ -114,7 +114,8 @@ if (! empty($oldinstance) && ! preg_match('/\.on\.dolicloud\.com$/',$oldinstance
 if (! empty($newinstance) && ! preg_match('/\./', $newinstance) && ! preg_match('/\.home\.lan$/', $newinstance))
 {
     $tmparray = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
-    $newinstance=$newinstance.".".$tmparray[0];   // Automatically concat first domain name
+    $tmpstring = preg_replace('/:.*$/', '', $tmparray[0]);
+    $newinstance=$newinstance.".".$tmpstring;   // Automatically concat first domain name
 }
 
 $oldobject = new Dolicloud_customers($db, $db2);

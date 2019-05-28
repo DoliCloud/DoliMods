@@ -90,7 +90,8 @@ $v=2;
 if (! empty($instance) && ! preg_match('/\./', $instance) && ! preg_match('/\.home\.lan$/', $instance))
 {
     $tmparray = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
-    $instance=$instance.".".$tmparray[0];   // Automatically concat first domain name
+    $tmpstring = preg_replace('/:.*$/', '', $tmparray[0]);
+    $instance=$instance.".".$tmpstring;   // Automatically concat first domain name
 }
 
 

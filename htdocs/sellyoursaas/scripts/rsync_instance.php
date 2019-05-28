@@ -79,7 +79,8 @@ if (empty($dirroot) || empty($instance) || empty($mode))
 if (! empty($instance) && ! preg_match('/\./', $instance) && ! preg_match('/\.home\.lan$/', $instance))
 {
     $tmparray = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
-    $instance=$instance.".".$tmparray[0];   // Automatically concat first domain name
+    $tmpstring = preg_replace('/:.*$/', '', $tmparray[0]);
+    $instance=$instance.".".$tmpstring;   // Automatically concat first domain name
 }
 
 include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';

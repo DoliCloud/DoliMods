@@ -3512,7 +3512,8 @@ class SellYourSaasUtils
     	$found=0;
     	foreach($tmparray as $key => $val)
     	{
-    		if ($val == $domainname)
+    	    $newval = preg_replace('/:.*$/', '', $val);
+    		if ($newval == $domainname)
     		{
     			$found = $key+1;
     			break;

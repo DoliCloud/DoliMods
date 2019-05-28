@@ -126,7 +126,8 @@ $v=2;
 if (! empty($instancefiltercomplete) && ! preg_match('/\./', $instancefiltercomplete) && ! preg_match('/\.home\.lan$/', $instancefiltercomplete))
 {
     $tmparray = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
-    $instancefiltercomplete=$instancefiltercomplete.".".$tmparray[0];   // Automatically concat first domain name
+    $tmpstring = preg_replace('/:.*$/', '', $tmparray[0]);
+    $instancefiltercomplete=$instancefiltercomplete.".".$tmpstring;   // Automatically concat first domain name
 }
 
 $instances=array();
