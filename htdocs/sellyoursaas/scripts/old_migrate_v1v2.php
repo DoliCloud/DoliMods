@@ -110,10 +110,11 @@ if (! empty($oldinstance) && ! preg_match('/\.on\.dolicloud\.com$/',$oldinstance
 {
 	$oldinstance=$oldinstance.".on.dolicloud.com";
 }
-if (! empty($newinstance) && ! preg_match('/\.with\.dolicloud\.com$/',$newinstance) && ! preg_match('/\.home\.lan$/',$newinstance))
+// Forge complete name of instance
+if (! empty($newinstance) && ! preg_match('/\./', $newinstance) && ! preg_match('/\.home\.lan$/', $newinstance))
 {
-	// TODO Manage several domains
-	$newinstance=$newinstance.".".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
+    $tmparray = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+    $newinstance=$newinstance.".".$tmparray[0];   // Automatically concat first domain name
 }
 
 $oldobject = new Dolicloud_customers($db, $db2);

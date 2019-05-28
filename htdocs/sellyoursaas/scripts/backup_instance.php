@@ -76,7 +76,7 @@ dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
     print "This script must be ran as 'admin' user.\n";
-    print "Usage:   $script_file instance    backup_dir  [testrsync|testdatabase|test|confirmrsync|confirmdatabase|confirm]  (old)\n";
+    print "Usage:   $script_file instance    backup_dir  [testrsync|testdatabase|test|confirmrsync|confirmdatabase|confirm]\n";
 	print "Example: $script_file myinstance  ".$conf->global->DOLICLOUD_BACKUP_PATH."  testrsync\n";
 	print "Note:    ssh keys must be authorized to have testrsync and confirmrsync working\n";
 	print "         remote access to database must be granted for testdatabase or confirmdatabase.\n";
@@ -85,74 +85,46 @@ if (empty($dirroot) || empty($instance) || empty($mode))
 }
 
 
-// Use instance to detect if v1 or v2 or instance
-if ($v == 'old')
+$v=2;
+// Forge complete name of instance
+if (! empty($instance) && ! preg_match('/\./', $instance) && ! preg_match('/\.home\.lan$/', $instance))
 {
-	$v=1;
+    $tmparray = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+    $instance=$instance.".".$tmparray[0];   // Automatically concat first domain name
+}
+
+
+$idofinstancefound = 0;
+
+$sql = "SELECT c.rowid, c.statut";
+$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
+$sql.= "  WHERE c.entity IN (".getEntity('contract').")";
+$sql.= " AND c.ref_customer = '".$db->escape($instance)."'";
+$sql.= " AND ce.deployment_status = 'done'";
+
+$resql = $db->query($sql);
+if (! $resql)
+{
+	dol_print_error($resql);
+	exit(-2);
+}
+$num_rows = $db->num_rows($resql);
+if ($num_rows > 1)
+{
+	print 'Error: several instance '.$instance.' found.'."\n";
+	exit(-2);
 }
 else
 {
-	$v=2;
-	// Force $v according to hard coded values (keep v2 in default case)
-	if (! empty($instance) && ! preg_match('/(\.on\.|\.with\.)/',$instance) && ! preg_match('/\.home\.lan$/',$instance))
-	{
-		// Note, we use main domain of service. Other domains are aliases.
-		$instance=$instance.".".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
-	}
-	if (! empty($instance) && preg_match('/\.on\.dolicloud\.com$/',$instance)) {
-		$v=1;
-	}
-	if (! empty($instance) && preg_match('/\.with\.dolicloud\.com$/',$instance)) {
-		$v=2;
-	}
+	$obj = $db->fetch_object($resql);
+	if ($obj) $idofinstancefound = $obj->rowid;
 }
 
+include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+$object = new Contrat($db);
+$result=0;
+if ($idofinstancefound) $result=$object->fetch($idofinstancefound);
 
-if ($v == 1)
-{
-	$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
-	if ($db2->error)
-	{
-		dol_print_error($db2,"host=".$conf->global->DOLICLOUD_DATABASE_HOST.", port=".$conf->global->DOLICLOUD_DATABASE_PORT.", user=".$conf->global->DOLICLOUD_DATABASE_USER.", databasename=".$conf->global->DOLICLOUD_DATABASE_NAME.", ".$db2->error);
-		exit(-1);
-	}
-
-	$object = new Dolicloud_customers($db, $db2);
-	$result=$object->fetch('',$instance);
-}
-else
-{
-	$idofinstancefound = 0;
-
-	$sql = "SELECT c.rowid, c.statut";
-	$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
-	$sql.= "  WHERE c.entity IN (".getEntity('contract').")";
-	$sql.= " AND c.ref_customer = '".$db->escape($instance)."'";
-	$sql.= " AND ce.deployment_status = 'done'";
-
-	$resql = $db->query($sql);
-	if (! $resql)
-	{
-		dol_print_error($resql);
-		exit(-2);
-	}
-	$num_rows = $db->num_rows($resql);
-	if ($num_rows > 1)
-	{
-		print 'Error: several instance '.$instance.' found.'."\n";
-		exit(-2);
-	}
-	else
-	{
-		$obj = $db->fetch_object($resql);
-		if ($obj) $idofinstancefound = $obj->rowid;
-	}
-
-	include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-	$object = new Contrat($db);
-	$result=0;
-	if ($idofinstancefound) $result=$object->fetch($idofinstancefound);
-}
 
 if ($result <= 0)
 {

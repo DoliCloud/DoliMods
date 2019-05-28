@@ -44,7 +44,6 @@ $dirroot=isset($argv[1])?$argv[1]:'';
 $dayofmysqldump=isset($argv[2])?$argv[2]:'';
 $instance=isset($argv[3])?$argv[3]:'';
 $mode=isset($argv[4])?$argv[4]:'';
-$v=isset($argv[5])?$argv[5]:'';
 
 @set_time_limit(0);							// No timeout for this script
 define('EVEN_IF_ONLY_LOGIN_ALLOWED',1);		// Set this define to 0 if you want to lock your script when dolibarr setup is "locked to admin user only".
@@ -75,7 +74,7 @@ dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
     print "This script must be ran as 'admin' user.\n";
-    print "Usage:   $script_file backup_dir  instance  mysqldump_dbn...sql.bz2|dayofmysqldump  [testrsync|testdatabase|test|confirmrsync|confirmdatabase|confirm]  (old)\n";
+    print "Usage:   $script_file backup_dir  instance  mysqldump_dbn...sql.bz2|dayofmysqldump  [testrsync|testdatabase|test|confirmrsync|confirmdatabase|confirm]\n";
 	print "Example: $script_file ".$conf->global->DOLICLOUD_BACKUP_PATH."/osu123456/dbn789012  myinstance  31  testrsync\n";
 	print "Note:    ssh keys must be authorized to have testrsync and confirmrsync working\n";
 	print "Return code: 0 if success, <>0 if error\n";
@@ -83,97 +82,64 @@ if (empty($dirroot) || empty($instance) || empty($mode))
 }
 
 
-// Use instance to detect if v1 or v2 or instance
-if ($v == 'old')
+// Forge complete name of instance
+if (! empty($instance) && ! preg_match('/\./', $instance) && ! preg_match('/\.home\.lan$/', $instance))
 {
-	$v=1;
+    $tmparray = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+    $instance=$instance.".".$tmparray[0];   // Automatically concat first domain name
+}
+
+
+/*include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+$object = new Contrat($db);
+
+$result=$object->fetch('', '', $instance);
+*/
+
+$idofinstancefound = 0;
+
+$sql = "SELECT c.rowid, c.statut";
+$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
+$sql.= "  WHERE c.entity IN (".getEntity('contract').")";
+//$sql.= " AND c.statut > 0";
+$sql.= " AND c.ref_customer = '".$db->escape($instance)."'";
+$sql.= " AND ce.deployment_status = 'done'";
+
+$resql = $db->query($sql);
+if (! $resql)
+{
+	dol_print_error($resql);
+	exit(-2);
+}
+$num_rows = $db->num_rows($resql);
+if ($num_rows > 1)
+{
+	print 'Error: several instance '.$instance.' found'."\n";
+	exit(-2);
 }
 else
 {
-	$v=2;
-	// Force $v according to hard coded values (keep v2 in default case)
-	if (! empty($instance) && ! preg_match('/(\.on\.|\.with\.)/',$instance) && ! preg_match('/\.home\.lan$/',$instance))
-	{
-		// TODO Manage several domains
-		$instance=$instance.".".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
-	}
-	if (! empty($instance) && preg_match('/\.on\.dolicloud\.com$/',$instance)) {
-		$v=1;
-	}
-	if (! empty($instance) && preg_match('/\.with\.dolicloud\.com$/',$instance)) {
-		$v=2;
-	}
+	$obj = $db->fetch_object($resql);
+	if ($obj) $idofinstancefound = $obj->rowid;
 }
 
-
-if ($v == 1)
-{
-	$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
-	if ($db2->error)
-	{
-		dol_print_error($db2,"host=".$conf->global->DOLICLOUD_DATABASE_HOST.", port=".$conf->global->DOLICLOUD_DATABASE_PORT.", user=".$conf->global->DOLICLOUD_DATABASE_USER.", databasename=".$conf->global->DOLICLOUD_DATABASE_NAME.", ".$db2->error);
-		exit(-1);
-	}
-
-	$object = new Dolicloud_customers($db, $db2);
-	$result=$object->fetch('',$instance);
-}
-else
-{
-	/*include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-	$object = new Contrat($db);
-
-	$result=$object->fetch('', '', $instance);
-	*/
-
-	$idofinstancefound = 0;
-
-	$sql = "SELECT c.rowid, c.statut";
-	$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
-	$sql.= "  WHERE c.entity IN (".getEntity('contract').")";
-	//$sql.= " AND c.statut > 0";
-	$sql.= " AND c.ref_customer = '".$db->escape($instance)."'";
-	$sql.= " AND ce.deployment_status = 'done'";
-
-	$resql = $db->query($sql);
-	if (! $resql)
-	{
-		dol_print_error($resql);
-		exit(-2);
-	}
-	$num_rows = $db->num_rows($resql);
-	if ($num_rows > 1)
-	{
-		print 'Error: several instance '.$instance.' for v'.$v.' found'."\n";
-		exit(-2);
-	}
-	else
-	{
-		$obj = $db->fetch_object($resql);
-		if ($obj) $idofinstancefound = $obj->rowid;
-	}
-
-	include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-	$object = new Contrat($db);
-	$result=0;
-	if ($idofinstancefound) $result=$object->fetch($idofinstancefound);
-}
+include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+$object = new Contrat($db);
+$result=0;
+if ($idofinstancefound) $result=$object->fetch($idofinstancefound);
 
 if ($result <= 0)
 {
-	print "Error: instance ".$instance." for v".$v." not found.\n";
+	print "Error: instance ".$instance." not found.\n";
 	exit(-2);
 }
 
-if ($v != 1)
-{
-	$object->instance = $object->ref_customer;
-	$object->username_web = $object->array_options['options_username_os'];
-	$object->password_web = $object->array_options['options_password_os'];
-	$object->username_db = $object->array_options['options_username_db'];
-	$object->password_db = $object->array_options['options_password_db'];
-	$object->database_db = $object->array_options['options_database_db'];
-}
+$object->instance = $object->ref_customer;
+$object->username_web = $object->array_options['options_username_os'];
+$object->password_web = $object->array_options['options_password_os'];
+$object->username_db = $object->array_options['options_username_db'];
+$object->password_db = $object->array_options['options_password_db'];
+$object->database_db = $object->array_options['options_database_db'];
 
 if (empty($object->instance) && empty($object->username_web) && empty($object->password_web) && empty($object->database_db))
 {
@@ -189,16 +155,8 @@ if (! is_dir($dirroot))
 $dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
 $login=$object->username_web;
 $password=$object->password_web;
-if ($v != 1)
-{
-	$targetdir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$login.'/'.$dirdb;
-	$server=$object->array_options['options_hostname_os'];
-}
-else
-{
-	$targetdir=$conf->global->DOLICLOUD_EXT_HOME.'/'.$login.'/'.$dirdb;
-	$server=$object->instance.'.on.dolicloud.com';
-}
+$targetdir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$login.'/'.$dirdb;
+$server=$object->array_options['options_hostname_os'];
 
 if (empty($login) || empty($dirdb))
 {

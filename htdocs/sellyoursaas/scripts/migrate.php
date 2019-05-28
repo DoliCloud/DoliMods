@@ -94,7 +94,7 @@ $user->fetch($conf->global->SELLYOURSAAS_ANONYMOUSUSER);
 
 print "***** ".$script_file." *****\n";
 
-if (empty($oldinstance) || empty($newinstance) || empty($mode))
+if (empty($newinstance) || empty($mode))
 {
 	print "Migrate an old instance on new server. Script must be ran with root.\n";
 	print "Usage: ".$script_file." oldoshost oldosuser oldospass oldosdir olddbhost olddbname olddbuser olddbpass newinstance (test|confirm) [".$defaultproductref."]\n";
@@ -107,20 +107,21 @@ if (0 != posix_getuid()) {
 	exit(-1);
 }
 
-if (! empty($newinstance) && ! preg_match('/\.with\.dolicloud\.com$/',$newinstance) && ! preg_match('/\.home\.lan$/',$newinstance))
+// Forge complete name of instance
+if (! empty($newinstance) && ! preg_match('/\./', $newinstance) && ! preg_match('/\.home\.lan$/', $newinstance))
 {
-	// TODO Manage several domains
-	$newinstance=$newinstance.".".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
+    $tmparray = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+    $newinstance=$newinstance.".".$tmparray[0];   // Automatically concat first domain name
 }
 
 if ($oldbhost)
 {
-	$db2=getDoliDBInstance('mysqli', $oldbhost, $oldbuser, $oldbpass, $olddbname, $olddbport);
-	if ($db2->error)
-	{
-		dol_print_error($db2,"host=".$oldbhost.", port=".$oldbport.", user=".$oldbuser.", databasename=".$oldbname.", ".$db2->error);
-		exit(-1);
-	}
+    $db2=getDoliDBInstance('mysqli', $oldbhost, $oldbuser, $oldbpass, $olddbname, $olddbport);
+    if ($db2->error)
+    {
+        dol_print_error($db2,"host=".$oldbhost.", port=".$oldbport.", user=".$oldbuser.", databasename=".$oldbname.", ".$db2->error);
+        exit(-1);
+    }
 }
 
 if (isset($argv[11])) $productref = $argv[11];
