@@ -97,7 +97,7 @@ if (empty($productid) && empty($productref))
 		$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
 		$sqlproducts.= " AND p.ref NOT LIKE '%DolibarrV1%'";
 		// restict_domains can be empty (it's ok), can be mydomain.com or can be with.mydomain.com
-		$sqlproducts.= " AND (restrict_domains IS NULL OR restrict_domains = '".$db->escape($domainname)."' OR restrict_domains LIKE '%.".$db->escape($domainname)."')";
+		$sqlproducts.= " AND (pa.restrict_domains IS NULL OR pa.restrict_domains = '".$db->escape($domainname)."' OR pa.restrict_domains LIKE '%.".$db->escape($domainname)."')";
 		$sqlproducts.= " ORDER BY p.datec";
 		//print $_SERVER["SERVER_NAME"].' - '.$sqlproducts;
 		$resqlproducts = $db->query($sqlproducts);

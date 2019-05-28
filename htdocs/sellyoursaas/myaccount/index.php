@@ -2536,13 +2536,19 @@ if ($mode == 'dashboard')
 
 if ($mode == 'instances')
 {
-	// List of available plans/producs
+    // SERVER_NAME here is myaccount.mydomain.com (we can exploit only the part mydomain.com)
+    $domainname = getDomainFromURL($_SERVER["SERVER_NAME"], 1);
+
+    // List of available plans/producs
 	$arrayofplans=array();
 	$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration, pe.availabelforresellers';
 	$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
+	$sqlproducts.= ' LEFT JOIN '.MAIN_DB_PREFIX.'packages as pa ON pe.package = pa.rowid';
 	$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 	$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
 	$sqlproducts.= " AND p.ref NOT LIKE '%DolibarrV1%'";
+	// restict_domains can be empty (it's ok), can be mydomain.com or can be with.mydomain.com
+	$sqlproducts.= " AND (pa.restrict_domains IS NULL OR pa.restrict_domains = '".$db->escape($domainname)."' OR pa.restrict_domains LIKE '%.".$db->escape($domainname)."')";
 	//$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";
 	//$sqlproducts.=' AND p.rowid = 202';
 	//print $sqlproducts;
@@ -2968,12 +2974,17 @@ if ($mode == 'instances')
 									print '<input type="hidden" name="action" value="updateplan" />';
 									print '<input type="hidden" name="contractid" value="'.$contract->id.'" />';
 
+									// SERVER_NAME here is myaccount.mydomain.com (we can exploit only the part mydomain.com)
+									$domainname = getDomainFromURL($_SERVER["SERVER_NAME"], 1);
+
 									// List of available plans/products
 									$arrayofplanstoswitch=array();
 									$sqlproducts = 'SELECT p.rowid, p.ref, p.label FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
+									$sqlproducts.= ' LEFT JOIN '.MAIN_DB_PREFIX.'packages as pa ON pe.package = pa.rowid';
 									$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 									$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
 									$sqlproducts.= " AND p.ref NOT LIKE '%DolibarrV1%'";
+									$sqlproducts.= " AND (pa.restrict_domains IS NULL OR pa.restrict_domains = '".$db->escape($domainname)."' OR pa.restrict_domains LIKE '%.".$db->escape($domainname)."')";
 									$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";		// TODO Restict on plans compatible with current plan...
 									$resqlproducts = $db->query($sqlproducts);
 									if ($resqlproducts)
