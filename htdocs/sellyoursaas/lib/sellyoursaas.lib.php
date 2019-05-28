@@ -1,7 +1,4 @@
 <?php
-use Splash\Tests\WsObjects\O00ObjectBaseTest;
-use Splash\Models\Objects\ObjectInterface;
-
 /* Copyright (C) 2018	Laurent Destailleur	<eldy@users.sourceforge.net>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -336,7 +333,8 @@ function getRootUrlForAccount($object)
             {
                 if ($val)
                 {
-                    $ret = 'https://myaccount.'.$val;
+                    include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+                    $ret = 'https://myaccount.'.getDomainFromURL($val, 1);
                     break;
                 }
             }
