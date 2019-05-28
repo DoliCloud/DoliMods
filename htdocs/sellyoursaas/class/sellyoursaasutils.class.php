@@ -3053,7 +3053,7 @@ class SellYourSaasUtils
     			{
         			dol_delete_file($tmppackage->srcconffile1, 0, 1, 0, null, false, 0);
         			$result = file_put_contents($tmppackage->srcconffile1, str_replace("\r", '', $conffile));
-        			@chmod($tmppackage->srcconffile1, 0660);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data')
+        			@chmod($tmppackage->srcconffile1, 0664);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data', 'root' can also read using nfs)
     			}
     			else
     			{
@@ -3065,7 +3065,7 @@ class SellYourSaasUtils
     			{
         			dol_delete_file($tmppackage->srccronfile, 0, 1, 0, null, false, 0);
         			$result = file_put_contents($tmppackage->srccronfile, str_replace("\r", '', $cronfile)."\n");  // A cron file must have at least one new line before end of file
-    	       		@chmod($tmppackage->srccronfile, 0660);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data')
+        			@chmod($tmppackage->srccronfile, 0664);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data', 'root' can also read using nfs)
     			}
     			else
     			{
@@ -3077,7 +3077,7 @@ class SellYourSaasUtils
     			    dol_syslog("Create cli file ".$tmppackage->srccliafter);
     			    dol_delete_file($tmppackage->srccliafter, 0, 1, 0, null, false, 0);
         			$result = file_put_contents($tmppackage->srccliafter, str_replace("\r", '', $cliafter));
-    	       		@chmod($tmppackage->srccliafter, 0660);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data')
+        			@chmod($tmppackage->srccliafter, 0664);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data', 'root' can also read using nfs)
     			}
     			else
     			{
