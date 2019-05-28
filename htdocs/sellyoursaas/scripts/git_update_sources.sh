@@ -15,7 +15,7 @@ fi
 echo "Update git dirs found into $1"
 
 #for dir in `find $1 -type d`
-for dir in `ls -d $1/*`
+for dir in `ls -d $1/* | grep -v glpi`
 do
         echo -- Process dir $dir
         cd $dir
