@@ -2659,14 +2659,15 @@ class SellYourSaasUtils
     	include_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
 
 		// Action 'refresh', 'recreateauthorizedkeys', 'deletelock', 'recreatelock' for contract, check install.lock file
-    	if (empty($object->context['fromdolicloudcustomerv1']) && in_array($remoteaction, array('refresh','recreateauthorizedkeys','deletelock','recreatelock')) && get_class($object) == 'Contrat')
+    	if (in_array($remoteaction, array('refresh','recreateauthorizedkeys','deletelock','recreatelock')) && get_class($object) == 'Contrat')
     	{
     		// SFTP refresh
     		if (function_exists("ssh2_connect"))
     		{
-    			$server=$object->array_options['options_hostname_os'];
-
-    			$connection = @ssh2_connect($server, 22);
+    		    $server=$object->array_options['options_hostname_os'];
+    		    dol_syslog("Try to ssh2_connect to ".$server);
+    		    
+    		    $connection = @ssh2_connect($server, 22);
     			if ($connection)
     			{
     				//print ">>".$object->array_options['options_username_os']." - ".$object->array_options['options_password_os']."<br>\n";exit;
@@ -2881,11 +2882,9 @@ class SellYourSaasUtils
     		}
 
     		$doremoteaction = 0;
-    		if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
-    			in_array($remoteaction, array('deploy','deployall','rename','suspend','unsuspend','undeploy')) &&
+    		if (in_array($remoteaction, array('deploy','deployall','rename','suspend','unsuspend','undeploy')) &&
     			($producttmp->array_options['options_app_or_option'] == 'app')) $doremoteaction = 1;
-    		if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
-    			in_array($remoteaction, array('deploy','deployall','deployoption')) &&
+    		if (in_array($remoteaction, array('deploy','deployall','deployoption')) &&
     			($producttmp->array_options['options_app_or_option'] == 'option')) $doremoteaction = 1;
 
     		// remoteaction = 'deploy','deployall','deployoption','rename','suspend','unsuspend','undeploy'
@@ -3031,7 +3030,7 @@ class SellYourSaasUtils
     			'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname
     			);
 
-    			$dirfortmpfiles = '/tmp';
+    			$dirfortmpfiles = '/tmp/sellyoursaas';
     			$tmppackage->srcconffile1 = $dirfortmpfiles.'/conf.php.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
     			$tmppackage->srccronfile  = $dirfortmpfiles.'/cron.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
     			$tmppackage->srccliafter  = $dirfortmpfiles.'/cliafter.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
@@ -3162,7 +3161,7 @@ class SellYourSaasUtils
     		}
 
     		// remoteaction = refresh => update the qty for this line if it is a line that is a metric
-    		if (empty($tmpobject->context['fromdolicloudcustomerv1']) && $remoteaction == 'refresh')
+    		if ($remoteaction == 'refresh')
     		{
     			dol_syslog("Start refresh of nb of resources for a customer");
 

@@ -293,10 +293,6 @@ if (empty($reshook))
         if (! $error && $thirdpartyidselected > 0)
         {
             $contract = new Contrat($db);
-            if ($dolicloudcustomer->id > 0)
-            {
-                $contract->context['fromdolicloudcustomerv1']=1;
-            }
 
             $contract->ref_customer = $instancetocreate;
             $contract->date_contrat = dol_now();
@@ -357,15 +353,6 @@ if (empty($reshook))
                     $nbusers = $result['nb_users'];
                     $nbgb = $result['nb_gb'];
                 }
-            }
-
-            if ($dolicloudcustomer->id > 0)
-            {
-                $contract->note_private = 'Value in V1 when created: plan='.$dolicloudcustomer->plan.', price_instance='.$dolicloudcustomer->price_instance.", price_per_user=".$dolicloudcustomer->price_user.", users=".$dolicloudcustomer->nbofusers;
-            }
-            if ($dolicloudcustomer->id > 0)
-            {
-                $contract->context['fromdolicloudcustomerv1']=1;
             }
 
             /*var_dump($contract->array_options);
@@ -514,10 +501,6 @@ if (empty($reshook))
                 // Activate all lines
                 if (! $error)
                 {
-                    if ($dolicloudcustomer->id > 0)
-                    {
-                        $contract->context['fromdolicloudcustomerv1']=1;
-                    }
                     $result = $contract->activateAll($user);
                     if ($result <= 0)
                     {
