@@ -85,12 +85,14 @@ if (empty($productid) && empty($productref))
 	if (empty($productref))
 	{
 		// Take first plan found
-		$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration';
+		$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration, pa.restrict_domains';
 		$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
+		$sqlproducts.= ' LEFT JOIN '.MAIN_DB_PREFIX.'packages as pa ON pe.package = pa.rowid';
 		$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 		$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
 		$sqlproducts.= " AND p.ref NOT LIKE '%DolibarrV1%'";
-		$sqlproducts.= " ORDER BY p.datec LIMIT 1";
+        $sqlproducts.= " AND (restrict_domains IS NULL OR restrict_domains = '".$db->escape($_SERVER["SERVER_NAME"])."')";
+		$sqlproducts.= " ORDER BY p.datec";
 		$resqlproducts = $db->query($sqlproducts);
 		if ($resqlproducts)
 		{
@@ -102,6 +104,10 @@ if (empty($productid) && empty($productref))
 			{
 				$productref = $obj->ref;
 			}
+		}
+		else
+		{
+		    dol_print_error($db);
 		}
 	}
 }
@@ -460,23 +466,23 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 	                <input<?php echo $disabled; ?> class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="<?php echo $sldAndSubdomain; ?>" maxlength="29" />
 	                <select<?php echo $disabled; ?> name="tldid" id="tldid" >
 	                	<?php
-	                	$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+	                	$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);   // This is list of all domains to show into combo list
 	                	foreach($listofdomain as $val)
 	                	{
-	                	    if (! empty($tmppackage->restrict_domains))   // There is a restriction on some domains
+	                	    if (! empty($tmppackage->restrict_domains))   // There is a restriction on some domains for this package
 	                	    {
 	                	        $restrictfound = false;
 	                	        $tmparray=explode(',', $tmppackage->restrict_domains);
 	                	        foreach($tmparray as $tmprestrictdomain)
 	                	        {
-	                	            var_dump($val.' - '.$tmprestrictdomain);
+	                	            //var_dump($val.' - '.$tmprestrictdomain);
 	                	            if ($val == $tmprestrictdomain)
                                     {
                                         $restrictfound=true;
                                         break;
                                     }
 	                	        }
-	                	        if (! $restrictfound) continue;
+	                	        if (! $restrictfound) continue;   // The domain in SELLYOURSAAS_SUB_DOMAIN_NAMES is inside restrictlist of package
 	                	    }
 	                		$newval=$val;
 	                		if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
