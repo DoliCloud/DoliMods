@@ -2329,7 +2329,8 @@ class SellYourSaasUtils
 						{
 							//$conf->global->noapachereload = 1;       // Set a global variable that can be read later by trigger
 						    $conf->global->noapachereload = 0;       // Set a global variable that can be read later by trigger
-							$result = $object->closeAll($user, 0, 'Closed by batch doSuspendInstances (mode='.$mode.') the '.dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')');			// This may execute trigger that make remote actions to suspend instance
+						    $comment = "Closed by batch doSuspendInstances('".$mode."') the ".dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')';
+							$result = $object->closeAll($user, 0, $comment);			// This may execute trigger that make remote actions to suspend instance
 							$conf->global->noapachereload = null;    // unset a global variable that can be read later by trigger
 							if ($result < 0)
 							{
@@ -2547,7 +2548,7 @@ class SellYourSaasUtils
     				if ($expirationdate && $expirationdate < ($now - (abs($delayindays)*24*3600)))
     				{
     				    $conf->global->noapachereload = 1;       // Set a global variable that can be read later
-    				    $comment = 'Undeploy instance by doUndeployOldSuspendedInstances('.$mode.') the '.dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')';
+    				    $comment = "Undeploy instance by doUndeployOldSuspendedInstances('".$mode."') the ".dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')';
     				    $result = $this->sellyoursaasRemoteAction('undeploy', $object, 'admin', '', '', '0', $comment);
     				    $conf->global->noapachereload = null;    // unset a global variable that can be read later
     				    if ($result <= 0)
@@ -2569,7 +2570,7 @@ class SellYourSaasUtils
     					dol_syslog("Unactivate all lines - doUndeployOldSuspendedInstances undeploy");
 
     					$conf->global->noapachereload = 1;       // Set a global variable that can be read later by trigger
-    					$comment = 'Close after undeployment by doUndeployOldSuspendedInstances('.$mode.') the '.dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')';
+    					$comment = "Close after undeployment by doUndeployOldSuspendedInstances('".$mode."') the ".dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')';
     					$result = $object->closeAll($user, 1, $comment);
     					$conf->global->noapachereload = null;    // unset a global variable that can be read later by trigger
     					if ($result <= 0)
