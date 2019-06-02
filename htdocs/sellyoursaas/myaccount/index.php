@@ -4848,7 +4848,7 @@ if ($mode == 'mycustomerbilling')
 			            $sortfield = 'f.datef';
 			            $sortorder = 'DESC';
 
-						$sql ='SELECT f.rowid, f.ref as ref, f.fk_soc, f.datef, f.total_ht, f.total_ttc, f.paye, f.fk_statut';
+						$sql ='SELECT f.rowid, f.ref as ref, f.ref_supplier, f.fk_soc, f.datef, f.total_ht, f.total_ttc, f.paye, f.fk_statut';
 						$sql.=' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
 						$sql.=' WHERE f.fk_soc = '.$mythirdpartyaccount->id;
 
@@ -4904,13 +4904,15 @@ if ($mode == 'mycustomerbilling')
 
 							if ($tmpinvoice->statut == FactureFournisseur::STATUS_DRAFT) continue;
 
+							$titleinvoice = $obj->ref.($obj->ref_supplier ? ' ('.$obj->ref_supplier.')' : '');
+
 							print '
 									<tr>
 					              <td>
 					                '.dol_print_date($obj->datef, 'dayrfc', $langs).'
 					              </td>
 					              <td>
-					                '.img_mime('pdf.pdf').' '.$obj->ref;
+					                '.img_mime('pdf.pdf', $titleinvoice).' '.($obj->ref_supplier ? $obj->ref_supplier : $obj->ref);
 							$publicurltodownload = $tmpinvoice->getLastMainDocLink($tmpinvoice->element, 0, 1);
 							// Define $urlwithroot
 							//$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
