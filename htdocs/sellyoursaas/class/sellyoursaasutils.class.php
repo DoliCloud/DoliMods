@@ -3031,6 +3031,7 @@ class SellYourSaasUtils
     			);
 
     			$dirfortmpfiles = DOL_DATA_ROOT.'/sellyoursaas/temp';
+    			dol_mkdir($dirfortmpfiles, '', '0775');
     			$tmppackage->srcconffile1 = $dirfortmpfiles.'/conf.php.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
     			$tmppackage->srccronfile  = $dirfortmpfiles.'/cron.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
     			$tmppackage->srccliafter  = $dirfortmpfiles.'/cliafter.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
