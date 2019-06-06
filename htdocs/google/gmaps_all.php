@@ -41,11 +41,19 @@ $langs->load("categories");
 // url is:  gmaps.php?mode=thirdparty|contact|member&id=id&max=max
 
 
-$mode=GETPOST('mode');
-$id = GETPOST('id','int');
-$MAXADDRESS=GETPOST('max','int')?GETPOST('max','int'):'25';	// Set packet size to 25 if no forced from url
+$mode=GETPOST('mode', 'aZ09');
+$id = GETPOST('id', 'int');
+$MAXADDRESS=GETPOST('max', 'int')?GETPOST('max', 'int'):'25';	// Set packet size to 25 if no forced from url
 $address='';
-$socid = GETPOST('socid','int');
+$socid = GETPOST('socid', 'int');
+
+$search_sale=empty($conf->global->GOOGLE_MAPS_FORCE_FILTER_BY_SALE_REPRESENTATIVES)?GETPOST('search_sale'):-1;
+$search_tag_customer=GETPOST('search_tag_customer');
+$search_tag_supplier=GETPOST('search_tag_supplier');
+$search_departement = GETPOST("state_id","int");
+$search_customer = GETPOST('search_customer','alpha');
+$search_supplier = GETPOST('search_supplier','alpha');
+
 
 // Load third party
 if (empty($mode) || $mode=='thirdparty')
@@ -56,7 +64,7 @@ if (empty($mode) || $mode=='thirdparty')
 		$object = new Societe($db);
 		$object->id = $id;
 		$object->fetch($id);
-		$address = $object->getFullAddress(1,', ');
+		$address = $object->getFullAddress(1, ', ');
 		$url = $object->url;
 	}
 }
@@ -68,7 +76,7 @@ else if ($mode=='contact')
 		$object = new Contact($db);
 		$object->id = $id;
 		$object->fetch($id);
-		$address = $object->getFullAddress(1,', ');
+		$address = $object->getFullAddress(1, ', ');
 		$url = '';
 	}
 }
@@ -80,7 +88,7 @@ else if ($mode=='member')
 		$object = new Adherent($db);
 		$object->id = $id;
 		$object->fetch($id);
-		$address = $object->getFullAddress(1,', ');
+		$address = $object->getFullAddress(1, ', ');
 		$url = '';
 	}
 }
@@ -92,7 +100,7 @@ else if ($mode=='patient')
 		$object = new Patient($db);
 		$object->id = $id;
 		$object->fetch($id);
-		$address = $object->getFullAddress(1,', ');
+		$address = $object->getFullAddress(1, ', ');
 		$url = '';
 	}
 }
@@ -133,13 +141,6 @@ $type='';
 if (empty($mode) || $mode=='thirdparty')
 {
 	if ($user->societe_id) $socid=$user->societe_id;
-
-	$search_sale=empty($conf->global->GOOGLE_MAPS_FORCE_FILTER_BY_SALE_REPRESENTATIVES)?GETPOST('search_sale'):-1;
-	$search_tag_customer=GETPOST('search_tag_customer');
-	$search_tag_supplier=GETPOST('search_tag_supplier');
-	$search_departement = GETPOST("state_id","int");
-	$search_customer = GETPOST('search_customer','alpha');
-	$search_supplier = GETPOST('search_supplier','alpha');
 
 	$title=$langs->trans("MapOfThirdparties");
 	$picto='company';
@@ -470,10 +471,18 @@ if ($resql)
 	print '</div>';
 	if ($num > $countgeoencodedall)
 	{
+	    $param='';
+	    if ($search_customer != '' && $search_customer != '-1') $param.='&search_customer='.urlencode($search_customer);
+	    if ($search_supplier != '' && $search_supplier != '-1') $param.='&search_supplier='.urlencode($search_supplier);
+	    if ($search_sale != '' && $search_sale != '-1') $param.='&search_sale='.urlencode($search_sale);
+	    if ($search_tag_customer != '' && $search_tag_customer != '-1') $param.='&search_tag_customer='.urlencode($search_tag_customer);
+	    if ($search_tag_supplier != '' && $search_tag_supplier != '-1') $param.='&search_tag_supplier='.urlencode($search_tag_supplier);
+	    if ($search_departement != '' && $search_departement != '-1') $param.='&search_departement='.urlencode($search_departement);
+
 		print $langs->trans("ClickHereToIncludeXMore").': &nbsp;';
-		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=25">'.$langs->trans("By25").'</a> &nbsp;';
-		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=50">'.$langs->trans("By50").'</a> &nbsp;';
-		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=100">'.$langs->trans("By100").'</a> &nbsp;';
+		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=25'.$param.'">'.$langs->trans("By25").'</a> &nbsp;';
+		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=50'.$param.'">'.$langs->trans("By50").'</a> &nbsp;';
+		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=100'.$param.'">'.$langs->trans("By100").'</a> &nbsp;';
 		//,min($num-$countgeoencodedall,$MAXADDRESS)).'</a>';
 		print '<br>';
 	}

@@ -197,7 +197,7 @@ $now=dol_now();
 
 //$help_url="EN:Module_Packages|FR:Module_Packages_FR|ES:Módulo_Packages";
 $help_url='';
-$title = $langs->trans('ListOf', $langs->transnoentitiesnoconv("Packagess"));
+$title = $langs->trans('ListOf', $langs->transnoentitiesnoconv("Packages"));
 
 
 // Build and execute select
@@ -448,7 +448,7 @@ while ($i < min($num, $limit))
 	$object->id = $obj->rowid;
 	foreach($object->fields as $key => $val)
 	{
-		if (isset($obj->$key)) $object->$key = $obj->$key;
+		if (property_exists($obj, $key)) $object->$key = $obj->$key;
 	}
 
 	// Show here line of result

@@ -222,6 +222,7 @@ function sellyoursaasGetExpirationDate($contract)
 	$expirationdate = 0;
 	$duration_value = 0;
 	$duration_unit = '';
+	$appproductid = 0;
 	$status = 0;
 	$nbofusers = 0;
 
@@ -260,6 +261,7 @@ function sellyoursaasGetExpirationDate($contract)
 			{
 				$duration_value = $prodforline->duration_value;
 				$duration_unit = $prodforline->duration_unit;
+				$appproductid = $prodforline->id;
 
 				$status = $line->statut;
 
@@ -276,7 +278,7 @@ function sellyoursaasGetExpirationDate($contract)
 		}
 	}
 
-    return array('status'=>$status, 'expirationdate'=>$expirationdate, 'duration_value'=>$duration_value, 'duration_unit'=>$duration_unit, 'nbusers'=>$nbofusers, 'nbofgbs'=>$nbofgbs);
+	return array('status'=>$status, 'expirationdate'=>$expirationdate, 'duration_value'=>$duration_value, 'duration_unit'=>$duration_unit, 'nbusers'=>$nbofusers, 'nbofgbs'=>$nbofgbs, 'appproductid'=>$appproductid);
 }
 
 
@@ -296,4 +298,48 @@ function sellyoursaasIsSuspended($contract)
 	if ($contract->nbofservicesclosed > 0) return true;
 
 	return false;
+}
+
+/**
+ * Return URL of customer account from object
+ *
+ * @param   Object      $object         Object
+ * @return  string                      URL
+ */
+function getRootUrlForAccount($object)
+{
+    global $db, $conf, $user;
+    $ret = $conf->global->SELLYOURSAAS_ACCOUNT_URL;     // By default
+
+    $newobject = $object;
+
+    // If $object is a product, we take package
+    if (get_class($newobject) == 'Product')
+    {
+        $newobject->fetch_optionals();
+
+        $tmppackage = new Packages($db);
+        $tmppackage->fetch($newobject->array_options['options_package']);
+        $newobject = $tmppackage;
+    }
+
+    // If $object is a package, we take first restrict and add account.
+    if (get_class($newobject) == 'Packages')
+    {
+        $tmparray = explode(',', $newobject->restrict_domains);
+        if (is_array($tmparray))
+        {
+            foreach($tmparray as $key => $val)
+            {
+                if ($val)
+                {
+                    include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+                    $ret = 'https://myaccount.'.getDomainFromURL($val, 1);
+                    break;
+                }
+            }
+        }
+    }
+
+    return $ret;
 }

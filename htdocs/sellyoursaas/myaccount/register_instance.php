@@ -176,7 +176,7 @@ elseif ($reusesocid)		// When we use the "Add another instance" from account bac
 	$newurl=preg_replace('/register_instance/', 'index', $newurl);
 	if (! preg_match('/\?/', $newurl)) $newurl.='?';
 	$newurl.='&reusesocid='.$reusesocid;
-	$newurl.='&mode=instances';
+    $newurl.='&mode='.(GETPOST('mode','alpha') == 'mycustomerinstances' ? 'mycustomerinstances': 'instances');
 	if (! preg_match('/sldAndSubdomain/i', $sldAndSubdomain)) $newurl.='&sldAndSubdomain='.urlencode($sldAndSubdomain);
 	if (! preg_match('/tldid/i', $tldid)) $newurl.='&tldid='.urlencode($tldid);
 	if (! preg_match('/service/i', $newurl)) $newurl.='&service='.urlencode($service);
@@ -184,6 +184,15 @@ elseif ($reusesocid)		// When we use the "Add another instance" from account bac
 	if (! preg_match('/partnerkey/i', $newurl)) $newurl.='&partnerkey='.urlencode($partnerkey);		// md5 of partner name alias
 	if (! preg_match('/origin/i', $newurl)) $newurl.='&origin='.urlencode($origin);
 	if (! preg_match('/disablecustomeremail/i', $newurl)) $newurl.='&disablecustomeremail='.urlencode($disablecustomeremail);
+
+	if ($reusesocid < 0) // -1, the thirdparty was not selected
+	{
+	    // Return to dashboard, the only page where the customer is requested.
+	    $newurl=preg_replace('/register/', 'index', $newurl);
+	    setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Customer")), null, 'errors');
+	    header("Location: ".$newurl.'#addanotherinstance');
+	    exit;
+	}
 
 	if ($productref != 'none' && empty($sldAndSubdomain))
 	{
@@ -867,12 +876,12 @@ if (! $error)
 		if (! $result)
 		{
 			$error++;
-			setEventMessages($cmail->error, $cmail->errors, 'warning');
+			setEventMessages($cmail->error, $cmail->errors, 'warnings');
 		}
 	}
 	else	// In rare cases, we are here
 	{
-		setEventMessages('NoEmailSent', null, 'warning');
+		setEventMessages('NoEmailSent', null, 'warnings');
 	}
 
 	dol_syslog("Deployment successful");

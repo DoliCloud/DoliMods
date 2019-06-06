@@ -82,7 +82,7 @@ class Packages extends CommonObject
 		'tms' => array('type'=>'timestamp', 'label'=>'DateModification', 'visible'=>-2, 'enabled'=>1, 'position'=>500, 'notnull'=>1,),
 		'fk_user_creat' => array('type'=>'integer', 'label'=>'UserAuthor', 'visible'=>-2, 'enabled'=>1, 'position'=>500, 'notnull'=>1,),
 		'fk_user_modif' => array('type'=>'integer', 'label'=>'UserModif', 'visible'=>-2, 'enabled'=>1, 'position'=>500, 'notnull'=>-1,),
-		//'sqldump' => array('type'=>'varchar(255)', 'label'=>'Sql with dump', 'visible'=>-1, 'enabled'=>1, 'position'=>50, 'notnull'=>-1,),
+		'restrict_domains' => array('type'=>'varchar(255)', 'label'=>'RestrictDomainNames', 'visible'=>-1, 'enabled'=>1, 'position'=>40, 'notnull'=>-1, 'help'=>'KeepEmptyForNoRestrictionOnDomain'),
 		'srcfile1' => array('type'=>'varchar(255)', 'label'=>'Dir with sources 1', 'visible'=>-1, 'enabled'=>1, 'position'=>51, 'notnull'=>-1, 'css'=>'minwidth500'),
 		'srcfile2' => array('type'=>'varchar(255)', 'label'=>'Dir with sources 2', 'visible'=>-1, 'enabled'=>1, 'position'=>52, 'notnull'=>-1, 'css'=>'minwidth500'),
 		'srcfile3' => array('type'=>'varchar(255)', 'label'=>'Dir with sources 3', 'visible'=>-1, 'enabled'=>1, 'position'=>53, 'notnull'=>-1, 'css'=>'minwidth500'),
@@ -109,6 +109,7 @@ class Packages extends CommonObject
 	public $tms;
 	public $fk_user_creat;
 	public $fk_user_modif;
+	public $restrict_domains;
 	public $import_key;
 	public $sqldump;
 	public $srcfile1;
@@ -307,6 +308,8 @@ class Packages extends CommonObject
         $label = '<u>' . $langs->trans("Packages") . '</u>';
         $label.= '<br>';
         $label.= '<b>' . $langs->trans('Ref') . ':</b> ' . $this->ref;
+        $label.= '<br><b>' . $langs->trans('Label') . ':</b> ' . $this->label;
+        $label.= '<br><b>' . $langs->trans('RestrictDomainNames') . ':</b> ' . $this->restrict_domains;
 
         $url='';
         if ($option != 'nolink')

@@ -59,6 +59,8 @@ require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php');
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
+
 
 // Load traductions files requiredby by page
 $langs->loadLangs(array("sellyoursaas@sellyoursaas","other"));
@@ -502,7 +504,7 @@ while ($i < min($num, $limit))
 	include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_print_fields.tpl.php';
 	// Link
 	print '<td>';
-	print '<a href="'.$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/register.php?origin=backofficelink&plan='.$obj->ref.'&partner=&partnerkey=md5aliaspartner" target="_register">';
+	print '<a href="'.getRootUrlForAccount($object).'/register.php?origin=backofficelink&plan='.$obj->ref.'&partner=&partnerkey=md5aliaspartner" target="_register">';
 	print img_picto('', 'object_globe');
 	print ' URL';
 	print '</a>';

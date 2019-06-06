@@ -103,7 +103,8 @@ class ActionsSellyoursaas
             $tmparray=explode(',',$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
             foreach($tmparray as $tmp)
             {
-                if (preg_match('/'.preg_quote($tmp,'/').'$/', $parameters['objref'])) $isanurlofasellyoursaasinstance=true;
+                $newtmp = preg_replace('/:.*$/', '', $tmp);
+                if (preg_match('/'.preg_quote($newtmp,'/').'$/', $parameters['objref'])) $isanurlofasellyoursaasinstance=true;
             }
             if ($isanurlofasellyoursaasinstance)
             {
@@ -828,8 +829,38 @@ class ActionsSellyoursaas
     	$langs->load("sellyoursaas@sellyoursaas");
 
     	$contract = $parameters['object'];
+    	if (get_class($contract) == 'Contrat')
+    	{
+        	// Read version
+        	$server = $contract->ref_customer;
+        	$username_db = $contract->username_db;
+        	if (empty($username_db)) $username_db = $contract->array_options['options_username_db'];
+        	$password_db = $object->password_db;
+        	if (empty($password_db)) $password_db = $contract->array_options['options_password_db'];
+        	$database_db = $object->database_db;
+        	if (empty($database_db)) $database_db = $contract->array_options['options_database_db'];
 
-    	$parameters['substitutionarray']['sellyoursaas_version']=7;
+        	$newdb=getDoliDBInstance('mysqli', $server, $username_db, $password_db, $database_db, 3306);
+
+        	if ($newdb->connected)
+        	{
+            	// Get version
+            	$parameters['substitutionarray']['sellyoursaas_version']=7;
+            	$sql = " SELECT value FROM ".MAIN_DB_PREFIX."const where name = 'MAIN_VERSION_LAST_UPGRADE'";
+            	$resql = $newdb->query($sql);
+            	if ($resql)
+            	{
+            	    $obj = $newdb->fetch_object($resql);
+            	    if ($obj)
+            	    {
+            	        $tmp=explode('.', $obj->value);
+            	        $vermaj=$tmp[0];
+            	        $parameters['substitutionarray']['sellyoursaas_version']=$vermaj;
+            	    }
+            	}
+        	}
+    	}
+
     	$parameters['substitutionarray']['sellyoursaas_signature_logo']=DOL_DATA_ROOT.'/mycompany/notdownloadable/signature_owner.jpg';
 
     	return 0;

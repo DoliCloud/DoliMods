@@ -85,7 +85,7 @@ $langs->load("main");				// To load language file for default language
 
 print "***** ".$script_file." (".$version.") - ".strftime("%Y%m%d-%H%M%S")." *****\n";
 if (! isset($argv[1])) {	// Check parameters
-    print "Usage: ".$script_file." (backuptestrsync|backuptestdatabase|backup|updatedatabase|updatestatsonly) [old|instancefilter]\n";
+    print "Usage: ".$script_file." (backuptestrsync|backuptestdatabase|backup|updatedatabase|updatestatsonly) [instancefilter]\n";
     print "\n";
     print "- backuptestrsync     test rsync backup\n";
     print "- backuptestdatabase  test mysqldump backup\n";
@@ -121,28 +121,13 @@ $nboferrors=0;
 $instancefilter=(isset($argv[2])?$argv[2]:'');
 $instancefiltercomplete=$instancefilter;
 
-// Use instancefilter to detect if v1 or v2 or instance
 $v=2;
-if ($instancefilter == 'old')
+// Forge complete name of instance
+if (! empty($instancefiltercomplete) && ! preg_match('/\./', $instancefiltercomplete) && ! preg_match('/\.home\.lan$/', $instancefiltercomplete))
 {
-	$instancefilter='';
-	$instancefiltercomplete='';
-	$v=1;
-}
-else
-{
-	// Force $v according to hard coded values (keep v2 in default case)
-	if (! empty($instancefiltercomplete) && ! preg_match('/(\.on|\.with)\.dolicloud\.com$/',$instancefiltercomplete) && ! preg_match('/\.home\.lan$/',$instancefiltercomplete))
-	{
-		// TODO Manage several domains
-		$instancefiltercomplete=$instancefiltercomplete.".".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
-	}
-	if (! empty($instancefiltercomplete) && preg_match('/\.on\.dolicloud\.com$/',$instancefiltercomplete)) {
-		$v=1;
-	}
-	if (! empty($instancefiltercomplete) && preg_match('/\.with\.dolicloud\.com$/',$instancefiltercomplete)) {
-		$v=2;
-	}
+    $tmparray = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+    $tmpstring = preg_replace('/:.*$/', '', $tmparray[0]);
+    $instancefiltercomplete=$instancefiltercomplete.".".$tmpstring;   // Automatically concat first domain name
 }
 
 $instances=array();
@@ -151,37 +136,19 @@ $instancesbackuperror=array();
 $instancesupdateerror=array();
 
 
-if ($v==1)
-{
-	$object=new Dolicloud_customers($db,$db2);
+include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+$object=new Contrat($db);
 
-	// Get list of instance
-	$sql = "SELECT i.id, i.name as instance, i.status as instance_status,";
-	$sql.= " c.status as status,";
-	$sql.= " s.payment_status,";
-	$sql.= " s.status as subscription_status";
-	$sql.= " FROM app_instance as i, subscription as s, customer as c";
-	$sql.= " WHERE i.customer_id = c.id AND c.id = s.customer_id";
-	if ($instancefiltercomplete) $sql.= " AND i.name = '".$instancefiltercomplete."'";
+// Get list of instance
+$sql = "SELECT c.rowid as id, c.ref, c.ref_customer as instance,";
+$sql.= " ce.deployment_status as instance_status";
+$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
+$sql.= " WHERE c.ref_customer <> '' AND c.ref_customer IS NOT NULL";
+if ($instancefiltercomplete) $sql.= " AND c.ref_customer = '".$instancefiltercomplete."'";
+else $sql.= " AND ce.deployment_status <> 'undeployed'";		// Exclude undeployed only if we don't request a specific instance
+$sql.= " AND ce.deployment_status IS NOT NULL";
 
-	$dbtousetosearch = $db2;
-}
-else
-{
-	include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-	$object=new Contrat($db);
-
-	// Get list of instance
-	$sql = "SELECT c.rowid as id, c.ref, c.ref_customer as instance,";
-	$sql.= " ce.deployment_status as instance_status";
-	$sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
-	$sql.= " WHERE c.ref_customer <> '' AND c.ref_customer IS NOT NULL";
-	if ($instancefiltercomplete) $sql.= " AND c.ref_customer = '".$instancefiltercomplete."'";
-	else $sql.= " AND ce.deployment_status <> 'undeployed'";		// Exclude undeployed only if we don't request a specific instance
-	$sql.= " AND ce.deployment_status IS NOT NULL";
-
-	$dbtousetosearch = $db;
-}
+$dbtousetosearch = $db;
 
 
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
@@ -362,8 +329,8 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 $today=dol_now();
 
 $error=''; $errors=array();
-$servicetouse='old';
-if ($v != 1) $servicetouse=strtolower($conf->global->SELLYOURSAAS_NAME);
+$tmparray=explode(',', $conf->global->SELLYOURSAAS_NAME);
+$servicetouse=strtolower($tmparray[0]);     // Take first name of service
 
 if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'updatecountsonly')
 {

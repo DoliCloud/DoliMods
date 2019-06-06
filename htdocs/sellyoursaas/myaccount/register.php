@@ -46,6 +46,7 @@ if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main
 if (! $res) die("Include of main fails");
 
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
@@ -84,13 +85,22 @@ if (empty($productid) && empty($productref))
 	$productref = $plan;
 	if (empty($productref))
 	{
+	    include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+
+	    // SERVER_NAME here is myaccount.mydomain.com (we can exploit only the part mydomain.com)
+	    $domainname = getDomainFromURL($_SERVER["SERVER_NAME"], 1);
+
 		// Take first plan found
-		$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration';
+		$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration, pa.restrict_domains';
 		$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
+		$sqlproducts.= ' LEFT JOIN '.MAIN_DB_PREFIX.'packages as pa ON pe.package = pa.rowid';
 		$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 		$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
 		$sqlproducts.= " AND p.ref NOT LIKE '%DolibarrV1%'";
-		$sqlproducts.= " ORDER BY p.datec LIMIT 1";
+		// restict_domains can be empty (it's ok), can be mydomain.com or can be with.mydomain.com
+		$sqlproducts.= " AND (pa.restrict_domains IS NULL OR pa.restrict_domains = '".$db->escape($domainname)."' OR pa.restrict_domains LIKE '%.".$db->escape($domainname)."')";
+		$sqlproducts.= " ORDER BY p.datec";
+		//print $_SERVER["SERVER_NAME"].' - '.$sqlproducts;
 		$resqlproducts = $db->query($sqlproducts);
 		if ($resqlproducts)
 		{
@@ -102,6 +112,10 @@ if (empty($productid) && empty($productref))
 			{
 				$productref = $obj->ref;
 			}
+		}
+		else
+		{
+		    dol_print_error($db);
 		}
 	}
 }
@@ -219,9 +233,13 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 
 <div class="large">
         <?php
+        $tmparray=explode(',', $conf->global->SELLYOURSAAS_NAME);
+        $tmparray2=explode(',', $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME);
+        $sellyoursaasname = $tmparray[0];
+        $sellyoursaasdomain = $tmparray2[0];
 
         $linklogo = '';
-        if ($partnerthirdparty->id > 0)
+        if ($partnerthirdparty->id > 0)     // Show logo of partner
         {
         	require_once DOL_DOCUMENT_ROOT.'/ecm/class/ecmfiles.class.php';
         	$ecmfile=new EcmFiles($db);
@@ -236,9 +254,52 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
         		$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=societe&hashp='.$ecmfile->share;
         	}
         }
-        if (empty($linklogo))
+        if (empty($linklogo))               // Show main logo of Cloud service
         {
-        	$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_SMALL);
+            // Show logo (search in order: small company logo, large company logo, theme logo, common logo)
+            $linklogo = '';
+            $constlogo = 'SELLYOURSAAS_LOGO';
+            $constlogosmall = 'SELLYOURSAAS_LOGO_SMALL';
+            foreach($tmparray2 as $key => $value)
+            {
+                if ($_SERVER['SERVER_NAME'] == $value)     // Domain is same
+                {
+                    if (! empty($tmparray[$key]))
+                    {
+                        $constlogo.='_'.strtoupper($tmparray[$key]);
+                        $constlogosmall.='_'.strtoupper($tmparray[$key]);
+                        $sellyoursaasname = $tmparray[$key];
+                    }
+                    $sellyoursaasdomain = $value;
+                }
+            }
+
+            if (empty($linklogo) && ! empty($conf->global->$constlogosmall))
+            {
+                if (is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->$constlogosmall))
+                {
+                    $linklogo=DOL_URL_ROOT.'/viewimage.php?cache=1&modulepart=mycompany&file='.urlencode('logos/thumbs/'.$conf->global->$constlogosmall);
+                }
+            }
+            elseif (empty($urllogo) && ! empty($conf->global->$constlogo))
+            {
+                if (is_readable($conf->mycompany->dir_output.'/logos/'.$conf->global->$constlogo))
+                {
+                    $linklogo=DOL_URL_ROOT.'/viewimage.php?cache=1&modulepart=mycompany&file='.urlencode('logos/'.$conf->global->$constlogo);
+                }
+            }
+            elseif (empty($urllogo) && is_readable(DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/img/dolibarr_logo.png'))
+            {
+                $linklogo=DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/dolibarr_logo.png';
+            }
+            elseif (empty($urllogo) && is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.png'))
+            {
+                $linklogo=DOL_URL_ROOT.'/theme/dolibarr_logo.png';
+            }
+            else
+            {
+                $linklogo=DOL_URL_ROOT.'/theme/login_logo.png';
+            }
         }
 
         if (! GETPOST('noheader','int'))
@@ -402,8 +463,10 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
           {
 	          if (empty($reusecontractid)) print '<br>';
 	          else print '<hr/>';
+
 	          ?>
 
+			  <!-- Selection of domain to create instance -->
 	          <section id="selectDomain">
 	            <div class="fld select-domain required">
 	              <label trans="1"><?php echo $langs->trans("ChooseANameForYourApplication") ?></label>
@@ -412,10 +475,34 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 	                <input<?php echo $disabled; ?> class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="<?php echo $sldAndSubdomain; ?>" maxlength="29" />
 	                <select<?php echo $disabled; ?> name="tldid" id="tldid" >
 	                	<?php
-	                	$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+	                	// SERVER_NAME here is myaccount.mydomain.com (we can exploit only the part mydomain.com)
+	                	$domainname = getDomainFromURL($_SERVER["SERVER_NAME"], 1);
+
+	                	$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);   // This is list of all domains to show into combo list
 	                	foreach($listofdomain as $val)
 	                	{
-	                		$newval=$val;
+	                	    $newval = $val;
+	                	    if (preg_match('/:(.*)$/', $newval, $reg)) {      // If this domain must be shown only if domain match
+	                	        $newval = preg_replace('/:.*$/', '', $newval);
+	                	        if ($reg[1] != $domainname) continue;
+	                	    }
+
+	                	    if (! empty($tmppackage->restrict_domains))   // There is a restriction on some domains for this package
+	                	    {
+	                	        $restrictfound = false;
+	                	        $tmparray=explode(',', $tmppackage->restrict_domains);
+	                	        foreach($tmparray as $tmprestrictdomain)
+	                	        {
+	                	            //var_dump($val.' - '.$tmprestrictdomain);
+	                	            if ($newval == $tmprestrictdomain)
+                                    {
+                                        $restrictfound=true;
+                                        break;
+                                    }
+	                	        }
+	                	        if (! $restrictfound) continue;   // The domain in SELLYOURSAAS_SUB_DOMAIN_NAMES is inside restrictlist of package
+	                	    }
+
 	                		if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
 	                		print '<option value="'.$newval.'"'.(GETPOST('tldid','alpha') == $newval ? ' selected="selected"':'').'>'.$newval.'</option>';
 	                	}

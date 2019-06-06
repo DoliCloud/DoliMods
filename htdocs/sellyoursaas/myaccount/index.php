@@ -68,6 +68,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societeaccount.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/companybankaccount.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/companypaymentmode.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 dol_include_once('/sellyoursaas/class/packages.class.php');
 dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
 
@@ -2536,13 +2537,19 @@ if ($mode == 'dashboard')
 
 if ($mode == 'instances')
 {
-	// List of available plans/producs
+    // SERVER_NAME here is myaccount.mydomain.com (we can exploit only the part mydomain.com)
+    $domainname = getDomainFromURL($_SERVER["SERVER_NAME"], 1);
+
+    // List of available plans/producs
 	$arrayofplans=array();
 	$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration, pe.availabelforresellers';
 	$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
+	$sqlproducts.= ' LEFT JOIN '.MAIN_DB_PREFIX.'packages as pa ON pe.package = pa.rowid';
 	$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 	$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
 	$sqlproducts.= " AND p.ref NOT LIKE '%DolibarrV1%'";
+	// restict_domains can be empty (it's ok), can be mydomain.com or can be with.mydomain.com
+	$sqlproducts.= " AND (pa.restrict_domains IS NULL OR pa.restrict_domains = '".$db->escape($domainname)."' OR pa.restrict_domains LIKE '%.".$db->escape($domainname)."')";
 	//$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";
 	//$sqlproducts.=' AND p.rowid = 202';
 	//print $sqlproducts;
@@ -2968,12 +2975,17 @@ if ($mode == 'instances')
 									print '<input type="hidden" name="action" value="updateplan" />';
 									print '<input type="hidden" name="contractid" value="'.$contract->id.'" />';
 
+									// SERVER_NAME here is myaccount.mydomain.com (we can exploit only the part mydomain.com)
+									$domainname = getDomainFromURL($_SERVER["SERVER_NAME"], 1);
+
 									// List of available plans/products
 									$arrayofplanstoswitch=array();
 									$sqlproducts = 'SELECT p.rowid, p.ref, p.label FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';
+									$sqlproducts.= ' LEFT JOIN '.MAIN_DB_PREFIX.'packages as pa ON pe.package = pa.rowid';
 									$sqlproducts.= ' WHERE p.tosell = 1 AND p.entity = '.$conf->entity;
 									$sqlproducts.= " AND pe.fk_object = p.rowid AND pe.app_or_option = 'app'";
 									$sqlproducts.= " AND p.ref NOT LIKE '%DolibarrV1%'";
+									$sqlproducts.= " AND (pa.restrict_domains IS NULL OR pa.restrict_domains = '".$db->escape($domainname)."' OR pa.restrict_domains LIKE '%.".$db->escape($domainname)."')";
 									$sqlproducts.= " AND (p.rowid = ".$planid." OR 1 = 1)";		// TODO Restict on plans compatible with current plan...
 									$resqlproducts = $db->query($sqlproducts);
 									if ($resqlproducts)
@@ -3288,13 +3300,20 @@ if ($mode == 'instances')
     			<span class="opacitymedium">https://</span>
     			<input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="" maxlength="29" required />
     			<select name="tldid" id="tldid" >';
-    				$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
-    				foreach($listofdomain as $val)
-    				{
-    					$newval=$val;
-    					if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
-    					print '<option value="'.$newval.'">'.$newval.'</option>';
-    				}
+            		// SERVER_NAME here is myaccount.mydomain.com (we can exploit only the part mydomain.com)
+            		$domainname = getDomainFromURL($_SERVER["SERVER_NAME"], 1);
+
+            		$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+            		foreach($listofdomain as $val)
+            		{
+            		    $newval=$val;
+            		    if (preg_match('/:(.*)$/', $newval, $reg)) {      // If this domain must be shown only if domain match
+            		        $newval = preg_replace('/:.*$/', '', $newval);
+            		        if ($reg[1] != $domainname) continue;
+            		    }
+            		    if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
+            		    print '<option value="'.$newval.'">'.$newval.'</option>';
+            		}
     			print '</select>
     			<br class="unfloat" />
     			</div>
@@ -3963,6 +3982,7 @@ if ($mode == 'mycustomerinstances')
 	print '<form id="formaddanotherinstance" class="form-group reposition" style="display: none;" action="register_instance.php" method="POST">';
 	print '<input type="hidden" name="action" value="deployall" />';
 	print '<input type="hidden" name="fromsocid" value="'.$mythirdpartyaccount->id.'" />';
+	print '<input type="hidden" name="mode" value="mycustomerinstances" />';
 	//print '<input type="hidden" name="reusesocid" value="'.$socid.'" />';
 
 	print '<div class="row">
@@ -4005,10 +4025,17 @@ if ($mode == 'mycustomerinstances')
 		<span class="opacitymedium">https://</span>
 		<input class="sldAndSubdomain" type="text" name="sldAndSubdomain" value="" maxlength="29" required />
 		<select name="tldid" id="tldid" >';
-			$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+        	// SERVER_NAME here is myaccount.mydomain.com (we can exploit only the part mydomain.com)
+        	$domainname = getDomainFromURL($_SERVER["SERVER_NAME"], 1);
+
+        	$listofdomain = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
 			foreach($listofdomain as $val)
 			{
 				$newval=$val;
+				if (preg_match('/:(.*)$/', $newval, $reg)) {      // If this domain must be shown only if domain match
+				    $newval = preg_replace('/:.*$/', '', $newval);
+				    if ($reg[1] != $domainname) continue;
+				}
 				if (! preg_match('/^\./', $newval)) $newval='.'.$newval;
 				print '<option value="'.$newval.'">'.$newval.'</option>';
 			}
@@ -4821,7 +4848,7 @@ if ($mode == 'mycustomerbilling')
 			            $sortfield = 'f.datef';
 			            $sortorder = 'DESC';
 
-						$sql ='SELECT f.rowid, f.ref as ref, f.fk_soc, f.datef, f.total_ht, f.total_ttc, f.paye, f.fk_statut';
+						$sql ='SELECT f.rowid, f.ref as ref, f.ref_supplier, f.fk_soc, f.datef, f.total_ht, f.total_ttc, f.paye, f.fk_statut';
 						$sql.=' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
 						$sql.=' WHERE f.fk_soc = '.$mythirdpartyaccount->id;
 
@@ -4877,13 +4904,15 @@ if ($mode == 'mycustomerbilling')
 
 							if ($tmpinvoice->statut == FactureFournisseur::STATUS_DRAFT) continue;
 
+							$titleinvoice = $obj->ref.($obj->ref_supplier ? ' ('.$obj->ref_supplier.')' : '');
+
 							print '
 									<tr>
 					              <td>
 					                '.dol_print_date($obj->datef, 'dayrfc', $langs).'
 					              </td>
 					              <td>
-					                '.img_mime('pdf.pdf').' '.$obj->ref;
+					                '.img_mime('pdf.pdf', $titleinvoice).' '.($obj->ref_supplier ? $obj->ref_supplier : $obj->ref);
 							$publicurltodownload = $tmpinvoice->getLastMainDocLink($tmpinvoice->element, 0, 1);
 							// Define $urlwithroot
 							//$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
@@ -4970,22 +4999,10 @@ if ($mode == 'mycustomerbilling')
 				</tr>
 		';
 
-		if ($totalpaidht)
-		{
-			print '<tr style="background-color: #f0f0F0;">';
-			print '<td colspan="2">'.$langs->trans("AlreadyPaid").'</td>';
-			print '<td></td>';
-			print '<td></td>';
-			print '<td></td>';
-			print '<td></td>';
-			print '<td align="right">'.price($totalpaidht).'</td>';
-			print '</tr>';
-		}
-
 		if (preg_match('/Commissions old system = ([a-zA-Z0-9\.\,]+)/i', $mythirdpartyaccount->note_private, $reg))
 		{
 			$commoldystem = price2num($reg[1]);
-			print '<tr style="background-color: #f0f0F0;">';
+			print '<tr>';
 			print '<td colspan="2">'.$langs->trans("CommissionsOnOldSystem").'</td>';
 			print '<td></td>';
 			print '<td></td>';
@@ -5137,7 +5154,28 @@ if ($mode == 'mycustomerbilling')
 		}
 
 		print '<tr class="liste_titre"><td colspan="6">'.$langs->trans("Total").'</td>';
-		print '<td align="right"><strong>'.price($totalpaidht + $commoldystem + $totalamountcommission).'</strong></td>';
+		print '<td align="right"><strong>'.price($commoldystem + $totalamountcommission).'</strong></td>';
+		print '</tr>';
+
+		if ($totalpaidht)
+		{
+		    print '<tr style="background-color: #f0f0F0;">';
+		    print '<td colspan="2">'.$langs->trans("AlreadyPaid").'</td>';
+		    print '<td></td>';
+		    print '<td></td>';
+		    print '<td></td>';
+		    print '<td></td>';
+		    print '<td align="right">'.price($totalpaidht).'</td>';
+		    print '</tr>';
+		}
+
+		print '<tr style="background-color: #f0f0F0;">';
+		print '<td colspan="2">'.$langs->trans("RemainderToBill").'</td>';
+		print '<td></td>';
+		print '<td></td>';
+		print '<td></td>';
+		print '<td></td>';
+		print '<td align="right">'.price($commoldystem + $totalamountcommission - $totalpaidht).'</td>';
 		print '</tr>';
 
 		print '</table>
@@ -5572,7 +5610,7 @@ if ($mode == 'myaccount')
                   <input type="text" class="form-control" placeholder="'.$langs->trans("StateOrCounty").'" name="stateorcounty" value="">
                 </div>
                 <div class="form-group">
-                  <label>'.$langs->trans("Country").'aaa</label><br>';
+                  <label>'.$langs->trans("Country").'</label><br>';
 				$countryselected = (GETPOSTISSET('country_id')?GETPOST('country_id','az09'):$mythirdpartyaccount->country_id);
 				print $form->select_country($countryselected, 'country_id', '', 0, 'minwidth300', 'code2', 0, 1);
 				print '

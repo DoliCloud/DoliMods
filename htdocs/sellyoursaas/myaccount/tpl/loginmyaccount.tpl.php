@@ -50,7 +50,7 @@ $arrayofjs=array(
 $titleofpage=$langs->trans('Login').' @ '.$titletruedolibarrversion;	// $titletruedolibarrversion is defined by dol_loginfunction in security2.lib.php. We must keep the @, some tools use it to know it is login page and find true dolibarr version.
 
 $disablenofollow=1;
-if (! preg_match('/'.constant('DOL_APPLICATION_TITLE').'/', $title)) $disablenofollow=0;
+if (! preg_match('/'.constant('DOL_APPLICATION_TITLE').'/', $titleofpage)) $disablenofollow=0;
 
 print top_htmlhead_sellyoursaas('', $titleofpage, 0, 0, $arrayofjs, array(), 0, $disablenofollow);
 
@@ -134,7 +134,7 @@ if (! empty($conf->global->SELLYOURSAAS_ANNOUNCE_ON) && ! empty($conf->global->S
 
         <header class="inverse">
           <h1><?php echo dol_escape_htmltag($title); ?></h1>
-          <span class="opacitymedium" style="font-size: 0.85em; margin-top: 4px; line-height: 1;"><?php echo $langs->trans("MyAcountDesc", 'https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME, $conf->global->SELLYOURSAAS_NAME); ?></span>
+          <span class="opacitymedium" style="font-size: 0.85em; margin-top: 4px; line-height: 1;"><?php echo $langs->trans("MyAcountDesc", 'https://'.$sellyoursaasdomain, $sellyoursaasname); ?></span>
         </header>
 
 

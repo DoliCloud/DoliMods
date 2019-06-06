@@ -545,7 +545,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		mkdir -p `dirname $targetfileforconfig1`
 		
 		if [[ -s $targetfileforconfig1 ]]; then
-			cat $targetfileforconfig1 | grep "$dbname " 2>&1
+			cat $targetfileforconfig1 | grep "$dbname" 2>&1
 			notfound=$?
 			echo notfound=$notfound
 			if [[ $notfound == 1 ]]; then
@@ -555,19 +555,19 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 				then
 					rm -f $targetfileforconfig1
 				fi
-				echo "mv $fileforconfig1 $targetfileforconfig1"
+				echo "cp $fileforconfig1 $targetfileforconfig1"
 				if [[ $testorconfirm == "confirm" ]]
 				then
-					mv $fileforconfig1 $targetfileforconfig1
+					cp $fileforconfig1 $targetfileforconfig1
 				fi
 			else
 				echo File $targetfileforconfig1 already exists and content includes database parameters. We change nothing.
 			fi
 		else
-			echo "mv $fileforconfig1 $targetfileforconfig1"
+			echo "cp $fileforconfig1 $targetfileforconfig1"
 			if [[ $testorconfirm == "confirm" ]]
 			then
-				mv $fileforconfig1 $targetfileforconfig1
+				cp $fileforconfig1 $targetfileforconfig1
 			fi
 		fi
 		chown -R $osusername.$osusername $targetfileforconfig1

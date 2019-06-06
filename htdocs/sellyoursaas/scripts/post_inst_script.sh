@@ -36,6 +36,9 @@ echo "Disable cron begin" >>/tmp/post_inst_script.log
 /etc/init.d/cron stop 2>&1 >>/tmp/post_inst_script.log
 echo result = $? >>/tmp/post_inst_script.log
 
+systemctl stop cron 2>&1 >>/tmp/post_inst_script.log
+systemctl disable cron 2>&1 >>/tmp/post_inst_script.log
+
 echo "Disable cron end"
 echo "Disable cron end" >>/tmp/post_inst_script.log
 

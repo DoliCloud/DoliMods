@@ -164,10 +164,25 @@ function getListOfInstancesInChain($object)
  */
 function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid=0)
 {
-    global $conf, $langs, $user;
+    global $db, $conf, $langs, $user;
 
-	// Define links
+    // Define links
     $links='';
+
+    // Get the main application/service of contract
+    include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+    dol_include_once('sellyoursaas/class/packages.class.php');
+    dol_include_once('sellyoursaas/lib/sellyoursaas.lib.php');
+
+    $dataofcontract = sellyoursaasGetExpirationDate($object);
+    $tmpproduct = new Product($db);
+    $tmppackage = new Packages($db);
+
+    if ($dataofcontract['appproductid'] > 0)
+    {
+        $tmpproduct->fetch($dataofcontract['appproductid']);
+        $tmppackage->fetch($tmpproduct->array_options['options_package']);
+    }
 
     //if (empty($conf->global->DOLICLOUD_EXT_HOME)) $links='Error: DOLICLOUD_EXT_HOME not defined<br>';
     $domainforapp=$object->hostname_os;
@@ -269,60 +284,71 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
 	$links.='<br>';
 	$links.='<br>';
 
-	$upgradestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/rsync_instance.php '.$conf->global->DOLICLOUD_LASTSTABLEVERSION_DIR.' '.$object->instance;
+	$dirforexampleforsources = preg_replace('/__DOL_DATA_ROOT__/', DOL_DATA_ROOT, preg_replace('/\/htdocs\/?$/', '', $tmppackage->srcfile1));
+
+	$upgradestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/rsync_instance.php '.$dirforexampleforsources.' '.$object->instance;
 	$purgestring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/../dev/initdata/dev/purge-data.php test xxx mysqli '.$object->hostname_db.' '.$object->username_db.' '.$object->password_db.' '.$object->database_db.' '.($object->database_port?$object->database_port:3306);
 
 	// Mysql Backup
 	$mysqlbackupcommand='mysqldump -C -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' '.$object->database_db.' > '.$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db).'/documents/admin/backup/mysqldump_'.$object->database_db.'_'.dol_print_date(dol_now(),'dayhourlog').'.sql';
+	$links.='<span class="fa fa-database"></span> ';
 	$links.='Mysql backup database:<br>';
-	$links.='<input type="text" id="mysqlbackupcommand" name="mysqlbackupcommand" value="'.$mysqlbackupcommand.'" class="quatrevingtpercent"><br>';
+	$links.='<input type="text" id="mysqlbackupcommand" name="mysqlbackupcommand" value="'.$mysqlbackupcommand.'" class="marginleftonly quatrevingtpercent"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("mysqlbackupcommand", 0);
 	$links.='<br>';
 
 	// Mysql Restore
 	$mysqlresotrecommand='mysql -C -A -u '.$object->username_db.' -p\''.$object->password_db.'\' -h '.$object->hostname_db.' -D '.$object->database_db.' < '.$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db).'/documents/admin/backup/filetorestore';
+	$links.='<span class="fa fa-database"></span> ';
 	$links.='Mysql restore database:<br>';
-	$links.='<input type="text" id="mysqlrestorecommand" name="mysqlrestorecommand" value="'.$mysqlresotrecommand.'" class="quatrevingtpercent"><br>';
+	$links.='<input type="text" id="mysqlrestorecommand" name="mysqlrestorecommand" value="'.$mysqlresotrecommand.'" class="marginleftonly quatrevingtpercent"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("mysqlrestorecommand", 0);
 	$links.='<br>';
 
 	// Rsync to Restore Document directory
 	$sftprestorestring='rsync -n -v -a --exclude \'*.cache\' dolibarr_documents/* '.$object->username_os.'@'.$object->hostname_os.':'.$object->database_db.'/documents';
-	$links.='Rsync to copy/overwrite document dir (remove -n to execute really):<br>';
-	$links.='<input type="text" id="sftprestorestring" name="sftprestorestring" value="'.$sftprestorestring.'" class="quatrevingtpercent"><br>';
+	$links.='<span class="fa fa-terminal"></span> ';
+	$links.='Rsync to copy/overwrite document dir';
+    $links.='<span class="opacitymedium"> (remove -n to execute really)</span>:<br>';
+	$links.='<input type="text" id="sftprestorestring" name="sftprestorestring" value="'.$sftprestorestring.'" class="marginleftonly quatrevingtpercent"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("sftprestorestring", 0);
 	$links.='<br>';
 
 	// Rsync to Deploy module
 	$sftpdeploystring='rsync -n -v -a --exclude \'*.cache\' --exclude \'conf\.php\' pathtohtdocsmodule/* '.$object->username_os.'@'.$object->hostname_os.':'.$object->database_db.'/htdocs/namemodule';
-	$links.='Rsync to install or overwrite module (remove -n to execute really):<br>';
-	$links.='<input type="text" id="sftpdeploystring" name="sftpdeploystring" value="'.$sftpdeploystring.'" class="quatrevingtpercent"><br>';
+	$links.='<span class="fa fa-terminal"></span> ';
+	$links.='Rsync to install or overwrite module';
+	$links.='<span class="opacitymedium"> (remove -n to execute really)</span>:<br>';
+	$links.='<input type="text" id="sftpdeploystring" name="sftpdeploystring" value="'.$sftpdeploystring.'" class="marginleftonly quatrevingtpercent"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("sftpdeploystring", 0);
 	$links.='<br>';
 
 	// Upgrade link
 	$upgradestringtoshow=$upgradestring.' test';
-	$links.='Upgrade version line string (remplacer "test" par "confirmunlock" pour exécuter réellement)<br>';
-	$links.='<input type="text" id="upgradestring" name="upgradestring" value="'.$upgradestringtoshow.'" class="quatrevingtpercent"><br>';
+	$links.='<span class="fa fa-arrow-up"></span> ';
+	$links.='Upgrade version line string';
+	$links.='<span class="opacitymedium"> (remplacer "test" par "confirmunlock" pour exécuter réellement)</span><br>';
+	$links.='<input type="text" id="upgradestring" name="upgradestring" value="'.$upgradestringtoshow.'" class="marginleftonly quatrevingtpercent"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("upgradestring", 0);
 	$links.='<br>';
 
 	// Purge data
 	$purgestringtoshow=$purgestring;
-	$links.='Purge command line string (remplacer "test" par "confirm" pour exécuter réellement)<br>';
-	$links.='<input type="text" id="purgestring" name="purgestring" value="'.$purgestringtoshow.'" class="quatrevingtpercent"><br>';
+	$links.='<span class="fa fa-eraser"></span> ';
+	$links.='Purge command line string';
+	$links.='<span class="opacitymedium"> (remplacer "test" par "confirm" pour exécuter réellement)</span><br>';
+	$links.='<input type="text" id="purgestring" name="purgestring" value="'.$purgestringtoshow.'" class="marginleftonly quatrevingtpercent"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("purgestring", 0);
 	$links.='<br>';
 
 	// Upgrade link from V1
-	if (! empty($conf->global->SELLYOURSAAS_DOLICLOUD_ON))
-	{
-		$migratestring='sudo '.$conf->global->DOLICLOUD_SCRIPTS_PATH.'/old_migrate_v1v2.php '.$object->instance.' '.$object->instance.' confirm';
-		$links.='Migrate v1 to V2 command line string (remplacer "test" par "confirm" pour exécuter réellement)<br>';
-		$links.='<input type="text" id="v1tov2" name="v1tov2" value="'.$migratestring.'" class="quatrevingtpercent"><br>';
-		if ($conf->use_javascript_ajax) $links.=ajax_autoselect("v1tov2", 0);
-		$links.='<br>';
-	}
+	/*
+	$migratestring='sudo '.$conf->global->DOLICLOUD_SCRIPTS_PATH.'/old_migrate_v1v2.php '.$object->instance.' '.$object->instance.' confirm';
+	$links.='Migrate v1 to V2 command line string (remplacer "test" par "confirm" pour exécuter réellement)<br>';
+	$links.='<input type="text" id="v1tov2" name="v1tov2" value="'.$migratestring.'" class="marginleftonly quatrevingtpercent"><br>';
+	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("v1tov2", 0);
+	$links.='<br>';
+	*/
 
 	return $links;
 }

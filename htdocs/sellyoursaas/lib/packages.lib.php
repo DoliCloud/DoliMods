@@ -41,6 +41,11 @@ function packagesPrepareHead($object)
 	$head[$h][2] = 'card';
 	$h++;
 
+	$head[$h][0] = dol_buildpath("/sellyoursaas/packages_services.php", 1).'?id='.$object->id;
+	$head[$h][1] = $langs->trans("Services");
+	$head[$h][2] = 'services';
+	$h++;
+
 	if (isset($object->fields['note_public']) || isset($object->fields['note_pricate']))
 	{
 		$nbNote = 0;

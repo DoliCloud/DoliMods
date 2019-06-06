@@ -76,10 +76,11 @@ if (empty($dirroot) || empty($instance) || empty($mode))
 
 
 // Forge complete name of instance
-if (! empty($instance) && ! preg_match('/(\.on|\.with)\.dolicloud\.com$/', $instance) && ! preg_match('/\.home\.lan$/', $instance))
+if (! empty($instance) && ! preg_match('/\./', $instance) && ! preg_match('/\.home\.lan$/', $instance))
 {
-	// TODO Manage several domains
-	$instance=$instance.".".$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES;
+    $tmparray = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+    $tmpstring = preg_replace('/:.*$/', '', $tmparray[0]);
+    $instance=$instance.".".$tmpstring;   // Automatically concat first domain name
 }
 
 include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';

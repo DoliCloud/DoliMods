@@ -2329,7 +2329,8 @@ class SellYourSaasUtils
 						{
 							//$conf->global->noapachereload = 1;       // Set a global variable that can be read later by trigger
 						    $conf->global->noapachereload = 0;       // Set a global variable that can be read later by trigger
-							$result = $object->closeAll($user, 0, 'Closed by batch doSuspendInstances (mode='.$mode.') the '.dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')');			// This may execute trigger that make remote actions to suspend instance
+						    $comment = "Closed by batch doSuspendInstances('".$mode."') the ".dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')';
+							$result = $object->closeAll($user, 0, $comment);			// This may execute trigger that make remote actions to suspend instance
 							$conf->global->noapachereload = null;    // unset a global variable that can be read later by trigger
 							if ($result < 0)
 							{
@@ -2547,7 +2548,7 @@ class SellYourSaasUtils
     				if ($expirationdate && $expirationdate < ($now - (abs($delayindays)*24*3600)))
     				{
     				    $conf->global->noapachereload = 1;       // Set a global variable that can be read later
-    				    $comment = 'Undeploy instance by doUndeployOldSuspendedInstances('.$mode.') the '.dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')';
+    				    $comment = "Undeploy instance by doUndeployOldSuspendedInstances('".$mode."') the ".dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')';
     				    $result = $this->sellyoursaasRemoteAction('undeploy', $object, 'admin', '', '', '0', $comment);
     				    $conf->global->noapachereload = null;    // unset a global variable that can be read later
     				    if ($result <= 0)
@@ -2569,7 +2570,7 @@ class SellYourSaasUtils
     					dol_syslog("Unactivate all lines - doUndeployOldSuspendedInstances undeploy");
 
     					$conf->global->noapachereload = 1;       // Set a global variable that can be read later by trigger
-    					$comment = 'Close after undeployment by doUndeployOldSuspendedInstances('.$mode.') the '.dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')';
+    					$comment = "Close after undeployment by doUndeployOldSuspendedInstances('".$mode."') the ".dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')';
     					$result = $object->closeAll($user, 1, $comment);
     					$conf->global->noapachereload = null;    // unset a global variable that can be read later by trigger
     					if ($result <= 0)
@@ -2658,14 +2659,15 @@ class SellYourSaasUtils
     	include_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
 
 		// Action 'refresh', 'recreateauthorizedkeys', 'deletelock', 'recreatelock' for contract, check install.lock file
-    	if (empty($object->context['fromdolicloudcustomerv1']) && in_array($remoteaction, array('refresh','recreateauthorizedkeys','deletelock','recreatelock')) && get_class($object) == 'Contrat')
+    	if (in_array($remoteaction, array('refresh','recreateauthorizedkeys','deletelock','recreatelock')) && get_class($object) == 'Contrat')
     	{
     		// SFTP refresh
     		if (function_exists("ssh2_connect"))
     		{
-    			$server=$object->array_options['options_hostname_os'];
+    		    $server=$object->array_options['options_hostname_os'];
+    		    dol_syslog("Try to ssh2_connect to ".$server);
 
-    			$connection = @ssh2_connect($server, 22);
+    		    $connection = @ssh2_connect($server, 22);
     			if ($connection)
     			{
     				//print ">>".$object->array_options['options_username_os']." - ".$object->array_options['options_password_os']."<br>\n";exit;
@@ -2880,11 +2882,9 @@ class SellYourSaasUtils
     		}
 
     		$doremoteaction = 0;
-    		if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
-    			in_array($remoteaction, array('deploy','deployall','rename','suspend','unsuspend','undeploy')) &&
+    		if (in_array($remoteaction, array('deploy','deployall','rename','suspend','unsuspend','undeploy')) &&
     			($producttmp->array_options['options_app_or_option'] == 'app')) $doremoteaction = 1;
-    		if (empty($tmpobject->context['fromdolicloudcustomerv1']) &&
-    			in_array($remoteaction, array('deploy','deployall','deployoption')) &&
+    		if (in_array($remoteaction, array('deploy','deployall','deployoption')) &&
     			($producttmp->array_options['options_app_or_option'] == 'option')) $doremoteaction = 1;
 
     		// remoteaction = 'deploy','deployall','deployoption','rename','suspend','unsuspend','undeploy'
@@ -3030,7 +3030,8 @@ class SellYourSaasUtils
     			'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname
     			);
 
-    			$dirfortmpfiles = '/tmp';
+    			$dirfortmpfiles = DOL_DATA_ROOT.'/sellyoursaas/temp';
+    			dol_mkdir($dirfortmpfiles, '', '0775');
     			$tmppackage->srcconffile1 = $dirfortmpfiles.'/conf.php.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
     			$tmppackage->srccronfile  = $dirfortmpfiles.'/cron.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
     			$tmppackage->srccliafter  = $dirfortmpfiles.'/cliafter.'.$sldAndSubdomain.'.'.$domainname.'.tmp';
@@ -3053,7 +3054,7 @@ class SellYourSaasUtils
     			{
         			dol_delete_file($tmppackage->srcconffile1, 0, 1, 0, null, false, 0);
         			$result = file_put_contents($tmppackage->srcconffile1, str_replace("\r", '', $conffile));
-        			@chmod($tmppackage->srcconffile1, 0660);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data')
+        			@chmod($tmppackage->srcconffile1, 0664);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data', 'root' can also read using nfs)
     			}
     			else
     			{
@@ -3065,7 +3066,7 @@ class SellYourSaasUtils
     			{
         			dol_delete_file($tmppackage->srccronfile, 0, 1, 0, null, false, 0);
         			$result = file_put_contents($tmppackage->srccronfile, str_replace("\r", '', $cronfile)."\n");  // A cron file must have at least one new line before end of file
-    	       		@chmod($tmppackage->srccronfile, 0660);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data')
+        			@chmod($tmppackage->srccronfile, 0664);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data', 'root' can also read using nfs)
     			}
     			else
     			{
@@ -3077,7 +3078,7 @@ class SellYourSaasUtils
     			    dol_syslog("Create cli file ".$tmppackage->srccliafter);
     			    dol_delete_file($tmppackage->srccliafter, 0, 1, 0, null, false, 0);
         			$result = file_put_contents($tmppackage->srccliafter, str_replace("\r", '', $cliafter));
-    	       		@chmod($tmppackage->srccliafter, 0660);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data')
+        			@chmod($tmppackage->srccliafter, 0664);  // so user/group has "rw" ('admin' can delete if owner/group is 'admin' or 'www-data', 'root' can also read using nfs)
     			}
     			else
     			{
@@ -3161,7 +3162,7 @@ class SellYourSaasUtils
     		}
 
     		// remoteaction = refresh => update the qty for this line if it is a line that is a metric
-    		if (empty($tmpobject->context['fromdolicloudcustomerv1']) && $remoteaction == 'refresh')
+    		if ($remoteaction == 'refresh')
     		{
     			dol_syslog("Start refresh of nb of resources for a customer");
 
@@ -3512,7 +3513,8 @@ class SellYourSaasUtils
     	$found=0;
     	foreach($tmparray as $key => $val)
     	{
-    		if ($val == $domainname)
+    	    $newval = preg_replace('/:.*$/', '', $val);
+    		if ($newval == $domainname)
     		{
     			$found = $key+1;
     			break;

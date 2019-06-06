@@ -485,7 +485,6 @@ class modSellYourSaas extends DolibarrModules
 		'mainmenu'=>'sellyoursaas',
 		'leftmenu'=>'website',
 		'url'=>'/sellyoursaas/registrationlinks_list.php',
-		//'url'=>'__[SELLYOURSAAS_ACCOUNT_URL]__/register.php?origin=backofficelink&plan=&partner=&partnerkey=md5aliaspartner',
 		'langs'=>'sellyoursaas@sellyoursaas',
 		'position'=>500,
 		'enabled'=>'$conf->sellyoursaas->enabled',         // Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -567,11 +566,12 @@ class modSellYourSaas extends DolibarrModules
 		// Product
 		$resultx=$extrafields->addExtraField('separatorproduct',          "SELLYOURSAAS_NAME",'separate',   100,     '',  'product', 0, 1, '',       '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$param=array('options'=>array('app'=>'Application','system'=>'System','option'=>'Option'));
-		$resultx=$extrafields->addExtraField('app_or_option',                   "AppOrOption",  'select',   110,     '',  'product', 0, 0,   '', $param, 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$resultx=$extrafields->addExtraField('app_or_option',                   "AppOrOption",  'select',   110,     '',  'product', 0, 0,   '', $param, 1, '',  1, 'HelpOnAppOrOption',         '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('availabelforresellers', "AvailableForResellers", 'boolean',   111,     '',  'product', 0, 0,   '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$param=array('options'=>array('Packages:sellyoursaas/class/packages.class.php'=>null));
-		$resultx=$extrafields->addExtraField('package', 	        	            "Package",    'link',   111,     '',  'product', 0, 0,   '', $param, 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled', 'IfSomethingMustBeDeployed');
-		$resultx=$extrafields->addExtraField('resource_formula', "QuantityCalculationFormula",    'text',   112, '8192',  'product', 0, 0,   '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled', 'QtyFormulaExamples');
+		$resultx=$extrafields->addExtraField('package', 	        	            "Package",    'link',   111,     '',  'product', 0, 0,   '', $param, 1, '',  1, 'IfSomethingMustBeDeployed', '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$resultx=$extrafields->addExtraField('resource_formula', "QuantityCalculationFormula",    'text',   112, '8192',  'product', 0, 0,   '',     '', 1, '', -1, 'QtyFormulaExamples',        '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+
 		$resultx=$extrafields->addExtraField('resource_label',            "ResourceUnitLabel", 'varchar',   112,   '32',  'product', 0, 0,   '',     '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('freeperioddays', 	          "DaysForFreePeriod",     'int',   113,    '6',  'product', 0, 0,   '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('directaccess', 	          "AccessToResources", 'boolean',   114,     '',  'product', 0, 0,   '',     '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
@@ -610,7 +610,8 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('deployment_date_start',         "DeploymentDateStart", 'datetime', 106,    '',    'contrat', 0, 0,    '',      '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('deployment_date_end',             "DeploymentDateEnd", 'datetime', 106,    '',    'contrat', 0, 0,    '',      '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('deployment_ip',                        "DeploymentIP",  'varchar', 107, '128',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
-		$resultx=$extrafields->addExtraField('deployment_vpn_proba',         "DeploymentIPVPNProba",  'varchar', 107,   '6',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled', 'DeploymentIPVPNProbaDesc');
+		$resultx=$extrafields->addExtraField('deployment_vpn_proba',         "DeploymentIPVPNProba",   'double', 107, '8,4',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled', 'DeploymentIPVPNProbaDesc');
+		$resultx=$extrafields->addExtraField('deployment_ua',                 "DeploymentUserAgent",  'varchar', 107, '255',    'contrat', 0, 0,    '',      '', 1, '', -1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('date_softalert_endfreeperiod',"DateSoftAlertEndTrial", 'datetime', 108,    '',    'contrat', 0, 0,    '',      '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('date_endfreeperiod',                   "DateEndTrial", 'datetime', 110,    '',    'contrat', 0, 0,    '',      '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$resultx=$extrafields->addExtraField('undeployment_date',                "UndeploymentDate", 'datetime', 111,    '',    'contrat', 0, 0,    '',      '', 1, '',  1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
