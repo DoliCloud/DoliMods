@@ -90,7 +90,7 @@ class SellYourSaasUtils
 		$sql.= ' WHERE f.fk_statut = '.Facture::STATUS_DRAFT;
 		$sql.= " AND se.fk_object = f.fk_soc AND se.dolicloud = 'yesv2'";
 		if ($restrictonthirdpartyid > 0) $sql.=" AND f.fk_soc = ".$restrictonthirdpartyid;
-		$sql.= " ORDER BY f.datef";
+		$sql.= " ORDER BY f.datef, f.rowid";
 
 		$resql = $this->db->query($sql);
 		if ($resql)
