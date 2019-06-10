@@ -63,14 +63,49 @@ if (! $res) die("Include of master fails");
 dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 include_once dol_buildpath("/sellyoursaas/backoffice/lib/refresh.lib.php");
 
-if (! empty($conf->global->DOLICLOUD_DATABASE_HOST))
+
+// Read /etc/sellyoursaas.conf file
+$databasehost='localhost';
+$database='';
+$databaseuser='sellyoursaas';
+$databasepass='';
+$fp = @fopen('/etc/sellyoursaas.conf', 'r');
+// Add each line to an array
+if ($fp) {
+    $array = explode("\n", fread($fp, filesize('/etc/sellyoursaas.conf')));
+    foreach($array as $val)
+    {
+        $tmpline=explode("=", $val);
+        if ($tmpline[0] == 'databasehost')
+        {
+            $databasehost = $tmpline[1];
+        }
+        if ($tmpline[0] == 'database')
+        {
+            $database = $tmpline[1];
+        }
+        if ($tmpline[0] == 'databaseuser')
+        {
+            $databaseuser = $tmpline[1];
+        }
+        if ($tmpline[0] == 'databasepass')
+        {
+            $databasepass = $tmpline[1];
+        }
+    }
+}
+else
 {
-	$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
-	if ($db2->error)
-	{
-		dol_print_error($db2,"host=".$conf->global->DOLICLOUD_DATABASE_HOST.", port=".$conf->global->DOLICLOUD_DATABASE_PORT.", user=".$conf->global->DOLICLOUD_DATABASE_USER.", databasename=".$conf->global->DOLICLOUD_DATABASE_NAME.", ".$db2->error);
-		exit;
-	}
+    print "Failed to open /etc/sellyoursaas.conf file\n";
+    exit;
+}
+
+
+$dbmaster=getDoliDBInstance('mysqli', $databasehost, $databaseuser, $databasepass, $database, 3306);
+if ($dbmaster->error)
+{
+    dol_print_error($dbmaster,"host=".$databasehost.", port=3306, user=".$databaseuser.", databasename=".$database.", ".$dbmaster->error);
+	exit;
 }
 
 //$langs->setDefaultLang('en_US'); 	// To change default language of $langs

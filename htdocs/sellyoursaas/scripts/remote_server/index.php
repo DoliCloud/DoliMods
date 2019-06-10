@@ -17,7 +17,7 @@ $tmparray = array();
 $dnsserver = '';
 $instanceserver = '';
 
-// Set array of allowed ips
+// Read /etc/sellyoursaas.conf file
 $fp = @fopen('/etc/sellyoursaas.conf', 'r');
 // Add each line to an array
 if ($fp) {
