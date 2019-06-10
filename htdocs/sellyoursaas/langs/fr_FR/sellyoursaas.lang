@@ -348,6 +348,7 @@ Resellers=Revendeurs
 SummaryOld=Résumé (DoliCloud old)
 BecomeReseller=Devenir revendeur
 SELLYOURSAAS_ALLOW_RESELLER_PROGRAM=Activer les fonctions "Revendeurs"
+SELLYOURSAAS_INFRA_COST=Montant du coût de l'infrastructure (utilisé pour calculer le bénéfice) 
 BecomeResellerDesc=Vous allez postuler pour devenir Revendeur %s. Vérifiez d'abord dans le menu 'Mon compte' que vous avez renseigné toutes les informations. Puis veuillez lire la page suivante pour être certain de comprendre ce que cela signifie: <a href="%s" target="_blank">Devenir renvendeur %s</a>
 YourTextBecomeReseller=Mon site web: ________________________ (la demande sera ecartée si cette information n'est pas fournie)\n\nJ'ai compris le principe du programme revendeur %s et j'aimerais en faire partie, aussi merci de m'activer les fonctionnalités Revendeur.\nJe prévois de trouver ___ nouveaux clients par an.\nJe comprend que je n'ai aucun travail à fournir excepté promouvoir mon URL personnalisée pour enregistrer de nouveaux clients. Mon taux de commission initial sera de %s %% (mais pourra augmenter avec le nombre de clients).
 NbOfResellers=Nb de revendeurs

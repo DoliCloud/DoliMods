@@ -364,6 +364,7 @@ Resellers=Resellers
 SummaryOld=Summary (DoliCloud old)
 BecomeReseller=Apply to be a reseller
 SELLYOURSAAS_ALLOW_RESELLER_PROGRAM=Enable the "Resellers" feature
+SELLYOURSAAS_INFRA_COST=Amount for infrastructure cost (used to calculate profit) 
 BecomeResellerDesc=You will apply to become a %s Reseller. First check into menu 'My account' that all data are correctly filled. Then please read the following page to be sure you understand what this means: <a href="%s" target="_blank">Become a %s reseller</a>
 YourTextBecomeReseller=My web site: https://_______________________ (the request will be discarded if this information is not provided)\n\nI understood the meaning of the %s reseller program and I want to be part of it, so please enable the reseller feature for my account.\nI plan to get ___ new customers per year.\nI understand that I have no work to do except promoting my personalized URL to record new customers. My initial commission rate will be %s %% (but may increase when my customer number increase).
 NbOfResellers=Number of resellers

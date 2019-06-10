@@ -15,7 +15,7 @@ include_once(DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php');
  *
  * @param 	Conf						$conf					Conf
  * @param 	Database					$db						Database handler
- * @param 	Contract                  	$object	    			Customer (can modify caller)
+ * @param 	Contrat                  	$object	    			Customer (can modify caller)
  * @param	array						$errors	    			Array of errors
  * @param	int							$printoutput			Print output information
  * @param	int							$recreateauthorizekey	1=Recreate authorized key if not found
