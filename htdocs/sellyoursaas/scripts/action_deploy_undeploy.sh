@@ -806,7 +806,7 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	echo "$MYSQL -A -usellyoursaas -e \"$SQL\""
 	$MYSQL -A -usellyoursaas -p$passsellyoursaas -e "$SQL"
 
-	echo "You can test with mysql $dbname -h remotehost -u $dbusername -p$dbpassword"
+	echo "You can test with mysql $dbname -h $REMOTEIP -u $dbusername -p$dbpassword"
 
 	# Load dump file
 	echo Search dumpfile into $dirwithdumpfile
