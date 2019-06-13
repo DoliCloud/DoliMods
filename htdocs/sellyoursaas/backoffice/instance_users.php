@@ -175,12 +175,12 @@ if (empty($reshook))
 		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 	    if (is_object($newdb))
 	    {
-	    	$sql="DELETE FROM llx_user_rights where fk_user IN (SELECT rowid FROM llx_user WHERE login = '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."')";
+	    	$sql="DELETE FROM ".$prefix_db."user_rights where fk_user IN (SELECT rowid FROM llx_user WHERE login = '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."')";
 	        $resql=$newdb->query($sql);
 	        if (! $resql) dol_print_error($newdb);
 
 	    	// Get user/pass of last admin user
-	        $sql="DELETE FROM llx_user WHERE login = '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."'";
+	        $sql="DELETE FROM ".$prefix_db."user WHERE login = '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."'";
 	        $resql=$newdb->query($sql);
 	        if (! $resql) dol_print_error($newdb);
 	    }
@@ -191,7 +191,7 @@ if (empty($reshook))
 		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 		if (is_object($newdb))
 		{
-			$sql="UPDATE llx_user set statut=0 WHERE rowid = ".GETPOST('remoteid','int');
+			$sql="UPDATE ".$prefix_db."user set statut=0 WHERE rowid = ".GETPOST('remoteid','int');
 			$resql=$newdb->query($sql);
 			if (! $resql) dol_print_error($newdb);
 			else setEventMessages("UserDisabled", null, 'mesgs');
@@ -202,7 +202,7 @@ if (empty($reshook))
 		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 		if (is_object($newdb))
 		{
-			$sql="UPDATE llx_user set statut=1 WHERE rowid = ".GETPOST('remoteid','int');
+			$sql="UPDATE ".$prefix_db."user set statut=1 WHERE rowid = ".GETPOST('remoteid','int');
 			$resql=$newdb->query($sql);
 			if (! $resql) dol_print_error($newdb);
 			else setEventMessages("UserEnabled", null, 'mesgs');
@@ -234,7 +234,7 @@ if (empty($reshook))
 			$conf->global->MAIN_SECURITY_SALT = $savsalt;
 			$conf->global->MAIN_SECURITY_HASH_ALGO = $savalgo;
 
-			$sql="UPDATE llx_user set pass='".$newdb->escape($password)."', pass_crypted = '".$newdb->escape($password_crypted)."' where rowid = ".GETPOST('remoteid','int');
+			$sql="UPDATE ".$prefix_db."user set pass='".$newdb->escape($password)."', pass_crypted = '".$newdb->escape($password_crypted)."' where rowid = ".GETPOST('remoteid','int');
 			$resql=$newdb->query($sql);
 			if (! $resql) dol_print_error($newdb);
 			else setEventMessages("PasswordModified", null, 'mesgs');
