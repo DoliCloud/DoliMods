@@ -25,9 +25,9 @@ ModuleRevertInvoiceDesc = Create a supplier invoice onan entity each time a cust
 #
 # Admin page
 #
-RevertInvoiceSetup = RevertInvoice setup
+RevertInvoiceSetup = Revert Invoice setup
 Settings = Settings
-RevertInvoiceSetupPage = Revert Invoice setup page
+RevertInvoiceSetupPage = Enter here the list of third parties and the entity they are related to. When a customer invoice will be done on a thirdparty X and entity Y, we will create a supplier invoice similar in entity linked to thirdparty X and on thirdparty linked to entity Y.  
 
 
 #
@@ -47,3 +47,6 @@ MyPageName = My page name
 #
 MyWidget = My widget
 MyWidgetDescription = My widget description
+
+ARevertInvoiceWasCreatedInEntity=Warning: Because the customer invoice was created on a thirdparty that is linked to an entity, another invoice with reference <strong>%s</strong> that match the opposite of this invoice was also created as a supplier invoice into entity <strong>%s</strong>
+ARevertInvoiceAlreadyExistsInEntity=Note: An invoice <strong>%s</strong> generated to revert this invoice was already generated as a supplier invoice into entity <strong>%s</strong>

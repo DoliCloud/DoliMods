@@ -130,7 +130,7 @@ print '<tr class="liste_titre"><td class="titlefield">'.$langs->trans("ThirdPart
 print '<tr class="oddeven"><td>';
 print $form->select_company('', 'revertinvoicethirdpartyid');
 print '</td><td>';
-print '<input type="text" name="revertinvoiceentityid" value="1">';
+print '<input type="text" name="revertinvoiceentityid" value="1" class="maxwidth50">';
 print '</td><td>';
 print '<input class="button" type="submit" value="'.$langs->trans("Add").'">';
 print '</td></tr>';
@@ -152,6 +152,12 @@ foreach($conf->global as $key => $value)
         print $tmpcompany->getNomUrl(1);
         print '</td><td>';
         print $value;
+        // Label of entity
+        if (is_object($mc))
+        {
+            $mc->getInfo($value);
+            print ' - '.$mc->label;
+        }
         print '</td><td>';
         print '<a href="'.$_SERVER['PHP_SELF'].'?action=delete&revertinvoicethirdpartyid='.$thirdpartyid.'">';
         print img_delete();

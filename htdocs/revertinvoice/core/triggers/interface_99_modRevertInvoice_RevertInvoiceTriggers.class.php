@@ -216,7 +216,114 @@ class InterfaceRevertInvoiceTriggers extends DolibarrTriggers
             // Bills
             //case 'BILL_CREATE':
             //case 'BILL_MODIFY':
-            //case 'BILL_VALIDATE':
+            case 'BILL_VALIDATE':
+                global $mc;
+                if ($object->type == Facture::TYPE_STANDARD && is_object($mc))
+                {
+                    $constinvoicetarget = 'REVERTINVOICE_THIRDPARTYID_'.$object->socid;
+                    $entityinvoicetarget = $conf->global->$constinvoicetarget;
+                    if (! empty($entityinvoicetarget))  // This invoice is for a thirdparty that need a revert invoice
+                    {
+                        // Loop on all revertinvoice to find the ID of thirdparty seller to use
+                        $sellerid = 0;
+                        foreach($conf->global as $key => $value)
+                        {
+                            if (preg_match('/REVERTINVOICE_THIRDPARTYID_(.*)/', $key, $reg))
+                            {
+                                if ($value == $object->entity)
+                                {
+                                    $sellerid = $reg[1];
+                                }
+                            }
+                        }
+                        if (empty($sellerid))
+                        {
+                            dol_syslog("Warning: We create an invoice for thirdparty id ".$object->socid." that need to be reverted into entity ".$entityinvoicetarget." but we can't find the thirdparty linked to this entity", LOG_WARNING);
+
+                            $this->errors[] = "We create an invoice for thirdparty id ".$object->socid." that need to be reverted into entity <strong>".$entityinvoicetarget."</strong> but we can't find the thirdparty linked to this entity.";
+                            return -1;
+                        }
+                        else
+                        {
+                            dol_syslog("We create an invoice for thirdparty id ".$object->socid." that need to be reverted into entity ".$entityinvoicetarget.", we will create supplier invoice on thirdparty id ".$sellerid, LOG_WARNING);
+
+                            // Check if supplier invoice already exists or not
+                            $sql='SELECT rowid FROM '.MAIN_DB_PREFIX."facture_fourn WHERE ref_supplier = '".$object->ref."' AND fk_soc = ".$sellerid;
+
+                            $resql = $this->db->query($sql);
+                            if ($resql)
+                            {
+                                $langs->load("revertinvoice@revertinvoice");
+
+                                $supplierinvoicefound = 0;
+                                $obj = $this->db->fetch_object($resql);
+                                if ($obj && $obj->rowid > 0)
+                                {
+                                    $supplierinvoicefound = $obj->rowid;
+                                }
+
+                                $mcbis = dol_clone($mc, 1);
+                                $mcbis->getInfo($entityinvoicetarget);
+                                $labelentity = $mcbis->label;
+
+                                include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+                                $tmpsupplierinvoice = new FactureFournisseur($this->db);
+
+                                if ($supplierinvoicefound)
+                                {
+                                    $tmpsupplierinvoice->fetch($supplierinvoicefound);
+
+                                    dol_syslog("There is already a reverted invoice with ref ".$object->ref." for thirdparty ".$sellerid);
+                                    setEventMessages($langs->trans("ARevertInvoiceAlreadyExistsInEntity", $tmpsupplierinvoice->ref, $labelentity), null, 'warnings');
+                                }
+                                else
+                                {
+                                    $tmpsupplierinvoice->date = $object->date;
+                                    $tmpsupplierinvoice->ref_supplier = $object->ref;
+                                    $tmpsupplierinvoice->type = $object->type;
+                                    $tmpsupplierinvoice->libelle = 'Revert of '.$object->ref;
+                                    $tmpsupplierinvoice->socid = $sellerid;
+                                    $tmpsupplierinvoice->fk_project = $object->fk_project;
+                                    $tmpsupplierinvoice->note_private = $object->note_private;
+                                    $tmpsupplierinvoice->note_public = $object->note_public;
+
+                                    $tmpsupplierinvoice->lines = $object->lines;
+
+                                    // For backward compatibility
+                                    foreach($tmpsupplierinvoice->lines as $line)
+                                    {
+                                        if (empty($line->pu_ht)) $line->pu_ht = $line->subprice;
+                                    }
+
+                                    $saventity = $conf->entity;
+                                    $conf->entity = $entityinvoicetarget;
+                                    $tmpsupplierinvoice->entity = $entityinvoicetarget;
+
+                                    $result = $tmpsupplierinvoice->create($user);
+
+                                    $conf->entity = $saventity;
+
+                                    if (! ($result > 0))
+                                    {
+                                        $this->errors[] = "Error of module RevertInvoice: Failed to create the supplier invoice on thirdparty ".$sellerid;
+                                        return -1;
+                                    }
+                                    else
+                                    {
+                                        setEventMessages($langs->trans("ARevertInvoiceWasCreatedInEntity", $tmpsupplierinvoice->ref, $labelentity), null, 'warnings');
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                dol_print_error($this->db);
+                            }
+                        }
+                    }
+                }
+
+                break;
+
             //case 'BILL_UNVALIDATE':
             //case 'BILL_SENTBYMAIL':
             //case 'BILL_CANCEL':
