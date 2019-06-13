@@ -138,7 +138,7 @@ if (empty($reshook))
 		exit;
 	}
 
-	if ($action == "createsupportdolicloud")
+	if ($action == "createsupportuser")
 	{
 		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 	    if (is_object($newdb))
@@ -177,7 +177,7 @@ if (empty($reshook))
 	    	$conf->global->MAIN_SECURITY_HASH_ALGO = $savMAIN_SECURITY_HASH_ALGO;
 	    	$conf->global->MAIN_SECURITY_SALT = $savMAIN_SECURITY_SALT;
 
-	    	$sql="INSERT INTO llx_user(login, lastname, admin, pass, pass_crypted, entity) VALUES('".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', 1, '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$newdb->escape($password_crypted_for_remote)."', 0)";
+	    	$sql="INSERT INTO llx_user(login, lastname, admin, pass, pass_crypted, entity, datec) VALUES('".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', 1, '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$newdb->escape($password_crypted_for_remote)."', 0, '".$newdb->idate(dol_now())."')";
 	        $resql=$newdb->query($sql);
 	        if (! $resql)
 	        {
@@ -188,7 +188,7 @@ if (empty($reshook))
 	        // TODO Add permissions admin
 	    }
 	}
-	if ($action == "deletesupportdolicloud")
+	if ($action == "deletesupportuser")
 	{
 		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 	    if (is_object($newdb))
@@ -259,7 +259,7 @@ if (empty($reshook))
 		}
 	}
 
-	if (! in_array($action, array('resetpassword', 'confirm_resetpassword', 'createsupportdolicloud', 'deletesupportdolicloud')))
+	if (! in_array($action, array('resetpassword', 'confirm_resetpassword', 'createsupportuser', 'deletesupportuser')))
 	{
 		include 'refresh_action.inc.php';
 
@@ -488,8 +488,8 @@ if (! $user->societe_id)
 
     if ($user->rights->sellyoursaas->write)
     {
-        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?'.($instanceoldid?'instanceoldid':'id').'='.$object->id.'&amp;action=createsupportdolicloud">'.$langs->trans('CreateSupportUser').'</a>';
-        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?'.($instanceoldid?'instanceoldid':'id').'='.$object->id.'&amp;action=deletesupportdolicloud">'.$langs->trans('DeleteSupportUser').'</a>';
+        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?'.($instanceoldid?'instanceoldid':'id').'='.$object->id.'&amp;action=createsupportuser">'.$langs->trans('CreateSupportUser').'</a>';
+        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?'.($instanceoldid?'instanceoldid':'id').'='.$object->id.'&amp;action=deletesupportuser">'.$langs->trans('DeleteSupportUser').'</a>';
     }
 
     print "</div><br>";
