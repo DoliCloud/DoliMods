@@ -90,7 +90,7 @@ class SellYourSaasUtils
 		$sql.= ' WHERE f.fk_statut = '.Facture::STATUS_DRAFT;
 		$sql.= " AND se.fk_object = f.fk_soc AND se.dolicloud = 'yesv2'";
 		if ($restrictonthirdpartyid > 0) $sql.=" AND f.fk_soc = ".$restrictonthirdpartyid;
-		$sql.= " ORDER BY f.datef";
+		$sql.= " ORDER BY f.datef, f.rowid";
 
 		$resql = $this->db->query($sql);
 		if ($resql)
@@ -759,7 +759,7 @@ class SellYourSaasUtils
     	$sql.= " AND f.paye = 0 AND f.type = 0 AND f.fk_statut = ".Facture::STATUS_VALIDATED;
     	$sql.= " AND sr.status = ".$servicestatus;
     	$sql.= " AND f.fk_soc = se.fk_object AND se.dolicloud = 'yesv2'";
-    	$sql.= " ORDER BY f.datef ASC, sr.default_rib DESC, sr.tms DESC";		// Lines may be duplicated. Never mind, we will exclude duplicated invoice later.
+    	$sql.= " ORDER BY f.datef ASC, f.rowid ASC, sr.default_rib DESC, sr.tms DESC";		// Lines may be duplicated. Never mind, we will exclude duplicated invoice later.
     	//print $sql;exit;
 
     	$resql = $this->db->query($sql);
@@ -880,7 +880,7 @@ class SellYourSaasUtils
     			$sql.= " AND f.fk_statut = ".Facture::STATUS_VALIDATED;
     		}
     		$sql.= " AND s.rowid = ".$thirdparty_id;
-    		$sql.= " ORDER BY f.datef ASC";
+    		$sql.= " ORDER BY f.datef ASC, f.rowid ASC";
     		//print $sql;
 
     		$resql = $this->db->query($sql);

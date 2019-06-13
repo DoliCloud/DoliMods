@@ -63,14 +63,49 @@ if (! $res) die("Include of master fails");
 dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 include_once dol_buildpath("/sellyoursaas/backoffice/lib/refresh.lib.php");
 
-if (! empty($conf->global->DOLICLOUD_DATABASE_HOST))
+
+// Read /etc/sellyoursaas.conf file
+$databasehost='localhost';
+$database='';
+$databaseuser='sellyoursaas';
+$databasepass='';
+$fp = @fopen('/etc/sellyoursaas.conf', 'r');
+// Add each line to an array
+if ($fp) {
+    $array = explode("\n", fread($fp, filesize('/etc/sellyoursaas.conf')));
+    foreach($array as $val)
+    {
+        $tmpline=explode("=", $val);
+        if ($tmpline[0] == 'databasehost')
+        {
+            $databasehost = $tmpline[1];
+        }
+        if ($tmpline[0] == 'database')
+        {
+            $database = $tmpline[1];
+        }
+        if ($tmpline[0] == 'databaseuser')
+        {
+            $databaseuser = $tmpline[1];
+        }
+        if ($tmpline[0] == 'databasepass')
+        {
+            $databasepass = $tmpline[1];
+        }
+    }
+}
+else
 {
-	$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
-	if ($db2->error)
-	{
-		dol_print_error($db2,"host=".$conf->global->DOLICLOUD_DATABASE_HOST.", port=".$conf->global->DOLICLOUD_DATABASE_PORT.", user=".$conf->global->DOLICLOUD_DATABASE_USER.", databasename=".$conf->global->DOLICLOUD_DATABASE_NAME.", ".$db2->error);
-		exit;
-	}
+    print "Failed to open /etc/sellyoursaas.conf file\n";
+    exit;
+}
+
+
+$dbmaster=getDoliDBInstance('mysqli', $databasehost, $databaseuser, $databasepass, $database, 3306);
+if ($dbmaster->error)
+{
+    dol_print_error($dbmaster,"host=".$databasehost.", port=3306, user=".$databaseuser.", databasename=".$database.", ".$dbmaster->error);
+	exit;
 }
 
 //$langs->setDefaultLang('en_US'); 	// To change default language of $langs
@@ -85,16 +120,16 @@ $langs->load("main");				// To load language file for default language
 
 print "***** ".$script_file." (".$version.") - ".strftime("%Y%m%d-%H%M%S")." *****\n";
 if (! isset($argv[1])) {	// Check parameters
-    print "Usage: ".$script_file." (backuptestrsync|backuptestdatabase|backup|updatedatabase|updatestatsonly) [instancefilter]\n";
+    print "Usage: ".$script_file." (backuptestrsync|backuptestdatabase|backup|updatedatabase|updatecountsonly|updatestatsonly) [instancefilter]\n";
     print "\n";
     print "- backuptestrsync     test rsync backup\n";
     print "- backuptestdatabase  test mysqldump backup\n";
     print "- backuprsync         creates backup (rsync)\n";
     print "- backupdatabase      creates backup (mysqldump)\n";
-    print "- backup              creates backup (rsync + mysqldump)\n";
+    print "- backup              creates backup (rsync + mysqldump) ***** Used by cron on deployment servers *****\n";
     print "- updatedatabase      (=updatecountsonly+updatestatsonly) updates list and nb of users, modules and version and stats\n";
     print "- updatecountsonly    updates counters of instances only (only nb of user for instances)\n";
-    print "- updatestatsonly     updates stats only (only table dolicloud_stats)\n";
+    print "- updatestatsonly     updates stats only (only table dolicloud_stats) ***** Used by cron on master server *****\n";
     exit;
 }
 print '--- start'."\n";
@@ -121,7 +156,6 @@ $nboferrors=0;
 $instancefilter=(isset($argv[2])?$argv[2]:'');
 $instancefiltercomplete=$instancefilter;
 
-$v=2;
 // Forge complete name of instance
 if (! empty($instancefiltercomplete) && ! preg_match('/\./', $instancefiltercomplete) && ! preg_match('/\.home\.lan$/', $instancefiltercomplete))
 {
@@ -169,49 +203,40 @@ if ($resql)
 				$subscription_status = 'OPEN';
 
 				$found = true;
-				if ($v == 1)
+				dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
+
+				$instance_status_bis = '';
+				$result = $object->fetch($obj->id);
+				if ($result <= 0) $found=false;
+				else
 				{
-					$instance_status = $obj->status;
-					$instance_status_bis = $obj->instance_status;
-					$payment_status = $obj->payment_status;
-					$subscription_status = $obj->subscription_status;
+					if ($object->array_options['options_deployment_status'] == 'processing') { $instance_status = 'PROCESSING'; }
+					elseif ($object->array_options['options_deployment_status'] == 'undeployed') { $instance_status = 'CLOSED'; $instance_status_bis = 'UNDEPLOYED'; }
+					elseif ($object->array_options['options_deployment_status'] == 'done')       { $instance_status = 'DEPLOYED'; }
+					else { $instance_status = 'UNKNOWN'; }
+				}
+
+				$issuspended = sellyoursaasIsSuspended($object);
+				if ($issuspended)
+				{
+					$subscription_status = 'CLOSED';
+					$instance_status = 'SUSPENDED';
 				}
 				else
 				{
-					dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
-
-					$instance_status_bis = '';
-					$result = $object->fetch($obj->id);
-					if ($result <= 0) $found=false;
-					else
-					{
-						if ($object->array_options['options_deployment_status'] == 'processing') { $instance_status = 'PROCESSING'; }
-						elseif ($object->array_options['options_deployment_status'] == 'undeployed') { $instance_status = 'CLOSED'; $instance_status_bis = 'UNDEPLOYED'; }
-						elseif ($object->array_options['options_deployment_status'] == 'done')       { $instance_status = 'DEPLOYED'; }
-						else { $instance_status = 'UNKNOWN'; }
-					}
-
-					$issuspended = sellyoursaasIsSuspended($object);
-					if ($issuspended)
-					{
-						$subscription_status = 'CLOSED';
-						$instance_status = 'SUSPENDED';
-					}
-					else
-					{
-						$subscription_status = 'OPEN';
-					}
-
-					$ispaid = sellyoursaasIsPaidInstance($object);
-					if (! $ispaid) $payment_status='TRIAL';
-					else
-					{
-						$ispaymentko = sellyoursaasIsPaymentKo($object);
-						if ($ispaymentko) $payment_status='FAILURE';
-					}
+					$subscription_status = 'OPEN';
 				}
+
+				$ispaid = sellyoursaasIsPaidInstance($object);
+				if (! $ispaid) $payment_status='TRIAL';
+				else
+				{
+					$ispaymentko = sellyoursaasIsPaymentKo($object);
+					if ($ispaymentko) $payment_status='FAILURE';
+				}
+
 				if (empty($instance_status_bis)) $instance_status_bis=$instance_status;
-				print "Analyze instance ".($i+1)." V".$v." ".$instance." status=".$instance_status." instance_status=".$instance_status_bis." payment_status=".$payment_status." subscription_status=".$subscription_status."\n";
+				print "Analyze instance ".($i+1)." ".$instance." status=".$instance_status." instance_status=".$instance_status_bis." payment_status=".$payment_status." subscription_status=".$subscription_status."\n";
 
 				// Count
 				if (! in_array($payment_status,array('TRIAL','TRIALING','TRIAL_EXPIRED')))
@@ -231,7 +256,7 @@ if ($resql)
 						else $nbofactiveok++; // not suspended, not close request
 
 						$instances[$obj->id]=$instance;
-						print "Qualify instance V".$v." ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$subscription_status."\n";
+						print "Qualify instance ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$subscription_status."\n";
 					}
 					else
 					{
@@ -241,7 +266,7 @@ if ($resql)
 				elseif ($instancefiltercomplete)
 				{
 					$instances[$obj->id]=$instance;
-					print "Qualify instance V".$v." ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$obj->subscription_status."\n";
+					print "Qualify instance ".$instance." with instance_status=".$instance_status." instance_status_bis=".$instance_status_bis." payment_status=".$payment_status." subscription_status(not used)=".$obj->subscription_status."\n";
 				}
 				else
 				{
@@ -281,7 +306,7 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 			$return_val=0; $error=0; $errors=array();	// No error by default into each loop
 
 			// Run backup
-			print "***** Process backup of instance ".($i+1)." V".$v." ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
+			print "***** Process backup of instance ".($i+1)." ".$instance.' - '.strftime("%Y%m%d-%H%M%S")."\n";
 
 			$mode = 'unknown';
 			$mode = ($action == 'backup'?'confirm':$mode);
@@ -348,43 +373,24 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 			$return_val=0; $error=0; $errors=array();
 
 			// Run database update
-			print "Process update database info (nb of user) of instance ".($i+1)." V".$v." ".$instance.' - '.strftime("%Y%m%d-%H%M%S")." : ";
+			print "Process update database info (nb of user) of instance ".($i+1)." ".$instance.' - '.strftime("%Y%m%d-%H%M%S")." : ";
 
 			$db->begin();
 
-			if ($v == 1)	// $object is DolicloudCustomer
+			$result=$object->fetch('','',$instance);
+			if ($result < 0) dol_print_error('',$object->error);
+
+			$object->oldcopy=dol_clone($object, 1);
+
+			$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $object);
+			if ($result < 0)
 			{
-				$result=$object->fetch('',$instance);
-				if ($result < 0) dol_print_error('',$object->error);
-
-				$object->oldcopy=dol_clone($object, 1);
-
-				// Files refresh (does not update lastcheck field)
-				//$ret=dolicloud_files_refresh($conf,$db,$object,$errors);
-
-				// Database refresh (also update lastcheck field)
-				$ret=dolicloud_database_refresh($conf,$db,$object,$errors);		// Update database (or not if error)
-			}
-			else			// $object is Contrat
-			{
-				$result=$object->fetch('','',$instance);
-				if ($result < 0) dol_print_error('',$object->error);
-
-				$object->oldcopy=dol_clone($object, 1);
-
-				$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $object);
-				if ($result < 0)
-				{
-					$errors[] = 'Failed to do sellyoursaasRemoteAction(refresh) '.$sellyoursaasutils->error.(is_array($sellyoursaasutils->errors)?' '.join(',',$sellyoursaasutils->errors):'');
-				}
+				$errors[] = 'Failed to do sellyoursaasRemoteAction(refresh) '.$sellyoursaasutils->error.(is_array($sellyoursaasutils->errors)?' '.join(',',$sellyoursaasutils->errors):'');
 			}
 
 			if (count($errors) == 0)
 			{
-				if ($v == 1)	// $object is DolicloudCustomer
-					print "OK nbofusers=".$object->nbofusers."\n";
-				else
-					print "OK";
+				print "OK";
 
 				$nbofok++;
 				$db->commit();
@@ -407,7 +413,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 		$stats=array();
 
 		// Get list of existing stats
-		$sql ="SELECT name, x, y";
+		$sql ="SELECT name, x, y";                        // name is 'total', 'totalcommissions', 'totalinstancepaying', 'totalinstances', 'totalusers', 'benefit', 'totalcustomers', 'totalcustomerspaying'
 		$sql.=" FROM ".MAIN_DB_PREFIX."dolicloud_stats";
 		$sql.=" WHERE service = '".$servicetouse."'";
 
@@ -447,8 +453,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 			exit;
 		}
 
-		$YEARSTART = 2012;
-		if ($v != 1) $YEARSTART = 2018;
+		$YEARSTART = 2018;
 
 		// Update all missing stats
 		for($year = $YEARSTART; $year <= $endyear; $year++)
@@ -472,16 +477,8 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 						$rep = null;
 						$part = 0;
 
-						if ($v == 1)
-						{
-							$rep=dolicloud_calculate_stats($db2,$datelastday);
-							$part = 0.3;
-						}
-						else
-						{
-							$rep=sellyoursaas_calculate_stats($db,$datelastday);	// Get qty and amount into template invoices linked to active contracts
-							$part = (empty($conf->global->SELLYOURSAAS_PERCENTAGE_FEE) ? 0 : $conf->global->SELLYOURSAAS_PERCENTAGE_FEE);
-						}
+						$rep=sellyoursaas_calculate_stats($db,$datelastday);	// Get qty and amount into template invoices linked to active contracts
+						$part = (empty($conf->global->SELLYOURSAAS_PERCENTAGE_FEE) ? 0 : $conf->global->SELLYOURSAAS_PERCENTAGE_FEE);
 
 						if ($rep)
 						{

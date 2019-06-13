@@ -51,27 +51,14 @@ $action		= (GETPOST('action','alpha') ? GETPOST('action','alpha') : 'view');
 $confirm	= GETPOST('confirm','alpha');
 $backtopage = GETPOST('backtopage','alpha');
 $id			= GETPOST('id','int');
-$instanceoldid = GETPOST('instanceoldid','int');
 $ref        = GETPOST('ref','alpha');
-$refold     = GETPOST('refold','alpha');
 
 $error = 0; $errors = array();
 
 
-if (empty($instanceoldid) && empty($refold) && $action != 'create')
+if ($action != 'create')
 {
 	$object = new Contrat($db);
-}
-else
-{
-	$db2=getDoliDBInstance('mysqli', $conf->global->DOLICLOUD_DATABASE_HOST, $conf->global->DOLICLOUD_DATABASE_USER, $conf->global->DOLICLOUD_DATABASE_PASS, $conf->global->DOLICLOUD_DATABASE_NAME, $conf->global->DOLICLOUD_DATABASE_PORT);
-	if ($db2->error)
-	{
-		dol_print_error($db2,"host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db2->error);
-		exit;
-	}
-
-	$object = new Dolicloud_customers($db,$db2);
 }
 
 // Security check
@@ -83,12 +70,11 @@ $hookmanager=new HookManager($db);
 $hookmanager->initHooks(array('contractcard'));
 
 
-if ($id > 0 || $instanceoldid > 0 || $ref || $refold)
+if ($id > 0 || $ref)
 {
-	$result=$object->fetch($id?$id:$instanceoldid, $ref?$ref:$refold);
+	$result=$object->fetch($id, $ref);
 	if ($result < 0) dol_print_error($db,$object->error);
-	if ($object->element != 'contrat') $instanceoldid=$object->id;
-	else $id=$object->id;
+	$id=$object->id;
 }
 
 $backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/backup_instance.php '.$object->instance.' '.$conf->global->DOLICLOUD_INSTANCES_PATH;
@@ -96,30 +82,18 @@ $backupstring=$conf->global->DOLICLOUD_SCRIPTS_PATH.'/backup_instance.php '.$obj
 
 $instance = 'xxxx';
 $type_db = $conf->db->type;
-if ($instanceoldid)
-{
-	$instance = $object->instance;
-	$hostname_db = $object->hostname_db;
-	$username_db = $object->username_db;
-	$password_db = $object->password_db;
-	$database_db = $object->database_db;
-	$port_db = $object->port_db?$object->port_db:3306;
-	$username_web = $object->username_web;
-	$password_web = $object->password_web;
-	$hostname_os = $object->instance.'.on.dolicloud.com';
-}
-else	// $object is a contract (on old or new instance)
-{
-	$instance = $object->ref_customer;
-	$hostname_db = $object->array_options['options_hostname_db'];
-	$username_db = $object->array_options['options_username_db'];
-	$password_db = $object->array_options['options_password_db'];
-	$database_db = $object->array_options['options_database_db'];
-	$port_db     = $object->array_options['options_port_db'];
-	$username_web = $object->array_options['options_username_os'];
-	$password_web = $object->array_options['options_password_os'];
-	$hostname_os = $object->array_options['options_hostname_os'];
-}
+$instance = $object->ref_customer;
+$hostname_db = $object->array_options['options_hostname_db'];
+$username_db = $object->array_options['options_username_db'];
+$password_db = $object->array_options['options_password_db'];
+$database_db = $object->array_options['options_database_db'];
+$prefix_db   = $object->array_options['options_prefix_db'];
+$port_db     = $object->array_options['options_port_db'];
+$username_web = $object->array_options['options_username_os'];
+$password_web = $object->array_options['options_password_os'];
+$hostname_os = $object->array_options['options_hostname_os'];
+
+if (empty($prefix_db)) $prefix_db = 'llx_';
 
 
 /*
@@ -138,7 +112,7 @@ if (empty($reshook))
 		exit;
 	}
 
-	if ($action == "createsupportdolicloud")
+	if ($action == "createsupportuser")
 	{
 		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 	    if (is_object($newdb))
@@ -147,7 +121,7 @@ if (empty($reshook))
 	        $savMAIN_SECURITY_SALT = $conf->global->MAIN_SECURITY_SALT;
 
 	        // Get setup of remote
-	        $sql="SELECT value FROM llx_const WHERE name = 'MAIN_SECURITY_HASH_ALGO' ORDER BY entity LIMIT 1";
+	        $sql="SELECT value FROM ".$prefix_db."const WHERE name = 'MAIN_SECURITY_HASH_ALGO' ORDER BY entity LIMIT 1";
 	        $resql=$newdb->query($sql);
 	        if ($resql)
 	        {
@@ -158,7 +132,7 @@ if (empty($reshook))
 	        {
 	            setEventMessages("Failed to get remote MAIN_SECURITY_HASH_ALGO", null, 'warnings');
 	        }
-	        $sql="SELECT value FROM llx_const WHERE name = 'MAIN_SECURITY_SALT' ORDER BY entity LIMIT 1";
+	        $sql="SELECT value FROM ".$prefix_db."const WHERE name = 'MAIN_SECURITY_SALT' ORDER BY entity LIMIT 1";
 	        $resql=$newdb->query($sql);
 	        if ($resql)
 	        {
@@ -177,7 +151,7 @@ if (empty($reshook))
 	    	$conf->global->MAIN_SECURITY_HASH_ALGO = $savMAIN_SECURITY_HASH_ALGO;
 	    	$conf->global->MAIN_SECURITY_SALT = $savMAIN_SECURITY_SALT;
 
-	    	$sql="INSERT INTO llx_user(login, lastname, admin, pass, pass_crypted, entity) VALUES('".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', 1, '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$newdb->escape($password_crypted_for_remote)."', 0)";
+	    	$sql="INSERT INTO ".$prefix_db."user(login, lastname, admin, pass, pass_crypted, entity, datec) VALUES('".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', 1, '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."', '".$newdb->escape($password_crypted_for_remote)."', 0, '".$newdb->idate(dol_now())."')";
 	        $resql=$newdb->query($sql);
 	        if (! $resql)
 	        {
@@ -185,20 +159,28 @@ if (empty($reshook))
 	        	else setEventMessages("ErrorRecordAlreadyExists", null, 'errors');
 	        }
 
-	        // TODO Add permissions admin
+	        $idofcreateduser = $newdb->last_insert_id($prefix_db.'user');
+
+	        // Add all permissions on support user
+	        $edituser = new User($newdb);
+	        $resultfetch = $edituser->fetch($idofcreateduser);
+	        if ($resultfetch > 0)
+	        {
+	            $edituser->addrights(0, '', '', 0);
+	        }
 	    }
 	}
-	if ($action == "deletesupportdolicloud")
+	if ($action == "deletesupportuser")
 	{
 		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 	    if (is_object($newdb))
 	    {
-	    	$sql="DELETE FROM llx_user_rights where fk_user IN (SELECT rowid FROM llx_user WHERE login = '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."')";
+	    	$sql="DELETE FROM ".$prefix_db."user_rights where fk_user IN (SELECT rowid FROM llx_user WHERE login = '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."')";
 	        $resql=$newdb->query($sql);
 	        if (! $resql) dol_print_error($newdb);
 
 	    	// Get user/pass of last admin user
-	        $sql="DELETE FROM llx_user WHERE login = '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."'";
+	        $sql="DELETE FROM ".$prefix_db."user WHERE login = '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."'";
 	        $resql=$newdb->query($sql);
 	        if (! $resql) dol_print_error($newdb);
 	    }
@@ -209,7 +191,7 @@ if (empty($reshook))
 		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 		if (is_object($newdb))
 		{
-			$sql="UPDATE llx_user set statut=0 WHERE rowid = ".GETPOST('remoteid','int');
+			$sql="UPDATE ".$prefix_db."user set statut=0 WHERE rowid = ".GETPOST('remoteid','int');
 			$resql=$newdb->query($sql);
 			if (! $resql) dol_print_error($newdb);
 			else setEventMessages("UserDisabled", null, 'mesgs');
@@ -220,7 +202,7 @@ if (empty($reshook))
 		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 		if (is_object($newdb))
 		{
-			$sql="UPDATE llx_user set statut=1 WHERE rowid = ".GETPOST('remoteid','int');
+			$sql="UPDATE ".$prefix_db."user set statut=1 WHERE rowid = ".GETPOST('remoteid','int');
 			$resql=$newdb->query($sql);
 			if (! $resql) dol_print_error($newdb);
 			else setEventMessages("UserEnabled", null, 'mesgs');
@@ -252,14 +234,14 @@ if (empty($reshook))
 			$conf->global->MAIN_SECURITY_SALT = $savsalt;
 			$conf->global->MAIN_SECURITY_HASH_ALGO = $savalgo;
 
-			$sql="UPDATE llx_user set pass='".$newdb->escape($password)."', pass_crypted = '".$newdb->escape($password_crypted)."' where rowid = ".GETPOST('remoteid','int');
+			$sql="UPDATE ".$prefix_db."user set pass='".$newdb->escape($password)."', pass_crypted = '".$newdb->escape($password_crypted)."' where rowid = ".GETPOST('remoteid','int');
 			$resql=$newdb->query($sql);
 			if (! $resql) dol_print_error($newdb);
 			else setEventMessages("PasswordModified", null, 'mesgs');
 		}
 	}
 
-	if (! in_array($action, array('resetpassword', 'confirm_resetpassword', 'createsupportdolicloud', 'deletesupportdolicloud')))
+	if (! in_array($action, array('resetpassword', 'confirm_resetpassword', 'createsupportuser', 'deletesupportuser')))
 	{
 		include 'refresh_action.inc.php';
 
@@ -291,7 +273,7 @@ if ($action != 'create')
 	dol_fiche_head($head, 'users', $title, -1, 'contract');
 }
 
-if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
+if ($id > 0 && $action != 'edit' && $action != 'create')
 {
 	/*
 	 * Fiche en mode visualisation
@@ -396,7 +378,7 @@ if (($id > 0 || $instanceoldid > 0) && $action != 'edit' && $action != 'create')
 	print '</div>';
 }
 
-if ($id > 0 || $instanceoldid > 0)
+if ($id > 0)
 {
 	dol_fiche_end();
 }
@@ -472,15 +454,6 @@ else
 print '<br>';
 
 
-// ----- Instance DoliCloud v1 -----
-if (! empty($instanceoldid))
-{
-	print '<strong>INSTANCE DOLICLOUD v1 ('.$newdb->database_host.')</strong><br>';
-
-	print_user_table($newdb);
-}
-
-
 // Barre d'actions
 if (! $user->societe_id)
 {
@@ -488,8 +461,8 @@ if (! $user->societe_id)
 
     if ($user->rights->sellyoursaas->write)
     {
-        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?'.($instanceoldid?'instanceoldid':'id').'='.$object->id.'&amp;action=createsupportdolicloud">'.$langs->trans('CreateSupportUser').'</a>';
-        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?'.($instanceoldid?'instanceoldid':'id').'='.$object->id.'&amp;action=deletesupportdolicloud">'.$langs->trans('DeleteSupportUser').'</a>';
+        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=createsupportuser">'.$langs->trans('CreateSupportUser').'</a>';
+        print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=deletesupportuser">'.$langs->trans('DeleteSupportUser').'</a>';
     }
 
     print "</div><br>";
@@ -510,7 +483,6 @@ $db->close();
 function print_user_table($newdb)
 {
 	global $langs;
-	global $instanceoldid;
 	global $id;
 
 	print '<table class="noborder" width="100%">';
@@ -597,15 +569,15 @@ function print_user_table($newdb)
 				print '<td align="center">';
 				if ($obj->statut)
 				{
-					print '<a href="'.$_SERVER["PHP_SELF"].'?action=disableuser&remoteid='.$obj->rowid.($instanceoldid?'&instanceoldid='.$instanceoldid:('&id='.$id)).'"><span class="fa fa-toggle-on marginleftonly valignmiddle" style="font-size: 2em; color: #227722;" alt="Activated" title="Activated"></span></a>';
+					print '<a href="'.$_SERVER["PHP_SELF"].'?action=disableuser&remoteid='.$obj->rowid.'&id='.$id.'"><span class="fa fa-toggle-on marginleftonly valignmiddle" style="font-size: 2em; color: #227722;" alt="Activated" title="Activated"></span></a>';
 				}
 				else
 				{
-					print '<a href="'.$_SERVER["PHP_SELF"].'?action=enableuser&remoteid='.$obj->rowid.($instanceoldid?'&instanceoldid='.$instanceoldid:('&id='.$id)).'"><span class="fa fa-toggle-off marginleftonly valignmiddle" style="font-size: 2em; color: #888888;" alt="Disabled" title="Disabled"></span></a>';
+					print '<a href="'.$_SERVER["PHP_SELF"].'?action=enableuser&remoteid='.$obj->rowid.'&id='.$id.'"><span class="fa fa-toggle-off marginleftonly valignmiddle" style="font-size: 2em; color: #888888;" alt="Disabled" title="Disabled"></span></a>';
 				}
 				print '</td>';
 				print '<td align="right">';
-				print '<a href="'.$_SERVER["PHP_SELF"].'?action=resetpassword&remoteid='.$obj->rowid.($instanceoldid?'&instanceoldid='.$instanceoldid:('&id='.$id)).'">'.img_picto('ResetPassword', 'object_technic').'</a>';
+				print '<a href="'.$_SERVER["PHP_SELF"].'?action=resetpassword&remoteid='.$obj->rowid.'&id='.$id.'">'.img_picto('ResetPassword', 'object_technic').'</a>';
 				print '</td>';
 				print '</tr>';
 				$i++;

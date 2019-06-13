@@ -119,7 +119,7 @@ if ($action == 'set')
 
 		dolibarr_set_const($db,'SELLYOURSAAS_MAXDEPLOYMENTPERIP',GETPOST("SELLYOURSAAS_MAXDEPLOYMENTPERIP",'int'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,'SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR',GETPOST("SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR",'int'),'chaine',0,'',$conf->entity);
-
+		dolibarr_set_const($db,'SELLYOURSAAS_INFRA_COST',GETPOST("SELLYOURSAAS_INFRA_COST",'int'),'chaine',0,'',$conf->entity);
 
 
 		dolibarr_set_const($db,"SELLYOURSAAS_ANONYMOUSUSER",GETPOST("SELLYOURSAAS_ANONYMOUSUSER",'none'),'chaine',0,'',$conf->entity);
@@ -572,6 +572,13 @@ print '</tr>';
 print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR").'</td>';
 print '<td>';
 print '<input class="maxwidth50" type="text" name="SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR" value="'.(empty($conf->global->SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR)?5:$conf->global->SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR).'">';
+print '</td>';
+print '<td>5</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_INFRA_COST").'</td>';
+print '<td>';
+print '<input class="maxwidth50" type="text" name="SELLYOURSAAS_INFRA_COST" value="'.(empty($conf->global->SELLYOURSAAS_INFRA_COST)?0:$conf->global->SELLYOURSAAS_INFRA_COST).'">';
 print '</td>';
 print '<td>5</td>';
 print '</tr>';
