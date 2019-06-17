@@ -1,6 +1,6 @@
 #!/bin/bash
 # Purge data.
-# This script can be run on master or agent servers.
+# This script can be run on master or deployment servers.
 #
 # Put the following entry into your root cron
 #40 4 4 * * /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/clean.sh confirm
@@ -245,7 +245,7 @@ Q2="SELECT ce.username_os FROM llx_contrat as c, llx_contrat_extrafields as ce W
 Q3=" (SELECT fk_contrat FROM llx_contratdet as cd, llx_contrat_extrafields as ce2 WHERE cd.fk_contrat = ce2.fk_object AND cd.STATUT = 5 AND ce2.deployment_status = 'undeployed' AND ce2.undeployment_date < ADDDATE(NOW(), INTERVAL -1 MONTH)); ";
 SQL="${Q1}${Q2}${Q3}"
 
-echo "$MYSQL -usellyoursaas -e $SQL"
+echo "$MYSQL -usellyoursaas -phidden -e $SQL"
 $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep '^osu' >> /tmp/osutoclean-oldundeployed
 if [ -s /tmp/osutoclean-oldundeployed ]; then
 	for osusername in `cat /tmp/osutoclean-oldundeployed`
@@ -452,22 +452,22 @@ if [ -s /tmp/osutoclean ]; then
 fi
 
 # Now clean also old dir in archives-test
-echo "Now clean also old dir in $archivedir - 15 days after being archived"
+echo "***** Now clean also old dir in $archivedir - 15 days after being archived"
 cd $archivedir
 find $archivedir -maxdepth 1 -type d -mtime +15 -exec rm -fr {} \;
 
 # Now clean also old files in $archivedirbind
-echo "Now clean also old files in $archivedirbind - 15 days after being archived"
+echo "***** Now clean also old files in $archivedirbind - 15 days after being archived"
 cd $archivedirbind
 find $archivedirbind -maxdepth 1 -type f -mtime +15 -exec rm -f {} \;
 
 # Now clean also old files in $archivedircron
-echo "Now clean also old files in $archivedircron - 15 days after being archived"
+echo "***** Now clean also old files in $archivedircron - 15 days after being archived"
 cd $archivedircron
 find $archivedircron -maxdepth 1 -type f -mtime +15 -exec rm -f {} \;
 
 # Clean database users
-echo "We should also clean mysql record for permission on old databases and old users"
+echo "***** We should also clean mysql record for permission on old databases and old users"
 SQL="use mysql; delete from db where Db NOT IN (SELECT schema_name FROM information_schema.schemata) and Db like 'dbn%';"
 echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL'"
 #$MYSQL -usellyoursaas -pxxxxxx -e "$SQL"
