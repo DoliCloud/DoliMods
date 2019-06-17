@@ -235,17 +235,21 @@ if [[ "$mode" == "deployall" ]]; then
 	fi
 fi
 
-if [[ "$mode" == "undeployall" ]]; then
+if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 
-	echo `date +%Y%m%d%H%M%S`" ***** Delete user $osusername with home into /home/jail/home/$osusername and archive it into $archivedir"
-	
 	echo rm -f /home/jail/home/$osusername/$dbname/*.log
 	rm -f /home/jail/home/$osusername/$dbname/*.log >/dev/null 2>&1 
 	echo rm -f /home/jail/home/$osusername/$dbname/*.log.*
 	rm -f /home/jail/home/$osusername/$dbname/*.log.* >/dev/null 2>&1 
 	
-	echo "undeployall $instancename.$domainname" >> $archivedir/$osusername/undeployall-$instancename.$domainname.txt
+	echo "$mode $instancename.$domainname" >> $archivedir/$osusername/$mode-$instancename.$domainname.txt
+
+fi
+
+if [[ "$mode" == "undeployall" ]]; then
 	
+	echo `date +%Y%m%d%H%M%S`" ***** Delete user $osusername with home into /home/jail/home/$osusername and archive it into $archivedir"
+
 	echo deluser --remove-home --backup --backup-to $archivedir $osusername
 	if [[ $testorconfirm == "confirm" ]]
 	then
