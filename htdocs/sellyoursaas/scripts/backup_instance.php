@@ -45,7 +45,6 @@ $RSYNCDELETE=0;
 $instance=isset($argv[1])?$argv[1]:'';
 $dirroot=isset($argv[2])?$argv[2]:'';
 $mode=isset($argv[3])?$argv[3]:'';
-$v=isset($argv[4])?$argv[4]:'';
 
 @set_time_limit(0);							// No timeout for this script
 define('EVEN_IF_ONLY_LOGIN_ALLOWED',1);		// Set this define to 0 if you want to lock your script when dolibarr setup is "locked to admin user only".
@@ -66,7 +65,49 @@ if (! $res) die("Include of master fails");
 dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
 dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 
+// Read /etc/sellyoursaas.conf file
+$databasehost='localhost';
+$database='';
+$databaseuser='sellyoursaas';
+$databasepass='';
+$fp = @fopen('/etc/sellyoursaas.conf', 'r');
+// Add each line to an array
+if ($fp) {
+    $array = explode("\n", fread($fp, filesize('/etc/sellyoursaas.conf')));
+    foreach($array as $val)
+    {
+        $tmpline=explode("=", $val);
+        if ($tmpline[0] == 'databasehost')
+        {
+            $databasehost = $tmpline[1];
+        }
+        if ($tmpline[0] == 'database')
+        {
+            $database = $tmpline[1];
+        }
+        if ($tmpline[0] == 'databaseuser')
+        {
+            $databaseuser = $tmpline[1];
+        }
+        if ($tmpline[0] == 'databasepass')
+        {
+            $databasepass = $tmpline[1];
+        }
+    }
+}
+else
+{
+    print "Failed to open /etc/sellyoursaas.conf file\n";
+    exit;
+}
 
+
+$dbmaster=getDoliDBInstance('mysqli', $databasehost, $databaseuser, $databasepass, $database, 3306);
+if ($dbmaster->error)
+{
+    dol_print_error($dbmaster,"host=".$databasehost.", port=3306, user=".$databaseuser.", databasename=".$database.", ".$dbmaster->error);
+    exit;
+}
 
 
 /*
@@ -85,7 +126,6 @@ if (empty($dirroot) || empty($instance) || empty($mode))
 }
 
 
-$v=2;
 // Forge complete name of instance
 if (! empty($instance) && ! preg_match('/\./', $instance) && ! preg_match('/\.home\.lan$/', $instance))
 {
@@ -129,20 +169,17 @@ if ($idofinstancefound) $result=$object->fetch($idofinstancefound);
 
 if ($result <= 0)
 {
-	print "Error: instance ".$instance." for v".$v." not found.\n";
+	print "Error: instance ".$instance." not found.\n";
 	exit(-2);
 }
 
-if ($v != 1)
-{
-	$object->instance        = $object->ref_customer;
-	$object->username_web    = $object->array_options['options_username_os'];
-	$object->password_web    = $object->array_options['options_password_os'];
-	$object->username_db     = $object->array_options['options_username_db'];
-	$object->password_db     = $object->array_options['options_password_db'];
-	$object->database_db     = $object->array_options['options_database_db'];
-	$object->deployment_host = $object->array_options['options_deployment_host'];
-}
+$object->instance        = $object->ref_customer;
+$object->username_web    = $object->array_options['options_username_os'];
+$object->password_web    = $object->array_options['options_password_os'];
+$object->username_db     = $object->array_options['options_username_db'];
+$object->password_db     = $object->array_options['options_password_db'];
+$object->database_db     = $object->array_options['options_database_db'];
+$object->deployment_host = $object->array_options['options_deployment_host'];
 
 if (empty($object->instance) && empty($object->username_web) && empty($object->password_web) && empty($object->database_db))
 {
@@ -158,16 +195,9 @@ if (! is_dir($dirroot))
 $dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
 $login=$object->username_web;
 $password=$object->password_web;
-if ($v != 1)
-{
-	$sourcedir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$login.'/'.$dirdb;
-	$server=($object->deployment_host ? $object->deployment_host : $object->array_options['options_hostname_os']);
-}
-else
-{
-	$sourcedir=$conf->global->DOLICLOUD_EXT_HOME.'/'.$login.'/'.$dirdb;
-	$server=$object->instance.'.on.dolicloud.com';
-}
+
+$sourcedir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$login.'/'.$dirdb;
+$server=($object->deployment_host ? $object->deployment_host : $object->array_options['options_hostname_os']);
 
 if (empty($login) || empty($dirdb))
 {
@@ -350,40 +380,31 @@ if (empty($return_var) && empty($return_varmysql))
 		print 'Update date of full backup (rsync+dump) for instance '.$object->instance.' to '.$now."\n";
 
 		// Update database
-		if ($v == 1)
+		$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
+		$object->array_options['options_latestbackup_status']='OK';
+		$object->update(null);
+
+		// Send to DataDog (metric + event)
+		if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
 		{
-			$object->date_lastrsync=$now;	// date latest files and database rsync backup
-			$object->backup_status='OK';
-			$object->update(null);
-		}
-		else
-		{
-			$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
-			$object->array_options['options_latestbackup_status']='OK';
-			$object->update(null);
+		    try {
+		        dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
 
-			// Send to DataDog (metric + event)
-			if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
-			{
-			    try {
-			        dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+		        $arrayconfig=array();
+		        if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+		        {
+		            $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+		        }
 
-			        $arrayconfig=array();
-			        if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
-			        {
-			            $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
-			        }
+		        $statsd = new DataDog\DogStatsd($arrayconfig);
 
-			        $statsd = new DataDog\DogStatsd($arrayconfig);
+		        $arraytags=array('result'=>'ok');
+		        $statsd->increment('sellyoursaas.backup', 1, $arraytags);
+		    }
+		    catch(Exception $e)
+		    {
 
-			        $arraytags=array('result'=>'ok');
-			        $statsd->increment('sellyoursaas.backup', 1, $arraytags);
-			    }
-			    catch(Exception $e)
-			    {
-
-			    }
-			}
+		    }
 		}
 	}
 }
@@ -395,40 +416,31 @@ else
 	if ($mode == 'confirm')
 	{
 		// Update database
-		if ($v == 1)
+		$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
+		$object->array_options['options_latestbackup_status']='KO';
+		$object->update($user);
+
+		// Send to DataDog (metric + event)
+		if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
 		{
-			//$object->date_lastrsync=$now;	// date latest files and database rsync backup
-			$object->backup_status='KO '.strftime("%Y%m%d-%H%M%S");
-			$object->update($user);
-		}
-		else
-		{
-			$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
-			$object->array_options['options_latestbackup_status']='KO';
-			$object->update($user);
+		    try {
+		        dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
 
-			// Send to DataDog (metric + event)
-			if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
-			{
-			    try {
-			        dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+		        $arrayconfig=array();
+		        if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+		        {
+		            $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+		        }
 
-			        $arrayconfig=array();
-			        if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
-			        {
-			            $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
-			        }
+		        $statsd = new DataDog\DogStatsd($arrayconfig);
 
-			        $statsd = new DataDog\DogStatsd($arrayconfig);
+		        $arraytags=array('result'=>'ko');
+		        $statsd->increment('sellyoursaas.backup', 1, $arraytags);
+		    }
+		    catch(Exception $e)
+		    {
 
-			        $arraytags=array('result'=>'ko');
-			        $statsd->increment('sellyoursaas.backup', 1, $arraytags);
-			    }
-			    catch(Exception $e)
-			    {
-
-			    }
-			}
+		    }
 		}
 	}
 

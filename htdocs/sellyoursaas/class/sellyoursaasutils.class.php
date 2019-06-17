@@ -2547,9 +2547,12 @@ class SellYourSaasUtils
 
     				if ($expirationdate && $expirationdate < ($now - (abs($delayindays)*24*3600)))
     				{
+    				    $remotetouse = 'undeploy';
+    				    if ($mode == 'test') $remotetouse = 'undeployall';
+
     				    $conf->global->noapachereload = 1;       // Set a global variable that can be read later
     				    $comment = "Undeploy instance by doUndeployOldSuspendedInstances('".$mode."') the ".dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')';
-    				    $result = $this->sellyoursaasRemoteAction('undeploy', $object, 'admin', '', '', '0', $comment);
+    				    $result = $this->sellyoursaasRemoteAction($remotetouse, $object, 'admin', '', '', '0', $comment);
     				    $conf->global->noapachereload = null;    // unset a global variable that can be read later
     				    if ($result <= 0)
     					{
