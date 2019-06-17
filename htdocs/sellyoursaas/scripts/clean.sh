@@ -323,6 +323,9 @@ if [ -s /tmp/osutoclean ]; then
 				
 				echo "clean $instancename" >> $archivedir/$osusername/clean-$instancename.txt
 				
+				echo crontab -r -u $osusername
+				crontab -r -u $osusername
+	
 				echo deluser --remove-home --backup --backup-to $archivedir/$osusername $osusername
 				if [[ $testorconfirm == "confirm" ]]; then
 					deluser --remove-home --backup --backup-to $archivedir/$osusername $osusername
