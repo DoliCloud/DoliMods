@@ -29,6 +29,7 @@ export scriptdir=$(dirname $(realpath ${0}))
 export targetdir="/home/jail/home"				
 export archivedir="/mnt/diskbackup/archives-test"
 export archivedirbind="/etc/bind/archives"
+export archivedircron="/var/spool/cron/crontabs.disabled"
 export ZONES_PATH="/etc/bind/zones"
 
 if [ "$(id -u)" != "0" ]; then
@@ -457,8 +458,13 @@ echo "Now clean also old files in $archivedirbind - 15 days after being archived
 cd $archivedirbind
 find $archivedirbind -maxdepth 1 -type f -mtime +15 -exec rm -f {} \;
 
+# Now clean also old files in $archivedircron
+echo "Now clean also old files in $archivedircron - 15 days after being archived"
+cd $archivedircron
+find $archivedircron -maxdepth 1 -type f -mtime +15 -exec rm -f {} \;
+
 # Clean database users
-echo "We should also clean mysql record for permission on old database and old users"
+echo "We should also clean mysql record for permission on old databases and old users"
 SQL="use mysql; delete from db where Db NOT IN (SELECT schema_name FROM information_schema.schemata) and Db like 'dbn%';"
 echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL'"
 #$MYSQL -usellyoursaas -pxxxxxx -e "$SQL"
