@@ -224,7 +224,7 @@ done
 echo "***** Search from /tmp/instancefound-activedbinsellyoursaas of active databases (with known osusername) with a non existing unix user (should never happen)" 
 while read bidon osusername dbname deploymentstatus ipserverdeployment; do 
 	if [[ "x$osusername" != "xusername_os" && "x$osusername" != "xunknown" && "x$osusername" != "xNULL" && "x$dbname" != "xNULL" ]]; then
-		echo $ipserverdeploymentifconfig | grep "$IPSERVERDEPLOYMENT" > /dev/null 2>&1
+		echo $ipserverdeployment | grep "$IPSERVERDEPLOYMENT" > /dev/null 2>&1
 		notfoundip=$?
 		echo notfoundip=$notfoundip
 
