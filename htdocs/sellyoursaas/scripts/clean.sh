@@ -39,12 +39,21 @@ fi
 
 export DOMAIN=`grep '^domain=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 export SUBDOMAIN=`grep 'subdomain=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
+export IPSERVERDEPLOYMENT=`grep 'ipserverdeployment=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 export databasehost=`grep 'databasehost=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 export database=`grep 'database=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 export databaseuser=`grep 'databaseuser=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 
 if [ "x$DOMAIN" == "x" ]; then
    echo "Failed to find the DOMAIN by reading entry 'domain=' into file /etc/sellyoursaas.conf" 1>&2
+   exit 1
+fi
+if [ "x$SUBDOMAIN" == "x" ]; then
+   echo "Failed to find the SUBDOMAIN by reading entry 'domain=' into file /etc/sellyoursaas.conf" 1>&2
+   exit 1
+fi
+if [ "x$IPSERVERDEPLOYMENT" == "x" ]; then
+   echo "Failed to find the IPSERVERDEPLOYMENT by reading entry 'domain=' into file /etc/sellyoursaas.conf" 1>&2
    exit 1
 fi
 
@@ -144,7 +153,7 @@ do
 done
 
 
-echo "***** Get list of databases of all instances and save into /tmp/instancefound-dbinsellyoursaas-dbinsellyoursaas"
+echo "***** Get list of databases of all instances and save into /tmp/instancefound-dbinsellyoursaas"
 
 echo "#url=ref_customer	username_os	database_db status" > /tmp/instancefound-dbinsellyoursaas
 
@@ -165,7 +174,7 @@ echo "***** Get list of databases of known active instances and save into /tmp/i
 echo "#url=ref_customer	username_os	database_db status" > /tmp/instancefound-activedbinsellyoursaas
 
 Q1="use $database; "
-Q2="SELECT c.ref_customer, ce.username_os, ce.database_db, ce.deployment_status FROM llx_contrat as c, llx_contrat_extrafields as ce WHERE ce.fk_object = c.rowid AND ce.deployment_status IN ('processing','done')";
+Q2="SELECT c.ref_customer, ce.username_os, ce.database_db, ce.deployment_status, ce.deployment_host FROM llx_contrat as c, llx_contrat_extrafields as ce WHERE ce.fk_object = c.rowid AND ce.deployment_status IN ('processing','done')";
 SQL="${Q1}${Q2}"
 
 echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL' | grep -v 'ref_customer'"
@@ -207,19 +216,25 @@ for osusername in `ls -d $targetdir/osu* 2>/dev/null`
 do
 	export osusername=`basename $osusername`
 	if ! grep "$osusername" /etc/passwd; then
-		echo User $osusername is not inside /etc/passwd. Should not happen.
+		echo User $osusername has a home in $targetdir but is not inside /etc/passwd. Should not happen.
 		exit 11
 	fi
 done
 
 echo "***** Search from /tmp/instancefound-activedbinsellyoursaas of active databases (with known osusername) with a non existing unix user (should never happen)" 
-while read bidon osusername dbname deploymentstatus; do 
+while read bidon osusername dbname deploymentstatus ipserverdeployment; do 
 	if [[ "x$osusername" != "xusername_os" && "x$osusername" != "xunknown" && "x$osusername" != "xNULL" && "x$dbname" != "xNULL" ]]; then
-    	id $osusername >/dev/null 2>/dev/null
-    	if [[ "x$?" == "x1" ]]; then
-			echo Line $bidon $osusername $dbname $deploymentstatus is for a user that does not exists. Should not happen.
-    		exit 10
-    	fi
+		echo $ipserverdeploymentifconfig | grep "$IPSERVERDEPLOYMENT" > /dev/null 2>&1
+		notfoundip=$?
+		echo notfoundip=$notfoundip
+
+		if [[ $notfoundip == 0 ]]; then
+	    	id $osusername >/dev/null 2>/dev/null
+	    	if [[ "x$?" == "x1" ]]; then
+				echo Line $bidon $osusername $dbname $deploymentstatus $ipserverdeployment is for a user on this server that does not exists. Should not happen.
+				exit 10
+	    	fi
+	    fi
     fi
 done < /tmp/instancefound-activedbinsellyoursaas
 
@@ -239,9 +254,9 @@ done < /tmp/instancefound-activedbinsellyoursaas
 
 
 
-echo "***** Save osu unix account with very old undeployed database into /tmp/osutoclean-oldundeployed and search entries with existing home dir and without dbn* subdir, and save into /tmp/osutoclean" 
+echo "***** Save osu unix account for $IPSERVERDEPLOYMENT with very old undeployed database into /tmp/osutoclean-oldundeployed and search entries with existing home dir and without dbn* subdir, and save into /tmp/osutoclean" 
 Q1="use $database; "
-Q2="SELECT ce.username_os FROM llx_contrat as c, llx_contrat_extrafields as ce WHERE c.rowid = ce.fk_object AND c.rowid IN ";
+Q2="SELECT ce.username_os FROM llx_contrat as c, llx_contrat_extrafields as ce WHERE c.rowid = ce.fk_object AND ce.deployment_host = '$IPSERVERDEPLOYMENT' AND c.rowid IN ";
 Q3=" (SELECT fk_contrat FROM llx_contratdet as cd, llx_contrat_extrafields as ce2 WHERE cd.fk_contrat = ce2.fk_object AND cd.STATUT = 5 AND ce2.deployment_status = 'undeployed' AND ce2.undeployment_date < ADDDATE(NOW(), INTERVAL -1 MONTH)); ";
 SQL="${Q1}${Q2}${Q3}"
 

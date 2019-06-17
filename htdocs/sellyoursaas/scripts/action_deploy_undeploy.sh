@@ -837,6 +837,9 @@ if [[ "$mode" == "undeployall" ]]; then
 	
 	echo `date +%Y%m%d%H%M%S`" ***** Delete user $osusername with home into /home/jail/home/$osusername and archive it into $archivedir"
 
+	echo crontab -r -u $osusername
+	crontab -r -u $osusername
+	
 	echo deluser --remove-home --backup --backup-to $archivedir $osusername
 	if [[ $testorconfirm == "confirm" ]]
 	then
