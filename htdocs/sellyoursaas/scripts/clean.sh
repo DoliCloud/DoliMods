@@ -469,6 +469,17 @@ if [ -s /tmp/osutoclean ]; then
 	fi
 fi
 
+# Now clean orphaned crontabs files
+echo "***** Now clean orphan crontabs files"
+for fic in `ls /var/spool/cron/crontabs`;
+do
+	id $fic >/dev/null 2>/dev/null
+	if [[ "x$?" == "x1" ]]; then
+		echo Found a crontabs file for user $fic that does not exists. We clean crontabs file.
+		mv /var/spool/cron/crontabs/$fic /var/spool/cron/crontabs.disabled 
+	fi
+done;
+
 # Now clean also old dir in archives-test
 echo "***** Now clean also old dir in $archivedir - 15 days after being archived"
 cd $archivedir
@@ -483,6 +494,8 @@ find $archivedirbind -maxdepth 1 -type f -mtime +15 -exec rm -f {} \;
 echo "***** Now clean also old files in $archivedircron - 15 days after being archived"
 cd $archivedircron
 find $archivedircron -maxdepth 1 -type f -mtime +15 -exec rm -f {} \;
+
+
 
 # Clean database users
 echo "***** We should also clean mysql record for permission on old databases and old users"
