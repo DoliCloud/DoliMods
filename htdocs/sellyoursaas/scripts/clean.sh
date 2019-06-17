@@ -487,10 +487,10 @@ find $archivedircron -maxdepth 1 -type f -mtime +15 -exec rm -f {} \;
 # Clean database users
 echo "***** We should also clean mysql record for permission on old databases and old users"
 SQL="use mysql; delete from db where Db NOT IN (SELECT schema_name FROM information_schema.schemata) and Db like 'dbn%';"
-echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL'"
+echo "$MYSQL -usellyoursaas -pxxxxxx -e \"$SQL\""
 #$MYSQL -usellyoursaas -pxxxxxx -e "$SQL"
 SQL="use mysql; delete from user where User NOT IN (SELECT User from db) and User like 'dbu%';"
-echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL'"
+echo "$MYSQL -usellyoursaas -pxxxxxx -e \"$SQL\""
 #$MYSQL -usellyoursaas -pxxxxxx -e "$SQL"
 
 exit 0
