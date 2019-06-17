@@ -226,7 +226,7 @@ while read bidon osusername dbname deploymentstatus ipserverdeployment; do
 	if [[ "x$osusername" != "xusername_os" && "x$osusername" != "xunknown" && "x$osusername" != "xNULL" && "x$dbname" != "xNULL" ]]; then
 		echo $ipserverdeployment | grep "$IPSERVERDEPLOYMENT" > /dev/null 2>&1
 		notfoundip=$?
-		echo notfoundip=$notfoundip
+		#echo notfoundip=$notfoundip
 
 		if [[ $notfoundip == 0 ]]; then
 	    	id $osusername >/dev/null 2>/dev/null
