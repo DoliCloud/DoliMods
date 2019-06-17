@@ -347,7 +347,7 @@ class ActionsSellyoursaas
 				}
 			}
 
-			if ($action == 'undeploy')
+			if ($action == 'confirm_undeploy')
 			{
 				$db->begin();
 
@@ -616,6 +616,14 @@ class ActionsSellyoursaas
             // Clone confirmation
             $formquestion = array(array('type' => 'other','name' => 'socid','label' => $langs->trans("SelectThirdParty"),'value' => $form->select_company($object->thirdparty->id, 'socid', '(s.client=1 OR s.client=2 OR s.client=3)')));
             $formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id, $langs->trans('ChangeCustomer'), '', 'confirm_changecustomer', $formquestion, 'yes', 1);
+            $this->resprints = $formconfirm;
+        }
+
+        if ($action == 'undeploy')
+        {
+            // Clone confirmation
+            $formquestion = array();
+            $formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id, $langs->trans('Undeploy'), $langs->trans("ConfirmUndeploy"), 'confirm_undeploy', $formquestion, 'no', 1);
             $this->resprints = $formconfirm;
         }
 

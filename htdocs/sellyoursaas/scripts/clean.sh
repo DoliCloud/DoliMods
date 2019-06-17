@@ -37,8 +37,11 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
-export DOMAIN=`grep 'domain=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
+export DOMAIN=`grep '^domain=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
+export SUBDOMAIN=`grep 'subdomain=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
+export databasehost=`grep 'databasehost=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 export database=`grep 'database=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
+export databaseuser=`grep 'databaseuser=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 
 if [ "x$DOMAIN" == "x" ]; then
    echo "Failed to find the DOMAIN by reading entry 'domain=' into file /etc/sellyoursaas.conf" 1>&2
@@ -51,6 +54,17 @@ export ZONE="with.$DOMAIN.hosts"
 if [ "x$database" == "x" ]; then
     echo "Failed to find the DATABASE by reading entry 'database=' into file /etc/sellyoursaas.conf" 1>&2
 	echo "Usage: ${0} [test|confirm]"
+	exit 1
+fi
+if [ "x$databasehost" == "x" ]; then
+    echo "Failed to find the DATABASEHOST by reading entry 'databasehost=' into file /etc/sellyoursaas.conf" 1>&2
+	echo "Usage: ${0} [test|confirm]"
+	exit 1
+fi
+if [ "x$databaseuser" == "x" ]; then
+    echo "Failed to find the DATABASEUSER by reading entry 'databaseuser=' into file /etc/sellyoursaas.conf" 1>&2
+	echo "Usage: ${0} [test|confirm]"
+	exit 1
 fi
 
 if [ "x$1" == "x" ]; then
@@ -70,14 +84,10 @@ echo "DOMAIN = $DOMAIN"
 MYSQL=`which mysql`
 MYSQLDUMP=`which mysqldump`
 echo "Search sellyoursaas database credential in /etc/sellyoursaas.conf"
-passsellyoursaas=`grep 'databasepass=' /etc/sellyoursaas.conf | cut -d '=' -f 2`		# First seach into root
+passsellyoursaas=`grep 'databasepass=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 if [[ "x$passsellyoursaas" == "x" ]]; then
-	echo Search sellyoursaas credential 2
-	passsellyoursaas=`grep 'databasepass=' /tmp/sellyoursaas.conf | cut -d '=' -f 2`	# Then search into /tmp
-	if [[ "x$passsellyoursaas" == "x" ]]; then
-		echo Failed to get password for mysql user sellyoursaas 
-		exit 1
-	fi
+	echo Failed to get password for mysql user sellyoursaas 
+	exit 1
 fi 
 
 if [[ ! -d $archivedir ]]; then
@@ -88,14 +98,26 @@ fi
 echo "***** Clean temporary files"
 echo rm -f /tmp/instancefound*
 rm -f /tmp/instancefound*
-if [ -f /tmp/instancefound ]; then
-	echo Failed to delete file /tmp/instancefound
+if [ -f /tmp/instancefound-dbinsellyoursaas ]; then
+	echo Failed to delete file /tmp/instancefound-dbinsellyoursaas
+	exit 1
+fi
+if [ -f /tmp/instancefound-activedbinsellyoursaas ]; then
+	echo Failed to delete file /tmp/instancefound-activedbinsellyoursaas
+	exit 1
+fi
+if [ -f /tmp/instancefound-dbinmysqldic ]; then
+	echo Failed to delete file /tmp/instancefound-dbinmysqldic
 	exit 1
 fi
 echo rm -f /tmp/osutoclean*
 rm -f /tmp/osutoclean*
 if [ -f /tmp/osutoclean ]; then
 	echo Failed to delete file /tmp/osutoclean
+	exit 1
+fi
+if [ -f /tmp/osutoclean-oldundeployed ]; then
+	echo Failed to delete file /tmp/osutoclean-oldundeployed
 	exit 1
 fi
 echo rm -f /tmp/osusernamefound*
@@ -107,8 +129,8 @@ fi
 
 
 
-echo "***** Clean available virtualhost that are not enabled hosts"
-for fic in `ls /etc/apache2/sellyoursaas-available/*.*.$DOMAIN.conf /etc/apache2/sellyoursaas-available/*.home.lan 2>/dev/null`
+echo "***** Clean available virtualhost that are not enabled hosts (safe)"
+for fic in `ls /etc/apache2/sellyoursaas-available/*.*.$DOMAIN.conf /etc/apache2/sellyoursaas-available/*.*.$DOMAIN.custom.conf /etc/apache2/sellyoursaas-available/*.home.lan 2>/dev/null`
 do
 	basfic=`basename $fic` 
 	if [ ! -L /etc/apache2/sellyoursaas-online/$basfic ]; then
@@ -122,7 +144,7 @@ do
 done
 
 
-echo "***** Get list of databases of all instances and save into /tmp/instancefound-dbinsellyoursaas"
+echo "***** Get list of databases of all instances and save into /tmp/instancefound-dbinsellyoursaas-dbinsellyoursaas"
 
 echo "#url=ref_customer	username_os	database_db status" > /tmp/instancefound-dbinsellyoursaas
 
@@ -138,34 +160,32 @@ if [ "x$?" != "x0" ]; then
 fi
 
 
-echo "***** Get list of databases of known active instances and save into /tmp/instancefound"
+echo "***** Get list of databases of known active instances and save into /tmp/instancefound-activedbinsellyoursaas"
 
-echo "#url=ref_customer	username_os	database_db status" > /tmp/instancefound
+echo "#url=ref_customer	username_os	database_db status" > /tmp/instancefound-activedbinsellyoursaas
 
 Q1="use $database; "
 Q2="SELECT c.ref_customer, ce.username_os, ce.database_db, ce.deployment_status FROM llx_contrat as c, llx_contrat_extrafields as ce WHERE ce.fk_object = c.rowid AND ce.deployment_status IN ('processing','done')";
 SQL="${Q1}${Q2}"
 
 echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL' | grep -v 'ref_customer'"
-$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep -v 'ref_customer' >> /tmp/instancefound
 $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep -v 'ref_customer' >> /tmp/instancefound-activedbinsellyoursaas
 if [ "x$?" != "x0" ]; then
-	echo "Failed to make first SQL request to get instances. Exit 1."
+	echo "Failed to make second SQL request to get instances. Exit 1."
 	exit 1
 fi
 
 
-echo "***** Get list of databases available in mysql and save into /tmp/instancefound"
+echo "***** Get list of databases available in mysql and save into /tmp/instancefound-dbinmysqldic"
 
 Q1="use mysql; "
 Q2="SHOW DATABASES; ";
 SQL="${Q1}${Q2}"
 
 echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL' | grep 'dbn' "
-$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep 'dbn' | awk ' { print "NULL unknown "$1" unknown" } ' >> /tmp/instancefound
 $MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep 'dbn' | awk ' { print $1 } ' >> /tmp/instancefound-dbinmysqldic
 if [ "x$?" != "x0" ]; then
-	echo "Failed to make second SQL request to get instances. Exit 1."
+	echo "Failed to make third SQL request to get instances. Exit 1."
 	exit 1
 fi
 
@@ -178,8 +198,6 @@ do
 	if [ ! -d $targetdir/$osusername ]; then
 		echo User $osusername has no home. Should not happen.
 		exit 12
-	else
-		echo User $osusername has a home $targetdir/$osusername
 	fi
 done
 
@@ -191,10 +209,34 @@ do
 	if ! grep "$osusername" /etc/passwd; then
 		echo User $osusername is not inside /etc/passwd. Should not happen.
 		exit 11
-	else
-		echo $osusername is inside /etc/passwd
 	fi
 done
+
+echo "***** Search from /tmp/instancefound-activedbinsellyoursaas of active databases (with known osusername) with a non existing unix user (should never happen)" 
+while read bidon osusername dbname deploymentstatus; do 
+	if [[ "x$osusername" != "xusername_os" && "x$osusername" != "xunknown" && "x$osusername" != "xNULL" && "x$dbname" != "xNULL" ]]; then
+    	id $osusername >/dev/null 2>/dev/null
+    	if [[ "x$?" == "x1" ]]; then
+			echo Line $bidon $osusername $dbname $deploymentstatus is for a user that does not exists. Should not happen.
+    		exit 10
+    	fi
+    fi
+done < /tmp/instancefound-activedbinsellyoursaas
+
+
+# We disable this because when we undeploy, user is kept and we want to remove it only 1 month after undeployment date (processed by next point)
+# TODO For contracts deleted from database, we must found something else: 
+#echo "***** Search from /tmp/instancefound: osu unix account with record in /etc/passwd but not in instancefound" 
+#cat /tmp/instancefound | awk '{ if ($2 != "username_os" && $2 != "unknown" && $2 != "NULL") print $2":" }' > /tmp/osusernamefound
+#if [ -s /tmp/osusernamefound ]; then
+#	for osusername in `grep -v /etc/passwd -f /tmp/osusernamefound | grep '^osu'`
+#	do
+#		tmpvar1=`echo $osusername | awk -F ":" ' { print $1 } '`
+#		echo User $tmpvar1 is an ^osu user in /etc/passwd but has no available instance in /tmp/instancefound
+#		exit 9
+#	done
+#fi
+
 
 
 echo "***** Save osu unix account with very old undeployed database into /tmp/osutoclean-oldundeployed and search entries with existing home dir and without dbn* subdir, and save into /tmp/osutoclean" 
@@ -212,50 +254,13 @@ if [ -s /tmp/osutoclean-oldundeployed ]; then
 		if [ -d /home/jail/home/$osusername ]; then
 			nbdbn=`ls /home/jail/home/$osusername/ | grep ^dbn | wc -w`
 			if [[ "x$nbdbn" == "x0" ]]; then
-				echo "User $tmpvar1 is an ^osu user in /tmp/osutoclean-oldundeployed but has still a home dir with no more dbn... into so we will remove it"
+				echo "User $tmpvar1 is an ^osu user in /tmp/osutoclean-oldundeployed but has still a home dir with no more dbn... into, so we will remove it"
 				echo $tmpvar1 >> /tmp/osutoclean
 			fi
 		fi
 	done
 fi
 
-# We disable this because when we undeploy, user is kept and we want to remove it only 1 month after undeployment date (processed by previous point)
-# TODO For contracts deleted from database, we must found something else: 
-#echo "***** Search from /tmp/instancefound: osu unix account with record in /etc/passwd but not in instancefound" 
-#cat /tmp/instancefound | awk '{ if ($2 != "username_os" && $2 != "unknown" && $2 != "NULL") print $2":" }' > /tmp/osusernamefound
-#if [ -s /tmp/osusernamefound ]; then
-#	for osusername in `grep -v /etc/passwd -f /tmp/osusernamefound | grep '^osu'`
-#	do
-#		tmpvar1=`echo $osusername | awk -F ":" ' { print $1 } '`
-#		echo User $tmpvar1 is an ^osu user in /etc/passwd but has no available instance in /tmp/instancefound
-#		exit 12
-#	done
-#fi
-
-
-echo "***** Search from /tmp/instancefound of active databases (with known osusername) with a non existing unix user and archive/drop them (should never happen)" 
-while read bidon osusername dbname deploymentstatus; do 
-	if [[ "x$osusername" != "xusername_os" && "x$osusername" != "xunknown" && "x$osusername" != "xNULL" && "x$dbname" != "xNULL" ]]; then
-    	id $osusername >/dev/null 2>/dev/null
-    	if [[ "x$?" == "x1" ]]; then
-    		#echo Line $bidon $osusername $dbname $deploymentstatus is for a user that does not exists. Should not happen.
-			#echo "Do a dump of database $dbname - may fails if already removed"
-			#mkdir -p $archivedir/$osusername
-			#echo "$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2"
-			#$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2
-
-			#echo "Now drop the database"
-			#echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname"
-			#if [[ $testorconfirm == "confirm" ]]; then
-			#	echo "DROP DATABASE $dbname;" | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname
-			#fi	
-    	
-			echo Line $bidon $osusername $dbname $deploymentstatus is for a user that does not exists. Should not happen.
-    		exit 10
-    	fi
-    
-    fi
-done < /tmp/instancefound
 
 
 echo "***** Loop on each user in /tmp/osutoclean to make a clean"
@@ -293,7 +298,7 @@ if [ -s /tmp/osutoclean ]; then
 		fi
 		
 		
-		# If osusername is known, remove user and archive dir
+		# If osusername is known, remove user and archive dir (Note: archive with clean.sh is always done in test)
 		if [[ "x$osusername" != "x" ]]; then	
 			if [[ "x$osusername" != "xNULL" ]]; then
 				echo rm -f $targetdir/$osusername/$dbname/*.log
@@ -323,8 +328,6 @@ if [ -s /tmp/osutoclean ]; then
 						cp -pr $targetdir/$osusername $archivedir
 						rm -fr $targetdir/$osusername
 						chown -R root $archivedir/$osusername
-						#find $archivedir/$osusername -type d -exec chmod -g+rx {} \;
-						#find $archivedir/$osusername -type f -exec chmod -g+x {} \;
 					fi
 				fi
 			fi
@@ -432,7 +435,7 @@ if [ -s /tmp/osutoclean ]; then
 		
 	done
 
-	# Restart apache one	
+	# Restart apache
 	echo service apache2 reload
 	if [[ "x$reloadapache" == "x1" ]]; then
 		if [[ $testorconfirm == "confirm" ]]; then

@@ -246,25 +246,6 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 
 fi
 
-if [[ "$mode" == "undeployall" ]]; then
-	
-	echo `date +%Y%m%d%H%M%S`" ***** Delete user $osusername with home into /home/jail/home/$osusername and archive it into $archivedir"
-
-	echo deluser --remove-home --backup --backup-to $archivedir $osusername
-	if [[ $testorconfirm == "confirm" ]]
-	then
-		deluser --remove-home --backup --backup-to $archivedir $osusername
-		chmod -R ug+r $archivedir/$osusername/*.bz2
-	fi
-	
-	echo deluser --group $osusername
-	if [[ $testorconfirm == "confirm" ]]
-	then
-		deluser --group $osusername
-	fi
-
-fi
-
 
 
 # Create/Remove DNS entry
@@ -524,15 +505,13 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 				mkdir $archivedir/$osusername
 				mv -f $targetdir/$osusername/$dbname $archivedir/$osusername/$dbname
 				chown -R root $archivedir/$osusername/$dbname
-				#find $archivedir/$osusername/$dbname -type d -exec chmod -g+rx {} \;
-				#find $archivedir/$osusername/$dbname -type f -exec chmod -g+x {} \;
 			fi
 		fi
 	else
 		echo The dir $targetdir/$osusername/$dbname seems already removed/archived
 	fi
 
-	# Note, we archive the dir for instance but the dir for user and user is still here. Will be removed by clean.sh
+	# Note, we archive the dir for instance but the dir for user and the user is still here. Will be removed by clean.sh or at end if mode = undeployall
 fi
 
 
@@ -849,6 +828,28 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 	else
 		echo "ERROR in dumping database, so we don't try to drop it"	
 	fi
+fi
+
+
+# Delete os directory and user + group
+
+if [[ "$mode" == "undeployall" ]]; then
+	
+	echo `date +%Y%m%d%H%M%S`" ***** Delete user $osusername with home into /home/jail/home/$osusername and archive it into $archivedir"
+
+	echo deluser --remove-home --backup --backup-to $archivedir $osusername
+	if [[ $testorconfirm == "confirm" ]]
+	then
+		deluser --remove-home --backup --backup-to $archivedir $osusername
+		chmod -R ug+r $archivedir/$osusername/*.bz2
+	fi
+	
+	echo deluser --group $osusername
+	if [[ $testorconfirm == "confirm" ]]
+	then
+		deluser --group $osusername
+	fi
+
 fi
 
 

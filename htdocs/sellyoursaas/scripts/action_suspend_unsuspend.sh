@@ -161,7 +161,7 @@ if [[ "$mode" == "rename" ]]; then
 
 		export apacheconf="/etc/apache2/sellyoursaas-online/$fqn.conf"
 		if [ -f $apacheconf ]; then
-			echo "Error failed to rename. New name is already used." 
+			echo "Error failed to rename. New name is already used (found file /etc/apache2/sellyoursaas-online/$fqn.conf)." 
 			exit 1
 		fi
 	fi
@@ -254,6 +254,10 @@ if [[ "$mode" == "rename" ]]; then
 	
 	fi 
 
+
+	echo mkdir /home/jail/home/$osusername/$dbname to be sure apache can create its error log file
+	mkdir -p /home/jail/home/$osusername/$dbname
+
 	
 	echo /usr/sbin/apache2ctl configtest
 	/usr/sbin/apache2ctl configtest
@@ -279,10 +283,10 @@ if [[ "$mode" == "rename" ]]; then
 
 	if [[ "$fqn" != "$fqnold" ]]; then
 		echo `date +%Y%m%d%H%M%S`" ***** For instance in /home/jail/home/$osusername/$dbname, delete old virtual name $fqnold"
-	
+
 		export apacheconf="/etc/apache2/sellyoursaas-online/$fqnold.conf"
 		echo `date +%Y%m%d%H%M%S`" ***** Remove apache conf $apacheconf"
-	
+
 		if [ -f $apacheconf ]; then
 		
 			echo Disable conf with a2dissite $fqnold.conf
