@@ -215,7 +215,7 @@ echo "ls -d $targetdir/osu*";
 for osusername in `ls -d $targetdir/osu* 2>/dev/null`
 do
 	export osusername=`basename $osusername`
-	if ! grep "$osusername" /etc/passwd; then
+	if ! grep "$osusername" /etc/passwd > /dev/null; then
 		echo User $osusername has a home in $targetdir but is not inside /etc/passwd. Should not happen.
 		exit 11
 	fi
