@@ -404,6 +404,7 @@ CommissionsOnOldSystem=Commissions on old system
 InvoiceBeforeAreAvailableOnDemandAt=Invoices before the %s are available on email requests at %s
 MyAcountDesc=This area is dedicated to managing your subscriptions to <a href="%s" target="dolicloud">%s</a>. You can create new instances of applications, choose options, get your subscription invoices or cancel your account.
 YourCustomUrl=Your custom URL
+CustomURL=Custom URL
 NextInvoice=Next invoice
 AccessEnabled=Access enabled
 OtherOptionsAndParameters=Other options and parameters
@@ -452,3 +453,4 @@ KeepEmptyForNoRestrictionOnDomain=Keep empty if services (in sales) that include
 SellYourSaasSubDomainsHelp=Enter full list (separated by a comma) of subdomains to show in combolists when a user wants to create a new instance. If the subdomain must be visible only when dashboard or registration page if on a particular domain, enter the domaine after ':'.
 DelayAutomaticPayment=Delay automatic payment
 DelayAutomaticPaymentDesc=Do not try to take payment automatically before this date
+DeploymentUserAgent=User agent requesting deployment

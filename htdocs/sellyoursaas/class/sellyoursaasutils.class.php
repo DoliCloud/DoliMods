@@ -1231,23 +1231,14 @@ class SellYourSaasUtils
 		    						}
 
 		    						$substitutionarray=getCommonSubstitutionArray($outputlangs, 0, null, $object);
-		    						dol_syslog('__DIRECTDOWNLOAD_URL_INVOICE__='.$substitutionarray['__DIRECTDOWNLOAD_URL_INVOICE__']);
-
-		    						$tmpforurl=preg_replace('/.*document.php/', '', $substitutionarray['__DIRECTDOWNLOAD_URL_INVOICE__']);
-		    						if ($tmpforurl)
-		    						{
-		    						    $substitutionarray['__DIRECTDOWNLOAD_URL_INVOICE__']=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/source/document.php'.$tmpforurl;
-		    						}
-		    						else
-		    						{
-		    						    $substitutionarray['__DIRECTDOWNLOAD_URL_INVOICE__']=$conf->global->SELLYOURSAAS_ACCOUNT_URL;
-		    						}
 
 		    						$substitutionarray['__SELLYOURSAAS_PAYMENT_ERROR_DESC__']=$stripefailurecode.' '.$stripefailuremessage;
+
 		    						complete_substitutions_array($substitutionarray, $outputlangs, $object);
 
 		    						// Set the property ->ref_customer with ref_customer of contract so __REFCLIENT__ will be replaced in email content
 		    						// Search contract linked to invoice
+		    						$foundcontract = null;
 		    						$invoice->fetchObjectLinked();
 		    						if (is_array($invoice->linkedObjects['contrat']) && count($invoice->linkedObjects['contrat']) > 0)
 		    						{
@@ -1256,8 +1247,25 @@ class SellYourSaasUtils
 		    							{
 		    								$substitutionarray['__CONTRACT_REF__']=$contract->ref_customer;
 		    								$substitutionarray['__REFCLIENT__']=$contract->ref_customer;
+		    								$foundcontract = $contract;
 		    								break;
 		    							}
+		    						}
+
+		    						dol_syslog('__DIRECTDOWNLOAD_URL_INVOICE__='.$substitutionarray['__DIRECTDOWNLOAD_URL_INVOICE__']);
+
+		    						$urlforsellyoursaasaccount = getRootUrlForAccount($foundcontract);
+		    						if ($urlforsellyoursaasaccount)
+		    						{
+    		    						$tmpforurl=preg_replace('/.*document.php/', '', $substitutionarray['__DIRECTDOWNLOAD_URL_INVOICE__']);
+    		    						if ($tmpforurl)
+    		    						{
+    		    						    $substitutionarray['__DIRECTDOWNLOAD_URL_INVOICE__']=$urlforsellyoursaasaccount.'/source/document.php'.$tmpforurl;
+    		    						}
+    		    						else
+    		    						{
+    		    						    $substitutionarray['__DIRECTDOWNLOAD_URL_INVOICE__']=$urlforsellyoursaasaccount;
+    		    						}
 		    						}
 
 		    						$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
@@ -2912,12 +2920,27 @@ class SellYourSaasUtils
     			$tmp=explode('.', $contract->ref_customer, 2);
     			$sldAndSubdomain=$tmp[0];
     			$domainname=$tmp[1];
-    			$serverdeployement = $this->getRemoveServerDeploymentIp($domainname);
+    			if (! empty($contract->array_options['options_deployment_host']))
+    			{
+    			    $serverdeployement = $contract->array_options['options_deployment_host'];
+    			}
+    			else
+    			{
+                    $serverdeployement = $this->getRemoveServerDeploymentIp($domainname);
+    			}
     			if (empty($serverdeployement))	// Failed to get remote ip
     			{
-    				dol_syslog($this->error, LOG_ERR);
+    				dol_syslog(($this->error ? $this->error : 'Failed to get ip for deployment server'), LOG_ERR);
     				$error++;
     				break;
+    			}
+
+    			$urlforsellyoursaasaccount = getRootUrlForAccount($contract);
+    			if (empty($urlforsellyoursaasaccount))	// Failed to get customer account url
+    			{
+    			    dol_syslog('Failed to get customer account url', LOG_ERR);
+    			    $error++;
+    			    break;
     			}
 
     			$tmpold=explode('.', $object->oldcopy->ref_customer, 2);
@@ -2957,25 +2980,19 @@ class SellYourSaasUtils
     			$CERTIFFORCUSTOMDOMAIN=$customurl;
     			if ($CERTIFFORCUSTOMDOMAIN)
     			{
+    			    // Kept for backward compatibility
 	    			if (preg_match('/on\.dolicloud\.com$/', $CERTIFFORCUSTOMDOMAIN))
 	    			{
 	    				$CERTIFFORCUSTOMDOMAIN='on.dolicloud.com';
 	    			}
 	    			else
 	    			{
-		    			// If SSL certificate does not exist, we try to save it
-	    				// FIXME Detection of /etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt' fails due to basedir
+		    			// Check if SSL certificate for $customurl exists. If it does not exist, return an error to ask to upload certificate first.
+	    				// FIXME Detection of /etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt' fails due to basedir. Save them into another dir than /etc/apache2.
 		    			if (! file_exists('/etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt'))
 		    			{
-							// TODO Save SSL certificate in /etc/apache2
-		    			}
-		    			if (! file_exists('/etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt'))
-		    			{
-		    				$CERTIFFORCUSTOMDOMAIN='on.dolicloud.com';
-		    				if ($domainname == 'with.novafirstcloud.com')
-		    				{
-		    					$CERTIFFORCUSTOMDOMAIN='with.novafirstcloud.com';
-		    				}
+		    			    // TODO Return error to ask to upload a certificate first.
+		    			    $CERTIFFORCUSTOMDOMAIN=getDomainFromURL($customurl, 2);
 		    				$SSLON='Off';
 		    			}
 	    			}
@@ -3102,7 +3119,7 @@ class SellYourSaasUtils
     			$commandurl.= '&'.$tmppackage->srccronfile.'&'.$tmppackage->srccliafter.'&'.$targetdir;
     			$commandurl.= '&'.$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;	// Param 22 in .sh
     			$commandurl.= '&'.$serverdeployement;
-    			$commandurl.= '&'.$conf->global->SELLYOURSAAS_ACCOUNT_URL;			// Param 24 in .sh
+    			$commandurl.= '&'.$urlforsellyoursaasaccount;			            // Param 24 in .sh
     			$commandurl.= '&'.$sldAndSubdomainold;
     			$commandurl.= '&'.$domainnameold;
     			$commandurl.= '&'.$customurl;
@@ -3501,12 +3518,10 @@ class SellYourSaasUtils
     }
 
 
-
-
     /**
      * Return IP of server to deploy to
      *
-     * @param	string		$domainname		Domain name to select remote ip to deploy to
+     * @param	string		$domainname		Domain name to select remote ip to deploy to (example: 'home.lan', 'dolicloud.com', ...)
      * @return	string						'' if KO, IP if OK
      */
     function getRemoveServerDeploymentIp($domainname)

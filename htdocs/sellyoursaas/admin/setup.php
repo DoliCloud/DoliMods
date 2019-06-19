@@ -326,56 +326,56 @@ print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasName").'</td>';
 print '<td>';
-print '<input type="text" name="SELLYOURSAAS_NAME" value="'.$conf->global->SELLYOURSAAS_NAME.'">';
+print '<input type="text" name="SELLYOURSAAS_NAME" value="'.$conf->global->SELLYOURSAAS_NAME.'" class="minwidth300">';
 print '</td>';
-print '<td>My SaaS service</td>';
+print '<td>My SaaS service,My Saas service 2</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasMainDomain").'</td>';
 print '<td>';
-print '<input type="text" name="SELLYOURSAAS_MAIN_DOMAIN_NAME" value="'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'">';
+print '<input type="text" name="SELLYOURSAAS_MAIN_DOMAIN_NAME" value="'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'" class="minwidth300">';
 print '</td>';
-print '<td>mysaas.com</td>';
+print '<td>mysaas.com,mysaas2.com</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$form->textwithpicto($langs->trans("SellYourSaasSubDomains"), $langs->trans("SellYourSaasSubDomainsHelp")).'</td>';
 print '<td>';
-print '<input type="text" name="SELLYOURSAAS_SUB_DOMAIN_NAMES" value="'.$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES.'">';
+print '<input type="text" name="SELLYOURSAAS_SUB_DOMAIN_NAMES" value="'.$conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES.'" class="minwidth300">';
 print '</td>';
-print '<td>with.mydomain.com,with.myotherdomain.com:myotherdomain.com...</td>';
+print '<td>with.mysaas.com,with.mysaas2.com:mysaas2.com...</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasSubDomainsIP").'</td>';
 print '<td>';
-print '<input type="text" name="SELLYOURSAAS_SUB_DOMAIN_IP" value="'.$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP.'">';
+print '<input type="text" name="SELLYOURSAAS_SUB_DOMAIN_IP" value="'.$conf->global->SELLYOURSAAS_SUB_DOMAIN_IP.'" class="minwidth300">';
 print '</td>';
 print '<td>192.168.0.1,123.456.789.012...</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasMainEmail").'</td>';
 print '<td>';
-print '<input type="text" name="SELLYOURSAAS_MAIN_EMAIL" value="'.$conf->global->SELLYOURSAAS_MAIN_EMAIL.'">';
+print '<input type="text" name="SELLYOURSAAS_MAIN_EMAIL" value="'.$conf->global->SELLYOURSAAS_MAIN_EMAIL.'" class="minwidth300">';
 print '</td>';
 print '<td>contact@mysaas.com</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasMainEmail").' (Premium)</td>';
 print '<td>';
-print '<input type="text" name="SELLYOURSAAS_MAIN_EMAIL_PREMIUM" value="'.$conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM.'">';
+print '<input type="text" name="SELLYOURSAAS_MAIN_EMAIL_PREMIUM" value="'.$conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM.'" class="minwidth300">';
 print '</td>';
 print '<td>contact+premium@mysaas.com</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasSupervisionEmail").'</td>';
 print '<td>';
-print '<input type="text" name="SELLYOURSAAS_SUPERVISION_EMAIL" value="'.$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL.'">';
+print '<input type="text" name="SELLYOURSAAS_SUPERVISION_EMAIL" value="'.$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL.'" class="minwidth300">';
 print '</td>';
 print '<td>supervision@mysaas.com</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasNoReplyEmail").'</td>';
 print '<td>';
-print '<input type="text" name="SELLYOURSAAS_NOREPLY_EMAIL" value="'.$conf->global->SELLYOURSAAS_NOREPLY_EMAIL.'">';
+print '<input type="text" name="SELLYOURSAAS_NOREPLY_EMAIL" value="'.$conf->global->SELLYOURSAAS_NOREPLY_EMAIL.'" class="minwidth300">';
 print '</td>';
 print '<td>noreply@mysaas.com</td>';
 print '</tr>';
@@ -459,7 +459,7 @@ print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasAccountUrl").'</td>'
 print '<td>';
 print '<input class="minwidth300" type="text" name="SELLYOURSAAS_ACCOUNT_URL" value="'.$conf->global->SELLYOURSAAS_ACCOUNT_URL.'">';
 print '</td>';
-print '<td>https://myaccount.mysaas.com (the virtual host must link to <strong>'.dol_buildpath('sellyoursaas/myaccount').'</strong>)</td>';
+print '<td>https://myaccount.mysaas.com<br>Note: Virtual hosts for such domains must link to <strong>'.dol_buildpath('sellyoursaas/myaccount').'</strong></td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasPricesUrl").'</td>';

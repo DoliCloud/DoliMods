@@ -301,17 +301,26 @@ function sellyoursaasIsSuspended($contract)
 }
 
 /**
- * Return URL of customer account from object
+ * Return URL of customer account. Try to guess using an object.
  *
- * @param   Object      $object         Object
+ * @param   Object      $object         Object Product or Object Packages or Object Contract
  * @return  string                      URL
  */
 function getRootUrlForAccount($object)
 {
-    global $db, $conf, $user;
-    $ret = $conf->global->SELLYOURSAAS_ACCOUNT_URL;     // By default
+    global $db, $conf;
+
+    $tmpret = explode(',', $conf->global->SELLYOURSAAS_ACCOUNT_URL);     // By default take the first IP
+    $ret = $tmpret[0];
 
     $newobject = $object;
+
+    // If $object is a contract, we take ref_c
+    if (get_class($newobject) == 'Contrat')
+    {
+        include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+        $ret = 'https://myaccount.'.getDomainFromURL($newobject->ref_customer, 1);
+    }
 
     // If $object is a product, we take package
     if (get_class($newobject) == 'Product')
