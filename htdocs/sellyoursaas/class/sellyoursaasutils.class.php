@@ -980,7 +980,6 @@ class SellYourSaasUtils
 							$obj = $this->db->fetch_object($resqlonevents);
 							if ($obj && $obj->nb > 0) $recentfailedpayment = true;
 						}
-
 						if ($recentfailedpayment && empty($nocancelifpaymenterror))	// If we are not in a mode that ask to avoid cancelation, we cancel payment.
 						{
 							$errmsg='Payment try was canceled (recent payment, in last '.$nbhoursbetweentries.' hours, with error AC_PAYMENT_STRIPE_KO for this customer)';
@@ -988,6 +987,13 @@ class SellYourSaasUtils
 
 							$error++;
 							$this->errors[]=$errmsg;
+						}
+						elseif (! empty($invoice->array_options['options_delayautopayment']) && $invoice->array_options['options_delayautopayment'] > $now) {
+						    $errmsg='Payment try was canceled (invoice is qualified by the automatic payment was delayed after the '.dol_print_date($invoice->array_options['options_delayautopayment'], 'day').')';
+						    dol_syslog($errmsg, LOG_DEBUG);
+
+						    $error++;
+						    $this->errors[]=$errmsg;
 						}
 						elseif (
 						    ($invoice->date < ($now - ($nbdaysbeforeendoftries * 24 * 3600)))                                 // We try until we reach $nbdaysbeforeendoftries

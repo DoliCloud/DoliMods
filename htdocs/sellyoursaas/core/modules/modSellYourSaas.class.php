@@ -640,6 +640,7 @@ class modSellYourSaas extends DolibarrModules
 		$resultx=$extrafields->addExtraField('commission',"PartnerCommissionForThisInvoice",      'int', 20,   '3', 'facture', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
 		$param=array('options'=>array('Societe:societe/class/societe.class.php'=>null));
 		$resultx=$extrafields->addExtraField('reseller',                         "Reseller",     'link', 30,   '3', 'facture', 0, 0, '', $param, 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled');
+		$resultx=$extrafields->addExtraField('delayautopayment',    "DelayAutomaticPayment",     'date', 35,    '', 'facture', 0, 0, '',     '', 1, '', 1, 0, '', '', 'sellyoursaas@sellyoursaas', '$conf->sellyoursaas->enabled', 'DelayAutomaticPaymentDesc');
 
 		// Create/import website called 'sellyoursaas'
 		//include_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
