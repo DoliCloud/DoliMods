@@ -2710,7 +2710,6 @@ class SellYourSaasUtils
 		    				{
 		    					// Check if install.lock exists
 		    					$dir = $object->array_options['options_database_db'];
-		    					//$fileinstalllock="ssh2.sftp://".$sftp.$conf->global->DOLICLOUD_EXT_HOME.'/'.$object->username_web.'/'.$dir.'/documents/install.lock';
 		    					$fileinstalllock="ssh2.sftp://".intval($sftp).$object->array_options['options_hostname_os'].'/'.$object->array_options['options_username_os'].'/'.$dir.'/documents/install.lock';
 		    					$fileinstalllock2=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$object->array_options['options_username_os'].'/'.$dir.'/documents/install.lock';
 		    					$fstatlock=@ssh2_sftp_stat($sftp, $fileinstalllock2);
@@ -2883,7 +2882,7 @@ class SellYourSaasUtils
     	{
     		if (empty($tmpobject))
     		{
-    			dol_syslog("List of lines contains an empty ContratLine, we discard this one.", LOG_WARNING);
+    			dol_syslog("List of lines contains an empty ContratLine, we discard this line.", LOG_WARNING);
     			continue;
     		}
 
@@ -2907,13 +2906,18 @@ class SellYourSaasUtils
     		// remoteaction = 'deploy','deployall','deployoption','rename','suspend','unsuspend','undeploy'
     		if ($doremoteaction)
     		{
-    			$forceaddevent = 1;
-
     			dol_syslog("Enter into doremoteaction code, with ".$tmpobject->id." ".$producttmp->array_options['options_app_or_option']);
     			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
     			$contract = new Contrat($this->db);
     			$contract->fetch($tmpobject->fk_contrat);
     			$contract->fetch_thirdparty();
+
+    			// Set var to force to add an event at end of remote action.
+    			$forceaddevent = 1;
+    			if ($remoteaction == 'rename')
+    			{
+    			    $forceaddevent = 'Rename old name '.$object->oldcopy->ref_customer.' into '.$contract->ref_customer;
+    			}
 
     			$ispaidinstance = sellyoursaasIsPaidInstance($contract);
 
@@ -3462,22 +3466,32 @@ class SellYourSaasUtils
     		}
     	}
 
-    	if (! $error && get_class($object) == 'Contrat' && $forceaddevent)
+    	if (! $error && $forceaddevent && (get_class($object) == 'Contrat' || get_class($object) == 'ContratLigne'))
     	{
+    	    $tmpcontract = $object;
+
+    	    if (get_class($object) == 'ContratLigne')
+    	    {
+    	        $tmpcontract = new Contrat($this->db);
+    	        $tmpcontract->fetch($object->fk_contrat);
+    	    }
+
+    	    $remoteip = getUserRemoteIP();
+
     		// Create an event
     		$actioncomm = new ActionComm($this->db);
     		$actioncomm->type_code   = 'AC_OTH_AUTO';		// Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
     		$actioncomm->code        = 'AC_'.strtoupper($remoteaction);
-    		$actioncomm->label       = 'Remote action '.$remoteaction.(preg_match('/PROV/', $object->ref) ? '' : ' on '.$object->ref).' by '.($_SERVER["REMOTE_ADDR"]?$_SERVER["REMOTE_ADDR"]:'localhost');
+    		$actioncomm->label       = 'Remote action '.$remoteaction.(preg_match('/PROV/', $tmpcontract->ref) ? '' : ' on '.$tmpcontract->ref).' by '.($remoteip?$remoteip:'localhost');
     		$actioncomm->datep       = $now;
     		$actioncomm->datef       = $now;
-    		$actioncomm->percentage  = -1;   // Not applicable
-    		$actioncomm->socid       = $object->socid;
-    		$actioncomm->authorid    = $user->id;   // User saving action
-    		$actioncomm->userownerid = $user->id;	// Owner of action
-    		$actioncomm->fk_element  = $object->id;
+    		$actioncomm->percentage  = -1;            // Not applicable
+    		$actioncomm->socid       = $tmpcontract->socid;
+    		$actioncomm->authorid    = $user->id;     // User saving action
+    		$actioncomm->userownerid = $user->id;	  // Owner of action
+    		$actioncomm->fk_element  = $tmpcontract->id;
     		$actioncomm->elementtype = 'contract';
-    		$actioncomm->note_private = $comment;
+    		$actioncomm->note_private = $comment;     // Description of event ($comment come from calling parameter of function sellyoursaasRemoteAction)
     		if (! is_numeric($forceaddevent))
     		{
     			$actioncomm->note_private = dol_concatdesc($actioncomm->note_private, $forceaddevent);

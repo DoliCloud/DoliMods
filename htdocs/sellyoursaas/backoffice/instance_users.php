@@ -166,7 +166,7 @@ if (empty($reshook))
 	        $resultfetch = $edituser->fetch($idofcreateduser);
 	        if ($resultfetch > 0)
 	        {
-	            $edituser->addrights(0, '', '', 0);
+	            $edituser->addrights(0, '', '', 0, 1);
 	        }
 	    }
 	}
