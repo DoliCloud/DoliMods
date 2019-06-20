@@ -163,11 +163,14 @@ if (empty($reshook))
 
 	        // Add all permissions on support user
 	        $edituser = new User($newdb);
-	        $resultfetch = $edituser->fetch($idofcreateduser);
-	        if ($resultfetch > 0)
-	        {
-	            $edituser->addrights(0, '', '', 0, 1);
-	        }
+	        $edituser->id = $idofcreateduser;
+	        $edituser->entity = 0;
+
+	        $resaddright = $edituser->addrights(0, 'allmodules', '', 0, 1);
+            if ($resaddright <= 0)
+            {
+                setEventMessages('Failed to set all permissions : '.$edituser->error, $edituser->errors, 'warnings');
+            }
 	    }
 	}
 	if ($action == "deletesupportuser")
@@ -545,7 +548,7 @@ function print_user_table($newdb)
 				print '<td>';
 				print ($i+1);
 				print '</td>';
-				print '<td>';
+				print '<td class="nowraponall">';
 				print $obj->login;
 				print ' <a target="_customerinstance" href="'.$url.'">'.img_object('', 'globe').'</a>';
 				print '</td>';
