@@ -469,7 +469,7 @@ if (! function_exists("llxFooter"))
 		print "\n<!-- A div to allow dialog popup -->\n";
 		print '<div id="dialogforpopup" style="display: none;"></div>'."\n";
 
-		// Show conversion tracker
+		// Show conversion tracker (the $_SESSION['showconversiontracker'] is set into output page after a payment record by myaccount/index.php)
 		if (! empty($_SESSION['showconversiontracker']))
 		{
 			print "\n".'<!-- Conversion tracker -->'."\n";

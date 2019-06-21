@@ -1165,6 +1165,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 			$db->commit();
 
+			// Set flag 'showconversiontracker' in session to output the js tracker by llxFooter function of customer dashboard.
 			$_SESSION['showconversiontracker']=1;
 
 			$url=$_SERVER["PHP_SELF"];
