@@ -153,7 +153,7 @@ class SellYourSaasUtils
 										if (! empty($newlang)) {
 											$outputlangs = new Translate("", $conf);
 											$outputlangs->setDefaultLang($newlang);
-											$outputlangs->load('products');
+											$outputlangs->load('bills','products');
 										}
 										$model=$invoice->modelpdf;
 										$ret = $invoice->fetch($id); // Reload to get new records
