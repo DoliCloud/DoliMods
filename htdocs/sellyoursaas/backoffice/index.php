@@ -466,7 +466,6 @@ if (! $mesg)
 {
 	$px1->SetData($data1);
 	unset($data1);
-	$px1->SetPrecisionY(0);
 
 	$legend=array();
 	$legend[0]=$langs->trans("RevenuePerMonth");
@@ -480,7 +479,6 @@ if (! $mesg)
 	$px1->SetYLabel($langs->trans("Nb"));
 	$px1->SetShading(3);
 	$px1->SetHorizTickIncrement(1);
-	$px1->SetPrecisionY(0);
 	$px1->SetCssPrefix("cssboxes");
 	$px1->SetType(array('lines','lines','lines'));
 	$px1->mode='depth';
@@ -495,7 +493,6 @@ if (! $mesg)
 {
 	$px2->SetData($data2);
 	unset($data2);
-	$px2->SetPrecisionY(0);
 
 	$legend=array();
 	$legend[0]=$langs->trans("NbOfInstancesPaying");
@@ -508,7 +505,6 @@ if (! $mesg)
 	$px2->SetYLabel($langs->trans("Nb"));
 	$px2->SetShading(3);
 	$px2->SetHorizTickIncrement(1);
-	$px2->SetPrecisionY(0);
 	$px2->SetCssPrefix("cssboxes");
 	$px2->SetType(array('lines','lines'));
 	$px2->mode='depth';
