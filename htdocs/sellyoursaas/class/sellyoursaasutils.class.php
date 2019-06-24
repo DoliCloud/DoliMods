@@ -102,7 +102,7 @@ class SellYourSaasUtils
 				$obj = $this->db->fetch_object($resql);
 				if ($obj && $invoice->fetch($obj->rowid) > 0)
 				{
-				    dol_syslog("* Process invoice id=".$invoice->id." ref=".$invoice->ref." fk_soc=".$restrictonthirdpartyid);
+				    dol_syslog("* Process invoice id=".$invoice->id." ref=".$invoice->ref." restrictonthirdpartyid=".$restrictonthirdpartyid);
 
 					$invoice->fetch_thirdparty();
 
