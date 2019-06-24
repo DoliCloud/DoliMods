@@ -2615,8 +2615,42 @@ class SellYourSaasUtils
     					}
     					else
     					{
-    						//setEventMessages($langs->trans("InstanceWasUndeployed"), null, 'mesgs');
-    						//setEventMessages($langs->trans("InstanceWasUndeployedToConfirm"), null, 'mesgs');
+    						// Now we force disable of recurring invoices
+    					    $object->fetchObjectLinked();
+
+    					    if (is_array($object->linkedObjects['facturerec']))
+    					    {
+    					        foreach($object->linkedObjects['facturerec'] as $idtemplateinvoice => $templateinvoice)
+    					        {
+                                    // Disabled this template invoice
+    					            $res = $templateinvoice->setValueFrom('suspended', 1);
+    					            if ($res)
+    					            {
+    					               $res = $templateinvoice->setValueFrom('note_private', dol_concatdesc($templateinvoice->note_private, 'Disabled by doUndeployOldSuspendedInstances mode='.$mode.' the '.dol_print_date($now, 'dayhour')));
+    					            }
+    					        }
+    					    }
+
+    					    // Delete draft invoices linked to this thirdparty
+    					    foreach ($object->linkedObjects['facture'] as $idinvoice => $invoicetodelete)
+    					    {
+    					        if ($invoicetodelete->statut == Facture::STATUS_DRAFT)
+    					        {
+    					            if (preg_match('/\(.*\)/', $invoicetodelete->ref))
+    					            {
+            					        //$sql = "DELETE FROM ".MAIN_DB_PREFIX."facture WHERE fk_statut = ".Facture::STATUS_DRAFT." AND fk_soc = ".$object->fk_soc;
+            					        //$sql.= " AND rowid IN (".join(',', $object->linkedObjectsIds['facture']).")";
+            					        //var_dump($sql);
+        					            $res = $invoicetodelete->delete($user);
+        					            //var_dump($idinvoice.' '.$res);
+    					            }
+    					            else
+    					            {
+    					                dol_syslog("The draft invoice ".$invoicetodelete->ref." has not a ref that match '(...)' so we do not delete it.", LOG_WAR);
+    					            }
+    					        }
+    					    }
+    					    //exit;
     					}
     				}
     			}
@@ -2629,7 +2663,7 @@ class SellYourSaasUtils
     		$this->error = $this->db->lasterror();
     	}
 
-    	$this->output = count($contractprocessed).' contract(s), in mode '.$mode.', suspended with end date before '.dol_print_date($datetotest, 'dayrfc').' undeployed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
+    	$this->output = count($contractprocessed).' contract(s), in mode '.$mode.', suspended, with a planned end date before '.dol_print_date($datetotest, 'dayrfc').' undeployed'.(count($contractprocessed)>0 ? ' : '.join(',', $contractprocessed) : '');
 
     	$this->db->commit();
 
