@@ -56,7 +56,7 @@ class ActionsSellyoursaas
      *                              				=0 if OK but we want to process standard actions too,
      *                              				>0 if OK and we want to replace standard actions.
      */
-    function getNomUrl($parameters,&$object,&$action)
+    function getNomUrl($parameters, &$object, &$action)
     {
     	global $db,$langs,$conf,$user;
 
@@ -78,6 +78,12 @@ class ActionsSellyoursaas
 			    	$this->resprints .= '<a href="'.$url.'" target="_myaccount" alt="'.$conf->global->SELLYOURSAAS_NAME.' '.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span></a>';
 		    	}
 	    	}
+    	}
+
+    	if ($object->element == 'contrat')
+    	{
+    	    // TODO Change the alt/title
+    	    //$this->resprints = ' - <!-- Added by getNomUrl hook of SellYourSaas -->';
     	}
 
     	return 0;
