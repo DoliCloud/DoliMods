@@ -102,7 +102,7 @@ class SellYourSaasUtils
 				$obj = $this->db->fetch_object($resql);
 				if ($obj && $invoice->fetch($obj->rowid) > 0)
 				{
-					dol_syslog("* Process invoice id=".$invoice->id." ref=".$invoice->ref);
+				    dol_syslog("* Process invoice id=".$invoice->id." ref=".$invoice->ref." fk_soc=".$restrictonthirdpartyid);
 
 					$invoice->fetch_thirdparty();
 
@@ -157,6 +157,8 @@ class SellYourSaasUtils
 										}
 										$model=$invoice->modelpdf;
 										$ret = $invoice->fetch($id); // Reload to get new records
+
+										dol_syslog("GETPOST('lang_id','aZ09')=".GETPOST('lang_id','aZ09')." invoice->thirdparty->default_lang=".(is_object($invoice->thirdparty)?$invoice->thirdparty->default_lang:'invoice->thirdparty not defined')." newlang=".$newlang);
 
 										$result = $invoice->generateDocument($model, $outputlangs, $hidedetails, $hidedesc, $hideref);
 									}
