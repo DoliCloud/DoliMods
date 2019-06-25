@@ -2632,23 +2632,26 @@ class SellYourSaasUtils
     					    }
 
     					    // Delete draft invoices linked to this thirdparty
-    					    foreach ($object->linkedObjects['facture'] as $idinvoice => $invoicetodelete)
+    					    if (is_array($object->linkedObjects['facture']))
     					    {
-    					        if ($invoicetodelete->statut == Facture::STATUS_DRAFT)
-    					        {
-    					            if (preg_match('/\(.*\)/', $invoicetodelete->ref))
-    					            {
-            					        //$sql = "DELETE FROM ".MAIN_DB_PREFIX."facture WHERE fk_statut = ".Facture::STATUS_DRAFT." AND fk_soc = ".$object->fk_soc;
-            					        //$sql.= " AND rowid IN (".join(',', $object->linkedObjectsIds['facture']).")";
-            					        //var_dump($sql);
-        					            $res = $invoicetodelete->delete($user);
-        					            //var_dump($idinvoice.' '.$res);
-    					            }
-    					            else
-    					            {
-    					                dol_syslog("The draft invoice ".$invoicetodelete->ref." has not a ref that match '(...)' so we do not delete it.", LOG_WAR);
-    					            }
-    					        }
+        					    foreach ($object->linkedObjects['facture'] as $idinvoice => $invoicetodelete)
+        					    {
+        					        if ($invoicetodelete->statut == Facture::STATUS_DRAFT)
+        					        {
+        					            if (preg_match('/\(.*\)/', $invoicetodelete->ref))
+        					            {
+                					        //$sql = "DELETE FROM ".MAIN_DB_PREFIX."facture WHERE fk_statut = ".Facture::STATUS_DRAFT." AND fk_soc = ".$object->fk_soc;
+                					        //$sql.= " AND rowid IN (".join(',', $object->linkedObjectsIds['facture']).")";
+                					        //var_dump($sql);
+            					            $res = $invoicetodelete->delete($user);
+            					            //var_dump($idinvoice.' '.$res);
+        					            }
+        					            else
+        					            {
+        					                dol_syslog("The draft invoice ".$invoicetodelete->ref." has not a ref that match '(...)' so we do not delete it.", LOG_WAR);
+        					            }
+        					        }
+        					    }
     					    }
     					    //exit;
     					}
