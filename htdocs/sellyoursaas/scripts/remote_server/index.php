@@ -99,7 +99,7 @@ if (in_array($tmparray[0], array('deploy', 'undeploy', 'deployall', 'undeployall
 	fwrite($fh, date('Y-m-d H:i:s').' '.join("\n",$output));
 	fclose($fh);
 
-	$httpresponse = 500;
+	$httpresponse = 550 + ($return_var < 50 ? $return_var : 0);
 	if ($return_var == 0)
 	{
 		$httpresponse = 200;
@@ -121,7 +121,7 @@ if (in_array($tmparray[0], array('rename', 'suspend', 'unsuspend')))
 	fwrite($fh, date('Y-m-d H:i:s').' '.join("\n",$output));
 	fclose($fh);
 
-	$httpresponse = 500;
+	$httpresponse = 550 + ($return_var < 50 ? $return_var : 0);
 	if ($return_var == 0)
 	{
 		$httpresponse = 200;
