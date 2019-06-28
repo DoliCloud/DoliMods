@@ -210,11 +210,11 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
 
         			$testok = 1;
 
-        			// Test new name not already used
+        			// Test that new name is not already used
         			$nametotest = $object->ref_customer;
 					// @TODO
 
-        			// Test custom url not already used
+        			// Test that custom url is not already used
 	       			$nametotest = $object->array_options['options_custom_url'];
 					// @TODO
 
