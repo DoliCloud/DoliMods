@@ -3182,9 +3182,9 @@ class SellYourSaasUtils
     			// Execute remote action
     			if (! $error)
     			{
-	    			$urltoget='http://'.$serverdeployement.':8080/'.$remoteaction.'?'.urlencode($commandurl);
+    			    $urltoget='http://'.$serverdeployement.':8080/'.$remoteaction.'?'.urlencode($commandurl);
 	    			include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
-	    			$retarray = getURLContent($urltoget);
+	    			$retarray = getURLContent($urltoget);   // Timeout is defined before
 
 	    			if ($retarray['curl_error_no'] != '' || $retarray['http_code'] != 200)
 	    			{
