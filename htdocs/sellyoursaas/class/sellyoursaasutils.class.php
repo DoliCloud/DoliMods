@@ -2697,6 +2697,7 @@ class SellYourSaasUtils
     	$langs->load("agenda");
 
     	$error = 0;
+        $retarray = array();
 
     	$now = dol_now();
 
@@ -3505,7 +3506,27 @@ class SellYourSaasUtils
     		}
     	}
 
-    	if (! $error && $forceaddevent && (get_class($object) == 'Contrat' || get_class($object) == 'ContratLigne'))
+    	$recordanevent = 0;
+    	$prefixlabel = '';
+    	if ($forceaddevent && (get_class($object) == 'Contrat' || get_class($object) == 'ContratLigne'))
+    	{
+    	    $recordanevent = 1;
+    	    if (! $error)
+    	    {
+    	       $prefixlabel = '';
+    	    }
+    	    elseif (! empty($retarray['http_code']))
+    	    {
+    	        $forceaddevent = dol_concatdesc("Error ".$retarray['http_code']." returned by the remote agent.", (is_numeric($forceaddevent)?'':$forceaddevent));
+    	        $prefixlabel = 'ERROR ';
+    	    }
+    	    else
+    	    {
+    	        $prefixlabel = 'ERROR ';
+    	    }
+    	}
+
+    	if ($recordanevent)
     	{
     	    $tmpcontract = $object;
 
@@ -3517,25 +3538,41 @@ class SellYourSaasUtils
 
     	    $remoteip = getUserRemoteIP();
 
-    		// Create an event
-    		$actioncomm = new ActionComm($this->db);
-    		$actioncomm->type_code   = 'AC_OTH_AUTO';		// Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
-    		$actioncomm->code        = 'AC_'.strtoupper($remoteaction);
-    		$actioncomm->label       = 'Remote action '.$remoteaction.(preg_match('/PROV/', $tmpcontract->ref) ? '' : ' on '.$tmpcontract->ref).' by '.($remoteip?$remoteip:'localhost');
-    		$actioncomm->datep       = $now;
-    		$actioncomm->datef       = $now;
-    		$actioncomm->percentage  = -1;            // Not applicable
-    		$actioncomm->socid       = $tmpcontract->socid;
-    		$actioncomm->authorid    = $user->id;     // User saving action
-    		$actioncomm->userownerid = $user->id;	  // Owner of action
-    		$actioncomm->fk_element  = $tmpcontract->id;
-    		$actioncomm->elementtype = 'contract';
-    		$actioncomm->note_private = $comment;     // Description of event ($comment come from calling parameter of function sellyoursaasRemoteAction)
-    		if (! is_numeric($forceaddevent))
-    		{
-    			$actioncomm->note_private = dol_concatdesc($actioncomm->note_private, $forceaddevent);
-    		}
-    		$ret=$actioncomm->create($user);       // User creating action
+    	    // Create a new connection to record event in an other transaction
+    	    global $dolibarr_main_db_type, $dolibarr_main_db_host, $dolibarr_main_db_user;
+    	    global $dolibarr_main_db_pass, $dolibarr_main_db_name, $dolibarr_main_db_port;
+    	    $dbtype = $dolibarr_main_db_type;
+    	    $dbhost = $dolibarr_main_db_host;
+    	    $dbuser = $dolibarr_main_db_user;
+    	    $dbpass = $dolibarr_main_db_pass;
+    	    $dbname = $dolibarr_main_db_name;
+    	    $dbport = $dolibarr_main_db_port;
+    	    $independantdb = getDoliDBInstance($dbtype, $dbhost, $dbuser, $dbpass, $dbname, $dbport);
+
+    	    if ($independantdb->connected)
+    	    {
+        		// Create an event
+        	    $actioncomm = new ActionComm($independantdb);
+        		$actioncomm->type_code   = 'AC_OTH_AUTO';		// Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
+        		$actioncomm->code        = 'AC_'.strtoupper($remoteaction);
+        		$actioncomm->label       = $prefixlabel.'Remote action '.$remoteaction.(preg_match('/PROV/', $tmpcontract->ref) ? '' : ' on '.$tmpcontract->ref).' by '.($remoteip?$remoteip:'localhost');
+        		$actioncomm->datep       = $now;
+        		$actioncomm->datef       = $now;
+        		$actioncomm->percentage  = -1;            // Not applicable
+        		$actioncomm->socid       = $tmpcontract->socid;
+        		$actioncomm->authorid    = $user->id;     // User saving action
+        		$actioncomm->userownerid = $user->id;	  // Owner of action
+        		$actioncomm->fk_element  = $tmpcontract->id;
+        		$actioncomm->elementtype = 'contract';
+        		$actioncomm->note_private = $comment;     // Description of event ($comment come from calling parameter of function sellyoursaasRemoteAction)
+        		if (! is_numeric($forceaddevent))
+        		{
+        			$actioncomm->note_private = dol_concatdesc($actioncomm->note_private, $forceaddevent);
+        		}
+        		$ret=$actioncomm->create($user);       // User creating action
+
+        		$independantdb->close();
+    	    }
     	}
 
 
@@ -3564,7 +3601,7 @@ class SellYourSaasUtils
     	}
 
 
-    	dol_syslog("* sellyoursaasRemoteAction END (remoteaction=".$remoteaction." email=".$email." password=".$password." error=".$error.")", LOG_DEBUG, -1);
+    	dol_syslog("* sellyoursaasRemoteAction END (remoteaction=".$remoteaction." email=".$email." password=".$password." error=".$error." retarray['http_code']=".$retarray['http_code'].")", LOG_DEBUG, -1);
 
     	if ($error) return -1;
     	else return 1;
