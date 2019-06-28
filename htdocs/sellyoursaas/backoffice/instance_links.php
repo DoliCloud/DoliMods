@@ -459,7 +459,7 @@ print "</div>";	//  End fiche=center
 print '<br>';
 
 
-print getListOfLinks($object, $lastloginadmin, $lastpassadmin, 0);
+print getListOfLinks($object, $lastloginadmin, $lastpassadmin);
 
 
 if (! empty($object->array_options['options_cookieregister_previous_instance']))

@@ -160,9 +160,8 @@ function getListOfInstancesInChain($object)
  * @param	Object 	$object            	Object
  * @param	string 	$lastloginadmin    	Last login admin
  * @param	string 	$lastpassadmin     	Last pass admin
- * @param	int		$instanceoldid		Instance old id (defined if this is a old v1 object)
  */
-function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid=0)
+function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 {
     global $db, $conf, $langs, $user;
 
@@ -235,6 +234,17 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin, $instanceoldid
 	$links.='<input type="text" name="homestring" id="homestring" value="'.$homestring.'" size="110"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect('homestring');
 	//$links.='<br>';
+
+	// ArchiveDir
+	$ispaid = sellyoursaasIsPaidInstance($object);
+	$archivestring=$conf->global->SELLYOURSAAS_TEST_ARCHIVES_PATH.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
+	if ($ispaid)
+	{
+	    $archivestring=$conf->global->SELLYOURSAAS_PAID_ARCHIVES_PATH.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
+	}
+	$links.='Archive dir: ';
+	$links.='<input type="text" name="archivestring" id="archivestring" value="'.$archivestring.'" size="110"><br>';
+	if ($conf->use_javascript_ajax) $links.=ajax_autoselect('archivestring');
 
 	// SSH
     $sshconnectstring='ssh '.$object->username_os.'@'.$object->hostname_os;

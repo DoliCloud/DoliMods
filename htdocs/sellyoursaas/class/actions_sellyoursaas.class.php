@@ -664,15 +664,16 @@ class ActionsSellyoursaas
     {
         global $conf, $langs, $user;
 
-        if (! empty($user->rights->sellyoursaas->read) && ! empty($conf->global->SELLYOURSAAS_DOLICLOUD_ON))
+        if (! empty($user->rights->sellyoursaas->read))
         {
-        	$langs->load("sellyoursaas@sellyoursaas");
+        	/*$langs->load("sellyoursaas@sellyoursaas");
 	        $search_boxvalue = $parameters['search_boxvalue'];
 
 	        $this->results['searchintocontract']=$parameters['arrayresult']['searchintocontract'];
 	        $this->results['searchintocontract']['position']=22;
 
 	        $this->results['searchintodolicloud']=array('position'=>23, 'img'=>'object_generic', 'label'=>$langs->trans("SearchIntoOldDoliCloudInstances", $search_boxvalue), 'text'=>img_picto('','object_generic').' '.$langs->trans("OldDoliCloudInstances", $search_boxvalue), 'url'=>dol_buildpath('/sellyoursaas/backoffice/dolicloud_list.php',1).'?search_multi='.urlencode($search_boxvalue));
+	        */
         }
 
         return 0;
