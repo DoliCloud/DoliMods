@@ -261,7 +261,7 @@ if ($id > 0 && $action != 'edit' && $action != 'create')
 		}
 		else
 		{
-			setEventMessages('Success to connect to server, but failed to switch on database.'.$newdb->lasterror(), null, 'errors');
+			setEventMessages('Success to connect to server, but failed to read last admin/pass user: '.$newdb->lasterror(), null, 'errors');
 		}
 
 		$confinstance->setValues($newdb);
@@ -380,6 +380,7 @@ if ($object->nbofusers == 0)
     // Try to get data
     if (is_object($newdb) && $newdb->connected)
     {
+        //var_dump($object->lines);
         $sql="SELECT COUNT(login) as nbofusers FROM llx_user WHERE statut <> 0 AND login <> '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."'";
         $resql=$newdb->query($sql);
         if ($resql)

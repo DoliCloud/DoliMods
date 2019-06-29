@@ -21,51 +21,6 @@
  *		\brief      Ensemble de fonctions de base pour le module SellYourSaas
  */
 
-
-/**
- *	Read customer instance to get nb_user, nb_gb and lastlogin_admin and lastpass_admin
- *
- *  @param	Contract	$contract		Contract
- */
-function refreshContract(Contrat $contract)
-{
-	dol_syslog("Scan customer instance to get fresh data (remote v1 or v2)");
-
-	if (empty($contract->array_options['options_hostname_db']) || empty($contract->array_options['options_username_db']))
-	{
-		return array('error'=>'Properties of customer instance database are unknown');
-	}
-
-	$dbcustomerinstance=getDoliDBInstance('mysqli', $contract->array_options['options_hostname_db'], $contract->array_options['options_username_db'], $contract->array_options['options_password_db'], $contract->array_options['options_database_db'], $contract->array_options['options_port_db']);
-
-	if (is_object($dbcustomerinstance) && $dbcustomerinstance->connected)
-	{
-		// Get user/pass of last admin user
-		$sql="SELECT login, pass, admin FROM llx_user WHERE statut = 1 AND login <> '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."' ORDER BY statut DESC, datelastlogin DESC";
-		$resql=$dbcustomerinstance->query($sql);
-
-		if ($resql)
-		{
-			$nb_users = $dbcustomerinstance->num_rows($resql);
-			$obj = $dbcustomerinstance->fetch_object($resql);
-			if ($obj->admin)
-			{
-				$lastlogin_admin=$obj->login;
-				$lastpass_admin=$obj->pass;
-			}
-			return array('nb_users'=>$nb_users, 'nb_gb'=>0, 'lastlogin_admin'=>$lastlogin_admin, 'lastpass_admin'=>$lastpass_admin);
-		}
-		else
-		{
-			return array('error'=>'Error, connect to customer instance is ok, but failed to read user table. '.$dbcustomerinstance->lasterror());
-		}
-	}
-	else
-	{
-		return array('error'=>'Error failed to connect to customer instance.');
-	}
-}
-
 /**
  * getNextInstanceInChain
  *

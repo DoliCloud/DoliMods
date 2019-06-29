@@ -312,48 +312,8 @@ if (empty($reshook))
              $sql.= " AND entity IN (".getEntity('contract', 0).")";
              $sql.= " AND statut = 1";*/
 
-            if ($dolicloudcustomer->id > 0)
-            {
-                $contract->array_options['options_date_registration']=$dolicloudcustomer->date_registration;
-                $contract->array_options['options_date_endfreeperiod']=$dolicloudcustomer->date_endfreeperiod;
-
-                $contract->array_options['options_plan']       =$dolicloudcustomer->plan;
-                $contract->array_options['options_hostname_os']=$dolicloudcustomer->hostname_web;
-                $contract->array_options['options_username_os']=$dolicloudcustomer->username_web;
-                $contract->array_options['options_password_os']=$dolicloudcustomer->password_web;
-                $contract->array_options['options_hostname_db']=$dolicloudcustomer->hostname_db;
-                $contract->array_options['options_database_db']=$dolicloudcustomer->database_db;
-                $contract->array_options['options_port_db']    =$dolicloudcustomer->port_db?$dolicloudcustomer->port_db:3306;
-                $contract->array_options['options_username_db']=$dolicloudcustomer->username_db;
-                $contract->array_options['options_password_db']=$dolicloudcustomer->password_db;
-
-                $contract->array_options['fileauthorizekey']   =$dolicloudcustomer->fileauthorizekey;
-                $contract->array_options['filelock']           =$dolicloudcustomer->filelock;
-
-                $contract->ref_ext = $dolicloudcustomer->id;
-                $contract->import_id = 'doliv1_'.$dolicloudcustomer->id;
-            }
-
             $nbusers = 0;
             $nbgb = 0;
-            if (! empty($contract->array_options['options_hostname_db']) && ! empty($contract->array_options['options_database_db']))
-            {
-                // Scan remote instance to get fresh data
-                $result = refreshContract($contract);
-
-                if ($result['error'])
-                {
-                    $error++;
-                    setEventMessages($result['error'], null, 'errors');
-                }
-                else
-                {
-                    //$contract->array_options['options_nb_users'] = $result['nb_users'];
-                    //$contract->array_options['options_nb_gb'] = $result['nb_gb'];
-                    $nbusers = $result['nb_users'];
-                    $nbgb = $result['nb_gb'];
-                }
-            }
 
             /*var_dump($contract->array_options);
              var_dump($instancetocreate);
