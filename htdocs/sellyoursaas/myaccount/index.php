@@ -2541,7 +2541,7 @@ if ($mode == 'instances')
     // SERVER_NAME here is myaccount.mydomain.com (we can exploit only the part mydomain.com)
     $domainname = getDomainFromURL($_SERVER["SERVER_NAME"], 1);
 
-    // List of available plans/producs
+    // List of available plans/products
 	$arrayofplans=array();
 	$sqlproducts = 'SELECT p.rowid, p.ref, p.label, p.price, p.price_ttc, p.duration, pe.availabelforresellers';
 	$sqlproducts.= ' FROM '.MAIN_DB_PREFIX.'product as p, '.MAIN_DB_PREFIX.'product_extrafields as pe';

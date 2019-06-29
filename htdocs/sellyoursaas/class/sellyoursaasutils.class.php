@@ -3332,7 +3332,7 @@ class SellYourSaasUtils
     					$sqlformula = make_substitutions($tmparray[1], $substitarray);
 
     					//$serverdeployment = $this->getRemoveServerDeploymentIp($domainname);
-    					$serverdeployment = $contract->array_options['options_database_db'];
+    					$serverdeployment = $contract->array_options['options_deployment_host'];
 
     					dol_syslog("Try to connect to remote instance database (at ".$serverdeployment.") to execute formula calculation");
 
