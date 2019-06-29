@@ -261,14 +261,7 @@ if ($id > 0 && $action != 'edit' && $action != 'create')
 	$login=$username_web;
 	$password=$password_web;
 
-	if (! empty($instanceoldid))
-	{
-		$server=$object->instance.'.on.dolicloud.com';
-	}
-	else
-	{
-		$server=$object->ref_customer;
-	}
+	$server=$object->ref_customer;
 
 	// ----- Backup instance -----
 	//print '<strong>INSTANCE BACKUP</strong><br>';
@@ -278,13 +271,19 @@ if ($id > 0 && $action != 'edit' && $action != 'create')
 
 	// Backup dir
 	print '<tr class="oddeven">';
-	print '<td width="20%">'.$langs->trans("BackupDir").'</td>';
+	print '<td class="titlefield">'.$langs->trans("DeploymentHost").'</td>';
+	print '<td>'.$object->array_options['options_deployment_host'].'</td>';
+	print '</tr>';
+
+	// Backup dir
+	print '<tr class="oddeven">';
+	print '<td>'.$langs->trans("BackupDir").'</td>';
 	print '<td>'.$backupdir.'/'.$login.'</td>';
 	print '</tr>';
 
 	// Last backup date
 	print '<tr class="oddeven">';
-	print '<td class="titlefield">'.$langs->trans("DateLastBackup").'</td>';
+	print '<td>'.$langs->trans("DateLastBackup").'</td>';
 	print '<td>';
 	if (! empty($instanceoldid)) print ($object->date_lastrsync?dol_print_date($object->date_lastrsync,'dayhour','tzuser'):'');
 	else
