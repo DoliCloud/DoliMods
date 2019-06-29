@@ -41,6 +41,7 @@ require_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/contract.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/company.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/security2.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php");
 dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
 
@@ -57,9 +58,7 @@ $refold     = GETPOST('refold','alpha');
 
 $error=0; $errors=array();
 
-
 $object = new Contrat($db);
-
 
 // Security check
 $result = restrictedArea($user, 'sellyoursaas', 0, '','');
@@ -75,6 +74,7 @@ if ($id > 0 || $ref)
 	$id=$object->id;
 }
 
+$now = dol_now();
 
 
 /*
@@ -375,13 +375,119 @@ if ($id > 0)
 }
 
 
-if ($object->nbofusers == 0)
+if ($object->nbofusers == 0)    // If value not already loaded
 {
     // Try to get data
     if (is_object($newdb) && $newdb->connected)
     {
+        $contract = $object;
+
         //var_dump($object->lines);
-        $sql="SELECT COUNT(login) as nbofusers FROM llx_user WHERE statut <> 0 AND login <> '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."'";
+        foreach($object->lines as $contractline)
+        {
+            if (empty($contractline->fk_product)) continue;
+            $producttmp = new Product($db);
+            $producttmp->fetch($contractline->fk_product);
+
+            // If this is a line for a metric
+            if ($producttmp->array_options['options_app_or_option'] == 'system' && $producttmp->array_options['options_resource_formula']
+                && $producttmp->array_options['options_resource_label'] == 'User')
+            {
+                $generatedunixlogin=$contract->array_options['options_username_os'];
+                $generatedunixpassword=$contract->array_options['options_password_os'];
+                $tmp=explode('.', $object->ref_customer, 2);
+                $sldAndSubdomain=$tmp[0];
+                $domainname=$tmp[1];
+                $generateddbname      =$contract->array_options['options_database_db'];
+                $generateddbport      =($contract->array_options['options_port_db']?$contract->array_options['options_port_db']:3306);
+                $generateddbusername  =$contract->array_options['options_username_db'];
+                $generateddbpassword  =$contract->array_options['options_password_db'];
+                $generateddbprefix    =($contract->array_options['options_prefix_db']?$contract->array_options['options_prefix_db']:'llx_');
+                $generatedunixhostname=$contract->array_options['options_hostname_os'];
+                $generateddbhostname  =$contract->array_options['options_hostname_db'];
+                $generateduniquekey   =getRandomPassword(true);
+
+                // Replace __INSTANCEDIR__, __INSTALLHOURS__, __INSTALLMINUTES__, __OSUSERNAME__, __APPUNIQUEKEY__, __APPDOMAIN__, ...
+                $substitarray=array(
+                    /*'__INSTANCEDIR__'=>$targetdir.'/'.$generatedunixlogin.'/'.$generateddbname,*/
+                    '__INSTANCEDBPREFIX__'=>$generateddbprefix,
+                    '__DOL_DATA_ROOT__'=>DOL_DATA_ROOT,
+                    '__INSTALLHOURS__'=>dol_print_date($now, '%H'),
+                    '__INSTALLMINUTES__'=>dol_print_date($now, '%M'),
+                    '__OSHOSTNAME__'=>$generatedunixhostname,
+                    '__OSUSERNAME__'=>$generatedunixlogin,
+                    '__OSPASSWORD__'=>$generatedunixpassword,
+                    '__DBHOSTNAME__'=>$generateddbhostname,
+                    '__DBNAME__'=>$generateddbname,
+                    '__DBPORT__'=>$generateddbport,
+                    '__DBUSER__'=>$generateddbusername,
+                    '__DBPASSWORD__'=>$generateddbpassword,
+                    /*'__PACKAGEREF__'=> $tmppackage->ref,
+                    '__PACKAGENAME__'=> $tmppackage->label,
+                    '__APPUSERNAME__'=>$appusername,
+                    '__APPEMAIL__'=>$email,
+                    '__APPPASSWORD__'=>$password,
+                    '__APPPASSWORD0__'=>$password0,
+                    '__APPPASSWORDMD5__'=>$passwordmd5,
+                    '__APPPASSWORDSHA256__'=>$passwordsha256,
+                    '__APPPASSWORD0SALTED__'=>$password0salted,
+                    '__APPPASSWORDMD5SALTED__'=>$passwordmd5salted,
+                    '__APPPASSWORDSHA256SALTED__'=>$passwordsha256salted,*/
+                    '__APPUNIQUEKEY__'=>$generateduniquekey,
+                    '__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname,
+                    '__SELLYOURSAAS_LOGIN_FOR_SUPPORT__'=>$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT
+                );
+
+                $tmparray=explode(':', $producttmp->array_options['options_resource_formula'], 2);
+                if ($tmparray[0] == 'SQL')
+                {
+                    $sqlformula = make_substitutions($tmparray[1], $substitarray);
+
+                    $serverdeployment = $object->array_options['options_deployment_host'];
+
+                    dol_syslog("Try to connect to instance database (at ".$serverdeployment.") to execute formula calculation");
+
+                    //var_dump($generateddbhostname);	// fqn name dedicated to instance in dns
+                    //var_dump($serverdeployement);		// just ip of deployement server
+                    //$dbinstance = @getDoliDBInstance('mysqli', $generateddbhostname, $generateddbusername, $generateddbpassword, $generateddbname, $generateddbport);
+                    $dbinstance = @getDoliDBInstance('mysqli', $serverdeployment, $generateddbusername, $generateddbpassword, $generateddbname, $generateddbport);
+                    if (! $dbinstance || ! $dbinstance->connected)
+                    {
+                        $error++;
+                        setEventMessages($dbinstance->error, $dbinstance->errors, 'errors');
+                    }
+                    else
+                    {
+                        dol_syslog("Execute sql=".$sqlformula);
+                        $resql = $dbinstance->query($sqlformula);
+                        if ($resql)
+                        {
+                            $objsql = $dbinstance->fetch_object($resql);
+                            if ($objsql)
+                            {
+                                $object->nbofusers = $objsql->nb;
+                            }
+                            else
+                            {
+                                $error++;
+                                setEventMessages('SQL to get resource return nothing', null, 'errors');
+                            }
+                        }
+                        else
+                        {
+                            $error++;
+                            setEventMessages($dbinstance->error, $dbinstance->errors, 'errors');
+                        }
+                    }
+                }
+                else
+                {
+                    $error++;
+                    setEventMessages('No SQL formula found for this metric', null, 'errors');
+                }
+            }
+        }
+        /*$sql="SELECT COUNT(login) as nbofusers FROM llx_user WHERE statut <> 0 AND login <> '".$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT."'";
         $resql=$newdb->query($sql);
         if ($resql)
         {
@@ -391,7 +497,7 @@ if ($object->nbofusers == 0)
         else
         {
             setEventMessages('Failed to read remote customer instance: '.$newdb->lasterror(),'','warnings');
-        }
+        }*/
     }
 }
 
