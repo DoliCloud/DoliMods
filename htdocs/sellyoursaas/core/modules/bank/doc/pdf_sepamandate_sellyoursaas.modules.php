@@ -120,7 +120,7 @@ class pdf_sepamandate_sellyoursaas extends pdf_sepamandate
 
 		if (! empty($conf->bank->dir_output))
 		{
-			//$nblignes = count($object->lines);  // This is set later with array of tasks
+			//$nblines = count($object->lines);  // This is set later with array of tasks
 
 		    // Definition of $dir and $file
 		    if ($object->specimen)

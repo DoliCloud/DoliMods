@@ -158,7 +158,7 @@ class SellYourSaasUtils
 										$model=$invoice->modelpdf;
 										$ret = $invoice->fetch($id); // Reload to get new records
 
-										dol_syslog("GETPOST('lang_id','aZ09')=".GETPOST('lang_id','aZ09')." invoice->thirdparty->default_lang=".(is_object($invoice->thirdparty)?$invoice->thirdparty->default_lang:'invoice->thirdparty not defined')." newlang=".$newlang);
+										dol_syslog("GETPOST('lang_id','aZ09')=".GETPOST('lang_id','aZ09')." invoice->thirdparty->default_lang=".(is_object($invoice->thirdparty)?$invoice->thirdparty->default_lang:'invoice->thirdparty not defined')." newlang=".$newlang." outputlangs->defaultlang=".$outputlangs->defaultlang);
 
 										$result = $invoice->generateDocument($model, $outputlangs, $hidedetails, $hidedesc, $hideref);
 									}
