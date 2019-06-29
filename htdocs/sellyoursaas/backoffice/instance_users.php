@@ -440,20 +440,30 @@ print_user_table($dbcustomerinstance);
 print "</table><br>";
 
 
-
-// Dolibarr instance login
-if ($lastpassadmin)
+// Application instance url
+if (empty($lastpassadmin))
 {
-	$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
-	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-	print 'Dolibarr link (last logged admin): '.$link.'<br>';
+    if (! empty($object->array_options['options_deployment_init_adminpass']))
+    {
+        $url='https://'.$object->hostname_os.'?username='.$lastloginadmin.'&amp;password='.$object->array_options['options_deployment_init_adminpass'];
+        $link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
+        $links.='Link to application (initial install pass) : ';
+    }
+    else
+    {
+        $url='https://'.$object->hostname_os.'?username='.$lastloginadmin;
+        $link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
+        $links.='Link to application : ';
+    }
 }
 else
 {
-	$url='https://'.$object->ref_customer.'?username='.$lastloginadmin.'&amp;password='.$object->array_options['options_deployment_init_adminpass'];
-	$link='<a href="'.$url.'" target="_blank">'.$url.'</a>';
-	print 'Dolibarr link (initial pass at install): '.$link.'<br>';
+    $url='https://'.$object->hostname_os.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
+    $link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
+    $links.='Link to application (last logged admin) : ';
 }
+print $links.$link;
+
 print '<br>';
 
 
