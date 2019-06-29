@@ -2966,13 +2966,13 @@ class SellYourSaasUtils
     			$domainname=$tmp[1];
     			if (! empty($contract->array_options['options_deployment_host']))
     			{
-    			    $serverdeployement = $contract->array_options['options_deployment_host'];
+    			    $serverdeployment = $contract->array_options['options_deployment_host'];
     			}
     			else
     			{
-                    $serverdeployement = $this->getRemoveServerDeploymentIp($domainname);
+                    $serverdeployment = $this->getRemoveServerDeploymentIp($domainname);
     			}
-    			if (empty($serverdeployement))	// Failed to get remote ip
+    			if (empty($serverdeployment))	// Failed to get remote ip
     			{
     				dol_syslog(($this->error ? $this->error : 'Failed to get ip for deployment server'), LOG_ERR);
     				$error++;
@@ -3162,7 +3162,7 @@ class SellYourSaasUtils
     			$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
     			$commandurl.= '&'.$tmppackage->srccronfile.'&'.$tmppackage->srccliafter.'&'.$targetdir;
     			$commandurl.= '&'.$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;	// Param 22 in .sh
-    			$commandurl.= '&'.$serverdeployement;
+    			$commandurl.= '&'.$serverdeployment;
     			$commandurl.= '&'.$urlforsellyoursaasaccount;			            // Param 24 in .sh
     			$commandurl.= '&'.$sldAndSubdomainold;
     			$commandurl.= '&'.$domainnameold;
@@ -3182,7 +3182,7 @@ class SellYourSaasUtils
     			// Execute remote action
     			if (! $error)
     			{
-    			    $urltoget='http://'.$serverdeployement.':8080/'.$remoteaction.'?'.urlencode($commandurl);
+    			    $urltoget='http://'.$serverdeployment.':8080/'.$remoteaction.'?'.urlencode($commandurl);
 	    			include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 	    			$retarray = getURLContent($urltoget);   // Timeout is defined before
 
@@ -3204,9 +3204,9 @@ class SellYourSaasUtils
 			    		dol_syslog("Try to connect to instance database to execute personalized requests substitarray=".join(',', $substitarray));
 
 			    		//var_dump($generateddbhostname);	// fqn name dedicated to instance in dns
-			    		//var_dump($serverdeployement);		// just ip of deployement server
+			    		//var_dump($serverdeployment);		// just ip of deployement server
 			    		//$dbinstance = @getDoliDBInstance('mysqli', $generateddbhostname, $generateddbusername, $generateddbpassword, $generateddbname, $generateddbport);
-			    		$dbinstance = @getDoliDBInstance('mysqli', $serverdeployement, $generateddbusername, $generateddbpassword, $generateddbname, $generateddbport);
+			    		$dbinstance = @getDoliDBInstance('mysqli', $serverdeployment, $generateddbusername, $generateddbpassword, $generateddbname, $generateddbport);
 			    		if (! $dbinstance || ! $dbinstance->connected)
 			    		{
 			    			$error++;
@@ -3331,14 +3331,15 @@ class SellYourSaasUtils
     				{
     					$sqlformula = make_substitutions($tmparray[1], $substitarray);
 
-    					$serverdeployement = $this->getRemoveServerDeploymentIp($domainname);
+    					//$serverdeployment = $this->getRemoveServerDeploymentIp($domainname);
+    					$serverdeployment = $contract->array_options['options_database_db'];
 
-    					dol_syslog("Try to connect to instance database to execute formula calculation");
+    					dol_syslog("Try to connect to remote instance database (at ".$serverdeployment.") to execute formula calculation");
 
     					//var_dump($generateddbhostname);	// fqn name dedicated to instance in dns
-    					//var_dump($serverdeployement);		// just ip of deployement server
+    					//var_dump($serverdeployment);		// just ip of deployment server
     					//$dbinstance = @getDoliDBInstance('mysqli', $generateddbhostname, $generateddbusername, $generateddbpassword, $generateddbname, $generateddbport);
-    					$dbinstance = @getDoliDBInstance('mysqli', $serverdeployement, $generateddbusername, $generateddbpassword, $generateddbname, $generateddbport);
+    					$dbinstance = @getDoliDBInstance('mysqli', $serverdeployment, $generateddbusername, $generateddbpassword, $generateddbname, $generateddbport);
     					if (! $dbinstance || ! $dbinstance->connected)
     					{
     						$error++;
