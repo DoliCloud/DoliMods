@@ -142,18 +142,27 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
     $domainforapp=$object->hostname_os;
     if (preg_match('/^[0-9\.]$/',$domainforapp)) $domainforapp=$object->ref_customer;	// If this is an ip, we use the ref_customer.
 
-	// Dolibarr instance login
+	// Application instance url
     if (empty($lastpassadmin))
     {
-    	$url='https://'.$object->hostname_os.'?username='.$lastloginadmin.'&amp;password='.$object->array_options['options_deployment_init_adminpass'];;
-    	$link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
-    	$links.='Dolibarr link (initial install pass): ';
+        if (! empty($object->array_options['options_deployment_init_adminpass']))
+        {
+        	$url='https://'.$object->hostname_os.'?username='.$lastloginadmin.'&amp;password='.$object->array_options['options_deployment_init_adminpass'];
+        	$link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
+        	$links.='Link to application (initial install pass) : ';
+        }
+        else
+        {
+            $url='https://'.$object->hostname_os.'?username='.$lastloginadmin;
+            $link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
+            $links.='Link to application : ';
+        }
     }
     else
     {
 		$url='https://'.$object->hostname_os.'?username='.$lastloginadmin.'&amp;password='.$lastpassadmin;
 		$link='<a href="'.$url.'" target="_blank" id="dollink">'.$url.'</a>';
-		$links.='Dolibarr link (last logged admin): ';
+		$links.='Link to application (last logged admin) : ';
     }
 	$links.=$link.'<br>';
 
