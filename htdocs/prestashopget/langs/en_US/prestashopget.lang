@@ -20,7 +20,7 @@
 # Module label 'ModulePrestashopGetName'
 ModulePrestashopGetName = PrestashopGet
 # Module description 'ModulePrestashopGetDesc'
-ModulePrestashopGetDesc = PrestashopGet description
+ModulePrestashopGetDesc = Add features to get summarized information on sales on a Prestashop eCommerce.
 
 #
 # Admin page

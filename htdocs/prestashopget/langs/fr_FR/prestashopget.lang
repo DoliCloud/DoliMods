@@ -20,7 +20,7 @@
 # Module label 'ModulePrestashopGetName'
 ModulePrestashopGetName = PrestashopGet
 # Module description 'ModulePrestashopGetDesc'
-ModulePrestashopGetDesc = Description de PrestashopGet
+ModulePrestashopGetDesc = Ajoute des fonctions de résumé de ventes issues d'une boutique eCommerce Prestashop
 
 #
 # Page d'administration
