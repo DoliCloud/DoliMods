@@ -196,7 +196,7 @@ $sql.= " AND ce.deployment_status IS NOT NULL";
 // Add filter on deployment server
 if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabase' || $action == 'backuptestrsync' || $action == 'backuptestdatabase')
 {
-    $sql.=" AND ce.deployment_server = '".$dbmaster->escape($ipserverdeployment)."'";
+    $sql.=" AND ce.deployment_host = '".$dbmaster->escape($ipserverdeployment)."'";
 }
 
 $dbtousetosearch = $dbmaster;
