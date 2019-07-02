@@ -20,10 +20,10 @@
 /**
  *      \file       sellyoursaas/scripts/batch_customers.php
  *		\ingroup    sellyoursaas
- *      \brief      Main master SellYouSaas batch
+ *      \brief      Main master or deployment SellYouSaas batch (master for action updatedatabase|updatecountsonly|updatestatsonly, deployment for other actions)
  *      			backup_instance.php (payed customers rsync + databases backup)
  *      			update database info for customer
- *      			update stats
+ *      			update statistics
  */
 
 $sapi_type = php_sapi_name();
@@ -120,7 +120,8 @@ $langs->load("main");				// To load language file for default language
 
 print "***** ".$script_file." (".$version.") - ".strftime("%Y%m%d-%H%M%S")." *****\n";
 if (! isset($argv[1])) {	// Check parameters
-    print "Usage: ".$script_file." (backuptestrsync|backuptestdatabase|backup|updatedatabase|updatecountsonly|updatestatsonly) [instancefilter]\n";
+    print "Usage on master            : ".$script_file." (updatedatabase|updatecountsonly|updatestatsonly) [instancefilter]\n";
+    print "Usage on deployment servers: ".$script_file." (backuptestrsync|backuptestdatabase|backup) [instancefilter]\n";
     print "\n";
     print "- backuptestrsync     test rsync backup\n";
     print "- backuptestdatabase  test mysqldump backup\n";
