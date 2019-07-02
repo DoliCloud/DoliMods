@@ -7,7 +7,7 @@
 
         <Directory "/var/www/html">
         Require all granted
-
+		__AllowOverride__
         Options +Indexes +FollowSymLinks
         </Directory>
 

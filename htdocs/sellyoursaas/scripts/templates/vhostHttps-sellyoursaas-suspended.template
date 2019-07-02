@@ -14,7 +14,7 @@
 
         <Directory "__webAppPath__/htdocs">
         Require all granted
-
+		__AllowOverride__
         Options +Indexes +FollowSymLinks
         </Directory>
 
