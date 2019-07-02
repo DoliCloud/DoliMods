@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-/* Copyright (C) 2012 Laurent Destailleur	<eldy@users.sourceforge.net>
+/* Copyright (C) 2012-2019 Laurent Destailleur	<eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,9 +18,9 @@
  *
  * FEATURE
  *
- * Make a backup of files (rsync) or database (mysqdump) of a remote instance.
+ * Make a backup of files (rsync) or database (mysqdump) of a deployed instance.
  * There is no report/tracking done into any database. This must be done by a parent script.
- * This script is run from the Master but backups are done for remote instances.
+ * This script is run from the deployment servers.
  *
  * Note:
  * ssh keys must be authorized to have testrsync and confirmrsync working.
