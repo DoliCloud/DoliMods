@@ -26,6 +26,8 @@
  *      			update statistics
  */
 
+if (! defined('NOREQUIREDB'))              define('NOREQUIREDB','1');					// Do not create database handler $db
+
 $sapi_type = php_sapi_name();
 $script_file = basename(__FILE__);
 $path=dirname($_SERVER['PHP_SELF']).'/';
@@ -101,11 +103,20 @@ else
 }
 
 
+
+/*
+ * Main
+ */
+
 $dbmaster=getDoliDBInstance('mysqli', $databasehost, $databaseuser, $databasepass, $database, 3306);
 if ($dbmaster->error)
 {
     dol_print_error($dbmaster,"host=".$databasehost.", port=3306, user=".$databaseuser.", databasename=".$database.", ".$dbmaster->error);
-	exit;
+    exit;
+}
+if ($dbmaster)
+{
+    $conf->setValues($dbmaster);
 }
 
 //$langs->setDefaultLang('en_US'); 	// To change default language of $langs
@@ -137,12 +148,6 @@ print '--- start'."\n";
 //print 'Argument 1='.$argv[1]."\n";
 //print 'Argument 2='.$argv[2]."\n";
 
-
-
-/*
- * Main
- */
-
 $now = dol_now();
 
 $action=$argv[1];
@@ -172,7 +177,7 @@ $instancesupdateerror=array();
 
 
 include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-$object=new Contrat($db);
+$object=new Contrat($dbmaster);
 
 // Get list of instance
 $sql = "SELECT c.rowid as id, c.ref, c.ref_customer as instance,";
@@ -183,7 +188,7 @@ if ($instancefiltercomplete) $sql.= " AND c.ref_customer = '".$instancefiltercom
 else $sql.= " AND ce.deployment_status <> 'undeployed'";		// Exclude undeployed only if we don't request a specific instance
 $sql.= " AND ce.deployment_status IS NOT NULL";
 
-$dbtousetosearch = $db;
+$dbtousetosearch = $dbmaster;
 
 
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
@@ -363,7 +368,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 	print "----- Start updatedatabase\n";
 
 	dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
-	$sellyoursaasutils = new SellYourSaasUtils($db);
+	$sellyoursaasutils = new SellYourSaasUtils($dbmaster);
 
 	// Loop on each instance
 	if (! $error && $action != 'updatestatsonly')
@@ -376,7 +381,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 			// Run database update
 			print "Process update database info (nb of user) of instance ".($i+1)." ".$instance.' - '.strftime("%Y%m%d-%H%M%S")." : ";
 
-			$db->begin();
+			$dbmaster->begin();
 
 			$result=$object->fetch('','',$instance);
 			if ($result < 0) dol_print_error('',$object->error);
@@ -394,14 +399,14 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 				print "OK";
 
 				$nbofok++;
-				$db->commit();
+				$dbmaster->commit();
 			}
 			else
 			{
 				$nboferrors++;
 				$instancesupdateerror[]=$instance;
 				print 'KO. '.join(',',$errors)."\n";
-				$db->rollback();
+				$dbmaster->rollback();
 			}
 
 			$i++;
@@ -419,16 +424,16 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 		$sql.=" WHERE service = '".$servicetouse."'";
 
 		dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
-		$resql=$db->query($sql);
+		$resql=$dbmaster->query($sql);
 		if ($resql)
 		{
-			$num = $db->num_rows($resql);
+			$num = $dbmaster->num_rows($resql);
 			$i = 0;
 			if ($num)
 			{
 				while ($i < $num)
 				{
-					$obj = $db->fetch_object($resql);
+					$obj = $dbmaster->fetch_object($resql);
 					if ($obj)
 					{
 						$stats[$obj->name][$obj->x]=$obj->y;
@@ -442,7 +447,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 		{
 			$error++;
 			$nboferrors++;
-			dol_print_error($db);
+			dol_print_error($dbmaster);
 		}
 		//print "Found already existing stats entries.\n";
 
@@ -478,7 +483,7 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 						$rep = null;
 						$part = 0;
 
-						$rep=sellyoursaas_calculate_stats($db,$datelastday);	// Get qty and amount into template invoices linked to active contracts
+						$rep=sellyoursaas_calculate_stats($dbmaster, $datelastday);	// Get qty and amount into template invoices linked to active contracts
 						$part = (empty($conf->global->SELLYOURSAAS_PERCENTAGE_FEE) ? 0 : $conf->global->SELLYOURSAAS_PERCENTAGE_FEE);
 
 						if ($rep)
@@ -510,15 +515,15 @@ if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'u
 								$sql.=" WHERE name = '".$statkey."' AND x='".$x."'";
 								$sql.=" AND service = '".$servicetouse."'";
 								dol_syslog("sql=".$sql);
-								$resql=$db->query($sql);
-								if (! $resql) dol_print_error($db,'');
+								$resql=$dbmaster->query($sql);
+								if (! $resql) dol_print_error($dbmaster, '');
 							}
 
 							$sql ="INSERT INTO ".MAIN_DB_PREFIX."dolicloud_stats(service, name, x, y)";
 							$sql.=" VALUES('".$servicetouse."', '".$statkey."', '".$x."', ".$y.")";
 							dol_syslog("sql=".$sql);
-							$resql=$db->query($sql);
-							//if (! $resql) dol_print_error($db,'');		// Ignore error, we may have duplicate record here if record already exists and not deleted
+							$resql=$dbmaster->query($sql);
+							//if (! $resql) dol_print_error($dbmaster,'');		// Ignore error, we may have duplicate record here if record already exists and not deleted
 						}
 					}
 				}
@@ -612,6 +617,6 @@ else
 	}
 }
 
-$db->close();	// Close database opened handler
+$dbmaster->close();	// Close database opened handler
 
 exit($nboferrors);

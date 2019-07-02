@@ -27,6 +27,8 @@
  * remote access to database must be granted for testdatabase or confirmdatabase.
  */
 
+if (! defined('NOREQUIREDB'))              define('NOREQUIREDB','1');					// Do not create database handler $db
+
 $sapi_type = php_sapi_name();
 $script_file = basename(__FILE__);
 $path=dirname(__FILE__).'/';
@@ -107,14 +109,12 @@ else
  *	Main
  */
 
-
 $dbmaster=getDoliDBInstance('mysqli', $databasehost, $databaseuser, $databasepass, $database, 3306);
 if ($dbmaster->error)
 {
     dol_print_error($dbmaster,"host=".$databasehost.", port=3306, user=".$databaseuser.", databasename=".$database.", ".$dbmaster->error);
     exit;
 }
-
 if ($dbmaster)
 {
     $conf->setValues($dbmaster);
@@ -145,16 +145,16 @@ $idofinstancefound = 0;
 $sql = "SELECT c.rowid, c.statut";
 $sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
 $sql.= "  WHERE c.entity IN (".getEntity('contract').")";
-$sql.= " AND c.ref_customer = '".$db->escape($instance)."'";
+$sql.= " AND c.ref_customer = '".$dbmaster->escape($instance)."'";
 $sql.= " AND ce.deployment_status = 'done'";
 
-$resql = $db->query($sql);
+$resql = $dbmaster->query($sql);
 if (! $resql)
 {
 	dol_print_error($resql);
 	exit(-2);
 }
-$num_rows = $db->num_rows($resql);
+$num_rows = $dbmaster->num_rows($resql);
 if ($num_rows > 1)
 {
 	print 'Error: several instance '.$instance.' found.'."\n";
@@ -162,12 +162,12 @@ if ($num_rows > 1)
 }
 else
 {
-	$obj = $db->fetch_object($resql);
+	$obj = $dbmaster->fetch_object($resql);
 	if ($obj) $idofinstancefound = $obj->rowid;
 }
 
 include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-$object = new Contrat($db);
+$object = new Contrat($dbmaster);
 $result=0;
 if ($idofinstancefound) $result=$object->fetch($idofinstancefound);
 
