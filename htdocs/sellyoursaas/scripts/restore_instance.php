@@ -18,12 +18,14 @@
  *
  * FEATURE
  *
- * Make a backup of files (rsync) or database (mysqdump) of remote instance. There is no
+ * Make a backup of files (rsync) or database (mysqdump) of a deployed instance. There is no
  * report/tracking done into any database. This must be done by a parent script.
  *
  * ssh keys must be authorized to have testrsync and confirmrsync working
  * no requirement for testdatabase or confirmdatabase
  */
+
+if (! defined('NOREQUIREDB'))              define('NOREQUIREDB','1');					// Do not create database handler $db
 
 $sapi_type = php_sapi_name();
 $script_file = basename(__FILE__);
@@ -64,7 +66,41 @@ if (! $res) die("Include of master fails");
 dol_include_once("/sellyoursaas/core/lib/dolicloud.lib.php");
 dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 
-
+// Read /etc/sellyoursaas.conf file
+$databasehost='localhost';
+$database='';
+$databaseuser='sellyoursaas';
+$databasepass='';
+$fp = @fopen('/etc/sellyoursaas.conf', 'r');
+// Add each line to an array
+if ($fp) {
+    $array = explode("\n", fread($fp, filesize('/etc/sellyoursaas.conf')));
+    foreach($array as $val)
+    {
+        $tmpline=explode("=", $val);
+        if ($tmpline[0] == 'databasehost')
+        {
+            $databasehost = $tmpline[1];
+        }
+        if ($tmpline[0] == 'database')
+        {
+            $database = $tmpline[1];
+        }
+        if ($tmpline[0] == 'databaseuser')
+        {
+            $databaseuser = $tmpline[1];
+        }
+        if ($tmpline[0] == 'databasepass')
+        {
+            $databasepass = $tmpline[1];
+        }
+    }
+}
+else
+{
+    print "Failed to open /etc/sellyoursaas.conf file\n";
+    exit;
+}
 
 
 /*
@@ -91,41 +127,35 @@ if (! empty($instance) && ! preg_match('/\./', $instance) && ! preg_match('/\.ho
 }
 
 
-/*include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-$object = new Contrat($db);
-
-$result=$object->fetch('', '', $instance);
-*/
-
 $idofinstancefound = 0;
 
 $sql = "SELECT c.rowid, c.statut";
 $sql.= " FROM ".MAIN_DB_PREFIX."contrat as c LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as ce ON c.rowid = ce.fk_object";
 $sql.= "  WHERE c.entity IN (".getEntity('contract').")";
 //$sql.= " AND c.statut > 0";
-$sql.= " AND c.ref_customer = '".$db->escape($instance)."'";
+$sql.= " AND c.ref_customer = '".$dbmaster->escape($instance)."'";
 $sql.= " AND ce.deployment_status = 'done'";
 
-$resql = $db->query($sql);
+$resql = $dbmaster->query($sql);
 if (! $resql)
 {
 	dol_print_error($resql);
 	exit(-2);
 }
-$num_rows = $db->num_rows($resql);
+$num_rows = $dbmaster->num_rows($resql);
 if ($num_rows > 1)
 {
-	print 'Error: several instance '.$instance.' found'."\n";
+	print 'Error: several instance '.$instance.' found.'."\n";
 	exit(-2);
 }
 else
 {
-	$obj = $db->fetch_object($resql);
+	$obj = $dbmaster->fetch_object($resql);
 	if ($obj) $idofinstancefound = $obj->rowid;
 }
 
 include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-$object = new Contrat($db);
+$object = new Contrat($dbmaster);
 $result=0;
 if ($idofinstancefound) $result=$object->fetch($idofinstancefound);
 
@@ -141,6 +171,7 @@ $object->password_web = $object->array_options['options_password_os'];
 $object->username_db = $object->array_options['options_username_db'];
 $object->password_db = $object->array_options['options_password_db'];
 $object->database_db = $object->array_options['options_database_db'];
+$object->deployment_host = $object->array_options['options_deployment_host'];
 
 if (empty($object->instance) && empty($object->username_web) && empty($object->password_web) && empty($object->database_db))
 {
@@ -156,8 +187,9 @@ if (! is_dir($dirroot))
 $dirdb=preg_replace('/_([a-zA-Z0-9]+)/','',$object->database_db);
 $login=$object->username_web;
 $password=$object->password_web;
+
 $targetdir=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$login.'/'.$dirdb;
-$server=$object->array_options['options_hostname_os'];
+$server=($object->deployment_host ? $object->deployment_host : $object->array_options['options_hostname_os']);
 
 if (empty($login) || empty($dirdb))
 {
