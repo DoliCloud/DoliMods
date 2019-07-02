@@ -71,6 +71,7 @@ $databasehost='localhost';
 $database='';
 $databaseuser='sellyoursaas';
 $databasepass='';
+$ipserverdeployment='';
 $fp = @fopen('/etc/sellyoursaas.conf', 'r');
 // Add each line to an array
 if ($fp) {
@@ -93,6 +94,10 @@ if ($fp) {
         if ($tmpline[0] == 'databasepass')
         {
             $databasepass = $tmpline[1];
+        }
+        if ($tmpline[0] == 'ipserverdeployment')
+        {
+            $ipserverdeployment = $tmpline[1];
         }
     }
 }

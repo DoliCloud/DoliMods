@@ -71,6 +71,7 @@ $databasehost='localhost';
 $database='';
 $databaseuser='sellyoursaas';
 $databasepass='';
+$ipserverdeployment='';
 $fp = @fopen('/etc/sellyoursaas.conf', 'r');
 // Add each line to an array
 if ($fp) {
@@ -93,6 +94,10 @@ if ($fp) {
         if ($tmpline[0] == 'databasepass')
         {
             $databasepass = $tmpline[1];
+        }
+        if ($tmpline[0] == 'ipserverdeployment')
+        {
+            $ipserverdeployment = $tmpline[1];
         }
     }
 }
@@ -188,6 +193,11 @@ $sql.= " WHERE c.ref_customer <> '' AND c.ref_customer IS NOT NULL";
 if ($instancefiltercomplete) $sql.= " AND c.ref_customer = '".$instancefiltercomplete."'";
 else $sql.= " AND ce.deployment_status <> 'undeployed'";		// Exclude undeployed only if we don't request a specific instance
 $sql.= " AND ce.deployment_status IS NOT NULL";
+// Add filter on deployment server
+if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabase' || $action == 'backuptestrsync' || $action == 'backuptestdatabase')
+{
+    $sql.=" AND ce.deployment_server = '".$dbmaster->escape($ipserverdeployment)."'";
+}
 
 $dbtousetosearch = $dbmaster;
 
