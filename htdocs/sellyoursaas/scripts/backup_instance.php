@@ -107,6 +107,19 @@ else
  *	Main
  */
 
+
+$dbmaster=getDoliDBInstance('mysqli', $databasehost, $databaseuser, $databasepass, $database, 3306);
+if ($dbmaster->error)
+{
+    dol_print_error($dbmaster,"host=".$databasehost.", port=3306, user=".$databaseuser.", databasename=".$database.", ".$dbmaster->error);
+    exit;
+}
+
+if ($dbmaster)
+{
+    $conf->setValues($dbmaster);
+}
+
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
     print "This script must be ran as 'admin' user.\n";
@@ -116,13 +129,6 @@ if (empty($dirroot) || empty($instance) || empty($mode))
 	print "         remote access to database must be granted for testdatabase or confirmdatabase.\n";
 	print "Return code: 0 if success, <>0 if error\n";
 	exit(-1);
-}
-
-$dbmaster=getDoliDBInstance('mysqli', $databasehost, $databaseuser, $databasepass, $database, 3306);
-if ($dbmaster->error)
-{
-    dol_print_error($dbmaster,"host=".$databasehost.", port=3306, user=".$databaseuser.", databasename=".$database.", ".$dbmaster->error);
-    exit;
 }
 
 // Forge complete name of instance
