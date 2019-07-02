@@ -119,6 +119,7 @@ if ($dbmaster)
 {
     $conf->setValues($dbmaster);
 }
+if (empty($db)) $db=$dbmaster;
 
 if (empty($dirroot) || empty($instance) || empty($mode))
 {

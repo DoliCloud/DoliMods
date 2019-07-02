@@ -118,6 +118,7 @@ if ($dbmaster)
 {
     $conf->setValues($dbmaster);
 }
+if (empty($db)) $db=$dbmaster;
 
 //$langs->setDefaultLang('en_US'); 	// To change default language of $langs
 $langs->load("main");				// To load language file for default language
