@@ -114,6 +114,11 @@ else
  *	Main
  */
 
+if (0 != posix_getuid()) {
+    echo "Script must not be ran with root.\n";
+    exit(-1);
+}
+
 $dbmaster=getDoliDBInstance('mysqli', $databasehost, $databaseuser, $databasepass, $database, 3306);
 if ($dbmaster->error)
 {
@@ -248,7 +253,7 @@ if ($mode == 'confirm' || $mode == 'confirmrsync' || $mode == 'confirmdatabase')
 // Backup files
 if ($mode == 'testrsync' || $mode == 'test' || $mode == 'confirmrsync' || $mode == 'confirm')
 {
-	$result = dol_mkdir($dirroot.'/'.$login);
+    $result = dol_mkdir($dirroot.'/'.$login);
 	if ($result < 0)
 	{
 		print "ERROR failed to create target dir ".$dirroot.'/'.$login."\n";
