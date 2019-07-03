@@ -3097,7 +3097,9 @@ class SellYourSaasUtils
     			'__APPPASSWORDMD5SALTED__'=>$passwordmd5salted,
     			'__APPPASSWORDSHA256SALTED__'=>$passwordsha256salted,
     			'__APPUNIQUEKEY__'=>$generateduniquekey,
-    			'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname
+    			'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname,
+    			'__ALLOWOVERRIDE__'=>$tmppackage->allowoverride,
+    			'__VIRTUALHOSTHEAD__'=>''
     			);
 
     			$dirfortmpfiles = DOL_DATA_ROOT.'/sellyoursaas/temp';
@@ -3319,6 +3321,8 @@ class SellYourSaasUtils
     				'__APPPASSWORDSHA256SALTED__'=>$passwordsha256salted,
     				'__APPUNIQUEKEY__'=>$generateduniquekey,
     				'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname,
+    				'__ALLOWOVERRIDE__'=>'',
+    				'__VIRTUALHOSTHEAD__'=>'',
     				'__SELLYOURSAAS_LOGIN_FOR_SUPPORT__'=>$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT
     				);
 

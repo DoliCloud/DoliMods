@@ -170,6 +170,8 @@ echo "CERTIFFORCUSTOMDOMAIN = $CERTIFFORCUSTOMDOMAIN"
 echo "archivedir = $archivedir"
 echo "SSLON = $SSLON"
 echo "apachereload = $apachereload"
+echo "ALLOWOVERRIDE = $ALLOWOVERRIDE"
+echo "VIRTUALHOSTHEAD = $VIRTUALHOSTHEAD"
 
 echo `date +%Y%m%d%H%M%S`" calculated params:"
 echo "vhostfile = $vhostfile"

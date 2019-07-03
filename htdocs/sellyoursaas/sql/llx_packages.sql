@@ -38,7 +38,8 @@ CREATE TABLE llx_packages(
 	datafile1 varchar(255), 
 	cliafter text, 
 	sqlafter text, 
-	crontoadd text, 
+	crontoadd text,
+	allowoverride varchar(255), 
 	status integer,
 	note_public text,
 	note_private text
