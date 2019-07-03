@@ -128,6 +128,9 @@ export SSLON=${32}
 export apachereload=${33}
 export ALLOWOVERRIDE=${34//£/ }
 export VIRTUALHOSTHEAD=${35//£/ }
+if [ "x$VIRTUALHOSTHEAD" == "x-" ]; then
+	VIRTUALHOSTHEAD=""
+fi
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
