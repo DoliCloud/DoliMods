@@ -217,7 +217,13 @@ else
     $head.='<link href="dist/css/myaccount.css" rel="stylesheet">';
 }
 
-llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(), array(), '', 'register');
+// Javascript code on logon page only to detect user tz, dst_observed, dst_first, dst_second
+$arrayofjs=array(
+    '/includes/jstz/jstz.min.js'.(empty($conf->dol_use_jmobile)?'':'?version='.urlencode(DOL_VERSION)),
+    '/core/js/dst.js'.(empty($conf->dol_use_jmobile)?'':'?version='.urlencode(DOL_VERSION))
+);
+
+llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, $arrayofjs, array(), '', 'register');
 
 $prefix=dol_getprefix('');
 $cookieregistrationa='DOLREGISTERA_'.$prefix;
@@ -553,6 +559,17 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 	          	?>
 	          </div>
           </section>
+
+
+        <!-- Add fields to send local user information -->
+        <input type="hidden" name="tz" id="tz" value="" />
+        <input type="hidden" name="tz_string" id="tz_string" value="" />
+        <input type="hidden" name="dst_observed" id="dst_observed" value="" />
+        <input type="hidden" name="dst_first" id="dst_first" value="" />
+        <input type="hidden" name="dst_second" id="dst_second" value="" />
+        <input type="hidden" name="screenwidth" id="screenwidth" value="" />
+        <input type="hidden" name="screenheight" id="screenheight" value="" />
+
 
      </form> <!-- end form-content -->
 

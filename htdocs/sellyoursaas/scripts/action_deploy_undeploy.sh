@@ -127,6 +127,9 @@ export archivedir=${31}
 export SSLON=${32}
 export apachereload=${33}
 export ALLOWOVERRIDE=${34//£/ }
+if [ "x$ALLOWOVERRIDE" == "x-" ]; then
+	ALLOWOVERRIDE=""
+fi
 export VIRTUALHOSTHEAD=${35//£/ }
 if [ "x$VIRTUALHOSTHEAD" == "x-" ]; then
 	VIRTUALHOSTHEAD=""
