@@ -3100,7 +3100,8 @@ class SellYourSaasUtils
         			'__APPUNIQUEKEY__'=>$generateduniquekey,
         			'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname,
         			'__ALLOWOVERRIDE__'=>$tmppackage->allowoverride,
-        			'__VIRTUALHOSTHEAD__'=>$customvirtualhostline
+        			'__VIRTUALHOSTHEAD__'=>$customvirtualhostline,
+    			    '__SELLYOURSAAS_LOGIN_FOR_SUPPORT__'=>$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT
     			);
 
     			$dirfortmpfiles = DOL_DATA_ROOT.'/sellyoursaas/temp';
@@ -3176,6 +3177,8 @@ class SellYourSaasUtils
 				$commandurl.= '&'.$archivedir;
 				$commandurl.= '&'.$SSLON;
 				$commandurl.= '&'.(empty($conf->global->noapachereload)?'apachereload':'noapachereload');
+				$commandurl.= '&'.$tmppackage->allowoverride;
+				$commandurl.= '&'.$customvirtualhostline;
 
     			//$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 
