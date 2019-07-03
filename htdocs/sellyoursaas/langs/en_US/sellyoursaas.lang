@@ -454,3 +454,4 @@ SellYourSaasSubDomainsHelp=Enter full list (separated by a comma) of subdomains 
 DelayAutomaticPayment=Delay automatic payment
 DelayAutomaticPaymentDesc=Do not try to take payment automatically before this date
 DeploymentUserAgent=User agent requesting deployment
+CustomVirtualHostLine=Custom virtualhost line

@@ -411,3 +411,4 @@ RestrictDomainNames=Visible sur certains domaines seulement
 DelayAutomaticPayment=Retarder le paiement automatique
 DelayAutomaticPaymentDesc=Ne pas essayer de prendre le paiement automatiquement avant cette date
 DeploymentUserAgent=User agent ayant demandé le déploiement
+CustomVirtualHostLine=Ligne virtual host personnalisée
