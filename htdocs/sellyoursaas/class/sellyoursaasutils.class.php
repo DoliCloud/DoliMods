@@ -3020,6 +3020,7 @@ class SellYourSaasUtils
     			$generateduniquekey   =getRandomPassword(true);
 
     			$customurl            =$contract->array_options['options_custom_url'];
+    			$customvirtualhostline=$contract->array_options['options_custom_virtualhostline'];
     			$SSLON='On';
     			$CERTIFFORCUSTOMDOMAIN=$customurl;
     			if ($CERTIFFORCUSTOMDOMAIN)
@@ -3067,39 +3068,39 @@ class SellYourSaasUtils
 
     			// Replace __INSTANCEDIR__, __INSTALLHOURS__, __INSTALLMINUTES__, __OSUSERNAME__, __APPUNIQUEKEY__, __APPDOMAIN__, ...
     			$substitarray=array(
-    			'__INSTANCEDIR__'=>$targetdir.'/'.$generatedunixlogin.'/'.$generateddbname,
-    			'__INSTANCEDBPREFIX__'=>$generateddbprefix,
-    			'__DOL_DATA_ROOT__'=>DOL_DATA_ROOT,
-    			'__INSTALLHOURS__'=>dol_print_date($now, '%H'),
-    			'__INSTALLMINUTES__'=>dol_print_date($now, '%M'),
-    			'__OSHOSTNAME__'=>$generatedunixhostname,
-    			'__OSUSERNAME__'=>$generatedunixlogin,
-    			'__OSPASSWORD__'=>$generatedunixpassword,
-    			'__DBHOSTNAME__'=>$generateddbhostname,
-    			'__DBNAME__'=>$generateddbname,
-    			'__DBPORT__'=>$generateddbport,
-    			'__DBUSER__'=>$generateddbusername,
-    			'__DBPASSWORD__'=>$generateddbpassword,
-    			'__PACKAGEREF__'=> $tmppackage->ref,
-    			'__PACKAGENAME__'=> $tmppackage->label,
-    			'__APPORGNAME__'=> $orgname,
-    			'__APPCOUNTRYID__'=> $countryid,
-    			'__APPCOUNTRYCODE__'=> $countrycode,
-    			'__APPCOUNTRYLABEL__'=> $countrylabel,
-    			'__APPCOUNTRYIDCODELABEL__'=> $countryidcodelabel,
-    			'__APPEMAIL__'=>$email,
-    			'__APPUSERNAME__'=>$appusername,
-    			'__APPPASSWORD__'=>$password,
-    			'__APPPASSWORD0__'=>$password0,
-    			'__APPPASSWORDMD5__'=>$passwordmd5,
-    			'__APPPASSWORDSHA256__'=>$passwordsha256,
-    			'__APPPASSWORD0SALTED__'=>$password0salted,
-    			'__APPPASSWORDMD5SALTED__'=>$passwordmd5salted,
-    			'__APPPASSWORDSHA256SALTED__'=>$passwordsha256salted,
-    			'__APPUNIQUEKEY__'=>$generateduniquekey,
-    			'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname,
-    			'__ALLOWOVERRIDE__'=>$tmppackage->allowoverride,
-    			'__VIRTUALHOSTHEAD__'=>''
+        			'__INSTANCEDIR__'=>$targetdir.'/'.$generatedunixlogin.'/'.$generateddbname,
+        			'__INSTANCEDBPREFIX__'=>$generateddbprefix,
+        			'__DOL_DATA_ROOT__'=>DOL_DATA_ROOT,
+        			'__INSTALLHOURS__'=>dol_print_date($now, '%H'),
+        			'__INSTALLMINUTES__'=>dol_print_date($now, '%M'),
+        			'__OSHOSTNAME__'=>$generatedunixhostname,
+        			'__OSUSERNAME__'=>$generatedunixlogin,
+        			'__OSPASSWORD__'=>$generatedunixpassword,
+        			'__DBHOSTNAME__'=>$generateddbhostname,
+        			'__DBNAME__'=>$generateddbname,
+        			'__DBPORT__'=>$generateddbport,
+        			'__DBUSER__'=>$generateddbusername,
+        			'__DBPASSWORD__'=>$generateddbpassword,
+        			'__PACKAGEREF__'=> $tmppackage->ref,
+        			'__PACKAGENAME__'=> $tmppackage->label,
+        			'__APPORGNAME__'=> $orgname,
+        			'__APPCOUNTRYID__'=> $countryid,
+        			'__APPCOUNTRYCODE__'=> $countrycode,
+        			'__APPCOUNTRYLABEL__'=> $countrylabel,
+        			'__APPCOUNTRYIDCODELABEL__'=> $countryidcodelabel,
+        			'__APPEMAIL__'=>$email,
+        			'__APPUSERNAME__'=>$appusername,
+        			'__APPPASSWORD__'=>$password,
+        			'__APPPASSWORD0__'=>$password0,
+        			'__APPPASSWORDMD5__'=>$passwordmd5,
+        			'__APPPASSWORDSHA256__'=>$passwordsha256,
+        			'__APPPASSWORD0SALTED__'=>$password0salted,
+        			'__APPPASSWORDMD5SALTED__'=>$passwordmd5salted,
+        			'__APPPASSWORDSHA256SALTED__'=>$passwordsha256salted,
+        			'__APPUNIQUEKEY__'=>$generateduniquekey,
+        			'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname,
+        			'__ALLOWOVERRIDE__'=>$tmppackage->allowoverride,
+        			'__VIRTUALHOSTHEAD__'=>$customvirtualhostline
     			);
 
     			$dirfortmpfiles = DOL_DATA_ROOT.'/sellyoursaas/temp';
@@ -3263,6 +3264,30 @@ class SellYourSaasUtils
     				$generateddbhostname  =$contract->array_options['options_hostname_db'];
     				$generateduniquekey   =getRandomPassword(true);
 
+    				$customurl            =$contract->array_options['options_custom_url'];
+    				$customvirtualhostline=$contract->array_options['options_custom_virtualhostline'];
+    				$SSLON='On';
+    				$CERTIFFORCUSTOMDOMAIN=$customurl;
+    				if ($CERTIFFORCUSTOMDOMAIN)
+    				{
+    				    // Kept for backward compatibility
+    				    if (preg_match('/on\.dolicloud\.com$/', $CERTIFFORCUSTOMDOMAIN))
+    				    {
+    				        $CERTIFFORCUSTOMDOMAIN='on.dolicloud.com';
+    				    }
+    				    else
+    				    {
+    				        // Check if SSL certificate for $customurl exists. If it does not exist, return an error to ask to upload certificate first.
+    				        // FIXME Detection of /etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt' fails due to basedir. Save them into another dir than /etc/apache2.
+    				        if (! file_exists('/etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt'))
+    				        {
+    				            // TODO Return error to ask to upload a certificate first.
+    				            $CERTIFFORCUSTOMDOMAIN=getDomainFromURL($customurl, 2);
+    				            $SSLON='Off';
+    				        }
+    				    }
+    				}
+
     				// Is it a product linked to a package ?
     				$tmppackage = new Packages($this->db);
     				if (! empty($producttmp->array_options['options_package']))
@@ -3295,35 +3320,35 @@ class SellYourSaasUtils
 
     				// Replace __INSTANCEDIR__, __INSTALLHOURS__, __INSTALLMINUTES__, __OSUSERNAME__, __APPUNIQUEKEY__, __APPDOMAIN__, ...
     				$substitarray=array(
-    				'__INSTANCEDIR__'=>$targetdir.'/'.$generatedunixlogin.'/'.$generateddbname,
-    				'__INSTANCEDBPREFIX__'=>$generateddbprefix,
-    				'__DOL_DATA_ROOT__'=>DOL_DATA_ROOT,
-    				'__INSTALLHOURS__'=>dol_print_date($now, '%H'),
-    				'__INSTALLMINUTES__'=>dol_print_date($now, '%M'),
-    				'__OSHOSTNAME__'=>$generatedunixhostname,
-    				'__OSUSERNAME__'=>$generatedunixlogin,
-    				'__OSPASSWORD__'=>$generatedunixpassword,
-    				'__DBHOSTNAME__'=>$generateddbhostname,
-    				'__DBNAME__'=>$generateddbname,
-    				'__DBPORT__'=>$generateddbport,
-    				'__DBUSER__'=>$generateddbusername,
-    				'__DBPASSWORD__'=>$generateddbpassword,
-    				'__PACKAGEREF__'=> $tmppackage->ref,
-    				'__PACKAGENAME__'=> $tmppackage->label,
-    				'__APPUSERNAME__'=>$appusername,
-    				'__APPEMAIL__'=>$email,
-    				'__APPPASSWORD__'=>$password,
-    				'__APPPASSWORD0__'=>$password0,
-    				'__APPPASSWORDMD5__'=>$passwordmd5,
-    				'__APPPASSWORDSHA256__'=>$passwordsha256,
-    				'__APPPASSWORD0SALTED__'=>$password0salted,
-    				'__APPPASSWORDMD5SALTED__'=>$passwordmd5salted,
-    				'__APPPASSWORDSHA256SALTED__'=>$passwordsha256salted,
-    				'__APPUNIQUEKEY__'=>$generateduniquekey,
-    				'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname,
-    				'__ALLOWOVERRIDE__'=>'',
-    				'__VIRTUALHOSTHEAD__'=>'',
-    				'__SELLYOURSAAS_LOGIN_FOR_SUPPORT__'=>$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT
+        				'__INSTANCEDIR__'=>$targetdir.'/'.$generatedunixlogin.'/'.$generateddbname,
+        				'__INSTANCEDBPREFIX__'=>$generateddbprefix,
+        				'__DOL_DATA_ROOT__'=>DOL_DATA_ROOT,
+        				'__INSTALLHOURS__'=>dol_print_date($now, '%H'),
+        				'__INSTALLMINUTES__'=>dol_print_date($now, '%M'),
+        				'__OSHOSTNAME__'=>$generatedunixhostname,
+        				'__OSUSERNAME__'=>$generatedunixlogin,
+        				'__OSPASSWORD__'=>$generatedunixpassword,
+        				'__DBHOSTNAME__'=>$generateddbhostname,
+        				'__DBNAME__'=>$generateddbname,
+        				'__DBPORT__'=>$generateddbport,
+        				'__DBUSER__'=>$generateddbusername,
+        				'__DBPASSWORD__'=>$generateddbpassword,
+        				'__PACKAGEREF__'=> $tmppackage->ref,
+        				'__PACKAGENAME__'=> $tmppackage->label,
+        				'__APPUSERNAME__'=>$appusername,
+        				'__APPEMAIL__'=>$email,
+        				'__APPPASSWORD__'=>$password,
+        				'__APPPASSWORD0__'=>$password0,
+        				'__APPPASSWORDMD5__'=>$passwordmd5,
+        				'__APPPASSWORDSHA256__'=>$passwordsha256,
+        				'__APPPASSWORD0SALTED__'=>$password0salted,
+        				'__APPPASSWORDMD5SALTED__'=>$passwordmd5salted,
+        				'__APPPASSWORDSHA256SALTED__'=>$passwordsha256salted,
+        				'__APPUNIQUEKEY__'=>$generateduniquekey,
+        				'__APPDOMAIN__'=>$sldAndSubdomain.'.'.$domainname,
+        				'__ALLOWOVERRIDE__'=>'',
+        				'__VIRTUALHOSTHEAD__'=>$customvirtualhostline,
+        				'__SELLYOURSAAS_LOGIN_FOR_SUPPORT__'=>$conf->global->SELLYOURSAAS_LOGIN_FOR_SUPPORT
     				);
 
 
