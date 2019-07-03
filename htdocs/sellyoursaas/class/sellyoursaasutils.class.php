@@ -3177,7 +3177,7 @@ class SellYourSaasUtils
 				$commandurl.= '&'.$archivedir;
 				$commandurl.= '&'.$SSLON;
 				$commandurl.= '&'.(empty($conf->global->noapachereload)?'apachereload':'noapachereload');
-				$commandurl.= '&'.$tmppackage->allowoverride;
+				$commandurl.= '&'.str_replace(' ', '_', $tmppackage->allowoverride);
 				$commandurl.= '&'.$customvirtualhostline;
 
     			//$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
