@@ -285,11 +285,7 @@ if ($id > 0 && $action != 'edit' && $action != 'create')
 	print '<tr class="oddeven">';
 	print '<td>'.$langs->trans("DateLastBackup").'</td>';
 	print '<td>';
-	if (! empty($instanceoldid)) print ($object->date_lastrsync?dol_print_date($object->date_lastrsync,'dayhour','tzuser'):'');
-	else
-	{
-		if ($object->array_options['options_latestbackup_date']) print dol_print_date($object->array_options['options_latestbackup_date'], 'dayhour');
-	}
+	if ($object->array_options['options_latestbackup_date']) print dol_print_date($object->array_options['options_latestbackup_date'], 'dayhour', 'tzuser');
 	print '</td>';
 	print '</tr>';
 
