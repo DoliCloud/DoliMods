@@ -615,6 +615,7 @@ else
 		}
 
 		$contract->array_options['options_deployment_ip'] = $remoteip;
+		$contract->array_options['options_deployment_ua'] = dol_trunc($_SERVER["HTTP_USER_AGENT"], 250);
 		$vpnproba = '';
 		if (! empty($_SERVER["REMOTE_ADDR"]))
 		{
