@@ -114,7 +114,7 @@ else
  *	Main
  */
 
-if (0 != posix_getuid()) {
+if (0 == posix_getuid()) {
     echo "Script must not be ran with root.\n";
     exit(-1);
 }
