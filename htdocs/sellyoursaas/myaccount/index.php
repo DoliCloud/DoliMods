@@ -659,65 +659,116 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 						//if (! empty($dol_type))      			$metadata["dol_type"] = $dol_type;
 						if (! empty($mythirdpartyaccount->id)) 	$metadata["dol_thirdparty_id"] = $mythirdpartyaccount->id;
 
-						// Create Stripe card from Token
-						try
+						if (empty($conf->global->STRIPE_USE_NEW_API))
 						{
-							$card = $cu->sources->create(array("source" => $stripeToken, "metadata" => $metadata));
+    						// Create Stripe card from Token
+    						try
+    						{
+    							$card = $cu->sources->create(array("source" => $stripeToken, "metadata" => $metadata));
+    						}
+    						catch(\Stripe\Error\Card $e) {
+    							// Since it's a decline, Stripe_CardError will be caught
+    							$body = $e->getJsonBody();
+    							$err  = $body['error'];
+
+    							$stripefailurecode = $err['code'];
+    							$stripefailuremessage = $err['message'];
+
+    							$error++;
+    							$errormsg = 'Code: '.$stripefailurecode.', '.$langs->trans("Message").': '.$stripefailuremessage;
+    							dol_syslog('--- FailedToCreateCardRecord Strip Error Card '.$errormsg, LOG_WARNING);
+    							setEventMessages($langs->trans('FailedToCreateCardRecord').($errormsg?'<br>'.$errormsg:''), null, 'errors');
+    							$action='';
+
+    							dol_syslog('--- FailedToCreateCardRecord '.json_encode($err), LOG_WARNING);
+    						}
+    						catch(Exception $e)
+    						{
+    							$error++;
+    							$errormsg = $e->getMessage();
+    							dol_syslog('--- FailedToCreateCardRecord Exception '.$errormsg, LOG_WARNING);
+    							setEventMessages($langs->trans('FailedToCreateCardRecord').($errormsg?'<br>'.$errormsg:''), null, 'errors');
+    							$action='';
+    						}
 						}
-						catch(\Stripe\Error\Card $e) {
-							// Since it's a decline, Stripe_CardError will be caught
-							$body = $e->getJsonBody();
-							$err  = $body['error'];
-
-							$stripefailurecode = $err['code'];
-							$stripefailuremessage = $err['message'];
-
-							$error++;
-							$errormsg = 'Code: '.$stripefailurecode.', '.$langs->trans("Message").': '.$stripefailuremessage;
-							dol_syslog('--- FailedToCreateCardRecord Strip Error Card '.$errormsg, LOG_WARNING);
-							setEventMessages($langs->trans('FailedToCreateCardRecord').($errormsg?'<br>'.$errormsg:''), null, 'errors');
-							$action='';
-
-							dol_syslog('--- FailedToCreateCardRecord '.json_encode($err), LOG_WARNING);
-						}
-						catch(Exception $e)
+						else
 						{
-							$error++;
-							$errormsg = $e->getMessage();
-							dol_syslog('--- FailedToCreateCardRecord Exception '.$errormsg, LOG_WARNING);
-							setEventMessages($langs->trans('FailedToCreateCardRecord').($errormsg?'<br>'.$errormsg:''), null, 'errors');
-							$action='';
+						    // Attach payment_mode from SetupIntent to customer
+						    // TODO
+						    try {
+						        $payment_method = \Stripe\PaymentMethod::retrieve($intent->payment_method);
+						        $result = $payment_method->attach(['customer' => $cu->id]);
+						    } catch (Exception $e) {
+						        $error++;
+						        $errormsg = $e->getMessage();
+						        dol_syslog('--- FailedToAttachPaymentMethodToCustomer Exception '.$errormsg, LOG_WARNING);
+						        setEventMessages($langs->trans('FailedToAttachPaymentMethodToCustomer').($errormsg?'<br>'.$errormsg:''), null, 'errors');
+						        $action='';
+						    }
 						}
 
 						if (! $error)
 						{
-							if (empty($card))
-							{
-								$error++;
-								dol_syslog('--- FailedToCreateCardRecord', LOG_WARNING, 0);
-								setEventMessages($langs->trans('FailedToCreateCardRecord', ''), null, 'errors');
-								$action='';
-							}
-							else
-							{
-								$sql = "UPDATE " . MAIN_DB_PREFIX . "societe_rib";
-								$sql.= " SET stripe_card_ref = '".$db->escape($card->id)."', card_type = '".$db->escape($card->brand)."',";
-								$sql.= " country_code = '".$db->escape($card->country)."',";
-								$sql.= " exp_date_month = '".$db->escape($card->exp_month)."',";
-								$sql.= " exp_date_year = '".$db->escape($card->exp_year)."',";
-								$sql.= " last_four = '".$db->escape($card->last4)."',";
-								//$sql.= " cvn = '".$db->escape($card->???)."',";
-								$sql.= " approved = ".($card->cvc_check == 'pass' ? 1 : 0);
-								$sql.= " WHERE rowid = " . $companypaymentmode->id;
-								$sql.= " AND type = 'card'";
-								$resql = $db->query($sql);
-								if (! $resql)
-								{
-									setEventMessages($db->lasterror(), null, 'errors');
-								}
+						    if (empty($conf->global->STRIPE_USE_NEW_API))
+						    {
+    						    if (empty($card))
+    							{
+    								$error++;
+    								dol_syslog('--- FailedToCreateCardRecord', LOG_WARNING, 0);
+    								setEventMessages($langs->trans('FailedToCreateCardRecord', ''), null, 'errors');
+    								$action='';
+    							}
+    							else
+    							{
+    								$sql = "UPDATE " . MAIN_DB_PREFIX . "societe_rib";
+    								$sql.= " SET stripe_card_ref = '".$db->escape($card->id)."', card_type = '".$db->escape($card->brand)."',";
+    								$sql.= " country_code = '".$db->escape($card->country)."',";
+    								$sql.= " exp_date_month = '".$db->escape($card->exp_month)."',";
+    								$sql.= " exp_date_year = '".$db->escape($card->exp_year)."',";
+    								$sql.= " last_four = '".$db->escape($card->last4)."',";
+    								//$sql.= " cvn = '".$db->escape($card->???)."',";
+    								$sql.= " approved = ".($card->cvc_check == 'pass' ? 1 : 0);
+    								$sql.= " WHERE rowid = " . $companypaymentmode->id;
+    								$sql.= " AND type = 'card'";
+    								$resql = $db->query($sql);
+    								if (! $resql)
+    								{
+    									setEventMessages($db->lasterror(), null, 'errors');
+    								}
 
-								$stripecard = $card->id;
-							}
+    								$stripecard = $card->id;
+    							}
+						    }
+						    else
+						    {
+						        if (empty($payment_method))
+						        {
+						            $error++;
+						            dol_syslog('--- FailedToAttachPaymentMethodToCustomer', LOG_WARNING, 0);
+						            setEventMessages($langs->trans('FailedToAttachPaymentMethodToCustomer', ''), null, 'errors');
+						            $action='';
+						        }
+						        else
+						        {
+						            $sql = "UPDATE " . MAIN_DB_PREFIX . "societe_rib";
+						            $sql.= " SET stripe_card_ref = '".$db->escape($payment_method->id)."', card_type = '".$db->escape($payment_method->card->brand)."',";
+						            $sql.= " country_code = '".$db->escape($payment_method->card->country)."',";
+						            $sql.= " exp_date_month = '".$db->escape($payment_method->card->exp_month)."',";
+						            $sql.= " exp_date_year = '".$db->escape($payment_method->card->exp_year)."',";
+						            $sql.= " last_four = '".$db->escape($payment_method->card->last4)."',";
+						            //$sql.= " cvn = '".$db->escape($card->???)."',";
+						            $sql.= " approved = ".($payment_method->card->checks->cvc_check == 'pass' ? 1 : 0);
+						            $sql.= " WHERE rowid = " . $companypaymentmode->id;
+						            $sql.= " AND type = 'card'";
+						            $resql = $db->query($sql);
+						            if (! $resql)
+						            {
+						                setEventMessages($db->lasterror(), null, 'errors');
+						            }
+
+						            $stripecard = $payment_method->id;
+						        }
+						    }
 						}
 					}
 				}
@@ -725,7 +776,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
 			if (! $error)
 			{
-				$companypaymentmode->setAsDefault($idpayment, 1);
+			    $companypaymentmode->setAsDefault($companypaymentmode->id, 1);
 				dol_syslog("--- A credit card was recorded", LOG_DEBUG, 0);
 
 				if ($mythirdpartyaccount->client == 2)
