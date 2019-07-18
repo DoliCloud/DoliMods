@@ -376,7 +376,7 @@ if ($resql)
     if (in_array($massaction, array('presend','predelete'))) $arrayofmassactions=array();
     $massactionbutton=$form->selectMassAction('', $arrayofmassactions);
 
-    // Lignes des champs de filtre
+    // Fields title search
     print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
     if ($optioncss != '') print '<input type="hidden" name="optioncss" value="'.$optioncss.'">';
     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';

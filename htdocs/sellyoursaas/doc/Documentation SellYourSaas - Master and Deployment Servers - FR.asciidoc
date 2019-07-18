@@ -881,7 +881,7 @@ recipient_delimiter = +
 inet_interfaces = all
 inet_protocols = all
 
-# Activer ces lignes pour utiliser SendGrid commen serveur envoi pour les envoies emails de puis les instances clients
+# Activer ces lignes pour utiliser SendGrid comme serveur envoi pour les envoies emails de puis les instances clients
 #smtp_sasl_auth_enable = yes
 #smtp_sasl_password_maps = static:apikey:....
 #smtp_sasl_security_options = noanonymous
