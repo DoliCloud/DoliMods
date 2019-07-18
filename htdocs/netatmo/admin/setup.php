@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2004-2017 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2019 Alicealalalamdskfldmjgdfgdfhfghgfh Adminson <testldr9@dolicloud.com>
+ * Copyright (C) 2018 Alice Adminson <testldr9@dolicloud.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 /**
  * \file    netatmo/admin/setup.php
  * \ingroup netatmo
- * \brief   Netatmo setup page.
+ * \brief   netatmo setup page.
  */
 
 // Load Dolibarr environment
@@ -54,21 +54,17 @@ $action = GETPOST('action', 'alpha');
 $backtopage = GETPOST('backtopage', 'alpha');
 
 $arrayofparameters=array(
-	'NETATMO_MYPARAM1'=>array('css'=>'minwidth200','enabled'=>1),
-	'NETATMO_MYPARAM2'=>array('css'=>'minwidth500','enabled'=>1)
+	'NETATMO_SECURITY_KEY'=>array('css'=>'minwidth200','enabled'=>1),
 );
-
 
 
 /*
  * Actions
  */
-
 if ((float) DOL_VERSION >= 6)
 {
 	include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
 }
-
 
 
 /*
@@ -103,7 +99,7 @@ if ($action == 'edit')
 	foreach($arrayofparameters as $key => $val)
 	{
 		print '<tr class="oddeven"><td>';
-		print $form->textwithpicto($langs->trans($key), $langs->trans($key.'Tooltip'));
+		print $form->textwithpicto($langs->trans($key),$langs->trans($key.'Tooltip'));
 		print '</td><td><input name="'.$key.'"  class="flat '.(empty($val['css'])?'minwidth200':$val['css']).'" value="' . $conf->global->$key . '"></td></tr>';
 	}
 	print '</table>';
@@ -119,13 +115,13 @@ else
 {
 	if (! empty($arrayofparameters))
 	{
-		print '<table class="noborder centpercent">';
+		print '<table class="noborder" width="100%">';
 		print '<tr class="liste_titre"><td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td></tr>';
 
 		foreach($arrayofparameters as $key => $val)
 		{
 			print '<tr class="oddeven"><td>';
-			print $form->textwithpicto($langs->trans($key), $langs->trans($key.'Tooltip'));
+			print $form->textwithpicto($langs->trans($key),$langs->trans($key.'Tooltip'));
 			print '</td><td>' . $conf->global->$key . '</td></tr>';
 		}
 
@@ -142,8 +138,22 @@ else
 }
 
 
+// Define $urlwithroot
+$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+//$urlwithroot=DOL_MAIN_URL_ROOT;						// This is to use same domain name than current. For Paypal payment, we can use internal URL like localhost.
+
+
+$message='';
+$url='<a href="'.dol_buildpath('/netatmo/public/netatmo.php', 3).'?key='.($conf->global->NETATMO_SECURITY_KEY?urlencode($conf->global->NETATMO_SECURITY_KEY):'...').'" target="_blank">'.dol_buildpath('/netatmo/public/netatmo.php', 3).'?key='.($conf->global->NETATMO_SECURITY_KEY?urlencode($conf->global->NETATMO_SECURITY_KEY):'KEYNOTDEFINED').'</a>';
+$message.=img_picto('', 'object_globe.png').' '.$langs->trans("EndPointOfNetatmoServer", $url);
+
+print $message;
+
+
 // Page end
 dol_fiche_end();
 
 llxFooter();
 $db->close();
+

@@ -51,3 +51,6 @@ MyPageName = My page name
 #
 MyWidget = My widget
 MyWidgetDescription = My widget description
+
+EndPointOfNetatmoServer=Endpoint provided by Netatmo module:<br>%s
+
