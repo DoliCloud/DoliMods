@@ -106,8 +106,15 @@ $head='';
 $conf->dol_hide_topmenu=1;
 $conf->dol_hide_leftmenu=1;
 
+dol_syslog("Netatmo call start", LOG_INFO, 0, '_netatmo');
+
+dol_syslog(var_export($_GET, true), LOG_INFO, 0, '_netatmo');
+dol_syslog(var_export($_POST, true), LOG_INFO, 0, '_netatmo');
+
 
 print 'Endpoint for Netatmo webhook was called';
+
+dol_syslog("Netatmo call end", LOG_INFO, 0, '_netatmo');
 
 
 $db->close();

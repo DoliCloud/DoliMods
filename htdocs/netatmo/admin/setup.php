@@ -86,6 +86,7 @@ dol_fiche_head($head, 'settings', '', -1, "netatmo@netatmo");
 // Setup page goes here
 echo '<span class="opacitymedium">'.$langs->trans("NetatmoSetupPage").'</span><br><br>';
 
+print 'Go on page to create an App: https://dev.netatmo.com/myaccount/';
 
 if ($action == 'edit')
 {
