@@ -1,0 +1,53 @@
+# Copyright (C) 2019 Alicealalalamdskfldmjgdfgdfhfghgfh Adminson <testldr9@dolicloud.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+#
+# Generic
+#
+
+# Module label 'ModuleNetatmoName'
+ModuleNetatmoName = Netatmo
+# Module description 'ModuleNetatmoDesc'
+ModuleNetatmoDesc = Netatmo description
+
+#
+# Admin page
+#
+NetatmoSetup = Netatmo setup
+Settings = Settings
+NetatmoSetupPage = Netatmo setup page
+NETATMO_MYPARAM1 = My param 1
+NETATMO_MYPARAM1Tooltip = My param 1 tooltip
+NETATMO_MYPARAM2=My param 2
+NETATMO_MYPARAM2Tooltip=My param 2 tooltip
+
+
+#
+# About page
+#
+About = About
+NetatmoAbout = About Netatmo
+NetatmoAboutPage = Netatmo about page
+
+#
+# Sample page
+#
+MyPageName = My page name
+
+#
+# Sample widget
+#
+MyWidget = My widget
+MyWidgetDescription = My widget description
