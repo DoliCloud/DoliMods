@@ -55,6 +55,8 @@ $backtopage = GETPOST('backtopage', 'alpha');
 
 $arrayofparameters=array(
 	'NETATMO_SECURITY_KEY'=>array('css'=>'minwidth200','enabled'=>1),
+    'NETATMO_CLIENT_ID'=>array('css'=>'minwidth200','enabled'=>1),
+    'NETATMO_CLIENT_SECRET'=>array('css'=>'minwidth200','enabled'=>1),
 );
 
 
