@@ -226,7 +226,7 @@ class ActionsBilledOnOrders
 
 	        if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLEDWOTAX))
 	        {
-	            print '<td align="right">'.($billedht?price($billedht):'');
+	            print '<td class="right nowraponall">'.($billedht?price($billedht):'');
 	            if ($billedht && $parameters['obj']->total_ht != $billedht)
 	            {
 	                print img_warning($langs->trans("AmountBilledDiffersFromAmountOnOrder"));
@@ -235,15 +235,15 @@ class ActionsBilledOnOrders
 	        }
 	        if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLED))
 	        {
-	            print '<td align="right">'.($billedttc?price($billedttc):'');
+	            print '<td class="right nowraponall">'.($billedttc?price($billedttc):'');
 	            if ($billedttc && $parameters['obj']->total_ttc != $billedttc)
 	            {
 	                print img_warning($langs->trans("AmountBilledDiffersFromAmountOnOrder"));
 	            }
 	            print '</td>';
 	        }
-	        if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED)) print '<td align="right">'.($payed?price($payed):'').'</td>';
-	        if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY)) print '<td align="right">'.($remaintopay?price($remaintopay):'').'</td>';
+	        if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED)) print '<td class="right nowraponall">'.($payed?price($payed):'').'</td>';
+	        if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY)) print '<td class="right nowraponall">'.($remaintopay?price($remaintopay):'').'</td>';
         }
 
         if ($parameters['currentcontext'] == 'supplierorderlist')
