@@ -111,6 +111,8 @@ dol_syslog("Netatmo call start", LOG_INFO, 0, '_netatmo');
 dol_syslog(var_export($_GET, true), LOG_INFO, 0, '_netatmo');
 dol_syslog(var_export($_POST, true), LOG_INFO, 0, '_netatmo');
 
+$xml = file_get_contents('php://input');
+dol_syslog(var_export($xml, true), LOG_INFO, 0, '_netatmo');
 
 print 'Endpoint for Netatmo webhook was called';
 
