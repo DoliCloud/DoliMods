@@ -313,7 +313,7 @@ class ActionsBilledOnOrders
 
         	if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLEDWOTAX))
         	{
-        		print '<td align="right">'.($billedht?price($billedht):'');
+        		print '<td align="right nowraponall">'.($billedht?price($billedht):'');
         		if ($billedht && $parameters['obj']->total_ht != $billedht)
         		{
         			print img_warning($langs->trans("AmountBilledDiffersFromAmountOnOrder"));
@@ -322,7 +322,7 @@ class ActionsBilledOnOrders
         	}
         	if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLED))
         	{
-        		print '<td align="right">'.($billedttc?price($billedttc):'');
+        		print '<td align="right nowraponall">'.($billedttc?price($billedttc):'');
         		if ($billedttc && $parameters['obj']->total_ttc != $billedttc)
         		{
         			print img_warning($langs->trans("AmountBilledDiffersFromAmountOnOrder"));
@@ -331,14 +331,14 @@ class ActionsBilledOnOrders
         	}
         	if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED))
         	{
-        		print '<td align="right">';
+        		print '<td align="right nowraponall">';
         		if (method_exists($invoicetmpforloop, 'getListOfPayments')) print ($payed?price($payed):'');
         		else print 'AvailableWithv7.0.1+';
         		print '</td>';
         	}
         	if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY))
         	{
-        		print '<td align="right">';
+        		print '<td class="right nowraponall">';
         		if (method_exists($invoicetmpforloop, 'getListOfPayments')) print ($remaintopay?price($remaintopay):'');
         		else print 'AvailableWithv7.0.1+';
         		print '</td>';
