@@ -799,8 +799,7 @@ print "<td>".$langs->trans("Note")."</td>";
 print "</tr>";
 
 // Google login
-$var=!$var;
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GoogleIDContact")."</td>";
 print "<td>";
 print '<input class="flat minwidth300" type="text" name="GOOGLE_CONTACT_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_CONTACT_LOGIN.'">';
@@ -813,8 +812,7 @@ print '</td>';
 print "</tr>";
 
 /*
-$var=!$var;
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_EMAIL")."</td>";
 print '<td>';
 print '<input class="flat" type="text" size="90" name="GOOGLE_API_SERVICEACCOUNT_EMAIL" value="'.$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.'">';
@@ -824,8 +822,7 @@ print $langs->trans("AllowGoogleToLoginWithServiceAccount","https://console.deve
 print '</td>';
 print '</tr>';
 
-$var=!$var;
-print "<tr ".$bc[$var].">";
+print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_P12KEY")."</td>";
 print '<td>';
 if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) print $conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY.'<br>';
