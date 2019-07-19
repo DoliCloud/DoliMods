@@ -132,6 +132,7 @@ if ($_GET["action"] == 'buildemailingchien')
 
     $mil->email_from   = 'newsletter@chiensderace.com';
     $mil->titre        = $sujet;
+    $mil->title        = $sujet;
     $mil->sujet        = $sujet;
     $mil->body         = $body;
 
