@@ -95,7 +95,7 @@ file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $referenceline, FILE_APP
 file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . (empty($_ENV['PWD'])?(empty($_SERVER["PWD"])?'':$_SERVER["PWD"]):$_ENV['PWD'])." - ".(empty($_SERVER["REQUEST_URI"])?'':$_SERVER["REQUEST_URI"])."\n", FILE_APPEND);
 
 
-$blacklistofips = @file_get_contents('/tmp/blacklistip');
+$blacklistofips = @file_get_contents('/var/lib/sellyoursaas/blacklistip');
 if (! empty($ip) && $blacklistofips)
 {
     $blacklistofipsarray = explode("\n", $blacklistofips);
@@ -106,7 +106,7 @@ if (! empty($ip) && $blacklistofips)
     }
 }
 
-$blacklistoffroms = @file_get_contents('/tmp/blacklistfrom');
+$blacklistoffroms = @file_get_contents('/var/lib/sellyoursaas/blacklistfrom');
 if (! empty($emailfrom) && $blacklistoffroms)
 {
     $blacklistoffromsarray = explode("\n", $blacklistoffroms);
@@ -117,7 +117,7 @@ if (! empty($emailfrom) && $blacklistoffroms)
     }
 }
 
-$blacklistofcontents = @file_get_contents('/tmp/blacklistcontent');
+$blacklistofcontents = @file_get_contents('/var/lib/sellyoursaas/blacklistcontent');
 if (! empty($mail) && $blacklistofcontents)
 {
     $blacklistofcontentsarray = explode("\n", $blacklistofcontents);
@@ -127,12 +127,12 @@ if (! empty($mail) && $blacklistofcontents)
         {
             file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ko blacklist - exit 4. Blacklisted content has the key '.trim($blackcontent)." found into file blacklistcontent\n", FILE_APPEND);
             // Save spam mail content and ip
-            file_put_contents('/tmp/blacklistmail', $mail."\n", FILE_APPEND);
-            chmod("/tmp/blacklistmail", 0666);
+            file_put_contents('/var/lib/sellyoursaas/blacklistmail', $mail."\n", FILE_APPEND);
+            chmod("/var/lib/sellyoursaas/blacklistmail", 0666);
             if (! empty($ip))
             {
-                file_put_contents('/tmp/blacklistip', $ip."\n", FILE_APPEND);
-                chmod("/tmp/blacklistip", 0666);
+                file_put_contents('/var/lib/sellyoursaas/blacklistip', $ip."\n", FILE_APPEND);
+                chmod("/var/lib/sellyoursaas/blacklistip", 0666);
             }
             exit(5);
         }
