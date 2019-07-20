@@ -131,7 +131,6 @@ else
     print '<td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
     print $object->getLibStatut(2);
     print '</td>';
-    print $htmllogobar; $htmllogobar='';
     print '</tr>';
 
     // Address

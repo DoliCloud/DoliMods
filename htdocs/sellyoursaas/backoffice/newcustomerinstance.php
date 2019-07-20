@@ -799,7 +799,6 @@ if ($object->id > 0)
             print $object->code_client;
             if ($object->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongCustomerCode").')</font>';
             print '</td>';
-            print $htmllogobar; $htmllogobar='';
             print '</tr>';
         }
 
@@ -811,7 +810,6 @@ if ($object->id > 0)
             print $object->code_fournisseur;
             if ($object->check_codefournisseur() <> 0) print ' <font class="error">('.$langs->trans("WrongSupplierCode").')</font>';
             print '</td>';
-            print $htmllogobar; $htmllogobar='';
             print '</tr>';
         }
 
