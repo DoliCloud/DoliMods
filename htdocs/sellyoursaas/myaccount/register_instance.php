@@ -164,7 +164,7 @@ if ($reusecontractid)		// When we use the "Restart deploy" after error from acco
 	$newurl.='&mode=instances';
 	$newurl.='&reusecontractid='.$reusecontractid;
 }
-elseif ($reusesocid)		// When we use the "Add another instance" from account backoffice
+elseif ($reusesocid)		// When we use the "Add another instance" from myaccount dashboard
 {
 	if (empty($productref) && ! empty($service))
 	{
@@ -473,6 +473,7 @@ else
 	$tmpthirdparty->default_lang = $langs->defaultlang;
 	$tmpthirdparty->array_options['options_dolicloud'] = 'yesv2';
 	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
+	$tmpthirdparty->array_options['options_domain_registration_page'] = getDomainFromURL($_SERVER["SERVER_NAME"], 1);
 	$tmpthirdparty->array_options['options_source']='REGISTERFORM'.($origin?'-'.$origin:'');
 	$tmpthirdparty->array_options['options_password'] = $password;
 	if ($productref == 'none')	// If reseller
@@ -599,6 +600,7 @@ else
 		$contract->array_options['options_undeployment_date'] = '';
 		$contract->array_options['options_undeployment_ip'] = '';
 		$contract->array_options['options_deployment_host'] = $serverdeployement;
+		$contract->array_options['options_deployment_ua'] = dol_trunc($_SERVER["HTTP_USER_AGENT"], 250);
 		$contract->array_options['options_hostname_os'] = $generatedunixhostname;
 		$contract->array_options['options_username_os'] = $generatedunixlogin;
 		$contract->array_options['options_password_os'] = $generatedunixpassword;
