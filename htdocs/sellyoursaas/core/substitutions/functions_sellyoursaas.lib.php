@@ -34,7 +34,7 @@
  *      @param  Mixed		$parameters       	Add more parameters (useful to pass product lines)
  * 		@return	void							The entry parameter $substitutionarray is modified
  */
-function sellyoursaas_completesubstitutionarray(&$substitutionarray,$langs,$object,$parameters=null)
+function sellyoursaas_completesubstitutionarray(&$substitutionarray, $langs, $object, $parameters=null)
 {
 	global $conf,$db;
 
@@ -66,11 +66,20 @@ function sellyoursaas_completesubstitutionarray(&$substitutionarray,$langs,$obje
 
         if (is_object($object) && get_class($object) == 'Contrat')
         {
-        	$hash = dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$contract->thirdparty->email.dol_print_date($now, 'dayrfc'));
+            $hash = dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$object->thirdparty->email.dol_print_date(dol_now(), 'dayrfc'));
         	$substitutionarray['__HASH__'] = $hash;
         }
-
     }
 
+    // Force some values to another services
+    if (is_object($object) && is_object($object->thirdparty) && ! empty($object->thirdparty->array_options['domain_registration_page'])
+        && $object->thirdparty->array_options['domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+    {
+        $newnamekey = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$object->thirdparty->array_options['domain_registration_page'];
+        if (! empty($conf->global->$newnamekey)) $conf->global->SELLYOURSAAS_NAME = $conf->global->$newnamekey;
+        $conf->global->SELLYOURSAAS_ACCOUNT_URL        = preg_replace('/'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/', $object->thirdparty->array_options['domain_registration_page'], $conf->global->SELLYOURSAAS_ACCOUNT_URL);
+        $conf->global->SELLYOURSAAS_MAIN_EMAIL         = preg_replace('/'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/', $object->thirdparty->array_options['domain_registration_page'], $conf->global->SELLYOURSAAS_MAIN_EMAIL);
+        $conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM = preg_replace('/'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/', $object->thirdparty->array_options['domain_registration_page'], $conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM);
+    }
 }
 

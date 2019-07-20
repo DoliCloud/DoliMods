@@ -328,14 +328,14 @@ print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasName").'</td>';
 print '<td>';
 print '<input type="text" name="SELLYOURSAAS_NAME" value="'.$conf->global->SELLYOURSAAS_NAME.'" class="minwidth300">';
 print '</td>';
-print '<td>My SaaS service,My Saas service 2</td>';
+print '<td>My SaaS service</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SellYourSaasMainDomain").'</td>';
 print '<td>';
 print '<input type="text" name="SELLYOURSAAS_MAIN_DOMAIN_NAME" value="'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'" class="minwidth300">';
 print '</td>';
-print '<td>mysaas.com,mysaas2.com</td>';
+print '<td>mysaas.com</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$form->textwithpicto($langs->trans("SellYourSaasSubDomains"), $langs->trans("SellYourSaasSubDomainsHelp")).'</td>';

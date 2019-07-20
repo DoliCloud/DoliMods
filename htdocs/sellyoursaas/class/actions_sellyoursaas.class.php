@@ -68,14 +68,16 @@ class ActionsSellyoursaas
 	    		$url = '';
 		    	if ($object->array_options['options_dolicloud'] == 'yesv2')
 		    	{
+		    	    $urlmyaccount = $conf->global->SELLYOURSAAS_ACCOUNT_URL;
 		    		$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$object->email.dol_print_date(dol_now(),'dayrfc'), 5);	// hash is valid one hour
-		    		$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?mode=logout_dashboard&username='.$object->email.'&password=&login_hash='.$dol_login_hash;
+		    		$url=$urlmyaccount.'?mode=logout_dashboard&username='.$object->email.'&password=&login_hash='.$dol_login_hash;
 		    	}
 
 		    	if ($url)
 		    	{
+		    	    $nameofservice = $conf->global->SELLYOURSAAS_NAME;
 			    	$this->resprints = ' - <!-- Added by getNomUrl hook of SellYourSaas -->';
-			    	$this->resprints .= '<a href="'.$url.'" target="_myaccount" alt="'.$conf->global->SELLYOURSAAS_NAME.' '.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span></a>';
+			    	$this->resprints .= '<a href="'.$url.'" target="_myaccount" alt="'.$nameofservice.' '.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span></a>';
 		    	}
 	    	}
     	}

@@ -455,3 +455,5 @@ DelayAutomaticPayment=Delay automatic payment
 DelayAutomaticPaymentDesc=Do not try to take payment automatically before this date
 DeploymentUserAgent=User agent requesting deployment
 CustomVirtualHostLine=Custom virtualhost line
+EnterAVirtualHostLine=Enter a line to add into the web server virtualhost. For example:<br>php_value date.timezone "Europe/Paris".<br>You must suspend and unsuspend the instance to have this effective.
+DomainOfRegistrationPage=Domain of registration page
