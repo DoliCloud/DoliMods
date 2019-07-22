@@ -239,10 +239,16 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 
 <div class="large">
         <?php
-        $tmparray=explode(',', $conf->global->SELLYOURSAAS_NAME);
-        $tmparray2=explode(',', $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME);
-        $sellyoursaasname = $tmparray[0];
-        $sellyoursaasdomain = $tmparray2[0];
+        $sellyoursaasdomain = $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME;
+        $sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
+
+        $domainname=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
+        $constforaltname = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$domainname;
+        if (! empty($conf->global->$constforaltname))
+        {
+            $sellyoursaasdomain = $domainname;
+            $sellyoursaasname = $conf->global->$constforaltname;
+        }
 
         $linklogo = '';
         if ($partnerthirdparty->id > 0)     // Show logo of partner
@@ -266,18 +272,11 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
             $linklogo = '';
             $constlogo = 'SELLYOURSAAS_LOGO';
             $constlogosmall = 'SELLYOURSAAS_LOGO_SMALL';
-            foreach($tmparray2 as $key => $value)
+
+            if (! empty($conf->global->$constforaltname))
             {
-                if ($_SERVER['SERVER_NAME'] == $value)     // Domain is same
-                {
-                    if (! empty($tmparray[$key]))
-                    {
-                        $constlogo.='_'.strtoupper($tmparray[$key]);
-                        $constlogosmall.='_'.strtoupper($tmparray[$key]);
-                        $sellyoursaasname = $tmparray[$key];
-                    }
-                    $sellyoursaasdomain = $value;
-                }
+                $constlogo.='_'.strtoupper($sellyoursaasname);
+                $constlogosmall.='_'.strtoupper($sellyoursaasname);
             }
 
             if (empty($linklogo) && ! empty($conf->global->$constlogosmall))

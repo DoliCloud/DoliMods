@@ -42,6 +42,7 @@ if (! $res) die("Include of main fails");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/images.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php");
 require_once(DOL_DOCUMENT_ROOT."/categories/class/categorie.class.php");
 
@@ -583,11 +584,17 @@ print '</td>';
 print '<td>5</td>';
 print '</tr>';
 
-$tmpservices = explode(',', $conf->global->SELLYOURSAAS_NAME);
+$tmpservices=array();
+$tmpservicessub = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
+foreach($tmpservicessub as $key => $tmpservicesub)
+{
+    if ($key > 0) $tmpservices[$tmpservicesub]=getDomainFromURL($tmpservicesub, 1);
+    else $tmpservices['0']=getDomainFromURL($tmpservicesub, 1);
+}
 foreach($tmpservices as $key => $tmpservice)
 {
     $suffix = '';
-    if ($key > 0) $suffix='_'.$tmpservice;
+    if ($key != '0') $suffix='_'.strtoupper($tmpservice);
 
     // Logo
     print '<tr class="oddeven"><td><label for="logo">'.$tmpservice.' - '.$langs->trans("LogoWhiteBackground").' (png,jpg)</label></td><td>';
@@ -595,6 +602,7 @@ foreach($tmpservices as $key => $tmpservice)
     print '<input type="file" class="flat class=minwidth200" name="logo'.$suffix.'" id="logo'.$suffix.'">';
     print '</td><td class="nocellnopadd" valign="middle" align="right">';
     $constname = 'SELLYOURSAAS_LOGO_MINI'.$suffix;
+    print '<!-- constname = '.$constname.' -->';
     if (! empty($conf->global->$constname)) {
     	print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=removelogo&suffix='.$suffix.'">'.img_delete($langs->trans("Delete")).'</a>';
     	if (file_exists($conf->mycompany->dir_output.'/logos/thumbs/'.$conf->global->$constname)) {

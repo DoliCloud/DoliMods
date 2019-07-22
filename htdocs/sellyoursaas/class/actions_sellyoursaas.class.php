@@ -75,9 +75,16 @@ class ActionsSellyoursaas
 
 		    	if ($url)
 		    	{
-		    	    $nameofservice = $conf->global->SELLYOURSAAS_NAME;
+		    	    $sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
+		    	    if (! empty($object->array_options['options_domain_registration_page'])
+		    	        && $object->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+		    	    {
+		    	        $newnamekey = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$object->array_options['options_domain_registration_page'];
+		    	        if (! empty($conf->global->$newnamekey)) $sellyoursaasname = $conf->global->$newnamekey;
+		    	    }
+
 			    	$this->resprints = ' - <!-- Added by getNomUrl hook of SellYourSaas -->';
-			    	$this->resprints .= '<a href="'.$url.'" target="_myaccount" alt="'.$nameofservice.' '.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span></a>';
+			    	$this->resprints .= '<a href="'.$url.'" target="_myaccount" alt="'.$sellyoursaasname.' '.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span></a>';
 		    	}
 	    	}
     	}

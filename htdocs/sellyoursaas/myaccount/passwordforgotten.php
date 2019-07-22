@@ -43,6 +43,7 @@ if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main
 if (! $res) die("Include of main fails");
 
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
@@ -232,13 +233,6 @@ if ($action == 'buildnewpassword' && $username)
                 	$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langs);
                 	$mesg = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langs);
 
-                	/*if (empty($subject))
-                	{
-                		$appli = $conf->global->SELLYOURSAAS_NAME;
-                		$subject = '['.$appli.'] '.$langs->transnoentitiesnoconv("SubjectNewPasswordForYouCustomerDashboard");
-                		$mesg = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langs);
-                	}*/
-
                 	$newemail = new CMailFile($subject, $username, $conf->global->SELLYOURSAAS_MAIN_EMAIL, $mesg, array(),array(),array(),'','',0,-1,'','',$trackid,'','standard');
 
                 	if ($newemail->sendfile() > 0)
@@ -283,28 +277,24 @@ if (! empty($conf->global->MAIN_SECURITY_ENABLE_SENDPASSWORD)) $disabled='';	 //
 $width=0;
 $rowspan=2;
 
-$tmparray=explode(',', $conf->global->SELLYOURSAAS_NAME);
-$tmparray2=explode(',', $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME);
-$sellyoursaasname = $tmparray[0];
-$sellyoursaasdomain = $tmparray2[0];
 
 // Show logo (search in order: small company logo, large company logo, theme logo, common logo)
 $width=0;
 $urllogo = '';
 $constlogo = 'SELLYOURSAAS_LOGO';
 $constlogosmall = 'SELLYOURSAAS_LOGO_SMALL';
-foreach($tmparray2 as $key => $value)
+
+$sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
+$sellyoursaasdomain = $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME;
+
+$domainname=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
+$constforaltname = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$domainname;
+if (! empty($conf->global->$constforaltname))
 {
-    if ($_SERVER['SERVER_NAME'] == $value)     // Domain is same
-    {
-        if (! empty($tmparray[$key]))
-        {
-            $constlogo.='_'.strtoupper($tmparray[$key]);
-            $constlogosmall.='_'.strtoupper($tmparray[$key]);
-            $sellyoursaasname = $tmparray[$key];
-        }
-        $sellyoursaasdomain = $value;
-    }
+    $sellyoursaasdomain = $domainname;
+    $sellyoursaasname = $conf->global->$constforaltname;
+    $constlogo.='_'.strtoupper($sellyoursaasname);
+    $constlogosmall.='_'.strtoupper($sellyoursaasname);
 }
 
 if (empty($urllogo) && ! empty($conf->global->$constlogosmall))

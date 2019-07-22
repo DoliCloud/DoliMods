@@ -626,28 +626,26 @@ function dol_loginfunction($langs,$conf,$mysoc)
 	$login = (! empty($hookmanager->resArray['username']) ? $hookmanager->resArray['username'] : (GETPOST("username","alpha") ? GETPOST("username","alpha") : $demologin));
 	$password = $demopassword;
 
-	$tmparray=explode(',', $conf->global->SELLYOURSAAS_NAME);
-	$tmparray2=explode(',', $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME);
-	$sellyoursaasname = $tmparray[0];
-	$sellyoursaasdomain = $tmparray2[0];
-
 	// Show logo (search in order: small company logo, large company logo, theme logo, common logo)
 	$width=0;
 	$urllogo = '';
 	$constlogo = 'SELLYOURSAAS_LOGO';
 	$constlogosmall = 'SELLYOURSAAS_LOGO_SMALL';
-	foreach($tmparray2 as $key => $value)
+
+	include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+
+	$sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
+	$sellyoursaasdomain = $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME;
+
+	$domainname=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
+	$constforaltname = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$domainname;
+
+	if (! empty($conf->global->$constforaltname))
 	{
-	    if ($_SERVER['SERVER_NAME'] == $value)     // Domain is same
-	    {
-	       if (! empty($tmparray[$key]))
-	       {
-	           $constlogo.='_'.strtoupper($tmparray[$key]);
-	           $constlogosmall.='_'.strtoupper($tmparray[$key]);
-	           $sellyoursaasname = $tmparray[$key];
-	       }
-	       $sellyoursaasdomain = $value;
-	    }
+	    $sellyoursaasdomain = $domainname;
+	    $sellyoursaasname = $conf->global->$constforaltname;
+	    $constlogo.='_'.strtoupper($sellyoursaasname);
+	    $constlogosmall.='_'.strtoupper($sellyoursaasname);
 	}
 
 	if (empty($urllogo) && ! empty($conf->global->$constlogosmall))

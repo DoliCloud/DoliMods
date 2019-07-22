@@ -926,8 +926,18 @@ if (is_object($contract->thirdparty))
 {
 	dol_syslog("Error in deployment, send email to customer", LOG_ERR);
 
+	$sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
+
+	$domainname=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
+	$constforaltname = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$domainname;
+	if (! empty($conf->global->$constforaltname))
+	{
+	    $sellyoursaasdomain = $domainname;
+	    $sellyoursaasname = $conf->global->$constforaltname;
+	}
+
 	$to = $contract->thirdparty->email;
-	$email = new CMailFile('['.$conf->global->SELLYOURSAAS_NAME.'] Registration/deployment temporary error - '.dol_print_date(dol_now(), 'dayhourrfc'), $to, $conf->global->SELLYOURSAAS_NOREPLY_EMAIL, join("\n",$errormessages)."\n", array(), array(), array(), $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL, '', 0, 0, '', '', '', '', 'emailing');
+	$email = new CMailFile('['.$sellyoursaasname.'] Registration/deployment temporary error - '.dol_print_date(dol_now(), 'dayhourrfc'), $to, $conf->global->SELLYOURSAAS_NOREPLY_EMAIL, join("\n",$errormessages)."\n", array(), array(), array(), $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL, '', 0, 0, '', '', '', '', 'emailing');
 	$email->sendfile();
 }
 

@@ -63,6 +63,7 @@ if (! $res) die("Include of master fails");
 // $user is created but empty.
 
 dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
+include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 include_once dol_buildpath("/sellyoursaas/backoffice/lib/refresh.lib.php");
 
 
@@ -371,8 +372,7 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 $today=dol_now();
 
 $error=''; $errors=array();
-$tmparray=explode(',', $conf->global->SELLYOURSAAS_NAME);
-$servicetouse=strtolower($tmparray[0]);     // Take first name of service
+$servicetouse=strtolower($conf->global->SELLYOURSAAS_NAME);
 
 if ($action == 'updatedatabase' || $action == 'updatestatsonly' || $action == 'updatecountsonly')
 {
@@ -574,8 +574,19 @@ if (! $nboferrors)
 		$to = $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;
 		$msg = 'Backup done without errors by '.$script_file." ".$argv[1]." ".$argv[2]."\n\n".$out;
 
+		$sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
+		$sellyoursaasdomain = $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME;
+
+		$domainname=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
+		$constforaltname = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$domainname;
+		if (! empty($conf->global->$constforaltname))
+		{
+		    $sellyoursaasdomain = $domainname;
+		    $sellyoursaasname = $conf->global->$constforaltname;
+		}
+
 		include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-		$cmail = new CMailFile('['.$conf->global->SELLYOURSAAS_NAME.'] Success for backup', $to, $from, $msg);
+		$cmail = new CMailFile('['.$sellyoursaasname.'] Success for backup', $to, $from, $msg);
 		$result = $cmail->sendfile();
 	}
 }
@@ -610,7 +621,18 @@ else
 		        //$arraytags=array('result'=>'ko');
 		        //$statsd->increment('sellyoursaas.backup', 1, $arraytags);
 
-		        $titleofevent =  dol_trunc('[Warning] '.$conf->global->SELLYOURSAAS_NAME.' - '.gethostname().' - Backup in error', 90);
+		        $sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
+		        $sellyoursaasdomain = $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME;
+
+		        $domainname=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
+		        $constforaltname = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$domainname;
+		        if (! empty($conf->global->$constforaltname))
+		        {
+		            $sellyoursaasdomain = $domainname;
+		            $sellyoursaasname = $conf->global->$constforaltname;
+		        }
+
+		        $titleofevent =  dol_trunc('[Warning] '.$sellyoursaasname.' - '.gethostname().' - Backup in error', 90);
 		        $statsd->event($titleofevent,
 		            array(
 		                'text'       => $titleofevent." : \n".$msg,

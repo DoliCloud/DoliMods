@@ -48,6 +48,7 @@ if (! $res) die("Include of main fails");
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societeaccount.class.php';
 
@@ -105,7 +106,18 @@ if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
 
         $statsd->increment('sellyoursaas.spamreported', 1, $arraytags);
 
-        $titleofevent =  dol_trunc('[Alert] '.$conf->global->SELLYOURSAAS_NAME.' - '.gethostname().' - Spam of a customer detected', 90);
+        $sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
+        $sellyoursaasdomain = $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME;
+
+        $domainname=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
+        $constforaltname = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$domainname;
+        if (! empty($conf->global->$constforaltname))
+        {
+            $sellyoursaasdomain = $domainname;
+            $sellyoursaasname = $conf->global->$constforaltname;
+        }
+
+        $titleofevent =  dol_trunc('[Alert] '.$sellyoursaasname.' - '.gethostname().' - Spam of a customer detected', 90);
         $statsd->event($titleofevent,
             array(
                 'text'       => "Spam of a customer detected.\n@".$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL."\n\n".var_export($_SERVER, true),

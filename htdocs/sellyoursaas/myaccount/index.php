@@ -399,10 +399,22 @@ if ($action == 'send')
 // Send reseller request
 if ($action == 'sendbecomereseller')
 {
-	$emailfrom = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+    $sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
+    $sellyoursaasnoreplyemail = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+
+    if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
+        && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+    {
+        $newnamekey = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+        if (! empty($conf->global->$newnamekey)) $sellyoursaasname = $conf->global->$newnamekey;
+        $newnamekey = 'SELLYOURSAAS_NOREPLAY_EMAIL_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+        if (! empty($conf->global->$newnamekey)) $sellyoursaasnoreplyemail = $conf->global->$newnamekey;
+    }
+
+    $emailfrom = $sellyoursaasnoreplyemail;
 	$emailto = GETPOST('to','alpha');
 	$replyto = GETPOST('from','alpha');
-	$topic = '['.$conf->global->SELLYOURSAAS_NAME.'] - '.GETPOST('subject','none').' - '.$mythirdpartyaccount->name;
+	$topic = '['.$sellyoursaasname.'] - '.GETPOST('subject','none').' - '.$mythirdpartyaccount->name;
 	$content = GETPOST('content','none');
 	$content .= "<br><br>\n";
 	$content .= 'Date: '.dol_print_date($now, 'dayhour')."<br>\n";
@@ -1276,7 +1288,15 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 			            $urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
 			            //$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 
-			            $titleofevent = dol_trunc($conf->global->SELLYOURSAAS_NAME.' - '.gethostname().' - '.$langscompany->trans("NewCustomer").': '.$mythirdpartyaccount->name, 90);
+			            $sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
+			            if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
+			                && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+			            {
+    			            $newnamekey = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+    			            if (! empty($conf->global->$newnamekey)) $sellyoursaasname = $conf->global->$newnamekey;
+			            }
+
+			            $titleofevent = dol_trunc($sellyoursaasname.' - '.gethostname().' - '.$langscompany->trans("NewCustomer").': '.$mythirdpartyaccount->name, 90);
 			            $messageofevent = ' - '.$langscompany->trans("PaymentModeAddedFrom").' '.getUserRemoteIP()."\n";
 			            $messageofevent.= $langscompany->trans("Customer").': '.$mythirdpartyaccount->name.' ['.$langscompany->trans("SeeOnBackoffice").']('.$urlwithouturlroot.'/societe/card.php?socid='.$mythirdpartyaccount->id.')'."\n".$langscompany->trans("SourceURLOfEvent").": ".$url;
 
@@ -5517,13 +5537,21 @@ if ($mode == 'support')
 
 if ($mode == 'becomereseller')
 {
+    $sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
+    if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
+        && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+    {
+        $newnamekey = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+        if (! empty($conf->global->$newnamekey)) $sellyoursaasname = $conf->global->$newnamekey;
+    }
+
 	// Print warning to read FAQ before
 	$url = $conf->global->SELLYOURSAAS_RESELLER_URL;
 	if (preg_match('/^fr/i', $langs->defaultlang)) $url = preg_replace('/en-/','fr-',$url);
 	if (preg_match('/^es/i', $langs->defaultlang)) $url = preg_replace('/en-/','es-',$url);
 	print '
 		<div class="alert alert-success note note-success">
-		<h4 class="block">'.$langs->trans("BecomeResellerDesc", $conf->global->SELLYOURSAAS_NAME, $url, $conf->global->SELLYOURSAAS_NAME).'</h4>
+		<h4 class="block">'.$langs->trans("BecomeResellerDesc", $sellyoursaasname, $url, $sellyoursaasname).'</h4>
 	<br>
 		</div>
 	';
@@ -5569,7 +5597,18 @@ if ($mode == 'becomereseller')
 
 		$texttouse = GETPOST('content','none');
 		// Text is in french or english (no other language for resellers)
-		if (! $texttouse) $texttouse = (preg_match('/fr/i', $langs->defaultlang)?$langs->trans("YourTextBecomeReseller", $conf->global->SELLYOURSAAS_NAME, $commissiondefault):$langsen->trans("YourTextBecomeReseller", $conf->global->SELLYOURSAAS_NAME, $commissiondefault));
+		if (! $texttouse)
+		{
+		    $sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
+		    if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
+		        && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+		    {
+		        $newnamekey = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+		        if (! empty($conf->global->$newnamekey)) $sellyoursaasname = $conf->global->$newnamekey;
+		    }
+
+		    $texttouse = (preg_match('/fr/i', $langs->defaultlang)?$langs->trans("YourTextBecomeReseller", $sellyoursaasname, $commissiondefault):$langsen->trans("YourTextBecomeReseller", $sellyoursaasname, $commissiondefault));
+		}
 		$texttouse=preg_replace('/\\\\n/',"\n",$texttouse);
 		print '<textarea rows="6" required style="border: 1px solid #888" name="content" class="centpercent">';
 		print $texttouse;
