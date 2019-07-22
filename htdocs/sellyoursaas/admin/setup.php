@@ -115,13 +115,15 @@ if ($action == 'set')
 		dolibarr_set_const($db,"SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT",GETPOST("SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_TRIAL_UNDEPLOYMENT",'int'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT",GETPOST("SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT",'int'),'chaine',0,'',$conf->entity);
 
+		dolibarr_set_const($db,"SELLYOURSAAS_NBDAYSBEFOREENDOFTRIES",GETPOST("SELLYOURSAAS_NBDAYSBEFOREENDOFTRIES",'none'),'chaine',0,'Nb days before stopping invoice payment try',$conf->entity);
+		dolibarr_set_const($db,"SELLYOURSAAS_NBHOURSBETWEENTRIES",GETPOST("SELLYOURSAAS_NBHOURSBETWEENTRIES",'none'),'chaine',0,'Nb hours minium between each invoice payment try',$conf->entity);
+
 		dolibarr_set_const($db,"SELLYOURSAAS_SALTFORPASSWORDENCRYPTION",GETPOST("SELLYOURSAAS_SALTFORPASSWORDENCRYPTION",'alpha'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_HASHALGOFORPASSWORD",GETPOST("SELLYOURSAAS_HASHALGOFORPASSWORD",'alpha'),'chaine',0,'',$conf->entity);
 
 		dolibarr_set_const($db,'SELLYOURSAAS_MAXDEPLOYMENTPERIP',GETPOST("SELLYOURSAAS_MAXDEPLOYMENTPERIP",'int'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,'SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR',GETPOST("SELLYOURSAAS_MAXDEPLOYMENTPERIPPERHOUR",'int'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,'SELLYOURSAAS_INFRA_COST',GETPOST("SELLYOURSAAS_INFRA_COST",'int'),'chaine',0,'',$conf->entity);
-
 
 		dolibarr_set_const($db,"SELLYOURSAAS_ANONYMOUSUSER",GETPOST("SELLYOURSAAS_ANONYMOUSUSER",'none'),'chaine',0,'',$conf->entity);
 		dolibarr_set_const($db,"SELLYOURSAAS_LOGIN_FOR_SUPPORT",GETPOST("SELLYOURSAAS_LOGIN_FOR_SUPPORT",'none'),'chaine',0,'',$conf->entity);
@@ -561,6 +563,20 @@ print '<td>';
 print '<input class="maxwidth50" type="text" name="SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT" value="'.$conf->global->SELLYOURSAAS_NBDAYS_AFTER_EXPIRATION_BEFORE_PAID_UNDEPLOYMENT.'">';
 print '</td>';
 print '<td>120</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_NBDAYSBEFOREENDOFTRIES").'</td>';
+print '<td>';
+print '<input class="maxwidth50" type="text" name="SELLYOURSAAS_NBDAYSBEFOREENDOFTRIES" value="'.$conf->global->SELLYOURSAAS_NBDAYSBEFOREENDOFTRIES.'">';
+print '</td>';
+print '<td>35</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_NBHOURSBETWEENTRIES").'</td>';
+print '<td>';
+print '<input class="maxwidth50" type="text" name="SELLYOURSAAS_NBHOURSBETWEENTRIES" value="'.$conf->global->SELLYOURSAAS_NBHOURSBETWEENTRIES.'">';
+print '</td>';
+print '<td>49</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_MAXDEPLOYMENTPERIP").'</td>';

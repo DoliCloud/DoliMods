@@ -2039,4 +2039,12 @@ Exemple de supervision de sellyoursaas avec DataDog:
 image::Example_ecran_datadog.png[Ecran supervision DataDog]
 
 
+=== Options cachées
+
+* SELLYOURSAAS_NAME_FORDOMAIN-mydomain.com = My Service name bis 
+
+Show another name for service than the one defined if setup. This name will be used if the customer has registered itself from a a page with mydomain.com as main domain.
+
+
+
 
