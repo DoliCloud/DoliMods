@@ -600,13 +600,6 @@ print '</td>';
 print '<td>35</td>';
 print '</tr>';
 
-print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_NBHOURSBETWEENTRIES").'</td>';
-print '<td>';
-print '<input class="maxwidth50" type="text" name="SELLYOURSAAS_NBHOURSBETWEENTRIES" value="'.$conf->global->SELLYOURSAAS_NBHOURSBETWEENTRIES.'">';
-print '</td>';
-print '<td>49</td>';
-print '</tr>';
-
 $tmpservices=array();
 $tmpservicessub = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
 foreach($tmpservicessub as $key => $tmpservicesub)
