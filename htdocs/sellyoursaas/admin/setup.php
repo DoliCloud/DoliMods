@@ -586,6 +586,13 @@ print '</td>';
 print '<td>5</td>';
 print '</tr>';
 
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_NBHOURSBETWEENTRIES").'</td>';
+print '<td>';
+print '<input class="maxwidth50" type="text" name="SELLYOURSAAS_NBHOURSBETWEENTRIES" value="'.$conf->global->SELLYOURSAAS_NBHOURSBETWEENTRIES.'">';
+print '</td>';
+print '<td>49</td>';
+print '</tr>';
+
 print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_NBDAYSBEFOREENDOFTRIES").'</td>';
 print '<td>';
 print '<input class="maxwidth50" type="text" name="SELLYOURSAAS_NBDAYSBEFOREENDOFTRIES" value="'.$conf->global->SELLYOURSAAS_NBDAYSBEFOREENDOFTRIES.'">';
