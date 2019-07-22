@@ -69,6 +69,16 @@ class ActionsSellyoursaas
 		    	if ($object->array_options['options_dolicloud'] == 'yesv2')
 		    	{
 		    	    $urlmyaccount = $conf->global->SELLYOURSAAS_ACCOUNT_URL;
+		    	    if (! empty($object->array_options['options_domain_registration_page'])
+		    	        && $object->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+		    	    {
+		    	        $newnamekey = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$object->array_options['options_domain_registration_page'];
+		    	        if (! empty($conf->global->$newnamekey))
+		    	        {
+		    	            $urlmyaccount = preg_replace('/'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/', $object->array_options['options_domain_registration_page'], $urlmyaccount);
+		    	        }
+		    	    }
+
 		    		$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$object->email.dol_print_date(dol_now(),'dayrfc'), 5);	// hash is valid one hour
 		    		$url=$urlmyaccount.'?mode=logout_dashboard&username='.$object->email.'&password=&login_hash='.$dol_login_hash;
 		    	}
@@ -80,7 +90,10 @@ class ActionsSellyoursaas
 		    	        && $object->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
 		    	    {
 		    	        $newnamekey = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$object->array_options['options_domain_registration_page'];
-		    	        if (! empty($conf->global->$newnamekey)) $sellyoursaasname = $conf->global->$newnamekey;
+		    	        if (! empty($conf->global->$newnamekey))
+		    	        {
+		    	            $sellyoursaasname = $conf->global->$newnamekey;
+		    	        }
 		    	    }
 
 			    	$this->resprints = ' - <!-- Added by getNomUrl hook of SellYourSaas -->';
