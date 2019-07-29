@@ -3285,9 +3285,11 @@ class SellYourSaasUtils
     				        // FIXME Detection of /etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt' fails due to basedir. Save them into another dir than /etc/apache2.
     				        if (! file_exists('/etc/apache2/'.$CERTIFFORCUSTOMDOMAIN.'.crt'))
     				        {
-    				            // TODO Return error to ask to upload a certificate first.
+    				            include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
     				            $CERTIFFORCUSTOMDOMAIN=getDomainFromURL($customurl, 2);
     				            $SSLON='Off';
+
+    				            // TODO Show an error or warning to ask to upload a certificate first.
     				        }
     				    }
     				}
