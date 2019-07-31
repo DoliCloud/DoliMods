@@ -939,6 +939,8 @@ class SellYourSaasUtils
 		// Loop on each invoice to pay
 		foreach($invoices as $invoice)
 		{
+		    $errorforinvoice = 0;     // We reset the $errorforinvoice at each invoice loop
+
 			$invoice->fetch_thirdparty();
 
 			dol_syslog("--- Process invoice thirdparty_id=".$thirdparty_id.", thirdparty_name=".$invoice->thirdparty->name." id=".$invoice->id.", ref=".$invoice->ref.", datef=".dol_print_date($invoice->date, 'dayhour'), LOG_DEBUG);
@@ -988,6 +990,7 @@ class SellYourSaasUtils
 							dol_syslog($errmsg, LOG_DEBUG);
 
 							$error++;
+							$errorforinvoice++;
 							$this->errors[]=$errmsg;
 						}
 						elseif (! empty($invoice->array_options['options_delayautopayment']) && $invoice->array_options['options_delayautopayment'] > $now) {
@@ -995,6 +998,7 @@ class SellYourSaasUtils
 						    dol_syslog($errmsg, LOG_DEBUG);
 
 						    $error++;
+						    $errorforinvoice++;
 						    $this->errors[]=$errmsg;
 						}
 						elseif (
@@ -1007,6 +1011,7 @@ class SellYourSaasUtils
 							dol_syslog($errmsg, LOG_DEBUG);
 
 							$error++;
+							$errorforinvoice++;
 							$this->errors[]=$errmsg;
 						}
 						else
@@ -1021,7 +1026,7 @@ class SellYourSaasUtils
 	    						$stripefailuremessage='';
 	    						$stripefailuredeclinecode='';
 
-	    						dol_syslog("Create charge on card ".$stripecard->id.", amountstripe=".$amountstripe.", FULLTAG=".$FULLTAG, LOG_DEBUG);
+	    						dol_syslog("* Create charge on card ".$stripecard->id.", amountstripe=".$amountstripe.", FULLTAG=".$FULLTAG, LOG_DEBUG);
 
 	    						$charge = null;		// Force reset of $charge, so, if already set from a previous fetch, it will be empty even if there is an exception at next step
 	    						try {
@@ -1063,6 +1068,7 @@ class SellYourSaasUtils
 	    							$this->stripechargeerror++;
 
 	    							$error++;
+	    							$errorforinvoice++;
 	    							$errmsg='Failed to charge card';
 	    							if (! empty($charge))
 	    							{
@@ -1128,17 +1134,19 @@ class SellYourSaasUtils
 	    							{
 	    								$paiement->multicurrency_amounts = array($invoice->id => $amounttopay);   // Array with all payments dispatching
 
-	    								$postactionmessages[] = 'Payment was done in a different currency that currency expected of company';
+	    								$postactionmessages[] = 'Payment was done in a different currency than currency expected of company';
 	    								$ispostactionok = -1;
-	    								$error++;	// Not yet supported
+	    								// Not yet supported, so error
+	    								$error++;
+	    								$errorforinvoice++;
 	    							}
 	    							$paiement->paiementid   = $paymentTypeId;
 	    							$paiement->num_paiement = '';
 	    							$paiement->note_public  = 'Online payment '.dol_print_date($now, 'standard').' using '.$paymentmethod.($ipaddress?' from ip '.$ipaddress:'').' - Transaction ID = '.$TRANSACTIONID;
 
-	    							if (! $error)
+	    							if (! $errorforinvoice)
 	    							{
-	    								dol_syslog('Create payment');
+	    								dol_syslog('* Record payment for invoice id '.$invoice->id);
 
 	    								$paiement_id = $paiement->create($user, 1);    // This include closing invoices to 'paid' (and trigger including unsuspending) and regenerating documents
 	    								if ($paiement_id < 0)
@@ -1146,16 +1154,20 @@ class SellYourSaasUtils
 	    								    $postactionmessages[] = $paiement->error.($paiement->error?' ':'').join("<br>\n", $paiement->errors);
 	    									$ispostactionok = -1;
 	    									$error++;
+	    									$errorforinvoice++;
 	    								}
 	    								else
 	    								{
 	    									$postactionmessages[] = 'Payment created';
 	    								}
+
+	    								dol_syslog("The payment has been created for invoice id ".$invoice->id);
 	    							}
 
-	    							if (! $error && ! empty($conf->banque->enabled))
+
+	    							if (! $errorforinvoice && ! empty($conf->banque->enabled))
 	    							{
-	    								dol_syslog('addPaymentToBank');
+	    								dol_syslog('* Add payment to bank');
 
 	    								$bankaccountid = 0;
 	    								if ($paymentmethod == 'paybox') $bankaccountid = $conf->global->PAYBOX_BANK_ACCOUNT_FOR_PAYMENTS;
@@ -1172,6 +1184,7 @@ class SellYourSaasUtils
 	    									    $postactionmessages[] = $paiement->error.($paiement->error?' ':'').join("<br>\n", $paiement->errors);
 	    										$ispostactionok = -1;
 	    										$error++;
+	    										$errorforinvoice++;
 	    									}
 	    									else
 	    									{
@@ -1183,6 +1196,7 @@ class SellYourSaasUtils
 	    									$postactionmessages[] = 'Setup of bank account to use in module '.$paymentmethod.' was not set. No way to record the payment.';
 	    									$ispostactionok = -1;
 	    									$error++;
+	    									$errorforinvoice++;
 	    								}
 	    							}
 
@@ -1197,8 +1211,6 @@ class SellYourSaasUtils
 	    						}
 
 	    						$object = $invoice;
-
-	    						dol_syslog("Send email with result of payment");
 
 	    						// Send email
 	    						include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
@@ -1224,7 +1236,9 @@ class SellYourSaasUtils
 
 	    						if ($sendemailtocustomer)
 	    						{
-		    						if (! empty($labeltouse)) $arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'facture_send', $user, $outputlangs, 0, 1, $labeltouse);
+	    						    dol_syslog("* Send email with result of payment - ".$labeltouse);
+
+	    						    if (! empty($labeltouse)) $arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'facture_send', $user, $outputlangs, 0, 1, $labeltouse);
 
 		    						if (! empty($labeltouse) && is_object($arraydefaultmessage) && $arraydefaultmessage->id > 0)
 		    						{
@@ -1337,7 +1351,9 @@ class SellYourSaasUtils
 	    							$extraparams='';
 	    						}
 
-	    						// Insert record of payment error
+	    						dol_syslog("* Record event for payment result");
+
+	    						// Insert record of payment (success or error)
 	    						$actioncomm = new ActionComm($this->db);
 
 	    						$actioncomm->type_code   = 'AC_OTH_AUTO';		// Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
@@ -1373,6 +1389,7 @@ class SellYourSaasUtils
 	    					else
 	    					{
 	    						$error++;
+	    						$errorforinvoice++;
 	    						dol_syslog("No card found for this stripe customer ".$customer->id, LOG_WARNING);
 	    						$this->errors[]='Failed to get card for stripe customer = '.$customer->id;
 	    					}
@@ -1389,11 +1406,13 @@ class SellYourSaasUtils
     						$this->errors[]='Failed to get Stripe customer id for thirdparty_id = '.$thirdparty->id." in mode ".$servicestatus;
     					}
     					$error++;
+    					$errorforinvoice++;
     				}
     			}
     			catch(Exception $e)
     			{
     				$error++;
+    				$errorforinvoice++;
     				dol_syslog('Error '.$e->getMessage(), LOG_ERR);
     				$this->errors[]='Error '.$e->getMessage();
     			}
@@ -1401,6 +1420,7 @@ class SellYourSaasUtils
     		else
     		{
     			$error++;
+    			$errorforinvoice++;
     			dol_syslog("Remain to pay is null for the invoice ".$invoice->id." ".$invoice->ref.". Why is the invoice not classified 'Paid' ?", LOG_WARNING);
     			$this->errors[]="Remain to pay is null for the invoice ".$invoice->id." ".$invoice->ref.". Why is the invoice not classified 'Paid' ?";
     		}
