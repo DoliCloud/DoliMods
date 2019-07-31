@@ -819,6 +819,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 					$actioncomm->socid       = $mythirdpartyaccount->id;
 					$actioncomm->authorid    = $user->id;   // User saving action
 					$actioncomm->userownerid = $user->id;	// Owner of action
+					$actioncomm->note_private= $labelofevent.' - Company payment mode id created or modified = '.$companypaymentmode->id;
 					//$actioncomm->fk_element  = $mythirdpartyaccount->id;
 					//$actioncomm->elementtype = 'thirdparty';
 					$ret=$actioncomm->create($user);       // User creating action
