@@ -19,7 +19,7 @@
  */
 
 /**
- *	\file       htdocs/captureserver/template/captureserverindex.php
+ *	\file       htdocs/captureserver/index.php
  *	\ingroup    captureserver
  *	\brief      Home page of captureserver top menu
  */

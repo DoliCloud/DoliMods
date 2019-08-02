@@ -95,7 +95,7 @@ $SECUREKEY=GETPOST("securekey");	        // Secure key
  * Actions
  */
 
-if ($action == 'telemetry')
+if ($action == 'pingfirst')
 {
     // TODO
 }
@@ -106,13 +106,13 @@ if ($action == 'telemetry')
  */
 
 $head='';
-if (! empty($conf->global->MAIN_TELEMETRY_CSS_URL)) $head='<link rel="stylesheet" type="text/css" href="'.$conf->global->MAIN_TELEMETRY_CSS_URL.'?lang='.$langs->defaultlang.'">'."\n";
+if (! empty($conf->global->MAIN_CAPTURESERVER_CSS_URL)) $head='<link rel="stylesheet" type="text/css" href="'.$conf->global->MAIN_CAPTURESERVER_CSS_URL.'?lang='.$langs->defaultlang.'">'."\n";
 
 $conf->dol_hide_topmenu=1;
 $conf->dol_hide_leftmenu=1;
 
+header("Access-Control-Allow-Origin: *");
 
-print 'Capture server was called';
-
+print 'Capture server was called with action='.$action;
 
 $db->close();
