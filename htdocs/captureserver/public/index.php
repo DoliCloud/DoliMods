@@ -119,10 +119,12 @@ if ($action == 'dolibarrping')
     {
         // Insert into database using implicit Transactions
         $captureserver = new CaptureServer($db);
-        $captureserver->label = 'First ping '.$hash_algo;
+        $captureserver->label = 'dolibarrping '.$hash_algo;
+        $captureserver->label_unique = 'dolibarrping '.$hash_unique_id;
         $captureserver->content = $hash_unique_id;
         $captureserver->qty = 1;
         $captureserver->status = 1;
+
         $result = $captureserver->create($user);
         // Ignore duplicates
 
