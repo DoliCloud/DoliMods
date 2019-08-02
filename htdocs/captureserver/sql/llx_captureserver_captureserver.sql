@@ -1,4 +1,4 @@
--- Copyright (C) 2018 Alice Adminson <testldr9@dolicloud.com>
+-- Copyright (C) ---Put here your own copyright and developer email---
 --
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -14,15 +14,18 @@
 -- along with this program.  If not, see http://www.gnu.org/licenses/.
 
 
-CREATE TABLE llx_captureserver_myobject(
+CREATE TABLE llx_captureserver_captureserver(
 	-- BEGIN MODULEBUILDER FIELDS
 	rowid INTEGER AUTO_INCREMENT PRIMARY KEY,
 	entity INTEGER DEFAULT 1 NOT NULL,
 	label VARCHAR(255),
+	content text NULL,
 	qty INTEGER,
 	status INTEGER,
 	date_creation DATETIME NOT NULL,
-	tms TIMESTAMP NOT NULL,
+	tms TIMESTAMP,
 	import_key VARCHAR(14)
 	-- END MODULEBUILDER FIELDS
 ) ENGINE=innodb;
+
+

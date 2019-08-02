@@ -2,7 +2,8 @@
 
 ## Features
 Capture Server is a module that add an EndPoint to your Dolibarr to capture data send by other servers to him.
-It can be used for example to received ping done by Dolibarr installation.
+
+It can be used for example to receive anonymous first pings done by Dolibarr installation.
 
 Other modules are available on <a href="https://www.dolistore.com" target="_new">Dolistore.com</a>.
 

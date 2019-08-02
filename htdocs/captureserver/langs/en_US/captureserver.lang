@@ -33,6 +33,7 @@ CAPTURESERVER_MYPARAM1Tooltip = My param 1 tooltip
 CAPTURESERVER_MYPARAM2=My param 2
 CAPTURESERVER_MYPARAM2Tooltip=My param 2 tooltip
 
+ListOfCapturedEvents=List of captured events
 
 #
 # About page
@@ -41,9 +42,5 @@ About = About
 CaptureServerAbout = About CaptureServer
 CaptureServerAboutPage = CaptureServer about page
 
-#
-# Sample page
-#
-MyPageName = My page name
 
 EndPointOfCaptureServer=Endpoint provided by CaptureServer module:<br>%s

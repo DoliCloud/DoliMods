@@ -146,7 +146,7 @@ $urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain
 
 
 $message='';
-$url='<a href="'.dol_buildpath('/captureserver/public/captureserver.php', 3).'?key='.($conf->global->CAPTURESERVER_SECURITY_KEY?urlencode($conf->global->CAPTURESERVER_SECURITY_KEY):'...').'" target="_blank">'.dol_buildpath('/captureserver/public/captureserver.php', 3).'?key='.($conf->global->CAPTURESERVER_SECURITY_KEY?urlencode($conf->global->CAPTURESERVER_SECURITY_KEY):'KEYNOTDEFINED').'</a>';
+$url='<a href="'.dol_buildpath('/captureserver/public/index.php', 3).'?key='.($conf->global->CAPTURESERVER_SECURITY_KEY?urlencode($conf->global->CAPTURESERVER_SECURITY_KEY):'...').'" target="_blank">'.dol_buildpath('/captureserver/public/index.php', 3).'?key='.($conf->global->CAPTURESERVER_SECURITY_KEY?urlencode($conf->global->CAPTURESERVER_SECURITY_KEY):'KEYNOTDEFINED').'</a>';
 $message.=img_picto('', 'object_globe.png').' '.$langs->trans("EndPointOfCaptureServer", $url);
 
 print $message;

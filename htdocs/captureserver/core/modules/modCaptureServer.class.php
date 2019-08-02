@@ -239,7 +239,7 @@ class modCaptureServer extends DolibarrModules
 		// Add here entries to declare new menus
 
 		/* BEGIN MODULEBUILDER TOPMENU */
-		$this->menu[$r++]=array('fk_menu'=>'',			                // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+		/*$this->menu[$r++]=array('fk_menu'=>'',			                // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 								'type'=>'top',			                // This is a Top menu entry
 								'titre'=>'CaptureServer',
 								'mainmenu'=>'captureserver',
@@ -251,23 +251,24 @@ class modCaptureServer extends DolibarrModules
 								'perms'=>'1',			                // Use 'perms'=>'$user->rights->captureserver->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
 								'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
+		*/
 
 		/* END MODULEBUILDER TOPMENU */
 
-		/* BEGIN MODULEBUILDER LEFTMENU MYOBJECT
-		$this->menu[$r++]=array(	'fk_menu'=>'fk_mainmenu=captureserver',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+		/* BEGIN MODULEBUILDER LEFTMENU MYOBJECT */
+		$this->menu[$r++]=array(	'fk_menu'=>'fk_mainmenu=tools',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 								'type'=>'left',			                // This is a Left menu entry
-								'titre'=>'List MyObject',
-								'mainmenu'=>'captureserver',
-								'leftmenu'=>'captureserver_myobject_list',
-								'url'=>'/captureserver/myobject_list.php',
+								'titre'=>'List of captured events',
+								'mainmenu'=>'tools',
+								'leftmenu'=>'captureserver_list',
+								'url'=>'/captureserver/captureserver_list.php',
 								'langs'=>'captureserver@captureserver',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 								'position'=>1000+$r,
 								'enabled'=>'$conf->captureserver->enabled',  // Define condition to show or hide menu entry. Use '$conf->captureserver->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 								'perms'=>'1',			                // Use 'perms'=>'$user->rights->captureserver->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
 								'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
-		$this->menu[$r++]=array(	'fk_menu'=>'fk_mainmenu=captureserver,fk_leftmenu=captureserver',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+		/*$this->menu[$r++]=array(	'fk_menu'=>'fk_mainmenu=captureserver,fk_leftmenu=captureserver',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 								'type'=>'left',			                // This is a Left menu entry
 								'titre'=>'New MyObject',
 								'mainmenu'=>'captureserver',
@@ -278,8 +279,8 @@ class modCaptureServer extends DolibarrModules
 								'enabled'=>'$conf->captureserver->enabled',  // Define condition to show or hide menu entry. Use '$conf->captureserver->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 								'perms'=>'1',			                // Use 'perms'=>'$user->rights->captureserver->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
-								'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
-		END MODULEBUILDER LEFTMENU MYOBJECT */
+								'user'=>2);	*/			                // 0=Menu for internal users, 1=external users, 2=both
+		/* END MODULEBUILDER LEFTMENU MYOBJECT */
 
 
 		// Exports

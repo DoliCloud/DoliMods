@@ -29,6 +29,8 @@ CaptureServerSetup = Configuration du module CaptureServer
 Settings = Réglages
 CaptureServerSetupPage = Page de configuration du module CaptureServer
 
+ListOfCapturedEvents=Liste des évènements capturés
+
 #
 # Page À propos
 #
@@ -36,10 +38,6 @@ About = À propos
 CaptureServerAbout = À propos de CaptureServer
 CaptureServerAboutPage = Page à propos de CaptureServer
 
-#
-# Page d'exemple
-#
-MyPageName = Nom de ma page
 
 #
 # Box d'exemple

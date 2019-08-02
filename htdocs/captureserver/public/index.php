@@ -49,16 +49,13 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
-require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+require_once '../class/captureserver.class.php';
 
 // Security check
 // No check on module enabled. Done later according to $validpaymentmethod
 
-$langs->loadLangs(array("main", "other", "dict", "bills", "companies", "errors", "paybox"));
-
-$action=GETPOST('action', 'alpha');
+$action=GETPOST('action', 'aZ09');
 
 // Input are:
 // type ('invoice','order','contractline'),
@@ -69,11 +66,8 @@ $action=GETPOST('action', 'alpha');
 
 if (! $action)
 {
-    if ($source && ! $ref)
-    {
-    	print $langs->trans('ErrorBadParameters')." - ref missing";
-    	exit;
-    }
+   	print $langs->trans('ErrorBadParameters')." - action missing";
+   	exit;
 }
 
 
@@ -95,10 +89,7 @@ $SECUREKEY=GETPOST("securekey");	        // Secure key
  * Actions
  */
 
-if ($action == 'pingfirst')
-{
-    // TODO
-}
+
 
 
 /*
@@ -114,5 +105,33 @@ $conf->dol_hide_leftmenu=1;
 header("Access-Control-Allow-Origin: *");
 
 print 'Capture server was called with action='.$action;
+
+if ($action == 'dolibarrping')
+{
+    $hash_algo = GETPOST('hash_algo', 'aZ09');
+    $hash_unique_id = GETPOST('hash_unique_id', 'aZ09');
+
+    if (empty($hash_algo) || empty($hash_unique_id))
+    {
+        print "\n".'<br>Bad value for parameter hash_algo or hash_unique_id';
+    }
+    else
+    {
+        // Insert into database using implicit Transactions
+        $captureserver = new CaptureServer($db);
+        $captureserver->label = 'First ping '.$hash_algo;
+        $captureserver->content = $hash_unique_id;
+        $captureserver->qty = 1;
+        $captureserver->status = 1;
+        $result = $captureserver->create($user);
+        // Ignore duplicates
+
+        print "\n".'<br>Event added';
+    }
+}
+else
+{
+    print "\n".'<br>action not supported';
+}
 
 $db->close();
