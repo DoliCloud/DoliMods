@@ -86,6 +86,7 @@ class CaptureServer extends CommonObject
 		'rowid' => array('type'=>'integer', 'label'=>'TechnicalID', 'enabled'=>1, 'visible'=>-1, 'position'=>1, 'notnull'=>1, 'index'=>1, 'comment'=>"Id",),
 		'entity' => array('type'=>'integer', 'label'=>'Entity', 'enabled'=>1, 'visible'=>-1, 'position'=>20, 'notnull'=>1, 'default'=>'1', 'index'=>1,),
 		'label' => array('type'=>'varchar(255)', 'label'=>'Label', 'enabled'=>1, 'visible'=>1, 'position'=>30, 'notnull'=>-1, 'searchall'=>1, 'help'=>"Label", ),
+	    'label_unique' => array('type'=>'varchar(255)', 'label'=>'Label', 'enabled'=>1, 'visible'=>-1, 'position'=>32, 'notnull'=>-1, 'searchall'=>1, 'help'=>"Label Unique", ),
 	    'content' => array('type'=>'varchar(255)', 'label'=>'Content', 'enabled'=>1, 'visible'=>3, 'position'=>35, 'notnull'=>-1, 'searchall'=>1, 'help'=>"Content", ),
 	    'qty' => array('type'=>'real', 'label'=>'Qty', 'enabled'=>1, 'visible'=>1, 'position'=>45, 'notnull'=>-1, 'isameasure'=>'1', 'help'=>"Quantity",),
 	    'ip' => array('type'=>'varchar(255)', 'label'=>'IP', 'enabled'=>1, 'visible'=>1, 'position'=>400, 'notnull'=>-1,),
@@ -97,6 +98,7 @@ class CaptureServer extends CommonObject
 	public $rowid;
 	public $entity;
 	public $label;
+	public $label_unique;
 	public $qty;
 	public $ip;
 	public $date_creation;
