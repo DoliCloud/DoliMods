@@ -19,6 +19,7 @@ CREATE TABLE llx_captureserver_captureserver(
 	rowid INTEGER AUTO_INCREMENT PRIMARY KEY,
 	entity INTEGER DEFAULT 1 NOT NULL,
 	label VARCHAR(255),
+	label_unique VARCHAR(255),
 	content text NULL,
 	qty INTEGER,
 	ip varchar(255),

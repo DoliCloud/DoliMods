@@ -16,14 +16,9 @@
 
 -- BEGIN MODULEBUILDER INDEXES
 ALTER TABLE llx_captureserver_captureserver ADD INDEX idx_captureserver_captureserver_rowid (rowid);
-ALTER TABLE llx_captureserver_captureserver ADD INDEX idx_captureserver_captureserver_ref (ref);
-ALTER TABLE llx_captureserver_captureserver ADD INDEX idx_captureserver_captureserver_entity (entity);
-ALTER TABLE llx_captureserver_captureserver ADD INDEX idx_captureserver_captureserver_fk_soc (fk_soc);
-ALTER TABLE llx_captureserver_captureserver ADD CONSTRAINT llx_captureserver_captureserver_fk_user_creat FOREIGN KEY (fk_user_creat) REFERENCES user(rowid);
-ALTER TABLE llx_captureserver_captureserver ADD INDEX idx_captureserver_captureserver_status (status);
+ALTER TABLE llx_captureserver_captureserver ADD INDEX idx_captureserver_captureserver_label (label);
+ALTER TABLE llx_captureserver_captureserver ADD INDEX idx_captureserver_captureserver_label_unique (label_unique);
 -- END MODULEBUILDER INDEXES
 
---ALTER TABLE llx_captureserver_captureserver ADD UNIQUE INDEX uk_captureserver_captureserver_fieldxy(fieldx, fieldy);
-
---ALTER TABLE llx_captureserver_captureserver ADD CONSTRAINT llx_captureserver_captureserver_fk_field FOREIGN KEY (fk_field) REFERENCES llx_captureserver_myotherobject(rowid);
+ALTER TABLE llx_captureserver_captureserver ADD UNIQUE INDEX uk_captureserver_captureserver_uk(entity, label_unique);
 
