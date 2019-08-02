@@ -88,15 +88,17 @@ class CaptureServer extends CommonObject
 		'label' => array('type'=>'varchar(255)', 'label'=>'Label', 'enabled'=>1, 'visible'=>1, 'position'=>30, 'notnull'=>-1, 'searchall'=>1, 'help'=>"Label", ),
 	    'content' => array('type'=>'varchar(255)', 'label'=>'Content', 'enabled'=>1, 'visible'=>3, 'position'=>35, 'notnull'=>-1, 'searchall'=>1, 'help'=>"Content", ),
 	    'qty' => array('type'=>'real', 'label'=>'Qty', 'enabled'=>1, 'visible'=>1, 'position'=>45, 'notnull'=>-1, 'isameasure'=>'1', 'help'=>"Quantity",),
-		'date_creation' => array('type'=>'datetime', 'label'=>'DateCreation', 'enabled'=>1, 'visible'=>-2, 'position'=>500, 'notnull'=>1,),
+	    'ip' => array('type'=>'varchar(255)', 'label'=>'IP', 'enabled'=>1, 'visible'=>1, 'position'=>400, 'notnull'=>-1,),
+	    'date_creation' => array('type'=>'datetime', 'label'=>'DateCreation', 'enabled'=>1, 'visible'=>-2, 'position'=>500, 'notnull'=>1,),
 		'tms' => array('type'=>'timestamp', 'label'=>'DateModification', 'enabled'=>1, 'visible'=>-2, 'position'=>501, 'notnull'=>-1,),
 		'import_key' => array('type'=>'varchar(14)', 'label'=>'ImportId', 'enabled'=>1, 'visible'=>-2, 'position'=>1000, 'notnull'=>-1,),
-		'status' => array('type'=>'integer', 'label'=>'Status', 'enabled'=>1, 'visible'=>1, 'position'=>1000, 'notnull'=>1, 'index'=>1, 'arrayofkeyval'=>array('0'=>'Draft', '1'=>'Done', '9'=>'Canceled')),
+	    'status' => array('type'=>'integer', 'label'=>'Status', 'enabled'=>1, 'visible'=>1, 'position'=>1000, 'notnull'=>1, 'index'=>1, 'arrayofkeyval'=>array('0'=>'Draft', '1'=>'Done', '9'=>'Canceled')),
 	);
 	public $rowid;
 	public $entity;
 	public $label;
 	public $qty;
+	public $ip;
 	public $date_creation;
 	public $tms;
 	public $import_key;
@@ -187,6 +189,11 @@ class CaptureServer extends CommonObject
 	 */
 	public function create(User $user, $notrigger = false)
 	{
+	    if (empty($this->ip))
+	    {
+	       $this->ip = getUserRemoteIP();
+	    }
+
 		return $this->createCommon($user, $notrigger);
 	}
 

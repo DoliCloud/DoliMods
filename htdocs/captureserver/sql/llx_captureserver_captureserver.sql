@@ -21,6 +21,7 @@ CREATE TABLE llx_captureserver_captureserver(
 	label VARCHAR(255),
 	content text NULL,
 	qty INTEGER,
+	ip varchar(255),
 	status INTEGER,
 	date_creation DATETIME NOT NULL,
 	tms TIMESTAMP,
