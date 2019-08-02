@@ -139,8 +139,9 @@ rsync --info=progress2 -au serveursource:/mnt/diskSource /mnt/diskTarget
 ---------------
 fdisk -l
 parted /dev/vdX    (X=a, b, sans le chiffre, on veut le disque complet)
+print all
 resizepart 
-X
+Y
 999GB    (Ne pas saisir la valeur proposé par défaut mais la valeur max du disque)
 ---------------
 
@@ -150,7 +151,7 @@ X
 ---------------
 umount /mnt/disk/
 mount /mnt/disk/
-resize2fs dev/vdX
+resize2fs dev/vdX9
 ---------------
 
 Rem: Pour voir les fichiers ouverts sur un disque si le démontage échoue:
