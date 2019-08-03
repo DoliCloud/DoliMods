@@ -117,7 +117,7 @@ if ($action == 'dolibarrping')
         // Ignore duplicates
         if ($db->lasterrno == 'DB_ERROR_RECORD_ALREADY_EXISTS')
         {
-            $captureserver->fetch();
+            $captureserver->fetch(0, $captureserver->ref);
             $captureserver->update($user);
         }
 
