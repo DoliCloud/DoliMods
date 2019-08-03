@@ -102,7 +102,7 @@ class InterfacePrestashopGetTriggers extends DolibarrTriggers
 	    // Put here code you want to execute when a Dolibarr business events occurs.
 		// Data and type of action are stored into $object and $action
 
-        switch ($action) {
+        /*switch ($action) {
 
             // Users
 		    //case 'USER_CREATE':
@@ -306,7 +306,7 @@ class InterfacePrestashopGetTriggers extends DolibarrTriggers
 			default:
 		        dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
 		        break;
-		    }
+		    }*/
 
 		return 0;
 	}
