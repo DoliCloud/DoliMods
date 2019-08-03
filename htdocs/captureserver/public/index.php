@@ -107,16 +107,19 @@ if ($action == 'dolibarrping')
         // Insert into database using implicit Transactions
         $captureserver = new CaptureServer($db);
         $captureserver->label = 'dolibarrping';
-        $captureserver->label_unique = 'dolibarrping '.$hash_unique_id.' '.$version;
-        $captureserver->content = $hash_unique_id;
+        $captureserver->ref = 'dolibarrping '.$hash_unique_id;
+        $captureserver->content = 'dolibarrping '.$hash_unique_id.' '.$version;
         $captureserver->qty = 1;
         $captureserver->status = 1;
-        $captureserver->comment = 'Ping received at '.dol_print_date(dol_now() , 'dayhourlog');
+        $captureserver->comment = 'Ping received at '.dol_print_date(dol_now() , 'dayhourlog').', version '.$version;
 
         $result = $captureserver->create($user);
         // Ignore duplicates
-        var_dump($result);
-        var_dump($db->error);
+        if ($db->lasterrno == 'DB_ERROR_RECORD_ALREADY_EXISTS')
+        {
+            $captureserver->fetch();
+            $captureserver->update($user);
+        }
 
         print "\n".'<br>Event added';
     }

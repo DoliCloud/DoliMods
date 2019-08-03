@@ -85,8 +85,8 @@ class CaptureServer extends CommonObject
 	public $fields=array(
 		'rowid' => array('type'=>'integer', 'label'=>'TechnicalID', 'enabled'=>1, 'visible'=>-1, 'position'=>1, 'notnull'=>1, 'index'=>1, 'comment'=>"Id",),
 		'entity' => array('type'=>'integer', 'label'=>'Entity', 'enabled'=>1, 'visible'=>-1, 'position'=>20, 'notnull'=>1, 'default'=>'1', 'index'=>1,),
-		'label' => array('type'=>'varchar(255)', 'label'=>'Label', 'enabled'=>1, 'visible'=>1, 'position'=>30, 'notnull'=>-1, 'searchall'=>1, 'help'=>"Label", ),
-	    'label_unique' => array('type'=>'varchar(255)', 'label'=>'Label', 'enabled'=>1, 'visible'=>-1, 'position'=>32, 'notnull'=>-1, 'searchall'=>1, 'help'=>"Label Unique", ),
+	    'ref' => array('type'=>'varchar(255)', 'label'=>'Ref', 'enabled'=>1, 'visible'=>1, 'position'=>30, 'notnull'=>-1, 'searchall'=>1, 'help'=>"Ref", ),
+	    'label' => array('type'=>'varchar(255)', 'label'=>'Label', 'enabled'=>1, 'visible'=>1, 'position'=>32, 'notnull'=>-1, 'searchall'=>1, 'help'=>"Label", ),
 	    'content' => array('type'=>'varchar(255)', 'label'=>'Content', 'enabled'=>1, 'visible'=>3, 'position'=>35, 'notnull'=>-1, 'searchall'=>1, 'help'=>"Content", ),
 	    'qty' => array('type'=>'real', 'label'=>'Qty', 'enabled'=>1, 'visible'=>1, 'position'=>45, 'notnull'=>-1, 'isameasure'=>'1', 'help'=>"Quantity",),
 	    'ip' => array('type'=>'varchar(255)', 'label'=>'IP', 'enabled'=>1, 'visible'=>1, 'position'=>400, 'notnull'=>-1,),
@@ -98,8 +98,8 @@ class CaptureServer extends CommonObject
 	);
 	public $rowid;
 	public $entity;
+	public $ref;
 	public $label;
-	public $label_unique;
 	public $qty;
 	public $ip;
 	public $date_creation;
@@ -306,6 +306,7 @@ class CaptureServer extends CommonObject
 		return $result;
 	}
 
+
 	/**
 	 * Load object lines in memory from the database
 	 *
@@ -342,7 +343,7 @@ class CaptureServer extends CommonObject
 		$sql = 'SELECT ';
 		$sql .= $this->getFieldList();
 		$sql .= ' FROM ' . MAIN_DB_PREFIX . $this->table_element. ' as t';
-		if ($this->ismultientitymanaged) $sql .= ' WHERE t.entity IN ('.getEntity($this->table_element).')';
+		if (isset($this->ismultientitymanaged) && $this->ismultientitymanaged == 1) $sql .= ' WHERE t.entity IN ('.getEntity($this->table_element).')';
 		else $sql .= ' WHERE 1 = 1';
 		// Manage filter
 		$sqlwhere = array();
