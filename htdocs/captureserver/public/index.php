@@ -115,6 +115,8 @@ if ($action == 'dolibarrping')
 
         $result = $captureserver->create($user);
         // Ignore duplicates
+        var_dump($result);
+        var_dump($db->error);
 
         print "\n".'<br>Event added';
     }
