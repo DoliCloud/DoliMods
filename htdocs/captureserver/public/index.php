@@ -111,7 +111,7 @@ if ($action == 'dolibarrping')
         $captureserver->content = $hash_unique_id;
         $captureserver->qty = 1;
         $captureserver->status = 1;
-        $captureserver->comment = 'Ping received at '.dol_print_date(dol_now() , 'gmt');
+        $captureserver->comment = 'Ping received at '.dol_print_date(dol_now() , 'dayhourlog');
 
         $result = $captureserver->create($user);
         // Ignore duplicates
