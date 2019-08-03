@@ -110,6 +110,7 @@ if ($action == 'dolibarrping')
 {
     $hash_algo = GETPOST('hash_algo', 'aZ09');
     $hash_unique_id = GETPOST('hash_unique_id', 'aZ09');
+    $version = GETPOST('version', 'aZ09');
 
     if (empty($hash_algo) || empty($hash_unique_id))
     {
@@ -119,8 +120,8 @@ if ($action == 'dolibarrping')
     {
         // Insert into database using implicit Transactions
         $captureserver = new CaptureServer($db);
-        $captureserver->label = 'dolibarrping '.$hash_algo;
-        $captureserver->label_unique = 'dolibarrping '.$hash_unique_id;
+        $captureserver->label = 'dolibarrping';
+        $captureserver->label_unique = 'dolibarrping '.$hash_unique_id.' '.$version;
         $captureserver->content = $hash_unique_id;
         $captureserver->qty = 1;
         $captureserver->status = 1;
