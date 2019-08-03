@@ -26,6 +26,7 @@ CREATE TABLE llx_captureserver_captureserver(
 	status INTEGER,
 	date_creation DATETIME NOT NULL,
 	tms TIMESTAMP,
+	comment varchar(255),
 	import_key VARCHAR(14)
 	-- END MODULEBUILDER FIELDS
 ) ENGINE=innodb;

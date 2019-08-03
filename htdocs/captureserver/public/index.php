@@ -21,13 +21,16 @@
  */
 
 /**
- *     	\file       htdocs/public/captureserver/captureserver.php
+ *     	\file       htdocs/captureserver/public/index.php
  *		\ingroup    core
  *		\brief      Endpoint provided by module captureserver
  */
 
 define("NOLOGIN", 1);		// This means this output page does not require to be logged.
+define('NOREQUIRETRAN');	// Do not load object $langs
 define("NOCSRFCHECK", 1);	// We accept to go on this page from external web site.
+define('NOTOKENRENEWAL','1');
+define('NOIPCHECK','1');
 
 // For MultiCompany module.
 // Do not use GETPOST here, function is not defined and define must be done before including main.inc.php
@@ -71,18 +74,8 @@ if (! $action)
 }
 
 
-
-
-
-
-// Define $urlwithroot
-//$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
-//$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
-$urlwithroot=DOL_MAIN_URL_ROOT;						// This is to use same domain name than current. For Paypal payment, we can use internal URL like localhost.
-
-
 // Complete urls for post treatment
-$SECUREKEY=GETPOST("securekey");	        // Secure key
+$SECUREKEY=GETPOST("securekey", 'alpha');	        // Secure key
 
 
 /*
@@ -91,16 +84,9 @@ $SECUREKEY=GETPOST("securekey");	        // Secure key
 
 
 
-
 /*
  * View
  */
-
-$head='';
-if (! empty($conf->global->MAIN_CAPTURESERVER_CSS_URL)) $head='<link rel="stylesheet" type="text/css" href="'.$conf->global->MAIN_CAPTURESERVER_CSS_URL.'?lang='.$langs->defaultlang.'">'."\n";
-
-$conf->dol_hide_topmenu=1;
-$conf->dol_hide_leftmenu=1;
 
 header("Access-Control-Allow-Origin: *");
 
@@ -125,6 +111,7 @@ if ($action == 'dolibarrping')
         $captureserver->content = $hash_unique_id;
         $captureserver->qty = 1;
         $captureserver->status = 1;
+        $captureserver->comment = 'Ping received at '.dol_print_date(dol_now() , 'gmt');
 
         $result = $captureserver->create($user);
         // Ignore duplicates
