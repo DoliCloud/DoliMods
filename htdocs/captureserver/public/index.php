@@ -118,6 +118,7 @@ if ($action == 'dolibarrping')
         if ($db->lasterrno == 'DB_ERROR_RECORD_ALREADY_EXISTS')
         {
             $captureserver->fetch(0, $captureserver->ref);
+            $captureserver->comment = 'Ping received at '.dol_print_date(dol_now() , 'dayhourlog').', version '.$version;
             $captureserver->update($user);
         }
 
