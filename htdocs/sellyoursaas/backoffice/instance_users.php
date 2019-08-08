@@ -546,14 +546,7 @@ function print_user_table($newdb)
 				$obj = $newdb->fetch_object($resql);
 
 				global $object;
-				if (! empty($object->ref_customer))
-				{
-					$url='https://'.$object->ref_customer.'?username='.$obj->login.'&amp;password='.$obj->pass;
-				}
-				else
-				{
-					$url='https://'.$object->instance.'.on.dolicloud.com?username='.$obj->login.'&amp;password='.$obj->pass;
-				}
+				$url='https://'.$object->ref_customer.'?username='.$obj->login.'&amp;password='.$obj->pass;
 				print '<tr class="oddeven">';
 				print '<td>';
 				print ($i+1);
