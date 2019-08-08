@@ -163,10 +163,6 @@ function dolicloud_database_refresh($conf, $db, &$object, &$errors)
 	if (empty($database_db)) $database_db = $object->array_options['options_database_db'];
 
 	$server=$instance;
-	if (! preg_match('/on\.dolicloud\.com/', $instance) && ! preg_match('/with\.dolicloud\.com/', $instance) && ! preg_match('/home\.lan/', $instance))
-	{
-		$server=$instance.'.on.dolicloud.com';
-	}
 
 	$newdb=getDoliDBInstance('mysqli', $server, $username_db, $password_db, $database_db, 3306);
 
