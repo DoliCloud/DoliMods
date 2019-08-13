@@ -118,7 +118,7 @@ class InterfaceEcotaxdeee
 		{
 			if ($action == 'LINEPROPAL_INSERT')
 			{
-			    var_dump($object);
+			    //var_dump($object);
 			    return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
 			}
 			if ($action == 'LINEPROPAL_UPDATE' || $action == 'LINEPROPAL_MODIFY')
