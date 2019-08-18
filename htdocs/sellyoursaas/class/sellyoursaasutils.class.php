@@ -2392,20 +2392,33 @@ class SellYourSaasUtils
 									$labeltemplate = 'CustomerAccountSuspended';
 								}
 
-								dol_syslog("Now we will send an email to customer with label ".$labeltemplate);
+								dol_syslog("Now we will send an email to customer id=".$object->thirdparty->id." with label ".$labeltemplate);
 
 								// Send deployment email
 								include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
 								include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 								$formmail=new FormMail($this->db);
 
-								$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'contract', $user, $langs, 0, 1, $labeltemplate);
+								// Define output language
+								$outputlangs = $langs;
+								$newlang = '';
+								if ($conf->global->MAIN_MULTILANGS && empty($newlang) && GETPOST('lang_id','aZ09')) $newlang = GETPOST('lang_id','aZ09');
+								if ($conf->global->MAIN_MULTILANGS && empty($newlang))	$newlang = $object->thirdparty->default_lang;
+								if (! empty($newlang)) {
+								    $outputlangs = new Translate("", $conf);
+								    $outputlangs->setDefaultLang($newlang);
+								    $outputlangs->load('bills','products');
+								}
 
-								$substitutionarray=getCommonSubstitutionArray($langs, 0, null, $object);
-								complete_substitutions_array($substitutionarray, $langs, $object);
+								dol_syslog("GETPOST('lang_id','aZ09')=".GETPOST('lang_id','aZ09')." object->thirdparty->default_lang=".(is_object($object->thirdparty)?$object->thirdparty->default_lang:'object->thirdparty not defined')." newlang=".$newlang." outputlangs->defaultlang=".$outputlangs->defaultlang);
 
-								$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langs);
-								$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langs);
+								$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'contract', $user, $outputlangs, 0, 1, $labeltemplate);
+
+								$substitutionarray=getCommonSubstitutionArray($outputlangs, 0, null, $object);
+								complete_substitutions_array($substitutionarray, $outputlangs, $object);
+
+								$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $outputlangs);
+								$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $outputlangs);
 								$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
 								$to = $object->thirdparty->email;
 
@@ -2967,7 +2980,7 @@ class SellYourSaasUtils
     		// remoteaction = 'deploy','deployall','deployoption','rename','suspend','unsuspend','undeploy'
     		if ($doremoteaction)
     		{
-    			dol_syslog("Enter into doremoteaction code, with ".$tmpobject->id." ".$producttmp->array_options['options_app_or_option']);
+    			dol_syslog("Enter into doremoteaction code, with contract id=".$tmpobject->id." app_or_option=".$producttmp->array_options['options_app_or_option']);
     			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
     			$contract = new Contrat($this->db);
     			$contract->fetch($tmpobject->fk_contrat);
