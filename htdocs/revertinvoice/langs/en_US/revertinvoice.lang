@@ -20,7 +20,7 @@
 # Module label 'ModuleRevertInvoiceName'
 ModuleRevertInvoiceName = Revert Invoice
 # Module description 'ModuleRevertInvoiceDesc'
-ModuleRevertInvoiceDesc = Create a supplier invoice onan entity each time a customer invoice is created on a dedicated customer.
+ModuleRevertInvoiceDesc = Create a supplier invoice on an entity each time a customer invoice is created on a dedicated customer.
 
 #
 # Admin page
