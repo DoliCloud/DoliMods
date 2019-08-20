@@ -109,8 +109,8 @@ if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
         $sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
         $sellyoursaasdomain = $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME;
 
-        $domainname=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
-        $constforaltname = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$domainname;
+        $domainname=getDomainFromURL($_SERVER['SERVER_NAME'], 1);          // exemple 'DoliCloud'
+        $constforaltname = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$domainname;     // exemple 'dolicloud.com'
         if (! empty($conf->global->$constforaltname))
         {
             $sellyoursaasdomain = $domainname;

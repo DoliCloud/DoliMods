@@ -75,13 +75,25 @@ function sellyoursaas_completesubstitutionarray(&$substitutionarray, $langs, $ob
     if (is_object($tmpobject) && is_object($object->thirdparty) &&
         ! empty($object->thirdparty->array_options['options_domain_registration_page'])) $tmpobject = $object->thirdparty;
     // Force some values to another services
+    // $tmpobject is now a thirdparty
     if (is_object($tmpobject) &&
         ! empty($tmpobject->array_options['options_domain_registration_page'])
         && $tmpobject->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
     {
-        $newnamekey = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$tmpobject->array_options['options_domain_registration_page'];
-        if (! empty($conf->global->$newnamekey)) $conf->global->SELLYOURSAAS_NAME = $conf->global->$newnamekey;
+        global $savconf;
+        if (! isset($savconf)) $savconf = $conf;
 
+        // Force value to original conf in database
+        $conf->global->SELLYOURSAAS_NAME = $savconf->global->SELLYOURSAAS_NAME;
+        $conf->global->SELLYOURSAAS_ACCOUNT_URL = $savconf->global->SELLYOURSAAS_ACCOUNT_URL;
+        $conf->global->SELLYOURSAAS_MAIN_EMAIL = $savconf->global->SELLYOURSAAS_MAIN_EMAIL;
+        $conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM = $savconf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM;
+
+        // Check if thirdparty is for another service and force $cof with new values
+        // This erase value of setup permanently
+        $constforaltname = $tmpobject->array_options['options_domain_registration_page'];
+        $newnamekey = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$constforaltname;
+        if (! empty($conf->global->$newnamekey)) $conf->global->SELLYOURSAAS_NAME = $conf->global->$newnamekey;
         $conf->global->SELLYOURSAAS_ACCOUNT_URL        = preg_replace('/'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/', $tmpobject->array_options['options_domain_registration_page'], $conf->global->SELLYOURSAAS_ACCOUNT_URL);
         $conf->global->SELLYOURSAAS_MAIN_EMAIL         = preg_replace('/'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/', $tmpobject->array_options['options_domain_registration_page'], $conf->global->SELLYOURSAAS_MAIN_EMAIL);
         $conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM = preg_replace('/'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/', $tmpobject->array_options['options_domain_registration_page'], $conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM);

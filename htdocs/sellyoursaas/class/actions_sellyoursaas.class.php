@@ -72,7 +72,8 @@ class ActionsSellyoursaas
 		    	    if (! empty($object->array_options['options_domain_registration_page'])
 		    	        && $object->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
 		    	    {
-		    	        $newnamekey = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$object->array_options['options_domain_registration_page'];
+		    	        $constforaltname = $object->array_options['options_domain_registration_page'];
+		    	        $newnamekey = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$constforaltname;
 		    	        if (! empty($conf->global->$newnamekey))
 		    	        {
 		    	            $urlmyaccount = preg_replace('/'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/', $object->array_options['options_domain_registration_page'], $urlmyaccount);
@@ -89,7 +90,8 @@ class ActionsSellyoursaas
 		    	    if (! empty($object->array_options['options_domain_registration_page'])
 		    	        && $object->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
 		    	    {
-		    	        $newnamekey = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$object->array_options['options_domain_registration_page'];
+		    	        $constforaltname = $object->array_options['options_domain_registration_page'];
+		    	        $newnamekey = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$constforaltname;
 		    	        if (! empty($conf->global->$newnamekey))
 		    	        {
 		    	            $sellyoursaasname = $conf->global->$newnamekey;

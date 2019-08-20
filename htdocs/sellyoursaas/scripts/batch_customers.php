@@ -574,8 +574,8 @@ if (! $nboferrors)
 		$to = $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;
 		$msg = 'Backup done without errors by '.$script_file." ".$argv[1]." ".$argv[2]."\n\n".$out;
 
-		$sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
-		$sellyoursaasdomain = $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME;
+		$sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;                 // exemple 'DoliCloud'
+		$sellyoursaasdomain = $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME;   // exemple 'dolicloud.com'
 
 		$domainname=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
 		$constforaltname = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$domainname;
@@ -621,8 +621,8 @@ else
 		        //$arraytags=array('result'=>'ko');
 		        //$statsd->increment('sellyoursaas.backup', 1, $arraytags);
 
-		        $sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
-		        $sellyoursaasdomain = $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME;
+		        $sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;                 // exemple 'DoliCloud'
+		        $sellyoursaasdomain = $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME;   // exemple 'dolicloud.com'
 
 		        $domainname=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
 		        $constforaltname = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$domainname;
