@@ -50,7 +50,7 @@ class Numbers_Words
 
     var $labelcurrencysing;
     var $labelcurrency;
-    
+
     // }}}
     // {{{ toWords()
 
@@ -80,12 +80,12 @@ class Numbers_Words
 
 		// @CHANGE
         if (! empty($this->dir)) set_include_path($this->dir.PATH_SEPARATOR.get_include_path());
-        require_once "Numbers/Words/lang.${locale}.php";
+        include_once "Numbers/Words/lang.${locale}.php";
 
         $classname = "Numbers_Words_${locale}";
 
         if (!class_exists($classname)) {
-            return Numbers_Words::raiseError("Unable to include the Numbers/Words/lang.${locale}.php file");
+            return Numbers_Words::raiseError("Unable to include the Numbers/Words/lang.${locale}.php file, even in dir ".$this->dir.PATH_SEPARATOR.get_include_path());
         }
 
         $methods = get_class_methods($classname);
