@@ -1,7 +1,7 @@
 # ChangeLog GOOGLE MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a> 
 
 
-## 6.1.1 Not released
+## 6.1.1
 
 - NEW Add filter on type of thirdparty (customer/prospect/supplier) on maps.
 - NEW Add filter on categories for members too.
