@@ -37,4 +37,4 @@ for fic in `ls -art /home/jail/home/osu*/dbn*/documents/dolibarr*.log`; do > $fi
 
 
 echo "Nettoyage vieux fichiers log"
-find /home/admin/wwwroot/dolibarr_documents -maxdepth 1 -name "dolibarr*.log*" -type f -mtime +10 --exec rm {} \;
+find /home/admin/wwwroot/dolibarr_documents -maxdepth 1 -name "dolibarr*.log*" -type f -mtime +10 -exec rm {} \;
