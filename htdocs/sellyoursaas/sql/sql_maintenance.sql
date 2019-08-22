@@ -30,3 +30,6 @@ select * from mysql.user where user in (select user from mysql.user where Host =
 
 select concat("update mysql.user set password = '", u.password, "' where host = 'localhost' and user = '", u.user, "'; -- ", host, " ", name, " ", status) from mysql.user as u, dolibarr.llx_contrat_extrafields where username_db = user and u.password <> '' and user in (select user from mysql.user where Host = 'localhost' and password = '') order by user into outfile '/tmp/fixpass.txt';
 
+
+-- Other
+See also the documentation *Documentation SellYourSaas - Master and Deployment Servers*

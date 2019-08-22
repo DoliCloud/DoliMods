@@ -1906,8 +1906,9 @@ Voir chapitre [Clonage d'une instance serveur pour production bis ou pour dével
 
 === Désactivation de toutes les instances clients
 
-Utiliser le script make_instance_offline qui désactivera tous les accès en remplaçant chaque virtual host par un virtual host réalisant une redirection 
-sur une page d'attente.
+Utiliser le script *make_instance_offline* qui désactivera tous les accès en remplaçant chaque virtual host par un virtual host réalisant une redirection sur une page d'attente.
+
+Le même script peut etre utilisé pour l'opération inverse.
 
 [source,bash]
 ---------------
