@@ -35,8 +35,8 @@ do
         fi
 
 		# Create a deployment tar file
-		echo "Compress the repository into an archive $dir.tar.gz"
-		tar cz --exclude-vcs -f $dir.tar.gz .
+		#echo "Compress the repository into an archive $dir.tar.gz"
+		#tar cz --exclude-vcs -f $dir.tar.gz .
 		
         cd -
 done
