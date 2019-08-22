@@ -1842,6 +1842,15 @@ La requete suivante permet d'avoir une vision de l'espace réél (sans le gachis
 
 [source,sql]
 ---------------
+SET GLOBAL innodb_stats_on_metadata=0;
+SELECT table_schema "DB Name", ROUND(SUM(data_length + index_length) / 1024 / 1024, 1) "DB Size in MB",
+SUM(data_length) "Data", SUM(index_length) "Index"  FROM information_schema.tables 
+WHERE table_schema LIKE 'dbna%';
+GROUP BY table_schema;
+---------------
+
+or old request:
+
 SELECT IFNULL(B.engine,'Total') "Storage Engine",
 CONCAT(LPAD(REPLACE(FORMAT(B.DSize/POWER(1024,pw),3),',',''),17,' '),' ',
 SUBSTR(' KMGTP',pw+1,1),'B') "Data Size", CONCAT(LPAD(REPLACE(
@@ -1854,7 +1863,7 @@ SUM(data_length+index_length) TSize FROM information_schema.tables
 WHERE table_schema NOT IN ('mysql','information_schema','performance_schema')
 AND engine IS NOT NULL GROUP BY engine WITH ROLLUP) B,
 (SELECT 3 pw) A ORDER BY TSize;
----------------
+
 
 === Suivi fichiers modifiés
 
