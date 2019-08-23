@@ -275,8 +275,9 @@ if ($mode == 'testrsync' || $mode == 'test' || $mode == 'confirmrsync' || $mode 
 	$param[]="--exclude '*.com*SSL'";
 	$param[]="--exclude '*.log'";
 	$param[]="--exclude '*.pdf_preview.png'";
+	$param[]="--exclude '(PROV*)'";
 	//$param[]="--exclude '*/build/'";
-	//$param[]="--exclude '*/doc/images/'";	// To keep files into htdocs/core/module/xxx/doc/ dir
+	//$param[]="--exclude '*/doc/images/'";	    // To keep files into htdocs/core/module/xxx/doc/ dir
 	//$param[]="--exclude '*/doc/install/'";	// To keep files into htdocs/core/module/xxx/doc/ dir
 	//$param[]="--exclude '*/doc/user/'";		// To keep files into htdocs/core/module/xxx/doc/ dir
 	//$param[]="--exclude '*/dev/'";
@@ -309,9 +310,11 @@ if ($mode == 'testrsync' || $mode == 'test' || $mode == 'confirmrsync' || $mode 
 	$fullcommand=$command." ".join(" ",$param);
 	$output=array();
 	$return_var=0;
-	print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
+	$datebeforersync = strftime("%Y%m%d-%H%M%S");
+	print $datebeforersync.' '.$fullcommand."\n";
 	exec($fullcommand, $output, $return_var);
-	print strftime("%Y%m%d-%H%M%S").' rsync done'."\n";
+	$dateafterrsync = strftime("%Y%m%d-%H%M%S");
+	print $dateafterrsync.' rsync done'."\n";
 
 	// Output result
 	foreach($output as $outputline)
@@ -325,7 +328,8 @@ if ($mode == 'testrsync' || $mode == 'test' || $mode == 'confirmrsync' || $mode 
 		$handle=fopen($dirroot.'/'.$login.'/last_rsync_'.$instance.'.txt','w');
 		if ($handle)
 		{
-			fwrite($handle,'File created after rsync of '.$instance.". return_var=".$return_var."\n");
+			fwrite($handle, 'File created after rsync of '.$instance.". datebeforersync=".$datebeforersync." dateafterrsync=".$dateafterrsync." return_var=".$return_var."\n");
+			fwrite($handle, 'fullcommand = '.$fullcommand."\n");
 			fclose($handle);
 		}
 		else
@@ -361,9 +365,11 @@ if ($mode == 'testdatabase' || $mode == 'test' || $mode == 'confirmdatabase' || 
 	else $fullcommand.=" | bzip2 > ".$dirroot.'/'.$login.'/mysqldump_'.$object->database_db.'_'.gmstrftime('%d').'.sql.bz2';
 	$output=array();
 	$return_varmysql=0;
-	print strftime("%Y%m%d-%H%M%S").' '.$fullcommand."\n";
+	$datebeforemysqldump = strftime("%Y%m%d-%H%M%S");
+	print $datebeforemysqldump.' '.$fullcommand."\n";
 	exec($fullcommand, $output, $return_varmysql);
-	print strftime("%Y%m%d-%H%M%S").' mysqldump done (return='.$return_varmysql.')'."\n";
+	$dateaftermysqldump = strftime("%Y%m%d-%H%M%S");
+	print $dateaftermysqldump.' mysqldump done (return='.$return_varmysql.')'."\n";
 
 	// Output result
 	foreach($output as $outputline)
@@ -377,7 +383,8 @@ if ($mode == 'testdatabase' || $mode == 'test' || $mode == 'confirmdatabase' || 
 		$handle=fopen($dirroot.'/'.$login.'/last_mysqldump_'.$instance.'.txt','w');
 		if ($handle)
 		{
-			fwrite($handle,'File created after mysqldump of '.$instance.". return_varmysql=".$return_varmysql."\n");
+		    fwrite($handle, 'File created after mysqldump of '.$instance.". datebeforemysqldump=".$datebeforemysqldump." dateaftermysqldump=".$dateaftermysqldump." return_varmysql=".$return_varmysql."\n");
+		    fwrite($handle, 'fullcommand = '.$fullcommand."\n");
 			fclose($handle);
 		}
 		else
