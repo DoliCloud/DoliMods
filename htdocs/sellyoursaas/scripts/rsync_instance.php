@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-/* Copyright (C) 2012 Laurent Destailleur	<eldy@users.sourceforge.net>
+/* Copyright (C) 2012-2019 Laurent Destailleur	<eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -90,7 +90,7 @@ $result=$object->fetch_thirdparty();
 
 if ($result <= 0)
 {
-	print "Error: instance ".$instance." not found. Are you on the correct SellYourSaas master server ?\n";
+	print "Error: instance ".$instance." not found or duplicate found. Are you on the correct SellYourSaas master server ?\n";
 	exit(-2);
 }
 
