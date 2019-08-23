@@ -274,7 +274,7 @@ if ($mode == 'testrsync' || $mode == 'test' || $mode == 'confirmrsync' || $mode 
 	$param[]="--exclude .project";
 	$param[]="--exclude '*.com*SSL'";
 	$param[]="--exclude '*.log'";
-	$param[]="--exclude '*.pdf_preview.png'";
+	$param[]="--exclude '*.pdf_preview*.png'";
 	$param[]="--exclude '(PROV*)'";
 	//$param[]="--exclude '*/build/'";
 	//$param[]="--exclude '*/doc/images/'";	    // To keep files into htdocs/core/module/xxx/doc/ dir
