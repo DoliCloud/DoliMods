@@ -281,6 +281,7 @@ if ($mode == 'testrsync' || $mode == 'test' || $mode == 'confirmrsync' || $mode 
 	//$param[]="--exclude '*/doc/user/'";		// To keep files into htdocs/core/module/xxx/doc/ dir
 	//$param[]="--exclude '*/dev/'";
 	//$param[]="--exclude '*/test/'";
+	$param[]="--exclude '*/thumbs/'";
 	$param[]="--exclude '*/temp/'";
 	$param[]="--exclude '*/documents/admin/backup/'";
 	$param[]="--exclude '*/htdocs/install/filelist-*.xml'";
