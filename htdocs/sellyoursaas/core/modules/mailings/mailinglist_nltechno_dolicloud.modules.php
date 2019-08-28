@@ -78,7 +78,7 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
         $s.=' ';
 
         $s.=$langs->trans("Type").': ';
-        $s.=$formcompany->selectProspectCustomerType('');
+        $s.=$formcompany->selectProspectCustomerType(GETPOST('client', 'alpha'), 'client');
 
         $s.=' ';
 
@@ -95,17 +95,17 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 
         $s.=$langs->trans("Language").': ';
         $formother=new FormAdmin($db);
-        $s.=$formother->select_language('', 'lang_id', 0, 'null', 1, 0, 0, '', 0, 0, 1);
+        $s.=$formother->select_language(GETPOST('lang_id', 'alpha'), 'lang_id', 0, 'null', 1, 0, 0, '', 0, 0, 1);
 
         $s.=$langs->trans("NotLanguage").': ';
         $formother=new FormAdmin($db);
-        $s.=$formother->select_language('', 'not_lang_id', 0, 'null', 1, 0, 0, '', 0, 0, 1);
+        $s.=$formother->select_language(GETPOST('not_lang_id', 'alpha'), 'not_lang_id', 0, 'null', 1, 0, 0, '', 0, 0, 1);
 
         $s.='<br> ';
 
         $s.=$langs->trans("Country").': ';
         $formother=new FormAdmin($db);
-        $s.=$form->select_country('', 'country_id');
+        $s.=$form->select_country(GETPOST('country_id', 'alpha'), 'country_id');
 
         return $s;
     }
