@@ -11,6 +11,7 @@
 include_once DOL_DOCUMENT_ROOT.'/core/modules/mailings/modules_mailings.php';
 include_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 include_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
+include_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 
 
 /**
@@ -59,6 +60,7 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
         $langs->load("members");
 
         $form=new Form($this->db);
+        $formcompany=new FormCompany($this->db);
 
         $arraysource=array('yesv1'=>'V1','yesv2'=>'V2');
         $arraystatus=array('processing'=>'Processing','done'=>'Done','undeployed'=>'Undeployed');
@@ -72,6 +74,11 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
         	$s.='<option value="'.$key.'"'.($key == 'yesv2' ? ' selected':'').'>'.$status.'</option>';
         }
         $s.='</select>';
+
+        $s.=' ';
+
+        $s.=$langs->trans("Type").': ';
+        $s.=$formcompany->selectProspectCustomerType('');
 
         $s.=' ';
 
@@ -158,6 +165,10 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 		if (! empty($_POST['filter']) && $_POST['filter'] != 'none')
 		{
 			$sql.= " AND coe.deployment_status = '".$this->db->escape($_POST['filter'])."'";
+		}
+		if (! empty($_POST['client']) && $_POST['client'] != '-1')
+		{
+		    $sql.= ' AND s.client IN ('.$this->db->escape($_POST['client']).')';
 		}
 		$sql.= " ORDER BY email";
 
