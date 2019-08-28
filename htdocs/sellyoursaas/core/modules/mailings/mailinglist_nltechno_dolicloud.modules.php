@@ -88,11 +88,11 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 
         $s.=$langs->trans("Language").': ';
         $formother=new FormAdmin($db);
-        $s.=$formother->select_language('', 'lang_id', 0, 'null', 1);
+        $s.=$formother->select_language('', 'lang_id', 0, 'null', 1, 0, 0, '', 0, 0, 1);
 
         $s.=$langs->trans("NotLanguage").': ';
         $formother=new FormAdmin($db);
-        $s.=$formother->select_language('', 'not_lang_id', 0, 'null', 1);
+        $s.=$formother->select_language('', 'not_lang_id', 0, 'null', 1, 0, 0, '', 0, 0, 1);
 
         $s.='<br> ';
 
@@ -123,7 +123,7 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 	 *  @param	array	$filtersarray   Requete sql de selection des destinataires
 	 *  @return int           			<0 if error, number of emails added if ok
 	 */
-	function add_to_target($mailing_id,$filtersarray=array())
+	function add_to_target($mailing_id, $filtersarray=array())
 	{
 		global $conf;
 
@@ -131,6 +131,12 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 		$cibles = array();
 		$j = 0;
 
+		foreach($_POST['lang_id'] as $key => $val) {
+		    if (empty($val)) unset($_POST['lang_id'][$key]);
+		}
+		foreach($_POST['not_lang_id'] as $key => $val) {
+		    if (empty($val)) unset($_POST['not_lang_id'][$key]);
+		}
 
 		$sql = " select s.rowid as id, email, nom as lastname, '' as firstname, s.default_lang, c.code as country_code, c.label as country_label";
 		$sql.= " from ".MAIN_DB_PREFIX."societe as s";
@@ -141,20 +147,20 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 			$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."contrat as co on co.fk_soc = s.rowid";
 			$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."contrat_extrafields as coe on coe.fk_object = co.rowid";
 		}
-		$sql.= " where email IS NOT NULL AND email != ''";
+		$sql.= " where email IS NOT NULL AND email <> ''";
 		if (! empty($_POST['options_dolicloud']) && $_POST['options_dolicloud'] != 'none')
 		{
 			$sql.= " AND se.dolicloud = '".$this->db->escape($_POST['options_dolicloud'])."'";
 		}
-		if (! empty($_POST['lang_id']) && $_POST['lang_id'] != 'none') $sql.= " AND default_lang = '".$this->db->escape($_POST['lang_id'])."'";
-		if (! empty($_POST['not_lang_id']) && $_POST['not_lang_id'] != 'none') $sql.= " AND default_lang <> '".$this->db->escape($_POST['lang_id'])."'";
-		if (! empty($_POST['country_id']) && $_POST['country_id'] != 'none') $sql.= " AND fk_pays = '".$this->db->escape($_POST['country_id'])."'";
+		if (! empty($_POST['lang_id']) && $_POST['lang_id'] != 'none') $sql.= natural_search('default_lang', join(',', $_POST['lang_id']), 3);
+		if (! empty($_POST['not_lang_id']) && $_POST['not_lang_id'] != 'none') $sql.= natural_search('default_lang', join(',', $_POST['not_lang_id']), -3);
+		if (! empty($_POST['country_id']) && $_POST['country_id'] != 'none') $sql.= " AND fk_pays IN ('".$this->db->escape($_POST['country_id'])."')";
 		if (! empty($_POST['filter']) && $_POST['filter'] != 'none')
 		{
 			$sql.= " AND coe.deployment_status = '".$this->db->escape($_POST['filter'])."'";
 		}
 		$sql.= " ORDER BY email";
-print $sql;
+
 		// Stocke destinataires dans cibles
 		$result=$this->db->query($sql);
 		if ($result)
