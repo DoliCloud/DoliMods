@@ -194,7 +194,13 @@ if (empty($reshook))
 		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 		if (is_object($newdb))
 		{
+		    // TODO Set definition to disable a user into the package
 			$sql="UPDATE ".$prefix_db."user set statut=0 WHERE rowid = ".GETPOST('remoteid','int');
+			if (preg_match('/glpi-network\.cloud/', $object->ref_customer))
+			{
+			    $sql="UPDATE ".$prefix_db."glpi_user set is_active=FALSE WHERE rowid = ".GETPOST('remoteid','int');
+			}
+
 			$resql=$newdb->query($sql);
 			if (! $resql) dol_print_error($newdb);
 			else setEventMessages("UserDisabled", null, 'mesgs');
@@ -205,8 +211,14 @@ if (empty($reshook))
 		$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db);
 		if (is_object($newdb))
 		{
-			$sql="UPDATE ".$prefix_db."user set statut=1 WHERE rowid = ".GETPOST('remoteid','int');
-			$resql=$newdb->query($sql);
+		    // TODO Set definition to disable a user into the package
+		    $sql="UPDATE ".$prefix_db."user set statut=1 WHERE rowid = ".GETPOST('remoteid','int');
+		    if (preg_match('/glpi-network\.cloud/', $object->ref_customer))
+		    {
+		        $sql="UPDATE ".$prefix_db."glpi_user set is_active=TRUE WHERE rowid = ".GETPOST('remoteid','int');
+		    }
+
+		    $resql=$newdb->query($sql);
 			if (! $resql) dol_print_error($newdb);
 			else setEventMessages("UserEnabled", null, 'mesgs');
 		}
@@ -237,7 +249,22 @@ if (empty($reshook))
 			$conf->global->MAIN_SECURITY_SALT = $savsalt;
 			$conf->global->MAIN_SECURITY_HASH_ALGO = $savalgo;
 
+
+			// TODO Set definition of algorithm to hash password into the package
+			if (preg_match('/glpi-network\.cloud/', $object->ref_customer))
+			{
+			    $password_crypted = dol_hash($password, 'md5');
+			}
+
+
+			// TODO Set definition to update password of a userinto the package
 			$sql="UPDATE ".$prefix_db."user set pass='".$newdb->escape($password)."', pass_crypted = '".$newdb->escape($password_crypted)."' where rowid = ".GETPOST('remoteid','int');
+			if (preg_match('/glpi-network\.cloud/', $object->ref_customer))
+			{
+			    $sql="UPDATE ".$prefix_db."glpi_user set password='".$newdb->escape($password_crypted)."' WHERE rowid = ".GETPOST('remoteid','int');
+			}
+
+
 			$resql=$newdb->query($sql);
 			if (! $resql) dol_print_error($newdb);
 			else setEventMessages("PasswordModified", null, 'mesgs');
@@ -288,6 +315,12 @@ if ($id > 0 && $action != 'edit' && $action != 'create')
 	{
 		// Get user/pass of last admin user
 		$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
+		// TODO Set definition of algorithm to hash password into the package
+		if (preg_match('/glpi-network\.cloud/', $object->ref_customer))
+		{
+		    $sql="SELECT name as login, password as pass FROM glpi_users WHERE 1 = 1 ORDER BY is_active DESC, last_login DESC LIMIT 1";
+		}
+
 		$resql=$newdb->query($sql);
 		if ($resql)
 		{
@@ -406,6 +439,12 @@ if (is_object($dbcustomerinstance) && $dbcustomerinstance->connected)
 {
 	// Get user/pass of last admin user
 	$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
+	// TODO Set definition of algorithm to hash password into the package
+	if (preg_match('/glpi-network\.cloud/', $object->ref_customer))
+	{
+	    $sql="SELECT name as login, password as pass FROM glpi_users WHERE 1 = 1 ORDER BY is_active DESC, last_login DESC LIMIT 1";
+	}
+
 	$resql=$dbcustomerinstance->query($sql);
 	if ($resql)
 	{
@@ -435,7 +474,7 @@ if ($action == 'resetpassword') {
 
 print '<table class="border" width="100%">';
 
-print_user_table($dbcustomerinstance);
+print_user_table($dbcustomerinstance, $object);
 
 print "</table><br>";
 
@@ -490,10 +529,11 @@ $db->close();
 /**
  * Print list of users
  *
- * @param   string    $newdb        New db
+ * @param   string      $newdb          New db
+ * @param   Contrat     $object         Object contract
  * @return  void
  */
-function print_user_table($newdb)
+function print_user_table($newdb, $object)
 {
 	global $langs;
 	global $id;
@@ -520,22 +560,30 @@ function print_user_table($newdb)
 
 	if (is_object($newdb) && $newdb->connected)
 	{
-		// Get user/pass of last admin user
+		// Get user/pass of all users in database
 		$sql ="SELECT rowid, login, lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_soc, fk_socpeople, fk_member, entity, statut";
 		$sql.=" FROM llx_user ORDER BY statut DESC";
+		// TODO Set definition of algorithm to hash password into the package
+		if (preg_match('/glpi-network\.cloud/', $object->ref_customer))
+		{
+		    $sql="SELECT id as rowid, name as login, realname as lastname,firstname, 0, 'emailunknown', '', password as pass, date_creation as datec, date_mod as datem, last_login as datelastlogin, 0, 0, 0, entities_id as entity, is_active as statut";
+            $sql.=" FROM glpi_users WHERE 1 = 1 ORDER BY is_active DESC";
+		}
+
 		$resql=$newdb->query($sql);
-		if (empty($resql))	// Alternative for 3.7-
+		if (empty($resql))	// Alternative for Dolibarr 3.7-
 		{
 			$sql ="SELECT rowid, login, lastname as lastname, firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_societe, fk_socpeople, fk_member, entity, statut";
 			$sql.=" FROM llx_user ORDER BY statut DESC";
 			$resql=$newdb->query($sql);
-			if (empty($resql))	// Alternative for 3.3-
+			if (empty($resql))	// Alternative for Dolibarr 3.3-
     		{
     			$sql ="SELECT rowid, login, nom as lastname, prenom as firstname, admin, email, pass, pass_crypted, datec, tms as datem, datelastlogin, fk_societe, fk_socpeople, fk_member, entity, statut";
     			$sql.=" FROM llx_user ORDER BY statut DESC";
     			$resql=$newdb->query($sql);
     		}
 		}
+
 		if ($resql)
 		{
 			$var=false;
