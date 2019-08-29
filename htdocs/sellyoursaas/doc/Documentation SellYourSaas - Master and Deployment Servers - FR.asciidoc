@@ -1519,6 +1519,16 @@ mail.log = /var/log/phpmail.log
 
 === Configuration de logrotate
 
+* Ajouter une ligne si non deja présente dans le fichier */etc/logrotate.conf*
+
+[source,conf]
+---------------
+# use the syslog group by default, since this is the owning group
+# of /var/log/syslog.
+su root syslog
+---------------
+
+
 * Créer un fichier */etc/logrotate.d/logrotate_admin_log*
 
 [source,conf]
