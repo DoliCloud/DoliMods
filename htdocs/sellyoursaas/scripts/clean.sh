@@ -161,8 +161,8 @@ Q1="use $database; "
 Q2="SELECT c.ref_customer, ce.username_os, ce.database_db, ce.deployment_status FROM llx_contrat as c, llx_contrat_extrafields as ce WHERE ce.fk_object = c.rowid AND ce.deployment_status IS NOT NULL";
 SQL="${Q1}${Q2}"
 
-echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL' | grep -v 'ref_customer'"
-$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep -v 'ref_customer' >> /tmp/instancefound-dbinsellyoursaas
+echo "$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e '$SQL' | grep -v 'ref_customer'"
+$MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost -e "$SQL" | grep -v 'ref_customer' >> /tmp/instancefound-dbinsellyoursaas
 if [ "x$?" != "x0" ]; then
 	echo "Failed to make first SQL request to get instances. Exit 1."
 	exit 1
@@ -177,8 +177,8 @@ Q1="use $database; "
 Q2="SELECT c.ref_customer, ce.username_os, ce.database_db, ce.deployment_status, ce.deployment_host FROM llx_contrat as c, llx_contrat_extrafields as ce WHERE ce.fk_object = c.rowid AND ce.deployment_status IN ('processing','done')";
 SQL="${Q1}${Q2}"
 
-echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL' | grep -v 'ref_customer'"
-$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep -v 'ref_customer' >> /tmp/instancefound-activedbinsellyoursaas
+echo "$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e '$SQL' | grep -v 'ref_customer'"
+$MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost -e "$SQL" | grep -v 'ref_customer' >> /tmp/instancefound-activedbinsellyoursaas
 if [ "x$?" != "x0" ]; then
 	echo "Failed to make second SQL request to get instances. Exit 1."
 	exit 1
@@ -191,8 +191,8 @@ Q1="use mysql; "
 Q2="SHOW DATABASES; ";
 SQL="${Q1}${Q2}"
 
-echo "$MYSQL -usellyoursaas -pxxxxxx -e '$SQL' | grep 'dbn' "
-$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep 'dbn' | awk ' { print $1 } ' >> /tmp/instancefound-dbinmysqldic
+echo "$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e '$SQL' | grep 'dbn' "
+$MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost -e "$SQL" | grep 'dbn' | awk ' { print $1 } ' >> /tmp/instancefound-dbinmysqldic
 if [ "x$?" != "x0" ]; then
 	echo "Failed to make third SQL request to get instances. Exit 1."
 	exit 1
@@ -260,8 +260,8 @@ Q2="SELECT ce.username_os FROM llx_contrat as c, llx_contrat_extrafields as ce W
 Q3=" (SELECT fk_contrat FROM llx_contratdet as cd, llx_contrat_extrafields as ce2 WHERE cd.fk_contrat = ce2.fk_object AND cd.STATUT = 5 AND ce2.deployment_status = 'undeployed' AND ce2.undeployment_date < ADDDATE(NOW(), INTERVAL -1 MONTH)); ";
 SQL="${Q1}${Q2}${Q3}"
 
-echo "$MYSQL -usellyoursaas -phidden -e $SQL"
-$MYSQL -usellyoursaas -p$passsellyoursaas -e "$SQL" | grep '^osu' >> /tmp/osutoclean-oldundeployed
+echo "$MYSQL -usellyoursaas -phidden -h $databasehost -e $SQL"
+$MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost -e "$SQL" | grep '^osu' >> /tmp/osutoclean-oldundeployed
 if [ -s /tmp/osutoclean-oldundeployed ]; then
 	for osusername in `cat /tmp/osutoclean-oldundeployed`
 	do
@@ -301,13 +301,13 @@ if [ -s /tmp/osutoclean ]; then
 			if [[ "x$dbname" != "xNULL" ]]; then	
 				echo "Do a dump of database $dbname - may fails if already removed"
 				mkdir -p $archivedir/$osusername
-				echo "$MYSQLDUMP -usellyoursaas -pxxxxxx $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2"
-				$MYSQLDUMP -usellyoursaas -p$passsellyoursaas $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2
-	
+				echo "$MYSQLDUMP -usellyoursaas -pxxxxxx -h $databasehost $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2"
+				$MYSQLDUMP -usellyoursaas -p$passsellyoursaas -h $databasehost $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2
+
 				echo "Now drop the database"
-				echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname"
+				echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $dbname"
 				if [[ $testorconfirm == "confirm" ]]; then
-					echo "DROP DATABASE $dbname;" | $MYSQL -usellyoursaas -p$passsellyoursaas $dbname
+					echo "DROP DATABASE $dbname;" | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $dbname
 				fi	
 			fi
 		fi
@@ -500,10 +500,10 @@ find $archivedircron -maxdepth 1 -type f -mtime +15 -exec rm -f {} \;
 # Clean database users
 echo "***** We should also clean mysql record for permission on old databases and old users"
 SQL="use mysql; delete from db where Db NOT IN (SELECT schema_name FROM information_schema.schemata) and Db like 'dbn%';"
-echo "$MYSQL -usellyoursaas -pxxxxxx -e \"$SQL\""
-#$MYSQL -usellyoursaas -pxxxxxx -e "$SQL"
+echo "$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e \"$SQL\""
+#$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e "$SQL"
 SQL="use mysql; delete from user where User NOT IN (SELECT User from db) and User like 'dbu%';"
-echo "$MYSQL -usellyoursaas -pxxxxxx -e \"$SQL\""
-#$MYSQL -usellyoursaas -pxxxxxx -e "$SQL"
+echo "$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e \"$SQL\""
+#$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e "$SQL"
 
 exit 0
