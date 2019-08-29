@@ -438,11 +438,11 @@ $dbcustomerinstance=getDoliDBInstance($type_db, $hostname_db, $username_db, $pas
 if (is_object($dbcustomerinstance) && $dbcustomerinstance->connected)
 {
 	// Get user/pass of last admin user
-	$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
+	$sql="SELECT login, pass, pass_crypted FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
 	// TODO Set definition of algorithm to hash password into the package
 	if (preg_match('/glpi-network\.cloud/', $object->ref_customer))
 	{
-	    $sql="SELECT name as login, password as pass FROM glpi_users WHERE 1 = 1 ORDER BY is_active DESC, last_login DESC LIMIT 1";
+	    $sql="SELECT name as login, '' as pass, password as pass_crypted FROM glpi_users WHERE 1 = 1 ORDER BY is_active DESC, last_login DESC LIMIT 1";
 	}
 
 	$resql=$dbcustomerinstance->query($sql);
@@ -586,7 +586,6 @@ function print_user_table($newdb, $object)
 
 		if ($resql)
 		{
-			$var=false;
 			$num=$newdb->num_rows($resql);
 			$i=0;
 			while ($i < $num)
