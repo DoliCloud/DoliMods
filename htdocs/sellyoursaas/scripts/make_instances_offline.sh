@@ -40,6 +40,8 @@ if [ "x$2" != "xonline" ]; then
 				cat $realdir/scripts/templates/vhostHttps-sellyoursaas-offline.template | \
 					sed 's!__webAppDomain__!'${domain}'!g' | \
 					sed 's!__webMyAccount__!'$1'!g' \
+					sed 's!__VirtualHostHead__!''!g' \
+					sed 's!__AllowOverride__!''!g' \
 					> /etc/apache2/sellyoursaas-offline/$fileshort
 			else
 		        rm -f /etc/apache2/sellyoursaas-offline/$domain.conf 2>/dev/null
@@ -48,6 +50,8 @@ if [ "x$2" != "xonline" ]; then
 				cat $realdir/scripts/templates/vhostHttps-sellyoursaas-offline.template | \
 					sed 's!__webAppDomain__!'${domain}'!g' | \
 					sed 's!__webMyAccount__!'$1'!g' \
+					sed 's!__VirtualHostHead__!''!g' \
+					sed 's!__AllowOverride__!''!g' \
 					> /etc/apache2/sellyoursaas-offline/$fileshort
 			fi
 	done
