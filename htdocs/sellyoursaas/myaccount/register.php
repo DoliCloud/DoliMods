@@ -248,6 +248,7 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
         {
             $sellyoursaasdomain = $domainname;
             $sellyoursaasname = $conf->global->$constforaltname;
+            //var_dump($constforaltname.' '.$sellyoursaasdomain.' '.$sellyoursaasname);   // Example: 'SELLYOURSAAS_NAME_FORDOMAIN-glpi-network.cloud glpi-network.cloud GLPI-Network'
         }
 
         $linklogo = '';
@@ -273,10 +274,14 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
             $constlogo = 'SELLYOURSAAS_LOGO';
             $constlogosmall = 'SELLYOURSAAS_LOGO_SMALL';
 
-            if (! empty($conf->global->$constforaltname))
+            $constlogoalt = 'SELLYOURSAAS_LOGO_'.str_replace('.', '_', strtoupper($sellyoursaasdomain));
+            $constlogosmallalt = 'SELLYOURSAAS_LOGO_SMALL_'.str_replace('.', '_', strtoupper($sellyoursaasdomain));
+
+            //var_dump($sellyoursaasdomain.' '.$constlogoalt.' '.$conf->global->$constlogoalt);exit;
+            if (! empty($conf->global->$constlogoalt))
             {
-                $constlogo.='_'.strtoupper($sellyoursaasname);
-                $constlogosmall.='_'.strtoupper($sellyoursaasname);
+                $constlogo=$constlogoalt;
+                $constlogosmall=$constlogosmallalt;
             }
 
             if (empty($linklogo) && ! empty($conf->global->$constlogosmall))
