@@ -249,7 +249,13 @@ if ($id > 0 && $action != 'edit' && $action != 'create')
 	if (is_object($newdb) && $newdb->connected)
 	{
 		// Get user/pass of last admin user
-		$sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
+        // TODO Put the definition of sql to get last used admin user into the package.
+	    $sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
+        if (preg_match('/glpi-network\.cloud/', $object->ref_customer))
+        {
+            $sql="SELECT name as login, password as pass FROM glpi_users WHERE 1 = 1 ORDER BY is_active DESC, last_login DESC LIMIT 1";
+        }
+
 		$resql=$newdb->query($sql);
 		if ($resql)
 		{
