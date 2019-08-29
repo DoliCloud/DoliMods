@@ -566,7 +566,7 @@ function print_user_table($newdb, $object)
 		// TODO Set definition of algorithm to hash password into the package
 		if (preg_match('/glpi-network\.cloud/', $object->ref_customer))
 		{
-		    $sql="SELECT id as rowid, name as login, realname as lastname,firstname, 0, 'emailunknown', '', password as pass, date_creation as datec, date_mod as datem, last_login as datelastlogin, 0, 0, 0, entities_id as entity, is_active as statut";
+		    $sql="SELECT id as rowid, name as login, realname as lastname, firstname, 0 as admin, 'emailunknown' as email, '' as pass, password as pass_crypted, date_creation as datec, date_mod as datem, last_login as datelastlogin, 0, 0, 0, entities_id as entity, is_active as statut";
             $sql.=" FROM glpi_users WHERE 1 = 1 ORDER BY is_active DESC";
 		}
 
