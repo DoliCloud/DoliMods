@@ -1591,8 +1591,6 @@ if ($action == 'deleteaccount')
 
 				llxHeader($head, $langs->trans("MyAccount"), '', '', 0, 0, '', '', '', 'myaccount');
 
-				$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI);
-
 				print '
 					<center>
 				';
@@ -1674,7 +1672,29 @@ var select2arrayoflanguage = {
 
 llxHeader($head, $langs->trans("MyAccount"), '', '', 0, 0, '', '', '', 'myaccount');
 
-$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI);
+
+$logoval = $conf->global->SELLYOURSAAS_LOGO_MINI;
+$logoblackval = $conf->global->SELLYOURSAAS_LOGO_MINI_BLACK;
+if (is_object($mythirdpartyaccount) && $mythirdpartyaccount->array_options['options_domain_registration_page'])
+{
+    $domainforkey = strtoupper($mythirdpartyaccount->array_options['options_domain_registration_page']);
+    $domainforkey = preg_replace('/\./', '_', $domainforkey);
+
+    $constname = 'SELLYOURSAAS_LOGO_MINI_'.$domainforkey;
+    $constnameblack = 'SELLYOURSAAS_LOGO_MINI_BLACK_'.$domainforkey;
+    if (! empty($conf->global->$constname))
+    {
+        $logoval=$conf->global->$constname;
+    }
+    if (! empty($conf->global->$constnameblack))
+    {
+        $logoblackval=$conf->global->$constnameblack;
+    }
+}
+
+$linklogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('logos/thumbs/'.$logoval);
+$linklogoblack = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('logos/thumbs/'.$logoblackval);
+
 
 print '
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
@@ -1693,7 +1713,7 @@ print '
 	  </form>
 
 	  <!-- Logo -->
-      <span class="navbar-brand"><img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&file='.urlencode('logos/thumbs/'.$conf->global->SELLYOURSAAS_LOGO_MINI_BLACK).'" height="34px"></span>
+      <span class="navbar-brand"><img src="'.$linklogoblack.'" height="34px"></span>
 
 	  <!-- Menu -->
       <div class="collapse navbar-collapse" id="navbars">

@@ -229,25 +229,6 @@ if ($action == 'set')
 	}
 }
 
-if ($action == 'setstratus5')
-{
-	$error=0;
-
-	if (! $error)
-	{
-		$dir=GETPOST("DOLICLOUD_EXT_HOME");
-		dolibarr_set_const($db,"DOLICLOUD_EXT_HOME",GETPOST("DOLICLOUD_EXT_HOME"),'chaine',0,'',$conf->entity);
-
-		dolibarr_set_const($db,"DOLICLOUD_DATABASE_HOST",GETPOST("DOLICLOUD_DATABASE_HOST"),'chaine',0,'',$conf->entity);
-		dolibarr_set_const($db,"DOLICLOUD_DATABASE_PORT",GETPOST("DOLICLOUD_DATABASE_PORT"),'chaine',0,'',$conf->entity);
-		dolibarr_set_const($db,"DOLICLOUD_DATABASE_NAME",GETPOST("DOLICLOUD_DATABASE_NAME"),'chaine',0,'',$conf->entity);
-		dolibarr_set_const($db,"DOLICLOUD_DATABASE_USER",GETPOST("DOLICLOUD_DATABASE_USER"),'chaine',0,'',$conf->entity);
-		dolibarr_set_const($db,"DOLICLOUD_DATABASE_PASS",GETPOST("DOLICLOUD_DATABASE_PASS"),'chaine',0,'',$conf->entity);
-
-		setEventMessage($langs->trans("Saved"),'mesgs');
-	}
-}
-
 if ($action == 'removelogo')
 {
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
@@ -604,13 +585,14 @@ $tmpservices=array();
 $tmpservicessub = explode(',', $conf->global->SELLYOURSAAS_SUB_DOMAIN_NAMES);
 foreach($tmpservicessub as $key => $tmpservicesub)
 {
+    $tmpservicesub = preg_replace('/:.*$/', '', $tmpservicesub);
     if ($key > 0) $tmpservices[$tmpservicesub]=getDomainFromURL($tmpservicesub, 1);
     else $tmpservices['0']=getDomainFromURL($tmpservicesub, 1);
 }
 foreach($tmpservices as $key => $tmpservice)
 {
     $suffix = '';
-    if ($key != '0') $suffix='_'.strtoupper($tmpservice);
+    if ($key != '0') $suffix='_'.strtoupper(str_replace('.', '_', $tmpservice));
 
     // Logo
     print '<tr class="oddeven"><td><label for="logo">'.$tmpservice.' - '.$langs->trans("LogoWhiteBackground").' (png,jpg)</label></td><td>';
