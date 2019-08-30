@@ -2524,6 +2524,8 @@ class SellYourSaasUtils
 
     	$langs->load("agenda");
 
+    	$MAXPERCALL = 5;       // Undeploy can be long (1mn). So we limit to 5 per call
+
     	if ($mode != 'test' && $mode != 'paid')
     	{
     		$this->error = 'Function doUndeployOldSuspendedInstances called with bad value for parameter '.$mode;
@@ -2570,8 +2572,6 @@ class SellYourSaasUtils
 
     		$contractprocessed = array();
     		$somethingdoneoncontract = 0;
-
-    		$MAXPERCALL = 25;
 
     		$i=0;
     		while ($i < $num)
