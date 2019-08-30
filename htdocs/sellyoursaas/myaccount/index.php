@@ -356,7 +356,6 @@ if ($action == 'updateurl')
 if ($action == 'changeplan')
 {
     $sellyoursaasemail = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
-
     if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
         && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
     {
@@ -3154,7 +3153,18 @@ if ($mode == 'instances')
 								if ($statuslabel != 'undeployed')
 								{
 									print '<span class="caption-helper spanbilling"><span class="opacitymedium">'.$langs->trans("Billing").' : </span>';
-									if ($foundtemplate > 1) print '<span style="color:orange">'.$langs->trans("WarningFoundMoreThanOneInvoicingTemplate", $conf->global->SELLYOURSAAS_MAIN_EMAIL).'</span>';
+									if ($foundtemplate > 1)
+									{
+									    $sellyoursaasemail = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
+									    if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
+									        && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+									    {
+									        $newnamekey = 'SELLYOURSAAS_MAIN_EMAIL_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+									        if (! empty($conf->global->$newnamekey)) $sellyoursaasemail = $conf->global->$newnamekey;
+									    }
+
+									    print '<span style="color:orange">'.$langs->trans("WarningFoundMoreThanOneInvoicingTemplate", $sellyoursaasemail).'</span>';
+									}
 									else
 									{
 										if ($foundtemplate != 0 && $priceinvoicedht != $contract->total_ht)
@@ -3465,7 +3475,16 @@ if ($mode == 'instances')
 	{
 		// Max number of instances reached
 		print '<!-- Max number of instances reached -->';
-		print '<div class="warning">'.$langs->trans("MaxNumberOfInstanceReached", $MAXINSTANCES, $conf->global->SELLYOURSAAS_MAIN_EMAIL).'</div>';
+
+		$sellyoursaasemail = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
+		if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
+		    && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+		{
+		    $newnamekey = 'SELLYOURSAAS_MAIN_EMAIL_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+		    if (! empty($conf->global->$newnamekey)) $sellyoursaasemail = $conf->global->$newnamekey;
+		}
+
+		print '<div class="warning">'.$langs->trans("MaxNumberOfInstanceReached", $MAXINSTANCES, $sellyoursaasemail).'</div>';
 	}
 
 	print '</div></div></div>';
@@ -3892,7 +3911,18 @@ if ($mode == 'mycustomerinstances')
 			if ($statuslabel != 'undeployed')
 			{
 				print '<span class="caption-helper spanbilling"><span class="opacitymedium">'.$langs->trans("Billing").' : </span>';
-				if ($foundtemplate > 1) print '<span style="color:orange">'.$langs->trans("WarningFoundMoreThanOneInvoicingTemplate", $conf->global->SELLYOURSAAS_MAIN_EMAIL).'</span>';
+				if ($foundtemplate > 1)
+				{
+				    $sellyoursaasemail = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
+				    if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
+				        && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+				    {
+				        $newnamekey = 'SELLYOURSAAS_MAIN_EMAIL_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+				        if (! empty($conf->global->$newnamekey)) $sellyoursaasemail = $conf->global->$newnamekey;
+				    }
+
+				    print '<span style="color:orange">'.$langs->trans("WarningFoundMoreThanOneInvoicingTemplate", $sellyoursaasemail).'</span>';
+				}
 				else
 				{
 					if ($priceinvoicedht != $contrat->total_ht)
@@ -4234,7 +4264,15 @@ if ($mode == 'billing')
 
 		if (! empty($conf->global->SELLYOURSAAS_DOLICLOUD_ON) && $mythirdpartyaccount->array_options['options_source'] == 'MIGRATIONV1')
 		{
-			print $langs->trans('InvoiceBeforeAreAvailableOnDemandAt', dol_print_date($mythirdpartyaccount->array_options['options_date_registration'], 'day'), $conf->global->SELLYOURSAAS_MAIN_EMAIL);
+		    $sellyoursaasemail = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
+		    if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
+		        && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+		    {
+		        $newnamekey = 'SELLYOURSAAS_MAIN_EMAIL_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+		        if (! empty($conf->global->$newnamekey)) $sellyoursaasemail = $conf->global->$newnamekey;
+		    }
+
+			print $langs->trans('InvoiceBeforeAreAvailableOnDemandAt', dol_print_date($mythirdpartyaccount->array_options['options_date_registration'], 'day'), $sellyoursaasemail);
 			print '<br>';
 		}
 
@@ -5510,15 +5548,29 @@ if ($mode == 'support')
 							print '<input type="hidden" name="action" value="send">';
 							print '<input type="hidden" name="supportchannel" value="'.GETPOST('supportchannel','alpha').'">';
 
-							$email = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
+							$sellyoursaasemail = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
+							if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
+							    && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+							{
+							    $newnamekey = 'SELLYOURSAAS_MAIN_EMAIL_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+							    if (! empty($conf->global->$newnamekey)) $sellyoursaasemail = $conf->global->$newnamekey;
+							}
+
 						    if (! empty($conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM) && preg_match('/high/', GETPOST('supportchannel','alpha')))
 						    {
-						        $email = $conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM;
+						        // We must use the prioritary email
+						        $sellyoursaasemail = $conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM;
+						        if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
+						            && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+						        {
+						            $newnamekey = 'SELLYOURSAAS_MAIN_EMAIL_PREMIUM_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+						            if (! empty($conf->global->$newnamekey)) $sellyoursaasemail = $conf->global->$newnamekey;
+						        }
 						    }
 
 							$subject = (GETPOST('subject','none')?GETPOST('subject','none'):'');
 
-							print '<input type="hidden" name="to" value="'.$email.'">';
+							print '<input type="hidden" name="to" value="'.$sellyoursaasemail.'">';
 							print $langs->trans("MailFrom").' : <input type="text" required name="from" value="'.(GETPOST('from','none')?GETPOST('from','none'):$mythirdpartyaccount->email).'"><br><br>';
 							print $langs->trans("MailTopic").' : <input type="text" required class="minwidth500" name="subject" value="'.$subject.'"><br><br>';
 							print '<textarea rows="6" required placeholder="'.$langs->trans("YourText").'" style="border: 1px solid #888" name="content" class="centpercent">'.GETPOST('content','none').'</textarea><br><br>';
