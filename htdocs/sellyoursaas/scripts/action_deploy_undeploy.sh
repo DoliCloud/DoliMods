@@ -507,13 +507,17 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 				rm -fr $targetdir/$osusername/$dbname
 			fi
 		else														# This is the common case of archiving after an undeploy
-			echo mv -f $targetdir/$osusername/$dbname $archivedir/$osusername/$dbname
+			#echo mv -f $targetdir/$osusername/$dbname $archivedir/$osusername/$dbname
+			echo tar cz --exclude-vcs -f $archivedir/$osusername/$dbname/$osusername.tar.gz $targetdir/$osusername/$dbname
 			if [[ $testorconfirm == "confirm" ]]
 			then
 				mkdir $archivedir/$osusername
-
-				# TODO PERF Use a tar/rm instead of move ?
-				mv -f $targetdir/$osusername/$dbname $archivedir/$osusername/$dbname
+				#mv -f $targetdir/$osusername/$dbname $archivedir/$osusername
+				mkdir $archivedir/$osusername/$dbname
+				tar cz --exclude-vcs -f $archivedir/$osusername/$dbname/$osusername.tar.gz $targetdir/$osusername/$dbname
+				echo rm -fr $targetdir/$osusername/$dbname
+				rm -fr $targetdir/$osusername/$dbname
+				echo chown -R root $archivedir/$osusername/$dbname
 				chown -R root $archivedir/$osusername/$dbname
 			fi
 		fi
