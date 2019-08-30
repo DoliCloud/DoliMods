@@ -137,8 +137,17 @@ if ($idforfetch > 0)
 
 if ($idforfetch <= 0 || empty($mythirdpartyaccount->status))
 {
+    $sellyoursaasemail = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
+
+    if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
+        && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+    {
+        $newnamekey = 'SELLYOURSAAS_MAIN_EMAIL_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+        if (! empty($conf->global->$newnamekey)) $sellyoursaasemail = $conf->global->$newnamekey;
+    }
+
 	$_SESSION=array();
-	$_SESSION['dol_loginmesg']=$langs->trans("SorryAccountDeleted", $conf->global->SELLYOURSAAS_MAIN_EMAIL);
+	$_SESSION['dol_loginmesg']=$langs->trans("SorryAccountDeleted", $sellyoursaasemail);
 	//header("Location: index.php?username=".urlencode(GETPOST('username','alpha')));
 	header("Location: index.php?usernamebis=".urlencode(GETPOST('username','alpha')));
 	exit;
@@ -157,7 +166,9 @@ else
 {
     $urlfaq='https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/faq-'.$langcode.'.php';
 }
+
 $urlstatus=$conf->global->SELLYOURSAAS_STATUS_URL;
+
 $now =dol_now();
 $tmp=dol_getdate($now);
 $nowmonth = $tmp['mon'];
@@ -330,12 +341,30 @@ if (preg_match('/logout/', $mode))
 
 if ($action == 'updateurl')
 {
-	setEventMessages($langs->trans("FeatureNotYetAvailable").'.<br>'.$langs->trans("ContactUsByEmail", $conf->global->SELLYOURSAAS_MAIN_EMAIL), null, 'warnings');
+    $sellyoursaasemail = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
+
+    if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
+        && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+    {
+        $newnamekey = 'SELLYOURSAAS_MAIN_EMAIL_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+        if (! empty($conf->global->$newnamekey)) $sellyoursaasemail = $conf->global->$newnamekey;
+    }
+
+	setEventMessages($langs->trans("FeatureNotYetAvailable").'.<br>'.$langs->trans("ContactUsByEmail", $sellyoursaasemail), null, 'warnings');
 }
 
 if ($action == 'changeplan')
 {
-	setEventMessages($langs->trans("FeatureNotYetAvailable").'.<br>'.$langs->trans("ContactUsByEmail", $conf->global->SELLYOURSAAS_MAIN_EMAIL), null, 'warnings');
+    $sellyoursaasemail = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
+
+    if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
+        && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+    {
+        $newnamekey = 'SELLYOURSAAS_MAIN_EMAIL_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+        if (! empty($conf->global->$newnamekey)) $sellyoursaasemail = $conf->global->$newnamekey;
+    }
+
+	setEventMessages($langs->trans("FeatureNotYetAvailable").'.<br>'.$langs->trans("ContactUsByEmail", $sellyoursaasemail), null, 'warnings');
 	$action = '';
 }
 
@@ -343,6 +372,14 @@ if ($action == 'changeplan')
 if ($action == 'send')
 {
 	$emailfrom = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+
+	if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
+	    && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+	{
+	    $newnamekey = 'SELLYOURSAAS_NOREPLY_EMAIL_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+	    if (! empty($conf->global->$newnamekey)) $sellyoursaasemail = $conf->global->$newnamekey;
+	}
+
 	$emailto = GETPOST('to','alpha');
 	$replyto = GETPOST('from','alpha');
 	$topic = GETPOST('subject','none');
