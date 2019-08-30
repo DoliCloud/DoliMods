@@ -167,7 +167,7 @@ else
     if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
         && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
     {
-        $urlfaq = 'https://www.'.$mythirdpartyaccount->array_options['options_domain_registration_page'].'/'.$langcode.'/faq';
+        $urlfaq = 'https://www.'.$mythirdpartyaccount->array_options['options_domain_registration_page'].'/'.$langcode.'/faq-'.$langcode.'.php';
     }
 }
 
