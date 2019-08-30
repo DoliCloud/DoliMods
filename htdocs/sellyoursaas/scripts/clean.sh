@@ -27,6 +27,7 @@ echo "# realname dir ---> $(dirname $(realpath ${0}))"
 export PID=${$}
 export scriptdir=$(dirname $(realpath ${0}))
 export targetdir="/home/jail/home"				
+export backupdir="/mnt/diskbackup/backup"
 export archivedir="/mnt/diskbackup/archives-test"
 export archivedirbind="/etc/bind/archives"
 export archivedircron="/var/spool/cron/crontabs.disabled"
@@ -505,5 +506,11 @@ echo "$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e \"$SQL\""
 SQL="use mysql; delete from user where User NOT IN (SELECT User from db) and User like 'dbu%';"
 echo "$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e \"$SQL\""
 #$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e "$SQL"
+
+
+# Clean backup dir
+echo "***** We should also clean backup of paying instances that are no more save since a long time and that are archived" 
+echo "TODO"
+
 
 exit 0
