@@ -251,8 +251,6 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 	rm -f /home/jail/home/$osusername/$dbname/*.log >/dev/null 2>&1 
 	echo rm -f /home/jail/home/$osusername/$dbname/*.log.*
 	rm -f /home/jail/home/$osusername/$dbname/*.log.* >/dev/null 2>&1 
-	
-	echo "$mode $instancename.$domainname" >> $archivedir/$osusername/$mode-$instancename.$domainname.txt
 
 fi
 
@@ -495,12 +493,12 @@ fi
 
 if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 
-	echo `date +%Y%m%d%H%M%S`" ***** Undeploy files into $targetdir/$osusername/$dbname"
+	echo `date +%Y%m%d%H%M%S`" ***** Undeploy files that are into $targetdir/$osusername/$dbname"
 			
-	# If dir still exists, we move it manually
+	# If the dir where instance was deployed still exists, we move it manually
 	if [ -d $targetdir/$osusername/$dbname ]; then
 		echo The dir $targetdir/$osusername/$dbname still exists, we archive it
-		if [ -d $archivedir/$osusername/$dbname ]; then
+		if [ -d $archivedir/$osusername/$dbname ]; then				# Should not happen
 			echo The dir $archivedir/$osusername/$dbname already exists, so we overwrite files into existing archive
 			echo cp -pr $targetdir/$osusername/$dbname $archivedir/$osusername
 			cp -pr $targetdir/$osusername/$dbname $archivedir/$osusername
@@ -508,11 +506,13 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 			then
 				rm -fr $targetdir/$osusername/$dbname
 			fi
-		else
+		else														# This is the common case of archiving after an undeploy
 			echo mv -f $targetdir/$osusername/$dbname $archivedir/$osusername/$dbname
 			if [[ $testorconfirm == "confirm" ]]
 			then
 				mkdir $archivedir/$osusername
+
+				# TODO PERF Use a tar/rm instead of move ?
 				mv -f $targetdir/$osusername/$dbname $archivedir/$osusername/$dbname
 				chown -R root $archivedir/$osusername/$dbname
 			fi
@@ -858,6 +858,7 @@ if [[ "$mode" == "undeployall" ]]; then
 	echo crontab -r -u $osusername
 	crontab -r -u $osusername
 	
+	# Note: When we do this the home dir of $osusername was already archived by code few lines previously
 	echo deluser --remove-home --backup --backup-to $archivedir/$osusername $osusername
 	if [[ $testorconfirm == "confirm" ]]
 	then
@@ -888,6 +889,13 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 			fi
 		fi
 	fi
+fi
+
+
+if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
+	
+	echo "$mode $instancename.$domainname" >> $archivedir/$osusername/$mode-$instancename.$domainname.txt
+
 fi
 
 
