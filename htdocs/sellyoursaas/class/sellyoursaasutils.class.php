@@ -2550,16 +2550,18 @@ class SellYourSaasUtils
 
     	$this->db->begin();
 
-    	$sql = 'SELECT c.rowid, c.ref_customer, cd.rowid as lid';
+    	$sql = 'SELECT c.rowid, c.ref_customer, s.client, cd.rowid as lid';
     	$sql.= ' FROM '.MAIN_DB_PREFIX.'contrat as c, '.MAIN_DB_PREFIX.'contratdet as cd, '.MAIN_DB_PREFIX.'contrat_extrafields as ce, ';
-    	$sql.= ' '.MAIN_DB_PREFIX.'societe_extrafields as se';
+    	$sql.= ' '.MAIN_DB_PREFIX.'societe as s, '.MAIN_DB_PREFIX.'societe_extrafields as se';
     	$sql.= ' WHERE cd.fk_contrat = c.rowid AND ce.fk_object = c.rowid';
     	$sql.= " AND ce.deployment_status = 'done'";
     	$sql.= " AND cd.date_fin_validite < '".$this->db->idate($datetotest)."'";
     	$sql.= " AND cd.statut = 5";
-    	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
-    	$sql.= $this->db->order('c.rowid','ASC');
-    	$sql.= $this->db->plimit(25);	// To avoid to reach timeouts
+    	$sql.= " AND s.rowid = c.fk_soc";
+    	$sql.= " AND se.fk_object = s.rowid";
+    	$sql.= " AND se.dolicloud = 'yesv2'";
+    	$sql.= $this->db->order('s.client,c.rowid','ASC,ASC');
+    	$sql.= $this->db->plimit(1000);	// To avoid too long answers. There is another limit on number of case undeployed to MAXPERCALL later
 
     	$resql = $this->db->query($sql);
     	if ($resql)
@@ -2567,6 +2569,9 @@ class SellYourSaasUtils
     		$num = $this->db->num_rows($resql);
 
     		$contractprocessed = array();
+    		$somethingdoneoncontract = 0;
+
+    		$MAXPERCALL = 25;
 
     		$i=0;
     		while ($i < $num)
@@ -2587,9 +2592,17 @@ class SellYourSaasUtils
     					continue;
     				}
 
-    				$isAPayingContract = sellyoursaasIsPaidInstance($object);
-    				if ($mode == 'test' && $isAPayingContract) continue;										// Discard if this is a paid instance when we are in test mode
-    				if ($mode == 'paid' && ! $isAPayingContract) continue;										// Discard if this is a test instance when we are in paid mode
+    				$isAPayingContract = sellyoursaasIsPaidInstance($object);       // This make fetchObjectLinked and scan link on invoices or template invoices
+    				if ($mode == 'test' && $isAPayingContract) continue;			// Discard if this is a paid instance when we are in test mode
+    				if ($mode == 'paid' && ! $isAPayingContract) continue;			// Discard if this is a test instance when we are in paid mode
+
+    				// Undeploy now
+    				if ($somethingdoneoncontract >= $MAXPERCALL)
+    				{
+    				    dol_syslog("We reach the limit of ".$MAXPERCALL." contract processed, so we quit loop for this batch doUndeployOldSuspendedInstances to avoid a too long process.", LOG_WARNING);
+    				    break;
+    				}
+    				$somethingdoneoncontract++;
 
     				// Undeploy instance
     				$tmparray = sellyoursaasGetExpirationDate($object);
