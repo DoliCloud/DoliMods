@@ -138,7 +138,6 @@ if ($idforfetch > 0)
 if ($idforfetch <= 0 || empty($mythirdpartyaccount->status))
 {
     $sellyoursaasemail = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
-
     if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
         && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
     {
@@ -165,6 +164,12 @@ if (preg_match('/dolicloud\.com/', $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
 else
 {
     $urlfaq='https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/faq-'.$langcode.'.php';
+    if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
+        && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+    {
+        $newnamekey = 'SELLYOURSAAS_MAIN_DOMAIN_NAME_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+        if (! empty($conf->global->$newnamekey)) $urlfaq = 'https://www.'.$conf->global->$newnamekey.'/'.$langcode.'/faq';
+    }
 }
 
 $urlstatus=$conf->global->SELLYOURSAAS_STATUS_URL;
