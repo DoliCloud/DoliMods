@@ -858,10 +858,10 @@ if [[ "$mode" == "undeployall" ]]; then
 	echo crontab -r -u $osusername
 	crontab -r -u $osusername
 	
-	echo deluser --remove-home --backup --backup-to $archivedir $osusername
+	echo deluser --remove-home --backup --backup-to $archivedir/$osusername $osusername
 	if [[ $testorconfirm == "confirm" ]]
 	then
-		deluser --remove-home --backup --backup-to $archivedir $osusername
+		deluser --remove-home --backup --backup-to $archivedir/$osusername $osusername
 		chmod -R ug+r $archivedir/$osusername/*.bz2
 	fi
 	

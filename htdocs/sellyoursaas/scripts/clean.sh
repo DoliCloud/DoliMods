@@ -313,7 +313,7 @@ if [ -s /tmp/osutoclean ]; then
 		fi
 		
 		
-		# If osusername is known, remove user and archive dir (Note: archive with clean.sh is always done in test)
+		# If osusername is known, remove user and archive dir (Note: archive with clean.sh is always done in test !!!!!!!)
 		if [[ "x$osusername" != "x" ]]; then	
 			if [[ "x$osusername" != "xNULL" ]]; then
 				echo rm -f $targetdir/$osusername/$dbname/*.log
