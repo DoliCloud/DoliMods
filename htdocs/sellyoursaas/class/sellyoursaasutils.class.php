@@ -2615,7 +2615,7 @@ class SellYourSaasUtils
 
     				    $conf->global->noapachereload = 1;       // Set a global variable that can be read later
     				    $comment = "Undeploy instance by doUndeployOldSuspendedInstances('".$mode."') the ".dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')';
-    				    $result = $this->sellyoursaasRemoteAction($remotetouse, $object, 'admin', '', '', '0', $comment);
+    				    $result = $this->sellyoursaasRemoteAction($remotetouse, $object, 'admin', '', '', '0', $comment, 300);
     				    $conf->global->noapachereload = null;    // unset a global variable that can be read later
     				    if ($result <= 0)
     					{
@@ -2735,9 +2735,10 @@ class SellYourSaasUtils
      * @param	string					$forceaddevent	'1'=Force to add event. If '0', add of event is done only for remoteaction = 'deploy','deployall','deployoption','rename','suspend','unsuspend','undeploy'
      *													$forceaddevent is set by caller but is overwrote to on when we detect qty has changed.
      * @param	string					$comment		Comment
+     * @param   int                     $timeout        Time out in seconds
      * @return	int										<0 if KO, >0 if OK
      */
-    function sellyoursaasRemoteAction($remoteaction, $object, $appusername='admin', $email='', $password='', $forceaddevent='0', $comment='')
+    function sellyoursaasRemoteAction($remoteaction, $object, $appusername='admin', $email='', $password='', $forceaddevent='0', $comment='', $timeout = 90)
     {
     	global $conf, $langs, $user;
 
@@ -3232,7 +3233,7 @@ class SellYourSaasUtils
     			//$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 
 
-    			$conf->global->MAIN_USE_RESPONSE_TIMEOUT = 90;	// Timeout of call of external URL to make remote action
+				$conf->global->MAIN_USE_RESPONSE_TIMEOUT = ($timeout >= 10 ? $timeout : 90);	// Timeout of call of external URL to make remote action
 
     			// Execute remote action
     			if (! $error)
