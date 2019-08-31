@@ -509,8 +509,24 @@ echo "$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e \"$SQL\""
 
 
 # Clean backup dir
-echo "***** We should also clean backup of paying instances that are no more save since a long time and that are archived" 
-echo "TODO"
+echo "***** We should also clean backup of paying instances in $backupdir/osusername/ that are no more saved since a long time and that are archived" 
+> /tmp/avirer
+for fic in `find $backupdir/*/last_mysqldump* -name "last_mysqldump*" -mtime +90`
+do
+	noyoungfile=1
+	dirtoscan=`dirname $fic`
+	for fic2 in `find $dirtoscan/last_mysqldump* -name "last_mysqldump*" -mtime -90`
+	do
+		noyoungfile=0
+	done
+	if [[ "x$noyoungfile" == "x1" ]]; then
+		echo "# $fic - $noyoungfile" >> /tmp/avirer 
+		echo "rm -fr "`dirname $fic` >> /tmp/avirer
+	else
+        echo "# $fic - $noyoungfile" >> /tmp/avirer
+        echo "#rm -fr "`dirname $fic` >> /tmp/avirer
+	fi
+done
 
 
 exit 0
