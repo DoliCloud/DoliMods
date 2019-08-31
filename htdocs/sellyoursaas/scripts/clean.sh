@@ -527,6 +527,6 @@ do
         echo "#rm -fr "`dirname $fic` >> /tmp/avirer
 	fi
 done
-
+echo File /tmp/avirer geenrated.
 
 exit 0
