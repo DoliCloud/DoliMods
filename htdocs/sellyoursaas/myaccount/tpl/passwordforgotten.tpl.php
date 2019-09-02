@@ -106,7 +106,7 @@ if (! preg_match('/class="ok"/', $message)) {
 if (empty($asknewpass))
 {
 ?>
-	<input type="text" id="username" placeholder="<?php echo $langs->trans("LoginEmail"); ?>" <?php echo $disabled; ?> name="username" class="flat input-icon-user" size="20" value="<?php echo dol_escape_htmltag($username); ?>" tabindex="1"  autofocus="autofocus" />
+	<input type="text" id="username" placeholder="<?php echo $langs->trans("LoginEmail"); ?>" <?php echo $disabled; ?> name="username" class="flat input-icon-user" value="<?php echo dol_escape_htmltag($username); ?>" tabindex="1"  autofocus="autofocus" />
 	<br><br>
 <?php
 }
@@ -117,10 +117,10 @@ else
 	print '<input type="hidden" name="id" value="'.$id.'">';
 	print '<input type="hidden" name="hashreset" value="'.$hashreset.'">';
 
-	print '<input type="text" id="newpassword1" placeholder="'.$langs->trans("Password").'" name="newpassword1" class="flat input-icon-user" size="20" tabindex="1"  autofocus="autofocus" />';
+	print '<input type="text" id="newpassword1" placeholder="'.$langs->trans("Password").'" name="newpassword1" class="flat input-icon-user" tabindex="1"  autofocus="autofocus" />';
 	print '<br><br>';
 
-	print '<input type="text" id="newpassword2" placeholder="'.$langs->trans("ConfirmPassword").'" name="newpassword2" class="flat input-icon-user" size="20" tabindex="1"  autofocus="autofocus" />';
+	print '<input type="text" id="newpassword2" placeholder="'.$langs->trans("ConfirmPassword").'" name="newpassword2" class="flat input-icon-user" tabindex="1"  autofocus="autofocus" />';
 	print '<br><br>';
 }
 ?>
