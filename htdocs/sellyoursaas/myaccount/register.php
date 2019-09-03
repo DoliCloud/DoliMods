@@ -318,12 +318,20 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 		<div class="page-header-top">
 		    <div class="container">
 		      <div class="registerheader" style="display:flex;justify-content:space-between;">
-
-		          <img style="center" class="logoheader"  src="<?php echo $linklogo; ?>" id="logo" />
-				  <?php if (empty($mythirdparty->id)) { ?>
-		          <div class="paddingtop20" style="text-align: right; float: right;">
+				  <div>
+		          <img style="center" class="logoheader"  src="<?php echo $linklogo; ?>" id="logo" /><br>
+		          </div>
+				  <?php if (empty($mythirdparty->id)) {
+				    $langs->load("website");
+				      ?>
+		          <div class="paddingtop20" style="float: right;">
+		              <div>
 		              <span style="padding: 4px 10px 5px 10px;" class="opacitymedium"><?php echo $langs->trans("AlreadyHaveAnAccount"); ?></span>
-		              <a href="/" class="btn blue btn-sm"><?php echo $langs->trans("LoginAction"); ?></a>
+		              <a href="/" class="btn blue btn-sm btnalreadyanaccount"><?php echo $langs->trans("LoginAction"); ?></a>
+		              </div>
+		              <div>
+		              <span style="padding: 4px 10px 5px 10px;" class="opacitymedium"><a class="blue btn-sm" style="padding-left: 0;" href="https://<?php echo $sellyoursaasdomain ?>"><?php echo $langs->trans("BackToHomePage"); ?></a></span>
+		              </div>
 		          </div>
 		          <?php } ?>
 		      </div>

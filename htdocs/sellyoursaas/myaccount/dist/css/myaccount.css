@@ -28,6 +28,11 @@ input.form-control::-moz-placeholder { /* Firefox 19+ */
     color: #8a6d3b;
 }
 
+.btnalreadyanaccount {
+    -webkit-box-shadow: 0 0 0 2px rgba(2, 117, 216, 0.25) !important;
+    box-shadow: 0 0 0 2px rgba(2, 117, 216, 0.25) !important;
+}
+
 .btn-transparent {
 	background: unset;
 	border: none;
