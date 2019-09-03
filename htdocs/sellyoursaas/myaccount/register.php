@@ -329,9 +329,11 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 		              <span style="padding: 4px 10px 5px 10px;" class="opacitymedium"><?php echo $langs->trans("AlreadyHaveAnAccount"); ?></span>
 		              <a href="/" class="btn blue btn-sm btnalreadyanaccount"><?php echo $langs->trans("LoginAction"); ?></a>
 		              </div>
+		              <?php if (empty($partner) && empty($partnerkey)) { ?>
 		              <div>
 		              <span style="padding: 4px 10px 5px 10px;" class="opacitymedium"><a class="blue btn-sm" style="padding-left: 0;" href="https://<?php echo $sellyoursaasdomain ?>"><?php echo $langs->trans("BackToHomePage"); ?></a></span>
 		              </div>
+		              <?php } ?>
 		          </div>
 		          <?php } ?>
 		      </div>
