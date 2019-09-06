@@ -89,7 +89,7 @@ function sellyoursaas_completesubstitutionarray(&$substitutionarray, $langs, $ob
         $conf->global->SELLYOURSAAS_MAIN_EMAIL = $savconf->global->SELLYOURSAAS_MAIN_EMAIL;
         $conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM = $savconf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM;
 
-        // Check if thirdparty is for another service and force $cof with new values
+        // Check if thirdparty is for another service and force $conf with new values
         // This erase value of setup permanently
         $constforaltname = $tmpobject->array_options['options_domain_registration_page'];
         $newnamekey = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$constforaltname;
