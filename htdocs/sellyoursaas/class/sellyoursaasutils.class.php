@@ -499,7 +499,7 @@ class SellYourSaasUtils
 
     			if ($thirdparty->id > 0)
     			{
-    				dol_syslog("* Process thirdparty id=".$thirdparty->id." name=".$thirdparty->nom);
+    				dol_syslog("* Process thirdparty id=".$thirdparty->id." name=".$thirdparty->name);
 
     				$langstouse = new Translate('', $conf);
     				$langstouse->setDefaultLang($thirdparty->default_lang ? $thirdparty->default_lang : $langs->defaultlang);
