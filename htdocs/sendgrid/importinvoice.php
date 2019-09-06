@@ -422,7 +422,7 @@ print '<div class="tabBar">';
 print '<table class="notopnoborder"><tr><td>';
 print '<input type="checkbox" name="excludenullinvoice"'.((! isset($_POST["excludenullinvoice"]) || GETPOST('excludenullinvoice'))?' checked="true"':'').'"> '.$langs->trans("ExcludeNullInvoices").'<br>';
 print $langs->trans("FromThe").': ';
-print $form->select_date($datefrom, 'datefrom');
+print $form->selectDate($datefrom, 'datefrom');
 print '<br>';
 print '<input type="hidden" name="action" value="refresh">';
 print ' <input type="submit" name="import" value="'.$langs->trans("ScanOvhInvoices").'" class="button">';
