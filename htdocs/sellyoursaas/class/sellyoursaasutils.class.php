@@ -341,8 +341,6 @@ class SellYourSaasUtils
 	    					$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray);
 
 	    					$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
-
-
 	    					$to = $object->thirdparty->email;
 	    					$trackid = 'thi'.$object->thirdparty->id;
 
