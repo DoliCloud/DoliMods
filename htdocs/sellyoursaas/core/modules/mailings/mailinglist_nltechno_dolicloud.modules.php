@@ -220,7 +220,7 @@ class mailing_mailinglist_nltechno_dolicloud extends MailingTargets
 
 		// ----- Your code end here -----
 
-		return parent::add_to_target($mailing_id, $cibles);
+		return parent::addTargetsToDatabase($mailing_id, $cibles);
 	}
 
 
