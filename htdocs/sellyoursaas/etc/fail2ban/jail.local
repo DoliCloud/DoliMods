@@ -43,7 +43,7 @@ port    = http,https
 filter  = apache-dolibarr-rulesadmin
 logpath = /var/log/phpsendmail.log
 action  = %(action_mw)s
-bantime  = 4320000   ; 1 day
+bantime  = 4320000   ; 50 days
 findtime = 60        ; 1 minute
 maxretry = 10
 
