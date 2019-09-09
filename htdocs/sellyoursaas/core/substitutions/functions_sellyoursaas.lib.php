@@ -83,7 +83,7 @@ function sellyoursaas_completesubstitutionarray(&$substitutionarray, $langs, $ob
         && $tmpobject->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
     {
         global $savconf;
-        if (! isset($savconf)) $savconf = $conf;
+        if (! isset($savconf)) $savconf = dol_clone($conf);
 
         dol_syslog("savconf has currently savconf->global->SELLYOURSAAS_NAME = ".$savconf->global->SELLYOURSAAS_NAME." savconf->global->SELLYOURSAAS_MAIN_EMAIL = ".$savconf->global->SELLYOURSAAS_MAIN_EMAIL);
 
