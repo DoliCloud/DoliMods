@@ -100,7 +100,7 @@ class mailing_mailinglist_prestashopget_myobject extends MailingTargets
 	 *  @param	array	$filtersarray   Requete sql de selection des destinataires
 	 *  @return int           			<0 if error, number of emails added if ok
 	 */
-	function add_to_target($mailing_id,$filtersarray=array())
+	function add_to_target($mailing_id, $filtersarray=array())
 	{
         // phpcs:enable
 		$target = array();
@@ -162,7 +162,7 @@ class mailing_mailinglist_prestashopget_myobject extends MailingTargets
 
 		// ----- Your code end here -----
 
-		return parent::add_to_target($mailing_id, $cibles);
+		return parent::addTargetsToDatabase($mailing_id, $cibles);
 	}
 
 
