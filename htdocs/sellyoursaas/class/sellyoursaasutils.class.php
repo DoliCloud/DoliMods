@@ -324,9 +324,12 @@ class SellYourSaasUtils
     					    // Load third party
     					    $object->fetch_thirdparty();
 
+
     					    // @TODO Save in cache $arraydefaultmessage for each $object->thirdparty->default_lang and reuse it to avoid getEMailTemplate
     					    $outputlangs = new Translate('', $conf);
     					    $outputlangs->setDefaultLang($object->thirdparty->default_lang);
+
+    					    dol_syslog("We will call getEMailTemplate for type 'contract', label 'GentleTrialExpiringReminder', outputlangs->default_lang=".$outputlangs->default_lang);
     					    $arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'contract', $user, $outputlangs, 0, 1, 'GentleTrialExpiringReminder');
 
 	    					$substitutionarray=getCommonSubstitutionArray($outputlangs, 0, null, $object);
@@ -335,7 +338,10 @@ class SellYourSaasUtils
 
 	    					$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray);
 	    					$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray);
+
 	    					$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+
+
 	    					$to = $object->thirdparty->email;
 	    					$trackid = 'thi'.$object->thirdparty->id;
 
@@ -518,6 +524,8 @@ class SellYourSaasUtils
     					$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langstouse);
     					$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langstouse);
     					$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+
+
     					$to = $thirdparty->email;
 
     					$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
@@ -668,6 +676,8 @@ class SellYourSaasUtils
 	    					$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $langstouse);
 	    					$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $langstouse);
 	    					$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+
+
 	    					$to = $thirdparty->email;
 
 	    					$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);
@@ -1142,6 +1152,7 @@ class SellYourSaasUtils
 	    							}
 	    							$paiement->paiementid   = $paymentTypeId;
 	    							$paiement->num_paiement = '';
+	    							$paiement->num_payment = '';
 	    							$paiement->note_public  = 'Online payment '.dol_print_date($now, 'standard').' using '.$paymentmethod.($ipaddress?' from ip '.$ipaddress:'').' - Transaction ID = '.$TRANSACTIONID;
 
 	    							if (! $errorforinvoice)
@@ -1307,6 +1318,7 @@ class SellYourSaasUtils
 		    							}
 		    						}
 		    						$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+
 
 		    						$trackid='inv'.$invoice->id;
 									$moreinheader='X-Dolibarr-Info: doTakeStripePaymentForThirdParty'."\r\n";
@@ -2420,6 +2432,13 @@ class SellYourSaasUtils
 								$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $outputlangs);
 								$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $outputlangs);
 								$from = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+
+								/*if (is_object($tmpobject) &&
+								    ! empty($tmpobject->array_options['options_domain_registration_page'])
+								    && $tmpobject->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+								{ */
+								/* No required, $conf reset by complete_substitutions_array */
+
 								$to = $object->thirdparty->email;
 
 								$cmail = new CMailFile($subject, $to, $from, $msg, array(), array(), array(), '', '', 0, 1);

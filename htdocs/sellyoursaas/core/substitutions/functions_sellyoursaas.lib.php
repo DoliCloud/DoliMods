@@ -90,6 +90,8 @@ function sellyoursaas_completesubstitutionarray(&$substitutionarray, $langs, $ob
         $conf->global->SELLYOURSAAS_ACCOUNT_URL = $savconf->global->SELLYOURSAAS_ACCOUNT_URL;
         $conf->global->SELLYOURSAAS_MAIN_EMAIL = $savconf->global->SELLYOURSAAS_MAIN_EMAIL;
         $conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM = $savconf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM;
+        $conf->global->SELLYOURSAAS_NOREPLY_EMAIL = $savconf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM;
+        $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL = $savconf->global->SELLYOURSAAS_SUPERVISION_EMAIL;
 
         // Check if thirdparty is for another service and force $conf with new values
         // This erase value of setup permanently
@@ -99,6 +101,8 @@ function sellyoursaas_completesubstitutionarray(&$substitutionarray, $langs, $ob
         $conf->global->SELLYOURSAAS_ACCOUNT_URL        = preg_replace('/'.$savconf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/', $tmpobject->array_options['options_domain_registration_page'], $savconf->global->SELLYOURSAAS_ACCOUNT_URL);
         $conf->global->SELLYOURSAAS_MAIN_EMAIL         = preg_replace('/'.$savconf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/', $tmpobject->array_options['options_domain_registration_page'], $savconf->global->SELLYOURSAAS_MAIN_EMAIL);
         $conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM = preg_replace('/'.$savconf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/', $tmpobject->array_options['options_domain_registration_page'], $savconf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM);
+        $conf->global->SELLYOURSAAS_NOREPLY_EMAIL      = preg_replace('/'.$savconf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/', $tmpobject->array_options['options_domain_registration_page'], $savconf->global->SELLYOURSAAS_NOREPLY_EMAIL);
+        $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL  = preg_replace('/'.$savconf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/', $tmpobject->array_options['options_domain_registration_page'], $savconf->global->SELLYOURSAAS_SUPERVISION_EMAIL);
     }
 }
 
