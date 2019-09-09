@@ -259,6 +259,7 @@ class SellYourSaasUtils
     	$sql.= " AND cd.date_fin_validite >= '".$this->db->idate($date_limit_expiration - 7 * 24 * 3600)."'";	// Protection: We dont' go higher than 7 days late to avoid to resend too much warnings when update of date_softalert_endfreeperiod has failed
     	$sql.= " AND cd.statut = 4";	// 4 = ContratLigne::STATUS_OPEN
     	$sql.= " AND se.fk_object = c.fk_soc AND se.dolicloud = 'yesv2'";
+    	$sql.= " ORDER BY c.rowid ASC";
     	//print $sql;
 
     	$resql = $this->db->query($sql);
