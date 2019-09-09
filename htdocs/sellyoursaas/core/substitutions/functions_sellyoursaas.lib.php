@@ -74,8 +74,10 @@ function sellyoursaas_completesubstitutionarray(&$substitutionarray, $langs, $ob
     $tmpobject = $object;
     if (is_object($tmpobject) && is_object($object->thirdparty) &&
         ! empty($object->thirdparty->array_options['options_domain_registration_page'])) $tmpobject = $object->thirdparty;
+
     // Force some values to another services
     // $tmpobject is now a thirdparty
+    dol_syslog("XXX tmpobject->array_options['options_domain_registration_page'] = ".$tmpobject->array_options['options_domain_registration_page']." conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME = ".$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME);
     if (is_object($tmpobject) &&
         ! empty($tmpobject->array_options['options_domain_registration_page'])
         && $tmpobject->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
