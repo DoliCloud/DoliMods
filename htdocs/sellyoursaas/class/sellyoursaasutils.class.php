@@ -329,7 +329,7 @@ class SellYourSaasUtils
     					    $outputlangs = new Translate('', $conf);
     					    $outputlangs->setDefaultLang($object->thirdparty->default_lang);
 
-    					    dol_syslog("We will call getEMailTemplate for type 'contract', label 'GentleTrialExpiringReminder', outputlangs->default_lang=".$outputlangs->default_lang);
+    					    dol_syslog("We will call getEMailTemplate for type 'contract', label 'GentleTrialExpiringReminder', outputlangs->defaultlang=".$outputlangs->defaultlang);
     					    $arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'contract', $user, $outputlangs, 0, 1, 'GentleTrialExpiringReminder');
 
 	    					$substitutionarray=getCommonSubstitutionArray($outputlangs, 0, null, $object);

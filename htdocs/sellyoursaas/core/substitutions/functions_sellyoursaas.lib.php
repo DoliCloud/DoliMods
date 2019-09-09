@@ -90,7 +90,7 @@ function sellyoursaas_completesubstitutionarray(&$substitutionarray, $langs, $ob
         $conf->global->SELLYOURSAAS_ACCOUNT_URL = $savconf->global->SELLYOURSAAS_ACCOUNT_URL;
         $conf->global->SELLYOURSAAS_MAIN_EMAIL = $savconf->global->SELLYOURSAAS_MAIN_EMAIL;
         $conf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM = $savconf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM;
-        $conf->global->SELLYOURSAAS_NOREPLY_EMAIL = $savconf->global->SELLYOURSAAS_MAIN_EMAIL_PREMIUM;
+        $conf->global->SELLYOURSAAS_NOREPLY_EMAIL = $savconf->global->SELLYOURSAAS_NOREPLY_EMAIL;
         $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL = $savconf->global->SELLYOURSAAS_SUPERVISION_EMAIL;
 
         // Check if thirdparty is for another service and force $conf with new values
