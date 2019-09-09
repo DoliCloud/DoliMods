@@ -151,7 +151,7 @@ elseif (($nbto + $nbcc + $nbbcc) > $MAXOK)
 }
 else
 {
-    file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ok ( <'.$MAXOK.' : ' . $nbto . ' ' . $nbcc . ' ' . $nbbcc . ' - '.(empty($_SERVER["REQUEST_URI"])?'':$_SERVER["REQUEST_URI"]).') ' . (empty($_ENV['PWD'])?'':$_ENV['PWD'])."\n", FILE_APPEND);
+    file_put_contents($logfile, date('Y-m-d H:i:s') . ' ' . $ip . ' dolicloud rules ok ( <'.$MAXOK.' : ' . $nbto . ' ' . $nbcc . ' ' . $nbbcc . ' - '.(empty($_SERVER["REQUEST_URI"])?'':$_SERVER["REQUEST_URI"]).' ) ' . (empty($_ENV['PWD'])?'':$_ENV['PWD'])."\n", FILE_APPEND);
 }
 
 
