@@ -926,24 +926,36 @@ else
 }
 $errormessages[] = 'Our team was alerted. You will receive an email as soon as deployment is complete.';
 
+// Force reload ot thirdparty
+if (is_object($contract) && method_exists($contract, 'fetch_thirdparty'))
+{
+    $contract->fetch_thirdparty();
+}
 
 // Send email to customer
 if (is_object($contract->thirdparty))
 {
-	dol_syslog("Error in deployment, send email to customer", LOG_ERR);
+	dol_syslog("Error in deployment, send email to customer (copy supervision)", LOG_ERR);
 
 	$sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
+	$sellyoursaasemailsupervision = $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;
+	$sellyoursaasemailnoreply = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
 
 	$domainname=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
 	$constforaltname = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$domainname;
+	$constforaltemailsupervision = 'SELLYOURSAAS_SUPERVISION_EMAIL-'.$domainname;
+	$constforaltemailnoreply = 'SELLYOURSAAS_NOREPLY_EMAIL-'.$domainname;
 	if (! empty($conf->global->$constforaltname))
 	{
 	    $sellyoursaasdomain = $domainname;
 	    $sellyoursaasname = $conf->global->$constforaltname;
+	    $sellyoursaasemailsupervision = $conf->global->$constforaltemailsupervision;
+	    $sellyoursaasemailnoreply = $conf->global->$constforaltemailnoreply;
 	}
 
 	$to = $contract->thirdparty->email;
-	$email = new CMailFile('['.$sellyoursaasname.'] Registration/deployment temporary error - '.dol_print_date(dol_now(), 'dayhourrfc'), $to, $conf->global->SELLYOURSAAS_NOREPLY_EMAIL, join("\n",$errormessages)."\n", array(), array(), array(), $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL, '', 0, 0, '', '', '', '', 'emailing');
+
+	$email = new CMailFile('['.$sellyoursaasname.'] Registration/deployment temporary error - '.dol_print_date(dol_now(), 'dayhourrfc'), $to, $sellyoursaasemailnoreply, join("\n",$errormessages)."\n", array(), array(), array(), $sellyoursaasemailsupervision, '', 0, 0, '', '', '', '', 'emailing');
 	$email->sendfile();
 }
 
