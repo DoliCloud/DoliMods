@@ -306,7 +306,7 @@ class ActionsSellyoursaas
 				{
 					dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
 					$sellyoursaasutils = new SellYourSaasUtils($db);
-					$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $object, 'admin', $object->thirdparty->email, $object->array_options['options_deployment_init_adminpass']);
+					$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $object, 'admin', $object->thirdparty->email, $object->array_options['options_deployment_init_adminpass'], '0', 'Deploy from contract card', 300);
 					if ($result <= 0)
 					{
 						$error++;
@@ -414,7 +414,7 @@ class ActionsSellyoursaas
 				{
 					dol_include_once('sellyoursaas/class/sellyoursaasutils.class.php');
 					$sellyoursaasutils = new SellYourSaasUtils($db);
-					$result = $sellyoursaasutils->sellyoursaasRemoteAction('undeploy', $object);
+					$result = $sellyoursaasutils->sellyoursaasRemoteAction('undeploy', $object, 'admin', '', '', '0', 'Undeployed from contract card', 300);
 					if ($result <= 0)
 					{
 						$error++;
