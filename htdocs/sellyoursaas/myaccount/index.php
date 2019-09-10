@@ -74,15 +74,15 @@ dol_include_once('/sellyoursaas/lib/sellyoursaas.lib.php');
 
 $conf->global->SYSLOG_FILE_ONEPERSESSION=2;
 
-$welcomecid = GETPOST('welcomecid','alpha');
-$mode = GETPOST('mode', 'alpha');
-$action = GETPOST('action', 'alpha');
-$cancel = GETPOST('cancel', 'alpha');
+$welcomecid = GETPOST('welcomecid','int');
+$mode = GETPOST('mode', 'aZ09');
+$action = GETPOST('action', 'aZ09');
+$cancel = GETPOST('cancel', 'alphanohtml');
 $backtourl = GETPOST('backtourl', 'alpha');
 if (empty($mode) && empty($welcomecid)) $mode='dashboard';
 
 $langs=new Translate('', $conf);
-$langs->setDefaultLang(GETPOST('lang','aZ09')?GETPOST('lang','aZ09'):'auto');
+$langs->setDefaultLang(GETPOST('lang','aZ09') ? GETPOST('lang','aZ09') : 'auto');
 
 $langsen=new Translate('', $conf);
 $langsen->setDefaultLang('en_US');
@@ -96,19 +96,19 @@ $langscompany->loadLangs(array("main","companies","bills","sellyoursaas@sellyour
 
 $mythirdpartyaccount = new Societe($db);
 
-$service=GETPOST('service','int');
-$firstrecord=GETPOST('firstrecord','int');
-$lastrecord=GETPOST('lastrecord','int');
-$search_instance_name=GETPOST('search_instance_name','alphanohtml');
-$search_customer_name=GETPOST('search_customer_name','alphanohtml');
+$service=GETPOST('service', 'int');
+$firstrecord=GETPOST('firstrecord', 'int');
+$lastrecord=GETPOST('lastrecord', 'int');
+$search_instance_name=GETPOST('search_instance_name', 'alphanohtml');
+$search_customer_name=GETPOST('search_customer_name', 'alphanohtml');
 
 $MAXINSTANCEVIGNETTE = 4;
 
 // Load variable for pagination
-$limit = GETPOST('limit','int')?GETPOST('limit','int'):($mode == 'instance' ? $MAXINSTANCEVIGNETTE : 20);
-$sortfield = GETPOST('sortfield','alpha');
-$sortorder = GETPOST('sortorder','alpha');
-$page = GETPOST('page','int');
+$limit = GETPOST('limit', 'int')?GETPOST('limit', 'int'):($mode == 'instance' ? $MAXINSTANCEVIGNETTE : 20);
+$sortfield = GETPOST('sortfield', 'alphanohtml');
+$sortorder = GETPOST('sortorder', 'alphanohtml');
+$page = GETPOST('page', 'int');
 if (empty($page) || $page == -1) { $page = 0; }     // If $page is not defined, or '' or -1
 $offset = $limit * $page;
 $pageprev = $page - 1;
@@ -116,14 +116,14 @@ $pagenext = $page + 1;
 //if (! $sortfield) $sortfield="p.date_fin";
 //if (! $sortorder) $sortorder="DESC";
 
-$firstrecord = GETPOSTISSET('firstrecord')?GETPOST('firstrecord','int'):($page * $limit) + 1;
-$lastrecord = GETPOSTISSET('lastrecord')?GETPOST('lastrecord','int'):(($page+1)*$limit);
+$firstrecord = GETPOSTISSET('firstrecord')?GETPOST('firstrecord', 'int'):($page * $limit) + 1;
+$lastrecord = GETPOSTISSET('lastrecord')?GETPOST('lastrecord', 'int'):(($page+1)*$limit);
 if ($firstrecord < 1) $firstrecord=1;
 if (GETPOSTISSET('reset')) { $search_instance_name = ''; $search_customer_name = ''; }
-$fromsocid=GETPOST('fromsocid','int');
+$fromsocid=GETPOST('fromsocid', 'int');
 
 // Id of connected thirdparty
-$socid = GETPOST('socid','int')?GETPOST('socid','int'):$_SESSION['dol_loginsellyoursaas'];
+$socid = GETPOST('socid', 'int')?GETPOST('socid', 'int'):$_SESSION['dol_loginsellyoursaas'];
 $idforfetch = $fromsocid > 0 ? $fromsocid : $socid;
 if ($idforfetch > 0)
 {
@@ -335,9 +335,9 @@ if (preg_match('/logout/', $mode))
 
 	session_destroy();
 	$param='';
-	if (GETPOSTISSET('username','alpha'))   $param.='&username='.urlencode(GETPOST('username','alpha'));
-	if (GETPOSTISSET('password','alpha'))   $param.='&password='.urlencode(GETPOST('password','alpha'));
-	if (GETPOSTISSET('login_hash','alpha')) $param.='&login_hash='.urlencode(GETPOST('login_hash','alpha'));
+	if (GETPOSTISSET('username','alpha'))   $param.='&username='.urlencode(GETPOST('username', 'alpha'));
+	if (GETPOSTISSET('password','alpha'))   $param.='&password='.urlencode(GETPOST('password', 'alpha'));
+	if (GETPOSTISSET('login_hash','alpha')) $param.='&login_hash='.urlencode(GETPOST('login_hash', 'alpha'));
 	if ($mode) $param.='&mode='.urlencode($mode);
 	header("Location: /index.php".($param?'?'.$param:''));
 	exit;
