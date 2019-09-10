@@ -3251,7 +3251,7 @@ class SellYourSaasUtils
     			//$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 
 
-				$conf->global->MAIN_USE_RESPONSE_TIMEOUT = ($timeout >= 10 ? $timeout : 90);	// Timeout of call of external URL to make remote action
+				$conf->global->MAIN_USE_RESPONSE_TIMEOUT = ($timeout >= 2 ? $timeout : 90);	// Timeout of call of external URL to make remote action
 
     			// Execute remote action
     			if (! $error)
