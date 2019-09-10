@@ -1779,16 +1779,28 @@ print '
 			</li>';
 		}
 
-          print '<li class="nav-item'.($mode == 'support'?' active':'').' dropdown">
+        print '<li class="nav-item'.($mode == 'support'?' active':'').' dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-gear"></i> '.$langs->trans("Other").'</a>
             <ul class="dropdown-menu">
 	            <li><a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=support">'.$langs->trans("Support").'</a></li>
 			';
-          if (! $mythirdpartyaccount->isareseller && ! empty($conf->global->SELLYOURSAAS_ALLOW_RESELLER_PROGRAM))
-          {
-          	print '<li><a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=becomereseller">'.$langs->trans("BecomeReseller").'</a></li>';
-          }
-          print '
+        if (! $mythirdpartyaccount->isareseller)
+        {
+            $allowresellerprogram = (! empty($conf->global->SELLYOURSAAS_ALLOW_RESELLER_PROGRAM));
+            if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
+                && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+            {
+                $newnamekey = 'SELLYOURSAAS_ALLOW_RESELLER_PROGRAM-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+                if (isset($conf->global->$newnamekey)) $allowresellerprogram = $conf->global->$newnamekey;
+            }
+
+            // Check if there is at least one package with status resale ok
+            if ($allowresellerprogram)
+            {
+                print '<li><a class="dropdown-item" href="'.$_SERVER["PHP_SELF"].'?mode=becomereseller">'.$langs->trans("BecomeReseller").'</a></li>';
+            }
+        }
+        print '
                 <li class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="'.$urlfaq.'" target="_newfaq">'.$langs->trans("FAQs").'</a></li>
             </ul>
@@ -1961,6 +1973,21 @@ if ($resqlproducts)
 		if ($obj)
 		{
 			$tmpprod->fetch($obj->rowid);
+
+			// Check that package is qualified
+			/*
+			if ($tmpprod->array_options['options_package'] > 0)
+			{
+			    $tmppackage = new Packages($db);
+			    $tmppackage->fetch($tmpprod->array_options['options_package']);
+
+			    if ($tmppackage->restrict_domains)
+			    {
+
+			    }
+			}
+            */
+
 			$tmpprod->sousprods = array();
 			$tmpprod->get_sousproduits_arbo();
 			$tmparray = $tmpprod->get_arbo_each_prod();
