@@ -68,6 +68,32 @@ function sellyoursaas_completesubstitutionarray(&$substitutionarray, $langs, $ob
         {
             $hash = dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$object->thirdparty->email.dol_print_date(dol_now(), 'dayrfc'));
         	$substitutionarray['__HASH__'] = $hash;
+
+        	include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+        	foreach($object->lines as $line)
+        	{
+        	    if ($line->fk_product > 0)
+        	    {
+            	    $tmpproduct = new Product($db);
+            	    $tmpproduct->fetch($line->fk_product);
+
+            	    if ($tmpproduct->array_options['options_app_or_option'] == 'app')
+            	    {
+            	        $initialapplogin = 'admin';
+
+            	        dol_include_once('/sellyoursaas/class/packages.class.php');
+
+            	        $tmppackageid = $tmpproduct->array_options['options_package'];
+            	        $tmppackage = new Packages($db);
+            	        $tmppackage->fetch($tmppackageid);
+
+            	        $substitutionarray['__APPUSERNAME__'] = $initialapplogin;
+            	        $substitutionarray['__PACKAGELABEL__'] = $tmppackage->label;
+            	        $substitutionarray['__APPPASSWORD__']='';
+            	        break;
+            	    }
+        	    }
+        	}
         }
     }
 
