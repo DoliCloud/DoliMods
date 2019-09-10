@@ -20,7 +20,7 @@
 /**
  *      \file       sellyoursaas/scripts/batch_customers.php
  *		\ingroup    sellyoursaas
- *      \brief      Main master or deployment SellYouSaas batch (master for action updatedatabase|updatecountsonly|updatestatsonly, deployment for other actions)
+ *      \brief      Main SellYourSaas batch (to run on master hosts for action updatedatabase|updatecountsonly|updatestatsonly, on deployment hosts for other actions)
  *      			backup_instance.php (payed customers rsync + databases backup)
  *      			update database info for customer
  *      			update statistics

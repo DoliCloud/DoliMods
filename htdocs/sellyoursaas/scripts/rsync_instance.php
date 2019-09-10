@@ -19,6 +19,14 @@
  * Update an instance on stratus5 server with new ref version.
  */
 
+/**
+ *      \file       sellyoursaas/scripts/rsync_instance.php
+ *		\ingroup    sellyoursaas
+ *      \brief      Script to upgrade an instant
+ */
+
+if (! defined('NOREQUIREDB'))              define('NOREQUIREDB','1');					// Do not create database handler $db
+
 $sapi_type = php_sapi_name();
 $script_file = basename(__FILE__);
 $path=dirname(__FILE__).'/';
@@ -61,10 +69,64 @@ dol_include_once('/sellyoursaas/class/dolicloud_customers.class.php');
 include_once(DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php');
 
 
+// Read /etc/sellyoursaas.conf file
+$databasehost='localhost';
+$database='';
+$databaseuser='sellyoursaas';
+$databasepass='';
+$ipserverdeployment='';
+$fp = @fopen('/etc/sellyoursaas.conf', 'r');
+// Add each line to an array
+if ($fp) {
+    $array = explode("\n", fread($fp, filesize('/etc/sellyoursaas.conf')));
+    foreach($array as $val)
+    {
+        $tmpline=explode("=", $val);
+        if ($tmpline[0] == 'databasehost')
+        {
+            $databasehost = $tmpline[1];
+        }
+        if ($tmpline[0] == 'database')
+        {
+            $database = $tmpline[1];
+        }
+        if ($tmpline[0] == 'databaseuser')
+        {
+            $databaseuser = $tmpline[1];
+        }
+        if ($tmpline[0] == 'databasepass')
+        {
+            $databasepass = $tmpline[1];
+        }
+        if ($tmpline[0] == 'ipserverdeployment')
+        {
+            $ipserverdeployment = $tmpline[1];
+        }
+    }
+}
+else
+{
+    print "Failed to open /etc/sellyoursaas.conf file\n";
+    exit;
+}
+
+
 
 /*
  *	Main
  */
+
+$dbmaster=getDoliDBInstance('mysqli', $databasehost, $databaseuser, $databasepass, $database, 3306);
+if ($dbmaster->error)
+{
+    dol_print_error($dbmaster,"host=".$databasehost.", port=3306, user=".$databaseuser.", databasename=".$database.", ".$dbmaster->error);
+    exit;
+}
+if ($dbmaster)
+{
+    $conf->setValues($dbmaster);
+}
+if (empty($db)) $db=$dbmaster;
 
 if (empty($dirroot) || empty($instance) || empty($mode))
 {

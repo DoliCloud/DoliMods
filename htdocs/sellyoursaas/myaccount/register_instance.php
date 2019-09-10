@@ -775,7 +775,7 @@ if (! $error && $productref != 'none')
 
 	$comment = 'Deploy instance '.$contract->ref;
 
-	$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $contract, 'admin', $email, $password, '0', $comment);
+	$result = $sellyoursaasutils->sellyoursaasRemoteAction('deployall', $contract, 'admin', $email, $password, '0', $comment, 300);
 	if ($result <= 0)
 	{
 		$error++;
@@ -918,11 +918,11 @@ if ($reusecontractid > 0)
 // If we are here, there was an error
 if ($productref != 'none')
 {
-	$errormessages[] = 'Deployement of instance '.$sldAndSubdomain.$tldid.' started but failed.';
+    $errormessages[] = 'Deployement of instance '.$sldAndSubdomain.$tldid.' from '.getUserRemoteIP() .' started but failed.';
 }
 else
 {
-	$errormessages[] = 'Creation of account '.$email.' has failed.';
+	$errormessages[] = 'Creation of account '.$email.' from '.getUserRemoteIP() .' has failed.';
 }
 $errormessages[] = 'Our team was alerted. You will receive an email as soon as deployment is complete.';
 
@@ -1003,6 +1003,28 @@ llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(
 			<center>OOPS...</center>
 			<?php
 			dol_print_error_email('DEPLOY'.$generateddbhostname, '', $errormessages, 'alert alert-error');
+            /*
+			$sellyoursaasname = $conf->global->SELLYOURSAAS_NAME;
+			$sellyoursaasemail = $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;
+			$sellyoursaasemailnoreply = $conf->global->SELLYOURSAAS_NOREPLY_EMAIL;
+
+			$domainname=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
+			$constforaltname = 'SELLYOURSAAS_NAME_FORDOMAIN-'.$domainname;
+			$constforaltemailto = 'SELLYOURSAAS_SUPERVISION_EMAIL-'.$domainname;
+			$constforaltemailnoreply = 'SELLYOURSAAS_NOREPLY_EMAIL-'.$domainname;
+			if (! empty($conf->global->$constforaltname))
+			{
+			    $sellyoursaasdomain = $domainname;
+			    $sellyoursaasname = $conf->global->$constforaltname;
+			    $sellyoursaasemail = $conf->global->$constforaltemailto;
+			    $sellyoursaasemailnoreply = $conf->global->$constforaltemailnoreply;
+			}
+
+			$to = $sellyoursaasemail;
+			$from = $sellyoursaasemailnoreply;
+			$email = new CMailFile('[Alert] Failed to deploy instance '.$generateddbhostname.' - '.dol_print_date(dol_now(), 'dayhourrfc'), $to, $from, join("\n",$errormessages)."\n", array(), array(), array(), $conf->global->SELLYOURSAAS_SUPERVISION_EMAIL, '', 0, 0, '', '', '', '', 'emailing');
+			$email->sendfile();
+            */
 			?>
 
 		  </section>
