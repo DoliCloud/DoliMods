@@ -144,6 +144,10 @@ if ($action == 'set')
 		//if (! dol_is_dir($dir) && ! dol_is_link($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
 		dolibarr_set_const($db,"SELLYOURSAAS_PAID_ARCHIVES_PATH",GETPOST("SELLYOURSAAS_PAID_ARCHIVES_PATH"),'chaine',0,'',$conf->entity);
 
+		$dir=GETPOST("SELLYOURSAAS_NAME_RESERVED");
+		//if (! dol_is_dir($dir) && ! dol_is_link($dir)) setEventMessage($langs->trans("ErrorDirNotFound",$dir),'warnings');
+		dolibarr_set_const($db,"SELLYOURSAAS_NAME_RESERVED",GETPOST("SELLYOURSAAS_NAME_RESERVED"),'chaine',0,'',$conf->entity);
+
 		// Save images
 		$dirforimage=$conf->mycompany->dir_output.'/logos/';
         foreach($_FILES as $postkey => $postvar)
@@ -486,6 +490,14 @@ print '<td>';
 print $form->select_dolusers($conf->global->SELLYOURSAAS_ANONYMOUSUSER, 'SELLYOURSAAS_ANONYMOUSUSER', 1);
 print '</td>';
 print '<td>User used for all anonymous action (registering, actions from customer dashboard, ...)</td>';
+print '</tr>';
+
+
+print '<tr class="oddeven"><td>'.$langs->trans("SELLYOURSAAS_NAME_RESERVED").'</td>';
+print '<td>';
+print '<input type="text" name="SELLYOURSAAS_NAME_RESERVED" value="'.$conf->global->SELLYOURSAAS_NAME_RESERVED.'">';
+print '</td>';
+print '<td>^mycompany[0-9]*\.</td>';
 print '</tr>';
 
 

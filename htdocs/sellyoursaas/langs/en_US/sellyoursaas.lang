@@ -459,3 +459,5 @@ EnterAVirtualHostLine=Enter a line to add into the web server virtualhost. For e
 DomainOfRegistrationPage=Domain of registration page
 SELLYOURSAAS_NBDAYSBEFOREENDOFTRIES=Nb days before stopping invoice payment try
 SELLYOURSAAS_NBHOURSBETWEENTRIES=Nb hours minium between each invoice payment try
+InstanceNameReseved=This instance name is already used or reserved
+SELLYOURSAAS_NAME_RESERVED=Regex to reserve (refused) some instance names

@@ -442,6 +442,12 @@ else
 		else dol_syslog("Contract name not already used. Good.");
 	}
 
+	if (! empty($conf->global->SELLYOURSAAS_NAME_RESERVED) && preg_match('/'.$conf->global->SELLYOURSAAS_NAME_RESERVED.'/', $fqdninstance))
+	{
+	    setEventMessages($langs->trans("InstanceNameReseved", $fqdninstance), null, 'errors');
+	    header("Location: ".$newurl);
+	    exit;
+	}
 
 	// Generate credentials
 
