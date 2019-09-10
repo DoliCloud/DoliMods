@@ -924,7 +924,7 @@ else
 {
 	$errormessages[] = 'Creation of account '.$email.' from '.getUserRemoteIP() .' has failed.';
 }
-$errormessages[] = 'Our team was alerted. You will receive an email as soon as deployment is complete.';
+$errormessages[] = $langs->trans("OurTeamHasBeenAlerted");
 
 // Force reload ot thirdparty
 if (is_object($contract) && method_exists($contract, 'fetch_thirdparty'))
@@ -955,7 +955,7 @@ if (is_object($contract->thirdparty))
 
 	$to = $contract->thirdparty->email;
 
-	$email = new CMailFile('['.$sellyoursaasname.'] Registration/deployment temporary error - '.dol_print_date(dol_now(), 'dayhourrfc'), $to, $sellyoursaasemailnoreply, join("\n",$errormessages)."\n", array(), array(), array(), $sellyoursaasemailsupervision, '', 0, 0, '', '', '', '', 'emailing');
+	$email = new CMailFile('['.$sellyoursaasname.'] Registration/deployment temporary error - '.dol_print_date(dol_now(), 'dayhourrfc'), $to, $sellyoursaasemailnoreply, $langs->trans("AnErrorOccuredDuringDeployment")."\n".join("\n",$errormessages)."\n", array(), array(), array(), $sellyoursaasemailsupervision, '', 0, 0, '', '', '', '', 'emailing');
 	$email->sendfile();
 }
 

@@ -461,3 +461,5 @@ SELLYOURSAAS_NBDAYSBEFOREENDOFTRIES=Nb days before stopping invoice payment try
 SELLYOURSAAS_NBHOURSBETWEENTRIES=Nb hours minium between each invoice payment try
 InstanceNameReseved=This instance name is already used or reserved
 SELLYOURSAAS_NAME_RESERVED=Regex to reserve (refused) some instance names
+AnErrorOccuredDuringDeployment=An temporary error occured during the deployment of your instance. This may happen when there is too many new deployment requests at the same time. Please be patient, you will receive an email when your instance will be ready...
+OurTeamHasBeenAlerted=Our team was alerted. You will receive an email as soon as deployment is complete.

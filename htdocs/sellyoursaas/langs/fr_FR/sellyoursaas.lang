@@ -414,3 +414,5 @@ DeploymentUserAgent=User agent ayant demandé le déploiement
 CustomVirtualHostLine=Ligne virtual host personnalisée
 InstanceNameReseved=Ce nom d'instance est déjà pris ou réservé
 SELLYOURSAAS_NAME_RESERVED=Regex pour réserver (interdire) des noms d'instance
+AnErrorOccuredDuringDeployment=Une erreur temporaire s'est produite lors du déploiement de votre instance. Ceci peut arriver lorsuq'il y a trop de demandes en même temps. Merci de patienter, un email sera envoyé lorsque votre instance sera prête...
+OurTeamHasBeenAlerted=Notre équipe a été alertée. Vous recevrez un email dès que le déploiement sera terminé.
