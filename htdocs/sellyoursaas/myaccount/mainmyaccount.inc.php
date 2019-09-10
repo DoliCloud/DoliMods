@@ -644,8 +644,8 @@ function dol_loginfunction($langs,$conf,$mysoc)
 	{
 	    $sellyoursaasdomain = $domainname;
 	    $sellyoursaasname = $conf->global->$constforaltname;
-	    $constlogo.='_'.strtoupper($sellyoursaasname);
-	    $constlogosmall.='_'.strtoupper($sellyoursaasname);
+	    $constlogo.='_'.strtoupper(str_replace('.', '_', $sellyoursaasname));
+	    $constlogosmall.='_'.strtoupper(str_replace('.', '_', $sellyoursaasname));
 	}
 
 	if (empty($urllogo) && ! empty($conf->global->$constlogosmall))

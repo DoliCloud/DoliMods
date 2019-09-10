@@ -15,6 +15,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Need global variable to be defined by caller (like dol_loginfunction)
+// $title
+// $urllogo
+// $focus_element
+
 // Protection to avoid direct call of template
 if (empty($conf) || ! is_object($conf))
 {
