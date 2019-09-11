@@ -24,6 +24,7 @@
  */
 
 define("NOLOGIN",1);	// This means this output page does not require to be logged.
+if (! defined('NOIPCHECK'))      define('NOIPCHECK','1');				// Do not check IP defined into conf $dolibarr_main_restrict_ip
 
 // Load Dolibarr environment
 include ('./mainmyaccount.inc.php');
