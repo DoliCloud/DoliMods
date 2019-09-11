@@ -24,7 +24,7 @@
 //if (! defined('NOREQUIREDB'))    define('NOREQUIREDB','1');
 //if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
 //if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1');
-if (! defined('NOCSRFCHECK'))    define('NOCSRFCHECK','1');			    // Do not check anti CSRF attack test (we can go on this page after a stripe payment recording)
+//if (! defined('NOCSRFCHECK'))    define('NOCSRFCHECK','1');			    // Do not check anti CSRF attack test (we can go on this page after a stripe payment recording)
 if (! defined('NOIPCHECK'))      define('NOIPCHECK','1');				// Do not check IP defined into conf $dolibarr_main_restrict_ip
 //if (! defined('NOSTYLECHECK'))   define('NOSTYLECHECK','1');			// Do not check style html tag into posted data
 //if (! defined('NOTOKENRENEWAL')) define('NOTOKENRENEWAL','1');		// Do not check anti POST attack test
@@ -1742,6 +1742,7 @@ print '
 	  <!-- Search + Menu -->
 
 	  <form class="navbar-toggle navbar-toggler-right form-inline my-md-0" action="'.$_SERVER["PHP_SELF"].'">
+            <input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">
 			<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
 			<!--
 				          <input class="form-control mr-sm-2" style="max-width: 100px;" type="text" placeholder="'.$langs->trans("Search").'">
@@ -2893,6 +2894,7 @@ if ($mode == 'instances')
 				      <div class="portlet-title">
 				        <div class="caption">';
 						  print '<form class="inline-block centpercent" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+						  print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
 				          // Instance name
 						  //print '<a href="https://'.$contract->ref_customer.'" class="caption-subject bold uppercase font-green-sharp" title="'.$langs->trans("Contract").' '.$contract->ref.'" target="_blankinstance">';
@@ -3262,6 +3264,7 @@ if ($mode == 'instances')
 							<!-- tab domain -->
 				            <div class="tab-pane" id="tab_domain_'.$contract->id.'">
 								<form class="form-group" action="'.$_SERVER["PHP_SELF"].'" method="POST">
+                                    <input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">
 									<input type="hidden" name="mode" value="instances"/>
 									<input type="hidden" name="action" value="updateurl" />
 									<input type="hidden" name="contractid" value="'.$contract->id.'" />
@@ -3284,12 +3287,16 @@ if ($mode == 'instances')
 								//print '<input type="submit" class="btn btn-warning default change-domain-link" name="changedomain" value="'.$langs->trans("ChangeDomain").'">';
 								print '
 								</div>
+
 							  	</form>
 				            </div>
 
 				            <div class="tab-pane" id="tab_ssh_'.$contract->id.'">
 				                <p class="opacitymedium" style="padding: 15px">'.$langs->trans("SSHFTPDesc").' :</p>
+
 				                <form class="form-horizontal" role="form">
+                                <input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">
+
 				                <div class="form-body">
 				                  <div class="form-group col-md-12 row">
 				                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
@@ -3317,7 +3324,10 @@ if ($mode == 'instances')
 
 				              <div class="tab-pane" id="tab_db_'.$contract->id.'">
 				                <p class="opacitymedium" style="padding: 15px">'.$langs->trans("DBDesc").' :</p>
+
 				                <form class="form-horizontal" role="form">
+                                <input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">
+
 				                <div class="form-body">
 				                  <div class="form-group col-md-12 row">
 				                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
@@ -3346,11 +3356,16 @@ if ($mode == 'instances')
 				                    </div>
 				                  </div>
 				                </div>
+
 				                </form>
+
 				              </div> <!-- END TAB PANE -->
 
 				            <div class="tab-pane" id="tab_danger_'.$contract->id.'">
+
 							<form class="form-group" action="'.$_SERVER["PHP_SELF"].'" method="POST">
+                            <input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">
+
 				              <div class="">
 								';
 								$hasopeninvoices = sellyoursaasHasOpenInvoices($contract);
@@ -3377,7 +3392,9 @@ if ($mode == 'instances')
 									<input type="submit" '.($hasopeninvoices?' disabled="disabled"':'').' class="btn btn-danger'.($hasopeninvoices?' disabled':'').'" name="undeploy" value="'.$langs->trans("UndeployInstance").'">
 								</p>
 				              </div>
+
 							</form>
+
 				            </div> <!-- END TAB PANE -->
 
 				          </div> <!-- END TAB CONTENT -->
@@ -3419,6 +3436,7 @@ if ($mode == 'instances')
 	print '<br>';
 
 	print '<form id="formaddanotherinstance" class="form-group reposition" style="display: none;" action="register_instance.php" method="POST">';
+	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 	print '<input type="hidden" name="action" value="deployall" />';
 	print '<input type="hidden" name="fromsocid" value="0" />';
 	print '<input type="hidden" name="reusesocid" value="'.$socid.'" />';
@@ -3562,7 +3580,10 @@ if ($mode == 'mycustomerinstances')
 
 	//print $langs->trans("Filters").' : ';
 	print '<div class="row"><div class="col-md-12"><div class="portlet light">';
+
 	print '<form name="refresh" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+
 	print $langs->trans("InstanceName").' : <input type="text" name="search_instance_name" value="'.$search_instance_name.'"><br>';
 	//$savsocid = $user->socid;	// Save socid of user
 	//$user->socid = 0;
@@ -3684,7 +3705,9 @@ if ($mode == 'mycustomerinstances')
 
 				      <div class="portlet-title">
 				        <div class="caption">';
+
 			print '<form class="inline-block centpercent" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+			print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 
 			// Customer
 			$tmpcustomer = new Societe($db);
@@ -4013,31 +4036,15 @@ if ($mode == 'mycustomerinstances')
 								  </div>
 				              </div>';
 
-			/*
-			print '				<!-- tab domain -->
-				            <div class="tab-pane" id="tab_domain_'.$contract->id.'">
-				                <div class="opacitymedium" style="padding: 15px">'.$langs->trans("TheURLDomainOfYourInstance").' :</div>
-								<form class="form-group" action="'.$_SERVER["PHP_SELF"].'" method="POST">
-								<div class="col-md-9">
-									<input type="text" class="urlofinstance" disabled="disabled" value="'.$contract->ref_customer.'">
-									<input type="hidden" name="mode" value="instances"/>
-									<input type="hidden" name="action" value="updateurl" />
-									<input type="hidden" name="contractid" value="'.$contract->id.'" />
-									<input type="hidden" name="tab" value="domain_'.$contract->id.'" />
-								';
-			//print '<input type="submit" class="btn btn-warning default change-domain-link" name="changedomain" value="'.$langs->trans("ChangeDomain").'">';
-			print '
-								</div>
-							  	</form>
-				            </div>';
-			*/
-
 			// SSH
 			print '
 
 				            <div class="tab-pane" id="tab_ssh_'.$contract->id.'">
 				                <p class="opacitymedium" style="padding: 15px">'.$langs->trans("SSHFTPDesc").' :</p>
-				                <form class="form-horizontal" role="form">
+
+                                <form class="form-horizontal" role="form">
+                                <input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">
+
 				                <div class="form-body">
 				                  <div class="form-group col-md-12 row">
 				                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
@@ -4060,12 +4067,16 @@ if ($mode == 'mycustomerinstances')
 				                    </div>
 				                  </div>
 				                </div>
+
 				                </form>
 				              </div> <!-- END TAB PANE -->
 
 				              <div class="tab-pane" id="tab_db_'.$contract->id.'">
 				                <p class="opacitymedium" style="padding: 15px">'.$langs->trans("DBDesc").' :</p>
-				                <form class="form-horizontal" role="form">
+
+                                <form class="form-horizontal" role="form">
+                                <input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">
+
 				                <div class="form-body">
 				                  <div class="form-group col-md-12 row">
 				                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
@@ -4094,32 +4105,11 @@ if ($mode == 'mycustomerinstances')
 				                    </div>
 				                  </div>
 				                </div>
+
 				                </form>
+
 				              </div> <!-- END TAB PANE -->
 					';
-
-				/*
-				print '
-				            <div class="tab-pane" id="tab_danger_'.$contract->id.'">
-							<form class="form-group" action="'.$_SERVER["PHP_SELF"].'" method="POST">
-				              <div class="">
-				                <p class="opacitymedium" style="padding: 15px">
-				                    '.$langs->trans("PleaseBeSure", $contract->ref_customer).'
-				                </p>
-								<p class="center" style="padding-bottom: 15px">
-									<input type="text" class="center urlofinstancetodestroy" name="urlofinstancetodestroy" value="'.GETPOST('urlofinstancetodestroy','alpha').'" placeholder="">
-								</p>
-								<p class="center">
-									<input type="hidden" name="mode" value="instances"/>
-									<input type="hidden" name="action" value="undeploy" />
-									<input type="hidden" name="contractid" value="'.$contract->id.'" />
-									<input type="hidden" name="tab" value="danger_'.$contract->id.'" />
-									<input type="submit" class="btn btn-danger" name="undeploy" value="'.$langs->trans("UndeployInstance").'">
-								</p>
-				              </div>
-							</form>
-				            </div> <!-- END TAB PANE -->
-				'; */
 
 				print '
 				          </div> <!-- END TAB CONTENT -->
@@ -4172,6 +4162,7 @@ if ($mode == 'mycustomerinstances')
 	print '<br>';
 
 	print '<form id="formaddanotherinstance" class="form-group reposition" style="display: none;" action="register_instance.php" method="POST">';
+	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 	print '<input type="hidden" name="action" value="deployall" />';
 	print '<input type="hidden" name="fromsocid" value="'.$mythirdpartyaccount->id.'" />';
 	print '<input type="hidden" name="mode" value="mycustomerinstances" />';
@@ -4648,7 +4639,7 @@ if ($mode == 'registerpaymentmode')
 
 		print '
 		<form action="'.$_SERVER["PHP_SELF"].'" method="POST" id="payment-form">
-
+        <input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">
 		<input type="hidden" name="action" value="createpaymentmode">
 		<input type="hidden" name="backtourl" value="'.$backtourl.'">
 
@@ -4828,11 +4819,18 @@ if ($mode == 'registerpaymentmode')
 			    function stripeTokenHandler(token) {
 			      // Insert the token ID into the form so it gets submitted to the server
 			      var form = document.getElementById('payment-form');
+
 			      var hiddenInput = document.createElement('input');
 			      hiddenInput.setAttribute('type', 'hidden');
 			      hiddenInput.setAttribute('name', 'stripeToken');
 			      hiddenInput.setAttribute('value', token.id);
 			      form.appendChild(hiddenInput);
+
+				  var hiddenInput2 = document.createElement('input');
+				  hiddenInput2.setAttribute('type', 'hidden');
+				  hiddenInput2.setAttribute('name', 'token');
+                  hiddenInput2.setAttribute('value', '".$_SESSION["newtoken"]."');
+				  form.appendChild(hiddenInput2);
 
 			      // Submit the form
 			      jQuery('#buttontopay').hide();
@@ -4846,17 +4844,24 @@ if ($mode == 'registerpaymentmode')
 				function stripeSourceHandler(source) {
 				  // Insert the source ID into the form so it gets submitted to the server
 				  var form = document.getElementById('payment-form');
+
 				  var hiddenInput = document.createElement('input');
 				  hiddenInput.setAttribute('type', 'hidden');
 				  hiddenInput.setAttribute('name', 'stripeSource');
 				  hiddenInput.setAttribute('value', source.id);
 				  form.appendChild(hiddenInput);
 
+				  var hiddenInput2 = document.createElement('input');
+				  hiddenInput2.setAttribute('type', 'hidden');
+				  hiddenInput2.setAttribute('name', 'token');
+                  hiddenInput2.setAttribute('value', '".$_SESSION["newtoken"]."');
+				  form.appendChild(hiddenInput2);
+
 				  // Submit the form
 			      jQuery('#buttontopay').hide();
 			      jQuery('#buttontocancel').hide();
 			      jQuery('#hourglasstopay').show();
-			      console.log('submit source');
+			      console.log('submit form with source');
 				  form.submit();
 				}
 
@@ -5446,6 +5451,7 @@ if ($mode == 'support')
 				        <div class="caption">';
 
 						print '<form class="inline-block centpercent" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+						print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 						print '<input type="hidden" name="mode" value="support">';
 						print '<input type="hidden" name="action" value="presend">';
 
@@ -5574,6 +5580,7 @@ if ($mode == 'support')
 						{
 							print '<br><br>';
 							print '<form class="inline-block centpercent" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+							print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 							print '<input type="hidden" name="mode" value="support">';
 							print '<input type="hidden" name="contractid" value="'.$id.'">';
 							print '<input type="hidden" name="action" value="send">';
@@ -5733,6 +5740,7 @@ if ($mode == 'becomereseller')
 				        <div class="caption">';
 
 		print '<form class="inline-block centpercent" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 		print '<input type="hidden" name="mode" value="becomereseller">';
 		print '<input type="hidden" name="action" value="sendbecomereseller">';
 
@@ -5833,9 +5841,12 @@ if ($mode == 'myaccount')
             <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("Organization").'</div>
           </div>
           <div class="portlet-body">
+
             <form action="'.$_SERVER["PHP_SELF"].'" method="post" name="formsoc">
-				<input type="hidden" name="action" value="updatemythirdpartyaccount">
-				<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
+            <input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">
+			<input type="hidden" name="action" value="updatemythirdpartyaccount">
+			<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
+
               <div class="form-body">
 
                 <div class="form-group">
@@ -5940,9 +5951,12 @@ if ($mode == 'myaccount')
 	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("YourContactInformation").'</div>
 	          </div>
 	          <div class="portlet-body">
+
 	            <form action="'.$_SERVER["PHP_SELF"].'" method="post">
+                <input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">
 				<input type="hidden" name="action" value="updatemythirdpartylogin">
 				<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
+
 	              <div class="form-body">
 	                <div class="form-group">
 	                  <label>'.$langs->trans("Email").'</label>
@@ -5971,8 +5985,8 @@ if ($mode == 'myaccount')
 	              <div>
 	                <input type="submit" name="submit" value="'.$langs->trans("Save").'" class="btn green-haze btn-circle">
 	              </div>
-	            </form>
 
+	            </form>
 
 	          </div>
 	        </div>
@@ -5983,9 +5997,12 @@ if ($mode == 'myaccount')
 	            <div class="caption-subject font-green-sharp bold uppercase">'.$langs->trans("Password").'</div>
 	          </div>
 	          <div class="portlet-body">
-	            <form action="'.$_SERVER["PHP_SELF"].'" method="post" id="updatepassword">
+
+                <form action="'.$_SERVER["PHP_SELF"].'" method="post" id="updatepassword">
+                <input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">
 				<input type="hidden" name="action" value="updatepassword">
 				<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">
+
 	              <div class="form-body">
 	                <div class="form-group">
 	                  <label>'.$langs->trans("Password").'</label>
@@ -5999,7 +6016,9 @@ if ($mode == 'myaccount')
 	              <div>
 	                <input type="submit" name="submit" value="'.$langs->trans("ChangePassword").'" class="btn green-haze btn-circle">
 	              </div>
+
 	            </form>
+
 	          </div>
 	        </div>
 
@@ -6030,6 +6049,8 @@ if ($mode == 'myaccount')
 	          </div>
 	          <div class="portlet-body">
 							<form class="form-group" action="'.$_SERVER["PHP_SELF"].'" method="POST">
+                            <input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">
+
 				              <div class="">
 				                <p class="opacitymedium" style="padding: 5px">
 				                    ';
@@ -6057,6 +6078,7 @@ if ($mode == 'myaccount')
 				                    }
 				                print '</p>
 				              </div>
+
 							</form>
 				</div>
 			</div>
