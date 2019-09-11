@@ -1167,6 +1167,7 @@ Add apparmor file *bin.secureBash* in */etc/apparmor.d* with this content:
   /bin/lesspipe rix,
   /bin/ls rix,
   /bin/more rix,
+  /bin/mkdir rix,
   /bin/mv rix,
   /bin/rm rix,
   /bin/rmdir rix,
