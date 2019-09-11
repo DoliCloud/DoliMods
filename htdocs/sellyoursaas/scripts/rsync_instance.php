@@ -169,7 +169,7 @@ if (empty($object->instance) || empty($object->username_web) || empty($object->p
 	print "Error: Some properties for instance ".$instance." was not registered into database.\n";
 	exit(-3);
 }
-if (! is_dir($dirroot.'/htdocs'))
+if (! is_file($dirroot.'/README.md'))
 {
 	print "Error: Source directory to synchronize must contains a htdocs directory.\n";
 	exit(-4);
