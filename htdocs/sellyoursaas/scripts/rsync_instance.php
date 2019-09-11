@@ -171,7 +171,7 @@ if (empty($object->instance) || empty($object->username_web) || empty($object->p
 }
 if (! is_file($dirroot.'/README.md'))
 {
-	print "Error: Source directory to synchronize must contains a htdocs directory.\n";
+	print "Error: Source directory to synchronize must contains a README.md file (not found into ".$dirroot.")\n";
 	exit(-4);
 }
 
