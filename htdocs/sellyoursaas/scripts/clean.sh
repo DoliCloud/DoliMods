@@ -497,6 +497,8 @@ cd $archivedircron
 find $archivedircron -maxdepth 1 -type f -mtime +15 -exec rm -f {} \;
 
 
+echo TODO Manually...
+
 
 # Clean database users
 echo "***** We should also clean mysql record for permission on old databases and old users"
@@ -506,6 +508,18 @@ echo "$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e \"$SQL\""
 SQL="use mysql; delete from user where User NOT IN (SELECT User from db) and User like 'dbu%';"
 echo "$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e \"$SQL\""
 #$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e "$SQL"
+
+
+echo "***** We should also set database that are present but with status 'undeployed' so they will be undeployed correctly again"
+rm -fr /tmp/idlistofdb 
+for fic in `ls -rt /var/lib/mysql /mnt/diskhome/mysql | grep dbn 2>/dev/null`; 
+do 
+	echo -n " '"$fic"'," >> /tmp/idlistofdb
+done
+export idlistofdb=`cat /tmp/idlistofdb | sed -e 's/,$//' `
+rm -fr /tmp/selectcontracttoupdate 
+echo "SELECT rowid FROM llx_contrat_extrafields WHERE database_db IN ($idlistofdb) AND deployment_status = 'undeployed';"; > /tmp/selectcontracttoupdate
+echo The select is saved into /tmp/selectcontracttoupdate
 
 
 # Clean backup dir
