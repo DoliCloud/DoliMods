@@ -518,7 +518,7 @@ do
 done
 export idlistofdb=`cat /tmp/idlistofdb | sed -e 's/,$//' `
 rm -fr /tmp/selectcontracttoupdate
-echo "SELECT rowid FROM llx_contrat_extrafields WHERE database_db IN ($idlistofdb) AND deployment_status = 'undeployed';" >/tmp/selectcontracttoupdate
+echo "SELECT s.nom, s.client, c.rowid, c.ref, c.ref_customer, ce.deployment_date_start, ce.undeployment_date FROM llx_contrat as c LEFT JOIN llx_societe as s ON s.rowid = c.fk_soc, llx_contrat_extrafields as ce WHERE c.rowid = ce.fk_object AND ce.database_db IN ($idlistofdb) AND ce.deployment_status = 'undeployed';" >/tmp/selectcontracttoupdate
 echo The select is saved into /tmp/selectcontracttoupdate
 
 
