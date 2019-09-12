@@ -498,7 +498,6 @@ find $archivedircron -maxdepth 1 -type f -mtime +15 -exec rm -f {} \;
 
 
 echo TODO Manually...
-mysql
 
 # Clean database users
 echo "***** We should also clean mysql record for permission on old databases and old users"
@@ -519,8 +518,8 @@ done
 export idlistofdb=`cat /tmp/idlistofdb | sed -e 's/,$//' `
 echo "echo 'DROP TABLE llx_contracttoupdate_tmp;' | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $database"
 echo "DROP TABLE llx_contracttoupdate_tmp;" | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $database
-echo "echo 'CREATE TABLE llx_contracttoupdate_tmp AS SELECT s.nom, s.client, c.rowid, c.ref, c.ref_customer, ce.deployment_date_start, ce.undeployment_date FROM llx_contrat as c LEFT JOIN llx_societe as s ON s.rowid = c.fk_soc, llx_contrat_extrafields as ce WHERE c.rowid = ce.fk_object AND ce.database_db IN (0) AND ce.deployment_status = 'undeployed';'  | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $database"
-echo "CREATE TABLE llx_contracttoupdate_tmp AS SELECT s.nom, s.client, c.rowid, c.ref, c.ref_customer, ce.deployment_date_start, ce.undeployment_date FROM llx_contrat as c LEFT JOIN llx_societe as s ON s.rowid = c.fk_soc, llx_contrat_extrafields as ce WHERE c.rowid = ce.fk_object AND ce.database_db IN ($idlistofdb) AND ce.deployment_status = 'undeployed';"  | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $database
+echo "echo 'CREATE TABLE llx_contracttoupdate_tmp AS SELECT s.nom, s.client, c.rowid, c.ref, c.ref_customer, ce.deployment_date_start, ce.undeployment_date FROM llx_contrat as c LEFT JOIN llx_societe as s ON s.rowid = c.fk_soc, llx_contrat_extrafields as ce WHERE c.rowid = ce.fk_object AND ce.database_db IN (0) AND ce.deployment_status = 'undeployed';' | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $database"
+echo "CREATE TABLE llx_contracttoupdate_tmp AS SELECT s.nom, s.client, c.rowid, c.ref, c.ref_customer, ce.deployment_date_start, ce.undeployment_date FROM llx_contrat as c LEFT JOIN llx_societe as s ON s.rowid = c.fk_soc, llx_contrat_extrafields as ce WHERE c.rowid = ce.fk_object AND ce.database_db IN ($idlistofdb) AND ce.deployment_status = 'undeployed';" | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $database
 echo The list of contract to update is into llx_contracttoupdate_tmp.
 echo You must execute "update llx_contrat_extrafields set deployment_status = 'done' where deployment_status = 'done' AND fk_object in (select rowid from llx_contracttoupdate_tmp);"
 
