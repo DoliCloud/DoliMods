@@ -517,10 +517,10 @@ do
 	echo -n " '"$fic"'," >> /tmp/idlistofdb
 done
 export idlistofdb=`cat /tmp/idlistofdb | sed -e 's/,$//' `
-rm -fr /tmp/selectcontracttoupdate
-echo "echo 'DROP TABLE llx_contracttoupdate_tmp;' | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $dbname"
-echo "DROP TABLE llx_contracttoupdate_tmp;" | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $dbname
-echo "CREATE TABLE llx_contracttoupdate_tmp AS SELECT s.nom, s.client, c.rowid, c.ref, c.ref_customer, ce.deployment_date_start, ce.undeployment_date FROM llx_contrat as c LEFT JOIN llx_societe as s ON s.rowid = c.fk_soc, llx_contrat_extrafields as ce WHERE c.rowid = ce.fk_object AND ce.database_db IN ($idlistofdb) AND ce.deployment_status = 'undeployed';"  | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $dbname
+echo "echo 'DROP TABLE llx_contracttoupdate_tmp;' | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $database"
+echo "DROP TABLE llx_contracttoupdate_tmp;" | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $database
+echo "echo 'CREATE TABLE llx_contracttoupdate_tmp AS SELECT s.nom, s.client, c.rowid, c.ref, c.ref_customer, ce.deployment_date_start, ce.undeployment_date FROM llx_contrat as c LEFT JOIN llx_societe as s ON s.rowid = c.fk_soc, llx_contrat_extrafields as ce WHERE c.rowid = ce.fk_object AND ce.database_db IN (0) AND ce.deployment_status = 'undeployed';'  | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $database"
+echo "CREATE TABLE llx_contracttoupdate_tmp AS SELECT s.nom, s.client, c.rowid, c.ref, c.ref_customer, ce.deployment_date_start, ce.undeployment_date FROM llx_contrat as c LEFT JOIN llx_societe as s ON s.rowid = c.fk_soc, llx_contrat_extrafields as ce WHERE c.rowid = ce.fk_object AND ce.database_db IN ($idlistofdb) AND ce.deployment_status = 'undeployed';"  | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $database
 echo The list of contract to update is into llx_contracttoupdate_tmp
 
 
