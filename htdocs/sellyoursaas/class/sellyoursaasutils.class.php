@@ -2776,7 +2776,7 @@ class SellYourSaasUtils
     		$listoflines = array($object);
     	}
 
-    	dol_syslog("* sellyoursaasRemoteAction START (remoteaction=".$remoteaction." email=".$email." password=".$password.")", LOG_DEBUG, 1);
+    	dol_syslog("* sellyoursaasRemoteAction START (remoteaction=".$remoteaction." email=".$email." password=".$password.(get_class($object) == 'Contrat' ? ' contractid='.$object->id.' contractref='.$object->ref: '').")", LOG_DEBUG, 1);
 
     	include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
     	include_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
