@@ -649,9 +649,21 @@ systemctl status firewallnltechno
 ---------------
 
 
-=== Installation de watchdog unix ===
+=== Installation de watchdog unix (optionnel) ===
 
 * Installation et activation de watchdog linux avec les configs dans */etc/watchdog*
+
+Pour consulter, ne plus lancer au démarrage, lancer au démarrage, arreter, lancer:
+
+[source,bash]
+---------------
+systemctl status watchdog
+systemctl disable watchdog
+systemctl enable watchdog
+systemctl stop watchdog
+systemctl start watchdog
+---------------
+
 
 
 === Installation du watchdog apache ===
