@@ -278,6 +278,7 @@ Modifier le fichier */etc/apache2/mods-enabled/mpm_itk.conf* pour mettre
 	LimitGIDRange 0 500000
 ---------------
 
+
 === Configuration hostname et IP
 
 Ajouter une entrée du nouveau serveur dans le DNS fourni par le provider du domaine.
@@ -478,7 +479,7 @@ foreach $db (@dbs) {
 [source,bash]
 ---------------
 sudo apt-get update
-sudo apt-get install ntp git zip memcached rrdtool
+sudo apt-get install ntp git zip memcached rrdtool ncdu
 sudo apt-get install php mysql-server mysql-client php-cli apache2 php-pear apache2-bin libapache2-mod-php php-fpm php-gd php-json php-ldap php-mysqlnd php-curl php-memcached php-rrd php-imagick php-geoip php-mcrypt php-intl
 sudo apt-get install watchdog cpulimit libapache2-mpm-itk apparmor apparmor-profiles apparmor-utils rkhunter chkrootkit spamc spamassassin
 ---------------
@@ -1849,7 +1850,7 @@ pip install awscli --upgrade --user
 
 === Suivi espace utilisé en base
 
-La requete suivante permet d'avoir une vision de l'espace réél (sans le gachis) en base de données.
+La requête suivante permet d'avoir une vision de l'espace réél (sans le gachis) en base de données.
 
 [source,sql]
 ---------------
@@ -1874,6 +1875,21 @@ SUM(data_length+index_length) TSize FROM information_schema.tables
 WHERE table_schema NOT IN ('mysql','information_schema','performance_schema')
 AND engine IS NOT NULL GROUP BY engine WITH ROLLUP) B,
 (SELECT 3 pw) A ORDER BY TSize;
+
+
+=== Consultation deadlocks
+
+[source,bash]
+---------------
+echo "show engine innodb status" | mysql  | sed 's/\\n/\n/g' > /tmp/innodbstatus
+---------------
+
+[source,sql]
+---------------
+kill query ...
+kill ...
+---------------
+
 
 
 === Suivi fichiers modifiés
