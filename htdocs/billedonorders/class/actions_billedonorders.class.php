@@ -233,7 +233,7 @@ class ActionsBilledOnOrders
 	            }
 	            print '</td>';
 	            global $totalarray;
-	            if (! $parameters['i']) $totalarray['nbfield']++;
+	            if (isset($parameters['i']) && ! $parameters['i']) $totalarray['nbfield']++;
 	        }
 	        if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLED))
 	        {
@@ -244,19 +244,19 @@ class ActionsBilledOnOrders
 	            }
 	            print '</td>';
 	            global $totalarray;
-	            if (! $parameters['i']) $totalarray['nbfield']++;
+	            if (isset($parameters['i']) && ! $parameters['i']) $totalarray['nbfield']++;
 	        }
 	        if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED))
 	        {
 	            print '<td class="right nowraponall">'.($payed?price($payed):'').'</td>';
 	            global $totalarray;
-	            if (! $parameters['i']) $totalarray['nbfield']++;
+	            if (isset($parameters['i']) && ! $parameters['i']) $totalarray['nbfield']++;
 	        }
 	        if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY))
 	        {
 	            print '<td class="right nowraponall">'.($remaintopay?price($remaintopay):'').'</td>';
 	            global $totalarray;
-	            if (! $parameters['i']) $totalarray['nbfield']++;
+	            if (isset($parameters['i']) && ! $parameters['i']) $totalarray['nbfield']++;
 	        }
         }
 
@@ -334,7 +334,7 @@ class ActionsBilledOnOrders
         		}
         		print '</td>';
         		global $totalarray;
-        		if (! $parameters['i']) $totalarray['nbfield']++;
+        		if (isset($parameters['i']) && ! $parameters['i']) $totalarray['nbfield']++;
         	}
         	if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLED))
         	{
@@ -345,7 +345,7 @@ class ActionsBilledOnOrders
         		}
         		print '</td>';
         		global $totalarray;
-        		if (! $parameters['i']) $totalarray['nbfield']++;
+        		if (isset($parameters['i']) && ! $parameters['i']) $totalarray['nbfield']++;
         	}
         	if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED))
         	{
@@ -354,7 +354,7 @@ class ActionsBilledOnOrders
         		else print 'AvailableWithv7.0.1+';
         		print '</td>';
         		global $totalarray;
-        		if (! $parameters['i']) $totalarray['nbfield']++;
+        		if (isset($parameters['i']) && ! $parameters['i']) $totalarray['nbfield']++;
         	}
         	if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY))
         	{
@@ -363,7 +363,7 @@ class ActionsBilledOnOrders
         		else print 'AvailableWithv7.0.1+';
         		print '</td>';
         		global $totalarray;
-        		if (! $parameters['i']) $totalarray['nbfield']++;
+        		if (isset($parameters['i']) && ! $parameters['i']) $totalarray['nbfield']++;
         	}
         }
 
