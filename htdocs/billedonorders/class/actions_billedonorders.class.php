@@ -232,6 +232,8 @@ class ActionsBilledOnOrders
 	                print img_warning($langs->trans("AmountBilledDiffersFromAmountOnOrder"));
 	            }
 	            print '</td>';
+	            global $totalarray;
+	            if (! $parameters['i']) $totalarray['nbfield']++;
 	        }
 	        if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLED))
 	        {
@@ -241,9 +243,21 @@ class ActionsBilledOnOrders
 	                print img_warning($langs->trans("AmountBilledDiffersFromAmountOnOrder"));
 	            }
 	            print '</td>';
+	            global $totalarray;
+	            if (! $parameters['i']) $totalarray['nbfield']++;
 	        }
-	        if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED)) print '<td class="right nowraponall">'.($payed?price($payed):'').'</td>';
-	        if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY)) print '<td class="right nowraponall">'.($remaintopay?price($remaintopay):'').'</td>';
+	        if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED))
+	        {
+	            print '<td class="right nowraponall">'.($payed?price($payed):'').'</td>';
+	            global $totalarray;
+	            if (! $parameters['i']) $totalarray['nbfield']++;
+	        }
+	        if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY))
+	        {
+	            print '<td class="right nowraponall">'.($remaintopay?price($remaintopay):'').'</td>';
+	            global $totalarray;
+	            if (! $parameters['i']) $totalarray['nbfield']++;
+	        }
         }
 
         if ($parameters['currentcontext'] == 'supplierorderlist')
@@ -319,6 +333,8 @@ class ActionsBilledOnOrders
         			print img_warning($langs->trans("AmountBilledDiffersFromAmountOnOrder"));
         		}
         		print '</td>';
+        		global $totalarray;
+        		if (! $parameters['i']) $totalarray['nbfield']++;
         	}
         	if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLED))
         	{
@@ -328,6 +344,8 @@ class ActionsBilledOnOrders
         			print img_warning($langs->trans("AmountBilledDiffersFromAmountOnOrder"));
         		}
         		print '</td>';
+        		global $totalarray;
+        		if (! $parameters['i']) $totalarray['nbfield']++;
         	}
         	if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED))
         	{
@@ -335,6 +353,8 @@ class ActionsBilledOnOrders
         		if (method_exists($invoicetmpforloop, 'getListOfPayments')) print ($payed?price($payed):'');
         		else print 'AvailableWithv7.0.1+';
         		print '</td>';
+        		global $totalarray;
+        		if (! $parameters['i']) $totalarray['nbfield']++;
         	}
         	if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY))
         	{
@@ -342,6 +362,8 @@ class ActionsBilledOnOrders
         		if (method_exists($invoicetmpforloop, 'getListOfPayments')) print ($remaintopay?price($remaintopay):'');
         		else print 'AvailableWithv7.0.1+';
         		print '</td>';
+        		global $totalarray;
+        		if (! $parameters['i']) $totalarray['nbfield']++;
         	}
         }
 
