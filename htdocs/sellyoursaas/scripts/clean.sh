@@ -343,24 +343,23 @@ if [ -s /tmp/osutoclean ]; then
 			fi
 		fi
 		
+		export ZONENOHOST=`echo $instancename | cut -d . -f 2-`
+		export ZONE="$ZONENOHOST.hosts" 
+		export instancenameshort=`echo $instancename | cut -d . -f 1`
 	
 		# If instance name known
-		if [ "x$instancename" != "x" ]; then
-			if [ "x$instancename" != "xNULL" ]; then
+		if [ "x$instancenameshort" != "x" ]; then
+			if [ "x$instancenameshort" != "xNULL" ]; then
 
-				export instancename=`echo $instancename | cut -d . -f 1`
-				export ZONENOHOST=`echo $instancename | cut -d . -f 2-`
-				export ZONE="$ZONENOHOST.hosts" 
-
-				echo "   ** Remove DNS entry for $instancename from ${ZONE}"
-				cat /etc/bind/${ZONE} | grep "^$instancename '" > /dev/null 2>&1
+				echo "   ** Remove DNS entry for $instancenameshort from ${ZONE}"
+				cat /etc/bind/${ZONE} | grep "^$instancenameshort '" > /dev/null 2>&1
 				notfound=$?
 				echo notfound=$notfound
 				
 				if [[ $notfound == 0 ]]; then
 		
-					echo "cat /etc/bind/${ZONE} | grep -v '^$instancename ' > /tmp/${ZONE}.$PID"
-					cat /etc/bind/${ZONE} | grep -v "^$instancename " > /tmp/${ZONE}.$PID
+					echo "cat /etc/bind/${ZONE} | grep -v '^$instancenameshort ' > /tmp/${ZONE}.$PID"
+					cat /etc/bind/${ZONE} | grep -v "^$instancenameshort " > /tmp/${ZONE}.$PID
 				
 					# we're looking line containing this comment
 					export DATE=`date +%y%m%d%H`
