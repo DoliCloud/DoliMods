@@ -347,67 +347,64 @@ if [ -s /tmp/osutoclean ]; then
 		# If instance name known
 		if [ "x$instancename" != "x" ]; then
 			if [ "x$instancename" != "xNULL" ]; then
-			
-				for $DOMAIN in `echo $DOMAINLIST`
-				do
-					export ZONENOHOST="with.$DOMAIN" 
-					export ZONE="with.$DOMAIN.hosts" 
-				
-					echo "   ** Remove DNS entry for $instancename from ${ZONE}"
-					cat /etc/bind/${ZONE} | grep "^$instancename '" > /dev/null 2>&1
-					notfound=$?
-					echo notfound=$notfound
-					
-					if [[ $notfound == 0 ]]; then
-			
-						echo "cat /etc/bind/${ZONE} | grep -v '^$instancename ' > /tmp/${ZONE}.$PID"
-						cat /etc/bind/${ZONE} | grep -v "^$instancename " > /tmp/${ZONE}.$PID
-					
-						# we're looking line containing this comment
-						export DATE=`date +%y%m%d%H`
-						export NEEDLE="serial number"
-					    curr=$(/bin/grep -e "${NEEDLE}$" /tmp/${ZONE}.$PID | /bin/sed -n "s/^\s*\([0-9]*\)\s*;\s*${NEEDLE}\s*/\1/p")
-					    # replace if current date is shorter (possibly using different format)
-					    echo "Current bind counter is $curr"
-					    if [ ${#curr} -lt ${#DATE} ]; then
-					      serial="${DATE}00"
-					    else
-					      prefix=${curr::-2}
-					      if [ "$DATE" -eq "$prefix" ]; then 	# same day
-					        num=${curr: -2} # last two digits from serial number
-					        num=$((10#$num + 1)) # force decimal representation, increment
-					        serial="${DATE}$(printf '%02d' $num )" # format for 2 digits
-					      else
-					        serial="${DATE}00" # just update date
-					      fi
-					    fi
-					    echo Replace serial in /tmp/${ZONE}.$PID with ${serial}
-					    /bin/sed -i -e "s/^\(\s*\)[0-9]\{0,\}\(\s*;\s*${NEEDLE}\)$/\1${serial}\2/" /tmp/${ZONE}.$PID
-					    
-					    echo Test temporary file /tmp/${ZONE}.$PID
-						named-checkzone ${ZONENOHOST} /tmp/${ZONE}.$PID
-						if [[ "$?x" != "0x" ]]; then
-							echo Error when editing the DNS file during clean.sh. File /tmp/${ZONE}.$PID is not valid 
-							exit 1
-						fi 
-						
-						echo "   ** Archive file with cp /etc/bind/${ZONE} /etc/bind/archives/${ZONE}-$now"
-						cp /etc/bind/${ZONE} /etc/bind/archives/${ZONE}-$now
-						
-						echo "   ** Move new host file"
-						echo mv -fu /tmp/${ZONE}.$PID /etc/bind/${ZONE}
-						if [[ $testorconfirm == "confirm" ]]; then
-							mv -fu /tmp/${ZONE}.$PID /etc/bind/${ZONE}
-						fi
-						
-						echo "   ** Reload dns with rndc reload ${ZONENOHOST}"
-						if [[ $testorconfirm == "confirm" ]]; then
-							rndc reload ${ZONENOHOST}
-							#/etc/init.d/bind9 reload
-						fi
-					fi
 
-				done
+				export instancename=`echo $instancename | cut -d . -f 1`
+				export ZONENOHOST=`echo $instancename | cut -d . -f 2-`
+				export ZONE="$ZONENOHOST.hosts" 
+
+				echo "   ** Remove DNS entry for $instancename from ${ZONE}"
+				cat /etc/bind/${ZONE} | grep "^$instancename '" > /dev/null 2>&1
+				notfound=$?
+				echo notfound=$notfound
+				
+				if [[ $notfound == 0 ]]; then
+		
+					echo "cat /etc/bind/${ZONE} | grep -v '^$instancename ' > /tmp/${ZONE}.$PID"
+					cat /etc/bind/${ZONE} | grep -v "^$instancename " > /tmp/${ZONE}.$PID
+				
+					# we're looking line containing this comment
+					export DATE=`date +%y%m%d%H`
+					export NEEDLE="serial number"
+				    curr=$(/bin/grep -e "${NEEDLE}$" /tmp/${ZONE}.$PID | /bin/sed -n "s/^\s*\([0-9]*\)\s*;\s*${NEEDLE}\s*/\1/p")
+				    # replace if current date is shorter (possibly using different format)
+				    echo "Current bind counter is $curr"
+				    if [ ${#curr} -lt ${#DATE} ]; then
+				      serial="${DATE}00"
+				    else
+				      prefix=${curr::-2}
+				      if [ "$DATE" -eq "$prefix" ]; then 	# same day
+				        num=${curr: -2} # last two digits from serial number
+				        num=$((10#$num + 1)) # force decimal representation, increment
+				        serial="${DATE}$(printf '%02d' $num )" # format for 2 digits
+				      else
+				        serial="${DATE}00" # just update date
+				      fi
+				    fi
+				    echo Replace serial in /tmp/${ZONE}.$PID with ${serial}
+				    /bin/sed -i -e "s/^\(\s*\)[0-9]\{0,\}\(\s*;\s*${NEEDLE}\)$/\1${serial}\2/" /tmp/${ZONE}.$PID
+				    
+				    echo Test temporary file /tmp/${ZONE}.$PID
+					named-checkzone ${ZONENOHOST} /tmp/${ZONE}.$PID
+					if [[ "$?x" != "0x" ]]; then
+						echo Error when editing the DNS file during clean.sh. File /tmp/${ZONE}.$PID is not valid 
+						exit 1
+					fi 
+					
+					echo "   ** Archive file with cp /etc/bind/${ZONE} /etc/bind/archives/${ZONE}-$now"
+					cp /etc/bind/${ZONE} /etc/bind/archives/${ZONE}-$now
+					
+					echo "   ** Move new host file"
+					echo mv -fu /tmp/${ZONE}.$PID /etc/bind/${ZONE}
+					if [[ $testorconfirm == "confirm" ]]; then
+						mv -fu /tmp/${ZONE}.$PID /etc/bind/${ZONE}
+					fi
+					
+					echo "   ** Reload dns with rndc reload ${ZONENOHOST}"
+					if [[ $testorconfirm == "confirm" ]]; then
+						rndc reload ${ZONENOHOST}
+						#/etc/init.d/bind9 reload
+					fi
+				fi
 		
 				apacheconf=/etc/apache2/sellyoursaas-online/$instancename.conf
 				
