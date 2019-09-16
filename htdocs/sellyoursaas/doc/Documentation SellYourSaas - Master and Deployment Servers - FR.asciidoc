@@ -400,9 +400,11 @@ ln -fs /mnt/diskhome/home /home/jail/home
 
 Installer le serveur NFS et le partage sur /home/admin/wwwroot/dolibarr_documents/sellyoursaas
     
-    sudo apt install nfs-kernel-server
-
-    vi /etc/exports
+[source,bash]
+---------------
+sudo apt install nfs-kernel-server
+vi /etc/exports
+---------------
 
 [source,bash]
 ---------------
@@ -419,23 +421,31 @@ Installer le serveur NFS et le partage sur /home/admin/wwwroot/dolibarr_document
 /home/admin/wwwroot/dolibarr_documents/sellyoursaas i.p.deployment.server(ro,sync,no_subtree_check)
 ---------------
 
-    exportfs -a
-
-    systemctl restart nfs-kernel-server
-
-    exportfs
+[source,bash]
+---------------
+exportfs -a			(if there is new entry to add)
+exportfs -r			(if there is new entry to remove)
+exportfs
+systemctl restart nfs-kernel-server
+exportfs
+---------------
 
 ==== Sur le(s) serveur(s) de déployment
 
 Installe le client NFS
 
-    sudo apt-get install nfs-common
-
-    sudo mount i.p.server.master:/home/admin/wwwroot/dolibarr_documents/sellyoursaas /home/admin/wwwroot/dolibarr_documents/sellyoursaas
+[source,bash]
+---------------
+sudo apt-get install nfs-common
+sudo mount i.p.server.master:/home/admin/wwwroot/dolibarr_documents/sellyoursaas /home/admin/wwwroot/dolibarr_documents/sellyoursaas
+---------------
 
 Ajouter la ligne au fichier */etc/fstab* pour avoir le montage automatique au reboot
 
-    i.p.server.master:/home/admin/wwwroot/dolibarr_documents/sellyoursaas /home/admin/wwwroot/dolibarr_documents/sellyoursaas  nfs  defaults 0 0
+[source,bash]
+---------------
+i.p.server.master:/home/admin/wwwroot/dolibarr_documents/sellyoursaas /home/admin/wwwroot/dolibarr_documents/sellyoursaas  nfs  defaults 0 0
+---------------
 
 
 <<<
