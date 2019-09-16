@@ -351,8 +351,8 @@ if [ -s /tmp/osutoclean ]; then
 		if [ "x$instancenameshort" != "x" ]; then
 			if [ "x$instancenameshort" != "xNULL" ]; then
 
-				echo "   ** Remove DNS entry for $instancenameshort from ${ZONE}"
-				cat /etc/bind/${ZONE} | grep "^$instancenameshort '" > /dev/null 2>&1
+				echo "   ** Remove DNS entry for $instancenameshort from /etc/bind/${ZONE}"
+				cat /etc/bind/${ZONE} | grep "^$instancenameshort " > /dev/null 2>&1
 				notfound=$?
 				echo notfound=$notfound
 				
