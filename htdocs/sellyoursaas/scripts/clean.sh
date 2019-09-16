@@ -37,16 +37,11 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
-export DOMAINLIST=`grep '^domain=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 export IPSERVERDEPLOYMENT=`grep 'ipserverdeployment=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 export databasehost=`grep 'databasehost=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 export database=`grep 'database=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 export databaseuser=`grep 'databaseuser=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 
-if [ "x$DOMAINLIST" == "x" ]; then
-   echo "Failed to find the DOMAINLIST by reading entry 'domain=' into file /etc/sellyoursaas.conf" 1>&2
-   exit 1
-fi
 if [ "x$IPSERVERDEPLOYMENT" == "x" ]; then
    echo "Failed to find the IPSERVERDEPLOYMENT by reading entry 'ipserverdeployment=' into file /etc/sellyoursaas.conf" 1>&2
    exit 1
@@ -79,7 +74,6 @@ export testorconfirm=$1
 # For debug
 echo "database = $database"
 echo "testorconfirm = $testorconfirm"
-echo "DOMAINLIST = $DOMAINLIST"
 
 
 MYSQL=`which mysql`
