@@ -18,11 +18,13 @@
  *
  * FEATURE
  *
- * Make a backup of files (rsync) or database (mysqdump) of a deployed instance. There is no
- * report/tracking done into any database. This must be done by a parent script.
+ * Make a backup of files (rsync) or database (mysqdump) of a deployed instance. 
+ * There is no report/tracking done into any database. This must be done by a parent script.
+ * This script is run from the deployment servers.
  *
- * ssh keys must be authorized to have testrsync and confirmrsync working
- * no requirement for testdatabase or confirmdatabase
+ * Note:
+ * ssh keys must be authorized to have testrsync and confirmrsync working.
+ * remote access to database must be granted for option 'testdatabase' or 'confirmdatabase'.
  */
 
 if (! defined('NOREQUIREDB'))              define('NOREQUIREDB','1');					// Do not create database handler $db
@@ -71,7 +73,6 @@ $databasehost='localhost';
 $database='';
 $databaseuser='sellyoursaas';
 $databasepass='';
-$ipserverdeployment='';
 $fp = @fopen('/etc/sellyoursaas.conf', 'r');
 // Add each line to an array
 if ($fp) {
@@ -95,10 +96,6 @@ if ($fp) {
         {
             $databasepass = $tmpline[1];
         }
-        if ($tmpline[0] == 'ipserverdeployment')
-        {
-            $ipserverdeployment = $tmpline[1];
-        }
     }
 }
 else
@@ -111,6 +108,23 @@ else
 /*
  *	Main
  */
+
+if (0 == posix_getuid()) {
+    echo "Script must not be ran with root (but with admin sellyoursaas account).\n";
+    exit(-1);
+}
+
+$dbmaster=getDoliDBInstance('mysqli', $databasehost, $databaseuser, $databasepass, $database, 3306);
+if ($dbmaster->error)
+{
+    dol_print_error($dbmaster,"host=".$databasehost.", port=3306, user=".$databaseuser.", databasename=".$database.", ".$dbmaster->error);
+    exit;
+}
+if ($dbmaster)
+{
+    $conf->setValues($dbmaster);
+}
+if (empty($db)) $db=$dbmaster;
 
 if (empty($dirroot) || empty($instance) || empty($mode))
 {
@@ -233,13 +247,15 @@ if ($mode == 'testrsync' || $mode == 'test' || $mode == 'confirmrsync' || $mode 
 	//$param[]="--exclude '*last_rsyncrestore_*'";
 	$param[]="--exclude '*.com*SSL'";
 	$param[]="--exclude '*.log'";
-	$param[]="--exclude '*.pdf_preview.png'";
+	$param[]="--exclude '*.pdf_preview*.png'";
+	$param[]="--exclude '(PROV*)'";
 	//$param[]="--exclude '*/build/'";
 	//$param[]="--exclude '*/doc/images/'";	// To keep files into htdocs/core/module/xxx/doc/ dir
 	//$param[]="--exclude '*/doc/install/'";	// To keep files into htdocs/core/module/xxx/doc/ dir
 	//$param[]="--exclude '*/doc/user/'";		// To keep files into htdocs/core/module/xxx/doc/ dir
 	//$param[]="--exclude '*/dev/'";
 	//$param[]="--exclude '*/test/'";
+	$param[]="--exclude '*/thumbs/'";
 	$param[]="--exclude '*/temp/'";
 	$param[]="--exclude '*/documents/admin/backup/'";
 	$param[]="--exclude '*/htdocs/install/filelist-*.xml'";

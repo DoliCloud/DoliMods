@@ -24,7 +24,7 @@
  *
  * Note:
  * ssh keys must be authorized to have testrsync and confirmrsync working.
- * remote access to database must be granted for testdatabase or confirmdatabase.
+ * remote access to database must be granted for option 'testdatabase' or 'confirmdatabase'.
  */
 
 if (! defined('NOREQUIREDB'))              define('NOREQUIREDB','1');					// Do not create database handler $db
@@ -72,7 +72,6 @@ $databasehost='localhost';
 $database='';
 $databaseuser='sellyoursaas';
 $databasepass='';
-$ipserverdeployment='';
 $fp = @fopen('/etc/sellyoursaas.conf', 'r');
 // Add each line to an array
 if ($fp) {
@@ -96,10 +95,6 @@ if ($fp) {
         {
             $databasepass = $tmpline[1];
         }
-        if ($tmpline[0] == 'ipserverdeployment')
-        {
-            $ipserverdeployment = $tmpline[1];
-        }
     }
 }
 else
@@ -115,7 +110,7 @@ else
  */
 
 if (0 == posix_getuid()) {
-    echo "Script must not be ran with root.\n";
+    echo "Script must not be ran with root (but with admin sellyoursaas account).\n";
     exit(-1);
 }
 

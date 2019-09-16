@@ -13,7 +13,7 @@ if (empty($fh))
 	exit();
 }
 
-$tmparray = array();
+$allowed_hosts_array = array();
 $dnsserver = '';
 $instanceserver = '';
 
@@ -27,7 +27,7 @@ if ($fp) {
 		$tmpline=explode("=", $val);
 		if ($tmpline[0] == 'allowed_hosts')
 		{
-			$tmparray = explode(",", $tmpline[1]);
+		    $allowed_hosts_array = explode(",", $tmpline[1]);
 		}
 		if ($tmpline[0] == 'dnsserver')
 		{
@@ -44,10 +44,10 @@ else
 	print "Failed to open /etc/sellyoursaas.conf file\n";
 	exit;
 }
-if (! in_array('127.0.0.1', $tmparray)) $tmparray[]='127.0.0.1';	// Add localhost if not present
+if (! in_array('127.0.0.1', $allowed_hosts_array)) $allowed_hosts_array[]='127.0.0.1';	// Add localhost if not present
 
 
-if (empty($tmparray) || ! in_array($_SERVER['REMOTE_ADDR'], $tmparray))
+if (empty($allowed_hosts_array) || ! in_array($_SERVER['REMOTE_ADDR'], $allowed_hosts_array))
 {
 	fwrite($fh, "\n".date('Y-m-d H:i:s').' >>>>>>>>>> Call done with bad ip '.$_SERVER['REMOTE_ADDR']." : Not into 'allowed_hosts' of /etc/sellyoursaas.conf.\n");
 	fclose($fh);
@@ -58,7 +58,7 @@ if (empty($tmparray) || ! in_array($_SERVER['REMOTE_ADDR'], $tmparray))
 
 	exit();
 }
-$allowed_hosts=join(',', $tmparray);
+$allowed_hosts=join(',', $allowed_hosts_array);
 
 // Build param string
 $param = preg_replace('/^\//', '', $_SERVER['REQUEST_URI']);
