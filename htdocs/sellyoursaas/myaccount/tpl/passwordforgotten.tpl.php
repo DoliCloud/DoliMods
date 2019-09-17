@@ -50,7 +50,12 @@ $titleofpage=$langs->trans('SendNewPassword');
 $disablenofollow=1;
 if (! preg_match('/'.constant('DOL_APPLICATION_TITLE').'/', $titleofpage)) $disablenofollow=0;
 
-print top_htmlhead_sellyoursaas('', $titleofpage, 0, 0, $arrayofjs, array(), 0, $disablenofollow);
+$favicon=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
+if (! preg_match('/\.(png|jpg)$/', $favicon)) $favicon.='.png';
+if (! empty($conf->global->MAIN_FAVICON_URL)) $favicon=$conf->global->MAIN_FAVICON_URL;
+if ($favicon) $head.='<link rel="icon" href="img/'.$favicon.'">'."\n";
+
+print top_htmlhead_sellyoursaas($head, $titleofpage, 0, 0, $arrayofjs, array(), 0, $disablenofollow);
 
 ?>
 <!-- BEGIN PHP TEMPLATE PASSWORDFORGOTTEN.TPL.PHP -->

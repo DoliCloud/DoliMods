@@ -964,14 +964,19 @@ if (is_object($contract->thirdparty))
 $conf->dol_hide_topmenu = 1;
 $conf->dol_hide_leftmenu = 1;
 
+$favicon=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
+if (! preg_match('/\.(png|jpg)$/', $favicon)) $favicon.='.png';
+if (! empty($conf->global->MAIN_FAVICON_URL)) $favicon=$conf->global->MAIN_FAVICON_URL;
 
-$head='<link rel="icon" href="img/favicon.ico">
-<!-- Bootstrap core CSS -->
+if ($favicon) $head.='<link rel="icon" href="img/'.$favicon.'">'."\n";
+$head.='<!-- Bootstrap core CSS -->
 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">-->
 <link href="dist/css/bootstrap.css" rel="stylesheet">
 <link href="dist/css/myaccount.css" rel="stylesheet">';
 
-llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, array(), array('../dist/css/myaccount.css'));
+$title = $langs->trans("Registration").($tmpproduct->label?' ('.$tmpproduct->label.')':'');
+
+llxHeader($head, $title, '', '', 0, 0, array(), array('../dist/css/myaccount.css'));
 
 ?>
 

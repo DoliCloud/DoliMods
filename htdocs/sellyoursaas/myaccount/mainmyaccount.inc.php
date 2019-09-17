@@ -156,9 +156,9 @@ function top_htmlhead_sellyoursaas($head, $title='', $disablejs=0, $disablehead=
 		print '<meta name="robots" content="noindex'.($disablenofollow?'':',nofollow').'">'."\n";      				// Do not index
 		print '<meta name="viewport" content="width=device-width, initial-scale=1.0">'."\n";	// Scale for mobile device
 		// Favicon. Note, even if we remove this meta, the browser and android webview try to find a favicon.ico
-		$favicon='/favicon.ico';
+		$favicon='';
 		if (! empty($conf->global->MAIN_FAVICON_URL)) $favicon=$conf->global->MAIN_FAVICON_URL;
-		print '<link rel="shortcut icon" type="image/x-icon" href="'.$favicon.'"/>'."\n";
+		if ($favicon) print '<link rel="shortcut icon" type="image/x-icon" href="'.$favicon.'"/>'."\n";
 
 		// Displays title
 		$appli=constant('DOL_APPLICATION_TITLE');
@@ -717,7 +717,7 @@ function dol_loginfunction($langs,$conf,$mysoc)
 
 	// Set jquery theme
 	$dol_loginmesg = (! empty($_SESSION["dol_loginmesg"])?$_SESSION["dol_loginmesg"]:'');
-	$favicon='/favicon.ico';
+	$favicon='';
 	if (! empty($conf->global->MAIN_FAVICON_URL)) $favicon=$conf->global->MAIN_FAVICON_URL;
 	$jquerytheme = 'base';
 	if (! empty($conf->global->MAIN_USE_JQUERY_THEME)) $jquerytheme = $conf->global->MAIN_USE_JQUERY_THEME;

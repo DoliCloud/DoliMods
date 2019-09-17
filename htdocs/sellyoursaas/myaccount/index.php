@@ -2358,9 +2358,12 @@ if ($welcomecid > 0)
 }
 //var_dump($listofcontractid);
 
+$favicon=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
+if (! preg_match('/\.(png|jpg)$/', $favicon)) $favicon.='.png';
+if (! empty($conf->global->MAIN_FAVICON_URL)) $favicon=$conf->global->MAIN_FAVICON_URL;
 
-$head='<link rel="icon" href="img/favicon.ico">
-<!-- Bootstrap core CSS -->
+if ($favicon) $head.='<link rel="icon" href="img/'.$favicon.'">'."\n";
+$head.='<!-- Bootstrap core CSS -->
 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">-->
 <link href="dist/css/bootstrap.css" rel="stylesheet">
 <link href="dist/css/myaccount.css" rel="stylesheet">

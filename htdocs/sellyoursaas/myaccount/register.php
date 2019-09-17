@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2017-2018 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2017-2019 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -204,9 +204,12 @@ $form = new Form($db);
 $conf->dol_hide_topmenu = 1;
 $conf->dol_hide_leftmenu = 1;
 
+$favicon=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
+if (! preg_match('/\.(png|jpg)$/', $favicon)) $favicon.='.png';
+if (! empty($conf->global->MAIN_FAVICON_URL)) $favicon=$conf->global->MAIN_FAVICON_URL;
 
-$head='<link rel="icon" href="img/favicon.ico">
-<!-- Bootstrap core CSS -->
+if ($favicon) $head.='<link rel="icon" href="img/'.$favicon.'">'."\n";
+$head.='<!-- Bootstrap core CSS -->
 <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">-->
 <link href="dist/css/bootstrap.css" rel="stylesheet">';
 if ($extcss)
@@ -224,7 +227,9 @@ $arrayofjs=array(
     '/core/js/dst.js'.(empty($conf->dol_use_jmobile)?'':'?version='.urlencode(DOL_VERSION))
 );
 
-llxHeader($head, $langs->trans("ERPCRMOnlineSubscription"), '', '', 0, 0, $arrayofjs, array(), '', 'register');
+$title = $langs->trans("Registration").($tmpproduct->label?' ('.$tmpproduct->label.')':'');
+
+llxHeader($head, $title, '', '', 0, 0, $arrayofjs, array(), '', 'register');
 
 $prefix=dol_getprefix('');
 $cookieregistrationa='DOLREGISTERA_'.$prefix;
