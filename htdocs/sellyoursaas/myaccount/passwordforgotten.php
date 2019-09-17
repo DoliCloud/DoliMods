@@ -303,8 +303,8 @@ if (! empty($conf->global->$constforaltname))
 {
     $sellyoursaasdomain = $domainname;
     $sellyoursaasname = $conf->global->$constforaltname;
-    $constlogo.='_'.strtoupper(str_replace('.', '_', $sellyoursaasname));
-    $constlogosmall.='_'.strtoupper(str_replace('.', '_', $sellyoursaasname));
+    $constlogo.='_'.strtoupper(str_replace('.', '_', $sellyoursaasdomain));
+    $constlogosmall.='_'.strtoupper(str_replace('.', '_', $sellyoursaasdomain));
 }
 
 if (empty($urllogo) && ! empty($conf->global->$constlogosmall))

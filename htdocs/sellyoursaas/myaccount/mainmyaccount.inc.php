@@ -156,9 +156,10 @@ function top_htmlhead_sellyoursaas($head, $title='', $disablejs=0, $disablehead=
 		print '<meta name="robots" content="noindex'.($disablenofollow?'':',nofollow').'">'."\n";      				// Do not index
 		print '<meta name="viewport" content="width=device-width, initial-scale=1.0">'."\n";	// Scale for mobile device
 		// Favicon. Note, even if we remove this meta, the browser and android webview try to find a favicon.ico
-		$favicon='';
+		$favicon=getDomainFromURL($_SERVER['SERVER_NAME'], 0);
+		if (! preg_match('/\.(png|jpg)$/', $favicon)) $favicon.='.png';
 		if (! empty($conf->global->MAIN_FAVICON_URL)) $favicon=$conf->global->MAIN_FAVICON_URL;
-		if ($favicon) print '<link rel="shortcut icon" type="image/x-icon" href="'.$favicon.'"/>'."\n";
+		if ($favicon) print '<link rel="shortcut icon" href="img/'.$favicon.'">'."\n";
 
 		// Displays title
 		$appli=constant('DOL_APPLICATION_TITLE');
@@ -644,8 +645,8 @@ function dol_loginfunction($langs,$conf,$mysoc)
 	{
 	    $sellyoursaasdomain = $domainname;
 	    $sellyoursaasname = $conf->global->$constforaltname;
-	    $constlogo.='_'.strtoupper(str_replace('.', '_', $sellyoursaasname));
-	    $constlogosmall.='_'.strtoupper(str_replace('.', '_', $sellyoursaasname));
+	    $constlogo.='_'.strtoupper(str_replace('.', '_', $sellyoursaasdomain));
+	    $constlogosmall.='_'.strtoupper(str_replace('.', '_', $sellyoursaasdomain));
 	}
 
 	if (empty($urllogo) && ! empty($conf->global->$constlogosmall))
