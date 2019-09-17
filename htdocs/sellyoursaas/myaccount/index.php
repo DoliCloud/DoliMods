@@ -2358,7 +2358,7 @@ if ($welcomecid > 0)
 }
 //var_dump($listofcontractid);
 
-$favicon=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
+$favicon=getDomainFromURL($_SERVER['SERVER_NAME'], 0);
 if (! preg_match('/\.(png|jpg)$/', $favicon)) $favicon.='.png';
 if (! empty($conf->global->MAIN_FAVICON_URL)) $favicon=$conf->global->MAIN_FAVICON_URL;
 

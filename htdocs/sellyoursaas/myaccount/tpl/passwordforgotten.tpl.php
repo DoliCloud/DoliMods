@@ -50,7 +50,7 @@ $titleofpage=$langs->trans('SendNewPassword');
 $disablenofollow=1;
 if (! preg_match('/'.constant('DOL_APPLICATION_TITLE').'/', $titleofpage)) $disablenofollow=0;
 
-$favicon=getDomainFromURL($_SERVER['SERVER_NAME'], 1);
+$favicon=getDomainFromURL($_SERVER['SERVER_NAME'], 0);
 if (! preg_match('/\.(png|jpg)$/', $favicon)) $favicon.='.png';
 if (! empty($conf->global->MAIN_FAVICON_URL)) $favicon=$conf->global->MAIN_FAVICON_URL;
 if ($favicon) $head.='<link rel="icon" href="img/'.$favicon.'">'."\n";
