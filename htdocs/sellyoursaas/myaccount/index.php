@@ -2391,6 +2391,15 @@ var select2arrayoflanguage = {
 llxHeader($head, $langs->trans("MyAccount"), '', '', 0, 0, '', '', '', 'myaccount');
 
 
+?>
+
+<div id="waitMask" style="display:none;">
+<font size="3em" style="color:#888; font-weight: bold;"><?php echo $langs->trans("InstallingInstance") ?><br><?php echo $langs->trans("PleaseWait") ?><br></font>
+    <img id="waitMaskImg" width="100px" src="<?php echo "ajax-loader.gif"; ?>" alt="Loading" />
+</div>
+
+<?php
+
 $logoval = $conf->global->SELLYOURSAAS_LOGO_MINI;
 $logoblackval = $conf->global->SELLYOURSAAS_LOGO_MINI_BLACK;
 if (is_object($mythirdpartyaccount) && $mythirdpartyaccount->array_options['options_domain_registration_page'])
@@ -4054,11 +4063,11 @@ if ($mode == 'instances')
 								else
 								{
 									print '
-					                <p class="opacitymedium" style="padding: 15px">
+					                <p class="opacitymediumbis" style="padding: 15px">
 					                    '.$langs->trans("PleaseBeSure", $contract->ref_customer).'
 					                </p>
 									<p class="center" style="padding-bottom: 15px">
-										<input type="text" class="center urlofinstancetodestroy" name="urlofinstancetodestroy" value="'.GETPOST('urlofinstancetodestroy','alpha').'" placeholder="" autofocus>
+										<input type="text" required="required" class="center urlofinstancetodestroy" name="urlofinstancetodestroy" value="'.GETPOST('urlofinstancetodestroy','alpha').'" placeholder="" autofocus>
 									</p>';
 								}
 								print '
@@ -4108,6 +4117,15 @@ if ($mode == 'instances')
 			console.log("Click on addanotherinstance");
 			jQuery("#formaddanotherinstance").toggle();
 		});
+
+        /*jQuery("#formaddanotherinstance").submit(function() {
+            console.log("We clicked on submit")
+            jQuery(document.body).css({ \'cursor\': \'wait\' });
+            jQuery("div#waitMask").show();
+            jQuery("#waitMask").css("opacity"); // must read it first
+            jQuery("#waitMask").css("opacity", "0.5");
+            return true;
+        });*/
 	});
 		</script>';
 

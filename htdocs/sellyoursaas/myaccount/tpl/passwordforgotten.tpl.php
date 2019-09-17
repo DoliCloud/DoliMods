@@ -127,10 +127,10 @@ else
 	print '<input type="hidden" name="id" value="'.$id.'">';
 	print '<input type="hidden" name="hashreset" value="'.$hashreset.'">';
 
-	print '<input type="text" id="newpassword1" placeholder="'.$langs->trans("Password").'" name="newpassword1" class="flat input-icon-user" tabindex="1"  autofocus="autofocus" />';
+	print '<input type="password" id="newpassword1" placeholder="'.$langs->trans("Password").'" name="newpassword1" class="flat input-icon-user" tabindex="1"  autofocus="autofocus" />';
 	print '<br><br>';
 
-	print '<input type="text" id="newpassword2" placeholder="'.$langs->trans("ConfirmPassword").'" name="newpassword2" class="flat input-icon-user" tabindex="1"  autofocus="autofocus" />';
+	print '<input type="password" id="newpassword2" placeholder="'.$langs->trans("ConfirmPassword").'" name="newpassword2" class="flat input-icon-user" tabindex="1"  autofocus="autofocus" />';
 	print '<br><br>';
 }
 ?>

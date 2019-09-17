@@ -214,7 +214,16 @@ if ($action == 'buildnewpassword' && $username)
                     // Success
                 	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 
-                	$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/passwordforgotten.php?id='.$thirdparty->id.'&hashreset='.$hashreset;
+                	$sellyoursaasaccounturl = $conf->global->SELLYOURSAAS_ACCOUNT_URL;
+                	if (! empty($thirdparty->array_options['options_domain_registration_page'])
+                	    && $thirdparty->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_ACCOUNT_URL)
+                	{
+                	    $newnamekey = 'SELLYOURSAAS_ACCOUNT_URL-'.$thirdparty->array_options['options_domain_registration_page'];
+                	    if (! empty($conf->global->$newnamekey)) $sellyoursaasaccounturl = $conf->global->$newnamekey;
+                	}
+
+                	$url=$sellyoursaasaccounturl.'/passwordforgotten.php?id='.$thirdparty->id.'&hashreset='.$hashreset;
+
                 	$trackid='thi'.$thirdparty->id;
 
                 	// Send deployment email
