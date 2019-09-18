@@ -3489,11 +3489,14 @@ class SellYourSaasUtils
     				        {
     				            dol_syslog("Get resource BASH ".$bashformula);
 
-    				            // TODO
-    				            //ssh2_exec($connection, $bashformula);
-
-
     				            $newqty = 0;
+
+    				            $stream = ssh2_exec($connection, $bashformula);
+    				            stream_set_blocking( $stream, true );
+    				            $resultstring = fread($stream, 4096);
+
+    				            // TODO
+
 
 
     				            if (function_exists('ssh2_disconnect'))
@@ -3508,7 +3511,7 @@ class SellYourSaasUtils
     				                unset($connection);
     				            }
 
-    				            dol_syslog("newqty = ".$newqty);
+    				            dol_syslog("newqty = ".$newqty." resultstring = ".$resultstring);
     				        }
     				        else
     				        {
