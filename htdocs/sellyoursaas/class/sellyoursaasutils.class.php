@@ -3427,6 +3427,7 @@ class SellYourSaasUtils
 
 					// Now execute the formula
     				$currentqty = $tmpobject->qty;
+    				$newqty = null;
 
     				$tmparray=explode(':', $producttmp->array_options['options_resource_formula'], 2);
     				if ($tmparray[0] == 'SQL')
@@ -3489,6 +3490,11 @@ class SellYourSaasUtils
     				            dol_syslog("Get resource BASH ".$bashformula);
 
     				            // TODO
+    				            //ssh2_exec($connection, $bashformula);
+
+
+    				            $newqty = 0;
+
 
     				            if (function_exists('ssh2_disconnect'))
     				            {
@@ -3515,84 +3521,95 @@ class SellYourSaasUtils
     					$this->error = 'Bad definition of formula to calculate resource for product '.$producttmp->ref;
     				}
 
-    				if (! $error && $newqty != $currentqty)
+    				if (! $error && ! is_null($newqty))
     				{
-    					// tmpobject is contract line
-    					$tmpobject->qty = $newqty;
-    					$result = $tmpobject->update($user);
-    					if ($result <= 0)
-    					{
-    						$error++;
-    						$this->error = 'Failed to update the count for product '.$producttmp->ref;
+    				    if ($newqty != $currentqty)
+    				    {
+        					// tmpobject is contract line
+        					$tmpobject->qty = $newqty;
+        					$result = $tmpobject->update($user);
+        					if ($result <= 0)
+        					{
+        						$error++;
+        						$this->error = 'Failed to update the count for product '.$producttmp->ref;
+        					}
+        					else
+        					{
+        						$forceaddevent = 'Qty line '.$tmpobject->id.' updated '.$currentqty.' -> '.$newqty;
+
+        						// Test if there is template invoice linkded
+        						$contract->fetchObjectLinked();
+
+        						if (is_array($contract->linkedObjects['facturerec']) && count($contract->linkedObjects['facturerec']) > 0)
+        						{
+        							//dol_sort_array($contract->linkedObjects['facture'], 'date');
+        							$sometemplateinvoice=0;
+        							$lasttemplateinvoice=null;
+        							foreach($contract->linkedObjects['facturerec'] as $invoice)
+        							{
+        								//if ($invoice->suspended == FactureRec::STATUS_SUSPENDED) continue;	// Draft invoice are not invoice not paid
+        								$sometemplateinvoice++;
+        								$lasttemplateinvoice=$invoice;
+        							}
+        							if ($sometemplateinvoice > 1)
+        							{
+        								$error++;
+        								$this->error = 'Contract '.$object->ref.' has too many template invoice ('.$sometemplateinvoice.') so we dont know which one to update';
+        							}
+        							elseif (is_object($lasttemplateinvoice))
+        							{
+        								$sqlsearchline = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'facturedet_rec WHERE fk_facture = '.$lasttemplateinvoice->id.' AND fk_product = '.$tmpobject->fk_product;
+        								$resqlsearchline = $this->db->query($sqlsearchline);
+        								if ($resqlsearchline)
+        								{
+        									$num_search_line = $this->db->num_rows($resqlsearchline);
+        									if ($num_search_line > 1)
+        									{
+        										$error++;
+        										$this->error = 'Contract '.$object->ref.' has a template invoice with id ('.$lasttemplateinvoice->id.') that has several lines for product id '.$tmpobject->fk_product.' so we don t know wich line to update qty';
+        									}
+        									else
+        									{
+    	    									$objsearchline = $this->db->fetch_object($resqlsearchline);
+    	    									if ($objsearchline)	// If empty, it means, template invoice has no line corresponding to contract line
+    	    									{
+    	    										// Update qty
+    	    										$invoicerecline = new FactureLigneRec($this->db);
+    	    										$invoicerecline->fetch($objsearchline->rowid);
+
+    	    										$tabprice = calcul_price_total($newqty, $invoicerecline->subprice, $invoicerecline->remise_percent, $invoicerecline->tva_tx, $invoicerecline->localtax1_tx, $invoicerecline->txlocaltax2, 0, 'HT', $invoicerecline->info_bits, $invoicerecline->product_type, $mysoc, array(), 100);
+
+    	    										$invoicerecline->qty = $newqty;
+
+    	    										$invoicerecline->total_ht  = $tabprice[0];
+    	    										$invoicerecline->total_tva = $tabprice[1];
+    	    										$invoicerecline->total_ttc = $tabprice[2];
+    	    										$invoicerecline->total_localtax1 = $tabprice[9];
+    	    										$invoicerecline->total_localtax2 = $tabprice[10];
+
+    	    										$result = $invoicerecline->update($user);
+
+    	    										$result = $lasttemplateinvoice->update_price();
+    	    									}
+        									}
+        								}
+        								else
+        								{
+        									$error++;
+        									$this->error = $this->db->lasterror();
+        								}
+        							}
+        						}
+        					}
     					}
     					else
     					{
-    						$forceaddevent = 'Qty line '.$tmpobject->id.' updated '.$currentqty.' -> '.$newqty;
-
-    						// Test if there is template invoice linkded
-    						$contract->fetchObjectLinked();
-
-    						if (is_array($contract->linkedObjects['facturerec']) && count($contract->linkedObjects['facturerec']) > 0)
-    						{
-    							//dol_sort_array($contract->linkedObjects['facture'], 'date');
-    							$sometemplateinvoice=0;
-    							$lasttemplateinvoice=null;
-    							foreach($contract->linkedObjects['facturerec'] as $invoice)
-    							{
-    								//if ($invoice->suspended == FactureRec::STATUS_SUSPENDED) continue;	// Draft invoice are not invoice not paid
-    								$sometemplateinvoice++;
-    								$lasttemplateinvoice=$invoice;
-    							}
-    							if ($sometemplateinvoice > 1)
-    							{
-    								$error++;
-    								$this->error = 'Contract '.$object->ref.' has too many template invoice ('.$sometemplateinvoice.') so we dont know which one to update';
-    							}
-    							elseif (is_object($lasttemplateinvoice))
-    							{
-    								$sqlsearchline = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'facturedet_rec WHERE fk_facture = '.$lasttemplateinvoice->id.' AND fk_product = '.$tmpobject->fk_product;
-    								$resqlsearchline = $this->db->query($sqlsearchline);
-    								if ($resqlsearchline)
-    								{
-    									$num_search_line = $this->db->num_rows($resqlsearchline);
-    									if ($num_search_line > 1)
-    									{
-    										$error++;
-    										$this->error = 'Contract '.$object->ref.' has a template invoice with id ('.$lasttemplateinvoice->id.') that has several lines for product id '.$tmpobject->fk_product.' so we don t know wich line to update qty';
-    									}
-    									else
-    									{
-	    									$objsearchline = $this->db->fetch_object($resqlsearchline);
-	    									if ($objsearchline)	// If empty, it means, template invoice has no line corresponding to contract line
-	    									{
-	    										// Update qty
-	    										$invoicerecline = new FactureLigneRec($this->db);
-	    										$invoicerecline->fetch($objsearchline->rowid);
-
-	    										$tabprice = calcul_price_total($newqty, $invoicerecline->subprice, $invoicerecline->remise_percent, $invoicerecline->tva_tx, $invoicerecline->localtax1_tx, $invoicerecline->txlocaltax2, 0, 'HT', $invoicerecline->info_bits, $invoicerecline->product_type, $mysoc, array(), 100);
-
-	    										$invoicerecline->qty = $newqty;
-
-	    										$invoicerecline->total_ht  = $tabprice[0];
-	    										$invoicerecline->total_tva = $tabprice[1];
-	    										$invoicerecline->total_ttc = $tabprice[2];
-	    										$invoicerecline->total_localtax1 = $tabprice[9];
-	    										$invoicerecline->total_localtax2 = $tabprice[10];
-
-	    										$result = $invoicerecline->update($user);
-
-	    										$result = $lasttemplateinvoice->update_price();
-	    									}
-    									}
-    								}
-    								else
-    								{
-    									$error++;
-    									$this->error = $this->db->lasterror();
-    								}
-    							}
-    						}
+    					    dol_syslog("No change on qty. Still ".$currentqty);
     					}
+    				}
+    				else
+    				{
+    				    dol_syslog("Error Failed to get new value for metric", LOG_WARNING);
     				}
 
     				if (! $error)
