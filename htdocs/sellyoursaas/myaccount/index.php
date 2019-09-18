@@ -4131,6 +4131,7 @@ if ($mode == 'instances')
 
 	print '<br>';
 
+	print '<!-- Form to add an instance -->'."\n";
 	print '<form id="formaddanotherinstance" class="form-group reposition" style="display: none;" action="register_instance.php" method="POST">';
 	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 	print '<input type="hidden" name="action" value="deployall" />';
