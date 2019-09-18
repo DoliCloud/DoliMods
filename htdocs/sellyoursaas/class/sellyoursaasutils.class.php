@@ -3507,6 +3507,8 @@ class SellYourSaasUtils
     				                $connection = null;
     				                unset($connection);
     				            }
+
+    				            dol_syslog("newqty = ".$newqty);
     				        }
     				        else
     				        {
