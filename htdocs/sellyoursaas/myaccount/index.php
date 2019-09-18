@@ -2214,6 +2214,8 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 					}
 				}
 
+				flush();
+
 				$comment = 'Contract for '.$contract->ref.' is undeployed after a click on the undeploy confirmation request (sent by email from customer dashboard)';
 
 				if (! $error)
