@@ -618,7 +618,8 @@ else
 		$contract->array_options['options_password_db'] = $generateddbpassword;
 		//$contract->array_options['options_nb_users'] = 1;
 		//$contract->array_options['options_nb_gb'] = 0.01;
-		if (preg_match('/glpi/i', $productref) && ! empty($_POST["tz_string"]))
+		// TODO Remove hardcoded code here
+		if (preg_match('/glpi|flyve/i', $productref) && ! empty($_POST["tz_string"]))
 		{
 		    $contract->array_options['options_custom_virtualhostline'] = 'php_value date.timezone "'.$_POST["tz_string"].'"';
 		}
