@@ -2220,7 +2220,7 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 				{
 					dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 					$sellyoursaasutils = new SellYourSaasUtils($db);
-					$result = $sellyoursaasutils->sellyoursaasRemoteAction('undeploy', $contract, 'admin', '', '', 0, $comment);
+					$result = $sellyoursaasutils->sellyoursaasRemoteAction('undeploy', $contract, 'admin', '', '', 0, $comment, 300);
 					if ($result < 0)
 					{
 						$error++;
@@ -3558,7 +3558,8 @@ if ($mode == 'instances')
 			// Update resources of instance
 			if (in_array($statuslabel, array('suspended', 'done')) && ! in_array($initialaction, array('changeplan')))
 			{
-				$result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract);
+			    $comment = 'Refresh contract '.$contract->ref.' after entering dashboard';
+			    $result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract, 'admin', '', '', '0', $comment);
 				if ($result <= 0)
 				{
 					$error++;
