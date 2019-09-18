@@ -279,4 +279,8 @@ border-left: 5px solid #eee;
 border-radius: 0 4px 4px 0;
 }
 
-\n";
+.urlofinstancetodestroy {
+    min-width: 250px;
+}
+
+";
