@@ -2266,7 +2266,10 @@ if ($action == 'undeploy' || $action == 'undeployconfirmed')
 	//$error++;
 	if (! $error)
 	{
-		if ($action == 'undeployconfirmed') setEventMessages($langs->trans("InstanceWasUndeployedConfirmed"), null, 'mesgs');
+		if ($action == 'undeployconfirmed')
+		{
+		    setEventMessages($langs->trans("InstanceWasUndeployedConfirmed"), null, 'warnings');
+		}
 		else
 		{
 			setEventMessages($langs->trans("InstanceWasUndeployed"), null, 'mesgs');
