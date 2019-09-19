@@ -3491,13 +3491,15 @@ class SellYourSaasUtils
 
     				            $newqty = 0;
 
-    				            $stream = ssh2_exec($connection, $bashformula);
-    				            stream_set_blocking( $stream, true );
-    				            $resultstring = fread($stream, 4096);
+    				            $stream = @ssh2_exec($connection, $bashformula);
+    				            if ($stream)
+    				            {
+        				            stream_set_blocking( $stream, true );
+        				            $resultstring = fread($stream, 4096);
 
-    				            // TODO
+    				                // TODO
 
-
+    				            }
 
     				            if (function_exists('ssh2_disconnect'))
     				            {
