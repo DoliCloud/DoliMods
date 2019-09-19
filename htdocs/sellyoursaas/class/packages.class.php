@@ -55,18 +55,23 @@ class Packages extends CommonObject
 
 
 	/**
-	 *             'type' if the field format.
-	 *             'label' the translation key.
-	 *             'enabled' is a condition when the filed must be managed.
-	 *             'visible' says if field is visible in list (-1 means not shown by default but can be aded into list to be viewed).
-	 *             'notnull' is set to 1 if not null in database. Set to -1 if we must set data to null if empty ('' or 0).
-	 *             'index' if we want an index in database.
-	 *             'foreignkey'=>'tablename.field' if the field is a foreign key (it is recommanded to name the field fk_...).
-	 *             'position' is the sort order of field.
-	 *             'searchall' is 1 if we want to search in this field when making a search from the quick search button.
-	 *             'isameasure' must be set to 1 if you want to have a total on list for this field. Field type must be summable like integer or double(24,8).
-	 *             'help' is a string visible as a tooltip on field
-	 *             'comment' is not used. You can store here any text of your choice.
+	 *  'type' if the field format ('integer', 'integer:Class:pathtoclass', 'varchar(x)', 'double(24,8)', 'text', 'html', 'datetime', 'timestamp', 'float')
+	 *  'label' the translation key.
+	 *  'enabled' is a condition when the field must be managed.
+	 *  'visible' says if field is visible in list (Examples: 0=Not visible, 1=Visible on list and create/update/view forms, 2=Visible on list only, 3=Visible on create/update/view form only (not list), 4=Visible on list and update/view form only (not create). Using a negative value means field is not shown by default on list but can be selected for viewing)
+	 *  'noteditable' says if field is not editable (1 or 0)
+	 *  'notnull' is set to 1 if not null in database. Set to -1 if we must set data to null if empty ('' or 0).
+	 *  'default' is a default value for creation (can still be replaced by the global setup of default values)
+	 *  'index' if we want an index in database.
+	 *  'foreignkey'=>'tablename.field' if the field is a foreign key (it is recommanded to name the field fk_...).
+	 *  'position' is the sort order of field.
+	 *  'searchall' is 1 if we want to search in this field when making a search from the quick search button.
+	 *  'isameasure' must be set to 1 if you want to have a total on list for this field. Field type must be summable like integer or double(24,8).
+	 *  'css' is the CSS style to use on field. For example: 'maxwidth200'
+	 *  'help' is a string visible as a tooltip on field
+	 *  'comment' is not used. You can store here any text of your choice. It is not used by application.
+	 *  'showoncombobox' if value of the field must be visible into the label of the combobox that list record
+	 *  'arraykeyval' to set list of value if type is a list of predefined values. For example: array("0"=>"Draft","1"=>"Active","-1"=>"Cancel")
 	 */
 
 	// BEGIN MODULEBUILDER PROPERTIES
@@ -99,7 +104,7 @@ class Packages extends CommonObject
 		'cliafter' => array('type'=>'text', 'label'=>'Shell after', 'visible'=>-1, 'enabled'=>1, 'position'=>65, 'notnull'=>-1, 'help'=>"Cli shell executed after deployment.<br><br>For example, you can use the following shell sequence to enable a module:<br>rm -fr __INSTANCEDIR__/documents/install.lock;<br>cd __INSTANCEDIR__/htdocs/install/;<br>php __INSTANCEDIR__/htdocs/install/upgrade2.php 0.0.0 0.0.0 MAIN_MODULE_MYMODULE;<br>touch __INSTANCEDIR__/documents/install.lock;<br>chown -R __OSUSERNAME__.__OSUSERNAME__ __INSTANCEDIR__/documents;"),
 		'sqlafter' => array('type'=>'text', 'label'=>'Sql after', 'visible'=>-1, 'enabled'=>1, 'position'=>70, 'notnull'=>-1, 'help'=>'Sql executed after deployment. Can use substitution vars like<br>__APPPASSWORD0__<br>__APPPASSWORD0SALTED__<br>__APPPASSWORDSHA256__<br>__APPPASSWORDSHA256SALTED__<br>__APPEMAIL__<br>__APPDOMAIN__<br>__OSUSERNAME__<br>...'),
 	    'allowoverride' => array('type'=>'varchar(255)', 'label'=>'Option string for virtual host', 'visible'=>-1, 'enabled'=>1, 'position'=>75, 'notnull'=>-1, 'help'=>'Any string to add into the Apache virtual host file. For example, keep empty to not allow apache override<br>Use "AllowOverride All" to allow override.'),
-	    'register_text' =>array('type'=>'varchar(255)',			'label'=>'RegisterText',	 'enabled'=>1, 'visible'=>-2,  'position'=>100, 'help'=>'EnterHereTranslationKeyToUseOnRegisterPage'),
+	    'register_text' =>array('type'=>'varchar(255)',			'label'=>'RegisterText',	 'enabled'=>1, 'visible'=>-1,  'position'=>100, 'help'=>'EnterHereTranslationKeyToUseOnRegisterPage'),
 	    'status' => array('type'=>'integer', 'label'=>'Status', 'visible'=>1, 'enabled'=>1, 'position'=>1000, 'notnull'=>1, 'default'=>0, 'index'=>1, 'arrayofkeyval'=>array('0'=>'Disabled', '1'=>'Active')),
 	    'import_key' => array('type'=>'varchar(14)', 'label'=>'ImportId', 'visible'=>-2, 'enabled'=>1, 'position'=>1000, 'notnull'=>-1, 'index'=>1,),
 	);
