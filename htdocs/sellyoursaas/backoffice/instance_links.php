@@ -244,11 +244,12 @@ if ($id > 0 && $action != 'edit' && $action != 'create')
 
 	$newdb=getDoliDBInstance($type_db, $hostname_db, $username_db, $password_db, $database_db, $port_db?$port_db:3306);
 
-	$confinstance = new Conf();
+	$stringofversion = '';
+	$stringoflistofmodules = '';
 
 	if (is_object($newdb) && $newdb->connected)
 	{
-		// Get user/pass of last admin user
+	    // Get user/pass of last admin user
         // TODO Put the definition of sql to get last used admin user into the package.
 	    $sql="SELECT login, pass FROM llx_user WHERE admin = 1 ORDER BY statut DESC, datelastlogin DESC LIMIT 1";
         if (preg_match('/glpi-network\.cloud/', $object->ref_customer))
@@ -270,7 +271,27 @@ if ($id > 0 && $action != 'edit' && $action != 'create')
 			setEventMessages('Success to connect to server, but failed to read last admin/pass user: '.$newdb->lasterror(), null, 'errors');
 		}
 
+		// Get $stringofversion and $stringoflistofmodules
+		// TODO Put the defintion in a sql into package
+
+		$confinstance = new Conf();
 		$confinstance->setValues($newdb);
+
+		// Define $stringofversion
+		$stringofversion = 'MAIN_VERSION_LAST_INSTALL='.$confinstance->global->MAIN_VERSION_LAST_INSTALL.' / MAIN_VERSION_LAST_UPGRADE='.$confinstance->global->MAIN_VERSION_LAST_UPGRADE;
+
+		// Define $stringoflistofmodules
+		$i=0;
+		$stringoflistofmodules='';
+		foreach($confinstance->global as $key => $val)
+		{
+		    if (preg_match('/^MAIN_MODULE_[^_]+$/',$key) && ! empty($val))
+		    {
+		        if ($i > 0) print ', ';
+		        $stringoflistofmodules .= preg_replace('/^MAIN_MODULE_/','',$key);
+		        $i++;
+		    }
+		}
 	}
 
 
@@ -542,27 +563,18 @@ print '</td>';
 print '<td></td><td></td>';
 print '</tr>';
 
+
 // Version
+
 print '<tr>';
 print '<td>'.$langs->trans("Version").'</td>';
-print '<td colspan="3">MAIN_VERSION_LAST_INSTALL='.$confinstance->global->MAIN_VERSION_LAST_INSTALL.' / MAIN_VERSION_LAST_UPGRADE='.$confinstance->global->MAIN_VERSION_LAST_UPGRADE.'</td>';
+print '<td colspan="3">'.$stringofversion.'</td>';
 print '</tr>';
 
 // Modules
 print '<tr>';
 print '<td>'.$langs->trans("Modules").'</td>';
-print '<td colspan="3">';
-$i=0;
-foreach($confinstance->global as $key => $val)
-{
-    if (preg_match('/^MAIN_MODULE_[^_]+$/',$key) && ! empty($val))
-    {
-        if ($i > 0) print ', ';
-        print preg_replace('/^MAIN_MODULE_/','',$key);
-        $i++;
-    }
-}
-print '</td>';
+print '<td colspan="3">'.$stringoflistofmodules.'</td>';
 print '</tr>';
 
 print "</table><br>";
