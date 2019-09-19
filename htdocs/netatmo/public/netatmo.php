@@ -23,7 +23,7 @@
 /**
  *     	\file       htdocs/public/netatmo/netatmo.php
  *		\ingroup    core
- *		\brief      Endpoint provided by module netatmo
+ *		\brief      Endpoint provided by module netatmo for netatmo webhooks
  */
 
 define("NOLOGIN", 1);		// This means this output page does not require to be logged.
