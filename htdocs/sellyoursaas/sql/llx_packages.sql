@@ -41,6 +41,7 @@ CREATE TABLE llx_packages(
 	crontoadd text,
 	allowoverride varchar(255), 
 	status integer,
+	register_text varchar(255),
 	note_public text,
 	note_private text
 	-- END MODULEBUILDER FIELDS
