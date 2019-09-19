@@ -366,6 +366,13 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
         ?>
 		<div class="signup2 centpercent">
 
+			<?php
+			if (! empty($tmppackage->register_text))
+			{
+			    print '<div class="register_text">'.$langs->trans($tmppackage->register_text).'</div>';
+			}
+			?>
+
 	      <form action="register_instance.php" method="post" id="formregister">
     	    <div class="form-content">
 	    	  <input type="hidden" name="token" value="<?php echo $_SESSION['newtoken']; ?>" />

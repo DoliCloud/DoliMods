@@ -128,6 +128,7 @@ class Packages extends CommonObject
 	public $cliafter;
 	public $sqlafter;
 	public $allowoverride;
+	public $register_text;
 	public $status;
 	// END MODULEBUILDER PROPERTIES
 
