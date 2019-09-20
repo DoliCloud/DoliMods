@@ -2741,7 +2741,12 @@ if ($mythirdpartyaccount->isareseller)
 		<h4 class="block">'.$langs->trans("YouAreAReseller").'</h4>
 		';
 	print $langs->trans("YourURLToCreateNewInstance").' : ';
-	$urlforpartner = $conf->global->SELLYOURSAAS_ACCOUNT_URL.'/register.php?partner='.$mythirdpartyaccount->id.'&partnerkey='.md5($mythirdpartyaccount->name_alias);
+
+	$sellyoursaasaccounturl = $conf->global->SELLYOURSAAS_ACCOUNT_URL;
+	include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+	$sellyoursaasaccounturl = preg_replace('/'.preg_quote(getDomainFromURL($conf->global->SELLYOURSAAS_ACCOUNT_URL, 1), '/').'/', getDomainFromURL($_SERVER["PHP_SELF"], 1), $sellyoursaasaccounturl);
+
+	$urlforpartner = $sellyoursaasaccounturl.'/register.php?partner='.$mythirdpartyaccount->id.'&partnerkey='.md5($mythirdpartyaccount->name_alias);
 	print '<a class="wordbreak" href="'.$urlforpartner.'" target="_blankinstance">'.$urlforpartner;
 	print '</a><br>';
 
@@ -5775,14 +5780,12 @@ if ($mode == 'registerpaymentmode')
 						$companybankaccounttemp->last_main_doc = $ecmfile->filepath.'/'.$ecmfile->filename;
 						print '<br><!-- Link to download main doc -->'."\n";
 						$publicurltodownload = $companybankaccounttemp->getLastMainDocLink($object->element, 0, 1);
-						// Define $urlwithroot
-						//$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
-						//$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
-						//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
-						/*var_dump($conf->global->SELLYOURSAAS_ACCOUNT_URL);
-						var_dump(DOL_URL_ROOT);
-						var_dump($publicurltodownload);*/
-						$urltouse=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/'.(DOL_URL_ROOT?DOL_URL_ROOT.'/':'').$publicurltodownload;
+
+						$sellyoursaasaccounturl = $conf->global->SELLYOURSAAS_ACCOUNT_URL;
+						include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+						$sellyoursaasaccounturl = preg_replace('/'.preg_quote(getDomainFromURL($conf->global->SELLYOURSAAS_ACCOUNT_URL, 1), '/').'/', getDomainFromURL($_SERVER["PHP_SELF"], 1), $sellyoursaasaccounturl);
+
+						$urltouse=$sellyoursaasaccounturl.'/'.(DOL_URL_ROOT?DOL_URL_ROOT.'/':'').$publicurltodownload;
 						//print img_mime('sepa.pdf').'  <a href="'.$urltouse.'" target="_download">'.$langs->trans("DownloadTheSEPAMandate").'</a><br>';
 					}
 				}
@@ -5981,14 +5984,12 @@ if ($mode == 'mycustomerbilling')
 					              <td>
 					                '.img_mime('pdf.pdf', $titleinvoice).' '.($obj->ref_supplier ? $obj->ref_supplier : $obj->ref);
 							$publicurltodownload = $tmpinvoice->getLastMainDocLink($tmpinvoice->element, 0, 1);
-							// Define $urlwithroot
-							//$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
-							//$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
-							//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
-							/*var_dump($conf->global->SELLYOURSAAS_ACCOUNT_URL);
-							 var_dump(DOL_URL_ROOT);
-							 var_dump($publicurltodownload);*/
-							$urltouse=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/'.(DOL_URL_ROOT?DOL_URL_ROOT.'/':'').$publicurltodownload;
+
+							$sellyoursaasaccounturl = $conf->global->SELLYOURSAAS_ACCOUNT_URL;
+							include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+							$sellyoursaasaccounturl = preg_replace('/'.preg_quote(getDomainFromURL($conf->global->SELLYOURSAAS_ACCOUNT_URL, 1), '/').'/', getDomainFromURL($_SERVER["PHP_SELF"], 1), $sellyoursaasaccounturl);
+
+							$urltouse=$sellyoursaasaccounturl.'/'.(DOL_URL_ROOT?DOL_URL_ROOT.'/':'').$publicurltodownload;
 							//print '<br><a href="'.$urltouse.'" target="_download">'.$langs->trans("Download").'</a>';
 
 							$totalpaidht+=$obj->total_ht;
@@ -6156,14 +6157,12 @@ if ($mode == 'mycustomerbilling')
               <td>
                 '.img_mime('pdf.pdf').' '.$obj->ref;
                 	$publicurltodownload = $tmpinvoice->getLastMainDocLink($tmpinvoice->element, 0, 1);
-                	// Define $urlwithroot
-                	//$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
-                	//$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
-                	//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
-                	/*var_dump($conf->global->SELLYOURSAAS_ACCOUNT_URL);
-                	 var_dump(DOL_URL_ROOT);
-                	 var_dump($publicurltodownload);*/
-                	$urltouse=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'/'.(DOL_URL_ROOT?DOL_URL_ROOT.'/':'').$publicurltodownload;
+
+                	$sellyoursaasaccounturl = $conf->global->SELLYOURSAAS_ACCOUNT_URL;
+                	include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+                	$sellyoursaasaccounturl = preg_replace('/'.preg_quote(getDomainFromURL($conf->global->SELLYOURSAAS_ACCOUNT_URL, 1), '/').'/', getDomainFromURL($_SERVER["PHP_SELF"], 1), $sellyoursaasaccounturl);
+
+                	$urltouse=$sellyoursaasaccounturl.'/'.(DOL_URL_ROOT?DOL_URL_ROOT.'/':'').$publicurltodownload;
              print '<br><a href="'.$urltouse.'" target="_download">'.$langs->trans("Download").'</a>';
 
              print '

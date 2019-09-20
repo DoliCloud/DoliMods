@@ -287,7 +287,7 @@ if ($id > 0 && $action != 'edit' && $action != 'create')
 		{
 		    if (preg_match('/^MAIN_MODULE_[^_]+$/',$key) && ! empty($val))
 		    {
-		        if ($i > 0) print ', ';
+		        if ($i > 0) $stringofversion .= ', ';
 		        $stringoflistofmodules .= preg_replace('/^MAIN_MODULE_/','',$key);
 		        $i++;
 		    }

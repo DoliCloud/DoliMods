@@ -220,7 +220,7 @@ elseif ($reusesocid)		// When we use the "Add another instance" from myaccount d
 		exit;
 	}
 }
-else
+else                    // When we deploy from the register.php page
 {
 	if (! preg_match('/\?/', $newurl)) $newurl.='?';
 	if (! preg_match('/orgName/i', $newurl)) $newurl.='&orgName='.urlencode($orgname);
@@ -445,6 +445,9 @@ else
 
 	if (! empty($conf->global->SELLYOURSAAS_NAME_RESERVED) && preg_match('/'.$conf->global->SELLYOURSAAS_NAME_RESERVED.'/', $fqdninstance))
 	{
+	    // @TODO Eclude some thirdparties
+
+
 	    setEventMessages($langs->trans("InstanceNameReseved", $fqdninstance), null, 'errors');
 	    header("Location: ".$newurl);
 	    exit;
@@ -482,7 +485,8 @@ else
 	$tmpthirdparty->array_options['options_date_registration'] = dol_now();
 	$tmpthirdparty->array_options['options_domain_registration_page'] = getDomainFromURL($_SERVER["SERVER_NAME"], 1);
 	$tmpthirdparty->array_options['options_source']='REGISTERFORM'.($origin?'-'.$origin:'');
-	$tmpthirdparty->array_options['options_password'] = $password;
+    $tmpthirdparty->array_options['options_password'] = $password;
+
 	if ($productref == 'none')	// If reseller
 	{
 		$tmpthirdparty->fournisseur = 1;
@@ -813,6 +817,12 @@ if (! $error && $productref != 'none')
 	$contract->array_options['options_deployment_date_end'] = dol_now();
 	$contract->array_options['options_undeployment_date'] = '';
 	$contract->array_options['options_undeployment_ip'] = '';
+
+	// Clear password, we don't need it anymore.
+	if (empty($conf->global->SELLYOURSAAS_KEEP_INIT_ADMINPASS))
+	{
+	   $contract->array_options['options_deployment_init_adminpass'] = '';
+	}
 
 	// Set cookie to store last registered instance
 	$prefix=dol_getprefix('');

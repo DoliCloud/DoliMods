@@ -310,7 +310,7 @@ function getRootUrlForAccount($object)
 {
     global $db, $conf;
 
-    $tmpret = explode(',', $conf->global->SELLYOURSAAS_ACCOUNT_URL);     // By default take the first IP
+    $tmpret = explode(',', $conf->global->SELLYOURSAAS_ACCOUNT_URL);     // By default
     $ret = $tmpret[0];
 
     $newobject = $object;
