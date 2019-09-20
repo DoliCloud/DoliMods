@@ -173,7 +173,7 @@ else
 
 $urlstatus=$conf->global->SELLYOURSAAS_STATUS_URL;
 include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
-$sellyoursaasaccounturl = preg_replace('/'.preg_quote(getDomainFromURL($conf->global->SELLYOURSAAS_STATUS_URL, 1), '/').'/', getDomainFromURL($_SERVER["SERVER_NAME"], 1), $urlstatus);
+$urlstatus = preg_replace('/'.preg_quote(getDomainFromURL($conf->global->SELLYOURSAAS_STATUS_URL, 1), '/').'/', getDomainFromURL($_SERVER["SERVER_NAME"], 1), $urlstatus);
 
 
 
