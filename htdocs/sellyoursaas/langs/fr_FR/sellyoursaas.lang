@@ -417,4 +417,4 @@ SELLYOURSAAS_NAME_RESERVED=Regex pour réserver (interdire) des noms d'instance
 AnErrorOccuredDuringDeployment=Une erreur temporaire s'est produite lors du déploiement de votre instance.<br>Ceci peut arriver lorsqu'il y a trop de demandes en même temps. Merci de patienter, un email sera envoyé lorsque votre instance sera prête...
 OurTeamHasBeenAlerted=Notre équipe a été alertée. Vous recevrez un email dès que le déploiement sera terminé.
 RegisterText=Texte sur la page d'inscription
-EnterHereTranslationKeyToUseOnRegisterPage=Entrez ici un petit texte qui apparaitrat en haut du formulaire d'inscription pour une nouvelle instance.<br>Vous pouvez aussi saisir une clé de traduction (et ajouter alors les textes traduits depuis le menu Accueil - Configuration - Traduction)
+EnterHereTranslationKeyToUseOnRegisterPage=Entrez ici un petit texte qui apparaîtra en haut du formulaire d'inscription pour une nouvelle instance.<br>Vous pouvez aussi saisir une clé de traduction (et ajouter alors les textes traduits depuis le menu Accueil - Configuration - Traduction)
