@@ -25,7 +25,7 @@ $emailfrom = '';
 $pointer = fopen('php://stdin', 'r');
 
 while ($line = fgets($pointer)) {
-        if(preg_match('/^to:/i', $line) ) {
+    if(preg_match('/^to:/i', $line) ) {
 		$toline .= trim($line)."\n";
 		$linetmp = preg_replace('/^to:\s*/i','',trim($line));
 		$tmpto=preg_split("/[\s,]+/", $linetmp);
@@ -43,11 +43,16 @@ while ($line = fgets($pointer)) {
 		$tmpbcc=preg_split("/[\s,]+/", $linetmp);
                 $nbbcc+=count($tmpbcc);
         }
-        if(preg_match('/^from:.*<(.*)>/i', $line, $reg) ) {
+    if(preg_match('/^from:.*<(.*)>/i', $line, $reg) ) {
                 $fromline .= trim($line)."\n";
 		$emailfrom = $reg[1];
-        }
-        if(preg_match('/^references:/i', $line) ) {
+    }
+    elseif(preg_match('/^from:\s*([^\s*])/i', $line, $reg) ) {
+        $fromline .= trim($line)."\n";
+        $emailfrom = trim($reg[1]);
+    }
+
+    if(preg_match('/^references:/i', $line) ) {
                 $referenceline .= trim($line)."\n";
         }
         $mail .= $line;
