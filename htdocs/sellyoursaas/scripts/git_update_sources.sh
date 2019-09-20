@@ -1,6 +1,6 @@
 #!/bin/bash
 #---------------------------------------------------------
-# Script to update sources found into document dir
+# Script to update sources found into a directory
 #
 # To include into cron
 # /pathto/git_update_sources.sh documentdir/sellyoursaas/git > /pathto/git_update_sources.log 2>&
@@ -15,30 +15,34 @@ fi
 echo "Update git dirs found into $1"
 
 #for dir in `find $1 -type d`
-for dir in `ls -d $1/* | grep -v glpi | grep -v tar.gz`
+for dir in `ls -d $1/* | grep -v tar.gz`
 do
-        echo -- Process dir $dir
+    echo -- Process dir $dir
+    if [ -d "$dir/.git" ]; then
         cd $dir
         git reset --hard HEAD
         git pull
         echo Result of git pull = $?
-
-		echo "Clean some dirs to save disk spaces"
-		rm -fr documents/*
-		rm -fr build/ dev/ test/ doc/ htdocs/includes/ckeditor/ckeditor/adapters htdocs/includes/ckeditor/ckeditor/samples
-		rm -fr htdocs/includes/sabre/sabre/*/tests htdocs/includes/stripe/tests
-		rm -fr htdocs/includes/tecnickcom/tcpdf/fonts/dejavu-fonts-ttf-* htdocs/includes/tecnickcom/tcpdf/fonts/freefont-* htdocs/includes/tecnickcom/tcpdf/fonts/ae_fonts_*
-		
+    
+    	echo "Clean some dirs to save disk spaces"
+    	rm -fr documents/*
+    	rm -fr build/ dev/ test/ doc/ htdocs/includes/ckeditor/ckeditor/adapters htdocs/includes/ckeditor/ckeditor/samples
+    	rm -fr htdocs/includes/sabre/sabre/*/tests htdocs/includes/stripe/tests
+    	rm -fr htdocs/includes/tecnickcom/tcpdf/fonts/dejavu-fonts-ttf-* htdocs/includes/tecnickcom/tcpdf/fonts/freefont-* htdocs/includes/tecnickcom/tcpdf/fonts/ae_fonts_*
+    	
         if [ -s build/generate_filelist_xml.php ]; then
                 echo "Found generate_filelist_xml.php"
                 php build/generate_filelist_xml.php release=auto-dolicloud
         fi
-
-		# Create a deployment tar file
-		#echo "Compress the repository into an archive $dir.tar.gz"
-		#tar cz --exclude-vcs -f $dir.tar.gz .
-		
+    
+    	# Create a deployment tar file
+    	#echo "Compress the repository into an archive $dir.tar.gz"
+    	#tar cz --exclude-vcs -f $dir.tar.gz .
+    	
         cd -
+    else
+        echo "Not a git dir. Nothing done."
+    fi
 done
 
 echo "Finished."
