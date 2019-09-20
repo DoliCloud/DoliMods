@@ -3491,7 +3491,7 @@ class SellYourSaasUtils
 
     				            $newqty = 0;
 
-    				            $stream = @ssh2_exec($connection, $bashformula);
+    				            //$stream = @ssh2_exec($connection, $bashformula);
     				            if ($stream)
     				            {
         				            stream_set_blocking( $stream, true );
