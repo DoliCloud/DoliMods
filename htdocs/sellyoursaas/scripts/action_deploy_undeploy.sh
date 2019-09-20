@@ -139,6 +139,9 @@ export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
 export fqnold=$instancenameold.$domainnameold
 
+export webSSLCertificateCRT=with.sellyoursaas.com.crt
+export webSSLCertificateKEY=with.sellyoursaas.com.key
+export webSSLCertificateIntermediate=with.sellyoursaas.com-intermediate.crt
 
 
 # For debug
@@ -588,6 +591,9 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	echo "cat $vhostfile | sed -e 's/__webAppDomain__/$instancename.$domainname/g' | \
 			  sed -e 's/__webAppAliases__/$instancename.$domainname/g' | \
 			  sed -e 's/__webAppLogName__/$instancename/g' | \
+              sed -e 's/__webSSLCertificateCRT__/$webSSLCertificateCRT/g' | \
+              sed -e 's/__webSSLCertificateKEY__/$webSSLCertificateKEY/g' | \
+              sed -e 's/__webSSLCertificateIntermediate__/$webSSLCertificateIntermediate/g' | \
 			  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
 			  sed -e 's/__osUsername__/$osusername/g' | \
 			  sed -e 's/__osGroupname__/$osusername/g' | \
@@ -599,6 +605,9 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 	cat $vhostfile | sed -e "s/__webAppDomain__/$instancename.$domainname/g" | \
 			  sed -e "s/__webAppAliases__/$instancename.$domainname/g" | \
 			  sed -e "s/__webAppLogName__/$instancename/g" | \
+              sed -e "s/__webSSLCertificateCRT__/$webSSLCertificateCRT/g" | \
+              sed -e "s/__webSSLCertificateKEY__/$webSSLCertificateKEY/g" | \
+              sed -e "s/__webSSLCertificateIntermediate__/$webSSLCertificateIntermediate/g" | \
 			  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
 			  sed -e "s/__osUsername__/$osusername/g" | \
 			  sed -e "s/__osGroupname__/$osusername/g" | \
@@ -630,6 +639,9 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		echo "cat $vhostfile | sed -e 's/__webAppDomain__/$customurl/g' | \
 				  sed -e 's/__webAppAliases__/$customurl/g' | \
 				  sed -e 's/__webAppLogName__/$instancename/g' | \
+                  sed -e 's/__webSSLCertificateCRT__/$webSSLCertificateCRT/g' | \
+                  sed -e 's/__webSSLCertificateKEY__/$webSSLCertificateKEY/g' | \
+                  sed -e 's/__webSSLCertificateIntermediate__/$webSSLCertificateIntermediate/g' | \
 				  sed -e 's/__webAdminEmail__/$EMAILFROM/g' | \
 				  sed -e 's/__osUsername__/$osusername/g' | \
 				  sed -e 's/__osGroupname__/$osusername/g' | \
@@ -641,6 +653,9 @@ if [[ "$mode" == "deploy" || "$mode" == "deployall" ]]; then
 		cat $vhostfile | sed -e "s/__webAppDomain__/$customurl/g" | \
 				  sed -e "s/__webAppAliases__/$customurl/g" | \
 				  sed -e "s/__webAppLogName__/$instancename/g" | \
+                  sed -e "s/__webSSLCertificateCRT__/$webSSLCertificateCRT/g" | \
+                  sed -e "s/__webSSLCertificateKEY__/$webSSLCertificateKEY/g" | \
+                  sed -e "s/__webSSLCertificateIntermediate__/$webSSLCertificateIntermediate/g" | \
 				  sed -e "s/__webAdminEmail__/$EMAILFROM/g" | \
 				  sed -e "s/__osUsername__/$osusername/g" | \
 				  sed -e "s/__osGroupname__/$osusername/g" | \

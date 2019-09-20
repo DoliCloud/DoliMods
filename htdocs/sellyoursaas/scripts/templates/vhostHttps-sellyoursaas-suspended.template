@@ -65,9 +65,9 @@
                 nokeepalive ssl-unclean-shutdown \
                 downgrade-1.0 force-response-1.0
 
-SSLCertificateFile /etc/apache2/with.sellyoursaas.com.crt
-SSLCertificateKeyFile /etc/apache2/with.sellyoursaas.com.key
-SSLCertificateChainFile /etc/apache2/with.sellyoursaas.com-intermediate.crt
+SSLCertificateFile /etc/apache2/__webSSLCertificateCRT__
+SSLCertificateKeyFile /etc/apache2/__webSSLCertificateKEY__
+SSLCertificateChainFile /etc/apache2/__webSSLCertificateIntermediate__
 
 </VirtualHost>
 
