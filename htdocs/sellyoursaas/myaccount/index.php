@@ -2744,7 +2744,7 @@ if ($mythirdpartyaccount->isareseller)
 
 	$sellyoursaasaccounturl = $conf->global->SELLYOURSAAS_ACCOUNT_URL;
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
-	$sellyoursaasaccounturl = preg_replace('/'.preg_quote(getDomainFromURL($conf->global->SELLYOURSAAS_ACCOUNT_URL, 1), '/').'/', getDomainFromURL($_SERVER["PHP_SELF"], 1), $sellyoursaasaccounturl);
+	$sellyoursaasaccounturl = preg_replace('/'.preg_quote(getDomainFromURL($conf->global->SELLYOURSAAS_ACCOUNT_URL, 1), '/').'/', getDomainFromURL($_SERVER["SERVER_NAME"], 1), $sellyoursaasaccounturl);
 
 	$urlforpartner = $sellyoursaasaccounturl.'/register.php?partner='.$mythirdpartyaccount->id.'&partnerkey='.md5($mythirdpartyaccount->name_alias);
 	print '<a class="wordbreak" href="'.$urlforpartner.'" target="_blankinstance">'.$urlforpartner;
@@ -5783,7 +5783,7 @@ if ($mode == 'registerpaymentmode')
 
 						$sellyoursaasaccounturl = $conf->global->SELLYOURSAAS_ACCOUNT_URL;
 						include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
-						$sellyoursaasaccounturl = preg_replace('/'.preg_quote(getDomainFromURL($conf->global->SELLYOURSAAS_ACCOUNT_URL, 1), '/').'/', getDomainFromURL($_SERVER["PHP_SELF"], 1), $sellyoursaasaccounturl);
+						$sellyoursaasaccounturl = preg_replace('/'.preg_quote(getDomainFromURL($conf->global->SELLYOURSAAS_ACCOUNT_URL, 1), '/').'/', getDomainFromURL($_SERVER["SERVER_NAME"], 1), $sellyoursaasaccounturl);
 
 						$urltouse=$sellyoursaasaccounturl.'/'.(DOL_URL_ROOT?DOL_URL_ROOT.'/':'').$publicurltodownload;
 						//print img_mime('sepa.pdf').'  <a href="'.$urltouse.'" target="_download">'.$langs->trans("DownloadTheSEPAMandate").'</a><br>';
@@ -5987,7 +5987,7 @@ if ($mode == 'mycustomerbilling')
 
 							$sellyoursaasaccounturl = $conf->global->SELLYOURSAAS_ACCOUNT_URL;
 							include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
-							$sellyoursaasaccounturl = preg_replace('/'.preg_quote(getDomainFromURL($conf->global->SELLYOURSAAS_ACCOUNT_URL, 1), '/').'/', getDomainFromURL($_SERVER["PHP_SELF"], 1), $sellyoursaasaccounturl);
+							$sellyoursaasaccounturl = preg_replace('/'.preg_quote(getDomainFromURL($conf->global->SELLYOURSAAS_ACCOUNT_URL, 1), '/').'/', getDomainFromURL($_SERVER["SERVER_NAME"], 1), $sellyoursaasaccounturl);
 
 							$urltouse=$sellyoursaasaccounturl.'/'.(DOL_URL_ROOT?DOL_URL_ROOT.'/':'').$publicurltodownload;
 							//print '<br><a href="'.$urltouse.'" target="_download">'.$langs->trans("Download").'</a>';
@@ -6160,7 +6160,7 @@ if ($mode == 'mycustomerbilling')
 
                 	$sellyoursaasaccounturl = $conf->global->SELLYOURSAAS_ACCOUNT_URL;
                 	include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
-                	$sellyoursaasaccounturl = preg_replace('/'.preg_quote(getDomainFromURL($conf->global->SELLYOURSAAS_ACCOUNT_URL, 1), '/').'/', getDomainFromURL($_SERVER["PHP_SELF"], 1), $sellyoursaasaccounturl);
+                	$sellyoursaasaccounturl = preg_replace('/'.preg_quote(getDomainFromURL($conf->global->SELLYOURSAAS_ACCOUNT_URL, 1), '/').'/', getDomainFromURL($_SERVER["SERVER_NAME"], 1), $sellyoursaasaccounturl);
 
                 	$urltouse=$sellyoursaasaccounturl.'/'.(DOL_URL_ROOT?DOL_URL_ROOT.'/':'').$publicurltodownload;
              print '<br><a href="'.$urltouse.'" target="_download">'.$langs->trans("Download").'</a>';
