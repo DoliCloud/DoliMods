@@ -872,7 +872,6 @@ class SellYourSaasUtils
     	}
 
     	$currency = $conf->currency;
-    	$cardstripe = $companypaymentmode->stripe_ref_card;
 
     	// Get list of pending invoices (may also validate pending draft if $includedraft is set)
     	$invoices=array();
@@ -1026,7 +1025,7 @@ class SellYourSaasUtils
 						else
 						{
 	    					$stripecard = $stripe->cardStripe($customer, $companypaymentmode, $stripeacc, $servicestatus, 0);
-	    					if ($stripecard)
+	    					if ($stripecard)  // Can be card_... (old mode) or pi_... (new mode)
 	    					{
 	    						$FULLTAG='INV='.$invoice->id.'-CUS='.$thirdparty->id;
 	    						$description='Stripe payment from doTakePaymentStripeForThirdparty: '.$FULLTAG.' ref='.$invoice->ref;
@@ -1035,35 +1034,51 @@ class SellYourSaasUtils
 	    						$stripefailuremessage='';
 	    						$stripefailuredeclinecode='';
 
-	    						dol_syslog("* Create charge on card ".$stripecard->id.", amountstripe=".$amountstripe.", FULLTAG=".$FULLTAG, LOG_DEBUG);
-
-	    						$charge = null;		// Force reset of $charge, so, if already set from a previous fetch, it will be empty even if there is an exception at next step
-	    						try {
-		    						$charge = \Stripe\Charge::create(array(
-			    						'amount'   => price2num($amountstripe, 'MU'),
-			    						'currency' => $currency,
-			    						'capture'  => true,							// Charge immediatly
-			    						'description' => $description,
-			    						'metadata' => array("FULLTAG" => $FULLTAG, 'Recipient' => $mysoc->name, 'dol_version'=>DOL_VERSION, 'dol_entity'=>$conf->entity, 'ipaddress'=>(empty($_SERVER['REMOTE_ADDR'])?'':$_SERVER['REMOTE_ADDR'])),
-		    							'customer' => $customer->id,
-		    							//'customer' => 'bidon_to_force_error',		// To use to force a stripe error
-			    						'source' => $stripecard,
-		    						    'statement_descriptor' => dol_trunc('INV='.$invoice->id, 10, 'right', 'UTF-8', 1),     // 22 chars that appears on bank receipt (company + description)
-		    						));
-	    						}
-	    						catch(\Stripe\Error\Card $e) {
-	    							// Since it's a decline, Stripe_CardError will be caught
-	    							$body = $e->getJsonBody();
-	    							$err  = $body['error'];
-
-	    							$stripefailurecode = $err['code'];
-	    							$stripefailuremessage = $err['message'];
-	    							$stripefailuredeclinecode = $err['decline_code'];
-	    						}
-	    						catch(Exception $e)
+	    						if (empty($conf->global->STRIPE_USE_INTENT_WITH_AUTOMATIC_CONFIRMATION))
 	    						{
-	    							$stripefailurecode='UnknownChargeError';
-	    							$stripefailuremessage=$e->getMessage();
+    	    						dol_syslog("* Create charge on card ".$stripecard->id.", amountstripe=".$amountstripe.", FULLTAG=".$FULLTAG, LOG_DEBUG);
+
+    	    						$charge = null;		// Force reset of $charge, so, if already set from a previous fetch, it will be empty even if there is an exception at next step
+    	    						try {
+    		    						$charge = \Stripe\Charge::create(array(
+    			    						'amount'   => price2num($amountstripe, 'MU'),
+    			    						'currency' => $currency,
+    			    						'capture'  => true,							// Charge immediatly
+    			    						'description' => $description,
+    			    						'metadata' => array("FULLTAG" => $FULLTAG, 'Recipient' => $mysoc->name, 'dol_version'=>DOL_VERSION, 'dol_entity'=>$conf->entity, 'ipaddress'=>(empty($_SERVER['REMOTE_ADDR'])?'':$_SERVER['REMOTE_ADDR'])),
+    		    							'customer' => $customer->id,
+    		    							//'customer' => 'bidon_to_force_error',		// To use to force a stripe error
+    			    						'source' => $stripecard,
+    		    						    'statement_descriptor' => dol_trunc('INV='.$invoice->id, 10, 'right', 'UTF-8', 1),     // 22 chars that appears on bank receipt (company + description)
+    		    						));
+    	    						}
+    	    						catch(\Stripe\Error\Card $e) {
+    	    							// Since it's a decline, Stripe_CardError will be caught
+    	    							$body = $e->getJsonBody();
+    	    							$err  = $body['error'];
+
+    	    							$stripefailurecode = $err['code'];
+    	    							$stripefailuremessage = $err['message'];
+    	    							$stripefailuredeclinecode = $err['decline_code'];
+    	    						}
+    	    						catch(Exception $e)
+    	    						{
+    	    							$stripefailurecode='UnknownChargeError';
+    	    							$stripefailuremessage=$e->getMessage();
+    	    						}
+	    						}
+	    						else
+	    						{
+	    						    $charge = new stdClass();
+
+	    						    dol_syslog("* Create payment on card ".$stripecard->id.", amountstripe=".$amountstripe.", FULLTAG=".$FULLTAG, LOG_DEBUG);
+
+                                    // TODO
+
+                                    $charge->status = 'ok';
+                                    $charge->status = 'failed';
+                                    $charge->failure_code = 'AAA';
+                                    $charge->failure_message = 'Message aaa';
 	    						}
 
 	    						$postactionmessages=array();
@@ -1071,7 +1086,7 @@ class SellYourSaasUtils
 	    						// Return $charge = array('id'=>'ch_XXXX', 'status'=>'succeeded|pending|failed', 'failure_code'=>, 'failure_message'=>...)
 	    						if (empty($charge) || $charge->status == 'failed')
 	    						{
-	    							dol_syslog('Failed to charge card '.$stripecard->id.' stripefailurecode='.$stripefailurecode.' stripefailuremessage='.$stripefailuremessage.' stripefailuredeclinecode='.$stripefailuredeclinecode, LOG_WARNING);
+	    							dol_syslog('Failed to charge card or payment mode '.$stripecard->id.' stripefailurecode='.$stripefailurecode.' stripefailuremessage='.$stripefailuremessage.' stripefailuredeclinecode='.$stripefailuredeclinecode, LOG_WARNING);
 
 	    							// Save a stripe payment was in error
 	    							$this->stripechargeerror++;
@@ -1401,8 +1416,8 @@ class SellYourSaasUtils
 	    					{
 	    						$error++;
 	    						$errorforinvoice++;
-	    						dol_syslog("No card found for this stripe customer ".$customer->id, LOG_WARNING);
-	    						$this->errors[]='Failed to get card for stripe customer = '.$customer->id;
+	    						dol_syslog("No card or payment method found for this stripe customer ".$customer->id, LOG_WARNING);
+	    						$this->errors[]='Failed to get card | payment method for stripe customer = '.$customer->id;
 	    					}
 						}
     				} else {
