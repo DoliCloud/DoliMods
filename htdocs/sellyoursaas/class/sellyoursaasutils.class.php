@@ -1024,7 +1024,7 @@ class SellYourSaasUtils
 						else
 						{
 	    					$stripecard = $stripe->cardStripe($customer, $companypaymentmode, $stripeacc, $servicestatus, 0);
-	    					if ($stripecard)  // Can be card_... (old mode) or pi_... (new mode)
+	    					if ($stripecard)  // Can be card_... (old mode) or pm_... (new mode)
 	    					{
 	    						$FULLTAG='INV='.$invoice->id.'-CUS='.$thirdparty->id;
 	    						$description='Stripe payment from doTakePaymentStripeForThirdparty: '.$FULLTAG.' ref='.$invoice->ref;
@@ -1033,7 +1033,7 @@ class SellYourSaasUtils
 	    						$stripefailuremessage='';
 	    						$stripefailuredeclinecode='';
 
-	    						if (empty($conf->global->STRIPE_USE_INTENT_WITH_AUTOMATIC_CONFIRMATION))
+	    						if (empty($conf->global->STRIPE_USE_INTENT_WITH_AUTOMATIC_CONFIRMATION)) // Using old method
 	    						{
     	    						dol_syslog("* Create charge on card ".$stripecard->id.", amountstripe=".$amountstripe.", FULLTAG=".$FULLTAG, LOG_DEBUG);
 
@@ -1066,7 +1066,7 @@ class SellYourSaasUtils
     	    							$stripefailuremessage=$e->getMessage();
     	    						}
 	    						}
-	    						else
+	    						else                                                                     // Using new SCA method
 	    						{
 	    						    dol_syslog("* Create payment on card ".$stripecard->id.", amounttopay=".$amounttopay.", amountstripe=".$amountstripe.", FULLTAG=".$FULLTAG, LOG_DEBUG);
 
@@ -1080,7 +1080,7 @@ class SellYourSaasUtils
 	    						    }
 	    						    else
 	    						    {
-                                        $charge->status = 'failed';
+	    						        $charge->status = 'failed';
                                         $charge->failure_code = $stripe->code;
                                         $charge->failure_message = $stripe->error;
                                         $charge->failure_declinecode = $stripe->declinecode;
@@ -1108,7 +1108,12 @@ class SellYourSaasUtils
 	    							$errmsg='Failed to charge card';
 	    							if (! empty($charge))
 	    							{
-	    							    if ($stripefailuredeclinecode == 'insufficient_funds')
+	    							    if ($stripefailuredeclinecode == 'authentication_required')
+	    							    {
+	    							        $errauthenticationmessage=$langs->trans("ErrSCAAuthentication");
+	    							        $errmsg=$errauthenticationmessage;
+	    							    }
+	    							    elseif ($stripefailuredeclinecode == 'insufficient_funds')
 	    							    {
 	    							        $errmsg.=': '.$charge->failure_code;
 	    							        $errmsg.=($charge->failure_message?' - ':'').' '.$charge->failure_message;

@@ -5552,7 +5552,9 @@ if ($mode == 'registerpaymentmode')
         	    	      console.log("No error on result of handleCardPayment, so we submit the form");
             			  // Submit the form
             		      jQuery('#buttontopay').hide();
+            		      jQuery('#buttontocancel').hide();
             		      jQuery('#hourglasstopay').show();
+            		      jQuery('#hourglasstopay').removeClass('hidden');
             		      // Send form (action=createpaymentmode)
             		      jQuery('#payment-form').submit();
         		      }
