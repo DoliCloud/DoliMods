@@ -586,7 +586,7 @@ if (! $nboferrors)
 		}
 
 		include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
-		$cmail = new CMailFile('['.$sellyoursaasname.'] Success for backup', $to, $from, $msg);
+		$cmail = new CMailFile('['.$sellyoursaasname.' - '.gethostname().'] Success for backup', $to, $from, $msg);
 		$result = $cmail->sendfile();
 	}
 }

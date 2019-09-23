@@ -79,6 +79,14 @@ if ($fp) {
     foreach($array as $val)
     {
         $tmpline=explode("=", $val);
+        if ($tmpline[0] == 'ipserverdeployment')
+        {
+            $ipserverdeployment = $tmpline[1];
+        }
+        if ($tmpline[0] == 'instanceserver')
+        {
+            $instanceserver = $tmpline[1];
+        }
         if ($tmpline[0] == 'databasehost')
         {
             $databasehost = $tmpline[1];
@@ -111,6 +119,16 @@ else
 
 if (0 == posix_getuid()) {
     echo "Script must not be ran with root (but with admin sellyoursaas account).\n";
+    exit(-1);
+}
+if (empty($ipserverdeployment))
+{
+    echo "Script can't find the value of 'ipserverdeployment' in sellyoursaas.conf file).\n";
+    exit(-1);
+}
+if (empty($instanceserver))
+{
+    echo "This server seems to not be a server for deployment of instances (this should be defined in sellyoursaas.conf file).\n";
     exit(-1);
 }
 
