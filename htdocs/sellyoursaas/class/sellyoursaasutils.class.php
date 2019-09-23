@@ -1427,7 +1427,7 @@ class SellYourSaasUtils
 	    						 $actioncomm->errors_to   = $object->errors_to;*/
 	    						$actioncomm->fk_element  = $invoice->id;
 	    						$actioncomm->elementtype = $invoice->element;
-	    						$actioncomm->extraparams = $extraparams;
+	    						$actioncomm->extraparams = dol_trunc($extraparams, 250);
 
 	    						$actioncomm->create($user);
 

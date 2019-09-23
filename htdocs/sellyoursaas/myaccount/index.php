@@ -698,7 +698,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
             $companypaymentmode->fk_soc          = $mythirdpartyaccount->id;
             $companypaymentmode->bank            = GETPOST('bank','alpha');
-            $companypaymentmode->label           = 'Setup intent';
+            $companypaymentmode->label           = 'Setup intent for '.$payment_method->id;
             $companypaymentmode->number          = '';
             $companypaymentmode->last_four       = $payment_method->card->last4;
             $companypaymentmode->proprio         = GETPOST('proprio','alpha');
@@ -1185,6 +1185,10 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
                                 $error++;
                                 setEventMessages($sellyoursaasutils->error, $sellyoursaasutils->errors, 'errors');
                                 dol_syslog("--- Failed to take payment ".$sellyoursaasutils->error, LOG_DEBUG, 0);
+
+                                var_dump($sellyoursaasutils);exit;
+
+                                // TODO Ask authentication
                             }
 
                             // If some payment was really done, we force commit to be sure to validate invoices payment done by stripe, whatever is global result of doTakePaymentStripeForThirdparty
