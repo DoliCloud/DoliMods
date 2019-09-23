@@ -643,6 +643,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
     {
         $setupintentid = GETPOST('setupintentid', 'alpha');
 
+        /*$thirdparty_id = $mythirdpartyaccount->id;
         $thirdparty_id = GETPOST('thirdparty_id', 'alpha');
         if ($thirdparty_id != $mythirdpartyaccount->id)
         {
@@ -650,7 +651,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
             $action='';
             $mode='registerpaymentmode';
             $error++;
-        }
+        }*/
         if (empty($setupintentid))
         {
             setEventMessages('Error: Failed to get the setupintent id', null, 'errors');
@@ -730,44 +731,63 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
                     $action='createcard';     // Force chargement page création
                 }
 
-                /*
-                if (! empty($conf->stripe->enabled) && class_exists('Stripe'))
+                if (! $error)
                 {
                     $stripe = new Stripe($db);
                     $stripeacc = $stripe->getStripeAccount($service);								// Get Stripe OAuth connect account if it exists (no network access here)
 
-                    if (! $error)
+                    // Get the Stripe customer and create if not linked
+                    $cu = $stripe->customerStripe($mythirdpartyaccount, $stripeacc, $servicestatusstripe, 0);
+                    if (! $cu)
                     {
-                        // Get the Stripe customer and create if not linked
-                        $cu = $stripe->customerStripe($mythirdpartyaccount, $stripeacc, $servicestatusstripe, 1);
-                        if (! $cu)
-                        {
-                            $error++;
-                            setEventMessages($stripe->error, $stripe->errors, 'errors');
-                        }
-                        else
-                        {
-                            dol_syslog('--- Stripe customer retrieved');
+                        $error++;
+                        setEventMessages($stripe->error, $stripe->errors, 'errors');
+                    }
+                    else
+                    {
+                        dol_syslog('--- Stripe customer retrieved cu = '.$cu->id);
 
-                            // Attach payment_mode from SetupIntent to customer
-                            try {
-                                $payment_method = \Stripe\PaymentMethod::retrieve($intent->payment_method);
-                                $result = $payment_method->attach(['customer' => $cu->id]);
-                            } catch (Exception $e) {
+                        // Attach payment_mode from SetupIntent to customer
+                        try {
+                            $payment_method_obj = \Stripe\PaymentMethod::retrieve($payment_method->id);
+                            if (empty($payment_method_obj->customer))
+                            {
+                                $result = $payment_method_obj->attach(['customer' => $cu->id]);
+                            }
+                            elseif($payment_method_obj->customer != $cu->id)
+                            {
                                 $error++;
-                                $errormsg = $e->getMessage();
+                                $errormsg = "The payment method ".$payment_method->id." is already attached to customer ".$payment_method_obj->customer." that is not ".$cu->id;
+                                dol_syslog($errormsg, LOG_ERR);
+                            }
+                        }
+                        catch(Stripe\Error\InvalidRequest $e)
+                        {
+                            //var_dump($e);
+                            $error++;
+                            $errormsg = $e->getMessage();
+                            if ($errormsg != 'The payment method you provided has already been attached to a customer.')
+                            {
                                 dol_syslog('--- FailedToAttachPaymentMethodToCustomer Exception '.$errormsg, LOG_WARNING);
                                 setEventMessages($langs->trans('FailedToAttachPaymentMethodToCustomer').($errormsg?'<br>'.$errormsg:''), null, 'errors');
                                 $action='';
                             }
                         }
+                        catch (Exception $e) {
+                            //var_dump($e);
+                            $error++;
+                            $errormsg = $e->getMessage();
+                            dol_syslog('--- FailedToAttachPaymentMethodToCustomer Exception '.$errormsg, LOG_WARNING);
+                            setEventMessages($langs->trans('FailedToAttachPaymentMethodToCustomer').($errormsg?'<br>'.$errormsg:''), null, 'errors');
+                            $action='';
+                        }
                     }
-                }*/
+                }
 
                 if (! $error)
                 {
                     $companypaymentmode->setAsDefault($companypaymentmode->id, 1);
-                    dol_syslog("--- A credit card was recorded. Now we reset the stripeaccount (to force use of default setup)", LOG_DEBUG, 0);
+                    dol_syslog("--- A credit card was recorded. Now we reset the stripeaccount (to force use of default Stripe setup)", LOG_DEBUG, 0);
 
                     $sql = 'UPDATE '.MAIN_DB_PREFIX.'societe_extrafields set stripeaccount = NULL WHERE fk_object = '.$mythirdpartyaccount->id;
                     $db->query($sql);
@@ -842,7 +862,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
             // Make renewals on contracts of customer
             if (! $error)
             {
-                dol_syslog("--- Make renewals on crontacts for thirdparty id=".$mythirdpartyaccount->id, LOG_DEBUG, 0);
+                dol_syslog("--- Make renewals on contracts for thirdparty id=".$mythirdpartyaccount->id, LOG_DEBUG, 0);
 
                 dol_include_once('/sellyoursaas/class/sellyoursaasutils.class.php');
 
@@ -893,10 +913,9 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
                     dol_syslog("--- No template invoice found for the contract contract_id = ".$contract->id." that is not null, so we refresh contract before creating template invoice + creating invoice (if template invoice date is already in past) + making contract renewal.", LOG_DEBUG, 0);
 
-                    $comment = 'Refresh contract '.$contract->ref.' after entering a payment mode because we need to create a template invoice';
+                    $comment = 'Refresh contract '.$contract->ref.' after entering a payment mode on dashboard, because we need to create a template invoice';
                     // First launch update of resources: This update status of install.lock+authorized key and update qty of contract lines
                     $result = $sellyoursaasutils->sellyoursaasRemoteAction('refresh', $contract, 'admin', '', '', '0', $comment);
-
 
                     dol_syslog("--- No template invoice found for the contract contract_id = ".$contract->id.", so we create it then create real invoice (if template invoice date is already in past) then make contract renewal.", LOG_DEBUG, 0);
 
@@ -968,86 +987,80 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
                             // Date start
                             $date_start = false;
-                            if ($lines[$i]->date_debut_prevue)
-                                $date_start = $lines[$i]->date_debut_prevue;
-                                if ($lines[$i]->date_debut_reel)
-                                    $date_start = $lines[$i]->date_debut_reel;
-                                    if ($lines[$i]->date_start)
-                                        $date_start = $lines[$i]->date_start;
+                            if ($lines[$i]->date_debut_prevue) $date_start = $lines[$i]->date_debut_prevue;
+                            if ($lines[$i]->date_debut_reel) $date_start = $lines[$i]->date_debut_reel;
+                            if ($lines[$i]->date_start) $date_start = $lines[$i]->date_start;
 
-                                        // Date end
-                                        $date_end = false;
-                                        if ($lines[$i]->date_fin_prevue)
-                                            $date_end = $lines[$i]->date_fin_prevue;
-                                            if ($lines[$i]->date_fin_reel)
-                                                $date_end = $lines[$i]->date_fin_reel;
-                                                if ($lines[$i]->date_end)
-                                                    $date_end = $lines[$i]->date_end;
+                            // Date end
+                            $date_end = false;
+                            if ($lines[$i]->date_fin_prevue) $date_end = $lines[$i]->date_fin_prevue;
+                            if ($lines[$i]->date_fin_reel) $date_end = $lines[$i]->date_fin_reel;
+                            if ($lines[$i]->date_end) $date_end = $lines[$i]->date_end;
 
-                                                    // If date start is in past, we set it to now
-                                                    $now = dol_now();
-                                                    if ($date_start < $now)
-                                                    {
-                                                        dol_syslog("--- Date start is in past, so we take current date as date start and update also end date of contract", LOG_DEBUG, 0);
-                                                        $tmparray = sellyoursaasGetExpirationDate($srcobject);
-                                                        $duration_value = $tmparray['duration_value'];
-                                                        $duration_unit = $tmparray['duration_unit'];
+                            // If date start is in past, we set it to now
+                            $now = dol_now();
+                            if ($date_start < $now)
+                            {
+                                dol_syslog("--- Date start is in past, so we take current date as date start and update also end date of contract", LOG_DEBUG, 0);
+                                $tmparray = sellyoursaasGetExpirationDate($srcobject);
+                                $duration_value = $tmparray['duration_value'];
+                                $duration_unit = $tmparray['duration_unit'];
 
-                                                        $date_start = $now;
-                                                        $date_end = dol_time_plus_duree($now, $duration_value, $duration_unit) - 1;
+                                $date_start = $now;
+                                $date_end = dol_time_plus_duree($now, $duration_value, $duration_unit) - 1;
 
-                                                        // BecauseWe update the end date planned of contract too
-                                                        $sqltoupdateenddate = 'UPDATE '.MAIN_DB_PREFIX."contratdet SET date_fin_validite = '".$db->idate($date_end)."' WHERE fk_contrat = ".$srcobject->id;
-                                                        $resqltoupdateenddate = $db->query($sqltoupdateenddate);
-                                                    }
+                                // BecauseWe update the end date planned of contract too
+                                $sqltoupdateenddate = 'UPDATE '.MAIN_DB_PREFIX."contratdet SET date_fin_validite = '".$db->idate($date_end)."' WHERE fk_contrat = ".$srcobject->id;
+                                $resqltoupdateenddate = $db->query($sqltoupdateenddate);
+                            }
 
-                                                    // Reset fk_parent_line for no child products and special product
-                                                    if (($lines[$i]->product_type != 9 && empty($lines[$i]->fk_parent_line)) || $lines[$i]->product_type == 9) {
-                                                        $fk_parent_line = 0;
-                                                    }
+                            // Reset fk_parent_line for no child products and special product
+                            if (($lines[$i]->product_type != 9 && empty($lines[$i]->fk_parent_line)) || $lines[$i]->product_type == 9) {
+                                $fk_parent_line = 0;
+                            }
 
-                                                    // Discount
-                                                    $discount = $lines[$i]->remise_percent;
+                            // Discount
+                            $discount = $lines[$i]->remise_percent;
 
-                                                    // Extrafields
-                                                    if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED) && method_exists($lines[$i], 'fetch_optionals')) {
-                                                        $lines[$i]->fetch_optionals($lines[$i]->rowid);
-                                                        $array_options = $lines[$i]->array_options;
-                                                    }
+                            // Extrafields
+                            if (empty($conf->global->MAIN_EXTRAFIELDS_DISABLED) && method_exists($lines[$i], 'fetch_optionals')) {
+                                $lines[$i]->fetch_optionals($lines[$i]->rowid);
+                                $array_options = $lines[$i]->array_options;
+                            }
 
-                                                    $tva_tx = $lines[$i]->tva_tx;
-                                                    if (! empty($lines[$i]->vat_src_code) && ! preg_match('/\(/', $tva_tx)) $tva_tx .= ' ('.$lines[$i]->vat_src_code.')';
+                            $tva_tx = $lines[$i]->tva_tx;
+                            if (! empty($lines[$i]->vat_src_code) && ! preg_match('/\(/', $tva_tx)) $tva_tx .= ' ('.$lines[$i]->vat_src_code.')';
 
-                                                    // View third's localtaxes for NOW and do not use value from origin.
-                                                    $localtax1_tx = get_localtax($tva_tx, 1, $invoice_draft->thirdparty);
-                                                    $localtax2_tx = get_localtax($tva_tx, 2, $invoice_draft->thirdparty);
+                            // View third's localtaxes for NOW and do not use value from origin.
+                            $localtax1_tx = get_localtax($tva_tx, 1, $invoice_draft->thirdparty);
+                            $localtax2_tx = get_localtax($tva_tx, 2, $invoice_draft->thirdparty);
 
-                                                    //$price_invoice_template_line = $lines[$i]->subprice * GETPOST('frequency_multiple','int');
-                                                    $price_invoice_template_line = $lines[$i]->subprice;
+                            //$price_invoice_template_line = $lines[$i]->subprice * GETPOST('frequency_multiple','int');
+                            $price_invoice_template_line = $lines[$i]->subprice;
 
-                                                    $result = $invoice_draft->addline($desc, $price_invoice_template_line, $lines[$i]->qty, $tva_tx, $localtax1_tx, $localtax2_tx, $lines[$i]->fk_product, $discount, $date_start, $date_end, 0, $lines[$i]->info_bits, $lines[$i]->fk_remise_except, 'HT', 0, $product_type, $lines[$i]->rang, $lines[$i]->special_code, $invoice_draft->origin, $lines[$i]->rowid, $fk_parent_line, $lines[$i]->fk_fournprice, $lines[$i]->pa_ht, $label, $array_options, $lines[$i]->situation_percent, $lines[$i]->fk_prev_id, $lines[$i]->fk_unit);
+                            $result = $invoice_draft->addline($desc, $price_invoice_template_line, $lines[$i]->qty, $tva_tx, $localtax1_tx, $localtax2_tx, $lines[$i]->fk_product, $discount, $date_start, $date_end, 0, $lines[$i]->info_bits, $lines[$i]->fk_remise_except, 'HT', 0, $product_type, $lines[$i]->rang, $lines[$i]->special_code, $invoice_draft->origin, $lines[$i]->rowid, $fk_parent_line, $lines[$i]->fk_fournprice, $lines[$i]->pa_ht, $label, $array_options, $lines[$i]->situation_percent, $lines[$i]->fk_prev_id, $lines[$i]->fk_unit);
 
-                                                    if ($result > 0) {
-                                                        $lineid = $result;
-                                                    } else {
-                                                        $lineid = 0;
-                                                        $error++;
-                                                        break;
-                                                    }
+                            if ($result > 0) {
+                                $lineid = $result;
+                            } else {
+                                $lineid = 0;
+                                $error++;
+                                break;
+                            }
 
-                                                    // Defined the new fk_parent_line
-                                                    if ($result > 0 && $lines[$i]->product_type == 9) {
-                                                        $fk_parent_line = $result;
-                                                    }
+                            // Defined the new fk_parent_line
+                            if ($result > 0 && $lines[$i]->product_type == 9) {
+                                $fk_parent_line = $result;
+                            }
 
-                                                    $tmpproduct->fetch($lines[$i]->fk_product);
+                            $tmpproduct->fetch($lines[$i]->fk_product);
 
-                                                    dol_syslog("--- Read frequency for product id=".$tmpproduct->id, LOG_DEBUG, 0);
-                                                    if ($tmpproduct->array_options['options_app_or_option'] == 'app')
-                                                    {
-                                                        $frequency = $tmpproduct->duration_value;
-                                                        $frequency_unit = $tmpproduct->duration_unit;
-                                                    }
+                            dol_syslog("--- Read frequency for product id=".$tmpproduct->id, LOG_DEBUG, 0);
+                            if ($tmpproduct->array_options['options_app_or_option'] == 'app')
+                            {
+                                $frequency = $tmpproduct->duration_value;
+                                $frequency_unit = $tmpproduct->duration_unit;
+                            }
                         }
                     }
 
@@ -1311,7 +1324,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
             }
         }
     }
-    else
+    else        // createpayment with old method
     {
     	$stripeToken = GETPOST("stripeToken",'alpha');
     	$label = 'Card '.dol_print_date($now, 'dayhourrfc');
@@ -1389,116 +1402,65 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
     						//if (! empty($dol_type))      			$metadata["dol_type"] = $dol_type;
     						if (! empty($mythirdpartyaccount->id)) 	$metadata["dol_thirdparty_id"] = $mythirdpartyaccount->id;
 
-    						if (empty($conf->global->STRIPE_USE_NEW_API))
+    						// Create Stripe card from Token
+    						try
     						{
-        						// Create Stripe card from Token
-        						try
-        						{
-        							$card = $cu->sources->create(array("source" => $stripeToken, "metadata" => $metadata));
-        						}
-        						catch(\Stripe\Error\Card $e) {
-        							// Since it's a decline, Stripe_CardError will be caught
-        							$body = $e->getJsonBody();
-        							$err  = $body['error'];
-
-        							$stripefailurecode = $err['code'];
-        							$stripefailuremessage = $err['message'];
-
-        							$error++;
-        							$errormsg = 'Code: '.$stripefailurecode.', '.$langs->trans("Message").': '.$stripefailuremessage;
-        							dol_syslog('--- FailedToCreateCardRecord Strip Error Card '.$errormsg, LOG_WARNING);
-        							setEventMessages($langs->trans('FailedToCreateCardRecord').($errormsg?'<br>'.$errormsg:''), null, 'errors');
-        							$action='';
-
-        							dol_syslog('--- FailedToCreateCardRecord '.json_encode($err), LOG_WARNING);
-        						}
-        						catch(Exception $e)
-        						{
-        							$error++;
-        							$errormsg = $e->getMessage();
-        							dol_syslog('--- FailedToCreateCardRecord Exception '.$errormsg, LOG_WARNING);
-        							setEventMessages($langs->trans('FailedToCreateCardRecord').($errormsg?'<br>'.$errormsg:''), null, 'errors');
-        							$action='';
-        						}
+    							$card = $cu->sources->create(array("source" => $stripeToken, "metadata" => $metadata));
     						}
-    						else
+    						catch(\Stripe\Error\Card $e) {
+    							// Since it's a decline, Stripe_CardError will be caught
+    							$body = $e->getJsonBody();
+    							$err  = $body['error'];
+
+    							$stripefailurecode = $err['code'];
+    							$stripefailuremessage = $err['message'];
+
+    							$error++;
+    							$errormsg = 'Code: '.$stripefailurecode.', '.$langs->trans("Message").': '.$stripefailuremessage;
+    							dol_syslog('--- FailedToCreateCardRecord Strip Error Card '.$errormsg, LOG_WARNING);
+    							setEventMessages($langs->trans('FailedToCreateCardRecord').($errormsg?'<br>'.$errormsg:''), null, 'errors');
+    							$action='';
+
+    							dol_syslog('--- FailedToCreateCardRecord '.json_encode($err), LOG_WARNING);
+    						}
+    						catch(Exception $e)
     						{
-    						    // Attach payment_mode from SetupIntent to customer
-    						    // TODO
-    						    try {
-    						        $payment_method = \Stripe\PaymentMethod::retrieve($intent->payment_method);
-    						        $result = $payment_method->attach(['customer' => $cu->id]);
-    						    } catch (Exception $e) {
-    						        $error++;
-    						        $errormsg = $e->getMessage();
-    						        dol_syslog('--- FailedToAttachPaymentMethodToCustomer Exception '.$errormsg, LOG_WARNING);
-    						        setEventMessages($langs->trans('FailedToAttachPaymentMethodToCustomer').($errormsg?'<br>'.$errormsg:''), null, 'errors');
-    						        $action='';
-    						    }
+    							$error++;
+    							$errormsg = $e->getMessage();
+    							dol_syslog('--- FailedToCreateCardRecord Exception '.$errormsg, LOG_WARNING);
+    							setEventMessages($langs->trans('FailedToCreateCardRecord').($errormsg?'<br>'.$errormsg:''), null, 'errors');
+    							$action='';
     						}
 
     						if (! $error)
     						{
-    						    if (empty($conf->global->STRIPE_USE_NEW_API))
-    						    {
-        						    if (empty($card))
-        							{
-        								$error++;
-        								dol_syslog('--- FailedToCreateCardRecord', LOG_WARNING, 0);
-        								setEventMessages($langs->trans('FailedToCreateCardRecord', ''), null, 'errors');
-        								$action='';
-        							}
-        							else
-        							{
-        								$sql = "UPDATE " . MAIN_DB_PREFIX . "societe_rib";
-        								$sql.= " SET stripe_card_ref = '".$db->escape($card->id)."', card_type = '".$db->escape($card->brand)."',";
-        								$sql.= " country_code = '".$db->escape($card->country)."',";
-        								$sql.= " exp_date_month = '".$db->escape($card->exp_month)."',";
-        								$sql.= " exp_date_year = '".$db->escape($card->exp_year)."',";
-        								$sql.= " last_four = '".$db->escape($card->last4)."',";
-        								//$sql.= " cvn = '".$db->escape($card->???)."',";
-        								$sql.= " approved = ".($card->cvc_check == 'pass' ? 1 : 0);
-        								$sql.= " WHERE rowid = " . $companypaymentmode->id;
-        								$sql.= " AND type = 'card'";
-        								$resql = $db->query($sql);
-        								if (! $resql)
-        								{
-        									setEventMessages($db->lasterror(), null, 'errors');
-        								}
+    						    if (empty($card))
+    							{
+    								$error++;
+    								dol_syslog('--- FailedToCreateCardRecord', LOG_WARNING, 0);
+    								setEventMessages($langs->trans('FailedToCreateCardRecord', ''), null, 'errors');
+    								$action='';
+    							}
+    							else
+    							{
+    								$sql = "UPDATE " . MAIN_DB_PREFIX . "societe_rib";
+    								$sql.= " SET stripe_card_ref = '".$db->escape($card->id)."', card_type = '".$db->escape($card->brand)."',";
+    								$sql.= " country_code = '".$db->escape($card->country)."',";
+    								$sql.= " exp_date_month = '".$db->escape($card->exp_month)."',";
+    								$sql.= " exp_date_year = '".$db->escape($card->exp_year)."',";
+    								$sql.= " last_four = '".$db->escape($card->last4)."',";
+    								//$sql.= " cvn = '".$db->escape($card->???)."',";
+    								$sql.= " approved = ".($card->cvc_check == 'pass' ? 1 : 0);
+    								$sql.= " WHERE rowid = " . $companypaymentmode->id;
+    								$sql.= " AND type = 'card'";
+    								$resql = $db->query($sql);
+    								if (! $resql)
+    								{
+    									setEventMessages($db->lasterror(), null, 'errors');
+    								}
 
-        								$stripecard = $card->id;
-        							}
-    						    }
-    						    else
-    						    {
-    						        if (empty($payment_method))
-    						        {
-    						            $error++;
-    						            dol_syslog('--- FailedToAttachPaymentMethodToCustomer', LOG_WARNING, 0);
-    						            setEventMessages($langs->trans('FailedToAttachPaymentMethodToCustomer', ''), null, 'errors');
-    						            $action='';
-    						        }
-    						        else
-    						        {
-    						            $sql = "UPDATE " . MAIN_DB_PREFIX . "societe_rib";
-    						            $sql.= " SET stripe_card_ref = '".$db->escape($payment_method->id)."', card_type = '".$db->escape($payment_method->card->brand)."',";
-    						            $sql.= " country_code = '".$db->escape($payment_method->card->country)."',";
-    						            $sql.= " exp_date_month = '".$db->escape($payment_method->card->exp_month)."',";
-    						            $sql.= " exp_date_year = '".$db->escape($payment_method->card->exp_year)."',";
-    						            $sql.= " last_four = '".$db->escape($payment_method->card->last4)."',";
-    						            //$sql.= " cvn = '".$db->escape($card->???)."',";
-    						            $sql.= " approved = ".($payment_method->card->checks->cvc_check == 'pass' ? 1 : 0);
-    						            $sql.= " WHERE rowid = " . $companypaymentmode->id;
-    						            $sql.= " AND type = 'card'";
-    						            $resql = $db->query($sql);
-    						            if (! $resql)
-    						            {
-    						                setEventMessages($db->lasterror(), null, 'errors');
-    						            }
-
-    						            $stripecard = $payment_method->id;
-    						        }
-    						    }
+    								$stripecard = $card->id;
+    							}
     						}
     					}
     				}
@@ -5355,6 +5317,7 @@ if ($mode == 'registerpaymentmode')
     	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">'."\n";
     	print '<input type="hidden" name="action" value="createpaymentmode">'."\n";
     	print '<input type="hidden" name="backtourl" value="'.$backtourl.'">';
+    	//print '<input type="hidden" name="thirdparty_id" value="'.$mythirdpartyaccount->id.'">';
 
     	print '
 		<div class="radio-list">

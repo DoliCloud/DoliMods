@@ -916,7 +916,6 @@ class SellYourSaasUtils
     							$result = $invoice->validate($user);
 
     							// We do not create PDF here, it will be done when the payment->create is called
-
     						}
     					}
     					else
@@ -1069,16 +1068,29 @@ class SellYourSaasUtils
 	    						}
 	    						else
 	    						{
+	    						    dol_syslog("* Create payment on card ".$stripecard->id.", amounttopay=".$amounttopay.", amountstripe=".$amountstripe.", FULLTAG=".$FULLTAG, LOG_DEBUG);
+
+	    						    // Create payment intent and charge payment (confirmnow = true)
+	    						    $paymentintent = $stripe->getPaymentIntent($amounttopay, $currency, $FULLTAG, $description, $invoice, $customer->id, $stripeacc, $servicestatus, 0, 'automatic', true, $stripecard->id, 1);
+
 	    						    $charge = new stdClass();
+	    						    if ($paymentintent->status == 'succeeded')
+	    						    {
+	    						        $charge->status = 'ok';
+	    						    }
+	    						    else
+	    						    {
+                                        $charge->status = 'failed';
+                                        $charge->failure_code = $stripe->code;
+                                        $charge->failure_message = $stripe->error;
+                                        $charge->failure_declinecode = $stripe->declinecode;
+                                        $stripefailurecode = $stripe->code;
+                                        $stripefailuremessage = $stripe->error;
+                                        $stripefailuredeclinecode = $stripe->declinecode;
+	    						    }
 
-	    						    dol_syslog("* Create payment on card ".$stripecard->id.", amountstripe=".$amountstripe.", FULLTAG=".$FULLTAG, LOG_DEBUG);
-
-                                    // TODO
-
-                                    $charge->status = 'ok';
-                                    $charge->status = 'failed';
-                                    $charge->failure_code = 'AAA';
-                                    $charge->failure_message = 'Message aaa';
+	    						    //var_dump("stripefailurecode=".$stripefailurecode." stripefailuremessage=".$stripefailuremessage." stripefailuredeclinecode=".$stripefailuredeclinecode);
+	    						    //exit;
 	    						}
 
 	    						$postactionmessages=array();
@@ -1096,10 +1108,20 @@ class SellYourSaasUtils
 	    							$errmsg='Failed to charge card';
 	    							if (! empty($charge))
 	    							{
-	    								$errmsg.=': failure_code='.$charge->failure_code;
-	    								$errmsg.=($charge->failure_message?' - ':'').' failure_message='.$charge->failure_message;
-	    								if (empty($stripefailurecode))    $stripefailurecode = $charge->failure_code;
-	    								if (empty($stripefailuremessage)) $stripefailuremessage = $charge->failure_message;
+	    							    if ($stripefailuredeclinecode == 'insufficient_funds')
+	    							    {
+	    							        $errmsg.=': '.$charge->failure_code;
+	    							        $errmsg.=($charge->failure_message?' - ':'').' '.$charge->failure_message;
+	    							        if (empty($stripefailurecode))    $stripefailurecode = $charge->failure_code;
+	    							        if (empty($stripefailuremessage)) $stripefailuremessage = $charge->failure_message;
+	    							    }
+	    							    else
+	    							    {
+    	    								$errmsg.=': failure_code='.$charge->failure_code;
+    	    								$errmsg.=($charge->failure_message?' - ':'').' failure_message='.$charge->failure_message;
+    	    								if (empty($stripefailurecode))    $stripefailurecode = $charge->failure_code;
+    	    								if (empty($stripefailuremessage)) $stripefailuremessage = $charge->failure_message;
+	    							    }
 	    							}
 	    							else
 	    							{
