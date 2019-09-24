@@ -367,9 +367,9 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 		<div class="signup2 centpercent">
 
 			<?php
-			if (! empty($tmppackage->register_text))
+			if (! empty($tmpproduct->array_options['options_register_text']))
 			{
-			    print '<div class="register_text">'.$langs->trans($tmppackage->register_text).'</div>';
+			    print '<div class="register_text">'.$langs->trans($tmpproduct->array_options['options_register_text']).'</div>';
 			}
 			?>
 
