@@ -6706,7 +6706,7 @@ if ($mode == 'myaccount')
                 </div>
                 <div class="form-group">
                   <label>'.$langs->trans("Country").'</label><br>';
-				$countryselected = (GETPOSTISSET('country_id')?GETPOST('country_id','az09'):$mythirdpartyaccount->country_id);
+				$countryselected = (GETPOSTISSET('country_id')?GETPOST('country_id','aZ09'):$mythirdpartyaccount->country_id);
 				print $form->select_country($countryselected, 'country_id', '', 0, 'minwidth300', 'code2', 0, 1);
 				print '
                 </div>
