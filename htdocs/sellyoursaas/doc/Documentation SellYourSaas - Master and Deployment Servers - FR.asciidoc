@@ -1804,7 +1804,7 @@ Voir chapitre [Clonage d'une instance serveur pour production bis ou pour dével
 - Se connecter pour désactiver les crons en doublons avec le serveur cloné (possibilité de désactiver le process cron complètement) par
 
     systemctl stop cron
-    systemctl disable cron; 
+    systemctl disable cron 
 
 - Editer le fichier */etc/fstab* pour supprimer montage du/des disques données.
 
