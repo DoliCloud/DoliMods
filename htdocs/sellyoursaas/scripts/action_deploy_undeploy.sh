@@ -182,6 +182,7 @@ echo "SSLON = $SSLON"
 echo "apachereload = $apachereload"
 echo "ALLOWOVERRIDE = $ALLOWOVERRIDE"
 echo "VIRTUALHOSTHEAD = $VIRTUALHOSTHEAD"
+echo "ispaidinstance = $ispaidinstance"
 
 echo `date +%Y%m%d%H%M%S`" calculated params:"
 echo "vhostfile = $vhostfile"
