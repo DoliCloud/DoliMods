@@ -134,6 +134,7 @@ export VIRTUALHOSTHEAD=${35//£/ }
 if [ "x$VIRTUALHOSTHEAD" == "x-" ]; then
 	VIRTUALHOSTHEAD=""
 fi
+export ispaidinstance=${36}
 
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
@@ -493,7 +494,7 @@ fi
 
 if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 
-	echo `date +%Y%m%d%H%M%S`" ***** Undeploy files that are into $targetdir/$osusername/$dbname"
+	echo `date +%Y%m%d%H%M%S`" ***** Undeploy files that are into $targetdir/$osusername/$dbname ispaidinstance = $ispaidinstance archivedir = $archivedir"
 			
 	# If the dir where instance was deployed still exists, we move it manually
 	if [ -d $targetdir/$osusername/$dbname ]; then
@@ -508,15 +509,17 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 			fi
 		else														# This is the common case of archiving after an undeploy
 			#echo mv -f $targetdir/$osusername/$dbname $archivedir/$osusername/$dbname
+			echo `date +%Y%m%d%H%M%S`
 			echo tar cz --exclude-vcs -f $archivedir/$osusername/$dbname/$osusername.tar.gz $targetdir/$osusername/$dbname
 			if [[ $testorconfirm == "confirm" ]]
 			then
 				mkdir $archivedir/$osusername
-				#mv -f $targetdir/$osusername/$dbname $archivedir/$osusername
 				mkdir $archivedir/$osusername/$dbname
 				tar cz --exclude-vcs -f $archivedir/$osusername/$dbname/$osusername.tar.gz $targetdir/$osusername/$dbname
+				echo `date +%Y%m%d%H%M%S`
 				echo rm -fr $targetdir/$osusername/$dbname
 				rm -fr $targetdir/$osusername/$dbname
+				echo `date +%Y%m%d%H%M%S`
 				echo chown -R root $archivedir/$osusername/$dbname
 				chown -R root $archivedir/$osusername/$dbname
 			fi

@@ -3293,7 +3293,7 @@ class SellYourSaasUtils
 				$commandurl.= '&'.(empty($conf->global->noapachereload)?'apachereload':'noapachereload');
 				$commandurl.= '&'.str_replace(' ', '£', $tmppackage->allowoverride);
 				$commandurl.= '&'.str_replace(' ', '£', $customvirtualhostline);
-
+				$commandurl.= '&'.($ispaidinstance ? 1 : 0);
     			//$outputfile = $conf->sellyoursaas->dir_temp.'/action-'.$remoteaction.'-'.dol_getmypid().'.out';
 
 
