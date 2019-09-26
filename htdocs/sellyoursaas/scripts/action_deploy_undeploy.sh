@@ -514,15 +514,27 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 			echo tar cz --exclude-vcs -f $archivedir/$osusername/$dbname/$osusername.tar.gz $targetdir/$osusername/$dbname
 			if [[ $testorconfirm == "confirm" ]]
 			then
-				mkdir $archivedir/$osusername
-				mkdir $archivedir/$osusername/$dbname
-				tar cz --exclude-vcs -f $archivedir/$osusername/$dbname/$osusername.tar.gz $targetdir/$osusername/$dbname
-				echo `date +%Y%m%d%H%M%S`
-				echo rm -fr $targetdir/$osusername/$dbname
-				rm -fr $targetdir/$osusername/$dbname
-				echo `date +%Y%m%d%H%M%S`
-				echo chown -R root $archivedir/$osusername/$dbname
-				chown -R root $archivedir/$osusername/$dbname
+				if [[ "x$ispaidinstance" == "x1" ]]; then
+					mkdir $archivedir/$osusername
+					mkdir $archivedir/$osusername/$dbname
+					tar cz --exclude-vcs -f $archivedir/$osusername/$dbname/$osusername.tar.gz $targetdir/$osusername/$dbname
+					echo `date +%Y%m%d%H%M%S`
+					echo rm -fr $targetdir/$osusername/$dbname
+					rm -fr $targetdir/$osusername/$dbname
+					echo `date +%Y%m%d%H%M%S`
+					echo chown -R root $archivedir/$osusername/$dbname
+					chown -R root $archivedir/$osusername/$dbname
+				else
+					mkdir $archivedir/$osusername
+					mkdir $archivedir/$osusername/$dbname
+					tar cz --exclude-vcs -f $archivedir/$osusername/$dbname/$osusername.tar.gz $targetdir/$osusername/$dbname
+					echo `date +%Y%m%d%H%M%S`
+					echo rm -fr $targetdir/$osusername/$dbname
+					rm -fr $targetdir/$osusername/$dbname
+					echo `date +%Y%m%d%H%M%S`
+					echo chown -R root $archivedir/$osusername/$dbname
+					chown -R root $archivedir/$osusername/$dbname
+				fi
 			fi
 		fi
 	else
