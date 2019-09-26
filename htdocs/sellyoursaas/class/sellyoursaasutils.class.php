@@ -153,7 +153,7 @@ class SellYourSaasUtils
 										if (! empty($newlang)) {
 											$outputlangs = new Translate("", $conf);
 											$outputlangs->setDefaultLang($newlang);
-											$outputlangs->load('bills','products');
+											$outputlangs->loadLangs(array('main','bills','products'));
 										}
 										$model=$invoice->modelpdf;
 										$ret = $invoice->fetch($id); // Reload to get new records
@@ -325,16 +325,16 @@ class SellYourSaasUtils
     					    // Load third party
     					    $object->fetch_thirdparty();
 
-
-    					    // @TODO Save in cache $arraydefaultmessage for each $object->thirdparty->default_lang and reuse it to avoid getEMailTemplate
     					    $outputlangs = new Translate('', $conf);
     					    $outputlangs->setDefaultLang($object->thirdparty->default_lang);
+    					    $outputlangs->loadLangs(array('main'));
 
+    					    // @TODO Save in cache $arraydefaultmessage for each $object->thirdparty->default_lang and reuse it to avoid getEMailTemplate called each time
     					    dol_syslog("We will call getEMailTemplate for type 'contract', label 'GentleTrialExpiringReminder', outputlangs->defaultlang=".$outputlangs->defaultlang);
     					    $arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'contract', $user, $outputlangs, 0, 1, 'GentleTrialExpiringReminder');
 
 	    					$substitutionarray=getCommonSubstitutionArray($outputlangs, 0, null, $object);
-	    					$substitutionarray['__SELLYOURSAAS_EXPIRY_DATE__']=dol_print_date($expirationdate, 'day', $outputlangs, 'tzserver');
+	    					$substitutionarray['__SELLYOURSAAS_EXPIRY_DATE__']=dol_print_date($expirationdate, 'day', 'tzserver', $outputlangs);
 	    					complete_substitutions_array($substitutionarray, $outputlangs, $object);
 
 	    					$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray);
@@ -508,6 +508,7 @@ class SellYourSaasUtils
 
     				$langstouse = new Translate('', $conf);
     				$langstouse->setDefaultLang($thirdparty->default_lang ? $thirdparty->default_lang : $langs->defaultlang);
+    				$langstouse->loadLangs(array('main'));
 
     				$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'thirdparty', $user, $langstouse, -2, 1, '(AlertCreditCardExpiration)');		// Templates are init into data.sql
 
@@ -662,13 +663,14 @@ class SellYourSaasUtils
 
 	    				$langstouse = new Translate('', $conf);
 	    				$langstouse->setDefaultLang($thirdparty->default_lang ? $thirdparty->default_lang : $langs->defaultlang);
+	    				$langstouse->loadLangs(array('main'));
 
 	    				$arraydefaultmessage=$formmail->getEMailTemplate($this->db, 'thirdparty', $user, $langstouse, -2, 1, 'AlertPaypalApprovalExpiration');		// Templates are init into data.sql
 
 	    				if (is_object($arraydefaultmessage) && ! empty($arraydefaultmessage->topic))
 	    				{
 	    					$substitutionarray=getCommonSubstitutionArray($langstouse, 0, null, $thirdparty);
-	    					$substitutionarray['__PAYPAL_EXP_DATE__']=dol_print_date($obj->ending_date, 'day', $langstouse);
+	    					$substitutionarray['__PAYPAL_EXP_DATE__']=dol_print_date($obj->ending_date, 'day', 'tzserver', $langstouse);
 
 	    					complete_substitutions_array($substitutionarray, $langstouse, $thirdparty);
 
@@ -1267,10 +1269,12 @@ class SellYourSaasUtils
 	    						// Send email
 	    						include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
 	    						$formmail=new FormMail($this->db);
+
 	    						// Set output language
 	    						$outputlangs = new Translate('', $conf);
 	    						$outputlangs->setDefaultLang(empty($object->thirdparty->default_lang) ? $mysoc->default_lang : $object->thirdparty->default_lang);
 	    						$outputlangs->loadLangs(array("main", "members", "bills"));
+
 	    						// Get email content from templae
 	    						$arraydefaultmessage=null;
 
@@ -2323,7 +2327,7 @@ class SellYourSaasUtils
 								if (! $error)
 								{
 									//var_dump($invoice_draft->lines);
-									//var_dump(dol_print_date($date_start,'dayhour'));
+									//var_dump(dol_print_date($date_start, 'dayhour'));
 									//exit;
 
 									$frequency=1;
@@ -2335,7 +2339,7 @@ class SellYourSaasUtils
 									$rehour=$tmp['hours'];
 									$remin=$tmp['minutes'];
 									$nb_gen_max=0;
-									//print dol_print_date($date_start,'dayhour');
+									//print dol_print_date($date_start, 'dayhour');
 									//var_dump($remonth);
 
 									$invoice_rec = new FactureRec($db);
@@ -2460,7 +2464,7 @@ class SellYourSaasUtils
 								if (! empty($newlang)) {
 								    $outputlangs = new Translate("", $conf);
 								    $outputlangs->setDefaultLang($newlang);
-								    $outputlangs->load('bills','products');
+								    $outputlangs->loadLangs(array('main','bills','products'));
 								}
 
 								dol_syslog("GETPOST('lang_id','aZ09')=".GETPOST('lang_id','aZ09')." object->thirdparty->default_lang=".(is_object($object->thirdparty)?$object->thirdparty->default_lang:'object->thirdparty not defined')." newlang=".$newlang." outputlangs->defaultlang=".$outputlangs->defaultlang);
