@@ -202,7 +202,7 @@ if ($action == 'backup' || $action == 'backuprsync' || $action == 'backupdatabas
 
 $dbtousetosearch = $dbmaster;
 
-
+print $sql."\n";                                    // To have this into the ouput of cron job
 dol_syslog($script_file." sql=".$sql, LOG_DEBUG);
 $resql=$dbtousetosearch->query($sql);
 if ($resql)
