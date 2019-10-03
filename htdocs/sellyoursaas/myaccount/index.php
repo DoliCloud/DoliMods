@@ -1224,18 +1224,19 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
             if (! $error)
             {
+                // Payment mode successfully recorded
                 setEventMessages($langs->trans("PaymentModeRecorded"), null, 'mesgs');
 
                 $db->commit();
-
-                // Set flag 'showconversiontracker' in session to output the js tracker by llxFooter function of customer dashboard.
-                $_SESSION['showconversiontracker']=1;
 
                 $url=$_SERVER["PHP_SELF"];
                 if ($backurl) $url=$backurl;
 
                 if ($thirdpartyhadalreadyapaymentmode > 0)
                 {
+                    // Set flag 'showconversiontracker' in session to output the js tracker by llxFooter function of customer dashboard.
+                    $_SESSION['showconversiontracker']='paymentmodified';
+
                     $url.=(preg_match('/\?/', $url) ? '&' : '?' ).'paymentmodified=1';
 
                     // Send to DataDog (metric + event)
@@ -1263,6 +1264,9 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
                 }
                 else
                 {
+                    // Set flag 'showconversiontracker' in session to output the js tracker by llxFooter function of customer dashboard.
+                    $_SESSION['showconversiontracker']='paymentrecorded';
+
                     $url.=(preg_match('/\?/', $url) ? '&' : '?' ).'paymentrecorded=1';
 
                     // Send to DataDog (metric + event)
@@ -1910,18 +1914,19 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
     		if (! $error)
     		{
+    		    // Payment mode successfully recorded
     			setEventMessages($langs->trans("PaymentModeRecorded"), null, 'mesgs');
 
     			$db->commit();
-
-    			// Set flag 'showconversiontracker' in session to output the js tracker by llxFooter function of customer dashboard.
-    			$_SESSION['showconversiontracker']=1;
 
     			$url=$_SERVER["PHP_SELF"];
     			if ($backurl) $url=$backurl;
 
     			if ($thirdpartyhadalreadyapaymentmode > 0)
     			{
+    			    // Set flag 'showconversiontracker' in session to output the js tracker by llxFooter function of customer dashboard.
+    			    $_SESSION['showconversiontracker']='paymentmodified';
+
     			    $url.=(preg_match('/\?/', $url) ? '&' : '?' ).'paymentmodified=1';
 
     			    // Send to DataDog (metric + event)
@@ -1949,6 +1954,9 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
     			}
     			else
     			{
+    			    // Set flag 'showconversiontracker' in session to output the js tracker by llxFooter function of customer dashboard.
+    			    $_SESSION['showconversiontracker']='paymentrecorded';
+
     			    $url.=(preg_match('/\?/', $url) ? '&' : '?' ).'paymentrecorded=1';
 
     			    // Send to DataDog (metric + event)

@@ -474,10 +474,13 @@ if (! function_exists("llxFooter"))
 		// Show conversion tracker (the $_SESSION['showconversiontracker'] is set into output page after a payment record by myaccount/index.php)
 		if (! empty($_SESSION['showconversiontracker']))
 		{
-			print "\n".'<!-- Conversion tracker -->'."\n";
-			print $conf->global->SELLYOURSAAS_CONVERSION_FOOTER;
-			$_SESSION['showconversiontracker'] = 0;
-			unset($_SESSION['showconversiontracker']);
+			print "\n".'<!-- Conversion tracker $_SESSION[\'showconversiontracker\']='.$_SESSION['showconversiontracker'].' -->'."\n";
+			if ($_SESSION['showconversiontracker'] == 'paymentrecorded')
+			{
+                print $conf->global->SELLYOURSAAS_CONVERSION_FOOTER;
+                $_SESSION['showconversiontracker'] = '';
+                unset($_SESSION['showconversiontracker']);
+			}
 		}
 		else
 		{
