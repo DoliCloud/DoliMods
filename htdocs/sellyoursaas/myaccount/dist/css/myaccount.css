@@ -1,5 +1,10 @@
 /* CSS myaccount */
 
+.jnotify-container .jnotify-notification .jnotify-message {
+	box-shadow: 5px 5px 5px #eee;
+    border-radius: 10px;
+}
+
 .clearboth {
 	clear: both;
 }
