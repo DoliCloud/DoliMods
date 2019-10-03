@@ -77,7 +77,7 @@ if (empty($page) || $page == -1 || GETPOST('button_search', 'alpha') || GETPOST(
 $offset = $limit * $page;
 $pageprev = $page - 1;
 $pagenext = $page + 1;
-if ($mode == 'groupbycountryandvatrate')
+if ($mode != 'groupbycountryandvatrate')
 {
     if (! $sortfield) $sortfield="od.id_order_detail";
     if (! $sortorder) $sortorder="DESC";
@@ -339,8 +339,8 @@ print '<tr class="liste_titre">';
 if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('OrderID', 0, $_SERVER["PHP_SELF"], 'od.id_order_detail', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Customer', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Customer date creation', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Customer email', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-print getTitleFieldOfList('Customer country', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Customer email', 0, $_SERVER["PHP_SELF"], 'c.email', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+print getTitleFieldOfList('Customer country', 0, $_SERVER["PHP_SELF"], 'co.iso_code', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 print getTitleFieldOfList('InEEC', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 print getTitleFieldOfList('Date sale', 0, $_SERVER["PHP_SELF"], 'o.date_add', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Product id', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
@@ -353,7 +353,7 @@ print getTitleFieldOfList('VATRate', 0, $_SERVER["PHP_SELF"], '', '', '', '', $s
 print getTitleFieldOfList('AmountHT', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch right ')."\n";
 print getTitleFieldOfList('AmountVAT', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch right ')."\n";
 print getTitleFieldOfList('AmountTTC', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch right ')."\n";
-print getTitleFieldOfList('PaymentMode', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+print getTitleFieldOfList('PrestaShopPaymentMode', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Note', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 // Action column
 print getTitleFieldOfList($selectedfields, 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'center maxwidthsearch ')."\n";

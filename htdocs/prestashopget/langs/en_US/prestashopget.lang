@@ -24,6 +24,9 @@ ModulePrestashopGetDesc = Add features to get summarized information on sales on
 ListOfPrestaShopSales=List of PrestaShop Sales
 GroupByCountryAndVatRate=Group by country and vat rate
 RefundedOrCancelled=Refunded or cancelled
+OrderID=Order ID
+IsValid=Is valid?
+PrestaShopPaymentMode=Prestashop payment mode
 
 #
 # Admin page
