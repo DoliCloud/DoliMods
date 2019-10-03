@@ -21,6 +21,9 @@
 ModulePrestashopGetName = PrestashopGet
 # Module description 'ModulePrestashopGetDesc'
 ModulePrestashopGetDesc = Add features to get summarized information on sales on a Prestashop eCommerce.
+ListOfPrestaShopSales=List of PrestaShop Sales
+GroupByCountryAndVatRate=Group by country and vat rate
+RefundedOrCancelled=Refunded or cancelled
 
 #
 # Admin page
