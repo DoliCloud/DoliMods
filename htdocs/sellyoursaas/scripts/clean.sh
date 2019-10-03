@@ -530,17 +530,17 @@ do
 	do
 		noyoungfile=0
 	done
-	if [ -d "$archivedirpaid/$osusername" ]; then
-		if [[ "x$noyoungfile" == "x1" ]]; then
+	if [[ "x$noyoungfile" == "x1" ]]; then
+		if [ -d "$archivedirpaid/$osusername" ]; then
 			echo "# $fic - $noyoungfile - dir $archivedirpaid/$osusername exists" >> /tmp/avirer
 			echo "rm -fr "`dirname $fic` >> /tmp/avirer
 		else
-	        echo "# $fic - $noyoungfile - dir $archivedirpaid/$osusername exists" >> /tmp/avirer
-	        echo "#rm -fr "`dirname $fic` >> /tmp/avirer
+			echo "# $fic - $noyoungfile" >> /tmp/avirer
+			echo "# ALERT Dir $archivedirpaid/$osusername does not exists. It means instance was not archived !!!" >> /tmp/avirer
 		fi
 	else
-		echo "# $fic - $noyoungfile" >> /tmp/avirer
-		echo "# ALERT Dir not archived !!!" >> /tmp/avirer
+        echo "# $fic - $noyoungfile - dir $dirtoscan exists and was still active recently in backup. We must keep it." >> /tmp/avirer
+        echo "#rm -fr "`dirname $fic` >> /tmp/avirer
 	fi
 done
 echo File /tmp/avirer generated.
