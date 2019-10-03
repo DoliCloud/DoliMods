@@ -28,7 +28,8 @@ export PID=${$}
 export scriptdir=$(dirname $(realpath ${0}))
 export targetdir="/home/jail/home"				
 export backupdir="/mnt/diskbackup/backup"
-export archivedir="/mnt/diskbackup/archives-test"
+export archivedirtest="/mnt/diskbackup/archives-test"
+export archivedirpaid="/mnt/diskbackup/archives-paid"
 export archivedirbind="/etc/bind/archives"
 export archivedircron="/var/spool/cron/crontabs.disabled"
 
@@ -85,8 +86,12 @@ if [[ "x$passsellyoursaas" == "x" ]]; then
 	exit 1
 fi 
 
-if [[ ! -d $archivedir ]]; then
-	echo Failed to find archive directory $archivedir
+if [[ ! -d $archivedirtest ]]; then
+	echo Failed to find archive directory $archivedirtest
+	exit 1
+fi
+if [[ ! -d $archivedirpaid ]]; then
+	echo Failed to find archive directory $archivedirpaid
 	exit 1
 fi
 
@@ -286,9 +291,9 @@ if [ -s /tmp/osutoclean ]; then
 		if [[ "x$dbname" != "x" ]]; then	
 			if [[ "x$dbname" != "xNULL" ]]; then	
 				echo "Do a dump of database $dbname - may fails if already removed"
-				mkdir -p $archivedir/$osusername
-				echo "$MYSQLDUMP -usellyoursaas -pxxxxxx -h $databasehost $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2"
-				$MYSQLDUMP -usellyoursaas -p$passsellyoursaas -h $databasehost $dbname | bzip2 > $archivedir/$osusername/dump.$dbname.$now.sql.bz2
+				mkdir -p $archivedirtest/$osusername
+				echo "$MYSQLDUMP -usellyoursaas -pxxxxxx -h $databasehost $dbname | bzip2 > $archivedirtest/$osusername/dump.$dbname.$now.sql.bz2"
+				$MYSQLDUMP -usellyoursaas -p$passsellyoursaas -h $databasehost $dbname | bzip2 > $archivedirtest/$osusername/dump.$dbname.$now.sql.bz2
 
 				echo "Now drop the database"
 				echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $dbname"
@@ -307,14 +312,14 @@ if [ -s /tmp/osutoclean ]; then
 				echo rm -f $targetdir/$osusername/$dbname/*.log.*
 				rm -f $targetdir/$osusername/$dbname/*.log.* >/dev/null 2>&1 
 				
-				echo "clean $instancename" >> $archivedir/$osusername/clean-$instancename.txt
+				echo "clean $instancename" >> $archivedirtest/$osusername/clean-$instancename.txt
 				
 				echo crontab -r -u $osusername
 				crontab -r -u $osusername
 	
-				echo deluser --remove-home --backup --backup-to $archivedir/$osusername $osusername
+				echo deluser --remove-home --backup --backup-to $archivedirtest/$osusername $osusername
 				if [[ $testorconfirm == "confirm" ]]; then
-					deluser --remove-home --backup --backup-to $archivedir/$osusername $osusername
+					deluser --remove-home --backup --backup-to $archivedirtest/$osusername $osusername
 				fi
 				
 				echo deluser --group $osusername
@@ -325,13 +330,13 @@ if [ -s /tmp/osutoclean ]; then
 				# If dir still exists, we move it manually
 				if [ -d "$targetdir/$osusername" ]; then
 					echo The dir $targetdir/$osusername still exists when user does not exists anymore, we archive it manually
-					echo mv -f $targetdir/$osusername $archivedir
-					echo cp -pr $targetdir/$osusername $archivedir
+					echo mv -f $targetdir/$osusername $archivedirtest
+					echo cp -pr $targetdir/$osusername $archivedirtest
 					if [[ $testorconfirm == "confirm" ]]; then
-						mv -f $targetdir/$osusername $archivedir 2>/dev/null
-						cp -pr $targetdir/$osusername $archivedir
+						mv -f $targetdir/$osusername $archivedirtest 2>/dev/null
+						cp -pr $targetdir/$osusername $archivedirtest
 						rm -fr $targetdir/$osusername
-						chown -R root $archivedir/$osusername
+						chown -R root $archivedirtest/$osusername
 					fi
 				fi
 			fi
@@ -471,9 +476,9 @@ do
 done;
 
 # Now clean also old dir in archives-test
-echo "***** Now clean also old dir in $archivedir - 15 days after being archived"
-cd $archivedir
-find $archivedir -maxdepth 1 -type d -mtime +15 -exec rm -fr {} \;
+echo "***** Now clean also old dir in $archivedirtest - 15 days after being archived"
+cd $archivedirtest
+find $archivedirtest -maxdepth 1 -type d -mtime +15 -exec rm -fr {} \;
 
 # Now clean also old files in $archivedirbind
 echo "***** Now clean also old files in $archivedirbind - 15 days after being archived"
@@ -514,22 +519,28 @@ echo You must execute "update llx_contrat_extrafields set deployment_status = 'd
 
 
 # Clean backup dir
-echo "***** We should also clean backup of paying instances in $backupdir/osusername/ that are no more saved since a long time and that are archived" 
+echo "***** We should also clean backup of paying instances in $backupdir/osusername/ that are no more saved since a long time (last_mysqldump > 90days) and that are archived" 
 > /tmp/avirer
 for fic in `find $backupdir/*/last_mysqldump* -name "last_mysqldump*" -mtime +90`
 do
 	noyoungfile=1
 	dirtoscan=`dirname $fic`
+	osusername=`basename $dirtoscan`
 	for fic2 in `find $dirtoscan/last_mysqldump* -name "last_mysqldump*" -mtime -90`
 	do
 		noyoungfile=0
 	done
-	if [[ "x$noyoungfile" == "x1" ]]; then
-		echo "# $fic - $noyoungfile" >> /tmp/avirer 
-		echo "rm -fr "`dirname $fic` >> /tmp/avirer
+	if [ -d "$archivedirpaid/$osusername" ]; then
+		if [[ "x$noyoungfile" == "x1" ]]; then
+			echo "# $fic - $noyoungfile - dir $archivedirpaid/$osusername exists" >> /tmp/avirer
+			echo "rm -fr "`dirname $fic` >> /tmp/avirer
+		else
+	        echo "# $fic - $noyoungfile - dir $archivedirpaid/$osusername exists" >> /tmp/avirer
+	        echo "#rm -fr "`dirname $fic` >> /tmp/avirer
+		fi
 	else
-        echo "# $fic - $noyoungfile" >> /tmp/avirer
-        echo "#rm -fr "`dirname $fic` >> /tmp/avirer
+		echo "# $fic - $noyoungfile" >> /tmp/avirer
+		echo "# ALERT Dir not archived !!!" >> /tmp/avirer
 	fi
 done
 echo File /tmp/avirer generated.
