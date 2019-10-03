@@ -77,9 +77,16 @@ if (empty($page) || $page == -1 || GETPOST('button_search', 'alpha') || GETPOST(
 $offset = $limit * $page;
 $pageprev = $page - 1;
 $pagenext = $page + 1;
-if (! $sortfield) $sortfield="od.id_order_detail";
-if (! $sortorder) $sortorder="DESC";
-
+if ($mode == 'groupbycountryandvatrate')
+{
+    if (! $sortfield) $sortfield="od.id_order_detail";
+    if (! $sortorder) $sortorder="DESC";
+}
+else
+{
+    if (! $sortfield) $sortfield="co.iso_code, o.module";
+    if (! $sortorder) $sortorder="ASC";
+}
 // Securite acces client
 if (! $user->rights->prestashopget->read) accessforbidden();
 $socid=GETPOST('socid','int');
@@ -189,7 +196,7 @@ else
 }
 
 $sql.=$db2->order($sortfield, $sortorder);
-print $sql;
+//print $sql;
 
 // Count total nb of records
 $nbtotalofrecords = '';
