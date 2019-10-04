@@ -16,3 +16,4 @@ BILLEDONORDERS_DISABLE_BILLED=Disable column "Amount billed with tax"
 BILLEDONORDERS_DISABLE_PAYED=Disable column "Amount payed"
 BILLEDONORDERS_DISABLE_REMAINTOPAY=Disable column "Remain to pay"
 AmountBilledDiffersFromAmountOnOrder=Amount of invoices linked to order differs from amount of order
+AmongAlreadyCreatedInvoices=Among the already created invoices

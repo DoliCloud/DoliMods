@@ -67,7 +67,7 @@ class ActionsBilledOnOrders
 	        if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED))
 	            print_liste_field_titre($langs->trans("AlreadyPaid"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
 	        if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY))
-	            print_liste_field_titre($langs->trans("RemainderToPay"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
+	            print_liste_field_titre($langs->trans("RemainderToPay"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder, '', 'AmongAlreadyCreatedInvoices');
         }
         if ($parameters['currentcontext'] == 'supplierorderlist')
         {
@@ -79,7 +79,7 @@ class ActionsBilledOnOrders
         	if (empty($conf->global->BILLEDONORDERS_DISABLE_PAYED))
         		print_liste_field_titre($langs->trans("AlreadyPaid"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
         	if (empty($conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY))
-        		print_liste_field_titre($langs->trans("RemainderToPay"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder);
+        	    print_liste_field_titre($langs->trans("RemainderToPay"),$_SERVER["PHP_SELF"],'','',$param,' align="right"',$sortfield,$sortorder, '', 'AmongAlreadyCreatedInvoices');
         }
 
         return 0;
