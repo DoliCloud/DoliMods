@@ -273,7 +273,7 @@ if (preg_match('/^test/',$action))
     if ($result >= 0)
     {
     	$db->rollback();	// It was a test, we rollback everything
-        $mesg=$langs->trans("TestSuccessfull");
+        $mesg=$langs->trans("TestSuccessfull")."<br>Name of record used for test : ".$object->name;
     }
     else
 	{

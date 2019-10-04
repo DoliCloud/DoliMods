@@ -1020,8 +1020,8 @@ function getGoogleGroupID($gdata, $groupName, &$googleGroups=array(), $useremail
 		$xmlStr = getContactGroupsXml($gdata, $useremail);
 		if (! empty($xmlStr))
 		{
-			$result = $document->loadXML($xmlStr);
-			if ($result === false)
+			$resultloadxml = $document->loadXML($xmlStr);
+			if ($resultloadxml === false)
 			{
 			    dol_syslog("getGoogleGroupID Failed to parse xml string ".$xmlStr, LOG_WARNING);
 			}
@@ -1096,19 +1096,25 @@ function getContactGroupsXml($gdata, $useremail='default')
 		$xmlStr=$result['content'];
 		try {
 			$document = new DOMDocument("1.0", "utf-8");
-			$document->loadXml($result['content']);
-
-			$errorselem = $document->getElementsByTagName("errors");
-			//var_dump($errorselem);
-			//var_dump($errorselem->length);
-			//var_dump(count($errorselem));
-			if ($errorselem->length)
+			$resultloadxml = $document->loadXml($xmlStr);
+			if ($resultloadxml === false)
 			{
-				dol_syslog('ERROR:'.$result['content'], LOG_ERR);
-				return '';
+			    dol_syslog("getContactGroupsXml Failed to parse xml string ".$xmlStr, LOG_WARNING);
+			}
+			else
+			{
+    			$errorselem = $document->getElementsByTagName("errors");
+    			//var_dump($errorselem);
+    			//var_dump($errorselem->length);
+    			//var_dump(count($errorselem));
+    			if ($errorselem->length)
+    			{
+    				dol_syslog('getContactGroupsXml ERROR:'.$result['content'], LOG_ERR);
+    				return '';
+    			}
 			}
 		} catch (Exception $e) {
-			dol_syslog('ERROR:'.$e->getMessage(), LOG_ERR);
+			dol_syslog('getContactGroupsXml ERROR:'.$e->getMessage(), LOG_ERR);
 			return '';
 		}
 
@@ -1117,7 +1123,7 @@ function getContactGroupsXml($gdata, $useremail='default')
 		@chmod(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 		// you can view this file with 'xmlstarlet fo dolibarr_google_groups.xml' command
 	} catch (Exception $e) {
-		dol_syslog(sprintf("Error while feed xml groups : %s", $e->getMessage()), LOG_ERR);
+		dol_syslog(sprintf("getContactGroupsXml Error while getting feeds xml groups : %s", $e->getMessage()), LOG_ERR);
 		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", $e->getMessage());
 		@chmod(DOL_DATA_ROOT . "/dolibarr_google_groups_response.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 	}
