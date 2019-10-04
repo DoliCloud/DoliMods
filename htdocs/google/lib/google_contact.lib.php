@@ -1020,28 +1020,35 @@ function getGoogleGroupID($gdata, $groupName, &$googleGroups=array(), $useremail
 		$xmlStr = getContactGroupsXml($gdata, $useremail);
 		if (! empty($xmlStr))
 		{
-			$document->loadXML($xmlStr);
-			$xmlStr = $document->saveXML();
-			$entries = $document->documentElement->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "entry");
-			$n = $entries->length;
-			$googleGroups = array();
-			foreach ($entries as $entry)
+			$result = $document->loadXML($xmlStr);
+			if ($result === false)
 			{
-				$titleNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "title");
-				if ($titleNodes->length == 1) {
-					$title = $titleNodes->item(0)->textContent;	// We get <title> of group (For example: 'System Group: My Contacts', 'System Group: Friend', 'Dolibarr (Thirdparties)', ...)
-					$googleIDNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "id");
-					if ($googleIDNodes->length == 1) {
-						$googleGroups[$title] = $googleIDNodes->item(0)->textContent;	// We get <id> of group
-					}
-				}
+			    dol_syslog("getGoogleGroupID Failed to parse xml string ".$xmlStr, LOG_WARNING);
 			}
-			dol_syslog("We found ".count($googleGroups)." groups", LOG_DEBUG);
+			else
+			{
+    			$xmlStr = $document->saveXML();
+    			$entries = $document->documentElement->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "entry");
+    			$n = $entries->length;
+    			$googleGroups = array();
+    			foreach ($entries as $entry)
+    			{
+    				$titleNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "title");
+    				if ($titleNodes->length == 1) {
+    					$title = $titleNodes->item(0)->textContent;	// We got the title of a group (For example: 'System Group: My Contacts', 'System Group: Friend', 'Dolibarr (Thirdparties)', ...)
+    					$googleIDNodes = $entry->getElementsByTagNameNS(constant('ATOM_NAME_SPACE'), "id");
+    					if ($googleIDNodes->length == 1) {
+    						$googleGroups[$title] = $googleIDNodes->item(0)->textContent;	// We get <id> of group
+    					}
+    				}
+    			}
+    			dol_syslog("getGoogleGroupID We found ".count($googleGroups)." groups", LOG_DEBUG);
+			}
 		}
 		else
 		{
 			$error++;
-			dol_syslog("ErrorFailedToGetGroups", LOG_ERR);
+			dol_syslog("getGoogleGroupID ErrorFailedToGetGroups", LOG_ERR);
 			return 'ErrorFailedToGetGroups';
 		}
 	}
