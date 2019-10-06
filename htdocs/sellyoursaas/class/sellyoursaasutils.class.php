@@ -1389,8 +1389,8 @@ class SellYourSaasUtils
 		    						}
 		    						else
 		    						{
-		    						    if ($file) $postactionmessages[] = 'Email sent to thirdparty (with invoice document attached: '.$file.', language = '.$outputlangs->defaultlang.')';
-		    							else $postactionmessages[] = 'Email sent to thirdparty (without any attached document, language = '.$outputlangs->defaultlang.')';
+		    						    if ($file) $postactionmessages[] = 'Email sent to thirdparty (to '.$invoice->thirdparty->email.' with invoice document attached: '.$file.', language = '.$outputlangs->defaultlang.')';
+		    						    else $postactionmessages[] = 'Email sent to thirdparty (to '.$invoice->thirdparty->email.' without any attached document, language = '.$outputlangs->defaultlang.')';
 		    						}
 	    						}
 
