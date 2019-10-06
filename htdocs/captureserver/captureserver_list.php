@@ -97,8 +97,10 @@ $object = new CaptureServer($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction = $conf->captureserver->dir_output . '/temp/massgeneration/'.$user->id;
 $hookmanager->initHooks(array('captureserverlist'));     // Note that conf->hooks_modules contains array
+
 // Fetch optionals attributes and labels
-$extralabels = $extrafields->fetch_name_optionals_label('captureserver');	// Load $extrafields->attributes['captureserver']
+$extrafields->fetch_name_optionals_label($object->table_element);	// Load $extrafields->attributes['captureserver']
+
 $search_array_options = $extrafields->getOptionalsFromPost($object->table_element, '', 'search_');
 
 // Default sort order (if not yet defined by previous GETPOST)

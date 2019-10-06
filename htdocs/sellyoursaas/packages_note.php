@@ -55,8 +55,9 @@ $object=new Packages($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction=$conf->sellyoursaas->dir_output . '/temp/massgeneration/'.$user->id;
 $hookmanager->initHooks(array('packagesnote'));     // Note that conf->hooks_modules contains array
+
 // Fetch optionals attributes and labels
-$extralabels = $extrafields->fetch_name_optionals_label('packages');
+$extrafields->fetch_name_optionals_label('packages');
 
 // Security check - Protection if external user
 //if ($user->societe_id > 0) access_forbidden();
@@ -115,7 +116,7 @@ if ($id > 0 || ! empty($ref))
 	    if ($user->rights->sellyoursaas->creer)
 	    {
 	        if ($action != 'classify')
-	            //$morehtmlref.='<a href="' . $_SERVER['PHP_SELF'] . '?action=classify&amp;id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
+	            //$morehtmlref.='<a class="editfielda" href="' . $_SERVER['PHP_SELF'] . '?action=classify&amp;id=' . $object->id . '">' . img_edit($langs->transnoentitiesnoconv('SetProject')) . '</a> : ';
 	            $morehtmlref.=' : ';
 	            if ($action == 'classify') {
 	                //$morehtmlref.=$form->form_project($_SERVER['PHP_SELF'] . '?id=' . $object->id, $object->socid, $object->fk_project, 'projectid', 0, 0, 1, 1);

@@ -92,9 +92,11 @@ $object=new Product($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction=$conf->sellyoursaas->dir_output . '/temp/massgeneration/'.$user->id;
 $hookmanager->initHooks(array('registrationlinks'));     // Note that conf->hooks_modules contains array
+
 // Fetch optionals attributes and labels
-$extralabels = $extrafields->fetch_name_optionals_label('product');
-$search_array_options=$extrafields->getOptionalsFromPost($extralabels,'','search_');
+$extrafields->fetch_name_optionals_label($object->table_element);
+
+$search_array_options=$extrafields->getOptionalsFromPost($object->table_element, '', 'search_');
 
 // Default sort order (if not yet defined by previous GETPOST)
 if (! $sortfield) $sortfield="t.".key($object->fields);   // Set here default search field. By default 1st field in definition.
