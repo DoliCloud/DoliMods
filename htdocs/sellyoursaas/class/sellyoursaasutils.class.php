@@ -1196,7 +1196,8 @@ class SellYourSaasUtils
 	    							$paiement->paiementid   = $paymentTypeId;
 	    							$paiement->num_paiement = '';
 	    							$paiement->num_payment = '';
-	    							$paiement->note_public  = 'Online payment '.dol_print_date($now, 'standard').' using '.$paymentmethod.($ipaddress?' from ip '.$ipaddress:'').' - Transaction ID = '.$TRANSACTIONID;
+	    							// Add a comment with keyword 'SellYourSaas' in text. Used by trigger.
+	    							$paiement->note_public  = 'SellYourSaas payment '.dol_print_date($now, 'standard').' using '.$paymentmethod.($ipaddress?' from ip '.$ipaddress:'').' - Transaction ID = '.$TRANSACTIONID;
 
 	    							if (! $errorforinvoice)
 	    							{

@@ -323,12 +323,20 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         		break;
 
         	case 'PAYMENT_CUSTOMER_CREATE':
+                // $object is a Payment
 
         	    dol_syslog("We trap trigger PAYMENT_CUSTOMER_CREATE for id = ".$object->id);
 
         	    // Send to DataDog (metric + event)
-        	    if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
+        	    if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED) && preg_match('/SellYourSaas/i', ($object->note ? $object->note : $object->note_public)))
         	    {
+        	        $totalamount = 0;
+        	        foreach ($object->amounts as $key => $amount)
+        	        {
+        	            $totalamount+=$amount;
+        	        }
+        	        $totalamount=price2num($totalamount);
+
         	        try {
         	            dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
 
@@ -339,13 +347,6 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         	            }
 
         	            $statsd = new DataDog\DogStatsd($arrayconfig);
-
-        	            $totalamount = 0;
-        	            foreach ($object->amounts as $key => $amount)
-        	            {
-        	                $totalamount+=$amount;
-        	            }
-        	            $totalamount=price2num($totalamount);
 
         	            $arraytags=null;
         	            $statsd->increment('sellyoursaas.payment', 1, $arraytags, $totalamount);
