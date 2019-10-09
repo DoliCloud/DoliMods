@@ -527,6 +527,7 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 				else
 					mkdir $archivedir/$osusername
 					mkdir $archivedir/$osusername/$dbname
+					# TODO Disable archive of test instance
 					tar cz --exclude-vcs -f $archivedir/$osusername/$dbname/$osusername.tar.gz $targetdir/$osusername/$dbname
 					echo `date +%Y%m%d%H%M%S`
 					echo rm -fr $targetdir/$osusername/$dbname
