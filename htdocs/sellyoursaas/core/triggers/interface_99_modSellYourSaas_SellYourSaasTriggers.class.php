@@ -364,7 +364,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         	    dol_syslog("We trap trigger PAYMENT_CUSTOMER_DELETE for id = ".$object->id);
 
         	    // Send to DataDog (metric + event)
-        	    if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
+        	    if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED) && preg_match('/SellYourSaas/i', ($object->note ? $object->note : $object->note_public)))
         	    {
         	        try {
         	            dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
