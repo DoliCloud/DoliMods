@@ -26,9 +26,9 @@
  *		\brief      Endpoint provided by module captureserver
  */
 
-define("NOLOGIN", 1);		// This means this output page does not require to be logged.
-define('NOREQUIRETRAN');	// Do not load object $langs
-define("NOCSRFCHECK", 1);	// We accept to go on this page from external web site.
+define("NOLOGIN", '1');		   // This means this output page does not require to be logged.
+define('NOREQUIRETRAN', '1');  // Do not load object $langs
+define("NOCSRFCHECK", '1');	   // We accept to go on this page from external web site.
 define('NOTOKENRENEWAL','1');
 define('NOIPCHECK','1');
 
