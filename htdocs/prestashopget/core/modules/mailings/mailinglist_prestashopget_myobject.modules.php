@@ -233,8 +233,13 @@ class mailing_mailinglist_prestashopget_myobject extends MailingTargets
 		// Example: $target[0]=array('email'=>'myemail@mydomain.com','name'=>'Doe','firstname'=>'John');
 
 		// ----- Your code end here -----
-
-		return parent::addTargetsToDatabase($mailing_id, $cibles);
+		if (method_exists(get_parent_class($this), 'addTargetsToDatabase')) {
+		    return parent::addTargetsToDatabase($mailing_id, $cibles);
+		}
+		else
+		{
+		    return parent::add_to_target($mailing_id, $cibles);
+		}
 	}
 
 
