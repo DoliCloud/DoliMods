@@ -117,6 +117,18 @@ class mailing_mailinglist_prestashopget_myobject extends MailingTargets
 	}
 
 
+	/**
+	 *  This is the main function that returns the array of emails
+	 *
+	 *  @param	int		$mailing_id    	Id of emailing
+	 *  @param	array	$filtersarray   Requete sql de selection des destinataires
+	 *  @return int           			<0 if error, number of emails added if ok
+	 */
+	function addTargetsToDatabase($mailing_id, $filtersarray=array())
+	{
+	    return $this->add_to_target($mailing_id, $filtersarray);
+	}
+
     // phpcs:disable PEAR.NamingConventions.ValidFunctionName.NotCamelCaps
 	/**
 	 *  This is the main function that returns the array of emails
