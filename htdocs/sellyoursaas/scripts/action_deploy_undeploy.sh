@@ -195,7 +195,7 @@ MYSQL=`which mysql`
 MYSQLDUMP=`which mysqldump`
 
 echo "Search sellyoursaas database credential in /etc/sellyoursaas.conf"
-passsellyoursaas=`grep 'databasepass=' /etc/sellyoursaas.conf | cut -d '=' -f 2`	# First seach into root
+passsellyoursaas=`grep 'databasepass=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 if [[ "x$passsellyoursaas" == "x" ]]; then
 	echo Failed to get password for mysql user sellyoursaas 
 	exit 1
@@ -207,6 +207,7 @@ if [[ ! -d $archivedir ]]; then
 	exit 1
 fi
 
+archivetestinstances=`grep 'archivetestinstances=' /etc/sellyoursaas.conf | cut -d '=' -f 2`
 
 testorconfirm="confirm"
 
@@ -511,12 +512,12 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 		else														# This is the common case of archiving after an undeploy
 			#echo mv -f $targetdir/$osusername/$dbname $archivedir/$osusername/$dbname
 			echo `date +%Y%m%d%H%M%S`
-			echo tar cz --exclude-vcs -f $archivedir/$osusername/$dbname/$osusername.tar.gz $targetdir/$osusername/$dbname
 			if [[ $testorconfirm == "confirm" ]]
 			then
+				mkdir $archivedir/$osusername
+				mkdir $archivedir/$osusername/$dbname
 				if [[ "x$ispaidinstance" == "x1" ]]; then
-					mkdir $archivedir/$osusername
-					mkdir $archivedir/$osusername/$dbname
+					echo tar cz --exclude-vcs -f $archivedir/$osusername/$dbname/$osusername.tar.gz $targetdir/$osusername/$dbname
 					tar cz --exclude-vcs -f $archivedir/$osusername/$dbname/$osusername.tar.gz $targetdir/$osusername/$dbname
 					echo `date +%Y%m%d%H%M%S`
 					echo rm -fr $targetdir/$osusername/$dbname
@@ -525,10 +526,12 @@ if [[ "$mode" == "undeploy" || "$mode" == "undeployall" ]]; then
 					echo chown -R root $archivedir/$osusername/$dbname
 					chown -R root $archivedir/$osusername/$dbname
 				else
-					mkdir $archivedir/$osusername
-					mkdir $archivedir/$osusername/$dbname
-					# TODO Disable archive of test instance
-					tar cz --exclude-vcs -f $archivedir/$osusername/$dbname/$osusername.tar.gz $targetdir/$osusername/$dbname
+					if [[ "x$archivetestinstances" == "x0" ]]; then
+						echo "Archive of test instances are disabled. We discard the tar cz --exclude-vcs -f $archivedir/$osusername/$dbname/$osusername.tar.gz $targetdir/$osusername/$dbname"
+					else
+						echo tar cz --exclude-vcs -f $archivedir/$osusername/$dbname/$osusername.tar.gz $targetdir/$osusername/$dbname
+						tar cz --exclude-vcs -f $archivedir/$osusername/$dbname/$osusername.tar.gz $targetdir/$osusername/$dbname
+					fi
 					echo `date +%Y%m%d%H%M%S`
 					echo rm -fr $targetdir/$osusername/$dbname
 					rm -fr $targetdir/$osusername/$dbname

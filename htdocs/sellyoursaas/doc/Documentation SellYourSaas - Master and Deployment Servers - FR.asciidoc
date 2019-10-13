@@ -1753,12 +1753,16 @@ domain=mysaas.com
 subdomain=with.mysaas.com
 # ips autorisés à commander le déploiement
 allowed_hosts=127.0.0.1,ipduservermaster
+# Set to 1 if this server hosts a dns for the pool (server of instances)
 dnsserver=1
+# Set to 1 if this server host instances for the pool (server of instances)
 instanceserver=1
 databasehost=ipduserveurmaster ou localhost si serveur master
 database=databaseduservermaster
 databaseuser=sellyoursaas
 databasepass=...
+# Set this to 1 or 0 to archive or not the test instances during undeployment
+archivetestinstances=1
 ---------------
 
 Mettre *dnsserver* et *instanceserver* à 0 sur le Master, mettre *dnsserver* et *instanceserver* à 1 sur les serveurs de déploiement des instances.
