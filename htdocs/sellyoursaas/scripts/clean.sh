@@ -505,7 +505,7 @@ echo "$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e \"$SQL\""
 
 echo "***** We should also set database that are present but with status 'undeployed' so they will be undeployed correctly again"
 rm -fr /tmp/idlistofdb 
-for fic in `ls -rt /var/lib/mysql /mnt/diskhome/mysql | grep dbn 2>/dev/null`; 
+for fic in `ls -rt /var/lib/mysql /mnt/diskhome/mysql 2>/dev/null | grep dbn 2>/dev/null`; 
 do 
 	echo -n " '"$fic"'," >> /tmp/idlistofdb
 done
