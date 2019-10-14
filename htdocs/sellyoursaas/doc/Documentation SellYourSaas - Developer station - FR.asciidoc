@@ -92,20 +92,21 @@ cd ~/git/asciidoc-highlight/gedit/
 
 [source,bash]
 ---------------
+cd ~
 sudo apt install google-cloud-print-connector
 adduser cloud-print-connector
 /usr/bin/gcp-connector-util i
 ---------------
 
-Corriger les chemins dans */home/mylogin/gcp-cups-connector.config.json* si nécessaire et mettre les droits.
+Corriger les chemins dans *~/gcp-cups-connector.config.json* si nécessaire et mettre les droits.
 
-chmod ug+rw /home/mylogin/gcp-cups-connector.config.json
-chgrp cloud-print-connector /home/mylogin/gcp-cups-connector.config.json
+chmod ug+rw ~/gcp-cups-connector.config.json
+chgrp cloud-print-connector ~/gcp-cups-connector.config.json
 
 Lancer manuellement /usr/bin/gcp-cups-connector et vérifier dans *https://www.google.com/cloudprint#printers* que les imprimantes sont visibles.
 
 
-Créer un fichier de lancement automatique */home/mylogin/gcp-cups-connector.config.json* avec ce contenu
+Créer un fichier de lancement automatique *~/cloud-print-connector.service* avec ce contenu
 
 [source,bash]
 ---------------
