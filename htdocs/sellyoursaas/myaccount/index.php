@@ -3764,9 +3764,10 @@ if ($mode == 'instances')
 
 										print '<span class="font-green-sharp counternumber">'.$line->qty.'</span>';
 										print '<br>';
-										if ($line->price)
+
+										if ($line->price_ht)
 										{
-											print '<span class="opacitymedium small">'.price($line->price, 1, $langs, 0, -1, -1, $conf->currency);
+											print '<span class="opacitymedium small">'.price($line->price_ht, 1, $langs, 0, -1, -1, $conf->currency);
 											//if ($line->qty > 1 && $labelprodsing) print ' / '.$labelprodsing;
 											if ($tmpproduct->array_options['options_resource_label']) print ' / '.$tmpproduct->array_options['options_resource_label'];
 											elseif (preg_match('/users/i', $tmpproduct->ref)) print ' / '.$langs->trans("User");	// backward compatibility
@@ -3776,19 +3777,50 @@ if ($mode == 'instances')
 										}
 										else
 										{
-											print '<span class="opacitymedium small">'.price($line->price, 1, $langs, 0, -1, -1, $conf->currency);
+											print '<span class="opacitymedium small">'.price($line->price_ht, 1, $langs, 0, -1, -1, $conf->currency);
 											// TODO
 											print ' / '.$langs->trans("Month");
 											print '</span>';
 										}
 				                  	}
-				                  	else	// If there is no product, this is users
+				                  	else	// If there is no product, this is a free product
 				                  	{
-				                  		print '<span class="opacitymedium small">';
-				                  		print ($line->label ? $line->label : $line->libelle);
-				                  		// TODO
-				                  		print ' / '.$langs->trans("Month");
-				                  		print '</span>';
+				                  	    print '<!--no photo defined -->';
+				                  	    print '<table width="100%" valign="top" align="center" border="0" cellpadding="2" cellspacing="2"><tr><td width="100%" class="photo">';
+				                  	    print '<img class="photo photowithmargin" border="0" height="'.$maxHeight.'" src="'.DOL_URL_ROOT.'/public/theme/common/nophoto.png" title="'.dol_escape_htmltag($alt).'">';
+				                  	    print '</td></tr></table>';
+
+				                  	    // Label
+				                  	    $labelprod = $line->description;
+				                  	    /*if (preg_match('/instance/i', $tmpproduct->ref) || preg_match('/instance/i', $tmpproduct->label))
+				                  	    {
+				                  	        $labelprod = $langs->trans("Application");
+				                  	    }
+				                  	    elseif (preg_match('/user/i', $tmpproduct->ref) || preg_match('/user/i', $tmpproduct->label))
+				                  	    {
+				                  	        $labelprod = $langs->trans("Users");
+				                  	    }*/
+
+				                  	    print '<span class="opacitymedium small">'.$labelprod.'</span><br>';
+
+				                  	    print '<span class="font-green-sharp counternumber">'.$line->qty.'</span>';
+				                  	    print '<br>';
+
+				                  	    if ($line->price_ht)
+				                  	    {
+				                  	        $priceforline = $line->price_ht * $line->qty;
+				                  	        print '<span class="opacitymedium small">'.price($priceforline, 1, $langs, 0, -1, -1, $conf->currency);
+				                  	        //if (preg_match('/users/i', $line->description)) print ' / '.$langs->trans("User");
+				                  	        print ' / '.$langs->trans("Month");
+				                  	        print '</span>';
+				                  	    }
+				                  	    else
+				                  	    {
+				                  	        print '<span class="opacitymedium small">'.price($line->price_ht, 1, $langs, 0, -1, -1, $conf->currency);
+				                  	        // TODO
+				                  	        print ' / '.$langs->trans("Month");
+				                  	        print '</span>';
+				                  	    }
 				                  	}
 
 									print '</div>';
