@@ -978,7 +978,7 @@ class SellYourSaasUtils
     				$stripeacc = $stripe->getStripeAccount($service);								// Get Stripe OAuth connect account if it exists (no network access here)
 
     				$customer = $stripe->customerStripe($thirdparty, $stripeacc, $servicestatus, 0);
-					if (empty($customer))
+    				if (empty($customer) && ! empty($stripe->error))
 					{
 						$this->errors[] = $stripe->error;
 					}
