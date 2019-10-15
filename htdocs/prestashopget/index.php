@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2001-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>
+/* Copyright (C) 2001-2019 Rodolphe Quiedeville <rodolphe@quiedeville.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,6 +55,7 @@ $optioncss  = GETPOST('optioncss', 'aZ');												// Option for the css outpu
 
 $mode = GETPOST('mode', 'alpha');
 
+$search_orderid = GETPOST('search_orderid', 'alpha');
 $search_country = GETPOST('search_country', 'aZ09');
 $search_email = GETPOST('search_email', 'alpha');
 $search_customer = GETPOST('search_customer', 'alpha');
@@ -67,6 +68,7 @@ $search_toyear = GETPOST('search_toyear', 'int');
 $search_from = dol_mktime(0, 0, 0, GETPOST('search_frommonth', 'int'), GETPOST('search_fromday', 'int'), GETPOST('search_fromyear', 'int'));
 $search_to = dol_mktime(0, 0, 0, GETPOST('search_tomonth', 'int'), GETPOST('search_today', 'int'), GETPOST('search_toyear', 'int'));
 $search_paymentmode = GETPOST('search_paymentmode', 'alpha');
+$search_vatrate = GETPOST('search_vatrate', 'alpha');
 
 // Load variable for pagination
 $limit = GETPOST('limit', 'int')?GETPOST('limit', 'int'):$conf->liste_limit;
@@ -118,6 +120,7 @@ $product_id = GETPOST('product_id', 'int');
 // Purge search criteria
 if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') ||GETPOST('button_removefilter', 'alpha')) // All tests are required to be compatible with all browsers
 {
+    $search_orderid='';
     $search_customer='';
     $search_email='';
     $search_country='';
@@ -130,6 +133,7 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
     $search_toyear='';
     $search_to='';
     $search_paymentmode='';
+    $search_vatrate='';
     $toselect='';
     $search_array_options=array();
 }
@@ -161,8 +165,11 @@ if ($mode != 'groupbycountryandvatrate') $sql.= " o.id_order, o.date_add, o.vali
 $sql.= " o.module, t.rate as tax_rate, odt.id_tax,";
 $sql.= " co.iso_code,";
 $sql.= " SUM(GREATEST(0, (CAST(od.product_quantity AS SIGNED) - CAST(od.product_quantity_refunded AS SIGNED)))) as qtyvalidated,";
+$sql.= " SUM(CASE WHEN o.valid = 1 AND (CAST(od.product_quantity AS SIGNED) - CAST(od.product_quantity_refunded AS SIGNED)) > 0 THEN od.total_price_tax_excl ELSE 0 END) as amountvalidatedht,";
+$sql.= " SUM(CASE WHEN o.valid = 1 AND (CAST(od.product_quantity AS SIGNED) - CAST(od.product_quantity_refunded AS SIGNED)) > 0 THEN od.total_price_tax_incl ELSE 0 END) as amountvalidatedttc,";
 $sql.= " SUM(od.total_price_tax_excl) as total_price_tax_excl, SUM(od.total_price_tax_incl) as total_price_tax_incl,";
 $sql.= " SUM(ROUND(od.product_price, 5)) as prod_amount_ht,";
+$sql.= " SUM(ROUND((od.product_price - od.reduction_amount) * (100 - od.reduction_percent) / 100, 5)) as prod_amount_ht_with_discount_abs_and_percent,";
 $sql.= " SUM(ROUND(od.product_price * (100 + t.rate) / 100, 2)) as prod_amount_ttc";
 $sql.= " FROM "._DB_PREFIX_."order_detail as od, "._DB_PREFIX_."order_detail_tax as odt, "._DB_PREFIX_."tax as t, "._DB_PREFIX_."orders as o";
 $sql.= " LEFT JOIN "._DB_PREFIX_."address as a ON o.id_address_invoice = a.id_address";
@@ -170,6 +177,7 @@ $sql.= " LEFT JOIN "._DB_PREFIX_."country as co ON a.id_country = co.id_country,
 $sql.= " "._DB_PREFIX_."customer as c";
 $sql.= " WHERE o.id_order = od.id_order AND od.id_order_detail = odt.id_order_detail AND t.id_tax = odt.id_tax AND c.id_customer = o.id_customer";
 if ($product_id > 0) $sql.=" AND od.product_id = ".(int)$product_id;
+if ($search_orderid) $sql.=natural_search("od.id_order_detail", $search_orderid);
 if ($search_customer) $sql.=natural_search(array('c.lastname', 'c.firstname'), $search_customer);
 if ($search_email) $sql.=natural_search('c.email', $search_email);
 if ($search_country) $sql.=natural_search('co.iso_code', $search_country);
@@ -178,7 +186,7 @@ if ($search_country) $sql.=natural_search('co.iso_code', $search_country);
 if ($search_from) $sql.=" AND o.date_add >= '".$db->idate($search_from)."'";
 if ($search_to) $sql.=" AND o.date_add <= '".$db->idate($search_to + 24 * 3600 - 1)."'";
 if ($search_paymentmode) $sql.=natural_search('o.module', $search_paymentmode);
-
+if ($search_vatrate) $sql.=natural_search('t.rate', $search_vatrate, 1);
 if ($mode == 'groupbycountryandvatrate')
 {
     $sql.=" AND  o.valid = 1";
@@ -238,9 +246,10 @@ $subresult = $db2->query($sql);
 llxHeader('', $title, $help_url);
 
 $param='';
-if (! empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) $param.='&contextpage='.urlencode($contextpage);
-if ($limit > 0 && $limit != $conf->liste_limit) $param.='&limit='.urlencode($limit);
-if ($optioncss != '')    $param.='&optioncss='.urlencode($optioncss);
+if (! empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) $param.= '&contextpage='.urlencode($contextpage);
+if ($limit > 0 && $limit != $conf->liste_limit) $param.= '&limit='.urlencode($limit);
+if ($optioncss != '')    $param.= '&optioncss='.urlencode($optioncss);
+if ($search_orderid)     $param.= '&search_orderid='.urlencode($search_orderid);
 if ($search_customer)    $param.= '&search_customer='.urlencode($search_customer);
 if ($search_email)       $param.= '&search_email='.urlencode($search_email);
 if ($search_country)     $param.= '&search_country='.urlencode($search_country);
@@ -251,6 +260,8 @@ if ($search_today)       $param.= '&search_today='.urlencode($search_today);
 if ($search_tomonth)     $param.= '&search_tomonth='.urlencode($search_tomonth);
 if ($search_toyear)      $param.= '&search_toyear='.urlencode($search_toyear);
 if ($search_paymentmode) $param.= '&search_paymentmode='.urlencode($search_paymentmode);
+if ($search_vatrate)     $param.= '&search_vatrate='.urlencode($search_vatrate);
+if ($mode)               $param.= '&mode='.urlencode($mode);
 
 print '<form method="POST" id="searchFormList" action="'.$_SERVER["PHP_SELF"].'">';
 if ($optioncss != '') print '<input type="hidden" name="optioncss" value="'.$optioncss.'">';
@@ -302,7 +313,7 @@ print '<table class="tagtable liste'.($moreforfilter?" listwithfilterbefore":"")
 // Fields title search
 // --------------------------------------------------------------------
 print '<tr class="liste_titre">';
-if ($mode != 'groupbycountryandvatrate') print '<td></td>';
+if ($mode != 'groupbycountryandvatrate') print '<td><input type="text" class="maxwidth50" name="search_orderid" value="'.$search_orderid.'"></td>';
 if ($mode != 'groupbycountryandvatrate') print '<td><input type="text" class="maxwidth75" name="search_customer" value="'.$search_customer.'"></td>';
 if ($mode != 'groupbycountryandvatrate') print '<td></td>';
 if ($mode != 'groupbycountryandvatrate') print '<td><input type="text" class="maxwidth50" name="search_email" value="'.$search_email.'"></td>';
@@ -318,13 +329,13 @@ if ($mode != 'groupbycountryandvatrate') print '<td></td>';
 if ($mode != 'groupbycountryandvatrate') print '<td></td>';
 if ($mode != 'groupbycountryandvatrate') print '<td></td>';
 print '<td></td>';
-print '<td></td>';
-print '<td></td>';
+if ($mode != 'groupbycountryandvatrate') print '<td></td>';
+print '<td class="right"><input type="text" class="maxwidth50" name="search_vatrate" value="'.$search_vatrate.'"></td>';
 print '<td></td>';
 print '<td></td>';
 print '<td></td>';
 print '<td><input type="text" class="maxwidth50" name="search_paymentmode" value="'.$search_paymentmode.'"></td>';
-if ($mode != 'groupbycountryandvatrate') print '<td></td>';
+//if ($mode != 'groupbycountryandvatrate') print '<td></td>';
 // Action column
 print '<td class="liste_titre maxwidthsearch">';
 $searchpicto=$form->showFilterButtons();
@@ -336,25 +347,26 @@ print '</tr>'."\n";
 // --------------------------------------------------------------------
 print '<tr class="liste_titre">';
 // Action column
-if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('OrderID', 0, $_SERVER["PHP_SELF"], 'od.id_order_detail', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Customer', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Customer date creation', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Customer email', 0, $_SERVER["PHP_SELF"], 'c.email', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-print getTitleFieldOfList('Customer country', 0, $_SERVER["PHP_SELF"], 'co.iso_code', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-print getTitleFieldOfList('InEEC', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-print getTitleFieldOfList('Date sale', 0, $_SERVER["PHP_SELF"], 'o.date_add', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Product id', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Product label', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Product ref', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('IsValid', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-print getTitleFieldOfList('Qty', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-print getTitleFieldOfList('Amount', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch right ')."\n";
-print getTitleFieldOfList('VATRate', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch right ')."\n";
-print getTitleFieldOfList('AmountHT', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch right ')."\n";
-print getTitleFieldOfList('AmountVAT', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch right ')."\n";
-print getTitleFieldOfList('AmountTTC', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch right ')."\n";
-print getTitleFieldOfList('PrestaShopPaymentMode', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Note', 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('LineId', 0, $_SERVER["PHP_SELF"], 'od.id_order_detail', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Customer', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Customer date creation', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Customer email', 0, $_SERVER["PHP_SELF"], 'c.email', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+print getTitleFieldOfList('Customer country', 0, $_SERVER["PHP_SELF"], 'co.iso_code', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+print getTitleFieldOfList('InEEC', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Date sale', 0, $_SERVER["PHP_SELF"], 'o.date_add', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+else print getTitleFieldOfList('', 0, $_SERVER["PHP_SELF"], 'o.date_add', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Product id', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Product label', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Product ref', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('IsValid', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+print getTitleFieldOfList('Qty',       0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('UnitPriceHT',    0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch right ')."\n";
+print getTitleFieldOfList('VATRate',   0, $_SERVER["PHP_SELF"], 't.rate', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch right ')."\n";
+print getTitleFieldOfList('TotalHTShort',  0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch right ')."\n";
+print getTitleFieldOfList('TotalVAT', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch right ')."\n";
+print getTitleFieldOfList('TotalTTCShort', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch right ')."\n";
+print getTitleFieldOfList('PrestaShopPaymentMode', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+//if ($mode != 'groupbycountryandvatrate') print getTitleFieldOfList('Note', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 // Action column
 print getTitleFieldOfList($selectedfields, 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'center maxwidthsearch ')."\n";
 print '</tr>'."\n";
@@ -382,9 +394,11 @@ while (($obj = $db2->fetch_object($subresult)) && ($cpt < min($num, $limit)))
     if ($mode != 'groupbycountryandvatrate') print '<td>'.$obj->lastname.' '.$obj->firstname.'</td>';
     if ($mode != 'groupbycountryandvatrate') print '<td class="nowraponall">'.dol_print_date($db->jdate($obj->cust_date_add), 'dayhour').'</td>';
     if ($mode != 'groupbycountryandvatrate') print '<td>'.$obj->email.'</td>';
+       // Country code
     print '<td>';
     print $obj->iso_code;
     print '</td>';
+    // Is in EEC
     print '<td>';
     print isInEEC($obj);
     print '</td>';
@@ -400,55 +414,104 @@ while (($obj = $db2->fetch_object($subresult)) && ($cpt < min($num, $limit)))
     print '<td>'.$qtyvalidated.'</td>';
 
     $amountearnedunit=(float) ($obj->prod_amount_ht - $obj->reduction_amount + 0);
-    if ($obj->reduction_percent > 0) $amountearnedunit=round($amountearnedunit*(100-$obj->reduction_percent)/100,5);
+    if ($obj->reduction_percent > 0) $amountearnedunit=round($amountearnedunit*(100-$obj->reduction_percent)/100, 5);
+    $amountearnedunitsql=$obj->prod_amount_ht_with_discount_abs_and_percent;
+
     //$amountearned=$amountearnedunit*$subrow['product_quantity'];
     $amountearned=$amountearnedunit*$qtyvalidated;
     //if ($subrow['id_customer'] == 9824) var_dump($amountearned);
+
+    $totalamountunit = ($qtyvalidated > 1 ? $obj->prod_amount_ht * $qtyvalidated : $obj->prod_amount_ht);
 
     if ($mode != 'groupbycountryandvatrate')
     {
         if ($obj->reduction_amount > 0 || $obj->reduction_percent > 0)
         {
-            $totalamountunit = ($qtyvalidated > 1 ? $obj->prod_amount_ht * $qtyvalidated : $obj->prod_amount_ht);
-            print '<td class="right nowraponall">'.round($amountearnedunit,5).' ('.($totalamountunit+0).')'.'</td>';
+            print '<td class="right nowraponall">';
+            /*print $obj->reduction_amount;
+            print ' '.$obj->reduction_percent;
+            print ' '.$obj->prod_amount_ht_with_discount_abs_and_percent;*/
+            print ' '.round($amountearnedunitsql, 5).' ';
+            //print round($amountearnedunit,5);
+            print ' ('.($totalamountunit+0).')';
+            print '</td>';
         }
         else
         {
-            print '<td class="right nowraponall">'.round($amountearnedunit,5).'</td>';
+            print '<td class="right nowraponall">'.round($amountearnedunitsql,5).'</td>';
         }
-    }
-    else
-    {
-        print '<td class="right nowraponall">';
-        print 'todo';
-        print '</td>';
     }
 
     // Vat rate
     print '<td class="right nowraponall">'.vatrate($obj->tax_rate).'</td>';
 
+    // Final amount HT
     if ($mode != 'groupbycountryandvatrate')
     {
-        if (($obj->product_quantity - $obj->product_quantity_refunded) > 0 && $obj->valid == 1)
+        if ($obj->amountvalidatedht > 0)
         {
-            print '<td class="right nowraponall">'.price($obj->total_price_tax_excl).'</td>';
+            print '<td class="right nowraponall">';
+            print price($obj->amountvalidatedht).' ';
+            print '</td>';
         }
         else
         {
-            print '<td>'.$langs->trans('RefundedOrCancelled').'</td>';
+            print '<td>';
+            print $langs->trans('RefundedOrCancelled');
+            print '</td>';
         }
     }
     else
     {
         print '<td class="right nowraponall">';
-        print 'todo';
+        print price($obj->amountvalidatedht).' ';
         print '</td>';
     }
 
-    print '<td class="right nowraponall">'.price($obj->total_price_tax_incl - $obj->total_price_tax_excl).'</td>';
-    print '<td class="right nowraponall">'.price($obj->total_price_tax_incl).'</td>';
+    // Final amount VAT
+    print '<td class="right nowraponall">';
+    if ($obj->amountvalidatedttc > 0 || $obj->amountvalidatedht > 0)
+    {
+        print price($obj->amountvalidatedttc - $obj->amountvalidatedht);
+    }
+    else
+    {
+        print $langs->trans('RefundedOrCancelled');
+    }
+    print '</td>';
+
+    // Final amount TTC
+    if ($mode != 'groupbycountryandvatrate')
+    {
+        if ($obj->amountvalidatedttc > 0)
+        {
+            print '<td class="right nowraponall">';
+            print price($obj->amountvalidatedttc).' ';
+            print '</td>';
+        }
+        else
+        {
+            print '<td>';
+            print $langs->trans('RefundedOrCancelled');
+            print '</td>';
+        }
+    }
+    else
+    {
+        print '<td class="right nowraponall">';
+        print price($obj->amountvalidatedttc).' ';
+        print '</td>';
+    }
+    /*
+    print '<td class="right nowraponall">';
+    print price($obj->total_price_tax_incl);
+    print '</td>';*/
+
     print '<td>'.$obj->module.'</td>';
-    if ($mode != 'groupbycountryandvatrate') print '<td></td>';
+
+    // Note
+    //if ($mode != 'groupbycountryandvatrate') print '<td></td>';
+
     // Action
     print '<td></td>';
 

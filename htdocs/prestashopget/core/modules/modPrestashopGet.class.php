@@ -63,7 +63,7 @@ class modPrestashopGet extends DolibarrModules
 		// Module description, used if translation string 'ModulePrestashopGetDesc' not found (PrestashopGet is name of module).
 		$this->description = "PrestashopGetDescription";
 		// Used only if file README.md and README-LL.md not found.
-		$this->descriptionlong = "PrestashopGet description (Long)";
+		$this->descriptionlong = "Add features to get summarized information on sales on a Prestashop eCommerce.";
 
 		$this->editor_name = 'NLTechno';
 		$this->editor_url = 'https://www.nltechno.com';
@@ -254,8 +254,8 @@ class modPrestashopGet extends DolibarrModules
 		/* BEGIN MODULEBUILDER LEFTMENU MYOBJECT */
 		$this->menu[$r++]=array(	'fk_menu'=>'fk_mainmenu=tools',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 								'type'=>'left',			                // This is a Left menu entry
-								'titre'=>'PrestaShopGet',
-								'mainmenu'=>'prestashopget',
+								'titre'=>'ListOfPrestaShopSales',
+								'mainmenu'=>'tools',
 								'leftmenu'=>'prestashopget_index',
 								'url'=>'/prestashopget/index.php',
 								'langs'=>'prestashopget@prestashopget',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
