@@ -21,7 +21,7 @@
 ModulePrestashopGetName = Prestashop Aperçu
 # Module description 'ModulePrestashopGetDesc'
 ModulePrestashopGetDesc = Ajoute des fonctions de résumé de ventes issues d'une boutique eCommerce Prestashop
-ListOfPrestaShopSales=Listes ventes PrestaShop
+ListOfPrestaShopSales=Liste ventes PrestaShop
 
 #
 # Page d'administration
