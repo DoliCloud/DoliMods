@@ -5276,8 +5276,8 @@ if ($mode == 'billing')
 							print '</tr>';
 
 							print '<tr><td colspan="3">';
-							print $langs->trans("IBAN").': '.$companypaymentmodetemp->iban_prefix.'<br>';
-							if ($companypaymentmodetemp->rum) print $langs->trans("RUM").': '.$companypaymentmodetemp->rum;
+							print $langs->trans("IBAN").': <span class="small">'.$companypaymentmodetemp->iban_prefix.'</small><br>';
+							if ($companypaymentmodetemp->rum) print $langs->trans("RUM").': <span class="small">'.$companypaymentmodetemp->rum.'</span>';
 							print '</td></tr>';
 						}
 						else
