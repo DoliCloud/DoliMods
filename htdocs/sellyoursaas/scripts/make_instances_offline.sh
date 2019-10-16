@@ -44,9 +44,9 @@ if [ "x$2" != "xonline" ]; then
 				cat $realdir/scripts/templates/vhostHttps-sellyoursaas-offline.template | \
 					sed 's!__webAppDomain__!'${domain}'!g' | \
 					sed 's!__webMyAccount__!'$1'!g' | \
-			        sed 's!__webSSLCertificateCRT__!$webSSLCertificateCRT!g' | \
-    	    	    sed 's!__webSSLCertificateKEY__!$webSSLCertificateKEY!g' | \
-	            	sed 's!__webSSLCertificateIntermediate__!$webSSLCertificateIntermediate!g' | \
+			        sed 's!__webSSLCertificateCRT__!'$webSSLCertificateCRT'!g' | \
+    	    	    sed 's!__webSSLCertificateKEY__!'$webSSLCertificateKEY'!g' | \
+	            	sed 's!__webSSLCertificateIntermediate__!'$webSSLCertificateIntermediate'!g' | \
 					sed 's!__VirtualHostHead__!'${virtualhosthead}'!g' | \
 					sed 's!__AllowOverride__!'${allowoverride}'!g' \
 					> /etc/apache2/sellyoursaas-offline/$fileshort
@@ -57,9 +57,9 @@ if [ "x$2" != "xonline" ]; then
 				cat $realdir/scripts/templates/vhostHttps-sellyoursaas-offline.template | \
 					sed 's!__webAppDomain__!'${domain}'!g' | \
 					sed 's!__webMyAccount__!'$1'!g' | \
-		            sed 's!__webSSLCertificateCRT__!$webSSLCertificateCRT!g' | \
-        		    sed 's!__webSSLCertificateKEY__!$webSSLCertificateKEY!g' | \
-              		sed 's!__webSSLCertificateIntermediate__!$webSSLCertificateIntermediate!g' | \
+		            sed 's!__webSSLCertificateCRT__!'$webSSLCertificateCRT'!g' | \
+        		    sed 's!__webSSLCertificateKEY__!'$webSSLCertificateKEY'!g' | \
+              		sed 's!__webSSLCertificateIntermediate__!'$webSSLCertificateIntermediate'!g' | \
 					sed 's!__VirtualHostHead__!'${virtualhosthead}'!g' | \
 					sed 's!__AllowOverride__!'${allowoverride}'!g' \
 					> /etc/apache2/sellyoursaas-offline/$fileshort
