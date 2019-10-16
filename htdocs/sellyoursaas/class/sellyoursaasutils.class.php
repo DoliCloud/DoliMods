@@ -3281,7 +3281,9 @@ class SellYourSaasUtils
     			// Remote action : unsuspend
     			$commandurl = $generatedunixlogin.'&'.$generatedunixpassword.'&'.$sldAndSubdomain.'&'.$domainname;
     			$commandurl.= '&'.$generateddbname.'&'.$generateddbport.'&'.$generateddbusername.'&'.$generateddbpassword;
-    			$commandurl.= '&'.$tmppackage->srcconffile1.'&'.$tmppackage->targetconffile1.'&'.$tmppackage->datafile1;
+    			$commandurl.= '&'.str_replace(' ', '£', $tmppackage->srcconffile1);
+    			$commandurl.= '&'.str_replace(' ', '£', $tmppackage->targetconffile1);
+    			$commandurl.= '&'.str_replace(' ', '£', $tmppackage->datafile1);
     			$commandurl.= '&'.$tmppackage->srcfile1.'&'.$tmppackage->targetsrcfile1.'&'.$tmppackage->srcfile2.'&'.$tmppackage->targetsrcfile2.'&'.$tmppackage->srcfile3.'&'.$tmppackage->targetsrcfile3;
     			$commandurl.= '&'.$tmppackage->srccronfile.'&'.$tmppackage->srccliafter.'&'.$targetdir;
     			$commandurl.= '&'.$conf->global->SELLYOURSAAS_SUPERVISION_EMAIL;	// Param 22 in .sh

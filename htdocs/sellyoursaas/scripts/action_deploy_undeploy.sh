@@ -99,9 +99,9 @@ export dbport=$7
 export dbusername=$8
 export dbpassword=$9
 
-export fileforconfig1=${10}
-export targetfileforconfig1=${11}
-export dirwithdumpfile=${12}
+export fileforconfig1=${10//£/ }}
+export targetfileforconfig1=${11//£/ }}
+export dirwithdumpfile=${12//£/ }}
 export dirwithsources1=${13}
 export targetdirwithsources1=${14}
 export dirwithsources2=${15}
