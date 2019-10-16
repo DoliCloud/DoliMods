@@ -42,9 +42,7 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 if (!$user->admin) accessforbidden();
 
 
-$langs->load("admin");
-$langs->load("other");
-$langs->load("concatpdf@concatpdf");
+$langs->loadLangs(array("admin", "other", "facturx@facturx"));
 
 
 /**
@@ -55,8 +53,7 @@ $help_url='';
 llxHeader('','',$help_url);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("FactureXPdfSetup"),$linkback,'setup');
-print '<br>';
+print_fiche_titre($langs->trans("FacturXSetup"), $linkback, 'object_facturx@facturx');
 
 $h=0;
 $head[$h][0] = 'setup.php';

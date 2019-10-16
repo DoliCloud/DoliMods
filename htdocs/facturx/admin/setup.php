@@ -85,7 +85,7 @@ $head = facturxAdminPrepareHead();
 dol_fiche_head($head, 'settings', '', -1, "facturx@facturx");
 
 // Setup page goes here
-echo $langs->trans("FacturXSetupPage").'<br><br>';
+echo '<span class="opacitymedium">'.$langs->trans("FacturXSetupPage").'</span><br><br>';
 
 
 if ($action == 'edit')
