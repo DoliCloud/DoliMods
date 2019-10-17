@@ -2031,7 +2031,7 @@ Step 2 — Pointing to the New Data Location
 MySQL has several ways to override configuration values. By default, the datadir is set to /var/lib/mysql in the /etc/my.cnf file. Edit this file to reflect the new data directory:
 
 sudo vi /etc/my.cnf
-Find the line in the [mysqld] block that begins with datadir=, which is separated from the block heading with several comments. Change the path which follows to reflect the new location. In addition, since the socket was previously located in the data directory, we’ll need to update it to the new location:
+Find the line in the [mysqld] block that begins with datadir=, which is separated from the block heading with several comments. Change the path which follows to reflect the new location. In addition, since the socket was previously man mlocated in the data directory, we’ll need to update it to the new location:
 
 /etc/my.cnf
 [mysqld]

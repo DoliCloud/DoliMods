@@ -188,7 +188,20 @@ exclude_suffix := cache
 ---------------
 
 
-=== Configuration de cpulimit 
+=== Installation de mlocate
+
+* Installer mlocate tool from debian package
+* Complete setup */etc/updatedb.conf* by adding dir */mnt/backup* into exclude list:
+
+[source,bash]
+---------------
+...
+PRUNEPATHS="/tmp /var/spool /media /home/.ecryptfs /var/lib/schroot /mnt/diskbackup"
+...
+---------------
+
+
+=== Configuration de cpulimit (optionnel) 
 
 * Lancement de cpulimit au démarrage pour exécuter:
 
@@ -197,7 +210,7 @@ Voir script *cpulimit_daemon* à mettre dans */etc/init.d*.
 cpulimit launched with script  cpulimit --exe=apache2 --limit=20
 
 
-=== Installation de saslauthd ===
+=== Installation de saslauthd (optionnel) ===
 
 Pour permettre authentification extern SMTP.
 
