@@ -235,8 +235,21 @@ if [[ "$mode" == "rename" ]]; then
 	rm -f /etc/apache2/sellyoursaas-online/$fqn.custom.conf
 	if [[ "x$customurl" != "x" ]]; then
 	
-		echo `date +%Y%m%d%H%M%S`" ***** For instance in /home/jail/home/$osusername/$dbname, create a new virtual name $fqn.custom"
+		echo `date +%Y%m%d%H%M%S`" ***** For instance in /home/jail/home/$osusername/$dbname, create a new custom virtual name $fqn.custom"
 	
+		echo "Check that SSL files for $fqn.custom exists and create link to generic certificate files if not"
+		if [[ "x$CERTIFFORCUSTOMDOMAIN" != "x" ]]; then
+			if [[ ! -e /etc/apache2/$CERTIFFORCUSTOMDOMAIN.crt ]]; then
+				ln -fs /etc/apache2/with.sellyoursaas.com.crt /etc/apache2/$CERTIFFORCUSTOMDOMAIN.crt
+			fi
+			if [[ ! -e /etc/apache2/$CERTIFFORCUSTOMDOMAIN.key ]]; then
+				ln -fs /etc/apache2/with.sellyoursaas.com.key /etc/apache2/$CERTIFFORCUSTOMDOMAIN.key
+			fi
+			if [[ ! -e /etc/apache2/$CERTIFFORCUSTOMDOMAIN-intermediate.crt ]]; then
+				ln -fs /etc/apache2/with.sellyoursaas.com-intermediate.crt /etc/apache2/$CERTIFFORCUSTOMDOMAIN-intermediate.crt
+			fi
+		fi
+		
 		export apacheconf="/etc/apache2/sellyoursaas-available/$fqn.custom.conf"
 		echo `date +%Y%m%d%H%M%S`" ***** Create a new apache conf $apacheconf from $vhostfile"
 	
