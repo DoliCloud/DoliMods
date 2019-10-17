@@ -240,12 +240,15 @@ if [[ "$mode" == "rename" ]]; then
 		echo "Check that SSL files for $fqn.custom exists and create link to generic certificate files if not"
 		if [[ "x$CERTIFFORCUSTOMDOMAIN" != "x" ]]; then
 			if [[ ! -e /etc/apache2/$CERTIFFORCUSTOMDOMAIN.crt ]]; then
+				echo "Create link /etc/apache2/$CERTIFFORCUSTOMDOMAIN.crt to /etc/apache2/with.sellyoursaas.com.crt"
 				ln -fs /etc/apache2/with.sellyoursaas.com.crt /etc/apache2/$CERTIFFORCUSTOMDOMAIN.crt
 			fi
 			if [[ ! -e /etc/apache2/$CERTIFFORCUSTOMDOMAIN.key ]]; then
+				echo "Create link /etc/apache2/$CERTIFFORCUSTOMDOMAIN.key to /etc/apache2/with.sellyoursaas.com.key"
 				ln -fs /etc/apache2/with.sellyoursaas.com.key /etc/apache2/$CERTIFFORCUSTOMDOMAIN.key
 			fi
 			if [[ ! -e /etc/apache2/$CERTIFFORCUSTOMDOMAIN-intermediate.crt ]]; then
+				echo "Create link /etc/apache2/$CERTIFFORCUSTOMDOMAIN-intermediate.crt to /etc/apache2/with.sellyoursaas.com-intermediate.crt"
 				ln -fs /etc/apache2/with.sellyoursaas.com-intermediate.crt /etc/apache2/$CERTIFFORCUSTOMDOMAIN-intermediate.crt
 			fi
 		fi
