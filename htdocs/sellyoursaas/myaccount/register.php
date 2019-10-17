@@ -332,8 +332,8 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 				      ?>
 		          <div class="paddingtop20" style="float: right;">
 		              <div class="padding: 4px 10px 5px 10px;">
-		              <span class="opacitymedium"><?php echo $langs->trans("AlreadyHaveAnAccount"); ?></span>
-		              <a href="/" class="btn blue btn-sm btnalreadyanaccount marginleftonly"><?php echo $langs->trans("LoginAction"); ?></a>
+		              <span class="opacitymedium"><?php echo $langs->trans("AlreadyHaveAnAccount"); ?>&nbsp;</span>
+		              <a href="/" class="btn blue btn-sm btnalreadyanaccount"><?php echo $langs->trans("LoginAction"); ?></a>
 		              </div>
 		              <?php if (empty($partner) && empty($partnerkey)) { ?>
 		              <div class="padding: 4px 10px 5px 10px;">
