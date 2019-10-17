@@ -191,7 +191,15 @@ header.inverse  h1 { padding-top: 5px; }
 .center { text-align: center; }
 .valignmiddle { vertical-align: middle; }
 
-#logo { text-align: center;	max-width:200px; max-height: 60px; }
+#logo {
+    text-align: center;	max-width:200px; max-height: 60px;
+}
+@media (max-width: 600px) {
+    #logo {
+        text-align: center;	max-width:110px; max-height: 60px;
+    }
+}
+
 .block.small {
 width: 500px;
 min-width: 500px;
