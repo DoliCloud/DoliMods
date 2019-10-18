@@ -3139,7 +3139,7 @@ class SellYourSaasUtils
     			$generateduniquekey   =getRandomPassword(true);
 
     			$customurl            =$contract->array_options['options_custom_url'];
-    			$customvirtualhostline=$contract->array_options['options_custom_virtualhostline'];
+    			$customvirtualhostline=$contract->array_options['options_custom_virtualhostline'];   // Set with value 'php_value date.timezone "'.$_POST["tz_string"].'"'; into file register_instance.php
     			$SSLON='On';
     			$CERTIFFORCUSTOMDOMAIN=$customurl;
     			if ($CERTIFFORCUSTOMDOMAIN)

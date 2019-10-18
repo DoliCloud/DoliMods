@@ -139,6 +139,7 @@ export ispaidinstance=${36}
 export instancedir=$targetdir/$osusername/$dbname
 export fqn=$instancename.$domainname
 export fqnold=$instancenameold.$domainnameold
+export CRONHEAD=${VIRTUALHOSTHEAD/php_value date.timezone /TZ=}
 
 export webSSLCertificateCRT=with.sellyoursaas.com.crt
 export webSSLCertificateKEY=with.sellyoursaas.com.key
@@ -189,6 +190,7 @@ echo "vhostfile = $vhostfile"
 echo "instancedir = $instancedir"
 echo "fqn = $fqn"
 echo "fqnold = $fqnold"
+echo "CRONHEAD = $CRONHEAD"
 
 
 MYSQL=`which mysql`
