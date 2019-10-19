@@ -205,7 +205,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	// User
 	$userstring=$object->username_os;
 	$links.='User: ';
-	$links.='<input type="text" name="userstring" id="userstring" value="'.$userstring.'" size="50"><br>';
+	$links.='<input type="text" name="userstring" id="userstring" value="'.$userstring.'" size="30"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect('userstring');
 	
 	// SSH
@@ -292,7 +292,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	$links.='<br>';
 
 	// Rsync to Deploy module
-	$sftpdeploystring='rsync -n -v -a --exclude \'*.cache\' --exclude \'conf\.php\' pathtohtdocsmodule/* '.$object->username_os.'@'.$object->hostname_os.':'.$object->database_db.'/htdocs/namemodule';
+	$sftpdeploystring='rsync -n -v -a --exclude \'*.cache\' --exclude \'conf\.php\' pathtohtdocsmodule/* '.$object->username_os.'@'.$object->hostname_os.':'.$object->database_db.'/htdocs/custom/namemodule';
 	$links.='<span class="fa fa-terminal"></span> ';
 	$links.='Rsync to install or overwrite module';
 	$links.='<span class="opacitymedium"> (remove -n to execute really)</span>:<br>';
