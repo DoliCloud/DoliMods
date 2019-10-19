@@ -187,7 +187,7 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	// Home
 	$homestring=$conf->global->DOLICLOUD_INSTANCES_PATH.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
 	$links.='Home dir: ';
-	$links.='<input type="text" name="homestring" id="homestring" value="'.$homestring.'" size="110"><br>';
+	$links.='<input type="text" name="homestring" id="homestring" value="'.$homestring.'" size="50"> ';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect('homestring');
 	//$links.='<br>';
 
@@ -199,9 +199,15 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	    $archivestring=$conf->global->SELLYOURSAAS_PAID_ARCHIVES_PATH.'/'.$object->username_os.'/'.preg_replace('/_([a-zA-Z0-9]+)$/','',$object->database_db);
 	}
 	$links.='Archive dir: ';
-	$links.='<input type="text" name="archivestring" id="archivestring" value="'.$archivestring.'" size="110"><br>';
+	$links.='<input type="text" name="archivestring" id="archivestring" value="'.$archivestring.'" size="50"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect('archivestring');
 
+	// User
+	$userstring=$object->username_os;
+	$links.='User: ';
+	$links.='<input type="text" name="userstring" id="userstring" value="'.$userstring.'" size="50"><br>';
+	if ($conf->use_javascript_ajax) $links.=ajax_autoselect('userstring');
+	
 	// SSH
     $sshconnectstring='ssh '.$object->username_os.'@'.$object->hostname_os;
     $links.='SSH connect string: ';
@@ -265,6 +271,15 @@ function getListOfLinks($object, $lastloginadmin, $lastpassadmin)
 	$links.='Mysql restore database:<br>';
 	$links.='<input type="text" id="mysqlrestorecommand" name="mysqlrestorecommand" value="'.$mysqlresotrecommand.'" class="marginleftonly quatrevingtpercent"><br>';
 	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("mysqlrestorecommand", 0);
+	$links.='<br>';
+
+	// Rsync to Restore Program directory
+	$sftprestorestring='rsync -n -v -a --exclude \'conf.php\' --exclude \'*.cache\' '.$archivestring.'/* '.$object->username_os.'@'.$object->hostname_os.':'.$object->database_db.'/';
+	$links.='<span class="fa fa-terminal"></span> ';
+	$links.='Rsync to copy/overwrite application dir';
+	$links.='<span class="opacitymedium"> (remove -n to execute really)</span>:<br>';
+	$links.='<input type="text" id="sftprestoreappstring" name="sftprestoreappstring" value="'.$sftprestorestring.'" class="marginleftonly quatrevingtpercent"><br>';
+	if ($conf->use_javascript_ajax) $links.=ajax_autoselect("sftprestoreappstring", 0);
 	$links.='<br>';
 
 	// Rsync to Restore Document directory
