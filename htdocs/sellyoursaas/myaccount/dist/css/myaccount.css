@@ -422,7 +422,7 @@ transparent;border-left: 6px solid #169ef4;position: absolute;top:
 	.ver-inline-menu > li.active:after {display: none;}}.list-separated {margin-top: 10px; margin-bottom: 15px;}.list-separated > div:last-child {border-right: 0;
 	.list-separated {}.list-separated > div {margin-bottom: 20px;}
 
-	. hideonsmartphone {
+	.hideonsmartphone {
 		display: none;
 	}
 }
