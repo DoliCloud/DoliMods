@@ -5113,11 +5113,11 @@ if ($mode == 'billing')
 											}
 											elseif ($obj->extraparams == 'PAYMENT_ERROR_INSUFICIENT_FUNDS')
 											{
-												print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/statut8.png" alt="Insuficient funds"> '.$langs->trans("PaymentError");
+											    print '<span title="'.$obj->extraparams.'"><img src="'.DOL_URL_ROOT.'/theme/eldy/img/statut8.png" alt="Insuficient funds"> '.$langs->trans("PaymentError").'</span>';
 											}
 											else
 											{
-												print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/statut8.png"> '.$langs->trans("PaymentError");
+											    print '<span title="'.$obj->extraparams.'"><img src="'.DOL_URL_ROOT.'/theme/eldy/img/statut8.png"> '.$langs->trans("PaymentError").'</span>';
 											}
 										}
 									}
