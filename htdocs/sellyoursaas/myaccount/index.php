@@ -3011,9 +3011,9 @@ if (empty($welcomecid))
 	}
 
 	// Test if there is a payment error, if yes, ask to fix payment data
-	$sql = 'SELECT f.rowid, ee.code, ee.extraparams  FROM '.MAIN_DB_PREFIX.'facture as f';
+	$sql = 'SELECT f.rowid, ee.code, ee.label, ee.extraparams FROM '.MAIN_DB_PREFIX.'facture as f';
 	$sql.= ' INNER JOIN '.MAIN_DB_PREFIX."actioncomm as ee ON ee.fk_element = f.rowid AND ee.elementtype = 'invoice'";
-	$sql.= " AND ee.code LIKE 'AC_PAYMENT_%_KO'";
+	$sql.= " AND ee.code LIKE 'AC_PAYMENT_%_KO' OR ee.label = 'Cancellation of payment by the bank'";
 	$sql.= ' WHERE f.fk_soc = '.$mythirdpartyaccount->id.' AND f.paye = 0';
 	$sql.= ' ORDER BY ee.datep DESC';
 
@@ -3031,10 +3031,18 @@ if (empty($welcomecid))
 			if (empty($labelerror)) $labelerror=$langs->trans("UnknownError");
 
 			// There is at least one payment error
-			if (preg_match('/PAYMENT_ERROR_INSUFICIENT_FUNDS/i', $obj->extraparams))
+			if ($obj->label == 'Cancellation of payment by the bank')
+			{
+			    print '
+						<div class="note note-warning note-cancelbythebank">
+						<h4 class="block">'.$langs->trans("SomeOfYourPaymentFailed", $langs->transnoentitiesnoconv('PaymentChargedButReversedByBank')).'</h4>
+						</div>
+					';
+			}
+			elseif (preg_match('/PAYMENT_ERROR_INSUFICIENT_FUNDS/i', $obj->extraparams))
 			{
 				print '
-						<div class="note note-warning">
+						<div class="note note-warning note-insuficientfunds">
 						<h4 class="block">'.$langs->trans("SomeOfYourPaymentFailedINSUFICIENT_FUNDS", $labelerror).'</h4>
 						</div>
 					';
@@ -3042,7 +3050,7 @@ if (empty($welcomecid))
 			else
 			{
 				print '
-						<div class="note note-warning">
+						<div class="note note-warning note-someofyourpaymentfailed">
 						<h4 class="block">'.$langs->trans("SomeOfYourPaymentFailed", $labelerror).'</h4>
 						</div>
 					';
