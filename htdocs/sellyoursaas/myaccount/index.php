@@ -4424,6 +4424,7 @@ if ($mode == 'mycustomerinstances')
 			}*/
 
 			print '
+                <!-- Instance of customer -->
 			    <div class="row" id="contractid'.$contract->id.'" data-contractref="'.$contract->ref.'">
 			      <div class="col-md-12">
 
@@ -4677,7 +4678,7 @@ if ($mode == 'mycustomerinstances')
 				print '<span class="bold">'.$planlabel.'</span>';
 				if ($statuslabel != 'undeployed')
 				{
-					if ($priceinvoicedht == $contrat->total_ht)
+					if ($priceinvoicedht == $contract->total_ht)
 					{
 						// Disabled on "My customer invoices" view
 						//print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=mycustomerinstances&action=changeplan&id='.$contract->id.'#contractid'.$contract->id.'">'.$langs->trans("ChangePlan").'</a>';
@@ -4694,10 +4695,10 @@ if ($mode == 'mycustomerinstances')
 				if ($foundtemplate > 1)
 				{
 				    $sellyoursaasemail = $conf->global->SELLYOURSAAS_MAIN_EMAIL;
-				    if (! empty($mythirdpartyaccount->array_options['options_domain_registration_page'])
-				        && $mythirdpartyaccount->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
+				    if (! empty($tmpcustomer->array_options['options_domain_registration_page'])
+				        && $tmpcustomer->array_options['options_domain_registration_page'] != $conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME)
 				    {
-				        $newnamekey = 'SELLYOURSAAS_MAIN_EMAIL_FORDOMAIN-'.$mythirdpartyaccount->array_options['options_domain_registration_page'];
+				        $newnamekey = 'SELLYOURSAAS_MAIN_EMAIL_FORDOMAIN-'.$tmpcustomer->array_options['options_domain_registration_page'];
 				        if (! empty($conf->global->$newnamekey)) $sellyoursaasemail = $conf->global->$newnamekey;
 				    }
 
@@ -4705,7 +4706,7 @@ if ($mode == 'mycustomerinstances')
 				}
 				else
 				{
-					if ($priceinvoicedht != $contrat->total_ht)
+					if ($priceinvoicedht != $contract->total_ht)
 					{
 						if ($pricetoshow != '') print $langs->trans("FlatOrDiscountedPrice").' = ';
 					}
@@ -4736,7 +4737,42 @@ if ($mode == 'mycustomerinstances')
 						}
 						else
 						{
-							if (empty($atleastonepaymentmode))
+						    // Fill array of company payment modes
+						    $arrayofcompanypaymentmodeforthiscustomer = array();
+						    $sqlpaymentmodes = 'SELECT rowid, default_rib FROM '.MAIN_DB_PREFIX."societe_rib";
+						    $sqlpaymentmodes.= " WHERE type in ('ban', 'card', 'paypal')";
+						    $sqlpaymentmodes.= " AND fk_soc = ".$tmpcustomer->id;
+						    $sqlpaymentmodes.= " AND (type = 'ban' OR (type='card' AND status = ".$servicestatusstripe.") OR (type='paypal' AND status = ".$servicestatuspaypal."))";
+						    $sqlpaymentmodes.= " ORDER BY default_rib DESC, tms DESC";
+
+						    $resqlpaymentmodes = $db->query($sqlpaymentmodes);
+						    if ($resqlpaymentmodes)
+						    {
+						        $num_rowspaymentmodes = $db->num_rows($resqlpaymentmodes);
+						        if ($num_rowspaymentmodes)
+						        {
+						            $i=0;
+						            while ($i < $num_rowspaymentmodes)
+						            {
+						                $objpaymentmodes = $db->fetch_object($resqlpaymentmodes);
+						                if ($objpaymentmodes)
+						                {
+						                    if ($objpaymentmodes->default_rib != 1) continue;	// Keep the default payment mode only
+
+						                    $companypaymentmodetemp = new CompanyPaymentMode($db);
+						                    $companypaymentmodetemp->fetch($objpaymentmodes->rowid);
+
+						                    $arrayofcompanypaymentmodeforthiscustomer[] = $companypaymentmodetemp;
+						                }
+						                $i++;
+						            }
+						        }
+						    }
+						    $atleastonepaymentmodeforthiscustomer = (count($arrayofcompanypaymentmodeforthiscustomer) > 0 ? 1 : 0);
+						    $nbpaymentmodeokforthiscustomer = count($arrayofcompanypaymentmodeforthiscustomer);
+
+
+						    if (empty($atleastonepaymentmodeforthiscustomer))
 							{
 								//print ' - <a href="'.$_SERVER["PHP_SELF"].'?mode=registerpaymentmode&backtourl='.urlencode($_SERVER["PHP_SELF"].'?mode='.$mode).'">'.$langs->trans("AddAPaymentMode").'</a>';
 							}
