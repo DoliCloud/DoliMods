@@ -5089,9 +5089,9 @@ if ($mode == 'billing')
 									$paymentinerroronthisinvoice = 0;
 
 									// Test if there is a payment error, if yes, ask to fix payment data
-									$sql = 'SELECT f.rowid, ee.code, ee.extraparams  FROM '.MAIN_DB_PREFIX.'facture as f';
+									$sql = 'SELECT f.rowid, ee.code, ee.label, ee.extraparams  FROM '.MAIN_DB_PREFIX.'facture as f';
 									$sql.= ' INNER JOIN '.MAIN_DB_PREFIX."actioncomm as ee ON ee.fk_element = f.rowid AND ee.elementtype = 'invoice'";
-									$sql.= " AND ee.code LIKE 'AC_PAYMENT_%_KO'";
+									$sql.= " AND ee.code LIKE 'AC_PAYMENT_%_KO' OR ee.label = 'Cancellation of payment by the bank'";
 									$sql.= ' WHERE f.fk_soc = '.$mythirdpartyaccount->id.' AND f.paye = 0 AND f.rowid = '.$invoice->id;
 									$sql.= ' ORDER BY ee.datep DESC';
 									$sql.= ' LIMIT 1';
@@ -5105,8 +5105,13 @@ if ($mode == 'billing')
 										{
 											$paymentinerroronthisinvoice++;
 											$obj = $db->fetch_object($resql);
+
 											// There is at least one payment error
-											if ($obj->extraparams == 'PAYMENT_ERROR_INSUFICIENT_FUNDS')
+											if ($obj->label == 'Cancellation of payment by the bank')
+											{
+											    print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/statut8.png"> '.$langs->trans("PaymentChargedButCanceledLaterByTheBank");
+											}
+											elseif ($obj->extraparams == 'PAYMENT_ERROR_INSUFICIENT_FUNDS')
 											{
 												print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/statut8.png" alt="Insuficient funds"> '.$langs->trans("PaymentError");
 											}
