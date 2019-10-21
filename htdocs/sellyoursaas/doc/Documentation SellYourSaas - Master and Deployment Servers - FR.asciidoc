@@ -1614,6 +1614,29 @@ logrotate -f logrotate_sellyoursaas_log
 ---------------
 
 
+=== Configuration de journalctl (sur Ubutntu 18.04+)
+
+* Editer le fichier */etc/systemd/journald.conf* pour définir une taille max aux journaux systemd
+
+[source,conf]
+---------------
+...
+SystemMaxUse=100M
+...
+---------------
+
+
+=== Désactivation de apport
+
+[source,bash]
+---------------
+sudo systemctl disable apport.service
+sudo systemctl stop apport.service
+sudo systemctl status apport.service
+---------------
+
+
+
 === Installer certbot (pour le ssl des sites hors instances clients)
 
 [source,bash]
