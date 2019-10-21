@@ -5109,7 +5109,7 @@ if ($mode == 'billing')
 											// There is at least one payment error
 											if ($obj->label == 'Cancellation of payment by the bank')
 											{
-											    print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/statut8.png"> '.$langs->trans("PaymentChargedButCanceledLaterByTheBank");
+											    print '<img src="'.DOL_URL_ROOT.'/theme/eldy/img/statut8.png"> '.$form->textwithpicto($langs->trans("PaymentError"), $langs->trans("PaymentChargedButReversedByBank"));
 											}
 											elseif ($obj->extraparams == 'PAYMENT_ERROR_INSUFICIENT_FUNDS')
 											{
