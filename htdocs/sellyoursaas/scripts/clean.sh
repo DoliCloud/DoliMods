@@ -284,21 +284,22 @@ if [ -s /tmp/osutoclean ]; then
 		export dbname=""
 		export instancename=`grep $osusername /tmp/instancefound-dbinsellyoursaas | cut -f 1`
 		export dbname=`grep $osusername /tmp/instancefound-dbinsellyoursaas | cut -f 3`
-	
-		echo For osusername=$osusername, dbname is $dbname, instancename is $instancename
+		export databasehostdeployment="localhost"
+		
+		echo For osusername=$osusername, dbname is $dbname, instancename is $instancename, databasehostdeployment is $databasehostdeployment
 		
 		# If dbname is known
 		if [[ "x$dbname" != "x" ]]; then	
 			if [[ "x$dbname" != "xNULL" ]]; then	
 				echo "Do a dump of database $dbname - may fails if already removed"
 				mkdir -p $archivedirtest/$osusername
-				echo "$MYSQLDUMP -usellyoursaas -pxxxxxx -h $databasehost $dbname | bzip2 > $archivedirtest/$osusername/dump.$dbname.$now.sql.bz2"
-				$MYSQLDUMP -usellyoursaas -p$passsellyoursaas -h $databasehost $dbname | bzip2 > $archivedirtest/$osusername/dump.$dbname.$now.sql.bz2
+				echo "$MYSQLDUMP -usellyoursaas -pxxxxxx -h $databasehostdeployment $dbname | bzip2 > $archivedirtest/$osusername/dump.$dbname.$now.sql.bz2"
+				$MYSQLDUMP -usellyoursaas -p$passsellyoursaas -h $databasehostdeployment $dbname | bzip2 > $archivedirtest/$osusername/dump.$dbname.$now.sql.bz2
 
 				echo "Now drop the database"
-				echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $dbname"
+				echo "echo 'DROP DATABASE $dbname;' | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehostdeployment $dbname"
 				if [[ $testorconfirm == "confirm" ]]; then
-					echo "DROP DATABASE $dbname;" | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $dbname
+					echo "DROP DATABASE $dbname;" | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehostdeployment $dbname
 				fi	
 			fi
 		fi
