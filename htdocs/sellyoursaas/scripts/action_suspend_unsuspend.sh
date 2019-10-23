@@ -12,7 +12,8 @@
 export now=`date +%Y%m%d%H%M%S`
 
 echo
-echo "**** ${0}"
+echo
+echo "####################################### ${0} ${1}"
 echo "${0} ${@}"
 echo "# user id --------> $(id -u)"
 echo "# now ------------> $now"
