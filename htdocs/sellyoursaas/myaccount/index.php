@@ -1339,6 +1339,7 @@ if ($action == 'createpaymentmode')		// Create credit card stripe
 
     	if (! $stripeToken)
     	{
+    	    dol_syslog("--- ErrorTokenWasNotProvidedByPreviousPage", LOG_ERR);
     		setEventMessages($langs->trans("ErrorTokenWasNotProvidedByPreviousPage"), null, 'errors');
     		$action='';
     		$mode='registerpaymentmode';
