@@ -1476,7 +1476,7 @@ client3   A   176.34.178.16
 
 
 
-Ajouter une entrée dans */etc/named.conf* pour que ce nouveau fichier soit pris en compte
+Ajouter une entrée dans */etc/bind/named.conf.local* pour que ce nouveau fichier soit pris en compte
 
 [source,bash]
 ---------------
