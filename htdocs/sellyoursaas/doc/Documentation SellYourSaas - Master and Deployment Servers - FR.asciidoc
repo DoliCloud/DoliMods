@@ -1682,7 +1682,7 @@ Choisir:
 * Récupérer les certificats SSL (fichier .crt) et les installer dans le chemin des certificats SSL spécifiés par le modèle de virtual host pour les instances (les modèles de virtual hosts sont dans sellyoursaas/scripts/templates/)
 
 
-[[Installation des taches Cron]]
+[[installation_des_taches_cron]]
 === Installation des taches Cron
 
 ==== Sur le serveur Master
@@ -1881,11 +1881,11 @@ En complément, si d'autres applications sont actives sur le serveur:
 
 - Une sauvegarde locale de la configuration du serveur et des instances payantes est assurée par le cron 
 
-*/home/admin/wwwroot/dolibarr/htdocs/custom/sellyoursaas/scripts/backup_mysql_system.sh confirm* de *root* (voir <<Installation des taches Cron>>) vers le disque */home/admin/backup/conf* et */home/admin/backup/mysql*
+*/home/admin/wwwroot/dolibarr/htdocs/custom/sellyoursaas/scripts/backup_mysql_system.sh confirm* de *root* (voir <<installation_des_taches_cron>>) vers le disque */home/admin/backup/conf* et */home/admin/backup/mysql*
 
 - Une sauvegarde locale des instances clients payantes est assurée par le cron 
 
-*/home/admin/wwwroot/dolibarr/htdocs/custom/sellyoursaas/scripts/batch_customers.php backup* de *admin* (voir <<Installation des taches Cron>>) vers le disque */mnt/diskbackup/backup/osu*
+*/home/admin/wwwroot/dolibarr/htdocs/custom/sellyoursaas/scripts/batch_customers.php backup* de *admin* (voir <<installation_des_taches_cron>>) vers le disque */mnt/diskbackup/backup/osu*
 
 - Une sauvegarde externe est assurée vers un autre serveur par le cron */home/admin/tools/backup_ext_rsync.pl* de admin (voir plus haut) de */mnt/diskbackup/backup* vers */mnt/diskbackup/backup_serversource* d'un autre serveur sur un autre datacenter.
 
@@ -2058,10 +2058,9 @@ Find the line in the [mysqld] block that begins with datadir=, which is separate
 
 /etc/my.cnf
 [mysqld]
-. . .
 datadir=/mnt/volume-nyc1-01/mysql
 socket=/mnt/volume-nyc1-01/mysql/mysql.sock
-. . .
+
 After updating the existing lines, we’ll need to add configuration for the mysql client. Insert the following settings at the bottom of the file so it won’t split up directives in the [mysqld] block:
 
 /etc/my.cnf
