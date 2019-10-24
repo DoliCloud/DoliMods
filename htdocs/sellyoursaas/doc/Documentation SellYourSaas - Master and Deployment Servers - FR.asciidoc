@@ -1377,7 +1377,7 @@ Add apparmor file *bin.secureBash* in */etc/apparmor.d* with this content:
   /usr/share/vim/vim80/plugin/vimballPlugin.vim r,
   /usr/share/vim/vim80/plugin/zipPlugin.vim r,
   /usr/share/vim/vim80/rgb.txt r,
-  /usr/share/vim/vim80/scripts.vim
+  /usr/share/vim/vim80/scripts.vim r,
   /usr/share/vim/vim80/syntax/css.vim r,
   /usr/share/vim/vim80/syntax/html.vim r,
   /usr/share/vim/vim80/syntax/javascript.vim r,
