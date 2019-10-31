@@ -4176,8 +4176,8 @@ if ($mode == 'instances')
 	//var_dump($arrayofplans);
 	natcasesort($arrayofplans);
 
-	$MAXINSTANCES = 4;
-	if (count($listofcontractid) < $MAXINSTANCES)
+	$MAXINSTANCES = ((empty($mythirdpartyaccount->array_options['options_maxnbofinstances']) && $mythirdpartyaccount->array_options['options_maxnbofinstances'] != '0') ? 4 : $mythirdpartyaccount->array_options['options_maxnbofinstances']);
+	if ($MAXINSTANCES && count($listofcontractid) < $MAXINSTANCES)
 	{
 	    if (! empty($conf->global->SELLYOURSAAS_DISABLE_NEW_INSTANCES))
 	    {
