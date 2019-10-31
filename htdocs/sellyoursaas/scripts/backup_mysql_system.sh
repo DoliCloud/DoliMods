@@ -74,10 +74,14 @@ echo "Do a dump of database $dbname"
 #chown root.admin $targetdir/${dbname}_`date +%d`.sql.bz2
 #chmod o-rwx $targetdir/${dbname}_`date +%d`.sql.bz2
 
-export dbname=$DATABASE 
-echo "$MYSQLDUMP $dbname | bzip2 > $targetdir/${dbname}_"`date +%d`".sql.bz2"
-$MYSQLDUMP $dbname | bzip2 > $targetdir/${dbname}_`date +%d`.sql.bz2
-chown root.admin $targetdir/${dbname}_`date +%d`.sql.bz2
-chmod o-rwx $targetdir/${dbname}_`date +%d`.sql.bz2
+if [ "x$DATABASE" != "x" ]; then
+	export dbname=$DATABASE 
+	echo "$MYSQLDUMP $dbname | bzip2 > $targetdir/${dbname}_"`date +%d`".sql.bz2"
+	$MYSQLDUMP $dbname | bzip2 > $targetdir/${dbname}_`date +%d`.sql.bz2
+	chown root.admin $targetdir/${dbname}_`date +%d`.sql.bz2
+	chmod o-rwx $targetdir/${dbname}_`date +%d`.sql.bz2
+else
+	echo "No system database found to backup."
+fi
 
 exit 0
