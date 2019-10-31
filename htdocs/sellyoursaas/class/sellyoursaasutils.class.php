@@ -973,6 +973,44 @@ class SellYourSaasUtils
     				$thirdparty = new Societe($this->db);
     				$resultthirdparty = $thirdparty->fetch($thirdparty_id);
 
+    				global $stripearrayofkeysbyenv;
+    				global $savstripearrayofkeysbyenv;
+    				if (empty($savstripearrayofkeysbyenv)) $savstripearrayofkeysbyenv = $stripearrayofkeysbyenv;
+
+    				// Force stripe to another value (by default this value is empty)
+    				if (! empty($thirdparty->array_options['options_stripeaccount']))
+    				{
+    				    dol_syslog("The thirdparty id=".$thirdparty->id." has a dedicated Stripe Account, so we swith to it.");
+    				    $tmparray = explode(':', $thirdparty->array_options['options_stripeaccount']);
+    				    if (! empty($tmparray[3]))
+    				    {
+    				        $stripearrayofkeysbyenv = array(
+        				        0=>array(
+        				            "secret_key"      => $tmparray[0],
+        				            "publishable_key" => $tmparray[1]
+        				        ),
+        				        1=>array(
+        				            "secret_key"      => $tmparray[2],
+        				            "publishable_key" => $tmparray[3]
+        				        )
+        				    );
+
+       				        $stripearrayofkeys = $stripearrayofkeysbyenv[$servicestatus];
+        				    \Stripe\Stripe::setApiKey($stripearrayofkeys['secret_key']);
+    				    }
+    				    else
+    				    {
+    				        dol_syslog("We found a bad value for Stripe Account for thirdparty id=".$thirdparty->id.", so we ignore it and keep using the global one", LOG_WARNING);
+    				        $stripearrayofkeys = $savstripearrayofkeysbyenv[$servicestatus];
+    				        \Stripe\Stripe::setApiKey($stripearrayofkeys['secret_key']);
+    				    }
+    				}
+    				else {
+    				    dol_syslog("The thirdparty id=".$thirdparty->id." has no dedicated Stripe Account, so we use global one.");
+    				    $stripearrayofkeys = $savstripearrayofkeysbyenv[$servicestatus];
+    				    \Stripe\Stripe::setApiKey($stripearrayofkeys['secret_key']);
+    				}
+
     				include_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';
     				$stripe = new Stripe($this->db);
     				$stripeacc = $stripe->getStripeAccount($service);								// Get Stripe OAuth connect account if it exists (no network access here)
