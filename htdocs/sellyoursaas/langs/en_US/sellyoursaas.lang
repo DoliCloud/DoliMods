@@ -468,3 +468,4 @@ EnterHereTranslationKeyToUseOnRegisterPage=Enter a small text here that will app
 ErrSCAAuthentication=It seems your credit card needs authentication for EACH transactions. This means we won't be able to use it automatically for the next payment of your subscription, without requesting you, each month, to reenter your credit card credential.<br>- If this is true, it means this credit card can't be used with our service.<br>- If not, please send a support ticket from your customer dashboard (menu Other - Support) ...
 PaymentChargedButReversedByBank=Payment was charged but was then canceled illegitimately by the bank
 StripeAccount=Stripe Account
+MaxNbOfInstances=Max number of instances
