@@ -531,42 +531,42 @@ class CaptureServer extends CommonObject
 	public function LibStatut($status, $mode = 0)
 	{
 		// phpcs:enable
-		if (empty($this->labelstatus))
+		if (empty($this->labelStatus))
 		{
 			global $langs;
 			//$langs->load("captureserver");
-			$this->labelstatus[self::STATUS_DRAFT] = $langs->trans('Draft');
-			$this->labelstatus[self::STATUS_VALIDATED] = $langs->trans('Complete');
-			$this->labelstatus[self::STATUS_CANCELED] = $langs->trans('Disabled');
+			$this->labelStatus[self::STATUS_DRAFT] = $langs->trans('Draft');
+			$this->labelStatus[self::STATUS_VALIDATED] = $langs->trans('Complete');
+			$this->labelStatus[self::STATUS_CANCELED] = $langs->trans('Disabled');
 		}
 
 		if ($mode == 0)
 		{
-			return $this->labelstatus[$status];
+			return $this->labelStatus[$status];
 		}
 		elseif ($mode == 1)
 		{
-			return $this->labelstatus[$status];
+			return $this->labelStatus[$status];
 		}
 		elseif ($mode == 2)
 		{
-			return img_picto($this->labelstatus[$status], 'statut'.($status==1?6:$status), '', false, 0, 0, '', 'valignmiddle').' '.$this->labelstatus[$status];
+			return img_picto($this->labelStatus[$status], 'statut'.($status==1?6:$status), '', false, 0, 0, '', 'valignmiddle').' '.$this->labelStatus[$status];
 		}
 		elseif ($mode == 3)
 		{
-		    return img_picto($this->labelstatus[$status], 'statut'.($status==1?6:$status), '', false, 0, 0, '', 'valignmiddle');
+		    return img_picto($this->labelStatus[$status], 'statut'.($status==1?6:$status), '', false, 0, 0, '', 'valignmiddle');
 		}
 		elseif ($mode == 4)
 		{
-		    return img_picto($this->labelstatus[$status], 'statut'.($status==1?6:$status), '', false, 0, 0, '', 'valignmiddle').' '.$this->labelstatus[$status];
+		    return img_picto($this->labelStatus[$status], 'statut'.($status==1?6:$status), '', false, 0, 0, '', 'valignmiddle').' '.$this->labelStatus[$status];
 		}
 		elseif ($mode == 5)
 		{
-		    return $this->labelstatus[$status].' '.img_picto($this->labelstatus[$status], 'statut'.($status==1?6:$status), '', false, 0, 0, '', 'valignmiddle');
+		    return $this->labelStatus[$status].' '.img_picto($this->labelStatus[$status], 'statut'.($status==1?6:$status), '', false, 0, 0, '', 'valignmiddle');
 		}
 		elseif ($mode == 6)
 		{
-		    return $this->labelstatus[$status].' '.img_picto($this->labelstatus[$status], 'statut'.($status==1?6:$status), '', false, 0, 0, '', 'valignmiddle');
+		    return $this->labelStatus[$status].' '.img_picto($this->labelStatus[$status], 'statut'.($status==1?6:$status), '', false, 0, 0, '', 'valignmiddle');
 		}
 	}
 
