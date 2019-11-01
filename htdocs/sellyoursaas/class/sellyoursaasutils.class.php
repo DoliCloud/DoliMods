@@ -977,6 +977,9 @@ class SellYourSaasUtils
     				global $savstripearrayofkeysbyenv;
     				if (empty($savstripearrayofkeysbyenv)) $savstripearrayofkeysbyenv = $stripearrayofkeysbyenv;
 
+    				include_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';        // This include the include of htdocs/stripe/config.php
+    				$stripe = new Stripe($this->db);
+
     				// Force stripe to another value (by default this value is empty)
     				if (! empty($thirdparty->array_options['options_stripeaccount']))
     				{
@@ -1011,8 +1014,6 @@ class SellYourSaasUtils
     				    \Stripe\Stripe::setApiKey($stripearrayofkeys['secret_key']);
     				}
 
-    				include_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';
-    				$stripe = new Stripe($this->db);
     				$stripeacc = $stripe->getStripeAccount($service);								// Get Stripe OAuth connect account if it exists (no network access here)
 
     				$customer = $stripe->customerStripe($thirdparty, $stripeacc, $servicestatus, 0);
