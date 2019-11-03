@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2001-2002	Rodolphe Quiedeville	<rodolphe@quiedeville.org>
- * Copyright (C) 2006-2017	Laurent Destailleur		<eldy@users.sourceforge.net>
+ * Copyright (C) 2006-2019	Laurent Destailleur		<eldy@users.sourceforge.net>
  * Copyright (C) 2009-2012	Regis Houssin			<regis.houssin@inodbox.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -29,8 +29,9 @@
 define("NOLOGIN", '1');		   // This means this output page does not require to be logged.
 define('NOREQUIRETRAN', '1');  // Do not load object $langs
 define("NOCSRFCHECK", '1');	   // We accept to go on this page from external web site.
-define('NOTOKENRENEWAL','1');
-define('NOIPCHECK','1');
+define('NOTOKENRENEWAL', '1');
+define('NOIPCHECK', '1');
+define('NOREQUIREMENU', '1');
 
 // For MultiCompany module.
 // Do not use GETPOST here, function is not defined and define must be done before including main.inc.php
@@ -69,7 +70,7 @@ $action=GETPOST('action', 'aZ09');
 
 if (! $action)
 {
-   	print $langs->trans('ErrorBadParameters')." - action missing";
+   	print "ErrorBadParameters - action missing";
    	exit;
 }
 
