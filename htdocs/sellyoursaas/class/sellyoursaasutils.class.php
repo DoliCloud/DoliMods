@@ -1150,7 +1150,7 @@ class SellYourSaasUtils
 
 	    							$error++;
 	    							$errorforinvoice++;
-	    							$errmsg='Failed to charge card';
+	    							$errmsg='Failed to charge card ('.$stripearrayofkeys['publishable_key'].')';
 	    							if (! empty($charge))
 	    							{
 	    							    if ($stripefailuredeclinecode == 'authentication_required')
@@ -1186,6 +1186,8 @@ class SellYourSaasUtils
 	    						else
 	    						{
 	    							dol_syslog('Successfuly charge card '.$stripecard->id);
+
+	    							$postactionmessages[]='Success to charge card ('.$stripearrayofkeys['publishable_key'].')';
 
 	    							// Save a stripe payment was done in realy life so later we will be able to force a commit on recorded payments
 	    							// even if in batch mode (method doTakePaymentStripe), we will always make all action in one transaction with a forced commit.
@@ -1460,7 +1462,7 @@ class SellYourSaasUtils
 	    						$actioncomm->type_code   = 'AC_OTH_AUTO';		// Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
 	    						$actioncomm->code        = 'AC_'.$actioncode;
 	    						$actioncomm->label       = $description;
-	    						$actioncomm->note        = join(',', $postactionmessages);
+	    						$actioncomm->note_private= join(', ', $postactionmessages);
 	    						$actioncomm->fk_project  = $invoice->fk_project;
 	    						$actioncomm->datep       = $now;
 	    						$actioncomm->datef       = $now;
