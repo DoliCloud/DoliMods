@@ -5448,7 +5448,7 @@ if ($mode == 'registerpaymentmode')
 				print '<hr>';
 				print img_credit_card($companypaymentmodetemp->type_card);
 				print $langs->trans("CurrentCreditOrDebitCard").':<br>';
-				print '<!-- '.$companypaymentmodetemp->id.' -->';
+				print '<!-- companypaymentmode id = '.$companypaymentmodetemp->id.' -->';
 				print '....'.$companypaymentmodetemp->last_four;
 				print ' - ';
 				print sprintf("%02d",$companypaymentmodetemp->exp_date_month).'/'.$companypaymentmodetemp->exp_date_year;
@@ -5539,6 +5539,24 @@ if ($mode == 'registerpaymentmode')
 		print '<img id="hourglasstopay" class="hidden" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/working.gif'.'">';
 		print ' ';
 		print '<a id="buttontocancel" href="'.($backtourl ? $backtourl : $_SERVER["PHP_SELF"]).'" class="btn green-haze btn-circle">'.$langs->trans("Cancel").'</a>';
+
+		if (! empty($conf->global->STRIPE_USE_INTENT_WITH_AUTOMATIC_CONFIRMATION) && is_object($setupintent))
+		{
+		    // TODO Enable this legal mention
+		    /*$urlfortermofuse = '';
+		    if ($conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME == 'dolicloud.com')
+		    {
+		        $urlfortermofuse = 'https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/en-terms-and-conditions.php';
+		        if (preg_match('/^fr/i', $langs->defaultlang)) $urlfortermofuse = 'https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/fr-conditions-utilisations.php';
+		        if (preg_match('/^es/i', $langs->defaultlang)) $urlfortermofuse = 'https://www.'.$conf->global->SELLYOURSAAS_MAIN_DOMAIN_NAME.'/es-terminos-y-condiciones.php';
+		    }
+		    if ($urlfortermofuse)
+		    {
+    		    print '<br><br><span class="opacitymedium"><small>';
+    		    print $langs->trans('By entering my credit card number, I authorise to send instructions to the financial institution that issued my card to take payments from my card account for my subscription, in accordance with the terms of the <a href="'.$urlfortermofuse.'" target="_blank">General Terms of Service (GTS)</a>');
+        		print '</small></span><br>';
+		    }*/
+		}
 
 		print '<script src="https://js.stripe.com/v3/"></script>'."\n";
 
