@@ -1059,7 +1059,7 @@ class SellYourSaasUtils
 						    && ($invoice->date < ($now - (92 * 24 * 3600)) || $invoice->date > ($now - (90 * 24 * 3600)))     // or when we have 90 days
 						    && empty($nocancelifpaymenterror))
 						{
-							$errmsg='Payment try was canceled (invoice date is older than '.$nbdaysbeforeendoftries.' days and not 60 days old and not 90 days old)';
+							$errmsg='Payment try was canceled (invoice date is older than '.$nbdaysbeforeendoftries.' days and not 60 days old and not 90 days old) - You can still take payment from backoffice.';
 							dol_syslog($errmsg, LOG_DEBUG);
 
 							$error++;
