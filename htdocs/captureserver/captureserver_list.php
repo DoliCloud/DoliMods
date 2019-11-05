@@ -189,8 +189,8 @@ if (empty($reshook))
 	// Mass actions
 	$objectclass='CaptureServer';
 	$objectlabel='CaptureServer';
-	$permtoread = $user->rights->captureserver->read;
-	$permtodelete = $user->rights->captureserver->delete;
+	$permissiontoread = $user->rights->captureserver->read;
+	$permissiontodelete = $user->rights->captureserver->delete;
 	$uploaddir = $conf->captureserver->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }

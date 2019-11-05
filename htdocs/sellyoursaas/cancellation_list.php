@@ -183,8 +183,8 @@ if (empty($reshook))
 	// Mass actions
 	$objectclass='Cancellation';
 	$objectlabel='Cancellation';
-	$permtoread = $user->rights->sellyoursaas->read;
-	$permtodelete = $user->rights->sellyoursaas->delete;
+	$permissiontoread = $user->rights->sellyoursaas->read;
+	$permissiontodelete = $user->rights->sellyoursaas->delete;
 	$uploaddir = $conf->sellyoursaas->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
