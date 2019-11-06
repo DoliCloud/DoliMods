@@ -35,8 +35,7 @@ require_once(DOL_DOCUMENT_ROOT."/contact/class/contact.class.php");
 dol_include_once("/google/class/googlemaps.class.php");
 dol_include_once("/google/includes/GoogleMapAPIv3.class.php");
 
-$langs->load("google@google");
-$langs->load("categories");
+$langs->loadLangs(array("google@google", "categories"));
 
 // url is:  gmaps.php?mode=thirdparty|contact|member&id=id&max=max
 
@@ -53,7 +52,9 @@ $search_tag_supplier=GETPOST('search_tag_supplier');
 $search_departement = GETPOST("state_id","int");
 $search_customer = GETPOST('search_customer','alpha');
 $search_supplier = GETPOST('search_supplier','alpha');
+$search_status = GETPOST('search_status','alpha');
 
+if ($search_status == '') $search_status = '1';
 
 // Load third party
 if (empty($mode) || $mode=='thirdparty')
@@ -130,9 +131,6 @@ $form=new Form($db);
 $formother = new FormOther($db);
 $formcompany = new FormCompany($db);
 
-$content = "Default content";
-$act = "";
-
 //On fabrique les onglets
 $head=array();
 $title='';
@@ -153,8 +151,7 @@ if (empty($mode) || $mode=='thirdparty')
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	if ($search_sale || (!$user->rights->societe->client->voir && ! $socid)) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
     if ($search_departement != '' && $search_departement > 0) $sql.= ", ".MAIN_DB_PREFIX."c_departements as dp";
-	$sql.= " WHERE s.status = 1";
-	$sql.= " AND s.entity IN (".getEntity('societe', 1).")";
+	$sql.= " WHERE s.entity IN (".getEntity('societe', 1).")";
 	if ($search_sale == -1 || (! $user->rights->societe->client->voir && ! $socid))	$sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
 	if ($search_sale > 0)          $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$search_sale;
 	if ($search_departement != '' && $search_departement > 0) $sql.= " AND s.fk_departement = dp.rowid AND dp.rowid = ".$db->escape($search_departement);
@@ -169,6 +166,7 @@ if (empty($mode) || $mode=='thirdparty')
 		$sql.= " AND s.client IN (".$filterclient.")";
 	}
 	if ($search_supplier != '' && $search_supplier != '-1')               $sql.= " AND s.fournisseur IN (".$db->escape($search_supplier).")";
+	if ($search_status != '' && $search_status != '-1') $sql.= " AND s.status = ".(int) $search_status;
 
 	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
 	//print $search_sale.'-'.$sql;
@@ -252,7 +250,7 @@ if ($user->rights->societe->client->voir && empty($socid))
 
     	if ($mode != 'member' && (empty($conf->global->SOCIETE_DISABLE_CUSTOMERS) || empty($conf->global->SOCIETE_DISABLE_PROSPECTS)))
     	{
-	    	print fieldLabel('ProspectCustomer','customerprospect'). ' : ';
+    	    print $langs->trans('ProspectCustomer'). ' : ';
 
 	    	$selected=$search_customer;
 	    	print '<select class="flat" name="search_customer" id="customerprospect">';
@@ -263,9 +261,13 @@ if ($user->rights->societe->client->voir && empty($socid))
 
 	    	if (! empty($conf->fournisseur->enabled) && ! empty($user->rights->fournisseur->lire))
 	    	{
-	    		print ' &nbsp; &nbsp; &nbsp; '.fieldLabel('Supplier','fournisseur').' : ';
+	    		print ' &nbsp; &nbsp; &nbsp; '.$langs->trans('Supplier').' : ';
 	    		print $form->selectyesno("search_supplier", $search_supplier, 1, false, 1);
 	    	}
+
+	    	// Status
+	    	print ' &nbsp; &nbsp; &nbsp; '.$form->editfieldkey('Status', 'search_status', '', $object, 0).' ';
+	    	print $form->selectarray('search_status', array('0'=>$langs->trans('ActivityCeased'), '1'=>$langs->trans('InActivity')), $search_status, 1);
 
 	    	print '<br>';
     	}
