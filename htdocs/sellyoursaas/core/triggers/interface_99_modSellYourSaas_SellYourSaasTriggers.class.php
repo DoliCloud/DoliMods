@@ -122,7 +122,7 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         				// If password not set yet, we set it
         				if (empty($reseller->array_options['options_password']))
         				{
-        					$password = $reseller->name_alias;
+        				    $password = dol_string_nospecial(dol_string_unaccent(strtolower($reseller->name)));
 
         					$reseller->oldcopy = dol_clone($reseller);
 
