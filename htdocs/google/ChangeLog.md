@@ -1,12 +1,18 @@
 # ChangeLog GOOGLE MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a> 
 
 
+## 6.2
+
+- NEW Add filter on status "Active" for thirdparties
+
+
 ## 6.1.1
 
 - NEW Add filter on type of thirdparty (customer/prospect/supplier) on maps.
 - NEW Add filter on categories for members too.
 - NEW Can sync contacts for thirdparties "Customers only".
 - Need Dolibarr 3.9+
+
 
 ## 6.1
 
