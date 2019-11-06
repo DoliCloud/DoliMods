@@ -108,11 +108,11 @@ class InterfaceSellYourSaasTriggers extends DolibarrTriggers
         				$reseller = $object->context['linkto'];
 
 						// $object->context['linkto'] is Societe object
-        				if (empty($reseller->name_alias))	// Used to generate the partnerkey
+        				/*if (empty($reseller->name_alias))	// Used to generate the partnerkey
         				{
         					$this->errors[] = $langs->trans("CompanyAliasIsRequiredWhenWeSetResellerTag");
         					return -1;
-        				}
+        				}*/
         				if (empty($reseller->array_options['options_commission']) && $reseller->array_options['options_commission'] != '0')
         				{
         					$this->errors[] = $langs->trans("CommissionIsRequiredWhenWeSetResellerTag");
