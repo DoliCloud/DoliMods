@@ -26,9 +26,11 @@ do
     
     	echo "Clean some dirs to save disk spaces"
     	rm -fr documents/*
-    	rm -fr build/ dev/ test/ doc/ htdocs/includes/ckeditor/ckeditor/adapters htdocs/includes/ckeditor/ckeditor/samples
+    	rm -fr dev/ test/ doc/ htdocs/includes/ckeditor/ckeditor/adapters htdocs/includes/ckeditor/ckeditor/samples
     	rm -fr htdocs/includes/sabre/sabre/*/tests htdocs/includes/stripe/tests
     	rm -fr htdocs/includes/tecnickcom/tcpdf/fonts/dejavu-fonts-ttf-* htdocs/includes/tecnickcom/tcpdf/fonts/freefont-* htdocs/includes/tecnickcom/tcpdf/fonts/ae_fonts_*
+    	# We remove subdir of build. We need files.
+    	find build/* -type d -exec rm -fr {} \;
     	
         if [ -s build/generate_filelist_xml.php ]; then
                 echo "Found generate_filelist_xml.php"
