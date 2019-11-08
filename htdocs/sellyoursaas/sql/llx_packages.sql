@@ -25,7 +25,7 @@ CREATE TABLE llx_packages(
 	fk_user_creat integer NOT NULL, 
 	fk_user_modif integer, 
 	import_key varchar(14),
-	restrict_domains varchar(255); 
+	restrict_domains varchar(255), 
 	sqldump varchar(255), 
 	srcfile1 varchar(255), 
 	srcfile2 varchar(255), 

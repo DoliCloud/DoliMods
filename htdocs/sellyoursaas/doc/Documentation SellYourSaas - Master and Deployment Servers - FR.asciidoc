@@ -492,6 +492,7 @@ sudo apt-get update
 sudo apt-get install ntp git zip memcached rrdtool ncdu
 sudo apt-get install php mysql-server mysql-client php-cli apache2 php-pear apache2-bin libapache2-mod-php php-fpm php-gd php-json php-ldap php-mysqlnd php-curl php-memcached php-rrd php-imagick php-geoip php-mcrypt php-intl
 sudo apt-get install watchdog cpulimit libapache2-mpm-itk apparmor apparmor-profiles apparmor-utils rkhunter chkrootkit spamc spamassassin
+sudo apt-get install bind9
 ---------------
 
 === Activation des modules apache
@@ -1377,7 +1378,7 @@ Add apparmor file *bin.secureBash* in */etc/apparmor.d* with this content:
   /usr/share/vim/vim80/plugin/vimballPlugin.vim r,
   /usr/share/vim/vim80/plugin/zipPlugin.vim r,
   /usr/share/vim/vim80/rgb.txt r,
-  /usr/share/vim/vim80/scripts.vim
+  /usr/share/vim/vim80/scripts.vim r,
   /usr/share/vim/vim80/syntax/css.vim r,
   /usr/share/vim/vim80/syntax/html.vim r,
   /usr/share/vim/vim80/syntax/javascript.vim r,
@@ -1475,7 +1476,7 @@ client3   A   176.34.178.16
 
 
 
-Ajouter une entrée dans */etc/named.conf* pour que ce nouveau fichier soit pris en compte
+Ajouter une entrée dans */etc/bind/named.conf.local* pour que ce nouveau fichier soit pris en compte
 
 [source,bash]
 ---------------
@@ -1682,7 +1683,7 @@ Choisir:
 * Récupérer les certificats SSL (fichier .crt) et les installer dans le chemin des certificats SSL spécifiés par le modèle de virtual host pour les instances (les modèles de virtual hosts sont dans sellyoursaas/scripts/templates/)
 
 
-[[Installation des taches Cron]]
+[[installation_des_taches_cron]]
 === Installation des taches Cron
 
 ==== Sur le serveur Master
@@ -1881,11 +1882,11 @@ En complément, si d'autres applications sont actives sur le serveur:
 
 - Une sauvegarde locale de la configuration du serveur et des instances payantes est assurée par le cron 
 
-*/home/admin/wwwroot/dolibarr/htdocs/custom/sellyoursaas/scripts/backup_mysql_system.sh confirm* de *root* (voir <<Installation des taches Cron>>) vers le disque */home/admin/backup/conf* et */home/admin/backup/mysql*
+*/home/admin/wwwroot/dolibarr/htdocs/custom/sellyoursaas/scripts/backup_mysql_system.sh confirm* de *root* (voir <<installation_des_taches_cron>>) vers le disque */home/admin/backup/conf* et */home/admin/backup/mysql*
 
 - Une sauvegarde locale des instances clients payantes est assurée par le cron 
 
-*/home/admin/wwwroot/dolibarr/htdocs/custom/sellyoursaas/scripts/batch_customers.php backup* de *admin* (voir <<Installation des taches Cron>>) vers le disque */mnt/diskbackup/backup/osu*
+*/home/admin/wwwroot/dolibarr/htdocs/custom/sellyoursaas/scripts/batch_customers.php backup* de *admin* (voir <<installation_des_taches_cron>>) vers le disque */mnt/diskbackup/backup/osu*
 
 - Une sauvegarde externe est assurée vers un autre serveur par le cron */home/admin/tools/backup_ext_rsync.pl* de admin (voir plus haut) de */mnt/diskbackup/backup* vers */mnt/diskbackup/backup_serversource* d'un autre serveur sur un autre datacenter.
 
@@ -2058,10 +2059,9 @@ Find the line in the [mysqld] block that begins with datadir=, which is separate
 
 /etc/my.cnf
 [mysqld]
-. . .
 datadir=/mnt/volume-nyc1-01/mysql
 socket=/mnt/volume-nyc1-01/mysql/mysql.sock
-. . .
+
 After updating the existing lines, we’ll need to add configuration for the mysql client. Insert the following settings at the bottom of the file so it won’t split up directives in the [mysqld] block:
 
 /etc/my.cnf
