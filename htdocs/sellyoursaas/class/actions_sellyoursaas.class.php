@@ -98,7 +98,7 @@ class ActionsSellyoursaas
 		    	        }
 		    	    }
 
-			    	$this->resprints = ' - <!-- Added by getNomUrl hook of SellYourSaas -->';
+		    	    $this->resprints = (empty($parameters['notiret'])?' - ':'').'<!-- Added by getNomUrl hook of SellYourSaas -->';
 			    	$this->resprints .= '<a href="'.$url.'" target="_myaccount" alt="'.$sellyoursaasname.' '.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span></a>';
 		    	}
 	    	}
@@ -779,7 +779,9 @@ class ActionsSellyoursaas
 
 		if (in_array($parameters['currentcontext'], array('thirdpartycard','thirdpartycontact','thirdpartycomm','thirdpartyticket','thirdpartynote','thirdpartydocument','contactthirdparty','projectthirdparty','consumptionthirdparty','thirdpartybancard','thirdpartymargins','ticketlist','thirdpartynotification','agendathirdparty')))
     	{
-         $this->getNomUrl($parameters, $object, $action);
+    	    $parameters['notiret']=1;
+            $this->getNomUrl($parameters, $object, $action);        // This is hook. It fills ->resprints
+            unset($parameters['notiret']);
     	}
 
     	return 0;
