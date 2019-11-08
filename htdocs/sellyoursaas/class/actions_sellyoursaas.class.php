@@ -775,30 +775,11 @@ class ActionsSellyoursaas
     function printEmail($parameters)
     {
     	global $conf, $langs, $user;
-		global $object;
-		//var_dump($parameters['currentcontext']);
+		global $object, $action;
 
 		if (in_array($parameters['currentcontext'], array('thirdpartycard','thirdpartycontact','thirdpartycomm','thirdpartyticket','thirdpartynote','thirdpartydocument','contactthirdparty','projectthirdparty','consumptionthirdparty','thirdpartybancard','thirdpartymargins','ticketlist','thirdpartynotification','agendathirdparty')))
     	{
-    		if ($object->element == 'societe')
-    		{
-    			// Dashboard
-    			if ($user->admin && ! empty($object->array_options['options_dolicloud']))
-    			{
-    				$url='';
-    				if ($object->array_options['options_dolicloud'] == 'yesv2')
-    				{
-    					$dol_login_hash=dol_hash($conf->global->SELLYOURSAAS_KEYFORHASH.$object->email.dol_print_date(dol_now(),'dayrfc'), 5);	// hash is valid one hour
-    					$url=$conf->global->SELLYOURSAAS_ACCOUNT_URL.'?mode=logout_dashboard&username='.$object->email.'&password=&login_hash='.$dol_login_hash;
-    				}
-
-					if ($url)
-					{
-						$this->resprints = '<!-- Added by getNomUrl hook of SellYourSaas --><br><div class="clearboth">';
-    					$this->resprints .= '<a href="'.$url.'" target="_myaccount" alt="'.$langs->trans("Dashboard").'"><span class="fa fa-desktop"></span></a></div>';
-					}
-    			}
-    		}
+         $this->getNomUrl($parameters, $object, $action);
     	}
 
     	return 0;
