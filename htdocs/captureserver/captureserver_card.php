@@ -432,7 +432,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
     	if (empty($reshook))
     	{
     	    // Send
-            print '<a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=presend&mode=init#formmailbeforetitle">' . $langs->trans('SendMail') . '</a>'."\n";
+            //print '<a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=presend&mode=init#formmailbeforetitle">' . $langs->trans('SendMail') . '</a>'."\n";
 
             // Modify
             if (! empty($user->rights->captureserver->write))
@@ -499,13 +499,13 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		*/
 
 	    // Show links to link elements
-	    $linktoelem = $form->showLinkToObjectBlock($object, null, array('captureserver'));
-	    $somethingshown = $form->showLinkedObjectBlock($object, $linktoelem);
+	    //$linktoelem = $form->showLinkToObjectBlock($object, null, array('captureserver'));
+	    //$somethingshown = $form->showLinkedObjectBlock($object, $linktoelem);
 
 
 	    print '</div><div class="fichehalfright"><div class="ficheaddleft">';
 
-	    $MAXEVENT = 10;
+	    /*$MAXEVENT = 10;
 
 	    $morehtmlright = '<a href="'.dol_buildpath('/captureserver/captureserver_agenda.php', 1).'?id='.$object->id.'">';
 	    $morehtmlright.= $langs->trans("SeeAll");
@@ -515,6 +515,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	    include_once DOL_DOCUMENT_ROOT . '/core/class/html.formactions.class.php';
 	    $formactions = new FormActions($db);
 	    $somethingshown = $formactions->showactions($object, 'captureserver', $socid, 1, '', $MAXEVENT, '', $morehtmlright);
+        */
 
 	    print '</div></div></div>';
 	}

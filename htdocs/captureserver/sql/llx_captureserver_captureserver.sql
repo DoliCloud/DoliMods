@@ -20,6 +20,7 @@ CREATE TABLE llx_captureserver_captureserver(
 	entity INTEGER DEFAULT 1 NOT NULL,
 	ref VARCHAR(255),
 	label VARCHAR(255),
+	type VARCHAR(32),
 	content text NULL,
 	qty INTEGER,
 	ip varchar(255),

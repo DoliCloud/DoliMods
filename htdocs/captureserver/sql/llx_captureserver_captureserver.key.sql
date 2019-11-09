@@ -16,8 +16,8 @@
 
 -- BEGIN MODULEBUILDER INDEXES
 ALTER TABLE llx_captureserver_captureserver ADD INDEX idx_captureserver_captureserver_rowid (rowid);
-ALTER TABLE llx_captureserver_captureserver ADD INDEX idx_captureserver_captureserver_label (label);
 ALTER TABLE llx_captureserver_captureserver ADD INDEX idx_captureserver_captureserver_ref (ref);
+ALTER TABLE llx_captureserver_captureserver ADD INDEX idx_captureserver_captureserver_type (type);
 -- END MODULEBUILDER INDEXES
 
 ALTER TABLE llx_captureserver_captureserver ADD UNIQUE INDEX uk_captureserver_captureserver_uk(entity, ref);

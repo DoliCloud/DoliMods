@@ -53,7 +53,7 @@ function captureserverPrepareHead($object)
 		$h++;
 	}
 
-	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+	/*require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
 	$upload_dir = $conf->captureserver->dir_output . "/captureserver/" . dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
@@ -67,7 +67,7 @@ function captureserverPrepareHead($object)
 	$head[$h][0] = dol_buildpath("/captureserver/captureserver_agenda.php", 1).'?id='.$object->id;
 	$head[$h][1] = $langs->trans("Events");
 	$head[$h][2] = 'agenda';
-	$h++;
+	$h++;*/
 
 	// Show more tabs from modules
 	// Entries must be declared in modules descriptor with line

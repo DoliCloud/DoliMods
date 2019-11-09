@@ -105,14 +105,22 @@ if ($action == 'dolibarrping')
     }
     else
     {
+        $maxsize = (empty($conf->global->CAPTURE_SERVER_MAX_SIZE_OF_CAPTURED_CONTENT) ? 1024 : $conf->global->CAPTURE_SERVER_MAX_SIZE_OF_CAPTURED_CONTENT);
+        if (strlen($_POST) > $maxsize) {
+            $contenttoinsert = 'Content larger than limit of '.$maxsize;
+        } else {
+            $contenttoinsert = json_encode($_POST);
+        }
+
         // Insert into database using implicit Transactions
         $captureserver = new CaptureServer($db);
-        $captureserver->label = 'dolibarrping';
-        $captureserver->ref = 'dolibarrping '.$hash_unique_id;
-        $captureserver->content = 'dolibarrping '.$hash_unique_id.' '.$version;
+        $captureserver->type = $action;
+        $captureserver->ref = $action.' '.$hash_unique_id;
+        $captureserver->label = $action.' '.$hash_unique_id.' '.$version;
+        $captureserver->content = $contenttoinsert;
         $captureserver->qty = 1;
         $captureserver->status = 1;
-        $captureserver->comment = 'Ping received at '.dol_print_date(dol_now() , 'dayhourlog').', version '.$version;
+        $captureserver->comment = 'Ping received at '.dol_print_date(dol_now() , 'dayhourlog').' - from hash '.$hash_unique_id.' - version '.$version;
 
         $result = $captureserver->create($user);
         // Ignore duplicates
