@@ -104,8 +104,8 @@ $extrafields->fetch_name_optionals_label($object->table_element);	// Load $extra
 $search_array_options = $extrafields->getOptionalsFromPost($object->table_element, '', 'search_');
 
 // Default sort order (if not yet defined by previous GETPOST)
-if (! $sortfield) $sortfield="t.".key($object->fields);   // Set here default search field. By default 1st field in definition.
-if (! $sortorder) $sortorder="ASC";
+if (! $sortfield) $sortfield="t.date_creation";   // Set here default search field. By default 1st field in definition.
+if (! $sortorder) $sortorder="DESC";
 
 // Security check
 $socid=0;
