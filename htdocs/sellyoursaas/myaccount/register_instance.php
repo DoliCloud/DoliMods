@@ -627,7 +627,7 @@ else
 		{
 		    $contract->array_options['options_custom_virtualhostline'] = 'php_value date.timezone "'.$_POST["tz_string"].'"';
 		}
-
+		$contract->array_options['options_timezone'] = $_POST["tz_string"];
 		$contract->array_options['options_deployment_ip'] = $remoteip;
 		$contract->array_options['options_deployment_ua'] = dol_trunc($_SERVER["HTTP_USER_AGENT"], 250);
 		$vpnproba = '';
