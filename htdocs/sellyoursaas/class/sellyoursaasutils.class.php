@@ -967,15 +967,18 @@ class SellYourSaasUtils
     		if ($amountstripe > 0)
     		{
     			try {
-					//var_dump($companypaymentmode);
-    				dol_syslog("Search existing Stripe card for companypaymentmodeid=".$companypaymentmode->id." stripe_card_ref=".$companypaymentmode->stripe_card_ref." mode of payment mode=".$companypaymentmode->status, LOG_DEBUG);
+    			    global $stripearrayofkeysbyenv;
+    			    global $savstripearrayofkeysbyenv;
+
+    			    dol_syslog("Current Stripe environment is ".$stripearrayofkeysbyenv[$servicestatus]);
+
+    			    if (empty($savstripearrayofkeysbyenv)) $savstripearrayofkeysbyenv = $stripearrayofkeysbyenv;
+
+    			    //var_dump($companypaymentmode);
+    				dol_syslog("We will try to pay with companypaymentmodeid=".$companypaymentmode->id." stripe_card_ref=".$companypaymentmode->stripe_card_ref." mode=".$companypaymentmode->status, LOG_DEBUG);
 
     				$thirdparty = new Societe($this->db);
     				$resultthirdparty = $thirdparty->fetch($thirdparty_id);
-
-    				global $stripearrayofkeysbyenv;
-    				global $savstripearrayofkeysbyenv;
-    				if (empty($savstripearrayofkeysbyenv)) $savstripearrayofkeysbyenv = $stripearrayofkeysbyenv;
 
     				include_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';        // This include the include of htdocs/stripe/config.php
     				$stripe = new Stripe($this->db);
@@ -983,7 +986,7 @@ class SellYourSaasUtils
     				// Force stripe to another value (by default this value is empty)
     				if (! empty($thirdparty->array_options['options_stripeaccount']))
     				{
-    				    dol_syslog("The thirdparty id=".$thirdparty->id." has a dedicated Stripe Account, so we swith to it.");
+    				    dol_syslog("The thirdparty id=".$thirdparty->id." has a dedicated Stripe Account, so we switch to it.");
     				    $tmparray = explode(':', $thirdparty->array_options['options_stripeaccount']);
     				    if (! empty($tmparray[3]))
     				    {
@@ -1000,18 +1003,19 @@ class SellYourSaasUtils
 
        				        $stripearrayofkeys = $stripearrayofkeysbyenv[$servicestatus];
         				    \Stripe\Stripe::setApiKey($stripearrayofkeys['secret_key']);
+        				    dol_syslog("We use now ".$stripearrayofkeys['publishable_key'], LOG_DEBUG);
     				    }
     				    else
     				    {
-    				        dol_syslog("We found a bad value for Stripe Account for thirdparty id=".$thirdparty->id.", so we ignore it and keep using the global one", LOG_WARNING);
     				        $stripearrayofkeys = $savstripearrayofkeysbyenv[$servicestatus];
     				        \Stripe\Stripe::setApiKey($stripearrayofkeys['secret_key']);
+    				        dol_syslog("We found a bad value for Stripe Account for thirdparty id=".$thirdparty->id.", so we ignore it and keep using the global one, so ".$stripearrayofkeys['publishable_key'], LOG_WARNING);
     				    }
     				}
     				else {
-    				    dol_syslog("The thirdparty id=".$thirdparty->id." has no dedicated Stripe Account, so we use global one.");
     				    $stripearrayofkeys = $savstripearrayofkeysbyenv[$servicestatus];
     				    \Stripe\Stripe::setApiKey($stripearrayofkeys['secret_key']);
+    				    dol_syslog("The thirdparty id=".$thirdparty->id." has no dedicated Stripe Account, so we use global one, so ".$stripearrayofkeys['publishable_key'], LOG_DEBUG);
     				}
 
     				$stripeacc = $stripe->getStripeAccount($service);								// Get Stripe OAuth connect account if it exists (no network access here)
