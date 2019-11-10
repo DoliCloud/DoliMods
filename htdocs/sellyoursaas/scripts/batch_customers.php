@@ -197,7 +197,7 @@ if ($instancefiltercomplete) {
     foreach($tmparray as $instancefiltecompletevalue)
     {
         if (! empty($stringforsearch)) $stringforsearch.=", ";
-        $stringforsearch.="'".$instancefiltecompletevalue."'";
+        $stringforsearch.="'".trim($instancefiltecompletevalue)."'";
     }
     $sql.= " AND c.ref_customer IN (".$stringforsearch.")";
 }
