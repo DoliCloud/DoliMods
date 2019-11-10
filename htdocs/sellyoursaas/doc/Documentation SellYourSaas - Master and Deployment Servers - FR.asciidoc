@@ -707,7 +707,9 @@ systemctl status remote_server_launcher
 
 === Installation de fail2ban ===
 
-* Installation et activation de fail2ban avec les configs dans */etc/fail2ban*
+* Installation de fail2ban et activation des regles fail2ban suivante dans */etc/fail2ban/jail.conf* :
+  *apache-shellshock*, *php-url-fopen*, *suhosin*, *webmin-auth*, *postfix-sasl*, *mysqld-auth*, *xinetd-fail*
+  *apache-badbots*, *apache-noscript*, *apache-overflows*, *apache-nohome*, *apache-botsearch*, 
 
 * Ajouter les regles antispammeur dans fail2ban en les mettant dans */etc/jail.local*
 
@@ -748,6 +750,33 @@ action  = %(action_mw)s
 bantime  = 86400     ; 1 day
 findtime = 86400     ; 1 day
 maxretry = 500
+
+[email-dol-perhouradmin]
+
+; rule against out of limit emails (max 10 from admin)
+enabled = true
+port    = http,https
+filter  = apache-dolibarr-rulesadmin
+logpath = /var/log/phpsendmail.log
+action  = %(action_mw)s
+bantime  = 4320000   ; 50 days
+findtime = 60        ; 1 minute
+maxretry = 10
+
+[web-dol-passforgotten]
+
+; rule against call to passwordforgottenpage
+enabled = true
+port    = http,https
+filter  = apache-dolibarr-rulespassforgotten
+logpath = /home/admin/wwwroot/dolibarr_documents/dolibarr.log
+action  = %(action_mw)s
+bantime  = 4320000   ; 50 days
+findtime = 86400     ; 1 day
+maxretry = 6
+
+
+
 ---------------
 
 
