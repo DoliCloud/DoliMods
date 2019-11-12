@@ -452,14 +452,6 @@ i.p.server.master:/home/admin/wwwroot/dolibarr_documents/sellyoursaas /home/admi
 
 == Installation des outils externes
 
-=== Installation d'outils recommandés dans /home/admin/tools (optionnel)
-
-* Creer un script */home/admin/tools/backup_ext_rsync.pl* qui réalisera la sauvegarde des sauvegardes locales sur un autre server. TODO Assurez-vous d'envoyer un email en cas d'erreur de copie.
-* Creer un script */home/admin/tools/perms.ksh* qui positionnera les droits en lecture seule de votre installation de Dolibarr.
-
-Ces 2 scripts seront intégrés dans la crontab de root plus tard (Voir <<installation_des_taches_cron>>)
-
-
 === Installation de webmin (optionnel pour supervision)
 
 * Installation et activation de webmin et ajout de la restriction *allow* avec les IPs dans */etc/webmin/miniserv.conf*
@@ -1730,7 +1722,7 @@ Avoir dans le cron du user *root*
 10 0 * * * /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/backup_mysql_system.sh confirm >/home/admin/logs/backup_mysql_system.log 2>&1
 # cron master and deployment root
 40 4 * * * /home/admin/tools/backup_ext_rsync.pl >> /home/admin/logs/backup_ext_rsync.log 2>&1
-30 3 * * * /home/admin/tools/perms.ksh >/home/admin/logs/perms.log
+30 3 * * * /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/perms.ksh >/home/admin/logs/perms.log
 #40 4 4 * * /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/clean.sh confirm
 ---------------
 
@@ -1756,7 +1748,7 @@ Avoir dans le cron du user *root*
 # m h  dom mon dow   command
 # cron master and deployment root
 40 4 * * * /home/admin/tools/backup_ext_rsync.pl >> /home/admin/logs/backup_ext_rsync.log 2>&1
-30 3 * * * /home/admin/tools/perms.ksh >/home/admin/logs/perms.log
+30 3 * * * /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/perms.ksh >/home/admin/logs/perms.log
 #40 4 4 * * /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/clean.sh confirm
 ---------------
 
@@ -1920,7 +1912,9 @@ En complément, si d'autres applications sont actives sur le serveur:
 
 */home/admin/wwwroot/dolibarr/htdocs/custom/sellyoursaas/scripts/batch_customers.php backup* de *admin* (voir <<installation_des_taches_cron>>) vers le disque */mnt/diskbackup/backup/osu*
 
-- Une sauvegarde externe est assurée vers un autre serveur par le cron */home/admin/tools/backup_ext_rsync.pl* de admin (voir plus haut) de */mnt/diskbackup/backup* vers */mnt/diskbackup/backup_serversource* d'un autre serveur sur un autre datacenter. Ce script ne fait pas partie du projet *sellyoursaas*, il vous revient de le réaliser.
+- Une sauvegarde externe est assurée vers un autre serveur par le cron en lançant le fichier */home/admin/tools/backup_ext_rsync.pl* de admin (voir plus haut) de */mnt/diskbackup/backup* vers */mnt/diskbackup/backup_serversource* d'un autre serveur sur un autre datacenter. Ce script ne fait pas partie du projet *sellyoursaas*, il vous revient de le réaliser. Ce script est intégré dans la crontab de root (Voir <<installation_des_taches_cron>>).
+TODO Contenu de ccript à proposer. S'assurez qu'il envoit un email en cas d'erreur de copie.
+
 
 - Pour une sauvegarde chez AWS:
 
