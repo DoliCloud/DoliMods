@@ -538,19 +538,19 @@ systemctl reload apache2
 [source,bash]
 ---------------
 ##########################
-# Admin Dolibarr
+# Admin Dolibarr Master
 ##########################
 <VirtualHost *:80>
         #php_admin_value sendmail_path "/usr/sbin/sendmail -t -i"
-        #php_admin_value mail.force_extra_parameters "-f postmaster@nltechno.com"
-        #php_admin_value sendmail_path "/usr/sbin/sendmail -t -i -f webmaster1@nltechno.com"
+        #php_admin_value mail.force_extra_parameters "-f postmaster@mycompany.com"
+        #php_admin_value sendmail_path "/usr/sbin/sendmail -t -i -f webmaster@mycompany.com"
         php_admin_value open_basedir /tmp/:/home/admin/wwwroot/:/usr/share/GeoIP:/home/jail/home:/home/admin/backup/dump:/home/admin/tools/
         php_admin_value memory_limit 64M
 
-        ServerName      admin.nltechno.com
+        ServerName      admin.mycompany.com
         DocumentRoot /home/admin/wwwroot/dolibarr/htdocs/
-        ErrorLog     /home/admin/logs/nltechno_admin_error_log
-        CustomLog    /home/admin/logs/nltechno_admin_access_log combined
+        ErrorLog     /home/admin/logs/mycompany_admin_error_log
+        CustomLog    /home/admin/logs/mycompany_admin_access_log combined
 
         UseCanonicalName Off
 
@@ -589,7 +589,7 @@ systemctl reload apache2
         ExpiresByType application/javascript A2592000
 
 RewriteEngine On
-RewriteCond %{SERVER_NAME} =admin.nltechno.com
+RewriteCond %{SERVER_NAME} =admin.mycompany.com
 RewriteCond %{REQUEST_URI} !fileserver\.php
 RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
 </VirtualHost>
@@ -927,7 +927,7 @@ Compléter le fichier */etc/postfix/main.cf* avec:
 [source,bash]
 ---------------
 smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
-myhostname = apollon.nltechno.com
+myhostname = myservername.mycompany.com
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
 myorigin = /etc/mailname
@@ -977,7 +977,7 @@ smtpd_sender_restrictions = permit_sasl_authenticated, permit_mynetworks, check_
 # Here we declare we want mail to my domain, to specific email with SA filtering, otherwise refuse.
 smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetworks, check_client_access hash:/etc/postfix/access, check_recipient_access hash:/etc/postfix/access_to, reject_unauth_destination
 
-#debug_peer_list = mysaas.com, nltechno.com
+#debug_peer_list = mysaas.com, mycompany.com
 compatibility_level = 2
 
 #smtpd_sasl_type = dovecot
@@ -1131,7 +1131,7 @@ Sur le slave:
 [source,sql]
 ---------------
 START SLAVE;
-CHANGE MASTER TO MASTER_HOST='apollon.nltechno.com', MASTER_USER='repluser', MASTER_PASSWORD='xxxxxxxxx', MASTER_LOG_FILE='mysqld-bin.000004', MASTER_LOG_POS=643;
+CHANGE MASTER TO MASTER_HOST='myservername.mycomapny.com', MASTER_USER='repluser', MASTER_PASSWORD='xxxxxxxxx', MASTER_LOG_FILE='mysqld-bin.000004', MASTER_LOG_POS=643;
 ---------------
 
 
