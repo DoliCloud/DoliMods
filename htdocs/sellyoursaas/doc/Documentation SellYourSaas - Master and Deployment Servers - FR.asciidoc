@@ -452,9 +452,12 @@ i.p.server.master:/home/admin/wwwroot/dolibarr_documents/sellyoursaas /home/admi
 
 == Installation des outils externes
 
-=== Installation des outils dans /home/admin/tools
+=== Installation d'outils recommandés dans /home/admin/tools (optionnel)
 
-* Copier les outils dans */home/admin/tools*
+* Creer un script */home/admin/tools/backup_ext_rsync.pl* qui réalisera la sauvegarde des sauvegardes locales sur un autre server. TODO Assurez-vous d'envoyer un email en cas d'erreur de copie.
+* Creer un script */home/admin/tools/perms.ksh* qui positionnera les droits en lecture seule de votre installation de Dolibarr.
+
+Ces 2 scripts seront intégrés dans la crontab de root plus tard (Voir <<installation_des_taches_cron>>)
 
 
 === Installation de webmin (optionnel pour supervision)
@@ -648,15 +651,15 @@ RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
 
 === Installation du firewall ===
 
-* Installation et activation du firewall dans */home/admin/tools/firewall* en créant un lien par
+* Créer un fichier de lancement du firewall dans */home/admin/tools/firewall* et assurez vous de son lancement au démarrage du serveur par
 
 [source,bash]
 ---------------
-ln -fs /home/admin/tools/firewall /etc/init.d/firewallnltechno
+ln -fs /home/admin/tools/firewall /etc/init.d/firewallsellyoursaas
 systemctl daemon-reload
-systemctl enable firewallnltechno
-systemctl is-enabled firewallnltechno
-systemctl status firewallnltechno
+systemctl enable firewallsellyoursaas
+systemctl is-enabled firewallsellyoursaas
+systemctl status firewallsellyoursaas
 ---------------
 
 
@@ -1909,7 +1912,7 @@ En complément, si d'autres applications sont actives sur le serveur:
 
 ==== Sauvegarde fichiers et bases
 
-- Une sauvegarde locale de la configuration du serveur et des instances payantes est assurée par le cron 
+- Une sauvegarde locale de la configuration du serveur et des instances payantes est assurée par le cron
 
 */home/admin/wwwroot/dolibarr/htdocs/custom/sellyoursaas/scripts/backup_mysql_system.sh confirm* de *root* (voir <<installation_des_taches_cron>>) vers le disque */home/admin/backup/conf* et */home/admin/backup/mysql*
 
@@ -1917,7 +1920,7 @@ En complément, si d'autres applications sont actives sur le serveur:
 
 */home/admin/wwwroot/dolibarr/htdocs/custom/sellyoursaas/scripts/batch_customers.php backup* de *admin* (voir <<installation_des_taches_cron>>) vers le disque */mnt/diskbackup/backup/osu*
 
-- Une sauvegarde externe est assurée vers un autre serveur par le cron */home/admin/tools/backup_ext_rsync.pl* de admin (voir plus haut) de */mnt/diskbackup/backup* vers */mnt/diskbackup/backup_serversource* d'un autre serveur sur un autre datacenter.
+- Une sauvegarde externe est assurée vers un autre serveur par le cron */home/admin/tools/backup_ext_rsync.pl* de admin (voir plus haut) de */mnt/diskbackup/backup* vers */mnt/diskbackup/backup_serversource* d'un autre serveur sur un autre datacenter. Ce script ne fait pas partie du projet *sellyoursaas*, il vous revient de le réaliser.
 
 - Pour une sauvegarde chez AWS:
 
