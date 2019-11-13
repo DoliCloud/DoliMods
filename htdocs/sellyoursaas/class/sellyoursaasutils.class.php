@@ -945,6 +945,9 @@ class SellYourSaasUtils
 
 		dol_syslog("We found ".count($invoices).' qualified invoices to process payment on (ran in mode '.$servicestatus.').');
 
+		global $stripearrayofkeysbyenv;
+		global $savstripearrayofkeysbyenv;
+
 		// Loop on each invoice to pay
 		foreach($invoices as $invoice)
 		{
@@ -967,12 +970,10 @@ class SellYourSaasUtils
     		if ($amountstripe > 0)
     		{
     			try {
-    			    global $stripearrayofkeysbyenv;
-    			    global $savstripearrayofkeysbyenv;
+    			    if (empty($savstripearrayofkeysbyenv)) $savstripearrayofkeysbyenv = $stripearrayofkeysbyenv;
 
     			    dol_syslog("Current Stripe environment is ".$stripearrayofkeysbyenv[$servicestatus]['publishable_key']);
-
-    			    if (empty($savstripearrayofkeysbyenv)) $savstripearrayofkeysbyenv = $stripearrayofkeysbyenv;
+    			    dol_syslog("Current Saved Stripe environment is ".$savstripearrayofkeysbyenv[$servicestatus]['publishable_key']);
 
     			    //var_dump($companypaymentmode);
     				dol_syslog("We will try to pay with companypaymentmodeid=".$companypaymentmode->id." stripe_card_ref=".$companypaymentmode->stripe_card_ref." mode=".$companypaymentmode->status, LOG_DEBUG);
@@ -981,6 +982,7 @@ class SellYourSaasUtils
     				$resultthirdparty = $thirdparty->fetch($thirdparty_id);
 
     				include_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';        // This include the include of htdocs/stripe/config.php
+                                                                            				// So it erases the $stripearrayofkeysbyenv
     				$stripe = new Stripe($this->db);
 
     				// Force stripe to another value (by default this value is empty)
