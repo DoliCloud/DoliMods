@@ -992,12 +992,12 @@ class SellYourSaasUtils
     				    {
     				        $stripearrayofkeysbyenv = array(
         				        0=>array(
-        				            "secret_key"      => $tmparray[0],
-        				            "publishable_key" => $tmparray[1]
+        				            "publishable_key" => $tmparray[0],
+        				            "secret_key"      => $tmparray[1]
         				        ),
         				        1=>array(
-        				            "secret_key"      => $tmparray[2],
-        				            "publishable_key" => $tmparray[3]
+        				            "publishable_key" => $tmparray[2],
+        				            "secret_key"      => $tmparray[3]
         				        )
         				    );
 
