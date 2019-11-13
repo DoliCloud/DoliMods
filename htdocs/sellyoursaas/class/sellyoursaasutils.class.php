@@ -1514,8 +1514,8 @@ class SellYourSaasUtils
     					}
     					else 		// $customer stripe not found
     					{
-    						dol_syslog('Failed to get Stripe customer id for thirdparty_id = '.$thirdparty->id." in mode ".$servicestatus, LOG_WARNING);
-    						$this->errors[]='Failed to get Stripe customer id for thirdparty_id = '.$thirdparty->id." in mode ".$servicestatus;
+    					    dol_syslog('Failed to get Stripe customer id for thirdparty_id = '.$thirdparty->id." in mode ".$servicestatus." in Stripe env ".$stripearrayofkeysbyenv[$servicestatus]['publishable_key'], LOG_WARNING);
+    					    $this->errors[]='Failed to get Stripe customer id for thirdparty_id = '.$thirdparty->id." in mode ".$servicestatus." in Stripe env ".$stripearrayofkeysbyenv[$servicestatus]['publishable_key'];
     					}
     					$error++;
     					$errorforinvoice++;
