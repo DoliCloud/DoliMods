@@ -1009,12 +1009,16 @@ class SellYourSaasUtils
     				    }
     				    else
     				    {
+    				        $stripearrayofkeysbyenv = $savstripearrayofkeysbyenv;
+
     				        $stripearrayofkeys = $savstripearrayofkeysbyenv[$servicestatus];
     				        \Stripe\Stripe::setApiKey($stripearrayofkeys['secret_key']);
     				        dol_syslog("We found a bad value for Stripe Account for thirdparty id=".$thirdparty->id.", so we ignore it and keep using the global one, so ".$stripearrayofkeys['publishable_key'], LOG_WARNING);
     				    }
     				}
     				else {
+    				    $stripearrayofkeysbyenv = $savstripearrayofkeysbyenv;
+
     				    $stripearrayofkeys = $savstripearrayofkeysbyenv[$servicestatus];
     				    \Stripe\Stripe::setApiKey($stripearrayofkeys['secret_key']);
     				    dol_syslog("The thirdparty id=".$thirdparty->id." has no dedicated Stripe Account, so we use global one, so ".$stripearrayofkeys['publishable_key'], LOG_DEBUG);
