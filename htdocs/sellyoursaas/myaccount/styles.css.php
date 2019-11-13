@@ -53,8 +53,15 @@ margin-top: .4rem;
 }
 
 .badge-status1 {
-    background-color: #bc9526;
+    background-color: #bc9526 !important;
 }
+.badge-status4 {
+    background-color: #277d1e !important;
+}
+.badge-status8 {
+    background-color: #be3013 !important;
+}
+
 
 label,input,button,select,textarea {font-weight: normal;line-height: 20px;}
 input,button,select,textarea {font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;}label {display: block;margin-bottom: 5px;}
