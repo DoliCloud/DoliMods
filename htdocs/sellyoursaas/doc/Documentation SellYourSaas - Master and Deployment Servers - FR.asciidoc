@@ -912,11 +912,32 @@ pwcheck_method: saslauthd
 mech_list: plain login
 ---------------
 
+Pour du SMTPS, créer un certificats:
+ 
+[source,bash]
+---------------
+cd /etc/postfix
+openssl req -nodes -new -x509 -keyout dsfc.key -out dsfc.crt
+---------------
 
 Compléter le fichier */etc/postfix/main.cf* avec:
 
 [source,bash]
 ---------------
+# TLS parameters (only if you want TLS as SMTP server)
+smtpd_tls_cert_file=/etc/postfix/dfsc.crt
+smtpd_tls_key_file=/etc/postfix/dfsc.key
+#smtpd_tls_ask_ccert = yes
+#smtpd_tls_req_ccert = yes
+smtpd_use_tls=yes
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+#smtpd_tls_auth_only = yes
+#smtpd_tls_ccert_verifydepth = 1
+smtpd_tls_loglevel = 1
+smtpd_tls_security_level = may
+
+
 smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
 myhostname = myservername.mycompany.com
 alias_maps = hash:/etc/aliases
@@ -979,8 +1000,6 @@ smtpd_sasl_auth_enable = yes
 # Need auth
 smtpd_sasl_security_options = noanonymous
 broken_sasl_auth_clients = yes
-smtpd_tls_loglevel = 1
-smtpd_tls_security_level = may
 ---------------
 
 
