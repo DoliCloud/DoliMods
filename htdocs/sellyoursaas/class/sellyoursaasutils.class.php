@@ -970,7 +970,7 @@ class SellYourSaasUtils
     			    global $stripearrayofkeysbyenv;
     			    global $savstripearrayofkeysbyenv;
 
-    			    dol_syslog("Current Stripe environment is ".$stripearrayofkeysbyenv[$servicestatus]);
+    			    dol_syslog("Current Stripe environment is ".$stripearrayofkeysbyenv[$servicestatus]['publishable_key']);
 
     			    if (empty($savstripearrayofkeysbyenv)) $savstripearrayofkeysbyenv = $stripearrayofkeysbyenv;
 
