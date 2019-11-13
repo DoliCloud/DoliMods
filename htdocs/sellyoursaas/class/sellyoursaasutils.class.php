@@ -970,11 +970,6 @@ class SellYourSaasUtils
     		if ($amountstripe > 0)
     		{
     			try {
-    			    if (empty($savstripearrayofkeysbyenv)) $savstripearrayofkeysbyenv = $stripearrayofkeysbyenv;
-
-    			    dol_syslog("Current Stripe environment is ".$stripearrayofkeysbyenv[$servicestatus]['publishable_key']);
-    			    dol_syslog("Current Saved Stripe environment is ".$savstripearrayofkeysbyenv[$servicestatus]['publishable_key']);
-
     			    //var_dump($companypaymentmode);
     				dol_syslog("We will try to pay with companypaymentmodeid=".$companypaymentmode->id." stripe_card_ref=".$companypaymentmode->stripe_card_ref." mode=".$companypaymentmode->status, LOG_DEBUG);
 
@@ -982,8 +977,12 @@ class SellYourSaasUtils
     				$resultthirdparty = $thirdparty->fetch($thirdparty_id);
 
     				include_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';        // This include the include of htdocs/stripe/config.php
-                                                                            				// So it erases the $stripearrayofkeysbyenv
+                                                                            				// So it inits or erases the $stripearrayofkeysbyenv
     				$stripe = new Stripe($this->db);
+
+    				if (empty($savstripearrayofkeysbyenv)) $savstripearrayofkeysbyenv = $stripearrayofkeysbyenv;
+    				dol_syslog("Current Stripe environment is ".$stripearrayofkeysbyenv[$servicestatus]['publishable_key']);
+    				dol_syslog("Current Saved Stripe environment is ".$savstripearrayofkeysbyenv[$servicestatus]['publishable_key']);
 
     				// Force stripe to another value (by default this value is empty)
     				if (! empty($thirdparty->array_options['options_stripeaccount']))
