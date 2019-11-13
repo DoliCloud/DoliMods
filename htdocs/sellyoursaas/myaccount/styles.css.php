@@ -52,6 +52,10 @@ margin-bottom: .1rem;
 margin-top: .4rem;
 }
 
+.badge-status1 {
+    background-color: #bc9526;
+}
+
 label,input,button,select,textarea {font-weight: normal;line-height: 20px;}
 input,button,select,textarea {font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;}label {display: block;margin-bottom: 5px;}
 
