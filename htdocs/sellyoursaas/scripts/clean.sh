@@ -491,20 +491,22 @@ echo "***** Now clean also old files in $archivedircron - 15 days after being ar
 cd $archivedircron
 find $archivedircron -maxdepth 1 -type f -mtime +15 -exec rm -f {} \;
 
-
+echo
 echo TODO Manually...
 
 # Clean database users
 echo "***** We should also clean mysql record for permission on old databases and old users"
 SQL="use mysql; delete from db where Db NOT IN (SELECT schema_name FROM information_schema.schemata) and Db like 'dbn%';"
+echo You can execute
 echo "$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e \"$SQL\""
 #$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e "$SQL"
 SQL="use mysql; delete from user where User NOT IN (SELECT User from db) and User like 'dbu%';"
+echo You can execute
 echo "$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e \"$SQL\""
 #$MYSQL -usellyoursaas -pxxxxxx -h $databasehost -e "$SQL"
 
 
-echo "***** We should also set database that are present but with status 'undeployed' so they will be undeployed correctly again"
+echo "***** We can also check databases that are present on disk but with status 'undeployed' so they will be undeployed correctly again"
 rm -fr /tmp/idlistofdb 
 for fic in `ls -rt /var/lib/mysql /mnt/diskhome/mysql 2>/dev/null | grep dbn 2>/dev/null`; 
 do 
@@ -515,8 +517,8 @@ echo "echo 'DROP TABLE llx_contracttoupdate_tmp;' | $MYSQL -usellyoursaas -p$pas
 echo "DROP TABLE llx_contracttoupdate_tmp;" | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $database
 echo "echo 'CREATE TABLE llx_contracttoupdate_tmp AS SELECT s.nom, s.client, c.rowid, c.ref, c.ref_customer, ce.deployment_date_start, ce.undeployment_date FROM llx_contrat as c LEFT JOIN llx_societe as s ON s.rowid = c.fk_soc, llx_contrat_extrafields as ce WHERE c.rowid = ce.fk_object AND ce.database_db IN (0) AND ce.deployment_status = 'undeployed';' | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $database"
 echo "CREATE TABLE llx_contracttoupdate_tmp AS SELECT s.nom, s.client, c.rowid, c.ref, c.ref_customer, ce.deployment_date_start, ce.undeployment_date FROM llx_contrat as c LEFT JOIN llx_societe as s ON s.rowid = c.fk_soc, llx_contrat_extrafields as ce WHERE c.rowid = ce.fk_object AND ce.database_db IN ($idlistofdb) AND ce.deployment_status = 'undeployed';" | $MYSQL -usellyoursaas -p$passsellyoursaas -h $databasehost $database
-echo The list of contract to update is into llx_contracttoupdate_tmp.
-echo You must execute "update llx_contrat_extrafields set deployment_status = 'done' where deployment_status = 'undeployed' AND fk_object in (select rowid from llx_contracttoupdate_tmp);"
+echo If there is some contracts not correctly undeployed, they are into llx_contracttoupdate_tmp of databasehost.
+echo You can execute "update llx_contrat_extrafields set deployment_status = 'done' where deployment_status = 'undeployed' AND fk_object in (select rowid from llx_contracttoupdate_tmp);"
 
 
 # Clean backup dir
@@ -544,6 +546,6 @@ do
         echo "#rm -fr "`dirname $fic` >> /tmp/avirer
 	fi
 done
-echo File /tmp/avirer generated.
+echo You can execute file /tmp/avirer
 
 exit 0
