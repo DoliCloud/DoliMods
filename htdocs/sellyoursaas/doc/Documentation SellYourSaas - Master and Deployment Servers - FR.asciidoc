@@ -15,7 +15,7 @@
 :toc-placement: preamble
 Laurent Destailleur
 
-Ce document décrit les spécifications techniques pour la mise en oeuvre de SellYourSaas (système de déploiement et vente automatisé en SaaS d'une application comme Dolibarr ERP CRM).
+Ce document décrit les spécifications techniques pour la mise en oeuvre de SellYourSaas - système de déploiement et vente automatisé en SaaS d'une application WAMP (Dolibarr ERP CRM, GLPI, ...).
 
 
 
@@ -40,8 +40,8 @@ Server 2 core minimum - Mémoire 8 Go minimum - Coùt 22 euros / mois
 * Installer Ubuntu LTS minimal 16.04.
 
 Exemple ches OVH: 
-Pour le serveur master: VPS ou B2-15
-Pour le serveur de déploiement: B2-15
+Pour le serveur master: VPS ou B2-15 ou +
+Pour le ou les serveurs de déploiement: B2-15 ou +
 
 
 [[ajout_de_disque]]
