@@ -523,7 +523,7 @@ echo You can execute "update llx_contrat_extrafields set deployment_status = 'do
 
 # Clean backup dir
 echo "***** We should also clean backup of paying instances in $backupdir/osusername/ that are no more saved since a long time (last_mysqldump > 90days) and that are archived" 
-> /tmp/avirer
+> /tmp/deletedirs.sh
 for fic in `find $backupdir/*/last_mysqldump* -name "last_mysqldump*" -mtime +90`
 do
 	noyoungfile=1
@@ -535,17 +535,21 @@ do
 	done
 	if [[ "x$noyoungfile" == "x1" ]]; then
 		if [ -d "$archivedirpaid/$osusername" ]; then
-			echo "# $fic - $noyoungfile - dir $archivedirpaid/$osusername exists" >> /tmp/avirer
-			echo "rm -fr "`dirname $fic` >> /tmp/avirer
+			echo "# $fic - $noyoungfile - dir $archivedirpaid/$osusername exists" >> /tmp/deletedirs.sh
+			echo "rm -fr "`dirname $fic` >> /tmp/deletedirs.sh
 		else
-			echo "# $fic - $noyoungfile" >> /tmp/avirer
-			echo "# ALERT Dir $archivedirpaid/$osusername does not exists. It means instance was not archived !!!" >> /tmp/avirer
+			echo "# $fic - $noyoungfile" >> /tmp/deletedirs.sh
+			echo "# ALERT Dir $archivedirpaid/$osusername does not exists. It means instance was not archived !!!" >> /tmp/deletedirs.sh
 		fi
 	else
-        echo "# $fic - $noyoungfile - dir $dirtoscan exists and was still active recently in backup. We must keep it." >> /tmp/avirer
-        echo "#rm -fr "`dirname $fic` >> /tmp/avirer
+        echo "# $fic - $noyoungfile - dir $dirtoscan exists and was still active recently in backup. We must keep it." >> /tmp/deletedirs.sh
+        echo "#rm -fr "`dirname $fic` >> /tmp/deletedirs.sh
 	fi
 done
-echo You can execute file /tmp/avirer
+if [ -s /tmp/deletedirs.sh ]; then
+	echo You can execute commands into file /tmp/deletedirs.sh
+else
+	echo No directory to delete
+fi
 
 exit 0
