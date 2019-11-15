@@ -19,8 +19,6 @@ echo
 
 export PID=${$}
 export scriptdir=$(dirname $(realpath ${0}))
-export ZONE="on.dolicloud.com.hosts" 
-export REMOTEIP='79.137.96.15'
 
 
 echo "***** $0 *****"

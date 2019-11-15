@@ -1990,8 +1990,9 @@ kill ...
 
 === Suivi fichiers modifiés
 
-TODO
-Voir doc afick.pl
+Voir documentation *afick.pl*
+
+
 
 
 === Utilisation de OpenStack pour gérer les images de serveurs
@@ -2056,7 +2057,7 @@ Pour pousser une image sur un projet:
 Voir chapitre [Clonage d'une instance serveur pour production bis ou pour développement]
 
 
-=== Déplacement de la base de données (var/lib/mysql) ===
+=== Déplacement de la base de données (var/lib/mysql vers /mnt/diskhome/mysql/) ===
 
 From the MySQL prompt, select the data directory:
 
@@ -2191,7 +2192,7 @@ services souscrit, ou encore le nom du revendeur).
 
 ==== deploy / deployall
 
-Les étapes à réaliser pour l'agent et la remote action "deploy":
+Les étapes réalisées par l'agent et la remote action "deploy" ou "deployall" sont:
 
 - Create unix user, pass and home with a restricted shell
 - Add a dns entry
@@ -2205,36 +2206,39 @@ Les étapes à réaliser pour l'agent et la remote action "deploy":
 
 ==== undeploy / undeployall
 
-Les étapes à réaliser pour l'agent et la remote action "undeploy":
+Les étapes réalisées par l'agent et la remote action "undeploy" sont:
 
-- L'inverse des actions "deploy"
+- Toutes les actions inverses de le l'actions "deploy" (à l'exception de la première action pour le "undeploy": "undeploy" ne détruit pas l'utilisateur Unix, mais "undeployall" oui). 
 
 ==== suspend
 
-Les étapes à réaliser pour l'agent et la remote action "suspend":
+Les étapes réalisées par l'agent et la remote action "suspend" sont:
 
-- N'importe quoi pour bloquer l'accès à l'instance avec un lien vers la dashboard pour mettre à jour son mode de paiement.
+- Désactivation du virtual host.
+
+Le but est de bloquer l'accès à l'instance avec un lien vers la dashboard pour mettre à jour son mode de paiement, sans toucher à l'instance.
 
 ==== unsuspend
 
-Les étapes à réaliser pour l'agent et la remote action "unsuspend":
+Les étapes réalisées par l'agent et la remote action "unsuspend" sont:
 
-- N'importe quoi pour restaurer l'accès à l'instance.
-
+- Réactivation du virtual host.
 
 ==== rename
 
-Renomme le nom de domaine et/ou le nom de domaine personnalisé (recrée les fichiers virtual hosts).
+Les étapes réalisées par l'agent et la remote action "rename" sont:
+
+- Renommer le nom de domaine et/ou le nom de domaine personnalisé (recrée les fichiers virtual hosts).
 
 ==== refresh
 
-Les étapes à réaliser pour l'agent et la remote action "refresh":
+Les étapes réalisées par l'agent et la remote action "refresh" sont:
 
-- TODO
+- Execution du calcul des métriques shell et renvoi des valeurs.
 
 ==== recreateauthorizedkeys
 
-Les étapes à réaliser pour l'agent et la remote action "recreateauthorizedkeys":
+Les étapes réalisées par l'agent et la remote action "recreateauthorizedkeys":
 
 - Mise à jour du fichier ssh authorized_keys avec les clés publiques passées en paramètres.
 
@@ -2287,6 +2291,10 @@ Les étapes à réaliser pour l'agent et la remote action "recreateauthorizedkey
 * Paiement réalisé (avec la valeur du montant du paiement)
 - URL: Aucune
 - Event DataDog: 'sellyoursaas.payment'
+
+* Client perdu, lorsqu'une instance payante est désinstallé (avec la valeur 1)
+- URL: Aucune
+- Event DataDog: 'sellyoursaas.payingcustomerlost'
 
 Exemple de supervision de sellyoursaas avec DataDog:
 
