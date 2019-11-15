@@ -465,26 +465,31 @@ vi /etc/exports
 # /srv/nfs4        gss/krb5i(rw,sync,fsid=0,crossmnt,no_subtree_check)
 # /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
 #
-/home/admin/wwwroot/dolibarr_documents/sellyoursaas i.p.deployment.server(ro,sync,no_subtree_check)
+/home/admin/wwwroot/dolibarr_documents/sellyoursaas i.p.deployment.server(ro,no_root_squash,sync,no_subtree_check)
 ---------------
 
 [source,bash]
 ---------------
-exportfs -a			(if there is new entry to add)
-exportfs -r			(if there is new entry to remove)
+exportfs -v -a			(if there is new entry to add)
+exportfs -v -r			(if there is new entry to remove)
 exportfs
+systemctl enable nfs-kernel-server
 systemctl restart nfs-kernel-server
+systemctl status nfs-kernel-server
 exportfs
 ---------------
 
 ==== Sur le(s) serveur(s) de déployment
 
-Installe le client NFS
+Pensez à ouvir l'accès du firewall entre le client NFS (Serveur de déploiement) et le serveur NFS (serveur Master).
+
+Installer le client NFS et faire le montage en manuel. Le montage est réalisé par défaut en NFSv4.
 
 [source,bash]
 ---------------
 sudo apt-get install nfs-common
-sudo mount i.p.server.master:/home/admin/wwwroot/dolibarr_documents/sellyoursaas /home/admin/wwwroot/dolibarr_documents/sellyoursaas
+sudo mount -t nfs i.p.server.master:/home/admin/wwwroot/dolibarr_documents/sellyoursaas /home/admin/wwwroot/dolibarr_documents/sellyoursaas
+sudo umount /home/admin/wwwroot/dolibarr_documents/sellyoursaas
 ---------------
 
 Ajouter la ligne au fichier */etc/fstab* pour avoir le montage automatique au reboot
@@ -1507,6 +1512,7 @@ Add apparmor file *bin.secureBash* in */etc/apparmor.d* with this content:
 aa-status
 aa-enforce bin.secureBash
 aa-status
+/etc/init.d/apparmor status
 ---------------
 
 === Autoriser la génération de vignettes aperçus PNG depuis les PDF

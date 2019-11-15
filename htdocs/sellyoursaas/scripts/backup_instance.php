@@ -305,13 +305,10 @@ if ($mode == 'testrsync' || $mode == 'test' || $mode == 'confirmrsync' || $mode 
 	// For old versions
 	$param[]="--exclude '*/_source/*'";
 
+	//$param[]="--backup --suffix=.old";
 	if ($RSYNCDELETE)
 	{
-		$param[]="--backup --suffix=.old --delete --delete-excluded";
-	}
-	else
-	{
-		$param[]="--backup --suffix=.old";
+		$param[]=" --delete --delete-excluded";
 	}
 	$param[]="--stats";
 	$param[]="-e 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o PasswordAuthentication=no'";
