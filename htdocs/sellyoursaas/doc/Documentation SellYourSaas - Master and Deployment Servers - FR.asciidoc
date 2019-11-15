@@ -34,30 +34,35 @@ SellYourSaas est un projet Open Source né suite au besoin de fournir en temps r
 
 Suite au déploiement de la v1, la plateforme évolua pour ajouter d'autres objectifs :
 
-	* Prendre en compte la souscription et les abonnements payants à l'application proposée.
+	* Prendre en compte la souscription à l'application proposée sous forme d'abonnements payants.
 	* Espace client dédié 
 	* Système 100% automatisé (de l'arrivée du prospect à la résiliation de son abonnement en passant par la délivrance du service, sauvegardes, supervision et alimentation de la comptabilité: pas d'intervention humaine).
 	* Une souplesse dans le mode d'abonnement (fréquence, tarifs, service complémentaires, ...)
 	* Compatible (ou à minima adaptable) pour toute application Web.
+	* Gestion d'un réseau de revendeur.
 	* Disponible en OpenSource.
 	
 SellYourSaas v2 a atteint ces objectifs et est aujourd'hui en production chez plusieurs sociétés proposants des services Saas (DoliCloud, NovaFirstCloud, GLPI-Network, ...). Voici un synthèse de ces capacités:
 
-    * Déploiment de n'importe quelle application WAMP.
+    * Déploiment de n'importe quelle application WAMP. Gestion de multiples solutions différents en même temps.
+    * Gestion de différents niveaux de tarifications
+    * Site web vitrine (optionnel) prêt à l'emploi pour vendre votre application.
     * Espace client dédié.
     * Précablé pour une supervision via DataDog.
     * Précablé pour une analyse de performance, taux de conversion via Google Analytics.
     * Paiement par carte bancaire via Stripe, conforme SCA (Strong Customer Authentication).
     * Paiement par prélèvement SEPA (mais pas d'interface direct pour soumettre les fichiers SEPA à la banque).
-    * Systèmes anti usage abusif des applications
-    * Systèmes de quota de souscription d'instances
-    * Coût d'infrastructure par instance < 20 centimes.
+    * Systèmes anti usage abusif des applications.
+    * Systèmes de quota de souscription d'instances.
+    * Outils facilitant la maintenance et le support des clients.
+    * Gestion d'un réseau de revendeur.
+    * Coût d'infrastructure par instance < 20 centimes (Coût constaté sur le service commercial DoliCloud avec Dolibarr ERP CRM).
     * ... 
      
 
 Le projet est disponible de manière communautaire depuis 2020 sur GitHub: https://github.com/eldy/sellyoursaas
 Il est composé:
-    * D'un module extension à l'excellent ERP CRM Open Source Dolibarr.
+    * D'un module extension à l'excellent ERP CRM Open Source Dolibarr (https://www.dolibarr.org).
     * Des outils systèmes divers.
     * Une documentation d'installation et paramétrage système (cette documentation). 
 
