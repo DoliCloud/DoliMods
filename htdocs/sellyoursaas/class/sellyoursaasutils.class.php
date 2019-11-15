@@ -2752,7 +2752,7 @@ class SellYourSaasUtils
     				// Unactivate all lines
     				if (! $error)
     				{
-    					dol_syslog("Unactivate all lines - doUndeployOldSuspendedInstances undeploy");
+    					dol_syslog("Unactivate all lines - doUndeployOldSuspendedInstances undeploy or undeployall");
 
     					$conf->global->noapachereload = 1;       // Set a global variable that can be read later by trigger
     					$comment = "Close after undeployment by doUndeployOldSuspendedInstances('".$mode."') the ".dol_print_date($now, 'dayhourrfc').' (noapachereload='.$conf->global->noapachereload.')';
@@ -3084,6 +3084,8 @@ class SellYourSaasUtils
     		}
     	}
 
+    	$ispaidinstance = 0;
+
     	// Loop on each line of contract ($tmpobject is a ContractLine)
     	foreach($listoflines as $tmpobject)
     	{
@@ -3378,7 +3380,7 @@ class SellYourSaasUtils
 			    	{
 			    		$sqltoexecute = make_substitutions($tmppackage->sqlafter, $substitarray);
 
-			    		dol_syslog("Try to connect to instance database to execute personalized requests substitarray=".join(',', $substitarray));
+			    		dol_syslog("Try to connect to customer instance database to execute personalized requests substitarray=".join(',', $substitarray));
 
 			    		//var_dump($generateddbhostname);	// fqn name dedicated to instance in dns
 			    		//var_dump($serverdeployment);		// just ip of deployement server
@@ -3823,6 +3825,19 @@ class SellYourSaasUtils
         	    $arraytags=array('remoteaction'=>$remoteaction, 'result'=>($error ? 'ko' : 'ok'));
 
         	    $statsd->increment('sellyoursaas.remoteaction', 1, $arraytags);
+
+                // Add flag for customer lost
+                if ($ispaidinstance)
+                {
+                    if (in_array($remoteaction, array('undeploy', 'undeployall')))
+                    {
+                        // Check if customer has still an instance on
+                        // TODO
+
+       	                $arraytags=null;
+       	                $statsd->increment('sellyoursaas.payingcustomerlost', 1, $arraytags);
+                    }
+                }
     	    }
     	    catch(Exception $e)
     	    {

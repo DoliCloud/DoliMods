@@ -11,7 +11,7 @@
 # deployall   create user and instance
 # deploy      create only instance
 # undeployall remove user and instance
-# undeploy    remove instance (must be easy to restore)
+# undeploy    remove only instance (must be easy to restore) - rest can be done later with clean.sh
 
 
 export now=`date +%Y%m%d%H%M%S`
