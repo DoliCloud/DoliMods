@@ -21,27 +21,69 @@ Ce document décrit les spécifications techniques pour la mise en oeuvre de Sel
 
 <<<<
 
+== Introduction ==
+
+SellYourSaas est un projet Open Source né suite au besoin de fournir en temps réel des instances d'application Web dédiées (comme Dolibarr ERP CRM)
+à des utilisateurs, à des fins de tests immédiat, avec les impératifs suivants:
+
+	* Capable de gérer un nombre très élevé d'utilisateurs.
+	* Cout très très faibles (au moins 10x inférieurs aux solutions Cloud par containers).
+	* Déploiement en temps réel.
+	* Offrir un accès complet et privé à l'application proposée, avec accès complet sans bridage de fonctionnalités ou paramétrage.
+	* Offrir un SaaS ouvert, avec accès SSH, SFTP et base de donnée direct possible aux utilisateurs. 
+
+Suite au déploiement de la v1, la plateforme évolua pour ajouter d'autres objectifs :
+
+	* Prendre en compte la souscription et les abonnements payants à l'application proposée.
+	* Espace client dédié 
+	* Système 100% automatisé (de l'arrivée du prospect à la résiliation de son abonnement en passant par la délivrance du service, sauvegardes, supervision et alimentation de la comptabilité: pas d'intervention humaine).
+	* Une souplesse dans le mode d'abonnement (fréquence, tarifs, service complémentaires, ...)
+	* Compatible (ou à minima adaptable) pour toute application Web.
+	* Disponible en OpenSource.
+	
+SellYourSaas v2 a atteint ces objectifs et est aujourd'hui en production chez plusieurs sociétés proposants des services Saas (DoliCloud, NovaFirstCloud, GLPI-Network, ...). Voici un synthèse de ces capacités:
+
+    * Déploiment de n'importe quelle application WAMP.
+    * Espace client dédié.
+    * Précablé pour une supervision via DataDog.
+    * Précablé pour une analyse de performance, taux de conversion via Google Analytics.
+    * Paiement par carte bancaire via Stripe, conforme SCA (Strong Customer Authentication).
+    * Paiement par prélèvement SEPA (mais pas d'interface direct pour soumettre les fichiers SEPA à la banque).
+    * Systèmes anti usage abusif des applications
+    * Systèmes de quota de souscription d'instances
+    * Coût d'infrastructure par instance < 20 centimes.
+    * ... 
+     
+
+Le projet est disponible de manière communautaire depuis 2020 sur GitHub: https://github.com/eldy/sellyoursaas
+Il est composé:
+    * D'un module extension à l'excellent ERP CRM Open Source Dolibarr.
+    * Des outils systèmes divers.
+    * Une documentation d'installation et paramétrage système (cette documentation). 
+
+
+Ce document présente les étapes pour mettre en oeuvre votre propre plateforme de business SaaS.
+	
 
 == Installation de la machine et OS
 
+La première étape est de mettre à disposition un (ou plusieurs) serveur. Si on part sur plusieurs, serveur, l'un sera serveur *Master* et les autres seront *Serveurs de déploiement*. Le serveur *Master* pouvant aussi être *Serveur de déploiement*, il est possible de démarrer avec un seul serveur. 
+ 
+=== Choix de l'OS: OS Ubuntu server
+
+* On utilisera Ubuntu LTS minimal 16.04 ou 18.04.
+
+
 === Choix de la machine
 
-Exemple, avec Amazon Standard Medium:
+Exemple avec Amazon Standard Medium:
 
 Server *m1.medium* hosted in EU @ $0.18 per hour plus $10 for storage and bandwidth puis passage à *m1.large* @ $0.18 per hour
 
 Exemple avec OVH Public Cloud:
-
-Server 2 core minimum - Mémoire 8 Go minimum - Coùt 22 euros / mois
-
-
-=== OS Ubuntu server
-
-* Installer Ubuntu LTS minimal 16.04.
-
-Exemple ches OVH: 
+ 
 Pour le serveur master: VPS ou B2-15 ou +
-Pour le ou les serveurs de déploiement: B2-15 ou +
+Pour le ou les serveurs de déploiement: B2-15 ou + (soit server 2 core minimum - Mémoire 8 Go minimum - Coût en 2019: 22 euros / mois)
 
 
 [[ajout_de_disque]]
@@ -52,7 +94,7 @@ Avec OVH Public Cloud:
 * Créer le disque. Pour le serveur de déploiement, prendre 250Mo par instance.
 * Associer le disque au serveur (chaque disque suplémentaire est ajouté en /dev/vdb, /dev/vdc, /dev/vdd, ...).
 Remarque, le disque devient visible avec *fdisk -l* et *lsblk*
-* Ajouter la partition sur les disques (type Linux) et la formater si c'est un disque jamais partitionné en faisant:
+* Si c'est un disque jamais partitionné, ajouter la partition sur le disque (type Linux) et la formater en faisant:
 
 [source,bash]
 ---------------
@@ -66,7 +108,7 @@ fsck -N /dev/vdxY
 mkfs.ext4 /dev/vdxY
 ---------------
 
-Récuper la valeur du UUID à l'issue du formatage qui s'affiche, sinon, la récuperer avec la commande *blkid*
+* Récuper la valeur du UUID à l'issue du formatage qui s'affiche, sinon, la récupérer avec la commande *blkid*
 
 * Déclarer le montage pour un montage automatique à chaque reboot en ajoutant une ligne dans */etc/fstab*
 
@@ -101,7 +143,7 @@ retourne
 	Filesystem features:      has_journal ext_attr resize_inode dir_index filetype needs_recovery extent flex_bg sparse_super large_file huge_file uninit_bg dir_nlink extra_isize
 
 
-Pour ajouter -noatime sur le filesystem dans le fichier /etc/fstab
+Pour ajouter -noatime sur le filesystem dans le fichier */etc/fstab* :
 
 [source,bash]
 ---------------
@@ -643,7 +685,7 @@ RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
 
 === Installation du firewall ===
 
-* Créer un fichier de lancement du firewall dans */home/admin/tools/firewall* et assurez vous de son lancement au démarrage du serveur par
+* Créer un fichier de lancement du firewall dans */home/admin/tools/firewall*. La configuration d'un firewall ne fait pas partie du projet SellYourSaas. Assurez vous de son lancement au démarrage du serveur par:
 
 [source,bash]
 ---------------
@@ -770,8 +812,6 @@ bantime  = 4320000   ; 50 days
 findtime = 86400     ; 1 day
 maxretry = 8
 
-
-
 ---------------
 
 
@@ -806,7 +846,7 @@ To test spamassassin client or message, create a file */tmp/testspam* with conte
 
     You should send this test mail from an account outside of your network.
 
-Tester avec
+Tester avec:
 
 [source,bash]
 ---------------
@@ -886,7 +926,6 @@ sudo apt-get install sasl2-bin
 vi /etc/default/saslauthd  pour mettre START=yes
 ---------------
 
-
 Vérifier que le user postfix se trouve dans le groupe *sasl*. Si non, l'ajouter par:
 
 [source,bash]
@@ -894,14 +933,12 @@ Vérifier que le user postfix se trouve dans le groupe *sasl*. Si non, l'ajouter
 adduser postfix sasl
 ---------------
 
-
 Modfifier le fichier */etc/postfix/master.cf* pour ajouter un 'n' afin de désactiver le chroot de smtpd
 
 [source,bash]
 ---------------
 smtp      inet  n       -       n       -       -       smtpd
 ---------------
-
 
 Ajouter un fichier *smtpd.conf* dans */etc/postfix/sasl*
 
@@ -912,7 +949,7 @@ pwcheck_method: saslauthd
 mech_list: plain login
 ---------------
 
-Pour du SMTPS, créer un certificats:
+Pour du SMTPS, créer un certificat:
  
 [source,bash]
 ---------------
@@ -1008,13 +1045,15 @@ broken_sasl_auth_clients = yes
 
 ==== Configuration
 
-Mise en place du fichier de config *my.cnf* dans */etc/mysql* ou dans */etc/mysql/mysql.conf.d* pour changer
+Edition du fichier de config *myqlnd.cnf* dans */etc/mysql/mysql.conf.d* (si mysql) 
+ou *50-server.cnf* dans */etc/mysql/mariadb.conf.d* (si mariadb) pour changer :
 
 [source,bash]
 ---------------
 bind-address = 0.0.0.0
 max_connections      = 500
 max_user_connections = 30
+wait_timeout         = 7200
 table_open_cache     = 2000
 table_definition_cache = 2000
 # Mysql: max_execution_time = 300000 (milliseconds) or Mariadb: max_statement_time = 300 (seconds)
@@ -1060,7 +1099,10 @@ update mysql.user set plugin='unix_socket' where user='root';
 ---------------
 
 
+[[creer_un_compte_db_sellyoursaas]]
 ==== Créer un utilisateur sellyoursaas to administer other databases
+
+Sur le serveur master et sur chaque serveur de déploiement, donner l'accès localement au compte:
 
 [source,sql]
 ---------------
@@ -1070,7 +1112,7 @@ GRANT CREATE,CREATE TEMPORARY TABLES,CREATE VIEW,DROP,DELETE,INSERT,SELECT,UPDAT
 FLUSH PRIVILEGES;
 ---------------
 
-Et pour chaque serveur de déploiement:
+Donner les droits d'accès sur le master au compte de chaque serveur de déploiement:
 
 [source,sql]
 ---------------
@@ -1080,6 +1122,15 @@ GRANT CREATE,CREATE TEMPORARY TABLES,CREATE VIEW,DROP,DELETE,INSERT,SELECT,UPDAT
 FLUSH PRIVILEGES;
 ---------------
 
+Rem: Si le user existe déjà, pour mettre à jour le mot de passe:
+
+[source,sql]
+---------------
+ALTER USER 'sellyoursaas'@'localhost' IDENTIFIED BY '...';
+ou
+update mysql.user SET authentication_string = PASSWORD('...') where user  = 'sellyoursaas' and host = 'localhost';
+FLUSH PRIVILEGES;
+---------------
 
 
 ==== Mise en place de mariadb cluster en mode master-slave (optionnel, abandonné)
@@ -1863,7 +1914,7 @@ Depuis l'espace "Snapshots" d'OVH, on peut demander à le restaurer sur un serve
 
 Voir chapitre [Clonage d'une instance serveur pour production bis ou pour développement]
 
-==== Clonage d'une instance serveur pour production bis ou pour développement
+==== Cloner une instance serveur pour production bis ou pour développement
 
 - Créer un snapshot du Serveur
 
@@ -1874,39 +1925,68 @@ Voir chapitre [Clonage d'une instance serveur pour production bis ou pour dével
 - Se connecter pour désactiver les crons en doublons avec le serveur cloné (possibilité de désactiver le process cron complètement) par
 
     systemctl stop cron
-    systemctl disable cron 
+    systemctl disable cron
+    systemctl status cron
+
+- Editer la cron de *root* et de *admin* 
 
 - Editer le fichier */etc/fstab* pour supprimer montage du/des disques données.
 
 - Créer un snapshot du Disque de donnée
 
-- Créer un nouveau disque dur de donnée OVH depuis le snapshot.
+- Créer un nouveau disque dur de donnée OVH depuis le snapshot et l'associer au serveur. Après association, il doit etre visible avec la commande:
 
-- Formater le nouveau disque dur de donnée. Pour cela, voir la chapitre <<ajout_de_disque>>.
+	fdisk -l
 
-- Ajouter un fichier à la racine du disque pour identifier le volume.
+- Si on est parti sur un disque vierge, formater le nouveau disque dur de donnée. Pour cela, voir la chapitre <<ajout_de_disque>>.
+  Si il s'agit d'un dique déjà formatté, TODO...
+
+- Ajouter un fichier à la racine du disque pour identifier le volume (Par exemple: DATA_MYSERVERNAME, BACKUP_MYSERVERNAME, ...).
 
 - Modifier le fichiers */etc/postfix/main.cf* et */etc/postfix/mydestination* (possibilité de désactiver postfix complètement ou juste envoyer les emails vers un SMTP bidon pour du développement)
 
 - Ajouter les entrées du nouveau serveur dans le DNS mondomain.com avec l'IP du serveur attribué par OVH lors de sa création.
 
-- Aller dans l'interface de gestion des IP OVH, pour ajouter aussi le reverse sur l'IP du nouveau serveur.
+- Aller dans l'interface de gestion des serveurs OVH, pour modifier leur nom court. Ceci modifiera le fichier */etc/hostname* automatiquement (sinon modifier manuellement. Mettre un nom court, par exemple *monserveur*).
 
-- Aller dans l'interface de gestion des serveurs OVH, pour modifier leur nom court. Ceci modifiera le fichier */etc/hostname* automatiquement (sinon modifier manuellement).
-
+- Aller dans l'interface de gestion des IP OVH, pour ajouter aussi 
+ 
+  - le reverse sur l'IP du nouveau serveur: monserveur.mondomain.com
+  - le reverse sur l'IP virtuel si vous en avez pris une sur: with.mondomain.com
+   
 - Se connecter et modifier le fichier */etc/hosts* avec le nom du nouveau serveur et nouvelle ip du serveur.
 
 - Editer le fichier */var/www/html/index.html* si il existe pour positionner le nouveau nom de serveur.
 
-- Modifier le fichier */etc/init.d/firewall* avec le nom et ip du nouveau serveur.
-
-- Vérifier les fichiers */etc/network/interfaces/* et */etc/network/interfaces.d/* (pour remettre à la bonne valeur les ip publiques, virtuelles et internes vrack si le vrack OVH est utilisé)
+- Vérifier les fichiers */etc/network/interfaces* et */etc/network/interfaces.d/* (pour remettre à la bonne valeur les ip publiques, virtuelles et internes vrack si le vrack OVH est utilisé)
 
 - Si webmin a été installé, se connecter à webmin pour désactiver les actions de supervision en doublons avec celle du serveur cloné.
 
 - Modifier les fichiers de serveurs virtuels Apache pour mettre la nouvelle IP/nouveau nom.
 
+- Déclarer l'IP pour l'envoi d'emails:
+  - Si un serveur SMTP distant est utilisé, penser à autoriser l'ip du nouveau serveur à ce serveur.
+  - Ajouter l'ip dans l'entrée SPF du DNS.
+
+- Créer un compte sellyoursaas et permission au serveur de déploiement sur la base de donnée du master. Voir <<creer_un_compte_db_sellyoursaas>>.
+
+- Modifier le fichier */etc/sellyoursaas.conf* avec la nouvelle ip et nom de sous-domaine du nouveau pool et information du compte d'accès base de donnée du master.
+
+- Effacer les fichiers dans :
+
+  */etc/apache2/sellyoursaas-online*
+  */etc/apache2/sellyoursaas-onffline*
+  */etc/apache2/sellyoursaas-available*
+  */var/spool/mail*
+
+- Détruire la base de données 
+
+  - de dolibarr master si la source était le serveur master.
+  - des instances clients si la sources était un serveur de déploiement.
+  
 - Relancer le service de supervision *datadog-agent* si il est installé pour prendre en compte le nom du nouveau serveur.
+
+- Arrêter, relancer le firewall, fail2ban, apache, postfix, remote_server
 
 
 En complément, si d'autres applications sont actives sur le serveur:
@@ -1992,6 +2072,47 @@ kill ...
 
 Voir documentation *afick.pl*
 
+Exemple de contenu a ajouter au fichier */etc/afick.conf*
+
+[source,sql]
+---------------
+############################################
+# to allow easier upgrade, my advice is too separate
+# the default configuration file (above) from your
+# local configuration (below).
+# default configuration will be upgraded
+# local configuration will be kept
+########## put your local config below ####################
+!/var/log/mysql
+!/mnt/diskhome/mysql
+!/var/log/letsencrypt
+!/var/log/datadog
+
+!/etc/apache2/sellyoursaas-available
+!/etc/apache2/sellyoursaas-online
+!/etc/bind/archives
+
+/home MyRule
+/home/admin/logs Logs
+/var/log/datadog Logs
+!/home/admin/backup
+!/home/jail/home
+!/home/admin/wwwroot/dolibarr_documents
+!/home/admin/wwwroot/dolibarr/.git
+!/home/admin/wwwroot/dolibarr_nltechno/.git
+
+!/home/admin/.bash_history
+!/home/admin/.viminfo
+!/home/admin/.mysql_history
+!/home/ldestailleur/.bash_history
+!/home/ldestailleur/.viminfo
+!/home/ldestailleur/.mysql_history
+!/root/.bash_history
+!/root/.viminfo
+!/root/.mysql_history
+
+exclude_suffix := cache
+---------------
 
 
 
@@ -2102,17 +2223,23 @@ MySQL has several ways to override configuration values. By default, the datadir
 sudo vi /etc/my.cnf
 Find the line in the [mysqld] block that begins with datadir=, which is separated from the block heading with several comments. Change the path which follows to reflect the new location. In addition, since the socket was previously man mlocated in the data directory, we’ll need to update it to the new location:
 
+[source,bash]
+---------------
 /etc/my.cnf
 [mysqld]
 datadir=/mnt/volume-nyc1-01/mysql
 socket=/mnt/volume-nyc1-01/mysql/mysql.sock
+---------------
 
 After updating the existing lines, we’ll need to add configuration for the mysql client. Insert the following settings at the bottom of the file so it won’t split up directives in the [mysqld] block:
 
+[source,bash]
+---------------
 /etc/my.cnf
 [client]
 port=3306
 socket=/mnt/volume-nyc1-01/mysql/mysql.sock
+---------------
 When you’re done, hit ESCAPE, then type :wq! to save and exit the file.
 
 Step 3 — Restarting MySQL
@@ -2167,6 +2294,16 @@ Le même script peut etre utilisé pour l'opération inverse.
 scripts/make_instance_offline.sh  https://myaccount.mydomain.com/offline.php  test|offline|online
 ---------------
 
+
+
+=== Nettoyage fichiers debris
+
+Lancer le script: 
+
+[source,bash]
+---------------
+/home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/clean.sh confirm
+---------------
 
 
 <<<
@@ -2268,33 +2405,44 @@ Les étapes réalisées par l'agent et la remote action "recreateauthorizedkeys"
 
 === Quelques URL type pour les objectifs Google Analytics ou Statistiques DataDog
 
+Pour activer les statistiques Google Analytics, mettre le tag dans la configuration du module sellyoursaas.
+
+Pour activer les statistiques DataDog, renseigner les constantes :
+ 
+  - SELLYOURSAAS_DATADOG_ENABLED à 1
+  - SELLYOURSAAS_DATADOG_APIKEY avec la clé API de DataDog
+  - SELLYOURSAAS_DATADOG_APPKEY avec la clé APP de DataDog
+
+Voici le détail des évennement ou URL qui peuvent etre trackées:
+
 * Page affichée lorsqu'on affiche le formulaire d'inscription
-- URL: /register.php                 
+- URL: /register.php   (peut servir d'objectif *Google Analytics "Prospect intéressé"*)                 
 - Event DataDog: Aucun
 
 * Page affichée suite à une inscription faite jusqu'au bout
-- URL: /index.php?welcomid=
+- URL: /index.php?welcomid=   (peut servir d'objectif *Google Analytics "Prospect inscrit"*)
 - Event DataDog: Aucun
 
 * Page affichée lorsqu'un mode de paiement est ajouté pour la première fois avec succès = Nouveau client
-- URL: /index.php?paymentrecorded=1
-- Event Datadog: 'sellyoursaas.paymentmodeadded'
+- URL: /index.php?paymentrecorded=1   (peut servir d'objectif *Google Analytics "Client gagné"*)
+- Event Datadog: *sellyoursaas.paymentmodeadded*
 
 * Page affichée lorsqu'un mode de paiement est modifié avec succès
 - URL: /index.php?paymentmodified=1
-- Event Datadog: 'sellyoursaas.paymentmodemodified'
+- Event Datadog: *sellyoursaas.paymentmodemodified*
 
 * Paiement réalisé (avec la valeur 1)
 - URL: Aucune
-- Event DataDog: 'sellyoursaas.paymentdone'
+- Event DataDog: *sellyoursaas.paymentdone*
 
 * Paiement réalisé (avec la valeur du montant du paiement)
 - URL: Aucune
-- Event DataDog: 'sellyoursaas.payment'
+- Event DataDog: *sellyoursaas.payment*
 
 * Client perdu, lorsqu'une instance payante est désinstallé (avec la valeur 1)
 - URL: Aucune
-- Event DataDog: 'sellyoursaas.payingcustomerlost'
+- Event DataDog: *sellyoursaas.payingcustomerlost*
+
 
 Exemple de supervision de sellyoursaas avec DataDog:
 
