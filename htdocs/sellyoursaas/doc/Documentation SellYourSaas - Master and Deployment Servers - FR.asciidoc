@@ -1925,15 +1925,17 @@ Depuis l'espace "Snapshots" d'OVH, on peut demander à le restaurer sur un serve
 
 Voir chapitre [Clonage d'une instance serveur pour production bis ou pour développement]
 
-==== Cloner une instance serveur pour production bis ou pour développement
+==== Clonage d'une instance serveur pour production bis ou pour développement
 
-- Créer un snapshot du Serveur
+Les étapes suivantes résumes les opérations à réaliser pour cloner un serveur de déploiement en un autre serveur de déploiement.
 
-- Créer un nouveau serveur OVH depuis le snapshot en spécifiant le script suivant en post installation:
+- Créer un snapshot du *Serveur de déploiement* à cloner.
+
+- Créer un nouveau serveur OVH depuis le snapshot en spécifiant le nom du snapshot source et en indiquant le script suivant en *post installation*:
 
     /home/admin/wwwroot/dolibarr_nltechno/htdocs/sellyoursaas/scripts/post_inst_script.sh
 
-- Se connecter pour désactiver les crons en doublons avec le serveur cloné (possibilité de désactiver le process cron complètement) par
+- Une fois le serveur prêt: Se connecter pour désactiver les crons en doublons avec le serveur cloné (possibilité de désactiver le process cron complètement) par
 
     systemctl stop cron
     systemctl disable cron
@@ -1943,7 +1945,7 @@ Voir chapitre [Clonage d'une instance serveur pour production bis ou pour dével
 
 - Editer le fichier */etc/fstab* pour supprimer montage du/des disques données.
 
-- Créer un snapshot du Disque de donnée
+- Créer un snapshot du Disque de donnée.
 
 - Créer un nouveau disque dur de donnée OVH depuis le snapshot et l'associer au serveur. Après association, il doit etre visible avec la commande:
 
@@ -1988,19 +1990,31 @@ Voir chapitre [Clonage d'une instance serveur pour production bis ou pour dével
   */etc/apache2/sellyoursaas-online*
   */etc/apache2/sellyoursaas-onffline*
   */etc/apache2/sellyoursaas-available*
-  */var/spool/mail*
+  */var/spool/mail/osu**
+  */var/spool/cron/crontabs/osu**
 
+- Effacer les lignes osu* des fichiers
+
+  */etc/passwd*
+  */etc/shadow*
+  */etc/group*
+  
 - Détruire la base de données 
 
-  - de dolibarr master si la source était le serveur master.
-  - des instances clients si la sources était un serveur de déploiement.
+  - de *dolibarr* master si la source était le serveur master.
+  - des instances clients si la sources était un serveur de déploiement. Ceci peut se faire en lançant:
   
+  mysql -uroot -e "show databases" | grep dbn | gawk '{print "drop database `" $1 "`;select sleep(0.1);"}' > /tmp/dbntodelete.sql
+  mysql -uroot < /tmp/dbntodelete.sql
+  
+- Renommer le fichier DNS */etc/bind/withX.mondomain.com.hosts* en */etc/bind/with(X+1).mondomain.com.hosts* et l'éditer pour prendre en compte le nouveau prefix.
+
 - Relancer le service de supervision *datadog-agent* si il est installé pour prendre en compte le nom du nouveau serveur.
 
-- Arrêter, relancer le firewall, fail2ban, apache, postfix, remote_server
+- Arrêter, relancer le firewall, fail2ban, bind9, apache, postfix, remote_server
 
 
-En complément, si d'autres applications sont actives sur le serveur:
+En complément, si d'autres applications étaient actives sur le serveur clonés:
 
 * For Prestashop sites, if the new server has a new url:
 ** go into database to set correct url into table *ps_configuration* (var PS_SHOP_DOMAIN, PS_SHOP_DOMAIN_SSL, CANONICAL_URL) and *ps_shop_url*
