@@ -1990,6 +1990,9 @@ Les étapes suivantes résumes les opérations à réaliser pour cloner un serve
   */etc/apache2/sellyoursaas-online*
   */etc/apache2/sellyoursaas-onffline*
   */etc/apache2/sellyoursaas-available*
+
+  Et le fichiers ayant pour nom :
+  
   */var/spool/mail/osu**
   */var/spool/cron/crontabs/osu**
 
