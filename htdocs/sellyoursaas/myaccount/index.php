@@ -3688,8 +3688,8 @@ if ($mode == 'instances')
 				            <li><a id="a_tab_resource_'.$contract->id.'" href="#tab_resource_'.$contract->id.'" data-toggle="tab"'.(! in_array($action, array('updateurlxxx')) ? ' class="active"' : '').'>'.$langs->trans("ResourcesAndOptions").'</a></li>';
 				            print '<li><a id="a_tab_domain_'.$contract->id.'" href="#tab_domain_'.$contract->id.'" data-toggle="tab"'.($action == 'updateurlxxx' ? ' class="active"' : '').'>'.$langs->trans("Domain").'</a></li>';
 				 		    if (in_array($statuslabel, array('done','suspended')) && $directaccess) print '<li><a id="a_tab_ssh_'.$contract->id.'" href="#tab_ssh_'.$contract->id.'" data-toggle="tab">'.$langs->trans("SSH").' / '.$langs->trans("SFTP").'</a></li>';
-				 		    if (in_array($statuslabel, array('done','suspended'))  && $directaccess) print '<li><a id="a_tab_db_'.$contract->id.'" href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>';
-				 		    if (in_array($statuslabel, array('done','suspended')) ) print '<li><a id="a_tab_danger_'.$contract->id.'" href="#tab_danger_'.$contract->id.'" data-toggle="tab">'.$langs->trans("DangerZone").'</a></li>';
+				 		    if (in_array($statuslabel, array('done','suspended')) && $directaccess) print '<li><a id="a_tab_db_'.$contract->id.'" href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>';
+				 		    if (in_array($statuslabel, array('done','suspended'))) print '<li><a id="a_tab_danger_'.$contract->id.'" href="#tab_danger_'.$contract->id.'" data-toggle="tab">'.$langs->trans("DangerZone").'</a></li>';
 				     	print '
 				          </ul>
 
@@ -4011,73 +4011,94 @@ if ($mode == 'instances')
 
 				            <div class="tab-pane" id="tab_ssh_'.$contract->id.'">
 				                <p class="opacitymedium" style="padding: 15px">'.$langs->trans("SSHFTPDesc").' :</p>
+                                ';
 
-				                <form class="form-horizontal" role="form">
-                                <input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">
+								if ($directaccess == 1 || ($directaccess == 2 && empty($foundtemplate))) {
+    								print '
+    				                <form class="form-horizontal" role="form">
+                                    <input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">
 
-				                <div class="form-body">
-				                  <div class="form-group col-md-12 row">
-				                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
-				                    <div class="col-md-3">
-				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_hostname_os'].'">
-				                    </div>
-				                    <label class="col-md-3 control-label">'.$langs->trans("Port").'</label>
-				                    <div class="col-md-3">
-				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.($contract->array_options['options_port_os']?$contract->array_options['options_port_os']:22).'">
-				                    </div>
-				                  </div>
-				                  <div class="form-group col-md-12 row">
-				                    <label class="col-md-3 control-label">'.$langs->trans("SFTP Username").'</label>
-				                    <div class="col-md-3">
-				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_username_os'].'">
-				                    </div>
-				                    <label class="col-md-3 control-label">'.$langs->trans("Password").'</label>
-				                    <div class="col-md-3">
-				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_password_os'].'">
-				                    </div>
-				                  </div>
-				                </div>
-				                </form>
-				              </div> <!-- END TAB PANE -->
+    				                <div class="form-body">
+    				                  <div class="form-group col-md-12 row">
+    				                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
+    				                    <div class="col-md-3">
+    				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_hostname_os'].'">
+    				                    </div>
+    				                    <label class="col-md-3 control-label">'.$langs->trans("Port").'</label>
+    				                    <div class="col-md-3">
+    				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.($contract->array_options['options_port_os']?$contract->array_options['options_port_os']:22).'">
+    				                    </div>
+    				                  </div>
+    				                  <div class="form-group col-md-12 row">
+    				                    <label class="col-md-3 control-label">'.$langs->trans("SFTP Username").'</label>
+    				                    <div class="col-md-3">
+    				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_username_os'].'">
+    				                    </div>
+    				                    <label class="col-md-3 control-label">'.$langs->trans("Password").'</label>
+    				                    <div class="col-md-3">
+    				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_password_os'].'">
+    				                    </div>
+    				                  </div>
+    				                </div>
+    				                </form>
+                                    ';
+								}
+								else {
+								    print '<!-- directaccess = '.$directaccess.' foundtemplate = '.$foundtemplate.' -->';
+								    print '<p class="opacitymedium" style="padding: 15px">'.$langs->trans("SorryFeatureNotAvailableInYourPlan").'</p>';
+								}
+
+							    print '
+				              </div> <!-- END TAB SSH PANE -->
 
 				              <div class="tab-pane" id="tab_db_'.$contract->id.'">
 				                <p class="opacitymedium" style="padding: 15px">'.$langs->trans("DBDesc").' :</p>
+                                ';
 
-				                <form class="form-horizontal" role="form">
-                                <input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">
+							    if ($directaccess == 1 || ($directaccess == 2 && empty($foundtemplate))) {
+    								print '
+    				                <form class="form-horizontal" role="form">
+                                    <input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">
 
-				                <div class="form-body">
-				                  <div class="form-group col-md-12 row">
-				                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
-				                    <div class="col-md-3">
-				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_hostname_db'].'">
-				                    </div>
-				                    <label class="col-md-3 control-label">'.$langs->trans("Port").'</label>
-				                    <div class="col-md-3">
-				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_port_db'].'">
-				                    </div>
-				                  </div>
-				                  <div class="form-group col-md-12 row">
-				                    <label class="col-md-3 control-label">'.$langs->trans("DatabaseName").'</label>
-				                    <div class="col-md-3">
-				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_database_db'].'">
-				                    </div>
-				                    <label class="col-md-3 control-label">'.$langs->trans("DatabaseLogin").'</label>
-				                    <div class="col-md-3">
-				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_username_db'].'">
-				                    </div>
-				                  </div>
-				                  <div class="form-group col-md-12 row">
-				                    <label class="col-md-3 control-label">'.$langs->trans("Password").'</label>
-				                    <div class="col-md-3">
-				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_password_db'].'">
-				                    </div>
-				                  </div>
-				                </div>
+    				                <div class="form-body">
+    				                  <div class="form-group col-md-12 row">
+    				                    <label class="col-md-3 control-label">'.$langs->trans("Hostname").'</label>
+    				                    <div class="col-md-3">
+    				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_hostname_db'].'">
+    				                    </div>
+    				                    <label class="col-md-3 control-label">'.$langs->trans("Port").'</label>
+    				                    <div class="col-md-3">
+    				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_port_db'].'">
+    				                    </div>
+    				                  </div>
+    				                  <div class="form-group col-md-12 row">
+    				                    <label class="col-md-3 control-label">'.$langs->trans("DatabaseName").'</label>
+    				                    <div class="col-md-3">
+    				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_database_db'].'">
+    				                    </div>
+    				                    <label class="col-md-3 control-label">'.$langs->trans("DatabaseLogin").'</label>
+    				                    <div class="col-md-3">
+    				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_username_db'].'">
+    				                    </div>
+    				                  </div>
+    				                  <div class="form-group col-md-12 row">
+    				                    <label class="col-md-3 control-label">'.$langs->trans("Password").'</label>
+    				                    <div class="col-md-3">
+    				                      <input type="text" disabled="disabled" class="form-control input-medium" value="'.$contract->array_options['options_password_db'].'">
+    				                    </div>
+    				                  </div>
+    				                </div>
 
-				                </form>
+    				                </form>
+                                    ';
+    							}
+    							else {
+    							    print '<!-- directaccess = '.$directaccess.' foundtemplate = '.$foundtemplate.' -->';
+    							    print '<p class="opacitymedium" style="padding: 15px">'.$langs->trans("SorryFeatureNotAvailableInYourPlan").'</p>';
+    							}
 
-				              </div> <!-- END TAB PANE -->
+							    print '
+				              </div> <!-- END TAB DB PANE -->
 
 				            <div class="tab-pane" id="tab_danger_'.$contract->id.'">
 
@@ -4548,7 +4569,7 @@ if ($mode == 'mycustomerinstances')
 				            <li><a id="a_tab_resource_'.$contract->id.'" href="#tab_resource_'.$contract->id.'" data-toggle="tab"'.(! in_array($action, array('updateurlxxx')) ? ' class="active"' : '').'>'.$langs->trans("ResourcesAndOptions").'</a></li>';
 				            //print '<li><a id="a_tab_domain_'.$contract->id.'" href="#tab_domain_'.$contract->id.'" data-toggle="tab"'.($action == 'updateurlxxx' ? ' class="active"' : '').'>'.$langs->trans("Domain").'</a></li>';
 			if (in_array($statuslabel, array('done','suspended')) && $directaccess) print '<li><a id="a_tab_ssh_'.$contract->id.'" href="#tab_ssh_'.$contract->id.'" data-toggle="tab">'.$langs->trans("SSH").' / '.$langs->trans("SFTP").'</a></li>';
-			if (in_array($statuslabel, array('done','suspended'))  && $directaccess) print '<li><a id="a_tab_db_'.$contract->id.'" href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>';
+			if (in_array($statuslabel, array('done','suspended')) && $directaccess) print '<li><a id="a_tab_db_'.$contract->id.'" href="#tab_db_'.$contract->id.'" data-toggle="tab">'.$langs->trans("Database").'</a></li>';
 			//if (in_array($statuslabel, array('done','suspended')) ) print '<li><a id="a_tab_danger_'.$contract->id.'" href="#tab_danger_'.$contract->id.'" data-toggle="tab">'.$langs->trans("DangerZone").'</a></li>';
 			print '
 				          </ul>
