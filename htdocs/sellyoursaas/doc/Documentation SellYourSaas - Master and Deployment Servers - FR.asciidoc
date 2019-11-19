@@ -342,11 +342,11 @@ nomserver    ipduserveur
 ---------------
 
 
-=== Ajout IP virtuelle (optionnel)
+=== Ajout IP virtuelle (optionnel) et/ou IP v6
 
-- Ajout d'une IP virtuelle via le manager OVH
+- Ajout d'une IP virtuelle et ou du suport IPv6 via le manager OVH
 
-- Ajouter l'interface réseau sur le serveur de manière dynamique.
+- Ajouter l'interface réseau virtuelle sur le serveur de manière dynamique.
 
 [source,bash]
 ---------------
@@ -360,6 +360,16 @@ ifconfig eth0:0 a.b.c.d
 ifconfig eth0:0 down
 ---------------
 
+- Pour ajouter le support IPv6 de manière dynamique
+
+[source,bash]
+---------------
+ip addr add 2002:41d0:302:1000::1234:1234/128 dev eth0
+ip -6 route add 2002:41d0:302:1000::1 dev eth0
+ip -6 route add default via 2002:41d0:302:1000::1 dev eth0
+---------------
+        
+        
 - Pour une définition persistente au reboot, déclarer l'interface dans */etc/network/interfaces* ou dans un fichier de */etc/network/interfaces.d* (Ubuntu < 17.10)
 
 Exemple pour 2 ips virtuelles:
@@ -372,11 +382,21 @@ iface eth0:0 inet static
 		    netmask 255.255.255.255
 		    broadcast a.b.c.d
 
+# Pour declarer une IP virtuelle persistante
 auto eth0:1
 iface eth0:1 inet static
 		    address e.f.g.h
 		    netmask 255.255.255.255
 		    broadcast e.f.g.h
+
+# Pour declarer une IP v6 (le masque est 128 chez OVH en ipv6) 
+iface eth0 inet6 static
+        address 2002:41d0:302:1000::4:1438
+        netmask 128
+        post-up /sbin/ip -6 route add 2002:41d0:302:1000::1 dev eth0
+        post-up /sbin/ip -6 route add default via 2002:41d0:302:1000::1 dev eth0
+        pre-down /sbin/ip -6 route del default via 2002:41d0:302:1000::1 dev eth0
+        pre-down /sbin/ip -6 route del 2002:41d0:302:1000::1 dev eth0
 ---------------
 
 Rem: *eth0* can be something else, for example *ens3*.
