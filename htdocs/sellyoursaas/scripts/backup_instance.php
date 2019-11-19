@@ -416,7 +416,7 @@ if (empty($return_var) && empty($return_varmysql))
 		// Update database
 		$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
 		$object->array_options['options_latestbackup_status']='OK';
-		$object->update(null);
+		$object->update($user, 1);
 
 		// Send to DataDog (metric + event)
 		if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
@@ -452,7 +452,7 @@ else
 		// Update database
 		$object->array_options['options_latestbackup_date']=$now;	// date latest files and database rsync backup
 		$object->array_options['options_latestbackup_status']='KO';
-		$object->update($user);
+		$object->update($user, 1);
 
 		// Send to DataDog (metric + event)
 		if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
