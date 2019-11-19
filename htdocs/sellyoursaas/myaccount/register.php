@@ -515,9 +515,10 @@ if (empty($_COOKIE[$cookieregistrationa])) setcookie($cookieregistrationa, 1, 0,
 	                	foreach($listofdomain as $val)
 	                	{
 	                	    $newval = $val;
+	                	    $reg = array();
 	                	    if (preg_match('/:(.*)$/', $newval, $reg)) {      // If this domain must be shown only if domain match
 	                	        $newval = preg_replace('/:.*$/', '', $newval);
-	                	        if ($reg[1] != $domainname) continue;
+	                	        if ($reg[1] != $domainname && $reg[1] != GETPOST('forcetoacceptdomain', 'alpha')) continue;
 	                	    }
 
 	                	    if (! empty($tmppackage->restrict_domains))   // There is a restriction on some domains for this package
