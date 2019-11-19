@@ -1158,6 +1158,8 @@ Rem: Si le user existe déjà, pour mettre à jour le mot de passe:
 ---------------
 ALTER USER 'sellyoursaas'@'localhost' IDENTIFIED BY '...';
 ou
+SET PASSWORD FOR 'sellyoursaas'@'localhost' = PASSWORD('...');
+ou
 update mysql.user SET authentication_string = PASSWORD('...') where user  = 'sellyoursaas' and host = 'localhost';
 FLUSH PRIVILEGES;
 ---------------
@@ -2036,6 +2038,12 @@ Les étapes suivantes résumes les opérations à réaliser pour cloner un serve
 
 - Arrêter, relancer le firewall, fail2ban, bind9, apache, postfix, remote_server
 
+- Vérifier que, depuis le serveur master, l'url *http://ipnouveauserverdeployment:8080/index.php/test* répond par un 404.
+
+- Vérifier que les répertoires existent avec les bons droits ou les forcer: 
+
+	mkdir /mnt/diskbackup/backup /mnt/diskbackup/archives-test /mnt/diskbackup/archives-paid;
+	chown admin.root /mnt/diskbackup/backup /mnt/diskbackup/archives-test /mnt/diskbackup/archives-paid;
 
 En complément, si d'autres applications étaient actives sur le serveur clonés:
 
