@@ -3399,7 +3399,7 @@ class SellYourSaasUtils
 			    			foreach($arrayofsql as $sqltoexecuteline)
 			    			{
 			    				$sqltoexecuteline = trim($sqltoexecuteline);
-			    				if ($sqltoexecuteline)
+			    				if ($sqltoexecuteline && (strpos($sqltoexecuteline, '--') === false || strpos($sqltoexecuteline, '--') > 0))
 			    				{
 			    					dol_syslog("Execute sql=".$sqltoexecuteline);
 			    					$resql = $dbinstance->query($sqltoexecuteline);
