@@ -3822,7 +3822,7 @@ class SellYourSaasUtils
 
         	    $statsd = new DataDog\DogStatsd($arrayconfig);
 
-        	    $arraytags=array('remoteaction'=>$remoteaction, 'result'=>($error ? 'ko' : 'ok'));
+        	    $arraytags=array('remoteaction'=> ($remoteaction?$remoteaction:'unknown'), 'result'=>($error ? 'ko' : 'ok'));
 
         	    $statsd->increment('sellyoursaas.remoteaction', 1, $arraytags);
 
