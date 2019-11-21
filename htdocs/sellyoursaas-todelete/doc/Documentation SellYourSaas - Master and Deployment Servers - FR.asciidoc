@@ -42,7 +42,7 @@ Suite au déploiement de la v1, la plateforme évolua pour ajouter d'autres obje
 	* Gestion d'un réseau de revendeur.
 	* Disponible en OpenSource.
 	
-SellYourSaas v2 a atteint ces objectifs et est aujourd'hui en production chez plusieurs sociétés proposants des services Saas (DoliCloud, NovaFirstCloud, GLPI-Network, ...). Voici un synthèse de ces capacités:
+Financé par les sociétés Open Source [NLTechno https://www.nltechno.com] et [Teclib https://www.teclib.com], SellYourSaas v2 a atteint ces objectifs et est aujourd'hui en production chez plusieurs sociétés proposants des services Saas (DoliCloud, NovaFirstCloud, GLPI-Network, ...). Voici un synthèse de ces capacités:
 
     * Déploiment de n'importe quelle application WAMP. Gestion de multiples solutions différents en même temps.
     * Gestion de différents niveaux de tarifications
