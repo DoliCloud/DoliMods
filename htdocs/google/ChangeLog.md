@@ -1,9 +1,10 @@
 # ChangeLog GOOGLE MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a> 
 
 
-## 6.2
+## 6.2 unreleased
 
 - NEW Add filter on status "Active" for thirdparties
+- NEW Compatibility with v11
 
 
 ## 6.1.1
