@@ -189,7 +189,7 @@ if (preg_match('/^test/',$action))
 		$object->thirdparty=$tmpsoc;
 	}
 
-	$result=$object->add($user);
+	$result=$object->create($user);
 	if ($result < 0) $error++;
 
 	if (! $error)

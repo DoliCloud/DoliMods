@@ -149,7 +149,7 @@ if (preg_match('/^test/',$action))
 		$objectfortest->thirdparty=$tmpsoc;
 	}
 
-	$result=$objectfortest->add($user);
+	$result=$objectfortest->create($user);
 	if ($result < 0) $error++;
 
 	if (! $error)

@@ -57,7 +57,7 @@ $_authSubKeyFilePassphrase = null;
  *
  * @param	string		$clientid			Client ID
  * @param	string		$clientsecret		Client secret
- * @return				service
+ * @return	array                           Array
  * @deprecated Not used anymore ?
  */
 function getTokenFromWebApp($clientid, $clientsecret)
@@ -989,7 +989,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						}
 						else
 						{
-							$result=$object->add($fuser, 1);
+							$result=$object->create($fuser, 1);
 							if ($result > 0)
 							{
 								$ret='google:'.$event->getId();
