@@ -1044,15 +1044,15 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 					unset($object);
 				}
 
-				$pageToken = $events->getNextPageToken();
-				if ($pageToken && ($i < max))
+				$pageToken = $events->getNextPageToken();   // If $pageToken is set, it means we have more result than $maxResults = $max but we get only $maxResults
+				if ($pageToken && ($i < $max))
 				{
 					$optParams['pageToken'] = $pageToken;
-					$events = $service->events->listEvents($userlogin, $optParams);
+					$events = $service->events->listEvents($userlogin, $optParams);    // Load next page of results
 				}
 				else
 				{
-					break;
+					break; // exit loop
 				}
 			}
 		}
