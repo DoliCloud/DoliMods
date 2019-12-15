@@ -388,12 +388,12 @@ if (empty($id))
                 //print "<td>".$langs->trans("CheckKey")."</td>";
                 print "<td>".$langs->trans("Frequency")."</td>";
                 print "<td>".$langs->trans("MaxValue")."</td>";
-                print '<td align="center">'.$langs->trans("Activable")."</td>";
-                print '<td align="center">'.$langs->trans("LastStatus")."</td>";
-                print '<td align="center">'.$langs->trans("StatusSince")."</td>";
-                print '<td align="center">'.$langs->trans("FirstErrorDate")."</td>";
+                print '<td class="center">'.$langs->trans("Activable")."</td>";
+                print '<td class="center">'.$langs->trans("LastStatus")."</td>";
+                print '<td class="center">'.$langs->trans("StatusSince")."</td>";
+                print '<td class="center">'.$langs->trans("FirstErrorDate")."</td>";
                 print '<td>'.$langs->trans("FirstErrorText")."</td>";
-                print '<td align="center">'.$langs->trans("Graphics")."</td>";
+                print '<td class="center">'.$langs->trans("Graphics")."</td>";
                 //print '<td width="80px">&nbsp;</td>';
                 print '</tr>';
             }
@@ -411,18 +411,18 @@ if (empty($id))
             //print "<td>".$obj->checkkey."</td>";
             print "<td>".$obj->frequency."</td>";
             print "<td>".$obj->maxval."</td>";
-            print '<td align="center">'.yn($obj->active).'</td>';
-            print '<td align="center">';
+            print '<td class="center">'.yn($obj->active).'</td>';
+            print '<td class="center">';
             $probestatic->id=$obj->rowid;
             $probestatic->status=$obj->status;
             $probestatic->active=$obj->active;
             print $probestatic->getLibStatut(3);
             print "</td>";
-            print '<td align="center">';
+            print '<td class="center">';
             print dol_print_date($obj->lastreset,'%Y-%m-%d %H:%M:%S');
             print "</td>";
             // First error date
-            print '<td align="center">';
+            print '<td class="center">';
             //if ($obj->status == 0) print $langs->trans('ProbeNeverLaunched');
             //else
             if ($obj->status != 0) print dol_print_date($obj->oldesterrordate,'%Y-%m-%d %H:%M:%S');
@@ -434,7 +434,7 @@ if (empty($id))
             if ($obj->status != 0) print $form->textwithtooltip(dol_trunc($obj->oldesterrortext,20),$obj->oldesterrortext,1);
             print "</td>";
             // Graphics
-            print '<td align="center">';
+            print '<td class="center">';
             print '<a href="index.php?id='.$obj->rowid.'">'.img_picto($langs->trans("Show"),'graph@monitoring','height="24"').'</a>';
             print '</td>';
             /*print '<td align="right">';

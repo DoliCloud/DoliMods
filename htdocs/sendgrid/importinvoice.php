@@ -513,7 +513,7 @@ if ($action == 'refresh')
 		    print '<table class="noborder" width="100%">';
 	    	print '<tr class="liste_titre">';
 	    	print '<td>'.$langs->trans("Invoice").' SENDGRID</td>';
-	    	print '<td align="center">'.$langs->trans("Date").'</td>';
+	    	print '<td class="center">'.$langs->trans("Date").'</td>';
 	    	print '<td align="right">'.$langs->trans("AmountHT").'</td>';
 	    	print '<td align="right">'.$langs->trans("AmountTTC").'</td>';
 	    	print '<td align="right">'.$langs->trans("Currency").'</td>';

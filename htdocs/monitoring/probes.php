@@ -322,8 +322,8 @@ if ($action != 'edit')
     print "<td>".$langs->trans("Frequency")."</td>";
     print "<td>".$langs->trans("CheckKey")."</td>";
     print "<td>".$langs->trans("MaxValue")."</td>";
-    print '<td align="center">'.$langs->trans("Activable")."</td>";
-    //print '<td align="center">'.$langs->trans("Reports")."</td>";
+    print '<td class="center">'.$langs->trans("Activable")."</td>";
+    //print '<td class="center">'.$langs->trans("Reports")."</td>";
     print '<td width="80px">&nbsp;</td>';
     print '</tr>';
 
@@ -357,8 +357,8 @@ if ($action != 'edit')
             print "<td>".$obj->frequency."</td>";
             print "<td>".$obj->checkkey."</td>";
             print "<td>".$obj->maxval."</td>";
-            print '<td align="center">'.yn($obj->active)."</td>";
-            /*print '<td align="center">';
+            print '<td class="center">'.yn($obj->active)."</td>";
+            /*print '<td class="center">';
             if ($obj->active)
             {
                 print '<a href="index.php?id='.$obj->rowid.'">'.$langs->trans("Reports").'</a>';
