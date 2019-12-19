@@ -23,6 +23,7 @@ ModulePrestashopGetName = Prestashop Preview
 ModulePrestashopGetDesc = Add features to get summarized information on sales on a Prestashop eCommerce.
 ListOfPrestaShopSales=List of PrestaShop Sales
 GroupByCountryAndVatRate=Group by country and vat rate
+GroupByZoneAndVatRate=Group by zones
 RefundedOrCancelled=Refunded or cancelled
 OrderID=Order ID
 IsValid=Is valid?
@@ -47,13 +48,5 @@ About = About
 PrestashopGetAbout = About PrestashopGet
 PrestashopGetAboutPage = PrestashopGet about page
 
-#
-# Sample page
-#
-MyPageName = My page name
+OutOfEurope=Out of Europe
 
-#
-# Sample widget
-#
-MyWidget = My widget
-MyWidgetDescription = My widget description

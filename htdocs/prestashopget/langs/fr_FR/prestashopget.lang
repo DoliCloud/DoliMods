@@ -39,13 +39,4 @@ About = À propos
 PrestashopGetAbout = À propos de PrestashopGet
 PrestashopGetAboutPage = Page à propos de PrestashopGet
 
-#
-# Page d'exemple
-#
-MyPageName = Nom de ma page
-
-#
-# Box d'exemple
-#
-MyWidget = Mon widget
-MyWidgetDescription = Description de mon widget
+OutOfEurope=Hors d'europe
