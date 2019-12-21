@@ -92,7 +92,7 @@ dol_fiche_head($head, 'tabadsense', $langs->trans("GoogleTools"), -1);
 
 print '<div class="fichecenter">';
 
-print $langs->trans("GoogleAddPubOnLogonPage").'<br>';
+print '<span class="opacitymedium">'.$langs->trans("GoogleAddPubOnLogonPage").'</span><br>';
 print '<br>';
 
 

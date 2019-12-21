@@ -89,7 +89,7 @@ dol_fiche_head($head, 'tabanalytics', $langs->trans("GoogleTools"), -1);
 
 print '<div class="fichecenter">';
 
-print $langs->trans("GoogleAddAnalyticsOnLogonPage").'<br>';
+print '<span class="opacitymedium">'.$langs->trans("GoogleAddAnalyticsOnLogonPage").'</span><br>';
 print '<br>';
 
 
