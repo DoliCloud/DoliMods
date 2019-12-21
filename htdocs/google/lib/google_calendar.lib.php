@@ -266,7 +266,7 @@ function createEvent($client, $object, $login='primary')
 
 	$event->setSummary(trim($object->label));
 	$event->setLocation($object->location);
-	$event->setDescription(dol_string_nohtmltag($object->note, 0));
+	$event->setDescription(dol_string_nohtmltag(($object->note_public ? $object->note_public : $object->note), 0));
 
 	// Transparency 0=available, 1=busy
 	$transparency=isset($object->userassigned[$user->id]['transparency'])?$object->userassigned[$user->id]['transparency']:0;
@@ -409,7 +409,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 
 		$event->setSummary(trim($object->label));
 		$event->setLocation($object->location);
-		$event->setDescription(dol_string_nohtmltag($object->note, 0));
+		$event->setDescription(dol_string_nohtmltag(($object->note_public ? $object->note_public : $object->note), 0));
 
 		// Transparency 0=available, 1=busy
 		$transparency=isset($object->userassigned[$user->id]['transparency'])?$object->userassigned[$user->id]['transparency']:0;
