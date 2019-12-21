@@ -280,8 +280,8 @@ class GContact
         $google_nltechno_tag=getCommentIDTag();
         $idindolibarr=$this->dolID."/thirdparty";
 
-        $this->note_private = $dolContact->note_private;
-        if (strpos($this->note_private,$google_nltechno_tag) === false) $this->note_private .= "\n\n".$google_nltechno_tag.$idindolibarr;
+        $this->note_public = $dolContact->note_public;
+        if (strpos($this->note_public,$google_nltechno_tag) === false) $this->note_public .= "\n\n".$google_nltechno_tag.$idindolibarr;
 
         // Prepare the DOM for google
         $this->doc = new DOMDocument("1.0", "utf-8");
@@ -303,7 +303,7 @@ class GContact
         $el->appendChild($elfullName);
 
         // Note as comment and a custom field
-        $this->atomEntry->appendChild($this->doc->createElement('atom:content', google_html_convert_entities(dol_htmlentities($this->note_private))));
+        $this->atomEntry->appendChild($this->doc->createElement('atom:content', google_html_convert_entities(dol_htmlentities($this->note_public))));
         //$this->appendCustomField("Origin", 'Onelog');
 
         // Phones
@@ -403,8 +403,8 @@ class GContact
     	$google_nltechno_tag=getCommentIDTag();
     	$idindolibarr=$this->dolID."/contact";
 
-        $this->note_private = $dolContact->note_private;
-    	if (strpos($this->note_private,$google_nltechno_tag) === false) $this->note_private .= "\n\n".$google_nltechno_tag.$idindolibarr;
+        $this->note_public = $dolContact->note_public;
+    	if (strpos($this->note_public,$google_nltechno_tag) === false) $this->note_public .= "\n\n".$google_nltechno_tag.$idindolibarr;
 
     	// Prepare the DOM for google
     	$this->doc = new DOMDocument("1.0", "utf-8");
@@ -436,7 +436,7 @@ class GContact
     	}
 
         // Note as comment and a custom field
-    	$this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note_private));
+    	$this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note_public));
     	//$this->appendCustomField("Origin", 'Onelog');
 
     	// Phones
@@ -509,8 +509,8 @@ class GContact
     	$google_nltechno_tag=getCommentIDTag();
     	$idindolibarr=$this->dolID."/member";
 
-        $this->note_private = $dolContact->note_private;
-    	if (strpos($this->note_private,$google_nltechno_tag) === false) $this->note_private .= "\n\n".$google_nltechno_tag.$idindolibarr;
+        $this->note_public = $dolContact->note_public;
+    	if (strpos($this->note_public,$google_nltechno_tag) === false) $this->note_public .= "\n\n".$google_nltechno_tag.$idindolibarr;
 
     	// Prepare the DOM for google
     	$this->doc = new DOMDocument("1.0", "utf-8");
@@ -541,7 +541,7 @@ class GContact
     	}
 
     	// Note as comment and a custom field
-    	$this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note_private));
+    	$this->atomEntry->appendChild($this->doc->createElement('atom:content', $this->note_public));
     	//$this->appendCustomField("Origin", 'Onelog');
 
     	// Phones

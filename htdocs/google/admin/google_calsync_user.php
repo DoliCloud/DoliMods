@@ -154,9 +154,10 @@ if (preg_match('/^test/',$action))
 
 	if (! $error)
 	{
-		$objectfortest->label='New label';
-		$objectfortest->location='New location';
-		$objectfortest->note='New note';
+		$objectfortest->label = 'New label';
+		$objectfortest->location = 'New location';
+		$objectfortest->note = "New 'public' note";
+		$objectfortest->note_public = "New 'public' note";
 		//$objectfortest->datep+=$testoffset;
 		//$objectfortest->datef+=$testoffset;
 
@@ -319,6 +320,7 @@ if ($action == 'pushallevents')
 				$objecttmp->socid=$obj->fk_soc;
 				$objecttmp->contactid=$obj->fk_contact;
 				$objecttmp->note=$obj->note;
+				$objecttmp->note_public=$obj->note_public;
 
 				// Event label can now include company and / or contact info, see configuration
 				google_complete_label_and_note($objecttmp, $langs);

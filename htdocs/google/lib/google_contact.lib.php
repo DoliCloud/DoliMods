@@ -96,7 +96,7 @@ function googleCreateContact($client, $object, $useremail='default')
 
 
 		// Uncomment to test when all fields are empty
-		//$object->email='';	$object->url=''; $object->address=''; $object->zip=''; $object->town=''; $object->note=''; unset($object->country_id);
+		//$object->email='';	$object->url=''; $object->address=''; $object->zip=''; $object->town=''; $object->note_public=''; unset($object->country_id);
 
 
 		// Name
@@ -256,7 +256,7 @@ function googleCreateContact($client, $object, $useremail='default')
 		//...
 
 		// Comment
-		$tmpnote=$object->note_private;
+		$tmpnote=$object->note_public;
 		if (strpos($tmpnote,$google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$idindolibarr;
 		$note = $doc->createElement('atom:content',google_html_convert_entities($tmpnote));
 		$entry->appendChild($note);
@@ -534,7 +534,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 		}
 
 		// Comment
-		$tmpnote=$object->note_private;
+		$tmpnote=$object->note_public;
 		if (strpos($tmpnote, $google_nltechno_tag) === false) $tmpnote.="\n\n".$google_nltechno_tag.$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
 		$xml->content=google_html_convert_entities($tmpnote);
 

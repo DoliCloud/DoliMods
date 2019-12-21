@@ -174,7 +174,7 @@ if (preg_match('/^test/',$action))
     	$object->name='Test Synchro Thirdparty & Co (can be deleted)';
 	    $object->lastname='Thirdparty (can be deleted)';
 	    $object->firstname='Test Synchro';
-	    $object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
+	    $object->note_public="New 'public' note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>";
 	    /*$object->code_client=-1;
 	    $object->code_fournisseur=-1;*/
 
@@ -193,7 +193,7 @@ if (preg_match('/^test/',$action))
     	$object->name='Test Synchro Contact & Co (can be deleted)';
     	$object->lastname='Contact (can be deleted)';
     	$object->firstname='Test Synchro';
-	    $object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
+	    $object->note_public="New 'public' note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>";
     	/*$object->code_client=-1;
     	 $object->code_fournisseur=-1;*/
     	$result=$object->create($user);
@@ -205,7 +205,7 @@ if (preg_match('/^test/',$action))
     	$object->name='Test Synchro Member & Co (can be deleted)';
     	$object->lastname='Member (can be deleted)';
     	$object->firstname='Test Synchro';
-	    $object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
+	    $object->note_public="New 'public' note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>";
     	/*$object->code_client=-1;
     	 $object->code_fournisseur=-1;*/
     	$result=$object->create($user);
@@ -222,7 +222,7 @@ if (preg_match('/^test/',$action))
 		    $object->firstname='Test Synchro new';
 		    $object->email='newemail@newemail.com';
 		    $object->url='www.newspecimen.com';
-		    $object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
+		    $object->note_public="New 'public' note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>";
 		    $object->street='New street';
 		    $object->town='New town';
 
@@ -245,7 +245,7 @@ if (preg_match('/^test/',$action))
 	    	$object->firstname='Test Synchro new';
 	    	$object->email='newemail@newemail.com';
 		    $object->url='www.newspecimen.com';
-	    	$object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
+	    	$object->note_public="New 'public' note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>";
 		    $object->street='New street';
 		    $object->town='New town';
 	    	$result=$object->update($object->id, $user);
@@ -261,7 +261,7 @@ if (preg_match('/^test/',$action))
 	    	$object->firstname='Test Synchro new';
 	    	$object->email='newemail@newemail.com';
 	    	$object->url='www.newspecimen.com';
-	    	$object->note_private='New private note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>';
+	    	$object->note_public="New 'public' note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>";
 	    	$object->street='New street';
 	    	$object->town='New town';
 	    	$result=$object->update($user);

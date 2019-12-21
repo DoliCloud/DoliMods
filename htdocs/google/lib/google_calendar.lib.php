@@ -540,7 +540,7 @@ function deleteEventById($client, $eventId, $login='primary', $service=null)
 
 
 /**
- * Complete $object to change ->label and ->note before pushing event to Google Calendar.
+ * Complete $object to change ->label and ->note_public before pushing event to Google Calendar.
  *
  * @param 	Object		$object		Object event to complete
  * @param	Translate	$langs		Language object
@@ -573,6 +573,7 @@ function google_complete_label_and_note(&$object, $langs)
 
 			$urltoelem=$urlwithroot.$pagename.'?socid='.$thirdparty->id;
 			$object->note.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
+			$object->note_public.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
 		}
 	}
 	if (($object->contactid > 0 || (! empty($object->contact->id) && $object->contact->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
@@ -592,6 +593,7 @@ function google_complete_label_and_note(&$object, $langs)
 
 			$urltoelem=$urlwithroot.'/contact/card.ph?id='.$contact->id;
 			$object->note.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToContact").': '.$urltoelem;
+			$object->note_public.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToContact").': '.$urltoelem;
 		}
 	}
 	$object->label = $eventlabel;
@@ -734,6 +736,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						//$object->socid=$obj->fk_soc;
 						//$object->contactid=$obj->fk_contact;
 						$object->note=trim(preg_replace('/'.preg_quote('-----+++++-----','/').'.*$/s', '', $event->getDescription()));
+						$object->note_public=trim(preg_replace('/'.preg_quote('-----+++++-----','/').'.*$/s', '', $event->getDescription()));
 
 						// Organizer
 						/*$organizer=$event->getOrganizer();
@@ -900,6 +903,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						//$object->socid=$obj->fk_soc;
 						//$object->contactid=$obj->fk_contact;
 						$object->note=trim(preg_replace('/'.preg_quote('-----+++++-----','/').'.*$/s', '', $event->getDescription()));
+						$object->note_public=trim(preg_replace('/'.preg_quote('-----+++++-----','/').'.*$/s', '', $event->getDescription()));
 
 						// Organizer
 						/*$organizer=$event->getOrganizer();
