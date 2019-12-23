@@ -6,6 +6,7 @@
 - NEW Add filter on status "Active" for thirdparties
 - NEW Compatibility with v11
 - Use the public note as note sync for events and contacts.
+- FIX encoding of ' when pushing a google event
 
 
 ## 6.1.1
