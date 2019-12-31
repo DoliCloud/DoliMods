@@ -106,7 +106,7 @@ if ($action == 'dolibarrping')
     else
     {
         $maxsize = (empty($conf->global->CAPTURE_SERVER_MAX_SIZE_OF_CAPTURED_CONTENT) ? 1024 : $conf->global->CAPTURE_SERVER_MAX_SIZE_OF_CAPTURED_CONTENT);
-        if (!empty($_POST) && strlen($_POST) > $maxsize) {
+        if (is_array($_POST) && strlen(join('', $_POST)) > $maxsize) {
             $contenttoinsert = 'Content larger than limit of '.$maxsize;
         } else {
             $contenttoinsert = json_encode($_POST);
