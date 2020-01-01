@@ -115,7 +115,7 @@ if ($action == 'dolibarrping')
         // Insert into database using implicit Transactions
         $captureserver = new CaptureServer($db);
         $captureserver->type = $action;
-        $captureserver->ref = $action.' '.$hash_unique_id;
+        $captureserver->ref = $action.'_'.$hash_unique_id;
         $captureserver->label = $action.' '.$hash_unique_id.' '.$version;
         $captureserver->content = $contenttoinsert;
         $captureserver->qty = 1;
