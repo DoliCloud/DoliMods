@@ -131,12 +131,12 @@ if ($action == 'dolibarrping')
             $captureserver->update($user);
         }
 
-        print "\n".'<br>Event added';
+        print "<br>\n".'Event added';
     }
 }
 else
 {
-    print "\n".'<br>action not supported';
+    print "<br>\n".'Action not supported';
 }
 
 $db->close();
