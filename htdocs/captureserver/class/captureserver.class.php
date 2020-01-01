@@ -418,6 +418,8 @@ class CaptureServer extends CommonObject
 	 */
 	public function update(User $user, $notrigger = false)
 	{
+	    $this->tms = dol_now();
+
 		return $this->updateCommon($user, $notrigger);
 	}
 
