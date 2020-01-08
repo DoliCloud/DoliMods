@@ -244,6 +244,7 @@ class modRevertInvoice extends DolibarrModules
         $r=0;
         // Add here entries to declare new permissions
         /* BEGIN MODULEBUILDER PERMISSIONS */
+        /*
         $this->rights[$r][0] = $this->numero + $r;	// Permission id (must not be already used)
         $this->rights[$r][1] = 'Read objects of RevertInvoice';	// Permission label
         $this->rights[$r][4] = 'read';				// In php code, permission will be checked by test if ($user->rights->revertinvoice->level1->level2)
@@ -259,6 +260,7 @@ class modRevertInvoice extends DolibarrModules
         $this->rights[$r][4] = 'delete';				// In php code, permission will be checked by test if ($user->rights->revertinvoice->level1->level2)
         $this->rights[$r][5] = '';				    // In php code, permission will be checked by test if ($user->rights->revertinvoice->level1->level2)
         $r++;
+        */
         /* END MODULEBUILDER PERMISSIONS */
 
         // Main menu entries to add
