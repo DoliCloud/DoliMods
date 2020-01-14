@@ -596,8 +596,10 @@ function google_complete_label_and_note(&$object, $langs)
 			if (! empty($contact->fax)) $more.="\n".$langs->trans("Fax").': '.$contact->fax;
 
 			$urltoelem=$urlwithroot.'/contact/card.ph?id='.$contact->id;
+			$object->note_public = ($object->note_public ? $object->note_public : $object->note);    // For backward compatibility
+
 			$object->note.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToContact").': '.$urltoelem;
-			$object->note_public = ($object->note_public ? $object->note_public : $object->note)."\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToContact").': '.$urltoelem;
+			$object->note_public.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToContact").': '.$urltoelem;
 		}
 	}
 	$object->label = $eventlabel;
