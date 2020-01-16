@@ -360,7 +360,7 @@ class InterfaceEcotaxdeee
 				}
 				else
 				{
-					$result=$tmpecotaxline[$ecocateg]->delete();
+					$result=$tmpecotaxline[$ecocateg]->delete($user);
 				}
 
 				if ($result <= 0)
