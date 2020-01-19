@@ -1,9 +1,9 @@
 # Dolibarr language file - en_US - zipautofillfr
 CHARSET=UTF-8
-Module101270Name=ZipAutofill FR/BE
-Module101270Desc=Add all zip codes for france and belgium into Dolibarr tables to have full zip/town autocomplete. Add a dictionnary to edit them.
+Module101270Name=ZipAutofill FR/BE/CH
+Module101270Desc=Add all zip codes for France, Belgium, Switzerland into Dolibarr tables to have full zip/town autocomplete. Add a dictionnary to edit them.
 ZipAutoFillSetup=Setup of module ZipAutoFillFr
-ZipAutoFillDesc=This modules load all zip codes and town (for FR and BE) into a table. Dolibarr then use it to suggest zip code or town by an autocompletion of address fields. An entry into menu Home - Setup - Dictionnary to edit zip and town is also added.
+ZipAutoFillDesc=This modules load all zip codes and town (for FR, BE, CH) into a table. Dolibarr then use it to suggest zip code or town by an autocompletion of address fields. An entry into menu Home - Setup - Dictionnary to edit zip and town is also added.
 ZipAutoFillNoSetup=There is no specific things to setup. This module is immediatly available at activation.
 AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...
