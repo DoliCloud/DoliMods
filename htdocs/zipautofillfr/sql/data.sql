@@ -42861,7 +42861,7 @@ INSERT IGNORE INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('1430', 'Rebecq', NULL, 2),
 ('1430', 'Rebecq-Rognon', NULL, 2),
 ('1435', 'Corbais', NULL, 2),
-('1435', 'H?villers', NULL, 2),
+('1435', 'Hévillers', NULL, 2),
 ('1435', 'Mont-Saint-Guibert', NULL, 2),
 ('1440', 'Braine-le-Ch?teau', NULL, 2),
 ('1440', 'Wauthier-Braine', NULL, 2),
