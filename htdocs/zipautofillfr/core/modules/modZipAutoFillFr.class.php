@@ -85,11 +85,11 @@ class modZipAutoFillFr extends DolibarrModules
             'langs'=>'',
             'tabname'=>array(MAIN_DB_PREFIX."c_ziptown"),
             'tablib'=>array("Zip and town"),
-            'tabsql'=>array('SELECT f.rowid, f.zip, f.town, f.fk_pays, p.code as pays_code, p.label as pays, f.active FROM '.MAIN_DB_PREFIX.'c_ziptown as f, '.MAIN_DB_PREFIX.'c_country as p WHERE f.fk_pays=p.rowid'),
+            'tabsql'=>array('SELECT f.rowid, f.zip, f.town, f.fk_pays, c.code as country_code, c.label as country, f.active FROM '.MAIN_DB_PREFIX.'c_ziptown as f, '.MAIN_DB_PREFIX.'c_country as c WHERE f.fk_pays=c.rowid'),
             'tabsqlsort'=>array("zip ASC, town ASC"),
-            'tabfield'=>array("zip,town"),
-            'tabfieldvalue'=>array("zip,town"),
-            'tabfieldinsert'=>array("zip,town"),
+            'tabfield'=>array("zip,town,country"),
+            'tabfieldvalue'=>array("zip,town,country"),
+            'tabfieldinsert'=>array("zip,town,fk_pays"),
             'tabrowid'=>array(),
             'tabcond'=>array(empty($conf->zipautofillfr->enabled)?0:$conf->zipautofillfr->enabled)
         );
