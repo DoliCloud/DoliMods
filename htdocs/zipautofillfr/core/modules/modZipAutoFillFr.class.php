@@ -67,7 +67,7 @@ class modZipAutoFillFr extends DolibarrModules
 
 		// Dependances
 		$this->depends = array();
-		$this->need_dolibarr_version = array(3,7,-3);   // Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(6,0,-3);   // Minimum version of Dolibarr required by module
 		$this->langfiles = array('zipautofillfr@zipautofillfr');
 
 		// Config pages
