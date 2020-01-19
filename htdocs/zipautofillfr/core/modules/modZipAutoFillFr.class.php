@@ -58,7 +58,7 @@ class modZipAutoFillFr extends DolibarrModules
 		$this->description = "Add zip codes and towns into database (France and Belgium)";
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.7';
+		$this->version = '4.0';
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->picto='generic';
 

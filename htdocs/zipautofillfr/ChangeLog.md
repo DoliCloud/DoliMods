@@ -1,7 +1,7 @@
 # ChangeLog MODULE ZIPAUTOFILL FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
-## 1.1
+## 4.0
 
 Add Switzerland zip codes
 
