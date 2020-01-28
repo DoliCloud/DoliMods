@@ -1,6 +1,10 @@
 # ChangeLog MODULE CONCATPDF FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+# Unreleased
+
+FIX: Use page size in setup
+
 ## 6.0.2
 
 FIX: Can generate with empty selection
