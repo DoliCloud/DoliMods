@@ -49,8 +49,8 @@ if ($action == 'save')
 {
     $db->begin();
 
-    $res=dolibarr_set_const($db,'ECOTAXDEEE_USE_ON_CUSTOMER_ORDER',trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_ORDER"]),'chaine',0,'',$conf->entity);
     $res=dolibarr_set_const($db,'ECOTAXDEEE_USE_ON_PROPOSAL',trim($_POST["ECOTAXDEEE_USE_ON_PROPOSAL"]),'chaine',0,'',$conf->entity);
+    $res=dolibarr_set_const($db,'ECOTAXDEEE_USE_ON_CUSTOMER_ORDER',trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_ORDER"]),'chaine',0,'',$conf->entity);
     $res=dolibarr_set_const($db,'ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE',trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE"]),'chaine',0,'',$conf->entity);
     $res=dolibarr_set_const($db,'ECOTAXDEEE_LABEL_LINE',trim($_POST["ECOTAXDEEE_LABEL_LINE"]),'chaine',0,'',$conf->entity);
     $res=dolibarr_set_const($db,'ECOTAXDEEE_DOC_FOOTER',trim($_POST["ECOTAXDEEE_DOC_FOOTER"]),'chaine',0,'',$conf->entity);
@@ -109,20 +109,20 @@ print '<tr class="liste_titre">';
 print '<td>'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
-// GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")
-print '<tr class="oddeven">';
-print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")."</td>";
-print "<td>";
-$selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER;
-print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER",$selectedvalue,1);
-print "</td>";
-print "</tr>";
 // GETPOST("ECOTAXDEEE_USE_ON_PROPOSAL")
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_PROPOSAL")."</td>";
 print "<td>";
 $selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_PROPOSAL;
 print $form->selectyesno("ECOTAXDEEE_USE_ON_PROPOSAL",$selectedvalue,1);
+print "</td>";
+print "</tr>";
+// GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")
+print '<tr class="oddeven">';
+print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")."</td>";
+print "<td>";
+$selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER;
+print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER",$selectedvalue,1);
 print "</td>";
 print "</tr>";
 // GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")
