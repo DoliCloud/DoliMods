@@ -4,6 +4,7 @@
 # Unreleased
 
 FIX: Use page size in setup
+FIX: Minimum version is 8.0
 
 ## 6.0.2
 
