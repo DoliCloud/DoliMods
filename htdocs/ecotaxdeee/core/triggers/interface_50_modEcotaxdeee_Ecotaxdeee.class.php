@@ -384,13 +384,13 @@ class InterfaceEcotaxdeee
 
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
-				// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $date_start='', $date_end='', $ventil=0, $info_bits=0, $fk_remise_except='', $price_base_type='HT', $pu_ttc=0, $type=0, $rang=-1, $special_code=0, $origin='', $origin_id=0, $fk_parent_line=0, $fk_fournprice=null, $pa_ht=0, $label='',$array_options=0)
-				if ($parentobject->table_element == 'facture')  $result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, 0, 0, $product_id, 0, '', '', 0, 0, '', 'HT', 0, 1, $rang, $special_code, '', 0, 0, null, 0, '', 0);
-				// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $info_bits=0, $fk_remise_except=0, $price_base_type='HT', $pu_ttc=0, $date_start='', $date_end='', $type=0, $rang=-1, $special_code=0, $fk_parent_line=0, $fk_fournprice=null, $pa_ht=0, $label='',$array_options=0)
-				if ($parentobject->table_element == 'commande') $result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, 0, 0, $product_id, 0, 0, 0, 'HT', '', '', '', 1, $rang, $special_code, '', 0, 0, null, 0, 0);
 				// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $price_base_type='HT', $pu_ttc=0, $info_bits=0, $type=0, $rang=-1, $special_code=0, $fk_parent_line=0, $fk_fournprice=0, $pa_ht=0, $label='',$date_start='', $date_end='',$array_options=0)
-				if ($parentobject->table_element == 'propal')   $result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, 0, 0, $product_id, 0, 'HT', 0, 0, 1, $rang, $special_code, '', 0, 0, null, '', '', 0);
-                // TODO order_supplier and invoice_supplier
+				if ($parentobject->table_element == 'propal')   $result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, 0, 0, $product_id, 0, 'HT', 0, 0, 1, $rang, $special_code, '', 0, $ecoamount[$ecocateg], null, '', '', 0);
+				// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $info_bits=0, $fk_remise_except=0, $price_base_type='HT', $pu_ttc=0, $date_start='', $date_end='', $type=0, $rang=-1, $special_code=0, $fk_parent_line=0, $fk_fournprice=null, $pa_ht=0, $label='',$array_options=0)
+				if ($parentobject->table_element == 'commande') $result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, 0, 0, $product_id, 0, 0, 0, 'HT', '', '', '', 1, $rang, $special_code, '', 0, $ecoamount[$ecocateg], null, 0, 0);
+				// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $date_start='', $date_end='', $ventil=0, $info_bits=0, $fk_remise_except='', $price_base_type='HT', $pu_ttc=0, $type=0, $rang=-1, $special_code=0, $origin='', $origin_id=0, $fk_parent_line=0, $fk_fournprice=null, $pa_ht=0, $label='',$array_options=0)
+				if ($parentobject->table_element == 'facture')  $result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, 0, 0, $product_id, 0, '', '', 0, 0, '', 'HT', 0, 1, $rang, $special_code, '', 0, 0, null, $ecoamount[$ecocateg], '', 0);
+				// TODO order_supplier and invoice_supplier
 
 				//var_dump($result);exit;
 				if ($result <= 0)

@@ -4,6 +4,8 @@
 ## UNRELEASED
 
 - Avoid duplicate line of ecotax when cloning an object with ecotax.
+- Autofill the margin to zero if module margin is enabled on ecotax.
+
 
 ## 4.1.1
 
