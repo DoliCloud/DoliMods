@@ -114,24 +114,32 @@ if ($action == 'dolibarrping')
 
         // Insert into database using implicit Transactions
         $captureserver = new CaptureServer($db);
-        $captureserver->type = $action;
-        $captureserver->ref = $action.'_'.$hash_unique_id;
-        $captureserver->label = $action.' '.$hash_unique_id.' '.$version;
-        $captureserver->content = $contenttoinsert;
-        $captureserver->qty = 1;
-        $captureserver->status = 1;
-        $captureserver->comment = 'Ping received at '.dol_print_date(dol_now() , 'dayhourlog').' - from hash '.$hash_unique_id.' - version '.$version;
+        $result = $captureserver->fetch(0, $action.'_'.$hash_unique_id);
 
-        $result = $captureserver->create($user);
-        // Ignore duplicates
-        if ($db->lasterrno == 'DB_ERROR_RECORD_ALREADY_EXISTS')
+        if ($result > 0)
         {
-            $captureserver->fetch(0, $captureserver->ref);
-            $captureserver->comment = 'Ping received at '.dol_print_date(dol_now() , 'dayhourlog').', version '.$version;
+            $captureserver->comment = 'Ping received for update at '.dol_print_date(dol_now() , 'dayhourlog').' - from hash '.$hash_unique_id.' - version '.$version;
             $captureserver->update($user);
+
+            print "<br>\n".'Event updated';
+        }
+        elseif ($result == 0)
+        {
+            $captureserver->type = $action;
+            $captureserver->ref = $action.'_'.$hash_unique_id;
+            $captureserver->label = $action.' '.$hash_unique_id.' '.$version;
+            $captureserver->content = $contenttoinsert;
+            $captureserver->qty = 1;
+            $captureserver->status = 1;
+            $captureserver->comment = 'Ping received at '.dol_print_date(dol_now() , 'dayhourlog').' - from hash '.$hash_unique_id.' - version '.$version;
+            $result = $captureserver->create($user);
+
+            print "<br>\n".'Event added';
+        }
+        else {
+
         }
 
-        print "<br>\n".'Event added';
     }
 }
 else
