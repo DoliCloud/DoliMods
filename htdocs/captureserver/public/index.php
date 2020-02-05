@@ -135,7 +135,7 @@ if ($action == 'dolibarrping')
 
                     $statsd = new DataDog\DogStatsd($arrayconfig);
 
-                    $phpversion = join('.', explode('.', GETPOST('php_version', 'alphanohtml')));
+                    $phpversion = join('.', array_slice(explode('.', GETPOST('php_version', 'alphanohtml')), 0, 2));
                     $dolversion = GETPOST('version', 'alphanohtml');
 
                     $arraytags=array('version'=>$dolversion, 'dbtype'=>GETPOST('dbtype', 'alphanohtml'), 'country_code'=>GETPOST('country_code', 'aZ09'), 'php_version'=>$phpversion);
@@ -177,7 +177,7 @@ if ($action == 'dolibarrping')
 
                     $statsd = new DataDog\DogStatsd($arrayconfig);
 
-                    $phpversion = join('.', explode('.', GETPOST('php_version', 'alphanohtml')));
+                    $phpversion = join('.', array_slice(explode('.', GETPOST('php_version', 'alphanohtml')), 0, 2));
                     $dolversion = GETPOST('version', 'alphanohtml');
 
                     $arraytags=array('version'=>$dolversion, 'dbtype'=>GETPOST('dbtype', 'alphanohtml'), 'country_code'=>GETPOST('country_code', 'aZ09'), 'php_version'=>$phpversion);
