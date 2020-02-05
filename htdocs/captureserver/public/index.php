@@ -135,7 +135,10 @@ if ($action == 'dolibarrping')
 
                     $statsd = new DataDog\DogStatsd($arrayconfig);
 
-                    $arraytags=array('version'=>GETPOST('version'), 'dbtype'=>GETPOST('dbtype'), 'country_code'=>GETPOST('country_code'), 'php_version'=>GETPOST('php_version'));
+                    $phpversion = join('.', explode('.', GETPOST('php_version', 'alphanohtml')));
+                    $dolversion = GETPOST('version', 'alphanohtml');
+
+                    $arraytags=array('version'=>$dolversion, 'dbtype'=>GETPOST('dbtype', 'alphanohtml'), 'country_code'=>GETPOST('country_code', 'aZ09'), 'php_version'=>$phpversion);
 
                     dol_syslog("Send info to datadog");
 
@@ -174,7 +177,10 @@ if ($action == 'dolibarrping')
 
                     $statsd = new DataDog\DogStatsd($arrayconfig);
 
-                    $arraytags=array('version'=>GETPOST('version', 'alphanohtml'), 'dbtype'=>GETPOST('dbtype', 'alphanohtml'), 'country_code'=>GETPOST('country_code', 'aZ09'), 'php_version'=>GETPOST('php_version', 'alphanohtml'));
+                    $phpversion = join('.', explode('.', GETPOST('php_version', 'alphanohtml')));
+                    $dolversion = GETPOST('version', 'alphanohtml');
+
+                    $arraytags=array('version'=>$dolversion, 'dbtype'=>GETPOST('dbtype', 'alphanohtml'), 'country_code'=>GETPOST('country_code', 'aZ09'), 'php_version'=>$phpversion);
 
                     dol_syslog("Send info to datadog");
 
