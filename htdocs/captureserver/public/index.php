@@ -125,7 +125,7 @@ if ($action == 'dolibarrping')
             if (! empty($conf->global->CAPTURESERVER_DATADOG_ENABLED))
             {
                 try {
-                    dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+                    dol_include_once('/captureserver/core/includes/php-datadogstatsd/src/DogStatsd.php');
 
                     $arrayconfig=array();
                     if (! empty($conf->global->CAPTURESERVER_DATADOG_APIKEY))
@@ -143,7 +143,7 @@ if ($action == 'dolibarrping')
                 }
                 catch(Exception $e)
                 {
-
+                    dol_syslog("Error in sending info to datadog", LOG_WARNING);
                 }
             }
 
@@ -164,7 +164,7 @@ if ($action == 'dolibarrping')
             if (! empty($conf->global->CAPTURESERVER_DATADOG_ENABLED))
             {
                 try {
-                    dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+                    dol_include_once('/captureserver/core/includes/php-datadogstatsd/src/DogStatsd.php');
 
                     $arrayconfig=array();
                     if (! empty($conf->global->CAPTURESERVER_DATADOG_APIKEY))
@@ -182,7 +182,7 @@ if ($action == 'dolibarrping')
                 }
                 catch(Exception $e)
                 {
-
+                    dol_syslog("Error in sending info to datadog", LOG_WARNING);
                 }
             }
 
