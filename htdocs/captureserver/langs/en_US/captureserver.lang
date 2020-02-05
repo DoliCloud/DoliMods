@@ -16,10 +16,7 @@
 #
 # Generic
 #
-
-# Module label 'ModuleCaptureServerName'
 ModuleCaptureServerName = CaptureServer
-# Module description 'ModuleCaptureServerDesc'
 ModuleCaptureServerDesc = CaptureServer description
 
 #
@@ -33,8 +30,6 @@ CAPTURESERVER_MYPARAM1Tooltip = My param 1 tooltip
 CAPTURESERVER_MYPARAM2=My param 2
 CAPTURESERVER_MYPARAM2Tooltip=My param 2 tooltip
 
-ListOfCapturedEvents=List of captured events
-
 #
 # About page
 #
@@ -43,4 +38,6 @@ CaptureServerAbout = About CaptureServer
 CaptureServerAboutPage = CaptureServer about page
 
 
+ListOfCapturedEvents=List of captured events
 EndPointOfCaptureServer=Endpoint provided by CaptureServer module:<br>%s
+ContentOfMessageReceived=Content of message received

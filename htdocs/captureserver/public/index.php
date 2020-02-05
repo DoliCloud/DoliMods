@@ -121,6 +121,32 @@ if ($action == 'dolibarrping')
             $captureserver->comment = 'Ping received for update at '.dol_print_date(dol_now() , 'dayhourlog').' - from hash '.$hash_unique_id.' - version '.$version;
             $captureserver->update($user);
 
+            // Send to DataDog (metric + event)
+            if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
+            {
+                try {
+                    dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+
+                    $arrayconfig=array();
+                    if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+                    {
+                        $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+                    }
+
+                    $statsd = new DataDog\DogStatsd($arrayconfig);
+
+                    $arraytags=array('version'=>GETPOST('version'), 'dbtype'=>GETPOST('dbtype'), 'country_code'=>GETPOST('country_code'), 'php_version'=>GETPOST('php_version'));
+
+                    dol_syslog("Send info to datadog");
+
+                    $statsd->increment('captureserver.dolibarrping-update', 1, $arraytags);
+                }
+                catch(Exception $e)
+                {
+
+                }
+            }
+
             print "<br>\n".'Event updated';
         }
         elseif ($result == 0)
@@ -133,6 +159,32 @@ if ($action == 'dolibarrping')
             $captureserver->status = 1;
             $captureserver->comment = 'Ping received at '.dol_print_date(dol_now() , 'dayhourlog').' - from hash '.$hash_unique_id.' - version '.$version;
             $result = $captureserver->create($user);
+
+            // Send to DataDog (metric + event)
+            if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
+            {
+                try {
+                    dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
+
+                    $arrayconfig=array();
+                    if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+                    {
+                        $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+                    }
+
+                    $statsd = new DataDog\DogStatsd($arrayconfig);
+
+                    $arraytags=array('version'=>GETPOST('version', 'alphanohtml'), 'dbtype'=>GETPOST('dbtype', 'alphanohtml'), 'country_code'=>GETPOST('country_code', 'aZ09'), 'php_version'=>GETPOST('php_version', 'alphanohtml'));
+
+                    dol_syslog("Send info to datadog");
+
+                    $statsd->increment('captureserver.dolibarrping-add', 1, $arraytags);
+                }
+                catch(Exception $e)
+                {
+
+                }
+            }
 
             print "<br>\n".'Event added';
         }
