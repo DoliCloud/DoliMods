@@ -119,6 +119,7 @@ if ($action == 'dolibarrping')
         if ($result > 0)
         {
             $captureserver->comment = 'Ping received for update at '.dol_print_date(dol_now() , 'dayhourlog').' - from hash '.$hash_unique_id.' - version '.$version;
+            $captureserver->content = $contenttoinsert;
             $captureserver->update($user);
 
             // Send to DataDog (metric + event)
