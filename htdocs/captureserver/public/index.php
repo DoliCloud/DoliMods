@@ -122,15 +122,15 @@ if ($action == 'dolibarrping')
             $captureserver->update($user);
 
             // Send to DataDog (metric + event)
-            if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
+            if (! empty($conf->global->CAPTURESERVER_DATADOG_ENABLED))
             {
                 try {
                     dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
 
                     $arrayconfig=array();
-                    if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+                    if (! empty($conf->global->CAPTURESERVER_DATADOG_APIKEY))
                     {
-                        $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+                        $arrayconfig=array('apiKey'=>$conf->global->CAPTURESERVER_DATADOG_APIKEY, 'app_key' => $conf->global->CAPTURESERVER_DATADOG_APPKEY);
                     }
 
                     $statsd = new DataDog\DogStatsd($arrayconfig);
@@ -161,15 +161,15 @@ if ($action == 'dolibarrping')
             $result = $captureserver->create($user);
 
             // Send to DataDog (metric + event)
-            if (! empty($conf->global->SELLYOURSAAS_DATADOG_ENABLED))
+            if (! empty($conf->global->CAPTURESERVER_DATADOG_ENABLED))
             {
                 try {
                     dol_include_once('/sellyoursaas/core/includes/php-datadogstatsd/src/DogStatsd.php');
 
                     $arrayconfig=array();
-                    if (! empty($conf->global->SELLYOURSAAS_DATADOG_APIKEY))
+                    if (! empty($conf->global->CAPTURESERVER_DATADOG_APIKEY))
                     {
-                        $arrayconfig=array('apiKey'=>$conf->global->SELLYOURSAAS_DATADOG_APIKEY, 'app_key' => $conf->global->SELLYOURSAAS_DATADOG_APPKEY);
+                        $arrayconfig=array('apiKey'=>$conf->global->CAPTURESERVER_DATADOG_APIKEY, 'app_key' => $conf->global->CAPTURESERVER_DATADOG_APPKEY);
                     }
 
                     $statsd = new DataDog\DogStatsd($arrayconfig);
