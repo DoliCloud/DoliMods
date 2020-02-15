@@ -576,8 +576,10 @@ function google_complete_label_and_note(&$object, $langs)
 			$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
 
 			$urltoelem=$urlwithroot.$pagename.'?socid='.$thirdparty->id;
+			$object->note_public = ($object->note_public ? $object->note_public : $object->note);    // For backward compatibility
+
 			$object->note.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
-			$object->note_public = ($object->note_public ? $object->note_public : $object->note)."\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
+			$object->note_public.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
 		}
 	}
 	if (($object->contactid > 0 || (! empty($object->contact->id) && $object->contact->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
