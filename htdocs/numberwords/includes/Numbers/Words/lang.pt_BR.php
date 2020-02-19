@@ -383,7 +383,10 @@ class Numbers_Words_pt_BR extends Numbers_Words
          */
         reset($chunks);
         do {
-            list(,$chunk) = each($chunks);
+        	$chunk = '';
+        	foreach($chunks as $tmpchunk) {
+        		$chunk = $tmpchunk;
+        	}
         } while ($chunk === '000');
 
         if (($chunk < 100) || !($chunk % 100)) {
