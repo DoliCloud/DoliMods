@@ -9,7 +9,7 @@ MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?se
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
 CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
-ClickToOpenChat=Click to open Chat.
+ClickToOpenChat=Click to open Chat
 ClickToCloseChat=Chat is available on bottom of page. Click to close Chat.
 TAWKTO_ID=TawkTo ID of support provider
 TAWKTO_IDTooltip=Enter here the TawkTo ID provided by the support center that offer its online support.
