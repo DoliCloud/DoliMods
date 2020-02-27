@@ -97,7 +97,7 @@ if (! empty($conf->global->OVH_OLDAPI))
     if (empty($conf->global->OVHSMS_SOAPURL))
     {
         $langs->load("errors");
-        $mesg='<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
+        $mesg='<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete", 'ovh').'</div>';
     }
     else $wsdlovh = $conf->global->OVHSMS_SOAPURL;
 }
@@ -105,7 +105,8 @@ else
 {
     if (empty($conf->global->OVHCONSUMERKEY))
     {
-        print '<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
+    	$langs->load("errors");
+    	print '<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete", 'ovh').'</div>';
         llxFooter();
         exit;
     }
