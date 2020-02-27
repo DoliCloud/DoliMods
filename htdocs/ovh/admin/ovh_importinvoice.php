@@ -154,8 +154,7 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
         print '</td></tr>';
     */
 
-    $var = !$var;
-    print '<tr ' . $bc[$var] . '><td class="fieldrequired">';
+    print '<tr class="oddeven"><td class="fieldrequired">';
     print $langs->trans("SupplierToUseForImport") . '</td><td>';
     print $form->select_company($conf->global->OVH_THIRDPARTY_IMPORT, 'OVH_THIRDPARTY_IMPORT', 's.fournisseur = 1', 1,
         'supplier');
@@ -163,8 +162,7 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
     print '</td></tr>';
 
     if ($conf->product->enabled || $conf->service->enabled) {
-        $var = !$var;
-        print '<tr ' . $bc[$var] . '><td>';
+        print '<tr class="oddeven"><td>';
         print $langs->trans("ProductGenericToUseForImport") . '</td><td>';
         $form->select_produits($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID,
             'OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID', '', 0, 0, -1);
@@ -174,8 +172,7 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
     }
 
     if ($conf->banque->enabled) {
-        $var = !$var;
-        print '<tr ' . $bc[$var] . '><td>';
+        print '<tr class="oddeven"><td>';
         print $langs->trans("OvhDefaultBankAccount") . '</td><td>';
         $form->select_comptes($conf->global->OVH_DEFAULT_BANK_ACCOUNT, 'OVH_DEFAULT_BANK_ACCOUNT', 0, '', 1);
         print '<td>';
@@ -183,8 +180,7 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
         print '</td></tr>';
     }
 
-    $var = !$var;
-    print '<tr ' . $bc[$var] . '><td>';
+    print '<tr class="oddeven"><td>';
     print $langs->trans("OvhValidVatList") . '</td><td>';
 
     $countryVat = '';

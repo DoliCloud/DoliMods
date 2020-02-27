@@ -142,10 +142,10 @@ else
     print '<input type="hidden" name="action" value="setvalue_account">';
 
 
-    dol_fiche_head($head, 'click2dial', $langs->trans("Ovh"));
+    dol_fiche_head($head, 'click2dial', $langs->trans("Ovh"), -1);
 
 
-    print '<table class="noborder" width="100%">';
+    print '<table class="noborder centpercent">';
 
     print '<tr class="liste_titre">';
     print '<td width="200px">'.$langs->trans("Parameter").'</td>';
@@ -156,21 +156,18 @@ else
 
     if (! empty($conf->global->OVH_OLDAPI) || ! empty($conf->global->OVH_OLDAPI_FORCLICK2DIAL))
     {
-        $var=!$var;
-        print '<tr '.$bc[$var].'><td width="200px" class="fieldrequired">';
+        print '<tr class="oddeven"><td width="200px" class="fieldrequired">';
         print $langs->trans("OvhSmsNick").'</td><td>';
         print '<input size="64" type="text" name="OVHSMS_NICK" value="'.$conf->global->OVHSMS_NICK.'">';
         print '</td><td>'.$langs->trans("Example").': AA123-OVH';
         print '</td></tr>';
 
-        $var=!$var;
-        print '<tr '.$bc[$var].'><td class="fieldrequired">';
+        print '<tr class="oddeven"><td class="fieldrequired">';
         print $langs->trans("OvhSmsPass").'</td><td>';
         print '<input size="64" type="password" name="OVHSMS_PASS" value="'.$conf->global->OVHSMS_PASS.'">';
         print '</td><td></td></tr>';
 
-        $var=!$var;
-        print '<tr '.$bc[$var].'><td class="fieldrequired">';
+        print '<tr class="oddeven"><td class="fieldrequired">';
         print $langs->trans("OvhSmsSoapUrl").'</td><td>';
         print '<input size="64" type="text" name="OVHSMS_SOAPURL" value="'.$conf->global->OVHSMS_SOAPURL.'">';
         print '</td><td>'.$langs->trans("Example").': '.$urlexample;
@@ -178,15 +175,13 @@ else
     }
     else
     {
-        $var=!$var;
-        print '<tr '.$bc[$var].'><td class="fieldrequired">';
+        print '<tr class="oddeven"><td class="fieldrequired">';
         print $langs->trans("OvhBillingAccount").'</td><td>';
         print '<input size="64" type="text" name="OVHC2C_ACCOUNT" value="'.$conf->global->OVHC2C_ACCOUNT.'">';
         print '<br>'.$langs->trans("Example").': nh123-ovh-1';
         print '</td><td></td></tr>';
 
-        $var=!$var;
-        print '<tr '.$bc[$var].'><td>';
+        print '<tr class="oddeven"><td>';
         $htmltext=$langs->trans("OvhServiceNameHelp");
         print $form->textwithpicto($langs->trans("OvhServiceName"), $htmltext).'</td><td>';
         print '<input size="64" type="text" name="OVHSN_ACCOUNT" value="'.$conf->global->OVHSN_ACCOUNT.'">';
@@ -215,7 +210,7 @@ else
     print info_admin($langs->trans("IfYouChangeHereChangeAlsoClickToDial")).'<br>';
 
     $url='<a href="'.dol_buildpath($tmpurl,2).'" target="_blank">'.dol_buildpath($tmpurl,2).'</a>';
-    $message.=$langs->trans("ClickToDialLink",'OVH','').'<br>';
+    $message.= '<span class="opacitymedium">'.$langs->trans("ClickToDialLink",'OVH','').'</span><br>';
     $message.=img_picto('','object_globe.png').' <input type="text" class="quatrevingtpercent" id="url" name="url" value="'.dol_escape_htmltag(dol_buildpath($tmpurl,2)).'">';
     if (function_exists('ajax_autoselect'))
     {
