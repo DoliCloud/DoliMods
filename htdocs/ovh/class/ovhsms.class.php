@@ -34,25 +34,30 @@ use \Ovh\Api;
  */
 class OvhSms  extends CommonObject
 {
-	var $db;							//!< To store db handler
-	var $error;							//!< To return error code (or message)
-	var $errors=array();				//!< To return several error codes (or messages)
-	var $element='ovhsms';			//!< Id that identify managed object
+	public $db;							//!< To store db handler
+	public $error;						//!< To return error code (or message)
+	public $errors=array();				//!< To return several error codes (or messages)
+	public $element='ovhsms';			//!< Id that identify managed object
 
-	var $id;
-	var $account;
-	var $fk_soc;
-	var $expe;
-	var $dest;
-	var $message;
-	var $validity;
-	var $class;
-	var $deferred;
-	var $priority;
+	public $id;
+	public $account;
 
-	var $soap;         // Old API
-	var $conn;         // New API
-    var $endpoint;
+	public $socid;
+	public $contactid;
+	public $fk_project;
+
+	public $expe;
+	public $dest;
+	public $message;
+	public $validity;
+	public $class;
+	public $deferred;
+	public $priority;
+
+	public $soap;         // Old API
+	public $conn;         // New API
+	public $endpoint;
+
 
 	/**
      *	Constructor
@@ -258,7 +263,7 @@ class OvhSms  extends CommonObject
 
     		        		$actiontypecode='AC_OTH_AUTO'; // Event insert into agenda automatically
 
-    		        		//$object->socid			= $sendtosocid;	   // To link to a company
+    		        		$object->socid			= $this->socid;	   // To link to a company
     		        		//$object->sendtoid		= $sendtoid;	   // To link to contacts/addresses. This is an array.
     		        		$object->actiontypecode	= $actiontypecode; // Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
     		        		$object->actionmsg2		= $langs->trans("SMSSentTo", $this->dest);

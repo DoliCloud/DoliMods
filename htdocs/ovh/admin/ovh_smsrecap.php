@@ -96,8 +96,7 @@ if (! empty($sms))  // Do not use here sms > 0 as a constructor return an object
 
     foreach ($telephonySmsAccountList as $accountlisted)
     {
-        $var=!$var;
-        print '<tr '.$bc[$var].'>';
+        print '<tr class="oddeven">';
         print '<td>';
         print '<a href="'.$_SERVER["PHP_SELF"].'?account='.$accountlisted.'">'.$accountlisted.'</a>';
         print '</td>';
@@ -152,8 +151,7 @@ if (! empty($sms))  // Do not use here sms > 0 as a constructor return an object
         $i=0;
         while (isset($resulthistory[$i]) && $i < 50)
         {
-            $var=!$var;
-            print '<tr '.$bc[$var].'>';
+            print '<tr class="oddeven">';
 
             if (! empty($conf->global->OVH_OLDAPI))
             {

@@ -245,8 +245,10 @@ dol_fiche_head($head, 'common', $langs->trans("Ovh"), -1);
 
 if (empty($conf->global->OVH_OLDAPI))
 {
+	print '<div class="opacitymedium">';
     print $langs->trans("GoOnPageToCreateYourAPIKey", 'https://eu.api.ovh.com/createApp/', 'https://eu.api.ovh.com/createApp/').'<br>';
     print $langs->trans("ListOfExistingAPIApp", 'https://eu.api.ovh.com/console/#/me/api/application#GET', 'https://eu.api.ovh.com/console/#/me/api/application#GET').' (first log in on top right corner)<br><br>';
+    print '</div>';
 }
 
 
@@ -283,7 +285,13 @@ if (! empty($conf->global->OVH_OLDAPI))
 }
 else
 {
-    print '<table class="noborder" width="100%">';
+	if (! empty($conf->global->OVH_USE_2_ACCOUNTS))
+	{
+		print "<br>\n";
+		print $langs->trans("Account").' 1<br>';
+	}
+
+	print '<table class="noborder" width="100%">';
 
     // New API
 

@@ -113,7 +113,7 @@ llxHeader('', $langs->trans('OvhSmsSetup'), '', '', '', '', $morejs, '', 0, 0);
 
 $linkback = '<a href="' . DOL_URL_ROOT . '/admin/modules.php?restore_lastsearch_values=1">' . $langs->trans("BackToModuleList") . '</a>';
 
-load_fiche_titre($langs->trans('OvhSmsSetup'), $linkback, 'setup');
+print_fiche_titre($langs->trans("OvhSmsSetup"),$linkback,'setup');
 
 $head = ovhadmin_prepare_head();
 

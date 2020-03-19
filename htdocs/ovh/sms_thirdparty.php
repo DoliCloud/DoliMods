@@ -116,22 +116,40 @@ if ($action == 'send' && ! $_POST['cancel'])
 
     if (! $error)
     {
+    	/*$actionmsg2 = $langs->transnoentities('SMSSentBy').' '.$smsfrom;
+    	if ($body)
+    	{
+    		$actionmsg = $langs->transnoentities('SMSFrom').': '.dol_escape_htmltag($smsfrom);
+    		$actionmsg = dol_concatdesc($actionmsg, $langs->transnoentities('To').': '.dol_escape_htmltag($sendto));
+    		$actionmsg = dol_concatdesc($actionmsg, $langs->transnoentities('TextUsedInTheMessageBody').":");
+    		$actionmsg = dol_concatdesc($actionmsg, $body);
+    	}
+
+    	$triggersendname = 'SMS_SENT';*/
+
         // Make substitutions into message
         $substitutionarrayfortest=array();
-        complete_substitutions_array($substitutionarrayfortest,$langs);
+        complete_substitutions_array($substitutionarrayfortest, $langs);
         $body=make_substitutions($body,$substitutionarrayfortest);
 
         require_once(DOL_DOCUMENT_ROOT."/core/class/CSMSFile.class.php");
 
+        //if (empty($sendcontext)) $sendcontext = 'standard';
         $smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
 
         $smsfile->nostop=GETPOST('disablestop');
+        $smsfile->socid = $socid;
+        $smsfile->contactid = 0;
+        $smsfile->fk_project = 0;
 
-        $result=$smsfile->sendfile(); // This send SMS
+        // Send the SMS
+        $result=$smsfile->sendfile(); // This send SMS. It also includes run of triggers 'SENTBYSMS'.
 
         if ($result > 0)
         {
-            setEventMessages($langs->trans("SmsSuccessfulySent",$smsfrom,$sendto), null);
+        	$object = $thirdparty;
+
+            setEventMessages($langs->trans("SmsSuccessfulySent", $smsfrom, $sendto), null);
         }
         else
         {
@@ -187,10 +205,7 @@ if ($socid)
 	$result = $object->fetch($socid);
 
 
-	if ((float) DOL_VERSION >= 5.0)	// For dolibarr 5.0.*
-	{
-	    print "<form method=\"POST\" name=\"smsform\" enctype=\"multipart/form-data\" action=\"".$_SERVER["PHP_SELF"].'?id='.$object->id."\">\n";
-	}
+    print "<form method=\"POST\" name=\"smsform\" enctype=\"multipart/form-data\" action=\"".$_SERVER["PHP_SELF"].'?id='.$object->id."\">\n";
 
 
 	/*
@@ -209,45 +224,9 @@ if ($socid)
         }
     }
 
-    if (function_exists('dol_banner_tab')) // 3.9+
-    {
-        dol_banner_tab($object,'id','',$user->rights->user->user->lire || $user->admin);
+    dol_banner_tab($object,'id','',$user->rights->user->user->lire || $user->admin);
 
-        print '<div class="underbanner clearboth"></div>';
-    }
-    else
-    {
-        print '<table class="border" width="100%">';
-        print '<tr><td width="20%">'.$langs->trans('Name').'</td>';
-        print '<td colspan="3">';
-        print $form->showrefnav($object,'socid','',($user->societe_id?0:1),'rowid','nom');
-        print '</td></tr>';
-
-        if (! empty($conf->global->SOCIETE_USEPREFIX))  // Old not used prefix field
-        {
-            print '<tr><td>'.$langs->trans('Prefix').'</td><td colspan="3">'.$object->prefix_comm.'</td></tr>';
-        }
-
-        if ($object->client)
-        {
-            print '<tr><td>';
-            print $langs->trans('CustomerCode').'</td><td colspan="3">';
-            print $object->code_client;
-            if ($object->check_codeclient() <> 0) print ' <font class="error">('.$langs->trans("WrongCustomerCode").')</font>';
-            print '</td></tr>';
-        }
-
-        if ($object->fournisseur)
-        {
-            print '<tr><td>';
-            print $langs->trans('SupplierCode').'</td><td colspan="3">';
-            print $object->code_fournisseur;
-            if ($object->check_codefournisseur() <> 0) print ' <font class="error">('.$langs->trans("WrongSupplierCode").')</font>';
-            print '</td></tr>';
-        }
-
-        print '</table><br>';
-    }
+    print '<div class="underbanner clearboth"></div>';
 
     print_fiche_titre($langs->trans("Sms"),'','phone.png@ovh');
 
@@ -272,31 +251,20 @@ if ($socid)
     $formsms->param['id']=$object->id;
     $formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$object->id;
 
-	if ((float) DOL_VERSION >= 5.0)	// For dolibarr 5.0.*
-    {
-        $formsms->show_form('', 0);
-	}
-	else
-	{
-	    $formsms->show_form('20%');
-	}
+    $formsms->show_form('', 0);
 
     dol_fiche_end();
 
-    if ((float) DOL_VERSION >= 5.0)	// For dolibarr 5.0.*
+    print '<div class="center">';
+    print '<input class="button" type="submit" name="sendmail" value="'.dol_escape_htmltag($langs->trans("SendSms")).'">';
+    if ($formsms->withcancel)
     {
-        print '<div class="center">';
-        print '<input class="button" type="submit" name="sendmail" value="'.dol_escape_htmltag($langs->trans("SendSms")).'">';
-        if ($formsms->withcancel)
-        {
-            print '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-            print '<input class="button" type="submit" name="cancel" value="'.dol_escape_htmltag($langs->trans("Cancel")).'">';
-        }
-        print '</div>';
-
-        print "</form>\n";
+    	print '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+    	print '<input class="button" type="submit" name="cancel" value="'.dol_escape_htmltag($langs->trans("Cancel")).'">';
     }
+    print '</div>';
 
+    print "</form>\n";
 }
 
 

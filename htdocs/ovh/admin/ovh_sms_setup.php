@@ -232,22 +232,19 @@ else
 
     $var=true;
 
-    print '<table class="noborder" width="100%">';
+    print '<table class="noborder centpercent">';
 
     print '<tr class="liste_titre">';
-    print '<td width="200px">'.$langs->trans("Parameter").'</td>';
+    print '<td>'.$langs->trans("Parameter").'</td>';
     print '<td>'.$langs->trans("Value").'</td>';
     print '<td>&nbsp;</td>';
     print "</tr>\n";
 
-
-    $var=!$var;
-    print '<tr '.$bc[$var].'><td class="fieldrequired">';
+    print '<tr class="oddeven"><td class="fieldrequired">';
     print $langs->trans("OvhSmsLabelAccount").'</td><td>';
-    print '<input size="64" type="text" name="OVHSMS_ACCOUNT" value="'.$conf->global->OVHSMS_ACCOUNT.'">';
-    print '<br>'.$langs->trans("Example").': sms-aa123-1';
+    print '<input type="text" name="OVHSMS_ACCOUNT" value="'.$conf->global->OVHSMS_ACCOUNT.'">';
+    print '<br><span class="opacitymedium">'.$langs->trans("Example").': sms-aa123-1</span>';
     print '<td>'.'<a href="ovh_smsrecap.php" target="_blank">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
-
     print '</td></tr>';
 
     print '</table>';

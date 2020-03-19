@@ -1,11 +1,10 @@
 # ChangeLog OVH MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
-
 ## 4.0.1 Unreleased
 
 * Support several OVH projects
 * Fix blank page with Dolidroid
-
+* Link the event ot thirdparty history with Dolibarr v12 
 
 ## 4.0
 
