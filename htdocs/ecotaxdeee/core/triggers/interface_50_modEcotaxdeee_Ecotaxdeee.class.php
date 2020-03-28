@@ -283,17 +283,8 @@ class InterfaceEcotaxdeee
 				$tmpproduct=new Product($this->db);
 				$tmpproduct->fetch($line->fk_product);
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-				if (versioncompare(versiondolibarrarray(),array(3,6,-3)) < 999)	// <0 to test if we are 3.6.0 alpha or -, <999 means always
-				{
-					// If version < 3.6.0, get eco tax deee amount from extra field
-					$result=$tmpproduct->fetch_optionals($tmpproduct->id, $optionsArray);
-					if (! empty($tmpproduct->array_options['options_ecotaxdeee']) && $line->qty) $ecoamount[$ecocateg] += ($tmpproduct->array_options['options_ecotaxdeee'] * $line->qty);
-				}
-				else
-				{
-					// Get it from product desc
-					if (! empty($tmpproduct->ecotaxdeee) && $line->qty) $ecoamount[$ecocateg] += ($tmpproduct->ecotaxdeee * $line->qty);
-				}
+				$result=$tmpproduct->fetch_optionals();
+				if (! empty($tmpproduct->array_options['options_ecotaxdeee']) && $line->qty) $ecoamount[$ecocateg] += ($tmpproduct->array_options['options_ecotaxdeee'] * $line->qty);
 			}
 		}
 
