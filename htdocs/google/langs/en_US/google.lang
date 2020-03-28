@@ -86,6 +86,7 @@ OnlyXAddressesAmongYWereGeoencoded=Due to Google quotas (localization of address
 CountGeoTotal=Total addresses %s - %s not yet geoencoded - %s in error = %s represented.
 ClickHereToIncludeXMore=Click here to geoencode more addresses
 ListOfMaps=List of available maps
+By1=By 1
 By25=By 25
 By50=Byr 50
 By100=By 100

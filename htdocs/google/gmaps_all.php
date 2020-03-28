@@ -482,6 +482,7 @@ if ($resql)
 	    if ($search_departement != '' && $search_departement != '-1') $param.='&search_departement='.urlencode($search_departement);
 
 		print $langs->trans("ClickHereToIncludeXMore").': &nbsp;';
+		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=1'.$param.'">'.$langs->trans("By1").'</a> &nbsp;';
 		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=25'.$param.'">'.$langs->trans("By25").'</a> &nbsp;';
 		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=50'.$param.'">'.$langs->trans("By50").'</a> &nbsp;';
 		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.$mode.'&max=100'.$param.'">'.$langs->trans("By100").'</a> &nbsp;';

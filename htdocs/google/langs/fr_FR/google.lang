@@ -86,6 +86,7 @@ OnlyXAddressesAmongYWereGeoencoded=Pour des raisons de limitation par Google (la
 CountGeoTotal=Total d'adresse %s - %s pas encore géoencodées - %s en erreur = %s représentées.
 ClickHereToIncludeXMore=Cliquer ici pour géoencoder des adresses suplémentaires   
 ListOfMaps=Liste des cartes disponibles
+By1=Par 1
 By25=Par 25
 By50=Par 50
 By100=Par 100
