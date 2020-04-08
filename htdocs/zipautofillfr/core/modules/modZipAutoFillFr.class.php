@@ -60,7 +60,7 @@ class modZipAutoFillFr extends DolibarrModules
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '4.0';
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto='generic';
+		$this->picto='zipautofillfr@zipautofillfr';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();

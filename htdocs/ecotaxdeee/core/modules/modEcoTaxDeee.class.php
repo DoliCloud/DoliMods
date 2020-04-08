@@ -66,7 +66,7 @@ class modEcoTaxDeee extends DolibarrModules
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of png file (without png) used for this module.
 		// Png file must be in theme/yourtheme/img directory under name object_pictovalue.png.
-		$this->picto='product';
+		$this->picto='ecotax@ecotaxdeee';
 
         $this->module_parts = array(
         						'triggers' => 1,

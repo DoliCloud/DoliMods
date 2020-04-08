@@ -66,7 +66,7 @@ class modThomsonPhoneBook extends DolibarrModules
         $this->special = 1;
         // Name of png file (without png) used for this module.
         // Png file must be in theme/yourtheme/img directory under name object_pictovalue.png.
-        $this->picto='globe';
+        $this->picto='phone@thomsonphonebook';
 
         // Data directories to create when module is enabled.
         $this->dirs = array();
