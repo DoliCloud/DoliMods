@@ -181,7 +181,12 @@ if ($id)
 
 	// Show tabs
 
-    if ((float) DOL_VERSION >= 5.0) print "<form method=\"POST\" name=\"smsform\" enctype=\"multipart/form-data\" action=\"".$_SERVER["PHP_SELF"].'?id='.$object->id."\">\n";
+    print "<form method=\"POST\" name=\"smsform\" enctype=\"multipart/form-data\" action=\"".$_SERVER["PHP_SELF"].'?id='.$object->id."\">\n";
+    if ((float) DOL_VERSION >= 11.0) {
+    	print '<input type="hidden" name="token" value="'.newToken().'">';
+    } else {
+    	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    }
 
     $head = member_prepare_head($object);
 	dol_fiche_head($head, 'tabSMS', $langs->trans("Member"),0,'user');
@@ -284,22 +289,16 @@ if ($id)
 
 	dol_fiche_end();
 
-	if ((float) DOL_VERSION >= 5.0)
-	{
-	    print '<div class="center">';
-	    print '<input class="button" type="submit" name="sendmail" value="'.dol_escape_htmltag($langs->trans("SendSms")).'">';
-	    if ($formsms->withcancel)
-	    {
-	        print '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-	        print '<input class="button" type="submit" name="cancel" value="'.dol_escape_htmltag($langs->trans("Cancel")).'">';
-	    }
-	    print '</div>';
+    print '<div class="center">';
+    print '<input class="button" type="submit" name="sendmail" value="'.dol_escape_htmltag($langs->trans("SendSms")).'">';
+    if ($formsms->withcancel)
+    {
+        print '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+        print '<input class="button" type="submit" name="cancel" value="'.dol_escape_htmltag($langs->trans("Cancel")).'">';
+    }
+    print '</div>';
 
-	    print "</form>\n";
-	}
-
-
-
+    print "</form>\n";
 }
 
 

@@ -5,6 +5,7 @@
 * Support several OVH projects
 * Fix blank page with Dolidroid
 * Link the event ot thirdparty history with Dolibarr v12 
+* Compatibility with v11 (newToken).
 
 ## 4.0
 

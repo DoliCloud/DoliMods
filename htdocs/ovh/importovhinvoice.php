@@ -445,6 +445,11 @@ if ($ovhthirdparty->id <= 0) {
 
 
 print '<form name="refresh" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
+if ((float) DOL_VERSION >= 11.0) {
+	print '<input type="hidden" name="token" value="'.newToken().'">';
+} else {
+	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+}
 
 print_fiche_titre($langs->trans("OvhInvoiceImportShort"));
 
@@ -581,6 +586,11 @@ if ($action == 'refresh') {
             print $langs->trans("NoRecordFound") . "<br><br>\n";
         } else {
             print '<form name="import" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
+            if ((float) DOL_VERSION >= 11.0) {
+            	print '<input type="hidden" name="token" value="'.newToken().'">';
+            } else {
+            	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+            }
 
             print '<div><div class="clearboth floatleft"><strong>' . $nbfound . '</strong> ' . $langs->trans("Invoices") . "</div>\n";
 

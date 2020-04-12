@@ -138,7 +138,11 @@ else
 {*/
    // Formulaire d'ajout de compte qui sera valable pour le click2dial
     print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
-    print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    if ((float) DOL_VERSION >= 11.0) {
+    	print '<input type="hidden" name="token" value="'.newToken().'">';
+    } else {
+    	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    }
     print '<input type="hidden" name="action" value="setvalue_account">';
 
 
