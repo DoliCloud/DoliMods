@@ -488,7 +488,7 @@ print $form->selectDate($datefrom, 'datefrom');
 if (! empty($conf->global->OVH_USE_2_ACCOUNTS))
 {
     print '<br>';
-    print $langs->trans("Account") . ': ';
+    print $langs->trans("OVHAccount") . ': ';
     $liste_opt='<select name="compte" class="flat">';
     $liste_opt.='<option value="1">';
     $liste_opt.='1-'.$conf->global->OVHAPPNAME;
@@ -601,7 +601,7 @@ if ($action == 'refresh') {
                 $disabled = 0;
                 //if ($action == 'refresh') $disabled=1;
                 print $langs->trans("ProjectForImport") . ': ';
-                print $formproject->select_projects(-1, $projectid, 'projectid', 0, 0, 1, 1, 0, $disabled);
+                print $formproject->select_projects(-1, $projectid, 'projectid', 0, 0, 1, 1, 0, $disabled, 0, '', 0, 0, 'maxwidth500');
                 //print '<br>';
             }
             print '<input type="hidden" name="action" value="import">';

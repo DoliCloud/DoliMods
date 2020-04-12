@@ -75,6 +75,7 @@ OVHURLMustNotBeLocal=Warning, URL you use for the application must NOT be a loca
 CreateSnapshot=Create snapshot
 SnapshotRequestSent=Snapshot request under name '%s' was successfully sent.
 NoneLabelOnOvhLineWillBeUsed=None (label of line in OVH invoice will be used)
+OVHAccount=OVH Account
 OvhDefaultBankAccount=Default bank account on invoices
 OvhValidVatList=List of valid VAT values
 OVHVatKeepEmptyToAcceptAll=Keep this field empty if you want to accept all VAT values (auto). Warning: OVH return sometimes bad rounded VAT rates, so setting VAT rates here force application to use the nearest valid value instead of OVH value.
