@@ -107,15 +107,6 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 if (! $sortfield) $sortfield="t.date_creation";   // Set here default search field. By default 1st field in definition.
 if (! $sortorder) $sortorder="DESC";
 
-// Security check
-$socid=0;
-if ($user->societe_id > 0)	// Protection if external user
-{
-	//$socid = $user->societe_id;
-	accessforbidden();
-}
-//$result = restrictedArea($user, 'captureserver', $id, '');
-
 // Initialize array of search criterias
 $search_all=trim(GETPOST("search_all", 'alpha'));
 $search=array();
@@ -152,6 +143,17 @@ if (is_array($extrafields->attributes[$object->table_element]['label']) && count
 $object->fields = dol_sort_array($object->fields, 'position');
 $arrayfields = dol_sort_array($arrayfields, 'position');
 
+// Security check
+$socid=0;
+if ($user->societe_id > 0)	// Protection if external user
+{
+	//$socid = $user->societe_id;
+	accessforbidden();
+}
+//$result = restrictedArea($user, 'captureserver', $id, '');
+
+$permissiontoread = $user->rights->captureserver->read;
+if (!$permissiontoread) accessforbidden();
 
 
 /*
