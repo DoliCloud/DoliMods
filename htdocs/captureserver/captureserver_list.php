@@ -153,6 +153,9 @@ if ($user->societe_id > 0)	// Protection if external user
 //$result = restrictedArea($user, 'captureserver', $id, '');
 
 $permissiontoread = $user->rights->captureserver->read;
+$permissiontoadd = $user->rights->captureserver->write;
+$permissiontodelete = $user->rights->captureserver->delete;
+
 if (!$permissiontoread) accessforbidden();
 
 
@@ -359,7 +362,7 @@ print '<input type="hidden" name="sortorder" value="'.$sortorder.'">';
 print '<input type="hidden" name="page" value="'.$page.'">';
 print '<input type="hidden" name="contextpage" value="'.$contextpage.'">';
 
-$newcardbutton = dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/captureserver/captureserver_card.php?action=create&backtopage='.urlencode($_SERVER['PHP_SELF']), '', $user->rights->captureserver->write);
+$newcardbutton = dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', dol_buildpath('/captureserver/captureserver_card.php', 1).'?action=create&backtopage='.urlencode($_SERVER['PHP_SELF']), '', $permissiontoadd);
 
 print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'title_companies', 0, $newcardbutton, '', $limit);
 
