@@ -60,9 +60,12 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include("../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include("../../../main.inc.php");
 if (! $res) die("Include of main fails");
 
-$search=GETPOST("search");      // search criteria
-$key=GETPOST("key");            // security key
-$format=GETPOST('format','alpha')?GETPOST('format','alpha'):'xml';
+$search = GETPOST("search", 'alphanohtml');      	// search criteria
+$key = GETPOST("key", 'alpha');           		// security key
+$type = GETPOST("type", 'aZ09');					// type 'contacts', 'thirdparties', 'contacts,thirdparties'
+$format = GETPOST('format','alpha')?GETPOST('format','alpha'):'xml';
+
+$phonetag=($conf->global->IPPHONE_XMLTAG ? $conf->global->IPPHONE_XMLTAG : 'CiscoIPPhoneDirectory');	// May be also 'ThompsonDirectory, YeaLinkDirectory, ...'
 
 if (empty($conf->ipphone->enabled)) accessforbidden('',1,1,1);
 
@@ -99,20 +102,23 @@ if (! empty($conf->global->IPPHONE_EXPORTKEY))
 
 
 
-header("Content-type: text/xml");
+header("Content-type: text/".$format);
 header('Content-disposition: attachment; filename="phone_annuary.'.$format.'"');
 header("Connection: close");
 header("Expires: -1");
 
-//$sql = "select p.name,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.name LIKE '%$search' OR p.firstname LIKE '%$search');";
-$sql = "select s.rowid, s.nom as name, s.phone, p.rowid as contactid, p.lastname, p.firstname, p.phone as contactphone, p.phone_mobile as contactphonemobile";
-$sql.= " FROM ".MAIN_DB_PREFIX."societe as s LEFT JOIN ".MAIN_DB_PREFIX."socpeople as p ON p.fk_soc = s.rowid";
-if ($search) $sql.= " WHERE p.rowid IS NULL or (p.lastname LIKE '".$db->escape($search)."%' OR p.firstname LIKE '".$db->escape($search)."%')";
 
-//if (! empty($conf->global->THOMSONPHONEBOOK_DOSEARCH_ANYWHERE)) $sql = "select p.lastname,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.lastname LIKE '%".$db->escape($search)."%' OR p.firstname LIKE '%".$db->escape($search)."%')";
+// Request to get list of thirdparties and contacts. Filter on phone defined or not is done later.
+$sql = '';
+$sql .= "select s.rowid, s.nom as name, s.phone";
+$sql .= ", p.rowid as contactid, p.lastname, p.firstname, p.phone as contactphone, p.phone_mobile as contactphonemobile";
+$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
+$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."socpeople as p ON p.fk_soc = s.rowid";
+if ($search) {
+	$sql.= " WHERE p.rowid IS NULL or (s.nom LIKE '".$db->escape($search)."%' OR p.lastname LIKE '".$db->escape($search)."%' OR p.firstname LIKE '".$db->escape($search)."%')";
+}
 
 
-$phonetag=($conf->global->IPPHONE_XMLTAG ? $conf->global->IPPHONE_XMLTAG : 'CiscoIPPhoneDirectory');	// May be also 'Thompson'
 $thirdpartyadded=array();
 
 //print $sql;

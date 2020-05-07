@@ -5,3 +5,5 @@ Module101130Desc=Offer a service to allow an IP Phone (Cisco, Yealink, Thompson,
 IPPhoneSetup=IP Phone module setup
 PasswordToallowRead=Key to protect url
 SelectTheUser=Select thirdparty or contact
+ModuleEnabledUseURL=Module is enabled. To use it, you must setup your phone to call following URL
+ItReturnListOfThirdAndContacts=It return the list of thirdparties and contacts with a phone number defined

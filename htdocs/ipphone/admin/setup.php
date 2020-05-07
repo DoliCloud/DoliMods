@@ -148,15 +148,16 @@ print "</div>";
 print "</form>\n";
 
 
-
-print "Module is enabled. To use it, you must setup your phone to call following URL:<br><br>\n";
+print '<br><br>';
+print '<span class="opacitymedium">'.$langs->trans("ModuleEnabledUseURL").":</span><br><br>\n";
 $url=dol_buildpath('/ipphone/public/service.php',1);
 $url=DOL_MAIN_URL_ROOT.(preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'/', '', $url)).'?format=xml&key='.$conf->global->IPPHONE_EXPORTKEY;
 print 'XML: <a href="'.$url.'">'.$url."</a><br>\n";
 $url=dol_buildpath('/ipphone/public/service.php',1);
 $url=DOL_MAIN_URL_ROOT.(preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'/', '', $url)).'?format=csv&key='.$conf->global->IPPHONE_EXPORTKEY;
 print 'CSV: <a href="'.$url.'">'.$url."</a><br>\n";
-
+print '<br>';
+print $langs->trans("ItReturnListOfThirdAndContacts")."<br>\n";
 
 
 
