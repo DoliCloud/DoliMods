@@ -1,7 +1,7 @@
 # Dolibarr language file - en_US - ipphone
 CHARSET=UTF-8
-Module101130Name=IP Phonebook (Cisco)
-Module101130Desc=Offer a service to allow an IP Phone (Cisco) to read Dolibarr contacts for its phone book
-IPPhoneSetup=IP Phone (Cisco) module setup
+Module101130Name=IP Phonebook
+Module101130Desc=Offer a service to allow an IP Phone (Cisco, Yealink, Thompson, ...) to read Dolibarr contacts for its phone book
+IPPhoneSetup=IP Phone module setup
 PasswordToallowRead=Key to protect url
 SelectTheUser=Select thirdparty or contact

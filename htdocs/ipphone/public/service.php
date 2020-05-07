@@ -23,7 +23,7 @@
 /**
  *	\file       htdocs/public/service.php
  *  \ingroup    ipphone
- *	\brief      Recherche dans l'annuaire pour les telephones SIP Thomson
+ *	\brief      Return list of record for a SIP phone
  *				You configure your phones to call URL
  *				http://mydolibarr/ipphone/public/service.php?search=...
  */
@@ -112,7 +112,7 @@ if ($search) $sql.= " WHERE p.rowid IS NULL or (p.lastname LIKE '".$db->escape($
 //if (! empty($conf->global->THOMSONPHONEBOOK_DOSEARCH_ANYWHERE)) $sql = "select p.lastname,p.firstname,p.phone from llx_socpeople as p,llx_societe as s WHERE p.fk_soc=s.rowid AND (p.lastname LIKE '%".$db->escape($search)."%' OR p.firstname LIKE '%".$db->escape($search)."%')";
 
 
-$phonetag='CiscoIPPhone';	// May be also 'Thompson'
+$phonetag=($conf->global->IPPHONE_XMLTAG ? $conf->global->IPPHONE_XMLTAG : 'CiscoIPPhoneDirectory');	// May be also 'Thompson'
 $thirdpartyadded=array();
 
 //print $sql;
@@ -125,8 +125,11 @@ if ($resql)
 
 	if ($format == 'xml')
 	{
-	    print("<".$phonetag."Directory>\n");
-    	print("<Title>Dolibarr Directory</Title>\n");
+	    print("<".dol_string_nohtmltag($phonetag).">\n");
+
+	    $appli = constant('DOL_APPLICATION_TITLE');
+
+	    print('<Title>'.dol_string_nohtmltag($appli)." Directory</Title>\n");
     	print("<Prompt>".dolXMLEncodeipphone($langs->transnoentitiesnoconv("SelectTheUser"))."</Prompt>\n");
 	}
 
@@ -212,7 +215,7 @@ if ($resql)
 
 	if ($format == 'xml')
 	{
-	    print("</".$phonetag."Directory>\n");
+		print("</".dol_string_nohtmltag($phonetag).">\n");
 	}
 
 	$db->free($resql);
