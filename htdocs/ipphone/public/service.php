@@ -119,7 +119,7 @@ if ($search) {
 }
 
 
-$thirdpartyadded=array();
+$phoneaddedforthisthird=array();
 
 //print $sql;
 dol_syslog("ipphone sql=".$sql);
@@ -147,7 +147,7 @@ if ($resql)
 		if ($obj->phone || (! empty($conf->global->IPPHONE_SHOW_NO_PHONE) && (empty($obj->contactid) || (empty($obj->contactphone) && empty($obj->contactphonemobile)))))
 		{
 			// Record for thirdparty (only if not already output)
-			if (empty($thirdpartyadded[$obj->rowid]))
+			if (empty($phoneaddedforthisthird[$obj->rowid]))
 			{
             	if ($format == 'xml')
             	{
@@ -157,16 +157,16 @@ if ($resql)
     				print dolXMLEncodeipphone($obj->name);
     				print "</Name>\n";
     				print "\t<Telephone>";
-    				print dolXMLEncodeipphone($obj->phone);
+    				print dolXMLEncodeipphone(str_replace(' ', '', $obj->phone));
     				print "</Telephone>\n";
     				print "</DirectoryEntry>\n";
             	}
 			   	if ($format == 'csv')
             	{
-            	    print '"'.$obj->name.'","'.$obj->phone.'"'."\n";
+            		print '"'.$obj->name.'","'.str_replace(' ', '', $obj->phone).'"'."\n";
             	}
 			}
-			$thirdpartyadded[$obj->rowid]=1;
+			$phoneaddedforthisthird[$obj->rowid]=$obj->rowid.'_'.str_replace(' ', '', $obj->phone);
 		}
 		if ($obj->contactphone)
 		{
@@ -178,13 +178,13 @@ if ($resql)
     			print dolXMLEncodeipphone($obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname));
     			print "</Name>\n";
     			print "\t<Telephone>";
-    			print dolXMLEncodeipphone($obj->contactphone);
+    			print dolXMLEncodeipphone(str_replace(' ', '', $obj->contactphone));
     			print "</Telephone>\n";
     			print "</DirectoryEntry>\n";
            	}
 		   	if ($format == 'csv')
            	{
-           	    print '"'.$obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname).'","'.$obj->contactphone.'"'."\n";
+           		print '"'.$obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname).'","'.str_replace(' ', '', $obj->contactphone).'"'."\n";
            	}
 		}
 		if ($obj->contactphonemobile)
@@ -197,13 +197,13 @@ if ($resql)
     			print dolXMLEncodeipphone($obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname));
     			print "</Name>\n";
     			print "\t<Telephone>";
-    			print dolXMLEncodeipphone($obj->contactphonemobile);
+    			print dolXMLEncodeipphone(str_replace(' ', '', $obj->contactphonemobile));
     			print "</Telephone>\n";
     			print "</DirectoryEntry>\n";
            	}
 		   	if ($format == 'csv')
            	{
-           	    print '"'.$obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname).'","'.$obj->contactphonemobile.'"'."\n";
+           		print '"'.$obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname).'","'.str_replace(' ', '', $obj->contactphonemobile).'"'."\n";
            	}
 		}
 
