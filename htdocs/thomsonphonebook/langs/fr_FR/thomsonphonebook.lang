@@ -1,4 +1,0 @@
-# Dolibarr language file - fr_FR - thomsonphonebook
-CHARSET=UTF-8
-Module101100Name=Thomson Phonebook
-Module101100Desc=Ajoute un service permettant à un téléphone Thomson de lire les contacts Dolibarr pour son carnet d'adresse
