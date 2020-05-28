@@ -453,7 +453,7 @@ if ((float) DOL_VERSION >= 11.0) {
 
 print_fiche_titre($langs->trans("OvhInvoiceImportShort"));
 
-print $langs->trans("OvhInvoiceImportDesc") . '<br><br>';
+print '<span class="opacitymedium">'.$langs->trans("OvhInvoiceImportDesc") . '</span><br><br>';
 
 //print $form->select_produits($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID, 'OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID');
 //print $langs->trans("OvhSmsNick").': <strong>'.$conf->global->OVHSMS_NICK.'</strong><br>';
