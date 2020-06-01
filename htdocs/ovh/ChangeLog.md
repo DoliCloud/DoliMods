@@ -6,6 +6,7 @@
 * Fix blank page with Dolidroid
 * Link the event ot thirdparty history with Dolibarr v12 
 * Compatibility with v11 (newToken).
+* Add checkbox to exclude lines with null amount
 
 ## 4.0
 

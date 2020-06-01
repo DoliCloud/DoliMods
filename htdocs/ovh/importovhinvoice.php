@@ -70,7 +70,8 @@ $endpoint = empty($conf->global->OVH_ENDPOINT) ? 'ovh-eu' : $conf->global->OVH_E
 
 $action = GETPOST('action', 'aZ09');
 $projectid = GETPOST('projectid', 'int');
-$excludenullinvoice = GETPOST('excludenullinvoice');
+$excludenullinvoice = GETPOST('excludenullinvoice', 'alpha');
+$excludenulllines = GETPOST('excludenulllines', 'alpha');
 //$idovhsupplier=GETPOST('idovhsupplier');
 $idovhsupplier = empty($conf->global->OVH_THIRDPARTY_IMPORT) ? '' : $conf->global->OVH_THIRDPARTY_IMPORT;
 
@@ -82,7 +83,7 @@ if ($idovhsupplier) {
 $fuser = $user;
 
 $now = dol_now();
-$datefrom = dol_mktime(0, 0, 0, GETPOST('datefrommonth'), GETPOST('datefromday'), GETPOST('datefromyear'));
+$datefrom = dol_mktime(0, 0, 0, GETPOST('datefrommonth', 'int'), GETPOST('datefromday', 'int'), GETPOST('datefromyear', 'int'));
 if (!$datefrom) {
     $datefrom = dol_time_plus_duree($now, -6, 'm');
 }
@@ -225,18 +226,20 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
                     $details = array();
                     $pos = 0;
                     foreach ($r2 as $key2 => $val2) {
-                        $r2d = $conn->get('/me/bill/' . $val . '/details/' . $val2);
-                        $description .= $r2d['description'] . "<br>\n";
-                        $details[$pos]['billId'] = $billnum;
-                        $details[$pos]['billDetailId'] = $r2d['billDetailId'];
-                        $details[$pos]['description'] = $r2d['description'];
-                        $details[$pos]['totalPrice'] = $r2d['totalPrice']['value'];
-                        $details[$pos]['periodStart'] = $r2d['periodStart'];
-                        $details[$pos]['periodEnd'] = $r2d['periodEnd'];
-                        $details[$pos]['domain'] = $r2d['domain'];
-                        $details[$pos]['unitPrice'] = $r2d['unitPrice']['value'];
-                        $details[$pos]['quantity'] = $r2d['quantity'];
-                        $pos++;
+                    	$r2d = $conn->get('/me/bill/' . $val . '/details/' . $val2);
+                    	if (!$excludenulllines || $r2d['totalPrice']['value']) {
+	                        $description .= $r2d['description'] . "<br>\n";
+	                        $details[$pos]['billId'] = $billnum;
+	                        $details[$pos]['billDetailId'] = $r2d['billDetailId'];
+	                        $details[$pos]['description'] = $r2d['description'];
+	                        $details[$pos]['totalPrice'] = $r2d['totalPrice']['value'];
+	                        $details[$pos]['periodStart'] = $r2d['periodStart'];
+	                        $details[$pos]['periodEnd'] = $r2d['periodEnd'];
+	                        $details[$pos]['domain'] = $r2d['domain'];
+	                        $details[$pos]['unitPrice'] = $r2d['unitPrice']['value'];
+	                        $details[$pos]['quantity'] = $r2d['quantity'];
+	                        $pos++;
+                    	}
                     }
                     $result[$keyresult] = array(
                         'id' => $r['billId'],
@@ -482,7 +485,8 @@ print '<br><br>';
 
 print '<div class="tabBar">';
 print '<table class="notopnoborder"><tr><td>';
-print '<input type="checkbox" name="excludenullinvoice"' . ((!isset($_POST["excludenullinvoice"]) || GETPOST('excludenullinvoice')) ? ' checked="true"' : '') . '"> ' . $langs->trans("ExcludeNullInvoices") . '<br>';
+print '<input type="checkbox" name="excludenullinvoice"' . ((!isset($_POST["excludenullinvoice"]) || GETPOST('excludenullinvoice')) ? ' checked="true"' : '') . '"> ' . $langs->trans("ExcludeNullInvoices") . '';
+print ' &nbsp; <input type="checkbox" name="excludenulllines"' . ((isset($_POST["excludenulllines"]) && GETPOST('excludenulllines')) ? ' checked="true"' : '') . '"> ' . $langs->trans("ExcludeNullLines") . '<br>';
 print $langs->trans("FromThe") . ': ';
 print $form->selectDate($datefrom, 'datefrom');
 if (! empty($conf->global->OVH_USE_2_ACCOUNTS))
@@ -613,6 +617,7 @@ if ($action == 'refresh') {
 			print '<input type="hidden" name="compte" value="' .GETPOST("compte",'alpha'). '">';
 
             print '<input type="hidden" id="excludenullinvoicehidden" name="excludenullinvoice" value="' . $excludenullinvoice . '">';
+            print '<input type="hidden" id="excludenulllineshidden" name="excludenulllines" value="' . $excludenulllines . '">';
             print ' <input type="submit" name="import" value="' . $langs->trans("ToImport") . '" class="button">';
             print '</div>';
 
