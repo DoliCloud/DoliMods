@@ -319,6 +319,7 @@ if ($action == 'pushallevents')
 				$objecttmp->location=$obj->location;
 				$objecttmp->socid=$obj->fk_soc;
 				$objecttmp->contactid=$obj->fk_contact;
+				$objecttmp->contact_id=$obj->fk_contact;
 				$objecttmp->note=$obj->note;
 				$objecttmp->note_public=$obj->note_public;
 

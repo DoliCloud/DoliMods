@@ -144,7 +144,7 @@ if ($resql)
 		$obj = $db->fetch_object($resql);
 		//debug
 		//var_dump($obj);
-		if ($obj->phone || (! empty($conf->global->IPPHONE_SHOW_NO_PHONE) && (empty($obj->contactid) || (empty($obj->contactphone) && empty($obj->contactphonemobile)))))
+		if ($obj->phone || (! empty($conf->global->IPPHONE_SHOW_NO_PHONE) && ((empty($obj->contact_id) && empty($obj->contactid)) || (empty($obj->contactphone) && empty($obj->contactphonemobile)))))
 		{
 			// Record for thirdparty (only if not already output)
 			if (empty($phoneaddedforthisthird[$obj->rowid]))
@@ -153,7 +153,7 @@ if ($resql)
             	{
     			    print "<DirectoryEntry>\n";
     				print "\t<Name>";
-    				//print $obj->rowid.'/'.$obj->contactid.' ';
+    				//print $obj->rowid.'/'.$obj->contact_id.' ';
     				print dolXMLEncodeipphone($obj->name);
     				print "</Name>\n";
     				print "\t<Telephone>";
@@ -174,7 +174,7 @@ if ($resql)
            	{
     		    print "<DirectoryEntry>\n";
     			print "\t<Name>";
-    			//print $obj->rowid.'/'.$obj->contactid.' ';
+    			//print $obj->rowid.'/'.$obj->contact_id.' ';
     			print dolXMLEncodeipphone($obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname));
     			print "</Name>\n";
     			print "\t<Telephone>";
@@ -193,7 +193,7 @@ if ($resql)
            	{
     		    print "<DirectoryEntry>\n";
     			print "\t<Name>";
-    			//print $obj->rowid.'/'.$obj->contactid.' ';
+    			//print $obj->rowid.'/'.$obj->contact_id.' ';
     			print dolXMLEncodeipphone($obj->name." - ".dolGetFirstLastname($obj->firstname,$obj->lastname));
     			print "</Name>\n";
     			print "\t<Telephone>";

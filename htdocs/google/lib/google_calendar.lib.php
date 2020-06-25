@@ -582,9 +582,9 @@ function google_complete_label_and_note(&$object, $langs)
 			$object->note_public.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
 		}
 	}
-	if (($object->contactid > 0 || (! empty($object->contact->id) && $object->contact->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
+	if (($object->contactid > 0 || $object->contact_id > 0 || (! empty($object->contact->id) && $object->contact->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
 		$contact = new Contact($db);
-		$result=$contact->fetch($object->contactid?$object->contactid:$object->contact->id);
+		$result=$contact->fetch($object->contact_id ? $object->contact_id : ($object->contactid ? $object->contactid : $object->contact->id));
 		if ($result > 0)
 		{
 			$eventlabel .= ' - '.$contact->getFullName($langs, 1);
@@ -742,7 +742,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						//$object->percentage=-1;
 						$object->location=$event->getLocation();
 						//$object->socid=$obj->fk_soc;
-						//$object->contactid=$obj->fk_contact;
+						//$object->contact_id=$obj->fk_contact;
 						$object->note=trim(preg_replace('/'.preg_quote('-----+++++-----','/').'.*$/s', '', $event->getDescription()));
 						$object->note_public=trim(preg_replace('/'.preg_quote('-----+++++-----','/').'.*$/s', '', $event->getDescription()));
 
