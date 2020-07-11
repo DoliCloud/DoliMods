@@ -386,7 +386,8 @@ if ($action == 'syncfromgoogle')
 		}
 		else
 		{
-			setEventMessage($langs->trans("GetFromGoogleSucess", $nbinserted ? $nbinserted : '0', $nbupdated ? $nbupdated : '0', $nbdeleted ? $nbdeleted : '0'), 'mesgs');
+			$langs->load("google@google");
+			setEventMessage($langs->trans("GetFromGoogleSucess", ($nbinserted ? $nbinserted : '0'), ($nbupdated ? $nbupdated : '0'), ($nbdeleted ? $nbdeleted : '0')), 'mesgs');
 			if ($nbalreadydeleted) setEventMessage($langs->trans("GetFromGoogleAlreadyDeleted", $nbalreadydeleted), 'mesgs');
 		}
 	}
