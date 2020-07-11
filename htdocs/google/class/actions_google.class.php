@@ -134,7 +134,7 @@ class ActionsGoogle
 						}
 						else
 						{
-							setEventMessage($langs->trans("GetFromGoogleSucess", $nbinserted, $nbupdated, $nbdeleted), 'mesgs');
+							setEventMessage($langs->trans("GetFromGoogleSucess", $nbinserted ? $nbinserted : '0', $nbupdated ? $nbupdated : '0', $nbdeleted ? $nbdeleted : '0'), 'mesgs');
 							if ($nbalreadydeleted) setEventMessage($langs->trans("GetFromGoogleAlreadyDeleted", $nbalreadydeleted), 'mesgs');
 
 							include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
