@@ -121,3 +121,4 @@ GetFromGoogleAlreadyDeleted=%s enregisrement(s) effacés de Google et non trouv�
 OperationMayBeLong=l'opération peut être longue, relancez si vous avez un timeout
 ErrorModuleGoogleKeyFileNotFound=Le fichier de clé Google %s n'a pas été trouvé
 ClickToUpdateWithLastGoogleChanges=Cliquer pour mettre à jour l'agenda avec les modifications faites dans l'agenda Google %s depuis le
+RefreshEventFromGoogle=Refresh events from Google
