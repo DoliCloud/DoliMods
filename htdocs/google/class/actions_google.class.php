@@ -150,9 +150,10 @@ class ActionsGoogle
 	    		$langs->load("google@google");
 	    		$this->resprints = '<div class="clearboth"></div><div class="googlerefreshcal">';
 	    		$this->resprints.= '<a href="'.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'&actiongoogle=refresh">';
-	    		$this->resprints.= $langs->trans("ClickToUpdateWithLastGoogleChanges", $userlogin);
-	    		$this->resprints.= ' '.dol_print_date($dateminsync, 'dayhour', 'tzserver', $langs);
-	    		$this->resprints.= $form->textwithpicto($langs->trans("RefreshEventFromGoogle"), $langs->trans("GoogleLimitBackTime",$notolderforsync));
+	    		$tooltip = $langs->trans("ClickToUpdateWithLastGoogleChanges", $userlogin);
+	    		$tooltip .= ' '.dol_print_date($dateminsync, 'dayhour', 'tzserver', $langs);
+	    		$tooltip .= '<br>'.$langs->trans("GoogleLimitBackTime",$notolderforsync);
+	    		$this->resprints.= $form->textwithpicto($langs->trans("RefreshEventFromGoogle"), $tooltip);
 	    		$this->resprints.= '</a></div>';
     		}
     	}
