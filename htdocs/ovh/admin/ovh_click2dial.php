@@ -112,11 +112,11 @@ dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
 $login = $conf->global->OVHC2C_ACCOUNT;
 $password = $conf->global->OVH_SMS_PASS;
 
-llxHeader('',$langs->trans('OvhClick2dialSetup'),'','');
+llxHeader('',$langs->trans('OvhSmsSetup'),'','');
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
 
-print_fiche_titre($langs->trans("OvhClick2dialSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("OvhSmsSetup"),$linkback,'setup');
 
 $head=ovhadmin_prepare_head();
 
