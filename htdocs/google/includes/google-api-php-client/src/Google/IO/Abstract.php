@@ -55,13 +55,13 @@ abstract class Google_IO_Abstract
    * @param $options
    */
   abstract public function setOptions($options);
-  
+
   /**
    * Set the maximum request time in seconds.
    * @param $timeout in seconds
    */
   abstract public function setTimeout($timeout);
-  
+
   /**
    * Get the maximum request time in seconds.
    * @return timeout in seconds
@@ -96,7 +96,7 @@ abstract class Google_IO_Abstract
 
     return false;
   }
-  
+
   /**
    * Execute an HTTP Request
    *
@@ -118,10 +118,7 @@ abstract class Google_IO_Abstract
     if (array_key_exists($request->getRequestMethod(), self::$ENTITY_HTTP_METHODS)) {
       $request = $this->processEntityRequest($request);
     }
-    
-    // DOL_LDR
-    // dol_syslog("makeRequest ".$request->toBatchString($id));
-    
+
     list($responseData, $responseHeaders, $respHttpCode) = $this->executeRequest($request);
 
     if ($respHttpCode == 304 && $cached) {
