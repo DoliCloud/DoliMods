@@ -310,7 +310,7 @@ function createEvent($client, $object, $login='primary')
 	$event->setExtendedProperties($extendedProperties);
 
 	$attendees = array();
-	if (! empty($object->userassigned))	// This can occurs with automatic events
+	if (! empty($object->userassigned) && ! empty($conf->global->GOOGLE_INCLUDE_ATTENDEES))	// This can occurs with automatic events
 	{
 		foreach($object->userassigned as $key => $val)
 		{
@@ -367,6 +367,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 	global $user;
 
 	$neweventid=$eventId;
+	$reg = array();
 	if (preg_match('/google\.com\/.*\/([^\/]+)$/',$eventId,$reg))
 	{
 		$neweventid=$reg[1];
@@ -461,17 +462,20 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		$event->setExtendedProperties($extendedProperties);
 
 		$attendees = array();
-		foreach($object->userassigned as $key => $val)
+		if (! empty($object->userassigned) && ! empty($conf->global->GOOGLE_INCLUDE_ATTENDEES))	// This can occurs with automatic events
 		{
-			if ($key == $user->id) continue;	// ourself, not an attendee
-			$fuser=new User($db);
-			$fuser->fetch($key);
-			if ($fuser->id > 0 && $fuser->email)
+			foreach($object->userassigned as $key => $val)
 			{
-				$attendee = new Google_Service_Calendar_EventAttendee();
-				$attendee->setEmail($fuser->email);
-				$attendee->setDisplayName($fuser->getFullName($langs));
-				$attendees[]=$attendee;
+				if ($key == $user->id) continue;	// ourself, not an attendee
+				$fuser=new User($db);
+				$fuser->fetch($key);
+				if ($fuser->id > 0 && $fuser->email)
+				{
+					$attendee = new Google_Service_Calendar_EventAttendee();
+					$attendee->setEmail($fuser->email);
+					$attendee->setDisplayName($fuser->getFullName($langs));
+					$attendees[]=$attendee;
+				}
 			}
 		}
 		$event->attendees = $attendees;

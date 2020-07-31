@@ -105,6 +105,8 @@ if ($action == 'save')
 	if (! $res > 0) $error++;
 	$res=dolibarr_set_const($db,'GOOGLE_INCLUDE_AUTO_EVENT',trim($_POST["GOOGLE_INCLUDE_AUTO_EVENT"]),'chaine',0,'',$conf->entity);
 	if (! $res > 0) $error++;
+	$res=dolibarr_set_const($db,'GOOGLE_INCLUDE_ATTENDEES',trim($_POST["GOOGLE_INCLUDE_ATTENDEES"]),'chaine',0,'',$conf->entity);
+	if (! $res > 0) $error++;
 
 	if (! empty($_FILES['GOOGLE_API_SERVICEACCOUNT_P12KEY_file']['tmp_name']))
 	{
@@ -180,6 +182,7 @@ if (preg_match('/^test/',$action))
 	$tmpcontact=new Contact($db);
 	$tmpcontact->initAsSpecimen();
 	$object->contact=$tmpcontact;
+	$object->contact_id=$tmpcontact->id;
 
 	if ($tmpcontact->socid > 0)
 	{
@@ -187,6 +190,14 @@ if (preg_match('/^test/',$action))
 		$tmpsoc->fetch($tmpcontact->socid);	// Overwrite with value of an existing record
 		$object->societe=$tmpsoc;
 		$object->thirdparty=$tmpsoc;
+	}
+
+	if (! empty($conf->global->GOOGLE_INCLUDE_ATTENDEES)) {
+		$idofotheruser = 0;
+		//$idofotheruser = 18;		// Add id of another user here to allow test with attendees
+		if ($idofotheruser > 0 && $idofotheruser != $user->id) {
+			$object->userassigned[$idofotheruser] = array('id'=>$idofotheruser, 'transparency'=> 1);
+		}
 	}
 
 	$result=$object->create($user);
@@ -531,6 +542,13 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("GOOGLE_INCLUDE_AUTO_EVENT")."</td>";
 print "<td>";
 print $form->selectyesno("GOOGLE_INCLUDE_AUTO_EVENT", $conf->global->GOOGLE_INCLUDE_AUTO_EVENT, 1);
+print "</td>";
+print "</tr>";
+// Include attendees
+print '<tr class="oddeven">';
+print '<td>'.$langs->trans("GOOGLE_INCLUDE_ATTENDEES")."</td>";
+print "<td>";
+print $form->selectyesno("GOOGLE_INCLUDE_ATTENDEES", $conf->global->GOOGLE_INCLUDE_ATTENDEES, 1);
 print "</td>";
 print "</tr>";
 
