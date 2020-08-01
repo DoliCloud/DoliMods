@@ -149,7 +149,11 @@ class ActionsGoogle
 
 	    		// HTML output to show into agenda views
 	    		$langs->load("google@google");
-	    		$this->resprints = '<div class="clearboth"></div><div class="googlerefreshcal">';
+	    		if ((float) DOL_VERSION >= 12) {
+	    			$this->resprints = ' &nbsp; <div class="googlerefreshcal inline-block">';
+	    		} else {
+		    		$this->resprints = '<div class="clearboth"></div><div class="googlerefreshcal">';
+	    		}
 	    		$this->resprints.= '<a href="'.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'&actiongoogle=refresh">';
 	    		$tooltip = $langs->trans("ClickToUpdateWithLastGoogleChanges", $userlogin);
 	    		$tooltip .= ' '.dol_print_date($dateminsync, 'dayhour', 'tzserver', $langs);
