@@ -131,3 +131,4 @@ RecordInGeoEncodingErrorDeleted=All records with geoencoding errors were reset f
 IconTiers=Use a different picto for prospect, customer and supplier
 CustomersOnly=Customers only
 ProspectsOnly=Prospects only
+RefreshEventFromGoogle=Refresh events from Google
