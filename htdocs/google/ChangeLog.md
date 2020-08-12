@@ -5,6 +5,7 @@
 
 - NEW Add filter on status "Active" for thirdparties
 - NEW Compatibility with v11
+- NEW GOOGLE_DEBUG add also a file for each request
 - Use the public note as note sync for events and contacts.
 - FIX encoding of ' when pushing a google event
 

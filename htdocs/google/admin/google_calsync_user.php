@@ -319,6 +319,7 @@ if ($action == 'pushallevents')
 				$objecttmp->location=$obj->location;
 				$objecttmp->socid=$obj->fk_soc;
 				$objecttmp->contactid=$obj->fk_contact;
+				$objecttmp->contact_id=$obj->fk_contact;
 				$objecttmp->note=$obj->note;
 				$objecttmp->note_public=$obj->note_public;
 
@@ -385,7 +386,8 @@ if ($action == 'syncfromgoogle')
 		}
 		else
 		{
-			setEventMessage($langs->trans("GetFromGoogleSucess", $nbinserted, $nbupdated, $nbdeleted, $nbalreadydeleted), 'mesgs');
+			$langs->load("google@google");
+			setEventMessage($langs->trans("GetFromGoogleSucess", ($nbinserted ? $nbinserted : '0'), ($nbupdated ? $nbupdated : '0'), ($nbdeleted ? $nbdeleted : '0')), 'mesgs');
 			if ($nbalreadydeleted) setEventMessage($langs->trans("GetFromGoogleAlreadyDeleted", $nbalreadydeleted), 'mesgs');
 		}
 	}

@@ -37,6 +37,17 @@ class Google_Http_REST
   public static function execute(Google_Client $client, Google_Http_Request $req)
   {
     $httpRequest = $client->getIo()->makeRequest($req);
+
+    // CHANGE DOL_LDR
+    global $conf;
+    if (! empty($conf->global->GOOGLE_DEBUG))
+    {
+    	$dates=dol_print_date(dol_now(), 'dayhourlog');
+    	$h=fopen(DOL_DATA_ROOT.'/dolibarr_google_request_'.$dates.'.log', 'w+');
+    	fwrite($h, $req->toBatchString($id));
+    	fclose($h);
+    }
+
     $httpRequest->setExpectedClass($req->getExpectedClass());
     return self::decodeHttpResponse($httpRequest);
   }

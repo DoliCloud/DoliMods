@@ -280,9 +280,11 @@ print '<input type="hidden" name="formfilteraction" id="formfilteraction" value=
 print '<input type="hidden" name="action" value="list">';
 print '<input type="hidden" name="sortfield" value="'.$sortfield.'">';
 print '<input type="hidden" name="sortorder" value="'.$sortorder.'">';
-print '<input type="hidden" name="page" value="'.$page.'">';
 print '<input type="hidden" name="contextpage" value="'.$contextpage.'">';
 print '<input type="hidden" name="mode" value="'.$mode.'">';
+if ($mode == 'groupbyzoneandvatrate') {
+	print '<input type="hidden" name="page" value="'.$page.'">';
+}
 
 if ($mode == 'groupbyzoneandvatrate')
 {
@@ -304,7 +306,7 @@ $massactionbutton = '';
 if ($mode == 'groupbyzoneandvatrate') {
     print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, -1 * $num, '', 'title_companies', 0, $newcardbutton, '', -1, 1, 1);
 } else {
-    print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'title_companies', 0, $newcardbutton, '', $limit);
+    print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'title_companies', 0, $newcardbutton, '', $limit, 0, 0, 1);
 }
 
 $moreforfilter = '';

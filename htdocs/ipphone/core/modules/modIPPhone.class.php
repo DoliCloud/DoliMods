@@ -58,14 +58,14 @@ class modIPPhone extends DolibarrModules
         $this->editor_name = 'NLTechno';
         $this->editor_url = 'https://www.nltechno.com';
         // Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-        $this->version = '3.6.0';
+        $this->version = '4.0';
         // Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
         $this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
         // Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
         $this->special = 1;
         // Name of png file (without png) used for this module.
         // Png file must be in theme/yourtheme/img directory under name object_pictovalue.png.
-        $this->picto='globe';
+        $this->picto='phone@ipphone';
 
         // Data directories to create when module is enabled.
         $this->dirs = array();
@@ -77,7 +77,7 @@ class modIPPhone extends DolibarrModules
         $this->depends = array();		// List of modules id that must be enabled if this module is enabled
         $this->requiredby = array();	// List of modules id to disable if this one is disabled
         $this->phpmin = array(4,3);					// Minimum version of PHP required by module
-        $this->need_dolibarr_version = array(3,5);	// Minimum version of Dolibarr required by module
+        $this->need_dolibarr_version = array(11,0);	// Minimum version of Dolibarr required by module
         $this->langfiles = array('ipphone@ipphone');
 
         // Constants

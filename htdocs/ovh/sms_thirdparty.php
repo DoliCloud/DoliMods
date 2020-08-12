@@ -140,6 +140,7 @@ if ($action == 'send' && ! $_POST['cancel'])
         $smsfile->nostop=GETPOST('disablestop');
         $smsfile->socid = $socid;
         $smsfile->contactid = 0;
+        $smsfile->contact_id = 0;
         $smsfile->fk_project = 0;
 
         // Send the SMS

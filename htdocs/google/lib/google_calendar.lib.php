@@ -310,7 +310,7 @@ function createEvent($client, $object, $login='primary')
 	$event->setExtendedProperties($extendedProperties);
 
 	$attendees = array();
-	if (! empty($object->userassigned))	// This can occurs with automatic events
+	if (! empty($object->userassigned) && ! empty($conf->global->GOOGLE_INCLUDE_ATTENDEES))	// This can occurs with automatic events
 	{
 		foreach($object->userassigned as $key => $val)
 		{
@@ -367,6 +367,7 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 	global $user;
 
 	$neweventid=$eventId;
+	$reg = array();
 	if (preg_match('/google\.com\/.*\/([^\/]+)$/',$eventId,$reg))
 	{
 		$neweventid=$reg[1];
@@ -461,17 +462,20 @@ function updateEvent($client, $eventId, $object, $login='primary', $service=null
 		$event->setExtendedProperties($extendedProperties);
 
 		$attendees = array();
-		foreach($object->userassigned as $key => $val)
+		if (! empty($object->userassigned) && ! empty($conf->global->GOOGLE_INCLUDE_ATTENDEES))	// This can occurs with automatic events
 		{
-			if ($key == $user->id) continue;	// ourself, not an attendee
-			$fuser=new User($db);
-			$fuser->fetch($key);
-			if ($fuser->id > 0 && $fuser->email)
+			foreach($object->userassigned as $key => $val)
 			{
-				$attendee = new Google_Service_Calendar_EventAttendee();
-				$attendee->setEmail($fuser->email);
-				$attendee->setDisplayName($fuser->getFullName($langs));
-				$attendees[]=$attendee;
+				if ($key == $user->id) continue;	// ourself, not an attendee
+				$fuser=new User($db);
+				$fuser->fetch($key);
+				if ($fuser->id > 0 && $fuser->email)
+				{
+					$attendee = new Google_Service_Calendar_EventAttendee();
+					$attendee->setEmail($fuser->email);
+					$attendee->setDisplayName($fuser->getFullName($langs));
+					$attendees[]=$attendee;
+				}
 			}
 		}
 		$event->attendees = $attendees;
@@ -582,9 +586,9 @@ function google_complete_label_and_note(&$object, $langs)
 			$object->note_public.="\n\n-----+++++-----\n".$more."\n".$langs->trans("LinkToThirdParty").': '.$urltoelem;
 		}
 	}
-	if (($object->contactid > 0 || (! empty($object->contact->id) && $object->contact->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
+	if (($object->contactid > 0 || $object->contact_id > 0 || (! empty($object->contact->id) && $object->contact->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
 		$contact = new Contact($db);
-		$result=$contact->fetch($object->contactid?$object->contactid:$object->contact->id);
+		$result=$contact->fetch($object->contact_id ? $object->contact_id : ($object->contactid ? $object->contactid : $object->contact->id));
 		if ($result > 0)
 		{
 			$eventlabel .= ' - '.$contact->getFullName($langs, 1);
@@ -742,7 +746,7 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max=0)
 						//$object->percentage=-1;
 						$object->location=$event->getLocation();
 						//$object->socid=$obj->fk_soc;
-						//$object->contactid=$obj->fk_contact;
+						//$object->contact_id=$obj->fk_contact;
 						$object->note=trim(preg_replace('/'.preg_quote('-----+++++-----','/').'.*$/s', '', $event->getDescription()));
 						$object->note_public=trim(preg_replace('/'.preg_quote('-----+++++-----','/').'.*$/s', '', $event->getDescription()));
 

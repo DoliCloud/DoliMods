@@ -134,7 +134,8 @@ class ActionsGoogle
 						}
 						else
 						{
-							setEventMessage($langs->trans("GetFromGoogleSucess", $nbinserted, $nbupdated, $nbdeleted), 'mesgs');
+							$langs->load("google@google");
+							setEventMessage($langs->trans("GetFromGoogleSucess", ($nbinserted ? $nbinserted : '0'), ($nbupdated ? $nbupdated : '0'), ($nbdeleted ? $nbdeleted : '0')), 'mesgs');
 							if ($nbalreadydeleted) setEventMessage($langs->trans("GetFromGoogleAlreadyDeleted", $nbalreadydeleted), 'mesgs');
 
 							include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
@@ -147,12 +148,17 @@ class ActionsGoogle
 	    		}
 
 	    		// HTML output to show into agenda views
-	    		$langs->load("google");
-	    		$this->resprints = '<div class="clearboth"></div><div class="googlerefreshcal">';
+	    		$langs->load("google@google");
+	    		if ((float) DOL_VERSION >= 12) {
+	    			$this->resprints = ' &nbsp; <div class="googlerefreshcal inline-block">';
+	    		} else {
+		    		$this->resprints = '<div class="clearboth"></div><div class="googlerefreshcal">';
+	    		}
 	    		$this->resprints.= '<a href="'.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'&actiongoogle=refresh">';
-	    		$this->resprints.= $langs->trans("ClickToUpdateWithLastGoogleChanges", $userlogin);
-	    		$this->resprints.= ' '.dol_print_date($dateminsync, 'dayhour', 'tzserver', $langs);
-	    		$this->resprints.= $form->textwithtooltip(img_help(),$langs->trans("GoogleLimitBackTime",$notolderforsync));
+	    		$tooltip = $langs->trans("ClickToUpdateWithLastGoogleChanges", $userlogin);
+	    		$tooltip .= ' '.dol_print_date($dateminsync, 'dayhour', 'tzserver', $langs);
+	    		$tooltip .= '<br>'.$langs->trans("GoogleLimitBackTime",$notolderforsync);
+	    		$this->resprints.= $form->textwithpicto($langs->trans("RefreshEventFromGoogle"), $tooltip);
 	    		$this->resprints.= '</a></div>';
     		}
     	}

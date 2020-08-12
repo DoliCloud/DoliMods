@@ -99,22 +99,23 @@ if (empty($action) && empty($id) && empty($ref)) $action='view';
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php';  // Must be include, not include_once.
 
-// Security check - Protection if external user
-//if ($user->societe_id > 0) accessforbidden();
-//if ($user->societe_id > 0) $socid = $user->societe_id;
-//$isdraft = (($object->statut == CaptureServer::STATUS_DRAFT) ? 1 : 0);
-//$result = restrictedArea($user, 'captureserver', $object->id, '', '', 'fk_soc', 'rowid', $isdraft);
 
+$permissiontoread = $user->rights->captureserver->read;
 $permissionnote=$user->rights->captureserver->write;	// Used by the include of actions_setnotes.inc.php
 $permissiondellink=$user->rights->captureserver->write;	// Used by the include of actions_dellink.inc.php
 $permissiontoadd=$user->rights->captureserver->write; 	// Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 
+// Security check - Protection if external user
+//if ($user->socid > 0) accessforbidden();
+//if ($user->socid > 0) $socid = $user->socid;
+//$isdraft = (($object->statut == $object::STATUS_DRAFT) ? 1 : 0);
+//$result = restrictedArea($user, 'mymodule', $object->id, '', '', 'fk_soc', 'rowid', $isdraft);
+
+if (!$permissiontoread) accessforbidden();
 
 
 /*
  * Actions
- *
- * Put here all code to do according to value of "action" parameter
  */
 
 $parameters=array();
@@ -487,16 +488,6 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	{
 	    print '<div class="fichecenter"><div class="fichehalfleft">';
 	    print '<a name="builddoc"></a>'; // ancre
-
-	    // Documents
-	    /*$objref = dol_sanitizeFileName($object->ref);
-	    $relativepath = $comref . '/' . $comref . '.pdf';
-	    $filedir = $conf->captureserver->dir_output . '/' . $objref;
-	    $urlsource = $_SERVER["PHP_SELF"] . "?id=" . $object->id;
-	    $genallowed = $user->rights->captureserver->read;	// If you can read, you can build the PDF to read content
-	    $delallowed = $user->rights->captureserver->create;	// If you can create/edit, you can remove a file on card
-	    print $formfile->showdocuments('captureserver', $objref, $filedir, $urlsource, $genallowed, $delallowed, $object->modelpdf, 1, 0, 0, 28, 0, '', '', '', $soc->default_lang);
-		*/
 
 	    // Show links to link elements
 	    //$linktoelem = $form->showLinkToObjectBlock($object, null, array('captureserver'));

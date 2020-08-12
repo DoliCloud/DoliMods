@@ -155,7 +155,7 @@ print "<td>".$langs->trans("Value")."</td>";
 print "<td>".$langs->trans("Examples")."</td>";
 print "</tr>";
 
-print "<tr class=\"impair\">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("MantisURL")."</td>";
 print "<td><input type=\"text\" class=\"flat\" name=\"phpmantis_url\" value=\"". ($_POST["phpmantis_url"]?$_POST["phpmantis_url"]:$conf->global->PHPMANTIS_URL) . "\" size=\"40\"></td>";
 print "<td>http://localhost/mantis/";
@@ -163,7 +163,7 @@ print "<br>https://mantisserver/";
 print "</td>";
 print "</tr>";
 
-print "<tr class=\"pair\">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("MantisServer")."</td>";
 print "<td><input type=\"text\" class=\"flat\" name=\"phpmantis_host\" value=\"". ($_POST["phpmantis_host"]?$_POST["phpmantis_host"]:$conf->global->PHPMANTIS_HOST) . "\" size=\"30\"></td>";
 print "<td>localhost";
@@ -171,7 +171,7 @@ print "<td>localhost";
 print "</td>";
 print "</tr>";
 
-print "<tr class=\"impair\">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("MantisDatabaseName")."</td>";
 print "<td><input type=\"text\" class=\"flat\" name=\"phpmantis_dbname\" value=\"". ($_POST["phpmantis_dbname"]?$_POST["phpmantis_dbname"]:$conf->global->PHPMANTIS_DBNAME) . "\" size=\"30\"></td>";
 print "<td>bugtracker";
@@ -179,7 +179,7 @@ print "<td>bugtracker";
 print "</td>";
 print "</tr>";
 
-print "<tr class=\"pair\">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("MantisUser")."</td>";
 print "<td><input type=\"text\" class=\"flat\" name=\"phpmantis_user\" value=\"". ($_POST["phpmantis_user"]?$_POST["phpmantis_user"]:$conf->global->PHPMANTIS_USER) . "\" size=\"30\"></td>";
 print "<td>mantis";
@@ -187,7 +187,7 @@ print "<td>mantis";
 print "</td>";
 print "</tr>";
 
-print "<tr class=\"impair\">";
+print '<tr class="oddeven">';
 print "<td>".$langs->trans("Password")."</td>";
 print "<td><input type=\"password\" class=\"flat\" name=\"phpmantis_pass\" value=\"" . ($_POST["phpmantis_pass"]?$_POST["phpmantis_pass"]:$conf->global->PHPMANTIS_PASS) . "\" size=\"30\"></td>";
 print '<td>';

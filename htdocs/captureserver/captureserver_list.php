@@ -107,15 +107,6 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 if (! $sortfield) $sortfield="t.date_creation";   // Set here default search field. By default 1st field in definition.
 if (! $sortorder) $sortorder="DESC";
 
-// Security check
-$socid=0;
-if ($user->societe_id > 0)	// Protection if external user
-{
-	//$socid = $user->societe_id;
-	accessforbidden();
-}
-//$result = restrictedArea($user, 'captureserver', $id, '');
-
 // Initialize array of search criterias
 $search_all=trim(GETPOST("search_all", 'alpha'));
 $search=array();
@@ -152,6 +143,20 @@ if (is_array($extrafields->attributes[$object->table_element]['label']) && count
 $object->fields = dol_sort_array($object->fields, 'position');
 $arrayfields = dol_sort_array($arrayfields, 'position');
 
+// Security check
+$socid=0;
+if ($user->societe_id > 0)	// Protection if external user
+{
+	//$socid = $user->societe_id;
+	accessforbidden();
+}
+//$result = restrictedArea($user, 'captureserver', $id, '');
+
+$permissiontoread = $user->rights->captureserver->read;
+$permissiontoadd = $user->rights->captureserver->write;
+$permissiontodelete = $user->rights->captureserver->delete;
+
+if (!$permissiontoread) accessforbidden();
 
 
 /*
@@ -357,7 +362,7 @@ print '<input type="hidden" name="sortorder" value="'.$sortorder.'">';
 print '<input type="hidden" name="page" value="'.$page.'">';
 print '<input type="hidden" name="contextpage" value="'.$contextpage.'">';
 
-$newcardbutton = dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/captureserver/captureserver_card.php?action=create&backtopage='.urlencode($_SERVER['PHP_SELF']), '', $user->rights->captureserver->write);
+$newcardbutton = dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', dol_buildpath('/captureserver/captureserver_card.php', 1).'?action=create&backtopage='.urlencode($_SERVER['PHP_SELF']), '', $permissiontoadd);
 
 print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'title_companies', 0, $newcardbutton, '', $limit);
 

@@ -60,9 +60,10 @@ if ($actionsave)
 
     $db->begin();
 
+    $i+=dolibarr_set_const($db,'IPPHONE_XMLTAG',trim(GETPOST('IPPHONE_XMLTAG','alpha')),'chaine',0,'',$conf->entity);
     $i+=dolibarr_set_const($db,'IPPHONE_EXPORTKEY',trim(GETPOST('IPPHONE_EXPORTKEY','alpha')),'chaine',0,'',$conf->entity);
 
-    if ($i >= 1)
+    if ($i >= 2)
     {
         $db->commit();
         setEventMessage($langs->trans("SetupSaved"));
@@ -82,7 +83,7 @@ if ($actionsave)
 
 $help_url='EN:Module_ThomsonPhoneBook_EN|FR:Module_ThomsonPhoneBook|ES:M&oacute;dulo_ThomsonPhoneBook';
 
-llxHeader('','',$help_url);
+llxHeader('', '', $help_url);
 
 if (empty($conf->ipphone->enabled))
 {
@@ -90,34 +91,46 @@ if (empty($conf->ipphone->enabled))
     exit;
 }
 
-
-
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("IPPhoneSetup"),$linkback,'setup');
-print '<br>';
 
+print load_fiche_titre($langs->trans("IPPhoneSetup"), $linkback, 'setup');
 
 print '<form name="agendasetupform" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+print '<input type="hidden" name="token" value="'.newToken().'">';
 
-$head=array();
-dol_fiche_head($head, '', '', 0, '');
+$head = array();
+$h = 0;
+
+$head[$h][0] = "setup.php";
+$head[$h][1] = $langs->trans("Setup");
+$head[$h][2] = 'setup';
+$h++;
+
+dol_fiche_head($head, 'setup', '', -1, '');
 
 //print $langs->trans("IPPhoneSetupOtherDesc")."<br>\n";
 //print "<br>\n";
 
-print "<table class=\"noborder\" width=\"100%\">";
+print '<table class="noborder centpercent">';
 
-print "<tr class=\"liste_titre\">";
+print '<tr class="liste_titre">';
 print "<td>".$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 //print "<td>".$langs->trans("Examples")."</td>";
 print "<td>&nbsp;</td>";
 print "</tr>";
 
-print "<tr class=\"impair\">";
+print '<tr class="oddeven">';
+print '<td class="fieldrequired">'.$langs->trans("TagForXmlFile")."</td>";
+print '<td><input required="required" type="text" class="flat" id="IPPHONE_XMLTAG" name="IPPHONE_XMLTAG" value="' . (GETPOSTISSET('IPPHONE_XMLTAG')?GETPOST('IPPHONE_XMLTAG','alpha'):($conf->global->IPPHONE_XMLTAG ? $conf->global->IPPHONE_XMLTAG : 'CiscoIPPhoneDirectory')) . '">';
+print '</td>';
+print "<td>CiscoIPPhoneDirectory, YealinkIPPhoneDirectory, ThompsonDirectory</td>";
+print "</tr>";
+
+
+print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("PasswordToallowRead")."</td>";
-print '<td><input required="required" type="text" class="flat" id="IPPHONE_EXPORTKEY" name="IPPHONE_EXPORTKEY" value="' . (GETPOST('IPPHONE_EXPORTKEY','alpha')?GETPOST('IPPHONE_EXPORTKEY','alpha'):$conf->global->IPPHONE_EXPORTKEY) . '" size="40">';
+print '<td><input required="required" type="text" class="flat" id="IPPHONE_EXPORTKEY" name="IPPHONE_EXPORTKEY" value="' . (GETPOSTISSET('IPPHONE_EXPORTKEY')?GETPOST('IPPHONE_EXPORTKEY','alpha'):$conf->global->IPPHONE_EXPORTKEY) . '">';
 if (! empty($conf->use_javascript_ajax))
 	print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
 print '</td>';
@@ -135,15 +148,16 @@ print "</div>";
 print "</form>\n";
 
 
-
-print "Module is enabled. To use it, you must setup your phone to call following URL:<br><br>\n";
+print '<br><br>';
+print '<span class="opacitymedium">'.$langs->trans("ModuleEnabledUseURL").":</span><br><br>\n";
 $url=dol_buildpath('/ipphone/public/service.php',1);
 $url=DOL_MAIN_URL_ROOT.(preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'/', '', $url)).'?format=xml&key='.$conf->global->IPPHONE_EXPORTKEY;
 print 'XML: <a href="'.$url.'">'.$url."</a><br>\n";
 $url=dol_buildpath('/ipphone/public/service.php',1);
 $url=DOL_MAIN_URL_ROOT.(preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'/', '', $url)).'?format=csv&key='.$conf->global->IPPHONE_EXPORTKEY;
 print 'CSV: <a href="'.$url.'">'.$url."</a><br>\n";
-
+print '<br>';
+print $langs->trans("ItReturnListOfThirdAndContacts")."<br>\n";
 
 
 
