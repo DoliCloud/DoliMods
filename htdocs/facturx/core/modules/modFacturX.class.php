@@ -186,7 +186,7 @@ class modFacturX extends DolibarrModules
         // Boxes/Widgets
 		// Add here list of php file(s) stored in facturx/core/boxes that contains class to show a widget.
         $this->boxes = array(
-        	0=>array('file'=>'facturxwidget1.php@facturx','note'=>'Widget provided by FacturX','enabledbydefaulton'=>'Home'),
+        	//0=>array('file'=>'facturxwidget1.php@facturx','note'=>'Widget provided by FacturX','enabledbydefaulton'=>'Home'),
         	//1=>array('file'=>'facturxwidget2.php@facturx','note'=>'Widget provided by FacturX'),
         	//2=>array('file'=>'facturxwidget3.php@facturx','note'=>'Widget provided by FacturX')
         );
@@ -195,7 +195,7 @@ class modFacturX extends DolibarrModules
 		// Cronjobs (List of cron jobs entries to add when module is enabled)
 		// unit_frequency must be 60 for minute, 3600 for hour, 86400 for day, 604800 for week
 		$this->cronjobs = array(
-			0=>array('label'=>'MyJob label', 'jobtype'=>'method', 'class'=>'/facturx/class/myobject.class.php', 'objectname'=>'MyObject', 'method'=>'doScheduledJob', 'parameters'=>'', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->facturx->enabled', 'priority'=>50)
+			//0=>array('label'=>'MyJob label', 'jobtype'=>'method', 'class'=>'/facturx/class/myobject.class.php', 'objectname'=>'MyObject', 'method'=>'doScheduledJob', 'parameters'=>'', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->facturx->enabled', 'priority'=>50)
 		);
 		// Example: $this->cronjobs=array(0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->facturx->enabled', 'priority'=>50),
 		//                                1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$conf->facturx->enabled', 'priority'=>50)

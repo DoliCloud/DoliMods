@@ -46,7 +46,7 @@ class modCaptureServer extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 101130;		// TODO Go on page https://wiki.dolibarr.org/index.php/List_of_modules_id to reserve id number for your module
+		$this->numero = 101140;		// TODO Go on page https://wiki.dolibarr.org/index.php/List_of_modules_id to reserve id number for your module
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'captureserver';
 
@@ -191,9 +191,7 @@ class modCaptureServer extends DolibarrModules
         // Boxes/Widgets
 		// Add here list of php file(s) stored in captureserver/core/boxes that contains class to show a widget.
         $this->boxes = array(
-        	0=>array('file'=>'captureserverwidget1.php@captureserver','note'=>'Widget provided by CaptureServer','enabledbydefaulton'=>'Home'),
-        	//1=>array('file'=>'captureserverwidget2.php@captureserver','note'=>'Widget provided by CaptureServer'),
-        	//2=>array('file'=>'captureserverwidget3.php@captureserver','note'=>'Widget provided by CaptureServer')
+        	//0=>array('file'=>'captureserverwidget1.php@captureserver','note'=>'Widget provided by CaptureServer','enabledbydefaulton'=>'Home'),
         );
 
 
