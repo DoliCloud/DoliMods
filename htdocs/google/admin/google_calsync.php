@@ -77,6 +77,8 @@ $colorlist=array('7A367A','B1365F','5229A3','7A367A','29527A','2952A3','1B887A',
 'BE6D00','865A5A','705770','4E5D6C','5A6986','6E6E41','8D6F47','691426','5C1158','125A12','875509','754916',
 '5B123B','42104A','113F47','333333','711616','FFFFFF');
 
+$error = 0;
+
 
 /*
  * Actions
@@ -526,7 +528,7 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("GOOGLE_FIX_TZ")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="4" name="GOOGLE_CAL_TZ_FIX" value="'.$conf->global->GOOGLE_CAL_TZ_FIX.'">';
-print ' &nbsp; '.$langs->trans("FillThisOnlyIfRequired");
+print ' '.$form->textwithpicto('', $langs->trans("FillThisOnlyIfRequired"));
 print "</td>";
 print "</tr>";
 // Google TZ fix Google -> Dolibarr
@@ -534,7 +536,7 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("GOOGLE_FIX_TZ_G2D")."</td>";
 print "<td>";
 print '<input class="flat" type="text" size="4" name="GOOGLE_CAL_TZ_FIX_G2D" value="'.$conf->global->GOOGLE_CAL_TZ_FIX_G2D.'">';
-print ' &nbsp; '.$langs->trans("FillThisOnlyIfRequired");
+print ' '.$form->textwithpicto('', $langs->trans("FillThisOnlyIfRequired"));
 print "</td>";
 print "</tr>";
 // Include auto event

@@ -285,8 +285,13 @@ function googleCreateContact($client, $object, $useremail='default')
 
 		$id = '';
 
-		$tmp=json_decode($gdata['google_web_token']);
-		$access_token=$tmp->access_token;
+
+		if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+			$access_token=$gdata['google_web_token']['access_token'];
+		} else {
+			$tmp=json_decode($gdata['google_web_token']);
+			$access_token=$tmp->access_token;
+		}
 		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'Content-Type'=>'application/atom+xml');
 		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
 
@@ -373,8 +378,12 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 	$gdata=$client;
 
 	try {
-		$tmp=json_decode($gdata['google_web_token']);
-		$access_token=$tmp->access_token;
+		if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+			$access_token=$gdata['google_web_token']['access_token'];
+		} else {
+			$tmp=json_decode($gdata['google_web_token']);
+			$access_token=$tmp->access_token;
+		}
 		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
 		$addheaderscurl=array('Content-Type: application/atom+xml','GData-Version: 3.0', 'Authorization: Bearer '.$access_token);
 		//$useremail='default';
@@ -656,8 +665,12 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 		@chmod(DOL_DATA_ROOT . "/dolibarr_google_updatecontact.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 		// you can view this file with 'xmlstarlet fo dolibarr_google_updatecontact.xml' command
 
-		$tmp=json_decode($gdata['google_web_token']);
-		$access_token=$tmp->access_token;
+		if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+			$access_token=$gdata['google_web_token']['access_token'];
+		} else {
+			$tmp=json_decode($gdata['google_web_token']);
+			$access_token=$tmp->access_token;
+		}
 		$addheaders=array('If-Match'=>'*', 'GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'Content-Type'=>'application/atom+xml');
 		$addheaderscurl=array('If-Match: *', 'GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
 
@@ -740,8 +753,12 @@ function googleDeleteContactByRef($client, $ref, $useremail='default')
 
 	try
 	{
-		$tmp=json_decode($gdata['google_web_token']);
-		$access_token=$tmp->access_token;
+		if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+			$access_token=$gdata['google_web_token']['access_token'];
+		} else {
+			$tmp=json_decode($gdata['google_web_token']);
+			$access_token=$tmp->access_token;
+		}
 		$addheaders=array('GData-Version'=>'3.0', 'If-Match: *', 'Authorization'=>'Bearer '.$access_token);
 		$addheaderscurl=array('GData-Version: 3.0', 'If-Match: *', 'Authorization: Bearer '.$access_token);
 		//$useremail='default';
@@ -863,8 +880,12 @@ END;
 			// Convert text entities into numeric entities
 			$xmlStr = google_html_convert_entities($xmlStr);
 
-			$tmp=json_decode($gdata['google_web_token']);
-			$access_token=$tmp->access_token;
+			if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+				$access_token=$gdata['google_web_token']['access_token'];
+			} else {
+				$tmp=json_decode($gdata['google_web_token']);
+				$access_token=$tmp->access_token;
+			}
 			$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
 			$addheaderscurl=array('Content-Type: application/atom+xml','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
@@ -1081,9 +1102,12 @@ function getContactGroupsXml($gdata, $useremail='default')
 
 	$xmlStr='';
 	try {
-
-		$tmp=json_decode($gdata['google_web_token']);
-		$access_token=$tmp->access_token;
+		if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+			$access_token=$gdata['google_web_token']['access_token'];
+		} else {
+			$tmp=json_decode($gdata['google_web_token']);
+			$access_token=$tmp->access_token;
+		}
 		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
 		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
 		//$useremail='default';
@@ -1093,7 +1117,7 @@ function getContactGroupsXml($gdata, $useremail='default')
 		//$xmlStr=$result;
 
 		$result = getURLContent('https://www.google.com/m8/feeds/groups/'.urlencode($useremail).'/full?max-results=1000', 'GET', '', 0, $addheaderscurl);
-		$xmlStr=$result['content'];
+		$xmlStr = $result['content'];
 		try {
 			$document = new DOMDocument("1.0", "utf-8");
 			$resultloadxml = $document->loadXml($xmlStr);
@@ -1170,8 +1194,12 @@ function insertGContactGroup($gdata,$groupName,$useremail='default')
 		$doc->formatOutput = true;
 		$xmlStr = $doc->saveXML();
 
-		$tmp=json_decode($gdata['google_web_token']);
-		$access_token=$tmp->access_token;
+		if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+			$access_token=$gdata['google_web_token']['access_token'];
+		} else {
+			$tmp=json_decode($gdata['google_web_token']);
+			$access_token=$tmp->access_token;
+		}
 		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
 		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
 

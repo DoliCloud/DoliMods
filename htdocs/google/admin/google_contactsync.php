@@ -866,7 +866,7 @@ print $langs->trans("AllowGoogleToLoginWithClientSecret").'<br>';
 print '</td>';
 print '</tr>';
 
-print '<tr class="oddeven">';
+print '<tr class="oddeven nohover">';
 print '<td>'.$langs->trans("GOOGLE_WEB_TOKEN")."</td>";
 print '<td colspan="2">';
 if (empty($conf->global->GOOGLE_CONTACT_LOGIN) || empty($conf->global->GOOGLE_API_CLIENT_ID) || empty($conf->global->GOOGLE_API_CLIENT_SECRET))
@@ -903,8 +903,17 @@ else
 		print ':<br>';
 		if (! empty($conf->global->GOOGLE_WEB_TOKEN)) print '<div class="quatrevingtpercent" style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">'.$conf->global->GOOGLE_WEB_TOKEN.'</div>';
 		print '<br>';
+
 		print 'Current session token:<br>';
-		if (! empty($_SESSION['google_web_token_'.$conf->entity])) print '<div class="quatrevingtpercent" style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">'.$_SESSION['google_web_token_'.$conf->entity].'</div>';
+		if (! empty($_SESSION['google_web_token_'.$conf->entity])) {
+				print '<div class="quatrevingtpercent" style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">';
+				if (is_array($_SESSION['google_web_token_'.$conf->entity]) && key_exists('access_token', $_SESSION['google_web_token_'.$conf->entity])) {
+					print dol_json_encode($_SESSION['google_web_token_'.$conf->entity]);
+			 	} else {
+					print $_SESSION['google_web_token_'.$conf->entity];
+				}
+				print '</div>';
+		}
 		else print $langs->trans("None");
 		print '<br>';
 		print '<br>';

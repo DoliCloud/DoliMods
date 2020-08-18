@@ -11,7 +11,7 @@ GoogleEnableThisToolThirdParties=Activate this tools on Thirdparties cards
 GoogleEnableThisToolContacts=Activate this tools on Contacts cards
 GoogleEnableThisToolMembers=Activate this tools on Members cards
 GoogleAddPubOnLogonPage=Add AdSense information to add you own advert on logon page (otherwise keep empty)
-GoogleAddAnalyticsOnLogonPage=Add Analytics id to add the Google Analytics tags onto your login page (otherwise keep empy)
+GoogleAddAnalyticsOnLogonPage=Add Analytics id to add the Google Analytics tags onto each page (otherwise keep empy)
 GoogleZoomLevel=Zoom level by default (1 to 10)
 GoogleAddressNotDefined=Address is not enough defined to be geolocalized
 GoogleMapsAddressNotFound=Address was not found.
@@ -61,7 +61,7 @@ DueToGoogleLimitYouNeedToLogin=For security reasons imposed by Google, the Googl
 AllowGoogleToLoginSetupKey=To integrate this Google login process into your software (not required), it is possible to configure a key to allow the application to offer the Google Logon if you are not connected.
 AllowGoogleToLoginProp=You can get information for this setup page by creating a key using this link <a href="%s" target="_blank">%s</a>: Select API & Authentication, then Credentials. Then Click on "Create a client ID" and choose type "Web Application", enter as "Allowed redirect URL", the following URL <strong>%s</strong>. Check to not enter the "Client EMail" but "Client ID" into first field. 
 AllowGoogleToLoginWithAccountService=You can get information for this setup page by creating a key using this link <a href="%s" target="_blank">%s</a>: Select "API & Authentication" -> "Credentials". Then Click on "Create a client ID" and choose type "account service".
-AllowGoogleToLoginWithServiceAccountP12=Once you have you created your service account user/email (see note on previous fields), you must download your <strong>security p12 file</strong> (not required if file was downloaded automatically during creation of account). Return on <a href="%s" target="_blank">%s</a> and select "API & Authentication" -> "Credentials". Then Click on "Generate a p12 key" to download the file on your desktop. Then submit it using this form. 
+AllowGoogleToLoginWithServiceAccountP12=Once you have you created your service account user/email (see note on previous fields), you must download your <strong>security json file</strong> (not required if file was downloaded automatically during creation of account). Return on <a href="%s" target="_blank">%s</a> and select "API & Authentication" -> "Credentials". Then Click on "Generate a p12 key" to download the file on your desktop. Then submit it using this form. 
 ExportThirdpartiesToGoogle=Export all Dolibarr thirdparties to GMail contacts (warning, there is no check on duplicate record for mass export).
 ExportContactToGoogle=Export all Dolibarr contacts/addresses to GMail contacts (warning, there is no check on duplicate record for mass export).
 ExportMembersToGoogle=Export all Dolibarr members to GMail contacts (warning, there is no check on duplicate record for mass export).
@@ -103,7 +103,7 @@ GOOGLE_API_CLIENT_ID=Google Client ID
 GOOGLE_API_CLIENT_SECRET=Google Client Secret
 GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=Service account Client ID
 GOOGLE_API_SERVICEACCOUNT_EMAIL=Service account email to allow (NOT your Google account login/email)
-GOOGLE_API_SERVICEACCOUNT_P12KEY=Service account p12 file
+GOOGLE_API_SERVICEACCOUNT_P12KEY=Service account json file
 FillThisOnlyIfRequired=Example: +2 (fill only if problem experienced)
 AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...

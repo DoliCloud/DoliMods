@@ -1,7 +1,15 @@
 # ChangeLog GOOGLE MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a> 
 
 
-## 6.2 unreleased
+## 6.3
+
+- NEW Add filter on status "Active" for map of thirdparties.
+- NEW Compatibility with v12
+- NEW Use json file for synchro of contacts instead of p12 file.
+- NEW Use Google PHP API v2.7.0
+
+
+## 6.2
 
 - NEW Add filter on status "Active" for thirdparties
 - NEW Compatibility with v11

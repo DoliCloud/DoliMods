@@ -132,12 +132,6 @@ class InterfaceGoogleCalendarSynchro
     				$fuser->fetch($object->usertodo->id);
     				$userlogin = $fuser->conf->GOOGLE_LOGIN;
     			}
-    			else if (! empty($object->usertodo) && is_object($object->usertodo))	// For backward compatibility (3.6)
-    			{
-    				$fuser = new User($this->db);
-    				$fuser->fetch($object->usertodo->id);
-    				$userlogin = $fuser->conf->GOOGLE_LOGIN;
-    			}
     			else
     			{
     			    return 0;    // Should not occurs. This means there is no owner of event.
@@ -194,11 +188,20 @@ class InterfaceGoogleCalendarSynchro
 			// Create client/token object
 			$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
 			$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
-			$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'service');
+
+			$user_to_impersonate = false;
+			if (! empty($conf->global->GOOGLE_INCLUDE_ATTENDEES)) {
+				$user_to_impersonate = $userlogin;
+			}
+
+			$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'service', $user_to_impersonate);
 
 			if (! is_array($servicearray) || $servicearray == null)
 			{
-				$this->error="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+				$this->error = "Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+				if ($servicearray) {
+					$this->error .= " - ".$servicearray;
+				}
 				dol_syslog($this->error, LOG_ERR);
 				$this->errors[]=$this->error;
 				return -1;

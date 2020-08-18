@@ -34,6 +34,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
 dol_include_once("/google/lib/google.lib.php");
 $res=dol_include_once('/google/includes/google-api-php-client/autoload.php');
+$res=dol_include_once('/google/includes/google-api-php-client/vendor/autoload.php');
 
 //if (! class_exists('Google_Client')) dol_print_error('','Failed to load library file /nltechno/google/includes/google-api-php-client/autoload.php');
 
@@ -89,21 +90,24 @@ function getTokenFromWebApp($clientid, $clientsecret)
 
 
 /**
- * Get service
+ * Get service token
  *
  * @param	string			$service_account_name		Service account name (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49@developer.gserviceaccount.com'). Not used for authentication with mode=web.
  * @param	string			$key_file_location			Key file location (Example: 'API Project-69e4673ea29e.p12'). Not used for authentication with mode=web.
  * @param	int				$force_do_not_use_session	1=Do not get token from sessions $_SESSION['google_service_token_'.$conf->entity] or $_SESSION['google_web_token_'.$conf->entity]
  * @param	string			$mode						'service' or 'web' (Choose which token to use)
+ * @param	string			$user_to_impersonate		The email of user we want the service account to act as.
  * @return	array|string								Error message or array with token
  */
-function getTokenFromServiceAccount($service_account_name, $key_file_location, $force_do_not_use_session=false, $mode='service')
+function getTokenFromServiceAccount($service_account_name, $key_file_location, $force_do_not_use_session=false, $mode='service', $user_to_impersonate = false)
 {
 	global $conf;
 
+	$applicationname = "Dolibarr";
+
 	$client = new Google_Client();
-	$client->setApplicationName("Dolibarr");	// Set prefix of User Agent. User agent is set by PHP API in method Client->execute() of PHP Google Lib.
-	$client->setClassConfig('Google_Cache_File', 'directory', $conf->google->dir_temp);		// Force dir if cache used is Google_Cache_File
+	$client->setApplicationName($applicationname);	// Set prefix of User Agent. User agent is set by PHP API in method Client->execute() of PHP Google Lib.
+	//$client->setClassConfig('Google_Cache_File', 'directory', $conf->google->dir_temp);		// Force dir if cache used is Google_Cache_File
 
 	if ($mode == 'web')    // use to synch contact
 	{
@@ -179,43 +183,70 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 
 		dol_syslog("getTokenFromServiceAccount service_account_name=".$service_account_name." key_file_location=".$key_file_location." force_do_not_use_session=".$force_do_not_use_session, LOG_DEBUG);
 		$key = file_get_contents($key_file_location);
+
+		// API v1
+		/*
 		$cred = new Google_Auth_AssertionCredentials(
 		    $service_account_name,
 		    array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.readonly'),
-		    $key
+		    $key,
+			'notasecret',
+			'http://oauth.net/grant_type/jwt/1.0/bearer',
+			$user_to_impersonate
 		);
-
 		$client->setAssertionCredentials($cred);
+		*/
 
+		// API v2
+		if ($user_to_impersonate) {
+			$client->setSubject($user_to_impersonate);
+		}
+		$client->setAuthConfig($key_file_location);
+		$client->setAccessType('offline');
+		$scopes = array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.events');
+		$client->setScopes($scopes);
 		try {
-			$checktoken=$client->getAuth()->isAccessTokenExpired();
+			// API v1
+			/*$checktoken=$client->getAuth()->isAccessTokenExpired();
 			if ($checktoken)
 			{
 				dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it", LOG_DEBUG);
 				$client->getAuth()->refreshTokenWithAssertion($cred);
+			}*/
+
+			// API v2
+			$checktoken=$client->isAccessTokenExpired();
+			if ($checktoken)
+			{
+				dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it", LOG_DEBUG);
+				$result = $client->refreshTokenWithAssertion();
+				//var_dump($result);
 			}
+			//var_dump($checktoken);
 		}
 		catch(Exception $e)
 		{
+			dol_syslog("getTokenFromServiceAccount Error ".$e->getMessage(), LOG_ERR);
 			return $e->getMessage();
 		}
 	}
-
 
 
 	if ($mode == 'web')
 	{
 		$_SESSION['google_web_token_'.$conf->entity] = $client->getAccessToken();	// Overwrite session with correct token
 
-		dol_syslog("getTokenFromServiceAccount Return client name = ".$client->getApplicationName()." google_web_token = ".$_SESSION['google_web_token_'.$conf->entity], LOG_INFO);
-		dol_syslog("getTokenFromServiceAccount getBasePath = ".$client->getBasePath(), LOG_DEBUG);
+		dol_syslog("getTokenFromServiceAccount Return client name = ".$applicationname." google_web_token = ".$_SESSION['google_web_token_'.$conf->entity], LOG_INFO);
+		//dol_syslog("getTokenFromServiceAccount getBasePath = ".$client->getBasePath(), LOG_DEBUG);
 	}
 	if ($mode == 'service')
 	{
-		$_SESSION['google_service_token_'.$conf->entity] = $client->getAccessToken();	// Overwrite session with correct token
+		$tmpres = $client->getAccessToken();
 
-		dol_syslog("getTokenFromServiceAccount Return client name = ".$client->getApplicationName()." google_service_token = ".$_SESSION['google_service_token_'.$conf->entity], LOG_INFO);
-		dol_syslog("getTokenFromServiceAccount getBasePath = ".$client->getBasePath(), LOG_DEBUG);
+		$_SESSION['google_service_token_'.$conf->entity] = $tmpres;	// Overwrite session with correct token
+
+		dol_syslog("getTokenFromServiceAccount Return client name = ".$applicationname." google_service_token = ".$_SESSION['google_service_token_'.$conf->entity], LOG_INFO);
+		//dol_syslog("getTokenFromServiceAccount getBasePath = ".$client->getBasePath(), LOG_DEBUG);
 	}
 
 	return array('client'=>$client, 'google_service_token'=>$_SESSION['google_service_token_'.$conf->entity], 'google_web_token'=>$_SESSION['google_web_token_'.$conf->entity]);

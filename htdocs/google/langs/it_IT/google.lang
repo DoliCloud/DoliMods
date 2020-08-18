@@ -60,7 +60,7 @@ DueToGoogleLimitYouNeedToLogin=Per ragioni di sicurezza imposte da Google, la vi
 AllowGoogleToLoginSetupKey=Per integrare questo processo di login di Google all'interno del software (non richiesto), è possibile configurare una chiave che permetta all'applicazione di offrire il login di Google se non sei connesso.
 AllowGoogleToLoginProp=È possibile ottenere informazioni per questa pagina delle impostazione creando una chiave a questo link <a href="%s" target="_blank">%s</a>: Seleziona API & Autenticazione, poi Credenziali. Poi Clicca su "Crea un client ID" e seleziona tipo "Applicazione Web", nell'inserisci "URL di redirezione permesso", il seguente URL <strong>%s</strong>. Attenzione a non inserire il "Client EMail" ma il "Client ID" all'interno del primo campo. 
 AllowGoogleToLoginWithAccountService=È possibile ottenere informazioni per questa pagina delle impostazione creando una chiave a questo link <a href="%s" target="_blank">%s</a>: Seleziona "API & Autenticazione" -> "Credenziali". Poi clicca su "Crea un client ID" and seleziona tipo "account service".
-AllowGoogleToLoginWithServiceAccountP12=Dopo aver creato il tuo service account user/email (vedi le note nei campi precedenti), devi scaricare il tuo <strong>file security p12</strong>. Torna su <a href="%s" target="_blank">%s</a> and seleziona "API & Autenticazione" -> "Credenziali". Poi clicca su "Genera una chiave p12" per scarica il file sul tuo desktop. Poi effettua l'invio utilizzando questo form. 
+AllowGoogleToLoginWithServiceAccountP12=Dopo aver creato il tuo service account user/email (vedi le note nei campi precedenti), devi scaricare il tuo <strong>file security json</strong>. Torna su <a href="%s" target="_blank">%s</a> and seleziona "API & Autenticazione" -> "Credenziali". Poi clicca su "Genera una chiave p12" per scarica il file sul tuo desktop. Poi effettua l'invio utilizzando questo form. 
 ExportThirdpartiesToGoogle=Esporta tutti le terze parti di Dolibarr verso i contatti GMail (attenzione, non esiste nessun controllo sui record duplicati per l'esportazione di massa)
 ExportContactToGoogle=Esporta tutti i contatti/indirizzi di Dolibarr verso i contatti GMail (attenzione, non esiste nessun controllo sui record duplicati per l'esportazione di massa).
 ExportMembersToGoogle=Esporta tutti i membri di Dolibarr verso i contatti GMail (attenzione, non esiste nessun controllo sui record duplicati per l'esportazione di massa)
@@ -100,7 +100,7 @@ GOOGLE_API_CLIENT_ID=Google Client ID
 GOOGLE_API_CLIENT_SECRET=Google Client Secret
 GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=Service account Client ID
 GOOGLE_API_SERVICEACCOUNT_EMAIL=Service account user/email per l'autorizzazione (NON il tuo login/email dell'account Google)
-GOOGLE_API_SERVICEACCOUNT_P12KEY=File p12 Service account
+GOOGLE_API_SERVICEACCOUNT_P12KEY=File json Service account
 FillThisOnlyIfRequired=Example: +2 (riempi solo se riscontri problemi)
 AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...

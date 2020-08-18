@@ -11,7 +11,7 @@ GoogleEnableThisToolThirdParties=Activer cet outils sur les Tiers
 GoogleEnableThisToolContacts=Activer cet outils sur les Contacts
 GoogleEnableThisToolMembers=Activer cet outils sur les Adhérents
 GoogleAddPubOnLogonPage=Renseigner les informations AdSense pour ajouter une publicité Google sur la page de logon (sinon laisser vide)
-GoogleAddAnalyticsOnLogonPage=Renseigner l'id de suivi Analytics pour ajouter la balise Google Analytics sur la page de logon (sinon laisser vide)
+GoogleAddAnalyticsOnLogonPage=Renseigner l'id de suivi Analytics pour ajouter la balise Google Analytics sur chaque page (sinon laisser vide)
 GoogleZoomLevel=Niveau de zoom par défaut (1 à 10)
 GoogleAddressNotDefined=L'adresse n'est pas ou pas complètement renseignée pour être géolocalisée
 GoogleMapsAddressNotFound=L'adresse n'a pu être trouvée.
@@ -48,7 +48,7 @@ AllowGoogleToLoginWithKey=Vous devez créer une clé depuis la page <a href="%s"
 AllowGoogleToLoginWithClientID=Vous pouvez créer votre <strong>Google Client ID et Secret</strong> depuis la page <a href="%s" target="_blank">%s</a>, menu "API & Authentication" -> "Identifiants". Cliquer sur "Créer un client ID" et choisir "Web Application", positionner "Allowed Javascript origin" à vide et positionner "URI de Redirection" sur<br><strong>%s</strong><br>ensuite cliquer sur "Créer". Vous obtiendrez un nouveau <strong>Client ID</strong> et un <strong>Code secret du client</strong>. Vous devez entrer ici le <strong>Client ID</strong> et le <strong>Code secret client</strong> sur la ligne suivante.
 AllowGoogleToLoginWithClientSecret=Voir note précédente pour savoir comment obtenir un Google Secret client.
 AllowGoogleToLoginWithServiceAccount=Vous pouvez créer votre <strong>utilisateur/email compte de service</strong> depuis la page <a href="%s" target="_blank">%s</a>, menu "API & Authentification" -> "Identifiants" . Cliquer sur "Créer un client ID" et choisir "Compte de service" puis "Créer". Vous obtiendrez vote nouveau compte de service avec un <strong>ID client de compte de service</strong> et un <strong>Email de compte de service</strong>. C'est cet <strong>Email de compte de service</strong> qu'il faut renseigner ici.
-AllowGoogleToLoginWithServiceAccountP12=Une fois que vous avez créez votre user/email compte de service (voir note précédente), vous devez télécharger votre <strong>fichier sécurité p12</strong> (inutile si il s'est téléchargé automatiquement à la création du compte). Aller sur la page <a href="%s" target="_blank">%s</a> et sélectionnez "API & Authentification" -> "Identifiants". Cliquez sur "Génerer clé p12" pour télécharger le fichier sur votre bureau. Ensuite, soumettez le via le formulaire. 
+AllowGoogleToLoginWithServiceAccountP12=Une fois que vous avez créez votre user/email compte de service (voir note précédente), vous devez télécharger votre <strong>fichier sécurité json</strong> (inutile si il s'est téléchargé automatiquement à la création du compte). Aller sur la page <a href="%s" target="_blank">%s</a> et sélectionnez "API & Authentification" -> "Identifiants". Cliquez sur "Génerer clé p12" pour télécharger le fichier sur votre bureau. Ensuite, soumettez le via le formulaire. 
 EnableAPI=Vous devez aussi activer les API pour votre compte Google. Pour cela, aller sur la page <a href="%s" target="_blank">%s</a>, menu "API & Authentification" -> "API". Cliquer sur activer API pour "%s".  
 ShareCalendarWithServiceAccount=Vous devez aussi partager l'agenda (permissions complètes, avec le compte de service <strong>%s</strong>. Pour cela, aller dans Google calendar, choisir "Paramètres". Cliquer sur le lien "Paramètres et partages" à la fin de la ligne de l'Agenda à mettre à jour (Il doit s'agir du même ID d'agenda que celui renseigné au niveau du paramètre "%s"). Puis ajouter l'utilisateur/email du compte de service comme contact avec qui partager son agenda, choisir les permissions les plus complètes et valider en cliquant "Ajouter utilisateur". Avec <strong>Google Suite</strong> (non requis pour les comptes gmail standard), si les permissions sont forcés sur "Lecture seule" au lieu de "Modifier", aller sur la page <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing</a> et vérifiez que l'option de partage de l'Application Agenda autorise le partage à des comptes externes. 
 GOOGLE_API_SERVERKEY=Clé API (de type "Server key")
@@ -96,10 +96,10 @@ ParametersForGoogleAPIv3Usage=Pour Google API %s V3
 GoogleClientId=Client ID
 GoogleClientSecret=Client secret
 GOOGLE_WEB_TOKEN=Jeton en cours
-GOOGLE_FIX_TZ=Correctif du TimeZone
+GOOGLE_FIX_TZ=Correctif du TimeZone (Dolibarr -> Google)
 GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=ID client du compte de service
 GOOGLE_API_SERVICEACCOUNT_EMAIL=Email du compte de service (PAS votre compte login/email Google)
-GOOGLE_API_SERVICEACCOUNT_P12KEY=Fichier de compte de service p12
+GOOGLE_API_SERVICEACCOUNT_P12KEY=Fichier de compte de service json
 FillThisOnlyIfRequired=Exemple: +2 (ne renseigner que si décalage constaté)
 AboutInfo=Ce module est développé et diffusé par Laurent Destailleur pour NLTechno, <a target="_blank" href="https://www.nltechno.com">www.nltechno.com</a> (société labellisé Dolibarr Prefered Partner).
 MoreModules=D'autres modules du même auteur sont disponibles sur la place de marché officielle DoliStore...
