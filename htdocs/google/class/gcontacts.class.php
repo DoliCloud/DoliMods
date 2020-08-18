@@ -588,17 +588,26 @@ class GContact
 		// Get full list of contacts
 		$tag_debug='getallcontacts';
 
-		$tmp=json_decode($gdata['google_web_token']);
-		$access_token=$tmp->access_token;
+		if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+			$access_token=$gdata['google_web_token']['access_token'];
+		} else {
+			$tmp=json_decode($gdata['google_web_token']);
+			$access_token=$tmp->access_token;
+		}
 		$addheaders=array('authorization'=>'Bearer '.$access_token);
 		$addheaderscurl=array('GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/atom+xml');
 		//$useremail='default';
 
         $queryString = 'https://www.google.com/m8/feeds/contacts/default/full?max-results=1000';
         if (! empty($pattern)) $queryString .= '&q='.$pattern;
-		$result = getURLContent($queryString, 'GET', '', 0, $addheaderscurl);
-		$xmlStr=$result['content'];
+        $response = getURLContent($queryString, 'GET', '', 0, $addheaderscurl);
 
+        if (is_array($response) && $response['http_code'] >= 400) {
+        	dol_syslog('Error http '.$response['http_code'], LOG_WARNING);
+        	return -1;
+        }
+
+        $xmlStr=$response['content'];
     	if ($response['content'])
 		{
 			$document = new DOMDocument("1.0", "utf-8");
@@ -667,8 +676,12 @@ class GContact
     	// Search for id
         $googleIDs = self::getDolibarrContactsGoogleIDS($gdata, $pattern, $type);
 
-        self::deleteEntries($gdata, $googleIDs, false);
-        return(count($googleIDs));
+        if ($googleIDs != '-1') {
+        	self::deleteEntries($gdata, $googleIDs, false);
+        	return(count($googleIDs));
+        } else {
+        	return -1;
+        }
     }
 
 
@@ -918,8 +931,12 @@ class GContact
      				//file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.xml", $xmlStr);
      				//@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 
-					$tmp=json_decode($gdata['google_web_token']);
-					$access_token=$tmp->access_token;
+     				if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
+     					$access_token=$gdata['google_web_token']['access_token'];
+     				} else {
+     					$tmp=json_decode($gdata['google_web_token']);
+						$access_token=$tmp->access_token;
+     				}
      				$addheaders=array('authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
      				$addheaderscurl=array('authorization: Bearer '.$access_token, 'If-Match: *');
 
