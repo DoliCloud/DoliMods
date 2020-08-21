@@ -249,7 +249,7 @@ class InterfaceEcotaxdeee
 		}
 		$parentid=$object->$fieldparentid;
 		if (empty($parentid)) $parentid=$object->oldline->$fieldparentid;	// When trigger is LINEXXX_UPDATE, only new value are set into $object, rest of old line is into $object->oldline
-		$parentobject->fetch($parentid);	// fetch_lines included into fetch
+		$parentobject->fetch($parentid);	// Note: The fetch_lines() is included into the fetch
 
 		$lines=$parentobject->lines;
 
@@ -265,7 +265,7 @@ class InterfaceEcotaxdeee
 
 			if ($line->special_code == 2)				// This line is an already existing service line ecotax
 			{
-				$idlineecotax[$ecocateg]=$line->rowid;
+				$idlineecotax[$ecocateg]=($line->id ? $line->id : $line->rowid);
 				$amountlineecotax_ht[$ecocateg]=$line->total_ht;
 				$amountlineecotax_ttc[$ecocateg]=$line->total_ttc;
 				$amountlineecotax_vat[$ecocateg]=$line->total_vat;
@@ -283,7 +283,6 @@ class InterfaceEcotaxdeee
 				$tmpproduct=new Product($this->db);
 				$tmpproduct->fetch($line->fk_product);
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-				$result=$tmpproduct->fetch_optionals();
 				if (! empty($tmpproduct->array_options['options_ecotaxdeee']) && $line->qty) $ecoamount[$ecocateg] += ($tmpproduct->array_options['options_ecotaxdeee'] * $line->qty);
 			}
 		}
