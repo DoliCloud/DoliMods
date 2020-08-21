@@ -86,7 +86,7 @@ class InterfaceEcotaxdeee
 	 *      D'autres fonctions runTrigger peuvent etre presentes dans includes/triggers
 	 *
 	 *      @param	string		$action     Code of event
-	 *      @param 	Action		$object     Objet concerne
+	 *      @param 	Object		$object     Objet concerne
 	 *      @param  User		$user       Objet user
 	 *      @param  Translate	$langs       Objet lang
 	 *      @param  Conf		$conf       Objet conf
