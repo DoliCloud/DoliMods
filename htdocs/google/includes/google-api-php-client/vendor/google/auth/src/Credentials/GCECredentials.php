@@ -25,7 +25,6 @@ use Google\Auth\Iam;
 use Google\Auth\ProjectIdProviderInterface;
 use Google\Auth\SignBlobInterface;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Request;
@@ -284,7 +283,6 @@ class GCECredentials extends CredentialsLoader implements
             } catch (ClientException $e) {
             } catch (ServerException $e) {
             } catch (RequestException $e) {
-            } catch (ConnectException $e) {
             }
         }
         return false;
