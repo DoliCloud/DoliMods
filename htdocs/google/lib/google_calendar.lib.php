@@ -201,10 +201,18 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 		if ($user_to_impersonate) {
 			$client->setSubject($user_to_impersonate);
 		}
-		$client->setAuthConfig($key_file_location);
-		$client->setAccessType('offline');
-		$scopes = array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.events');
-		$client->setScopes($scopes);
+
+		try {
+			$client->setAuthConfig($key_file_location);
+			$client->setAccessType('offline');
+			$scopes = array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.events');
+			$client->setScopes($scopes);
+		}
+		catch(Exception $e)
+		{
+			dol_syslog("getTokenFromServiceAccount Error ".$e->getMessage(), LOG_ERR);
+			return $e->getMessage();
+		}
 		try {
 			// API v1
 			/*$checktoken=$client->getAuth()->isAccessTokenExpired();
