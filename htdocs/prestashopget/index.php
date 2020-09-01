@@ -252,6 +252,8 @@ else
 $subresult = $db2->query($sql);
 //print $sql;
 
+$labelbyzone = $langs->trans("Country".$mysoc->country_code).', '.$langs->trans("RestOfEurope").', '.$langs->trans("OutOfEurope");
+
 // Output page
 // --------------------------------------------------------------------
 
@@ -295,19 +297,19 @@ if ($mode == 'groupbyzoneandvatrate')
 elseif ($mode == 'groupbycountryandvatrate')
 {
     $newcardbutton = '<a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=list" class="eee">'.$langs->trans("FullList").'</a>';
-    $newcardbutton .= ' - <a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbyzoneandvatrate" class="eee">'.$langs->trans("GroupByZoneAndVatRate").'</a>';
+    $newcardbutton .= ' - <a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbyzoneandvatrate" class="eee" title="'.$labelbyzone.'>'.$langs->trans("GroupByZoneAndVatRate").'</a>';
 }
 else
 {
     $newcardbutton = '<a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbycountryandvatrate" class="eee">'.$langs->trans("GroupByCountryAndVatRate").'</a>';
-    $newcardbutton .= ' - <a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbyzoneandvatrate" class="eee">'.$langs->trans("GroupByZoneAndVatRate").'</a>';
+    $newcardbutton .= ' - <a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbyzoneandvatrate" class="eee" title="'.$labelbyzone.'">'.$langs->trans("GroupByZoneAndVatRate").'</a>';
 }
 $massactionbutton = '';
 
 if ($mode) $param.= '&mode='.urlencode($mode);
 
 if ($mode == 'groupbyzoneandvatrate') {
-    print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, -1 * $num, '', 'title_companies', 0, $newcardbutton, '', -1, 1, 1);
+	print_barre_liste($title.' ('.$labelbyzone.')', $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, -1 * $num, '', 'title_companies', 0, $newcardbutton, '', -1, 1, 1);
 } else {
     print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'title_companies', 0, $newcardbutton, '', $limit, 0, 0, 1);
 }
