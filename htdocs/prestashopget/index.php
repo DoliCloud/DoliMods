@@ -111,6 +111,8 @@ if (! $db2->connected)
 
 $product_id = GETPOST('product_id', 'int');
 
+$arraylistofproducts = array();
+
 
 /*
  * Actions
@@ -271,7 +273,6 @@ if ($search_tomonth)     $param.= '&search_tomonth='.urlencode($search_tomonth);
 if ($search_toyear)      $param.= '&search_toyear='.urlencode($search_toyear);
 if ($search_paymentmode) $param.= '&search_paymentmode='.urlencode($search_paymentmode);
 if ($search_vatrate)     $param.= '&search_vatrate='.urlencode($search_vatrate);
-if ($mode)               $param.= '&mode='.urlencode($mode);
 
 print '<form method="POST" id="searchFormList" action="'.$_SERVER["PHP_SELF"].'">';
 if ($optioncss != '') print '<input type="hidden" name="optioncss" value="'.$optioncss.'">';
@@ -302,6 +303,8 @@ else
     $newcardbutton .= ' - <a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbyzoneandvatrate" class="eee">'.$langs->trans("GroupByZoneAndVatRate").'</a>';
 }
 $massactionbutton = '';
+
+if ($mode) $param.= '&mode='.urlencode($mode);
 
 if ($mode == 'groupbyzoneandvatrate') {
     print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, -1 * $num, '', 'title_companies', 0, $newcardbutton, '', -1, 1, 1);
