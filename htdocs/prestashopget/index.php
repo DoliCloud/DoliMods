@@ -458,7 +458,7 @@ foreach ($arryofobj as $key => $obj) {
     print '</td>';
     // Is in EEC
     print '<td>';
-    print $obj->isineec;
+    print yn($obj->isineec);
     print '</td>';
     print '<td class="nowraponall">'.dol_print_date($db->jdate($obj->order_date_add), 'dayhour').'</td>';
     if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$obj->product_id.'</td>';
