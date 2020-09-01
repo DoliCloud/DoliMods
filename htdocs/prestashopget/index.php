@@ -456,7 +456,7 @@ foreach ($arryofobj as $key => $obj) {
         elseif (strpos($key, '1_0') === 0) print $langs->trans("Europe");
         else print $langs->trans("OutOfEurope");
     } else {
-        print $obj->iso_code;
+    	print $langs->trans("Country".$obj->iso_code);
     }
     print '</td>';
     // Is in EEC
