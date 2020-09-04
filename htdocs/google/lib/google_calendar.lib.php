@@ -33,7 +33,7 @@ include_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 include_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
 dol_include_once("/google/lib/google.lib.php");
-$res=dol_include_once('/google/includes/google-api-php-client/autoload.php');
+//$res=dol_include_once('/google/includes/google-api-php-client/autoload.php');
 $res=dol_include_once('/google/includes/google-api-php-client/vendor/autoload.php');
 
 //if (! class_exists('Google_Client')) dol_print_error('','Failed to load library file /nltechno/google/includes/google-api-php-client/autoload.php');
