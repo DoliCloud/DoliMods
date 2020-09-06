@@ -91,7 +91,7 @@ if ($action == 'test')
 		if ($level)
 		{
 			$object->total_ttc=price2num($valuetest);
-			$source='__TOTAL_TTC_WORDS__';
+			$source='__AMOUNT_TEXT__';
 		}
 		else
 		{
@@ -196,7 +196,7 @@ print '<tr class="oddeven"><td width="140">'.$langs->trans("Amount").'</td>';
 print '<td>'.$object->total_ttc.'</td>';
 print '<td>'.$outputlangs->defaultlang.'</td>';
 print '<td>&nbsp;</td>';
-$newval=make_substitutions('__TOTAL_TTC_WORDS__',$substitutionarray);
+$newval=make_substitutions('__AMOUNT_TEXT__',$substitutionarray);
 print '<td>'.$newval.'</td></tr>';
 
 print '<tr class="oddeven">';
