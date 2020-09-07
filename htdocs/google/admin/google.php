@@ -248,9 +248,9 @@ print '</td></tr>';
 
 // Client ID
 print '<tr class="oddeven">';
-print "<td>".$langs->trans("GOOGLE_API_CLIENT_ID")."</td>";
+print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_CLIENT_ID")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="80" name="GOOGLE_AGENDA_CLIENT_ID" value="'.$conf->global->GOOGLE_AGENDA_CLIENT_ID.'">';
+print '<input class="flat minwidth300" type="text" name="GOOGLE_AGENDA_CLIENT_ID" value="'.$conf->global->GOOGLE_AGENDA_CLIENT_ID.'">';
 print "</td>";
 
 print '<td>';
@@ -262,9 +262,9 @@ print '</td>';
 print "</tr>";
 // Client Secret
 print '<tr class="oddeven">';
-print "<td>".$langs->trans("GOOGLE_API_CLIENT_SECRET")."</td>";
+print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_CLIENT_SECRET")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="60" name="GOOGLE_AGENDA_CLIENT_SECRET" value="'.$conf->global->GOOGLE_AGENDA_CLIENT_SECRET.'">';
+print '<input class="flat minwidth300" type="text" name="GOOGLE_AGENDA_CLIENT_SECRET" value="'.$conf->global->GOOGLE_AGENDA_CLIENT_SECRET.'">';
 print "</td>";
 print '<td>';
 print $langs->trans("AllowGoogleToLoginWithClientSecret").'<br>';
