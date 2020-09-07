@@ -568,31 +568,6 @@ print "<td>".$langs->trans("Value")."</td>";
 print "<td>".$langs->trans("Note")."</td>";
 print "</tr>";
 
-// Google login
-print '<tr class="oddeven">';
-print '<td>'.$langs->trans("GoogleIDAgenda")."</td>";
-print "<td>";
-print '<input id="GOOGLE_LOGIN" class="flat minwidth300" type="text" size="24" name="GOOGLE_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_LOGIN.'">';
-print "</td>";
-print '<td class="aaa">';
-print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com<br>";
-print $langs->trans("GoogleSetupHelp").'<br>';
-print $langs->trans("KeepEmptyYoUseLoginPassOfEventUser").'<br>';
-if (empty($conf->global->GOOGLE_LOGIN))
-{
-    print '<u>'.$langs->trans("TargetUser").'</u>: ';
-    if (empty($conf->global->GOOGLE_SYNC_EVENT_TO_SALE_REPRESENTATIVE))
-    {
-        print $langs->trans("KeepEmptyYoUseLoginPassOfEventUserAssigned");
-    }
-    else
-    {
-        print $langs->trans("KeepEmptyYoUseLoginPassOfEventUserSaleRep");
-    }
-}
-print '</td>';
-print "</tr>";
-
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_EMAIL")."</td>";
 print '<td>';
@@ -613,6 +588,34 @@ print '<td class="aaa">';
 print $langs->trans("AllowGoogleToLoginWithServiceAccountP12","https://console.developers.google.com/apis/credentials","https://console.developers.google.com/apis/credentials").'<br>';
 print '</td>';
 print '</tr>';
+
+// Google login
+print '<tr class="oddeven">';
+print '<td>'.$langs->trans("GoogleIDAgenda")."</td>";
+print "<td>";
+print '<input id="GOOGLE_LOGIN" class="flat minwidth300" type="text" size="24" name="GOOGLE_LOGIN" autocomplete="off" value="'.$conf->global->GOOGLE_LOGIN.'">';
+print "</td>";
+print '<td class="aaa">';
+print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com<br>";
+print '<br>';
+print $langs->trans("GoogleSetupHelp").'<br>';
+print '<br>';
+print $langs->trans("KeepEmptyYoUseLoginPassOfEventUser").'<br>';
+if (empty($conf->global->GOOGLE_LOGIN))
+{
+	print '<br>';
+	//print '<u>'.$langs->trans("TargetUser").'</u>: ';
+	if (empty($conf->global->GOOGLE_SYNC_EVENT_TO_SALE_REPRESENTATIVE))
+	{
+		print $langs->trans("KeepEmptyYoUseLoginPassOfEventUserAssigned");
+	}
+	else
+	{
+		print $langs->trans("KeepEmptyYoUseLoginPassOfEventUserSaleRep");
+	}
+}
+print '</td>';
+print "</tr>";
 
 print "</table>";
 

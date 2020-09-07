@@ -1,7 +1,7 @@
 # Dolibarr language file - en_US - google
 CHARSET=UTF-8
 GoogleSetup=Google tools integration setup
-GoogleSetupHelp=ID Agenda can be found on Google parameter page for the agenda (Go into your Google Calendar, then "Parameters" in the wheels, then tab "Agenda", or try this link <a href="https://www.google.com/calendar/render#i">https://www.google.com/calendar/render#i</a> and then click on name or your Agenda). You Agenda ID is an ID that looks like an email.
+GoogleSetupHelp=ID of the Agenda can be found on the Google parameter page for the agenda (Go into your Google Calendar, then "Parameters" in the wheels, then tab "Agenda", or try this link <a href="https://www.google.com/calendar/render#i">https://www.google.com/calendar/render#i</a> and then click on name or your Agenda). You Agenda ID is an ID that looks like an email.
 GoogleAgendaNb=Agenda nb %s
 GoogleIDAgenda=ID Agenda
 GoogleNbOfAgenda=Number of agendas
@@ -40,8 +40,8 @@ Module101110Name=Google
 Module101110Desc=Module to integrate Google tools with Dolibarr
 GoogleCalendarSyncConf=GoogleCalendarSyncConf
 TargetUser=Target user
-KeepEmptyYoUseLoginPassOfEventUser=Keep empty to use the synchronize setup per user.
-KeepEmptyYoUseLoginPassOfEventUserAssigned=The targeted agenda is agenda of the user the event is assigned to (agenda setup is done on each user card). In such case, each event will be synchronize into one and only one event, to the calendar fo the owner of event (no synchronization is done if setup for this user is not done).
+KeepEmptyYoUseLoginPassOfEventUser=Keep empty if you want a synchronization per user. In such a case, enter the Agenda ID at each user level. Define a value if you want all events be synchronized in the same Google agenda.
+KeepEmptyYoUseLoginPassOfEventUserAssigned=Currently, this setup is empty. It means that the targeted agenda will be the agenda of the user that is the owner of event (ID agenda muse be defined on each user). No synchronization is done if setup of Agenda ID for this user is not done.
 KeepEmptyYoUseLoginPassOfEventUserSaleRep=The targeted agenda is agenda of the first sale representative of thirdparty the event is linked to. If there is no thirdparty for event, nor sale representative for thirparty, no synchronization is done.
 KeepEmptyYoUsePublicQuotaOfAPI=Keep empty to use the public quota of API.
 AllowGoogleToLoginWithKey=You must have a Google account and create your own key from page <a href="%s" target="_blank">%s</a>, menu "API & Authentication" -> "Credentials". Click on "Create a key" and choose "Server key" then "Create". You will get your server key.
