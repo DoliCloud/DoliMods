@@ -41,7 +41,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
 // Load translation files required by the page
-$langs->loadLangs(array("prestashopget@prestashopget"));
+$langs->loadLangs(array("prestashopget@prestashopget", "companies"));
 
 $action     = GETPOST('action', 'aZ09')?GETPOST('action', 'aZ09'):'view';
 $massaction = GETPOST('massaction', 'alpha');											// The bulk action (combo box choice into lists)
@@ -56,6 +56,7 @@ $optioncss  = GETPOST('optioncss', 'aZ');												// Option for the css outpu
 $mode = GETPOST('mode', 'alpha');
 
 $search_orderid = GETPOST('search_orderid', 'alpha');
+$search_orderlineid = GETPOST('search_orderlineid', 'alpha');
 $search_country = GETPOST('search_country', 'aZ09');
 $search_email = GETPOST('search_email', 'alpha');
 $search_customer = GETPOST('search_customer', 'alpha');
@@ -124,6 +125,7 @@ $arraylistofproducts = array();
 if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') ||GETPOST('button_removefilter', 'alpha')) // All tests are required to be compatible with all browsers
 {
     $search_orderid='';
+    $search_orderlineid='';
     $search_customer='';
     $search_email='';
     $search_country='';
@@ -169,6 +171,7 @@ define('_DB_PREFIX_', 'ps_');
 // Select for sales list
 $sql = "SELECT";
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') $sql.= " c.id_customer, c.email, c.lastname, c.firstname, c.date_add as cust_date_add, c.date_upd as cust_date_upd,";
+if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') $sql.= " a.vat_number,";
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') $sql.= " od.id_order_detail, od.product_price, od.product_id,";
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') $sql.= " o.total_paid_tax_excl, o.total_paid_tax_incl, o.date_add as order_date_add,";
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') $sql.= " od.reduction_percent, od.reduction_amount,";
@@ -183,11 +186,14 @@ $sql.= " SUM(od.total_price_tax_excl) as total_price_tax_excl, SUM(od.total_pric
 $sql.= " SUM(ROUND(od.product_price, 5)) as prod_amount_ht,";
 $sql.= " SUM(ROUND((od.product_price - od.reduction_amount) * (100 - od.reduction_percent) / 100, 5)) as prod_amount_ht_with_discount_abs_and_percent,";
 $sql.= " SUM(ROUND(od.product_price * (100 + t.rate) / 100, 2)) as prod_amount_ttc";
-$sql.= " FROM "._DB_PREFIX_."order_detail as od, "._DB_PREFIX_."order_detail_tax as odt, "._DB_PREFIX_."tax as t, "._DB_PREFIX_."orders as o";
+$sql.= " FROM "._DB_PREFIX_."order_detail as od";
+$sql.= " LEFT JOIN "._DB_PREFIX_."order_detail_tax as odt ON od.id_order_detail = odt.id_order_detail";
+$sql.= " LEFT JOIN "._DB_PREFIX_."tax as t on t.id_tax = odt.id_tax,";
+$sql.= " "._DB_PREFIX_."orders as o";
 $sql.= " LEFT JOIN "._DB_PREFIX_."address as a ON o.id_address_invoice = a.id_address";
 $sql.= " LEFT JOIN "._DB_PREFIX_."country as co ON a.id_country = co.id_country,";
 $sql.= " "._DB_PREFIX_."customer as c";
-$sql.= " WHERE o.id_order = od.id_order AND od.id_order_detail = odt.id_order_detail AND t.id_tax = odt.id_tax AND c.id_customer = o.id_customer";
+$sql.= " WHERE o.id_order = od.id_order AND c.id_customer = o.id_customer";
 if ($product_id > 0) $sql.=" AND od.product_id = ".(int)$product_id;
 if ($search_orderid) $sql.=natural_search("od.id_order_detail", $search_orderid);
 if ($search_customer) $sql.=natural_search(array('c.lastname', 'c.firstname'), $search_customer);
@@ -207,6 +213,7 @@ if ($mode == 'groupbyzoneandvatrate' || $mode == 'groupbycountryandvatrate')
 else
 {
     $sql.=" GROUP BY c.id_customer, c.email, c.lastname, c.firstname, c.date_add, c.date_upd,";
+    $sql.=" a.vat_number,";
     $sql.=" od.id_order_detail, od.product_price, od.product_id,";
     $sql.=" o.total_paid_tax_excl, o.total_paid_tax_incl, o.date_add,";
     $sql.=" o.module, t.rate, odt.id_tax,";
@@ -264,6 +271,7 @@ if (! empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) $param.= '&co
 if ($limit > 0 && $limit != $conf->liste_limit) $param.= '&limit='.urlencode($limit);
 if ($optioncss != '')    $param.= '&optioncss='.urlencode($optioncss);
 if ($search_orderid)     $param.= '&search_orderid='.urlencode($search_orderid);
+if ($search_orderlineid)     $param.= '&search_orderid='.urlencode($search_orderlineid);
 if ($search_customer)    $param.= '&search_customer='.urlencode($search_customer);
 if ($search_email)       $param.= '&search_email='.urlencode($search_email);
 if ($search_country)     $param.= '&search_country='.urlencode($search_country);
@@ -297,12 +305,12 @@ if ($mode == 'groupbyzoneandvatrate')
 elseif ($mode == 'groupbycountryandvatrate')
 {
     $newcardbutton = '<a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=list" class="eee">'.$langs->trans("FullList").'</a>';
-    $newcardbutton .= ' - <a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbyzoneandvatrate" class="eee" title="'.$labelbyzone.'>'.$langs->trans("GroupByZoneAndVatRate").'</a>';
+    $newcardbutton .= ' - <a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbyzoneandvatrate&sortfield=t.rate" class="eee" title="'.$labelbyzone.'">'.$langs->trans("GroupByZoneAndVatRate").'</a>';
 }
 else
 {
     $newcardbutton = '<a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbycountryandvatrate" class="eee">'.$langs->trans("GroupByCountryAndVatRate").'</a>';
-    $newcardbutton .= ' - <a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbyzoneandvatrate" class="eee" title="'.$labelbyzone.'">'.$langs->trans("GroupByZoneAndVatRate").'</a>';
+    $newcardbutton .= ' - <a href="'.$_SERVER["PHP_SELF"].'?'.$param.'&mode=groupbyzoneandvatrate&sortfield=t.rate" class="eee" title="'.$labelbyzone.'">'.$langs->trans("GroupByZoneAndVatRate").'</a>';
 }
 $massactionbutton = '';
 
@@ -341,19 +349,24 @@ print '<table class="tagtable liste'.($moreforfilter?" listwithfilterbefore":"")
 // --------------------------------------------------------------------
 print '<tr class="liste_titre">';
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td><input type="text" class="maxwidth50" name="search_orderid" value="'.$search_orderid.'"></td>';
+if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td><input type="text" class="maxwidth50" name="search_orderlineid" value="'.$search_orderlineid.'"></td>';
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td><input type="text" class="maxwidth75" name="search_customer" value="'.$search_customer.'"></td>';
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td></td>';
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td><input type="text" class="maxwidth50" name="search_email" value="'.$search_email.'"></td>';
+// Country
 print '<td><input type="text" class="maxwidth50" name="search_country" value="'.$search_country.'"></td>';
 print '<td></td>';
+// VAT number
+if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td></td>';
+// Date
 print '<td>';
 print $form->selectDate($search_from ? $search_from : -1, 'search_from');
 //print '<br>';
 print $form->selectDate($search_to ? $search_to : -1, 'search_to');
 print '</td>';
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td></td>';
-if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td></td>';
-if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td></td>';
+//if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td></td>';
+//if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td></td>';
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td></td>';
 print '<td></td>';
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td></td>';
@@ -374,17 +387,19 @@ print '</tr>'."\n";
 // --------------------------------------------------------------------
 print '<tr class="liste_titre">';
 // Action column
+if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print getTitleFieldOfList('OrderID', 0, $_SERVER["PHP_SELF"], 'o.id_order', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print getTitleFieldOfList('LineId', 0, $_SERVER["PHP_SELF"], 'od.id_order_detail', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print getTitleFieldOfList('Customer', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print getTitleFieldOfList('Customer date creation', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print getTitleFieldOfList('Customer email', 0, $_SERVER["PHP_SELF"], 'c.email', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 print getTitleFieldOfList('Customer country', 0, $_SERVER["PHP_SELF"], 'co.iso_code', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 print getTitleFieldOfList('InEEC', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print getTitleFieldOfList('VATIntra', 0, $_SERVER["PHP_SELF"], 'a.vat_number', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print getTitleFieldOfList('Date sale', 0, $_SERVER["PHP_SELF"], 'o.date_add', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 else print getTitleFieldOfList('', 0, $_SERVER["PHP_SELF"], 'o.date_add', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print getTitleFieldOfList('Product id', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print getTitleFieldOfList('Product label', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
-if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print getTitleFieldOfList('Product ref', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+//if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print getTitleFieldOfList('Product label', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
+//if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print getTitleFieldOfList('Product ref', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print getTitleFieldOfList('IsValid', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 print getTitleFieldOfList('NbOfProducts',       0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch ')."\n";
 if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print getTitleFieldOfList('UnitPriceHT',    0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'maxwidthsearch right ')."\n";
@@ -447,28 +462,46 @@ foreach ($arryofobj as $key => $obj) {
 
     print '<tr class="oddeven">';
 
+    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$obj->id_order.'</td>';
+
     if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$obj->id_order_detail.'</td>';
-    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$obj->lastname.' '.$obj->firstname.'</td>';
+
+    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td class="tdoverflowmax100"><span title="'.dolGetFirstLastname($obj->firstname, $obj->lastname).'">'.dolGetFirstLastname($obj->firstname, $obj->lastname).'</span></td>';
+
     if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td class="nowraponall">'.dol_print_date($db->jdate($obj->cust_date_add), 'dayhour').'</td>';
-    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$obj->email.'</td>';
+
+    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td class="tdoverflowmax150"><span title="'.$obj->email.'">'.$obj->email.'</span></td>';
+
     // Country code
     print '<td>';
     if ($mode == 'groupbyzoneandvatrate') {
         if (strpos($key, '1_1') === 0) print $langs->trans("Country".$mysoc->country_code);
-        elseif (strpos($key, '1_0') === 0) print $langs->trans("Europe");
+        elseif (strpos($key, '1_0') === 0) print $langs->trans("RestOfEurope");
         else print $langs->trans("OutOfEurope");
     } else {
     	print $langs->trans("Country".$obj->iso_code);
     }
     print '</td>';
+
     // Is in EEC
     print '<td>';
     print yn($obj->isineec);
     print '</td>';
+
+    // VAT Number
+    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') {
+	    print '<td class="tdoverflowmax100">';
+	    print '<span title="'.$obj->vat_number.'">'.$obj->vat_number.'</span>';
+	    print '</td>';
+    }
+
+    // Date
     print '<td class="nowraponall">'.dol_print_date($db->jdate($obj->order_date_add), 'dayhour').'</td>';
+
+    // Product ID
     if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$obj->product_id.'</td>';
-    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$arraylistofproducts[$obj->product_id]['name'].'</td>';
-    if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$arraylistofproducts[$obj->product_id]['reference'].'</td>';
+    //if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$arraylistofproducts[$obj->product_id]['name'].'</td>';
+    //if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$arraylistofproducts[$obj->product_id]['reference'].'</td>';
 
     // Valid ?
     if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td>'.$obj->valid.'</td>';
