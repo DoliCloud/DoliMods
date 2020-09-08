@@ -72,10 +72,12 @@ function googleadmin_prepare_head()
     $head[$h][2] = 'tabagendasync';
     $h++;
 
-    $head[$h][0] = dol_buildpath("/google/admin/google.php",1);
-	$head[$h][1] = $langs->trans("AgendaView");
-	$head[$h][2] = 'tabagenda';
-	$h++;
+    if (! empty($conf->global->GOOGLE_OLD_AGENDAVIEW)) {
+	    $head[$h][0] = dol_buildpath("/google/admin/google.php",1);
+		$head[$h][1] = $langs->trans("AgendaView");
+		$head[$h][2] = 'tabagenda';
+		$h++;
+    }
 
 	$head[$h][0] = dol_buildpath("/google/admin/google_gmaps.php",1);
     $head[$h][1] = $langs->trans("GMaps");
