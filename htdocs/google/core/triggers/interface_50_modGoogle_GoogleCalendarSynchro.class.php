@@ -23,6 +23,7 @@
  */
 
 include_once(DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php');
+include_once(DOL_DOCUMENT_ROOT.'/core/triggers/dolibarrtriggers.class.php');
 dol_include_once('/google/lib/google_calendar.lib.php');
 
 
@@ -95,13 +96,13 @@ class InterfaceGoogleCalendarSynchro extends DolibarrTriggers
 	 *      D'autres fonctions runTrigger peuvent etre presentes dans includes/triggers
 	 *
 	 *      @param	string		$action     Code of event
-	 *      @param 	Action		$object     Objet concerne
+	 *      @param 	Object		$object     Objet concerne
 	 *      @param  User		$user       Objet user
 	 *      @param  Translate	$langs       Objet lang
 	 *      @param  Conf		$conf       Objet conf
 	 *      @return int         			<0 if KO, 0 if nothing is done, >0 if OK
 	 */
-	function runTrigger($action, $object, $user, $langs, $conf)
+	function runTrigger($action, $object, User $user, Translate $langs, Conf $conf)
 	{
 		global $dolibarr_main_url_root;
 
