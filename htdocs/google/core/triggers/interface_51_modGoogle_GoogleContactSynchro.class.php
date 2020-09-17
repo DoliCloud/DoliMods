@@ -30,7 +30,7 @@ dol_include_once('/google/lib/google_contact.lib.php');
 /**
  *	Class of triggers for module Google
  */
-class InterfaceGoogleContactSynchro
+class InterfaceGoogleContactSynchro extends DolibarrTriggers
 {
 	var $db;
 	var $error;

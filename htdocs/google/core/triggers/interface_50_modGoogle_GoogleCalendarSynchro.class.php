@@ -29,7 +29,7 @@ dol_include_once('/google/lib/google_calendar.lib.php');
 /**
  *	Class of triggers for module Google
  */
-class InterfaceGoogleCalendarSynchro
+class InterfaceGoogleCalendarSynchro extends DolibarrTriggers
 {
 	var $db;
 	var $error;
