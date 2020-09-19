@@ -328,7 +328,7 @@ if ($filemanagerroots->rootpath)
             jQuery("#dialog-confirm").dialog({
                 autoOpen: true,
                 resizable: false,
-                height:160,
+                height:220,
                 width:580,
                 modal: true,
                 closeOnEscape: false,
@@ -380,7 +380,7 @@ if ($filemanagerroots->rootpath)
     		            jQuery("#dialog-confirm").dialog({
     		                autoOpen: true,
     		                resizable: false,
-    		                height:160,
+    		                height:220,
     		                width:580,
     		                modal: true,
     		                closeOnEscape: false,
@@ -434,7 +434,7 @@ if ($filemanagerroots->rootpath)
             jQuery("#dialog-confirm").dialog({
                 autoOpen: true,
                 resizable: false,
-                height:160,
+                height:220,
                 width:580,
                 modal: true,
                 closeOnEscape: false,
@@ -479,7 +479,7 @@ if ($filemanagerroots->rootpath)
 	            jQuery("#dialog-confirm").dialog({
 	                autoOpen: true,
 	                resizable: false,
-	                height:160,
+	                height:220,
 	                width:580,
 	                modal: true,
 	                closeOnEscape: false,
