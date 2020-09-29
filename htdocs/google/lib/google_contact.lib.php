@@ -357,11 +357,12 @@ function googleUpdateContact($client, $contactId, &$object, $useremail='default'
 	global $tag_debug;
 
 	$newcontactid=$contactId;
-	if (preg_match('/google\.com\/.*\/([^\/]+)$/',$contactId,$reg))
+	$reg = array();
+	if (preg_match('/google\.com\/.*\/([^\/]+)$/', $contactId, $reg))
 	{
 		$newcontactid=$reg[1];
 	}
-	if (preg_match('/google:([^\/]+)$/',$contactId,$reg))
+	if (preg_match('/google:([^\/]+)$/', $contactId, $reg))
 	{
 		$newcontactid=$reg[1];	// TODO This may not be enough because ID in dolibarr is 250 char max and in google may have 1024 chars
 	}

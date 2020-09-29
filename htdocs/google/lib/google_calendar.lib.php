@@ -147,7 +147,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 			$checktoken=$client->isAccessTokenExpired();
 			if ($checktoken)
 			{
-				$tmp=json_decode($conf->global->GOOGLE_WEB_TOKEN,true);
+				$tmp=json_decode($conf->global->GOOGLE_WEB_TOKEN, true);
 				$refreshtoken=$tmp['refresh_token'];
 				if (empty($refreshtoken)) $refreshtoken=$tmp['access_token'];
 				dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it with the refresh token = ".$refreshtoken);
@@ -182,10 +182,10 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 		}
 
 		dol_syslog("getTokenFromServiceAccount service_account_name=".$service_account_name." key_file_location=".$key_file_location." force_do_not_use_session=".$force_do_not_use_session, LOG_DEBUG);
-		$key = file_get_contents($key_file_location);
 
 		// API v1
 		/*
+		$key = file_get_contents($key_file_location);
 		$cred = new Google_Auth_AssertionCredentials(
 		    $service_account_name,
 		    array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.readonly'),
@@ -213,6 +213,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 			dol_syslog("getTokenFromServiceAccount Error ".$e->getMessage(), LOG_ERR);
 			return $e->getMessage();
 		}
+
 		try {
 			// API v1
 			/*$checktoken=$client->getAuth()->isAccessTokenExpired();
