@@ -854,7 +854,7 @@ else
 
 				if (($object->statut <= 1 && $user->rights->mailing->creer) || $user->rights->mailing->supprimer)
 				{
-					print '<a class="butActionDelete" href="'.$_SERVER['PHP_SELF'].'?action=delete&amp;id='.$object->id.'">'.$langs->trans("DeleteMailing").'</a>';
+					print '<a class="butActionDelete" href="'.$_SERVER['PHP_SELF'].'?action=delete&amp;token='.newToken().'&amp;id='.$object->id.'">'.$langs->trans("DeleteMailing").'</a>';
 				}
 
 				print '<br><br></div>';

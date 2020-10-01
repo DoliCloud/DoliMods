@@ -469,8 +469,8 @@ if ($resql)
         }
         else
         {
-            print '<a href="'.$_SERVER["PHP_SELF"].'?action=edit&id='.$obj->rowid.'&amp;sortfield='.$sortfield.'&amp;sortorder='.$sortorder.'">'.img_picto($langs->trans("Edit"),'edit').'</a> &nbsp; ';
-            print '<a href="'.$_SERVER["PHP_SELF"].'?action=delete&id='.$obj->rowid.'&amp;sortfield='.$sortfield.'&amp;sortorder='.$sortorder.'">'.img_picto($langs->trans("Delete"),'delete').'</a>';
+            print '<a href="'.$_SERVER["PHP_SELF"].'?action=edit&amp;token='.newToken().'&amp;id='.$obj->rowid.'&amp;sortfield='.$sortfield.'&amp;sortorder='.$sortorder.'">'.img_picto($langs->trans("Edit"),'edit').'</a> &nbsp; ';
+            print '<a href="'.$_SERVER["PHP_SELF"].'?action=delete&amp;token='.newToken().'&amp;id='.$obj->rowid.'&amp;sortfield='.$sortfield.'&amp;sortorder='.$sortorder.'">'.img_picto($langs->trans("Delete"),'delete').'</a>';
         }
         print "</tr>";
 

@@ -159,7 +159,7 @@ foreach($conf->global as $key => $value)
             print ' - '.$mc->label;
         }
         print '</td><td>';
-        print '<a href="'.$_SERVER['PHP_SELF'].'?action=delete&revertinvoicethirdpartyid='.$thirdpartyid.'">';
+        print '<a href="'.$_SERVER['PHP_SELF'].'?action=delete&token='.newToken().'&revertinvoicethirdpartyid='.$thirdpartyid.'">';
         print img_delete();
         print '</a>';
         print '</td></tr>';

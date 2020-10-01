@@ -922,7 +922,7 @@ else
 		print '<a href="'.$completeoauthurl.'">'.$langs->trans("LinkToOAuthPage").'</a>';
 		print '<br><br>';
 		print $langs->trans("GoogleDeleteToken").'<br>';
-		print '<a href="'.$_SERVER["PHP_SELF"].'?action=deletetoken" target="_blank">'.$langs->trans("ClickHere").'</a>';
+		print '<a href="'.$_SERVER["PHP_SELF"].'?action=deletetoken&token='.newToken().'" target="_blank">'.$langs->trans("ClickHere").'</a>';
 		print '<br><br>';
 		print $langs->trans("GoogleDeleteAuthorization").'<br>';
 		print '<a href="https://security.google.com/settings/security/permissions" target="_blank">https://security.google.com/settings/security/permissions</a>';

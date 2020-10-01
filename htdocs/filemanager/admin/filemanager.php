@@ -239,7 +239,7 @@ if ($resql)
 	while ($obj=$db->fetch_object($resql))
 	{
 		$var=!$var;
-		print '<tr '.$bc[$var].'><td>'.$obj->rootlabel.'</td><td>'.$obj->rootpath.'</td><td align="right"><a href="'.$_SERVER["PHP_SELF"].'?action=delete&id='.$obj->rowid.'">'.img_delete().'</a></td></tr>';
+		print '<tr '.$bc[$var].'><td>'.$obj->rootlabel.'</td><td>'.$obj->rootpath.'</td><td align="right"><a href="'.$_SERVER["PHP_SELF"].'?action=delete&token='.newToken().'&id='.$obj->rowid.'">'.img_delete().'</a></td></tr>';
 	}
 }
 else

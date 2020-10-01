@@ -468,7 +468,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
     		// Delete (need delete permission, or if draft, just need create/modify permission)
     		if (! empty($user->rights->captureserver->delete) || (! empty($object->fields['status']) && $object->status == $object::STATUS_DRAFT && ! empty($user->rights->captureserver->write)))
     		{
-    			print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=delete">'.$langs->trans('Delete').'</a>'."\n";
+    			print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=delete&tamp;oken='.newToken().'">'.$langs->trans('Delete').'</a>'."\n";
     		}
     		else
     		{

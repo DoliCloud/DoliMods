@@ -440,7 +440,7 @@ if ($filemanagerroots->rootpath)
                 closeOnEscape: false,
                 close: function(event, ui) {
                          if (choice == \'ok\') {
-                            location.href=\''.$_SERVER["PHP_SELF"].'?action=deletedir&id='.$id.'&dir=\'+urlencode(dirname);
+                            location.href=\''.$_SERVER["PHP_SELF"].'?action=deletedir&token='.newToken().'&id='.$id.'&dir=\'+urlencode(dirname);
                          }
                          if (choice == \'ko\') { }
                   },
@@ -485,7 +485,7 @@ if ($filemanagerroots->rootpath)
 	                closeOnEscape: false,
 	                close: function(event, ui) {
 	                     if (choice == \'ok\') {
-                            location.href=\''.$_SERVER["PHP_SELF"].'?action=deletefile&id='.$id.'&file=\'+urlencode(filename);
+                            location.href=\''.$_SERVER["PHP_SELF"].'?action=deletefile&token='.newToken().'&id='.$id.'&file=\'+urlencode(filename);
 	                     }
 	                     if (choice == \'ko\') { }
 	                  },
