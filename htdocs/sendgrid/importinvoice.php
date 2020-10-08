@@ -399,7 +399,7 @@ if ($action == 'refresh')
 	    $arrayinvoice=array();
 
 	    try {
-	    	$result = getURLContent($endpoint, );
+	    	$result = getURLContent($endpoint, 'GET');
 	    }
 	    catch(Exception $e)
 	    {

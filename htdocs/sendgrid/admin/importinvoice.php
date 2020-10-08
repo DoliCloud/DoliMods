@@ -121,64 +121,59 @@ print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print '<input type="hidden" name="action" value="setvalue">';
 
 
-    $var=true;
+dol_fiche_head($head, 'getinvoices', $langs->trans("Sendgrid"), -1);
 
-    dol_fiche_head($head, 'getinvoices', $langs->trans("Sendgrid"), -1);
+if (empty($conf->global->SENDGRIDAPPKEY))
+{
+	echo '<div class="warning">'.$langs->trans("SendgridAuthenticationPartNotConfigured").'</div>';
+}
 
-    if (empty($conf->global->SENDGRIDAPPKEY))
-    {
-        echo '<div class="warning">'.$langs->trans("SendgridAuthenticationPartNotConfigured").'</div>';
-    }
-
-    print '<table class="noborder" width="100%">';
-    print '<tr class="liste_titre">';
-    print '<td>'.$langs->trans("Parameter").'</td>';
-    print '<td>'.$langs->trans("Value").'</td>';
-    print '<td>&nbsp;</td>';
-    print "</tr>\n";
+print '<table class="noborder" width="100%">';
+print '<tr class="liste_titre">';
+print '<td>'.$langs->trans("Parameter").'</td>';
+print '<td>'.$langs->trans("Value").'</td>';
+print '<td>&nbsp;</td>';
+print "</tr>\n";
 
 /*
-    $var=!$var;
-    print '<tr '.$bc[$var].'><td class="fieldrequired">';
-    print $langs->trans("UserMakingImport").'</td><td>';
-    print '<input size="64" type="text" name="SENDGRID_USER_LOGIN" value="'.$logindol.'">';
-    print '<td>';
-    print '</td></tr>';
-*/
+ $var=!$var;
+ print '<tr '.$bc[$var].'><td class="fieldrequired">';
+ print $langs->trans("UserMakingImport").'</td><td>';
+ print '<input size="64" type="text" name="SENDGRID_USER_LOGIN" value="'.$logindol.'">';
+ print '<td>';
+ print '</td></tr>';
+ */
 
-    $var=!$var;
-    print '<tr '.$bc[$var].'><td class="fieldrequired">';
-    print $langs->trans("SupplierToUseForImport").'</td><td>';
-    print $form->select_company($conf->global->SENDGRID_THIRDPARTY_IMPORT,'SENDGRID_THIRDPARTY_IMPORT','s.fournisseur = 1',1,'supplier');
-    print '<td>';
-    print '</td></tr>';
+print '<tr class="oddeven"><td class="fieldrequired">';
+print $langs->trans("SupplierToUseForImport").'</td><td>';
+print $form->select_company($conf->global->SENDGRID_THIRDPARTY_IMPORT,'SENDGRID_THIRDPARTY_IMPORT','s.fournisseur = 1',1,'supplier');
+print '<td>';
+print '</td></tr>';
 
-    if ($conf->product->enable || $conf->service->enabled)
-    {
-        $var=!$var;
-        print '<tr '.$bc[$var].'><td>';
-        print $langs->trans("ProductGenericToUseForImport").'</td><td>';
-        print $form->select_produits($conf->global->SENDGRID_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID, 'SENDGRID_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID');
-        print '<td>';
-        print $langs->trans("KeepEmptyToSaveLinesAsFreeLines");
-        print '</td></tr>';
-    }
+if ($conf->product->enable || $conf->service->enabled)
+{
+	print '<tr class="oddeven"><td>';
+	print $langs->trans("ProductGenericToUseForImport").'</td><td>';
+	print $form->select_produits($conf->global->SENDGRID_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID, 'SENDGRID_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID');
+	print '<td>';
+	print $langs->trans("KeepEmptyToSaveLinesAsFreeLines");
+	print '</td></tr>';
+}
 
-    if ($conf->banque->enabled) {
-    	$var = !$var;
-    	print '<tr ' . $bc[$var] . '><td>';
-    	print $langs->trans("SendGridDefaultBankAccount") . '</td><td>';
-    	$form->select_comptes($conf->global->SENDGRID_DEFAULT_BANK_ACCOUNT, 'SENDGRID_DEFAULT_BANK_ACCOUNT', 0, '', 1);
-    	print '<td>';
-    	//print $langs->trans("KeepEmptyToSaveLinesAsFreeLines");
-    	print '</td></tr>';
-    }
+if ($conf->banque->enabled) {
+	print '<tr class="oddeven"><td>';
+	print $langs->trans("SendGridDefaultBankAccount") . '</td><td>';
+	$form->select_comptes($conf->global->SENDGRID_DEFAULT_BANK_ACCOUNT, 'SENDGRID_DEFAULT_BANK_ACCOUNT', 0, '', 1);
+	print '<td>';
+	//print $langs->trans("KeepEmptyToSaveLinesAsFreeLines");
+	print '</td></tr>';
+}
 
-    print '</table>';
+print '</table>';
 
-    dol_fiche_end();
+dol_fiche_end();
 
-    print '<div class="center"><input type="submit" class="button" value="' . $langs->trans("Modify") . '"></div>';
+print '<div class="center"><input type="submit" class="button" value="' . $langs->trans("Modify") . '"></div>';
 
 
 print '</form>';
