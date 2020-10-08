@@ -206,7 +206,7 @@ dol_fiche_head($head, 'common', $langs->trans("Sendgrid"), -1);
 
 if (empty($conf->global->SENDGRID_OLDAPI))
 {
-    print $langs->trans("GoOnPageToCreateYourAPIKey", 'https://eu.api.sendgrid.com/createApp/', 'https://eu.api.sendgrid.com/createApp/').'<br>';
+    print $langs->trans("SendgridGoOnPageToCreateYourAPIKey", 'https://eu.api.sendgrid.com/createApp/', 'https://eu.api.sendgrid.com/createApp/').'<br>';
     print $langs->trans("ListOfExistingAPIApp", 'https://eu.api.sendgrid.com/console/#/me/api/application#GET', 'https://eu.api.sendgrid.com/console/#/me/api/application#GET').' (first log in on top right corner)<br><br>';
 }
 

@@ -48,17 +48,14 @@ require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 
-require __DIR__ . '/includes/autoload.php';
-use \Ovh\Api;
-
 
 $langs->load("bills");
 $langs->load("orders");
 $langs->load("sendgrid@sendgrid");
 
-$url_pdf="https://www.sendgrid.com/cgi-bin/order/facture.pdf";
+//$url_pdf="https://www.sendgrid.com/cgi-bin/order/facture.pdf";
 
-$endpoint = empty($conf->global->SENDGRID_ENDPOINT)?'sendgrid-eu':$conf->global->SENDGRID_ENDPOINT;
+$endpoint = empty($conf->global->SENDGRID_ENDPOINT)?'https://api.sendgrid.com/v3/billing':$conf->global->SENDGRID_ENDPOINT;
 
 
 $action=GETPOST('action','aZ09');
@@ -85,38 +82,13 @@ if (! empty($action))
 		$params=getSoapParams();
 		ini_set('default_socket_timeout', $params['response_timeout']);
 
-		if (! empty($conf->global->SENDGRID_OLDAPI))
+        if (empty($conf->global->SENDGRIDAPPKEY))
         {
-    		if (empty($conf->global->SENDGRIDSMS_SOAPURL))
-    		{
-    			print 'Error: '.$langs->trans("ModuleSetupNotComplete")."\n";
-    			exit;
-    		}
-    		//use_soap_error_handler(true);
+            print 'Error: '.$langs->trans("ModuleSetupNotComplete")."\n";
+  			exit;
+         }
 
-    		$soap = new SoapClient($conf->global->SENDGRIDSMS_SOAPURL,$params);
-
-    		$language = "en";
-    		$multisession = false;
-
-    		//login
-    		$session = $soap->login($conf->global->SENDGRIDSMS_NICK, $conf->global->SENDGRIDSMS_PASS,$language,$multisession);
-    		dol_syslog("login successfull");
-
-    		$result = $soap->billingGetAccessByNic($session);
-    		dol_syslog("billingGetAccessByNic successfull = ".join(',',$result));
-    		//print "GetAccessByNic: ".join(',',$result)."<br>\n";
-        }
-        else
-        {
-            if (empty($conf->global->SENDGRIDCONSUMERKEY))
-            {
-                print 'Error: '.$langs->trans("ModuleSetupNotComplete")."\n";
-    			exit;
-            }
-
-            $conn = new Api($conf->global->SENDGRIDAPPKEY, $conf->global->SENDGRIDAPPSECRET, $endpoint, $conf->global->SENDGRIDCONSUMERKEY);
-        }
+         //$conn = new Api($conf->global->SENDGRIDAPPKEY, $conf->global->SENDGRIDAPPSECRET, $endpoint, $conf->global->SENDGRIDCONSUMERKEY);
 	}
 	catch(SoapFault $fault)
 	{
@@ -360,25 +332,13 @@ if ($action == 'import' && $sendgridthirdparty->id > 0)
 
 $form=new Form($db);
 
-llxHeader('',$langs->trans("OvhInvoiceImportShort"),'');
+llxHeader('',$langs->trans("SendgridInvoiceImportShort"),'');
 
-if (! empty($conf->global->SENDGRID_OLDAPI))
+if (empty($conf->global->SENDGRIDAPPKEY))
 {
-    if (empty($conf->global->SENDGRIDSMS_SOAPURL))
-    {
-    	$langs->load("errors");
-    	setEventMessage($langs->trans("ErrorModuleSetupNotComplete"),'errors');
-    	$mesg='<div class="errors">'.$langs->trans("ErrorModuleSetupNotComplete").'/<div>';
-    }
-}
-else
-{
-    if (empty($conf->global->SENDGRIDCONSUMERKEY))
-    {
-        $langs->load("errors");
-        setEventMessage($langs->trans("ErrorModuleSetupNotComplete"),'errors');
-        $mesg='<div class="errors">'.$langs->trans("ErrorModuleSetupNotComplete").'/<div>';
-    }
+	$langs->load("errors");
+	setEventMessage($langs->trans("ErrorModuleSetupNotComplete"),'errors');
+	$mesg='<div class="errors">'.$langs->trans("ErrorModuleSetupNotComplete").'/<div>';
 }
 
 if ($sendgridthirdparty->id <= 0)
@@ -389,9 +349,9 @@ if ($sendgridthirdparty->id <= 0)
 }
 
 
-print_fiche_titre($langs->trans("OvhInvoiceImportShort"));
+print_fiche_titre($langs->trans("SendgridInvoiceImportShort"));
 
-print $langs->trans("OvhInvoiceImportDesc").'<br><br>';
+print $langs->trans("SendgridInvoiceImportDesc").'<br><br>';
 
 //print $form->select_produits($conf->global->SENDGRID_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID, 'SENDGRID_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID');
 //print $langs->trans("OvhSmsNick").': <strong>'.$conf->global->SENDGRIDSMS_NICK.'</strong><br>';
@@ -437,55 +397,35 @@ if ($action == 'refresh')
 	try
 	{
 	    $arrayinvoice=array();
-	    if (! empty($conf->global->SENDGRID_OLDAPI))
+
+	    try {
+	    	$result = getURLContent($endpoint, );
+	    }
+	    catch(Exception $e)
 	    {
-    	    //billingInvoiceList
-    	    $result = $soap->billingInvoiceList($session);
-    	    dol_syslog("billingInvoiceList successfull (".count($result)." invoices)");
-    	    //var_dump($result[0]->date.' '.dol_print_date(dol_stringtotime($r->date,1),'day'));exit;
-
-    		file_put_contents(DOL_DATA_ROOT . "/dolibarr_sendgrid_billingInvoiceList.xml", $soap->__getLastResponse());
-    		@chmod(DOL_DATA_ROOT . "/dolibarr_sendgrid_billingInvoiceList.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
-
-    		// Set qualified invoices into arrayinvoice
-    		foreach ($result as $i => $r)
-    		{
-    		    if (! $excludenullinvoice || ! empty($r->totalPriceWithVat))
-    		    {
-    		        $arrayinvoice[]=array('id'=>$r->id, 'billnum'=>$r->billnum, 'date'=>dol_stringtotime($r->date,1), 'vat'=>$r->vat, 'totalPrice'=>$r->totalPrice, 'totalPriceWithVat'=>$r->totalPriceWithVat, 'details'=>$r->details, 'billingCountry'=>$r->billingCountry, 'ordernum'=>$r->ordernum, 'serialized'=>serialize($r));
-    		    }
-    		}
-    	}
-	    else
+	    	echo 'Exception : '.$e->getMessage()."\n";
+	    }
+	    $i=0;
+	    foreach ($result as $key => $val)
 	    {
-	        try {
-	            $result = $conn->get('/me/bill?date.from='.dol_print_date($datefrom, 'dayrfc'));
-	        }
-	        catch(Exception $e)
-	        {
-	            echo 'Exception /me/bill: '.$e->getMessage()."\n";
-	        }
-	        $i=0;
-	        foreach ($result as $key => $val)
-	        {
-	            $r = $conn->get('/me/bill/'.$val);
-    		    if (! $excludenullinvoice || ! empty($r['priceWithoutTax']['value']))
-    		    {
-    		        $r2 = $conn->get('/me/bill/'.$val.'/details');
-                    $description='';
-                    foreach($r2 as $key2 => $val2)
-                    {
-                        $r2d = $conn->get('/me/bill/'.$val.'/details/'.$val2);
-                        //var_dump($r2d['description']);
-                        $description.=$r2d['description']."<br>\n";
-                    }
-	                $arrayinvoice[]=array('id'=>$r['billId'], 'billnum'=>$r['billId'], 'date'=>dol_stringtotime($r['date'],1), 'vat'=>$r['tax']['value'], 'totalPrice'=>$r['priceWithoutTax']['value'], 'totalPriceWithVat'=>$r['priceWithTax']['value'], 'currency'=>$r['priceWithTax']['currencyCode'], 'description'=>$description, 'billingCountry'=>'???', 'ordernum'=>$r['orderId'], 'serialized'=>'???', 'url'=>$r['url'], 'pdfUrl'=>$r['pdfUrl']);
+	    	var_dump($val);
+	    	$r = $conn->get('/me/bill/'.$val);
+	    	if (! $excludenullinvoice || ! empty($r['priceWithoutTax']['value']))
+	    	{
+	    		$r2 = $conn->get('/me/bill/'.$val.'/details');
+	    		$description='';
+	    		foreach($r2 as $key2 => $val2)
+	    		{
+	    			$r2d = $conn->get('/me/bill/'.$val.'/details/'.$val2);
+	    			//var_dump($r2d['description']);
+	    			$description.=$r2d['description']."<br>\n";
+	    		}
+	    		$arrayinvoice[]=array('id'=>$r['billId'], 'billnum'=>$r['billId'], 'date'=>dol_stringtotime($r['date'],1), 'vat'=>$r['tax']['value'], 'totalPrice'=>$r['priceWithoutTax']['value'], 'totalPriceWithVat'=>$r['priceWithTax']['value'], 'currency'=>$r['priceWithTax']['currencyCode'], 'description'=>$description, 'billingCountry'=>'???', 'ordernum'=>$r['orderId'], 'serialized'=>'???', 'url'=>$r['url'], 'pdfUrl'=>$r['pdfUrl']);
 
-	                $i++;
-    		    }
+	    		$i++;
+	    	}
 
-    		    //if ($i > 5) break;
-	        }
+	    	//if ($i > 5) break;
 	    }
 
 	    $arrayinvoice=dol_sort_array($arrayinvoice,'date',(empty($conf->global->SENDGRID_IMPORT_SORTORDER)?'desc':$conf->global->SENDGRID_IMPORT_SORTORDER));
@@ -522,13 +462,11 @@ if ($action == 'refresh')
 	    	print '<td align="right">'.$langs->trans("Action").'</td>';
 	    	print '</tr>';
 
-	    	$var=true;
 		    foreach ($arrayinvoice as $i => $r)
 		    {
 		        //$vatrate=vatrate($r['totalPrice'] > 0 ? round(100*$r['vat']/$r['totalPrice'],2) : 0);
 
-	        	$var=!$var;
-	        	print '<tr '.$bc[$var].'>';
+	        	print '<tr class="oddeven">';
 		        print '<td>'.$r['billnum'].'</td><td align="center">'.dol_print_date($r['date'],'day')."</td>";
 		        print '<td align="right">'.price($r['totalPrice']).'</td>';
 		        print '<td align="right">'.price($r['totalPriceWithVat']).'</td>';

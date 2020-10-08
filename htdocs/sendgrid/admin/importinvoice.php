@@ -125,7 +125,7 @@ print '<input type="hidden" name="action" value="setvalue">';
 
     dol_fiche_head($head, 'getinvoices', $langs->trans("Sendgrid"), -1);
 
-    if (empty($conf->global->SENDGRID_OLDAPI) && (empty($conf->global->SENDGRIDAPPKEY) || empty($conf->global->SENDGRIDAPPSECRET) || empty($conf->global->SENDGRIDCONSUMERKEY)))
+    if (empty($conf->global->SENDGRIDAPPKEY))
     {
         echo '<div class="warning">'.$langs->trans("SendgridAuthenticationPartNotConfigured").'</div>';
     }

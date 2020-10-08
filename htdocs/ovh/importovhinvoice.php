@@ -635,12 +635,10 @@ if ($action == 'refresh') {
             print '<td align="right">' . $langs->trans("Action") . '</td>';
             print '</tr>';
 
-            $var = true;
             foreach ($arrayinvoice as $i => $r) {
                 //$vatrate=vatrate($r['totalPrice'] > 0 ? round(100*$r['vat']/$r['totalPrice'],2) : 0);
 
-                $var = !$var;
-                print '<tr ' . $bc[$var] . '>';
+                print '<tr class="oddeven">';
                 print '<td>' . $r['billnum'] . '</td><td align="center">' . dol_print_date($r['date'], 'day') . "</td>";
                 print '<td align="right">' . price($r['totalPrice']) . '</td>';
                 print '<td align="right">' . price($r['totalPriceWithVat']) . '</td>';
