@@ -45,13 +45,12 @@ require_once(DOL_DOCUMENT_ROOT.'/product/class/product.class.php');
 require_once(DOL_DOCUMENT_ROOT."/core/lib/date.lib.php");
 require_once(DOL_DOCUMENT_ROOT.'/core/lib/fourn.lib.php');
 require_once(DOL_DOCUMENT_ROOT."/core/lib/files.lib.php");
+require_once(DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php");
 require_once(DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php");
 
 
-$langs->load("bills");
-$langs->load("orders");
-$langs->load("sendgrid@sendgrid");
+$langs->loadLangs(array("bills", "orders", "sendgrid@sendgrid"));
 
 //$url_pdf="https://www.sendgrid.com/cgi-bin/order/facture.pdf";
 
@@ -377,6 +376,11 @@ else
 print '<br><br>';
 
 print '<form name="refresh" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+if ((float) DOL_VERSION >= 11.0) {
+	print '<input type="hidden" name="token" value="'.newToken().'">';
+} else {
+	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+}
 
 print '<div class="tabBar">';
 print '<table class="notopnoborder"><tr><td>';
@@ -385,7 +389,7 @@ print $langs->trans("FromThe").': ';
 print $form->selectDate($datefrom, 'datefrom');
 print '<br>';
 print '<input type="hidden" name="action" value="refresh">';
-print ' <input type="submit" name="import" value="'.$langs->trans("ScanOvhInvoices").'" class="button">';
+print ' <input type="submit" name="import" value="'.$langs->trans("ScanSendgridInvoices").'" class="button">';
 print '</td></tr></table>';
 print'</div>';
 
@@ -399,12 +403,15 @@ if ($action == 'refresh')
 	    $arrayinvoice=array();
 
 	    try {
-	    	$result = getURLContent($endpoint, 'GET');
+	    	$addheaders = array('Authorization: Bearer '.$conf->global->SENDGRIDAPPKEY, 'Content-Type: application/json');
+	    	$endpoint = 'https://api.sendgrid.com/v3/download/billing/invoices/';
+	    	$result = getURLContent($endpoint, 'GET', '', 1, $addheaders);
 	    }
 	    catch(Exception $e)
 	    {
 	    	echo 'Exception : '.$e->getMessage()."\n";
 	    }
+	    var_dump($result);
 	    $i=0;
 	    foreach ($result as $key => $val)
 	    {

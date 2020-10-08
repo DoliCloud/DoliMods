@@ -59,9 +59,7 @@ require __DIR__ . '/includes/autoload.php';
 use \Ovh\Api;
 
 
-$langs->load("bills");
-$langs->load("orders");
-$langs->load("ovh@ovh");
+$langs->loadLangs(array("bills", "orders", "ovh@ovh"));
 
 $url_pdf = "https://www.ovh.com/cgi-bin/order/facture.pdf";
 
