@@ -158,12 +158,6 @@ class modSendgrid extends DolibarrModules
 		$this->rights[$r][4] = 'importinvoice';
 		$r++;
 
-		$this->rights[$r][0] = 101343;
-		$this->rights[$r][1] = 'Administration of SENDGRID servers';
-		$this->rights[$r][3] = 0;
-		$this->rights[$r][4] = 'sysadmin';
-		$r++;
-
 		// Main menu entries
 		$r=0;
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools',		    // Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
