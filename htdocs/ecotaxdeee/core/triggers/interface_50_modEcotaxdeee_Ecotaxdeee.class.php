@@ -90,12 +90,12 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 	 *      @param	string		$action     Code of event
 	 *      @param 	Object		$object     Objet concerne
 	 *      @param  User		$user       Objet user
-	 *      @param  Translate	$langs       Objet lang
+	 *      @param  Translate	$langs      Objet lang
 	 *      @param  Conf		$conf       Objet conf
 	 *      @return int         			<0 if KO, 0 if nothing is done, >0 if OK
 	 */
-	function runTrigger($action, $object, $user, $langs, $conf) {
-
+	function runTrigger($action, $object, User $user, Translate $langs, Conf $conf)
+	{
 		// Création / Mise à jour / Suppression d'un évènement dans Google contact
 		if (empty($conf->ecotaxdeee->enabled)) return 0;
 		if (isset($object->special_code) && $object->special_code == 2) return 0;			// To avoid infinite loop. Line with special_code = 2, like ecotax lines, are not triggered
