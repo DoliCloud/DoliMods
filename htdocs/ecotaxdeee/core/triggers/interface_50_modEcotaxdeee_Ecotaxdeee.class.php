@@ -16,16 +16,18 @@
  */
 
 /**
- *  \file       ecotaxdeee/core/triggers/interface_modCommande_Ecotax.class.php
- *  \ingroup    core
+ *  \file       ecotaxdeee/core/triggers/interface_modEcotaxdeee_Ecotaxdeee.class.php
+ *  \ingroup    ecotaxdeee
  *  \brief      Add Ecotax for products into specific category
  */
+
+include_once(DOL_DOCUMENT_ROOT.'/core/triggers/dolibarrtriggers.class.php');
 
 
 /**
  *  Class of triggers for module Ecotaxdeee
  */
-class InterfaceEcotaxdeee
+class InterfaceEcotaxdeee extends DolibarrTriggers
 {
 	var $db;
 	var $error;
