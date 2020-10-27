@@ -32,6 +32,7 @@ define("NOCSRFCHECK", '1');	   // We accept to go on this page from external web
 define('NOTOKENRENEWAL', '1');
 define('NOIPCHECK', '1');
 define('NOREQUIREMENU', '1');
+define('NOSESSION', '1');
 
 // For MultiCompany module.
 // Do not use GETPOST here, function is not defined and define must be done before including main.inc.php
