@@ -335,7 +335,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 
 					if ((float) DOL_VERSION < 7.0)
 					{
-						if ($parentobject->table_element == 'facture')  $result=$tmpecotaxline[$ecocateg]->update($user,0);
+						if ($parentobject->table_element == 'facture')  $result=$tmpecotaxline[$ecocateg]->update($user, 0);
 						if ($parentobject->table_element == 'commande') $result=$tmpecotaxline[$ecocateg]->update(0);
 						if ($parentobject->table_element == 'propal')   $result=$tmpecotaxline[$ecocateg]->update(0);
 						//if ($parentobject->table_element == 'order_supplier')   $result=$tmpecotaxline[$ecocateg]->update(0);
@@ -343,11 +343,29 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 					}
 					else
 					{
-						if ($parentobject->table_element == 'facture')  $result=$tmpecotaxline[$ecocateg]->update($user,0);
+						if ($parentobject->table_element == 'facture')  $result=$tmpecotaxline[$ecocateg]->update($user, 0);
 						if ($parentobject->table_element == 'commande') $result=$tmpecotaxline[$ecocateg]->update($user, 0);
 						if ($parentobject->table_element == 'propal')   $result=$tmpecotaxline[$ecocateg]->update($user, 0);
 						//if ($parentobject->table_element == 'order_supplier')   $result=$tmpecotaxline[$ecocateg]->update($user, 0);
 						if ($parentobject->table_element == 'invoice_supplier') $result=$tmpecotaxline[$ecocateg]->update($user, 0);
+
+					}
+
+					// Now update the buy_price_ht (not included into update() method)
+					if ($result > 0) {
+						$tmpecotaxline[$ecocateg]->buy_price_ht = $ecoamount[$ecocateg];
+						$sql = '';
+						if ($parentobject->table_element == 'facture')  $sql = 'UPDATE '.MAIN_DB_PREFIX.$parentobject->table_element_line.' SET buy_price_ht = '.$tmpecotaxline[$ecocateg]->buy_price_ht.' WHERE rowid = '.$tmpecotaxline[$ecocateg]->id;
+						if ($parentobject->table_element == 'commande') $sql = 'UPDATE '.MAIN_DB_PREFIX.$parentobject->table_element_line.' SET buy_price_ht = '.$tmpecotaxline[$ecocateg]->buy_price_ht.' WHERE rowid = '.$tmpecotaxline[$ecocateg]->id;
+						if ($parentobject->table_element == 'propal')   $sql = 'UPDATE '.MAIN_DB_PREFIX.$parentobject->table_element_line.' SET buy_price_ht = '.$tmpecotaxline[$ecocateg]->buy_price_ht.' WHERE rowid = '.$tmpecotaxline[$ecocateg]->id;
+						//if ($parentobject->table_element == 'order_supplier')   $sql=
+						if ($parentobject->table_element == 'invoice_supplier') $sql = 'UPDATE '.MAIN_DB_PREFIX.$parentobject->table_element_line.' SET buy_price_ht = '.$tmpecotaxline[$ecocateg]->buy_price_ht.' WHERE rowid = '.$tmpecotaxline[$ecocateg]->id;
+						if ($sql) {
+							$resql = $this->db->query($sql);
+							if (!$resql) {
+								$error = $this->db->lasterror();
+							}
+						}
 					}
 				}
 				else
