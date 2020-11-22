@@ -98,7 +98,7 @@ class CaptureServer extends CommonObject
 	    'type' => array('type'=>'varchar(32)', 'label'=>'Type', 'enabled'=>1, 'visible'=>1, 'position'=>31, 'notnull'=>1, 'searchall'=>1, 'help'=>"Type", ),
 	    'label' => array('type'=>'varchar(255)', 'label'=>'Label', 'enabled'=>1, 'visible'=>1, 'position'=>32, 'notnull'=>-1, 'searchall'=>1, 'help'=>"Label", 'css'=>'minwidth500', 'cssview'=>'wordbreak'),
 	    'qty' => array('type'=>'real', 'label'=>'Qty', 'enabled'=>1, 'visible'=>1, 'position'=>45, 'notnull'=>-1, 'isameasure'=>'1', 'help'=>"Quantity",),
-	    'ip' => array('type'=>'varchar(255)', 'label'=>'IP', 'enabled'=>1, 'visible'=>1, 'position'=>400, 'notnull'=>-1,),
+	    'ip' => array('type'=>'varchar(255)', 'label'=>'IPCreation', 'enabled'=>1, 'visible'=>1, 'position'=>400, 'notnull'=>-1,),
 	    'date_creation' => array('type'=>'datetime', 'label'=>'DateCreation', 'enabled'=>1, 'visible'=>1, 'position'=>500, 'notnull'=>1, 'noteditable'=>1),
 	    'tms' => array('type'=>'timestamp', 'label'=>'DateModification', 'enabled'=>1, 'visible'=>-1, 'position'=>501, 'notnull'=>-1, 'noteditable'=>1),
 	    'content' => array('type'=>'text', 'label'=>'Content', 'enabled'=>1, 'visible'=>3, 'position'=>550, 'notnull'=>-1, 'searchall'=>1, 'help'=>"ContentOfMessageReceived", 'css'=>"wordbreak"),
