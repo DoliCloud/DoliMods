@@ -137,7 +137,7 @@ if (preg_match('/\.\./',$original_file) || preg_match('/[<>|]/',$original_file))
 {
     dol_syslog(__FILE__." Refused to deliver file ".$original_file);
     // Do no show plain path in shown error message
-    dol_print_error(0,$langs->trans("ErrorFileNameInvalid",$_GET["file"]));
+    dol_print_error(0, $langs->trans("ErrorFileNameInvalid", GETPOST("file")));
     exit;
 }
 
@@ -160,7 +160,7 @@ if ($action == 'remove_file')   // Remove a file
     // This test should be useless. We keep it to find bug more easily
     if (! file_exists($original_file_osencoded))
     {
-        dol_print_error(0,$langs->trans("ErrorFileDoesNotExists",$_GET["file"]));
+        dol_print_error(0, $langs->trans("ErrorFileDoesNotExists", GETPOST("file")));
         exit;
     }
 
@@ -358,8 +358,8 @@ if ($type == 'directory')
 }
 else {
     print '<table class="nobordernopadding" width="100%">';
-    print '<tr><td>'.$langs->trans("File").':</td><td>&nbsp; <b><span class="fmvalue">'.$original_file.'</span></b></td></tr>';
-    print '<tr><td>'.$langs->trans("Mime-type").':</td><td>&nbsp; <span class="fmvalue">'.$type.'</span></td>';
+    print '<tr><td>'.$langs->trans("File").'</td><td><b><span class="fmvalue wordbreak">'.$original_file.'</span></b></td></tr>';
+    print '<tr><td>'.$langs->trans("Mime-type").'</td><td><span class="fmvalue">'.$type.'</span></td>';
     print '<td align="right"><a data-ajax="false" href="'.dol_buildpath('/filemanager/document.php',1).'?modulepart=filemanager&id='.$id.'&rootpath='.$rootpath.'&file='.urlencode($original_file).'">'.$langs->trans("Download").'</a></td>';
     print '</tr>';
 
@@ -367,17 +367,17 @@ else {
     //print '<br>'."\n";
     //print $langs->trans("Owner").": ".$info['udi']."<br>\n";
     //print $langs->trans("Group").": ".$info['gdi']."<br>\n";
-    print '<tr><td>'.$langs->trans("Size").':</td><td>&nbsp; <span class="fmvalue">'.dol_print_size($info['size'])."</span></td></tr>\n";
-    print '<tr><td>'.$langs->trans("DateLastAccess").':</td><td>&nbsp; <span class="fmvalue">'.dol_print_date($info['atime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
-    print '<tr><td>'.$langs->trans("DateLastChange").':</td><td>&nbsp; <span class="fmvalue">'.dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
+    print '<tr><td>'.$langs->trans("Size").'</td><td><span class="fmvalue">'.dol_print_size($info['size'])."</span></td></tr>\n";
+    print '<tr><td>'.$langs->trans("DateLastAccess").'</td><td><span class="fmvalue">'.dol_print_date($info['atime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
+    print '<tr><td>'.$langs->trans("DateLastChange").'</td><td><span class="fmvalue">'.dol_print_date($info['mtime'],'%Y-%m-%d %H:%M:%S')."</span></td></tr>\n";
     //print $langs->trans("Ctime").": ".$info['ctime']."<br>\n";
     $sizearray=array();
-    if (preg_match('/image/i',$type))
+    if (preg_match('/image/i', $type))
     {
         require_once(DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php');
         $sizearray=dol_getImageSize($original_file_osencoded);
-        print '<tr><td>'.$langs->trans("Width").':</td><td>&nbsp; <span class="fmvalue">'.$sizearray['width'].'px</span></td></tr>';
-        print '<tr><td>'.$langs->trans("Height").':</td><td>&nbsp; <span class="fmvalue">'.$sizearray['height'].'px</span></td></tr>';
+        print '<tr><td>'.$langs->trans("Width").'</td><td><span class="fmvalue">'.$sizearray['width'].'px</span></td></tr>';
+        print '<tr><td>'.$langs->trans("Height").'</td><td><span class="fmvalue">'.$sizearray['height'].'px</span></td></tr>';
     }
     print '</table>'."\n";
 
