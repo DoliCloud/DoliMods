@@ -4,7 +4,7 @@
 ## 6.3
 
 - NEW Add filter on status "Active" for map of thirdparties.
-- NEW Compatibility with v12
+- NEW Compatibility with v12 (Need v11+)
 - NEW Use json file for synchro of contacts instead of p12 file.
 - NEW Use Google PHP API v2.7.0
 

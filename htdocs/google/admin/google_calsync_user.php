@@ -405,7 +405,7 @@ $head = user_prepare_head($object);
 
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post" autocomplete="off">';
-print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="save">';
 print '<input type="hidden" name="id" value="'.$id.'">';
 
@@ -562,6 +562,8 @@ if (empty($userlogin))	// We use setup of user
 		print '<br>';
 
 		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+		print '<input type="hidden" name="token" value="'.newToken().'">';
+
 		print '<input type="hidden" name="action" value="pushallevents">';
 		print '<input type="hidden" name="id" value="'.$id.'">';
 		print $langs->trans("ExportEventsToGoogle",$max,$object->conf->GOOGLE_LOGIN)." ";
@@ -589,6 +591,7 @@ if (empty($userlogin))	// We use setup of user
 		if (versioncompare(versiondolibarrarray(), array(3,7,2)) >= 0)
 		{
 			print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+			print '<input type="hidden" name="token" value="'.newToken().'">';
 			print '<input type="hidden" name="action" value="syncfromgoogle">';
 			print '<input type="hidden" name="id" value="'.$id.'">';
 			print $langs->trans("ImportEventsFromGoogle",$max,$object->conf->GOOGLE_LOGIN)." ";

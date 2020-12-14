@@ -246,6 +246,7 @@ if ($user->rights->societe->client->voir && empty($socid))
     	$langs->loadLangs(array("commercial", "companies"));
 
     	print '<form name="formsearch" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+    	print '<input type="hidden" name="token" value="'.newToken().'">';
     	print '<input type="hidden" name="mode" value="'.$mode.'">';
 
     	if ($mode != 'member' && (empty($conf->global->SOCIETE_DISABLE_CUSTOMERS) || empty($conf->global->SOCIETE_DISABLE_PROSPECTS)))

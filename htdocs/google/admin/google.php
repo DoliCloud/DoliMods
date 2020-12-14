@@ -124,6 +124,7 @@ print '<br>';
 
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="save">';
 
 $head=googleadmin_prepare_head();

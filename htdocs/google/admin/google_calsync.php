@@ -473,6 +473,7 @@ if (! class_exists('DOMDocument')) print '<div class="warning">Warning: PHP Modu
 
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="POST" autocomplete="off" enctype="multipart/form-data">';
+print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="save">';
 
 $head=googleadmin_prepare_head();
@@ -673,6 +674,7 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 	print '<br>';
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="pushallevents">';
 	print $langs->trans("ExportEventsToGoogle", $max, $conf->global->GOOGLE_LOGIN)." ";
 	print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Run").'"';
@@ -684,6 +686,7 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 {
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="deleteallevents">';
 	print $langs->trans("DeleteAllGoogleEvents", $conf->global->GOOGLE_LOGIN)." ";
 	print '('.$langs->trans("OperationMayBeLong").') ';
@@ -698,6 +701,7 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL))
 	if (versioncompare(versiondolibarrarray(), array(3,7,2)) >= 0)
 	{
 		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+		print '<input type="hidden" name="token" value="'.newToken().'">';
 		print '<input type="hidden" name="action" value="syncfromgoogle">';
 		print $langs->trans("ImportEventsFromGoogle", $max, $conf->global->GOOGLE_LOGIN)." ";
 		$now = dol_now() - ($notolderforsync * 24 * 3600);

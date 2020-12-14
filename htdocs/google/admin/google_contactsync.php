@@ -680,6 +680,7 @@ if (! class_exists('DOMDocument')) print '<div class="warning">Warning: PHP Modu
 
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="save">';
 
 $head=googleadmin_prepare_head();
@@ -1026,12 +1027,14 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES) && ! empty($conf-
 	print '<br>';
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="pushallthirdparties">';
 	print $langs->trans("ExportThirdpartiesToGoogle")." ";
 	print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Run").'">';
 	print "</form>\n";
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="deleteallthirdparties">';
 	print $langs->trans("DeleteAllGoogleThirdparties")." ";
 	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'">';
@@ -1045,12 +1048,14 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS) && ! empty($conf->glo
 	print '<br>';
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="pushallcontacts">';
 	print $langs->trans("ExportContactToGoogle")." ";
 	print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Run").'">';
 	print "</form>\n";
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="deleteallcontacts">';
 	print $langs->trans("DeleteAllGoogleContacts")." ";
 	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'">';
@@ -1064,12 +1069,14 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS) && ! empty($conf->glob
 	print '<br>';
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="pushallmembers">';
 	print $langs->trans("ExportMembersToGoogle")." ";
 	print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Run").'">';
 	print "</form>\n";
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="deleteallmembers">';
 	print $langs->trans("DeleteAllGoogleMembers")." ";
 	print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'">';
