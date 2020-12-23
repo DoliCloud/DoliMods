@@ -110,79 +110,78 @@ class InterfaceGoogleCalendarSynchro extends DolibarrTriggers
 
 		if (!$conf->google->enabled) return 0; // Module non actif
 
-        if (empty($conf->global->GOOGLE_INCLUDE_AUTO_EVENT) && $object->type_code == 'AC_OTH_AUTO')
+		if (empty($conf->global->GOOGLE_INCLUDE_AUTO_EVENT) && isset($object->type_code) && $object->type_code == 'AC_OTH_AUTO')
         {
             return 0;
         }
-
-		$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
-		if (empty($userlogin))	// We use setup of user
-		{
-		    if (empty($conf->global->GOOGLE_SYNC_EVENT_TO_SALE_REPRESENTATIVE))
-		    {
-    			// L'utilisateur concerné est l'utilisateur propriétaire de l'évènement (proprio dans Dolibarr)
-    			if (! empty($object->userownerid))
-    			{
-    				$fuser = new User($this->db);
-    				$fuser->fetch($object->userownerid, '', '', 1);		// 1 to be sure to load personal conf
-    				$userlogin = $fuser->conf->GOOGLE_LOGIN;
-    			}
-    			else if (! empty($object->usertodo) && is_object($object->usertodo))	// For backward compatibility (3.6)
-    			{
-    				$fuser = new User($this->db);
-    				$fuser->fetch($object->usertodo->id);
-    				$userlogin = $fuser->conf->GOOGLE_LOGIN;
-    			}
-    			else
-    			{
-    			    return 0;    // Should not occurs. This means there is no owner of event.
-    			}
-		    }
-		    else
-		    {
-		        // We want user that is first sale representative of company linked to event
-		        if (is_object($object->societe) && isset($object->societe->id) && $object->societe->id > 0)
-		        {
-    		        $salerep=$object->societe->getSalesRepresentatives($user);
-    		        if (is_array($salerep) && count($salerep) > 0)
-    		        {
-    		            $idusersalerep=$salerep[0]['id'];
-        				$fuser = new User($this->db);
-        				$fuser->fetch($idusersalerep, '', '', 1);		// 1 to be sure to load personal conf
-        				$userlogin = $fuser->conf->GOOGLE_LOGIN;
-    		        }
-    		        else
-    		        {
-    				    dol_syslog("Setup to synchronize events into a Google calendar is on but there is no sale representative linked to this event.", LOG_DEBUG);
-    		            return 0;     // There is no sale representative
-    		        }
-		        }
-		        else
-    		    {
-    			    dol_syslog("Setup to synchronize events into a Google calendar is on but there this event is no linked to a company no not linked to any sale representative", LOG_DEBUG);
-    		        return 0;     // There is no sale representative
-    		     }
-		    }
-
-			if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;  // In a future this option may be overwrite per user
-		}
-		else								// We use global setup
-		{
-			if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
-		}
-
 
 		// Actions
 		if ($action == 'ACTION_CREATE' || $action == 'ACTION_MODIFY' || $action == 'ACTION_DELETE')
 		{
 			dol_syslog("Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id);
 
+			$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
+			if (empty($userlogin))	// We use setup of user
+			{
+				if (empty($conf->global->GOOGLE_SYNC_EVENT_TO_SALE_REPRESENTATIVE))
+				{
+					// L'utilisateur concerné est l'utilisateur propriétaire de l'évènement (proprio dans Dolibarr)
+					if (! empty($object->userownerid))
+					{
+						$fuser = new User($this->db);
+						$fuser->fetch($object->userownerid, '', '', 1);		// 1 to be sure to load personal conf
+						$userlogin = $fuser->conf->GOOGLE_LOGIN;
+					}
+					else if (! empty($object->usertodo) && is_object($object->usertodo))	// For backward compatibility (3.6)
+					{
+						$fuser = new User($this->db);
+						$fuser->fetch($object->usertodo->id);
+						$userlogin = $fuser->conf->GOOGLE_LOGIN;
+					}
+					else
+					{
+						return 0;    // Should not occurs. This means there is no owner of event.
+					}
+				}
+				else
+				{
+					// We want user that is first sale representative of company linked to event
+					if (is_object($object->societe) && isset($object->societe->id) && $object->societe->id > 0)
+					{
+						$salerep=$object->societe->getSalesRepresentatives($user);
+						if (is_array($salerep) && count($salerep) > 0)
+						{
+							$idusersalerep=$salerep[0]['id'];
+							$fuser = new User($this->db);
+							$fuser->fetch($idusersalerep, '', '', 1);		// 1 to be sure to load personal conf
+							$userlogin = $fuser->conf->GOOGLE_LOGIN;
+						}
+						else
+						{
+							dol_syslog("Setup to synchronize events into a Google calendar is on but there is no sale representative linked to this event.", LOG_DEBUG);
+							return 0;     // There is no sale representative
+						}
+					}
+					else
+					{
+						dol_syslog("Setup to synchronize events into a Google calendar is on but this event is not linked to a company so not linked to any sale representative", LOG_DEBUG);
+						return 0;     // There is no sale representative
+					}
+				}
+
+				if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;  // In a future this option may be overwrite per user
+			}
+			else								// We use global setup
+			{
+				if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) return 0;
+			}
+
 			$langs->load("other");
 			$langs->load("google@google");
 
 			if (empty($userlogin))
 			{
-				dol_syslog("Setup to synchronize events into a Google calendar for user id ".$fuser->id.", login=".$fuser->login." is on but can't find complete setup for agenda id target (nor in global setup nor in user setup).", LOG_WARNING);
+				dol_syslog("Setup to synchronize events into a Google calendar for user id ".$fuser->id.", login=".$fuser->login." is on but we can't find a complete setup for agenda id target (nor in global setup nor in user setup).", LOG_WARNING);
 				return 0;
 			}
 
