@@ -7,6 +7,7 @@
 - NEW Compatibility with v12 (Need v11+)
 - NEW Use json file for synchro of contacts instead of p12 file.
 - NEW Use Google PHP API v2.7.0
+- Min PHP is now 7.2
 
 
 ## 6.2

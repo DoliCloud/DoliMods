@@ -71,7 +71,7 @@ class modGoogle extends DolibarrModules
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
-		$this->phpmin = array(5,4);					// Minimum version of PHP required by module
+		$this->phpmin = array(7,2);					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(11, 0, -4);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("google@google");
 
