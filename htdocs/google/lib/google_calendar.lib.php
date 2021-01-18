@@ -92,7 +92,7 @@ function getTokenFromWebApp($clientid, $clientsecret)
 /**
  * Get service token
  *
- * @param	string			$service_account_name		Service account name (Example: '258042696143-s9klbbpj13fb40ac8k5qjajn4e9o1c49@developer.gserviceaccount.com'). Not used for authentication with mode=web.
+ * @param	string			$service_account_name		Service account name (Example: '258042696143-testbbpj13fb40ac8k5qjajn4e96test@developer.gserviceaccount.com'). Not used for authentication with mode=web.
  * @param	string			$key_file_location			Key file location (Example: 'API Project-69e4673ea29e.p12'). Not used for authentication with mode=web.
  * @param	int				$force_do_not_use_session	1=Do not get token from sessions $_SESSION['google_service_token_'.$conf->entity] or $_SESSION['google_web_token_'.$conf->entity]
  * @param	string			$mode						'service' or 'web' (Choose which token to use)
