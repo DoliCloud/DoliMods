@@ -44,9 +44,7 @@ require_once(DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php');
 
 if (!$user->admin) accessforbidden();
 
-$langs->load("admin");
-$langs->load("other");
-$langs->load("concatpdf@concatpdf");
+$langs->loadLangs(array("admin", "other", "concatpdf@concatpdf", "supplier_proposal"));
 
 $def = array();
 $action=GETPOST('action', 'alpha');
@@ -69,6 +67,7 @@ if (empty($conf->concatpdf->enabled)) accessforbidden();
  * Actions
  */
 
+$reg = array();
 if (preg_match('/set_(.*)/',$action,$reg))
 {
 	$code=$reg[1];
