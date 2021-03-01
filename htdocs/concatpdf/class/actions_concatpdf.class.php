@@ -53,7 +53,7 @@ class ActionsConcatPdf
      *                          		=0 if OK but we want to process standard actions too,
      *  	                            >0 if OK and we want to replace standard actions.
      */
-    function formBuilddocOptions($parameters,&$object)
+    function formBuilddocOptions($parameters, &$object)
     {
         global $langs, $user, $conf, $form;
 
@@ -189,7 +189,7 @@ class ActionsConcatPdf
      *                          		=0 if OK but we want to process standard actions too,
      *  	                            >0 if OK and we want to replace standard actions.
      */
-    function afterPDFCreation($parameters,&$pdfhandler,&$action)
+    function afterPDFCreation($parameters, &$pdfhandler, &$action)
     {
         global $langs,$conf;
         global $hookmanager;
@@ -362,11 +362,13 @@ class ActionsConcatPdf
     }
 
 	/**
-	 * concat
-	 * @param unknown_type $pdf    Pdf
-	 * @param unknown_type $files  Files
+	 * Concat PDF files
+	 *
+	 * @param 	PDF		$pdf    Pdf
+	 * @param 	array	$files  Array of files to concat.
+	 * @return	int				Number of files
 	 */
-	function concat(&$pdf,$files)
+	function concat(&$pdf, $files)
 	{
 		$pagecount = 0;
 		foreach($files as $file)
@@ -401,5 +403,4 @@ class ActionsConcatPdf
 
 		return $pagecount;
 	}
-
 }
