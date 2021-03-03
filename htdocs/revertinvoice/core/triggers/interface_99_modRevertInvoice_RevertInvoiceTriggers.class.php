@@ -248,7 +248,7 @@ class InterfaceRevertInvoiceTriggers extends DolibarrTriggers
                             dol_syslog("We create an invoice for thirdparty id ".$object->socid." that need to be reverted into entity ".$entityinvoicetarget.", we will create supplier invoice on thirdparty id ".$sellerid, LOG_WARNING);
 
                             // Check if supplier invoice already exists or not
-                            $sql='SELECT rowid FROM '.MAIN_DB_PREFIX."facture_fourn WHERE ref_supplier = '".$object->ref."' AND fk_soc = ".$sellerid;
+                            $sql='SELECT rowid FROM '.MAIN_DB_PREFIX."facture_fourn WHERE ref_supplier = '".$this->db->escape($object->ref)."' AND fk_soc = ".((int) $sellerid);
 
                             $resql = $this->db->query($sql);
                             if ($resql)
