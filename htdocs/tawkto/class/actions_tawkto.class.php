@@ -130,23 +130,23 @@ class ActionsTawkto
 
 
 		$this->resprints = strtr($htmlChatScript, array(
-		       '{USER_NAME}' => $userIdentity,
-		       '{USER_EMAIL}' => $userEmail,
-		       '{HASH}' => hash_hmac("sha256", $userEmail, "dolibarr"),
+			'{USER_NAME}' => $userIdentity,
+			'{USER_EMAIL}' => $userEmail,
+			'{HASH}' => hash_hmac("sha256", $userEmail, "dolibarr"),
 
-		       '{USER_OFFICE_PHONE}' => $user->office_phone,
-		       '{USER_MOBILE_PHONE}' => $user->user_mobile,
+			'{USER_OFFICE_PHONE}' => $user->office_phone,
+			'{USER_MOBILE_PHONE}' => $user->user_mobile,
 
-		       '{COMPANY_NAME}' => $conf->global->MAIN_INFO_SOCIETE_NOM,
-		       '{COMPANY_EMAIL}' => $conf->global->MAIN_INFO_SOCIETE_MAIL,
-		       '{COMPANY_PHONE}' => $conf->global->MAIN_INFO_SOCIETE_TEL,
-		       '{SIREN}' => $conf->global->MAIN_INFO_SIREN,
+			'{COMPANY_NAME}' => $conf->global->MAIN_INFO_SOCIETE_NOM,
+			'{COMPANY_EMAIL}' => $conf->global->MAIN_INFO_SOCIETE_MAIL,
+			'{COMPANY_PHONE}' => $conf->global->MAIN_INFO_SOCIETE_TEL,
+			'{SIREN}' => $conf->global->MAIN_INFO_SIREN,
 
-		       '{DOLIBARR_VERSION}' => DOL_VERSION,
-			   '{IDTAWKTO}' => $idsitetawkto,
-			   '{IDWIDGET}' => 'default'
-		       ));
+			'{DOLIBARR_VERSION}' => DOL_VERSION,
+			'{IDTAWKTO}' => $idsitetawkto,
+			'{IDWIDGET}' => (empty($conf->global->TAWKTO_WIDGETID) ? 'default' : $conf->global->TAWKTO_WIDGETID)
+		));
 
-		 return 0;
+		return 0;
 	}
 }
