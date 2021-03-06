@@ -119,7 +119,7 @@ class ActionsTawkto
 			(function(){
 			var s1=document.createElement('script'),s0=document.getElementsByTagName('script')[0];
 			s1.async=true;
-			s1.src='https://embed.tawk.to/{IDTAWKTO}/default';
+			s1.src='https://embed.tawk.to/{IDTAWKTO}/{IDWIDGET}';
 			s1.charset='UTF-8';
 			s1.setAttribute('crossorigin','*');
 			s0.parentNode.insertBefore(s1,s0);
@@ -143,7 +143,8 @@ class ActionsTawkto
 		       '{SIREN}' => $conf->global->MAIN_INFO_SIREN,
 
 		       '{DOLIBARR_VERSION}' => DOL_VERSION,
-			   '{IDTAWKTO}' => $idsitetawkto
+			   '{IDTAWKTO}' => $idsitetawkto,
+			   '{IDWIDGET}' => 'default'
 		       ));
 
 		 return 0;
