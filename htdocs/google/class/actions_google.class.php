@@ -32,6 +32,7 @@ class ActionsGoogle
     var $db;
     var $error;
     var $errors=array();
+	var $priority = 70;
 
     /**
 	 *	Constructor
