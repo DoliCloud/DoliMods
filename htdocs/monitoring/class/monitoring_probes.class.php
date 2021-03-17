@@ -184,7 +184,7 @@ class Monitoring_probes extends CommonObject
         $sql.= " t.oldesterrortext,";
         $sql.= " t.oldesterrordate";
         $sql.= " FROM ".MAIN_DB_PREFIX."monitoring_probes as t";
-        $sql.= " WHERE t.rowid = ".$id;
+        $sql.= " WHERE t.rowid = ".((int) $id);
 
     	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
         $resql=$this->db->query($sql);
@@ -267,7 +267,7 @@ class Monitoring_probes extends CommonObject
         $sql.= " active=".(isset($this->active)?$this->active:"null").",";
         $sql.= " status=".(isset($this->status)?$this->status:"null").",";
         $sql.= " lastreset=".($this->lastreset?"'".$this->db->idate($this->lastreset)."'":"null");
-        $sql.= " WHERE rowid=".$this->id;
+        $sql.= " WHERE rowid=".((int) $this->id);
 
 		$this->db->begin();
 
@@ -307,7 +307,7 @@ class Monitoring_probes extends CommonObject
 		$error=0;
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."monitoring_probes";
-		$sql.= " WHERE rowid=".$this->id;
+		$sql.= " WHERE rowid=".((int) $this->id);
 
 		$this->db->begin();
 
@@ -364,7 +364,7 @@ class Monitoring_probes extends CommonObject
             $sql.= ", oldesterrortext='".$this->db->escape($errortext)."',";
             $sql.= " oldesterrordate='".$this->db->idate($end_time)."'";
         }
-        $sql.= " WHERE rowid=".$this->id;
+        $sql.= " WHERE rowid=".((int) $this->id);
 
         $this->db->begin();
 

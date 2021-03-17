@@ -180,7 +180,7 @@ class Googlemaps // extends CommonObject
 		}
 		else
 		{
-			$sql.= " WHERE t.rowid = ".$id;
+			$sql.= " WHERE t.rowid = ".((int) $id);
 		}
 		dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
 		$resql=$this->db->query($sql);
@@ -247,7 +247,7 @@ class Googlemaps // extends CommonObject
 		$sql.= " result_label=".(isset($this->result_label)?"'".$this->db->escape($this->result_label)."'":"null").",";
 		$sql.= " result_on_degraded_address=".($this->result_on_degraded_address>0?(int)$this->result_on_degraded_address:0);
 
-        $sql.= " WHERE rowid=".$this->id;
+        $sql.= " WHERE rowid=".((int) $this->id);
 
 		$this->db->begin();
 
@@ -303,7 +303,7 @@ class Googlemaps // extends CommonObject
 		$error=0;
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."google_maps";
-		$sql.= " WHERE rowid=".$this->id;
+		$sql.= " WHERE rowid=".((int) $this->id);
 
 		$this->db->begin();
 

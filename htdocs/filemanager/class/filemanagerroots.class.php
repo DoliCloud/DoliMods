@@ -164,7 +164,7 @@ class FilemanagerRoots // extends CommonObject
 
 
         $sql.= " FROM ".MAIN_DB_PREFIX."filemanager_roots as t";
-        $sql.= " WHERE t.rowid = ".$id;
+        $sql.= " WHERE t.rowid = ".((int) $id);
 
     	dol_syslog(get_class($this)."::fetch sql=".$sql, LOG_DEBUG);
         $resql=$this->db->query($sql);
@@ -234,7 +234,7 @@ class FilemanagerRoots // extends CommonObject
 		$sql.= " entity=".(isset($this->entity)?$this->entity:"null")."";
 
 
-        $sql.= " WHERE rowid=".$this->id;
+        $sql.= " WHERE rowid=".((int) $this->id);
 
 		$this->db->begin();
 
@@ -274,7 +274,7 @@ class FilemanagerRoots // extends CommonObject
 		$error=0;
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."filemanager_roots";
-		$sql.= " WHERE rowid=".$this->id;
+		$sql.= " WHERE rowid=".((int) $this->id);
 
 		$this->db->begin();
 
