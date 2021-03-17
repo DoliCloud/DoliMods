@@ -125,6 +125,7 @@ $h++;
 
 print '<form name="externalbackupform" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<input type="hidden" name="action" value="set">';
+print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
 
 dol_fiche_head($head,'tabsetup');
 
