@@ -54,7 +54,7 @@ if ($_GET["action"] == 'delete')
 	$error=0;
 
 	$filemanagerroots=new FilemanagerRoots($db);
-	$result=$filemanagerroots->fetch($_GET["id"]);
+	$result=$filemanagerroots->fetch(GETPOST("id", 'int'));
 	if ($result > 0)
 	{
 		$result=$filemanagerroots->delete($user);
