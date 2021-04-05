@@ -205,7 +205,7 @@ class modPrestashopGet extends DolibarrModules
 		// Permissions
 		$this->rights = array();		// Permission array used by this module
 
-		$r=0;
+		$r=1;
 		$this->rights[$r][0] = $this->numero + $r;	// Permission id (must not be already used)
 		$this->rights[$r][1] = 'Read data from PrestashopGet';	// Permission label
 		$this->rights[$r][4] = 'read';				// In php code, permission will be checked by test if ($user->rights->prestashopget->level1->level2)
